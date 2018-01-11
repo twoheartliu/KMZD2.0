@@ -182,7 +182,7 @@
 
 <body>
     <div id="wrap" class="flex-wrap flex-vertical">
-        <header>
+        <header id="secHeader">
             <ul>
                 <li class="active">
                     <div class="activebar_p20px">
@@ -230,7 +230,16 @@
         });
         funIniGroup();
     }
+    function openfindmusic() {
+      api.openWin({
+          name: 'message',
+          url: './html/message.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
 
+    }
     function funIniGroup() {
         var eHeaderLis = $api.domAll('header li'),
             frames = [];
