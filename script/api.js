@@ -604,4 +604,14 @@
 
 })(window);
 
-
+HTMLElement.prototype.appendHTML = function (html) {
+    var divTemp = document.createElement("div"), nodes = null, fragment = document.createDocumentFragment();
+    divTemp.innerHTML = html;
+    nodes = divTemp.childNodes;
+    for (var i = 0, length = nodes.length; i < length; i += 1) {
+        fragment.appendChild(nodes[i].cloneNode(true));
+    }
+    this.appendChild(fragment);
+    nodes = null;
+    fragment = null;
+};
