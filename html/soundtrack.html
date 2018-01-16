@@ -102,28 +102,22 @@
       });
 
     }
-    var header = $api.byId('secHeader')
-    $api.fixStatusBar('header');
-    var footer = $api.byId('footer')
-    $api.fixStatusBar('footer');
     apiready = function() {
-        var header = $api.byId('secHeader');
-        $api.fixStatusBar(header);
-        var headerPos = $api.offset(header);
+      var header = $api.byId('secHeader');
+      $api.fixStatusBar(header);
+      var headerPos = $api.offset(header);
 
-        var footer = $api.byId('footer')
-        $api.fixStatusBar(footer);
-        var footerPos = $api.offset(footer);
+      var footer = $api.byId('footer')
+      $api.fixStatusBar(footer);
+      var footerPos = $api.offset(footer);
         api.openFrame({
             name: 'soundtrack_frame',
             url: './soundtrack_frame.html',
             rect: {
                 x: 0,
-                // y: headerPos.h,
                 y: headerPos.h,
                 w: 'auto',
                 h: 'auto'
-                    // - headerPos.h
             },
             pageParam: {
                 name: 'test'
