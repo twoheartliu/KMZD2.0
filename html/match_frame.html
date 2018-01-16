@@ -8,8 +8,6 @@
     <title>文档</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
     <link rel="stylesheet" type="text/css" href="../css/idangerous.swiper.css">
-    <link rel="stylesheet" href="../css/swiper.min.css">
-    <link rel="stylesheet" href="../css/iconfont.css">
     <style>
         .fr {
             float: right;
@@ -34,28 +32,26 @@
             width: 100%;
         }
         .p20px .p20px_button{background-color: #89211b;text-align: center;font-size: 17px;color: #fff;}
+        .swiper-slide{margin: 10px 0;}
+        .swiper-slide img{width: 100%;}
     </style>
 </head>
 
 <body>
-
-  <div class="swiper-container">
-      <div class="swiper-wrapper">
-          <div class="swiper-slide">
-              <img src="../image/frame0101cover/frame0101cover01.jpg" alt="">
-          </div>
-          <div class="swiper-slide">
-              <img src="../image/frame0101cover/frame0101cover02.jpg" alt="">
-          </div>
-          <div class="swiper-slide">
-              <img src="../image/frame0101cover/frame0101cover03.jpg" alt="">
-          </div>
-      </div>
+  <div class="swiper-slide" onclick="fnSignUpWin()">
+      <img src="../image/frame0101cover/frame0101cover01.jpg" alt="">
   </div>
-  <div class="p20px">
-      <div><span>姓名</span><input type="text" name="" value="" placeholder="请输入您的姓名"></div>
-      <div><span>电话</span><input type="text" name="" value="" placeholder="请输入您的电话"></div>
-      <div class="p20px_button">提交</div>
+  <div class="swiper-slide" onclick="fnSignUpWin()">
+      <img src="../image/frame0101cover/frame0101cover01.jpg" alt="">
+  </div>
+  <div class="swiper-slide" onclick="fnSignUpWin()">
+      <img src="../image/frame0101cover/frame0101cover01.jpg" alt="">
+  </div>
+  <div class="swiper-slide" onclick="fnSignUpWin()">
+      <img src="../image/frame0101cover/frame0101cover01.jpg" alt="">
+  </div>
+  <div class="swiper-slide" onclick="fnSignUpWin()">
+      <img src="../image/frame0101cover/frame0101cover01.jpg" alt="">
   </div>
 
 
@@ -66,13 +62,37 @@
 <script type="text/javascript" src="../script/swiper.min.js"></script>
 <script type="text/javascript">
     apiready = function() {
-        fnInitSwiper();
     }
-    function fnInitSwiper() {
-        var mySwiper = new Swiper('.swiper-container', {
-            autoplay: true, //可选选项，自动滑动
-            loop: true
-        });
-    };
+    function fnSignUpWin() {
+      // var header = $api.byId('secHeader');
+      // $api.fixStatusBar(header);
+      // var headerPos = $api.offset(header);
+      // api.openFrame({
+      //     name: 'signup_frame',
+      //     url: './signup_frame.html',
+      //     rect: {
+      //         x: 0,
+      //         y: 60,
+      //         // y: header.h,
+      //         w: 'auto',
+      //         h: 'auto'
+      //     },
+      //     pageParam: {
+      //         name: 'test'
+      //     },
+      //     bounces: false,
+      //     bgColor: '#fff'
+      //     // vScrollBarEnabled: true,
+      //     // hScrollBarEnabled: true
+      // });
+      api.openWin({
+          name: 'signup',
+          url: './signup.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
+
+    }
 
 </script>
