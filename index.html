@@ -7,7 +7,7 @@
     <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
     <title>底部导航</title>
     <link rel="stylesheet" type="text/css" href="./css/api.css" />
-      <link rel="stylesheet" type="text/css" href="./css/style.css" />
+    <link rel="stylesheet" type="text/css" href="./css/style.css" />
     <style>
         header {
             background-color: #89211b;
@@ -188,7 +188,7 @@
                 <li class="active">
                     <div class="activebar_p20px">
                         <div class="topbar normalHeader">
-                            <div class="egret-header-box egret-img-x egret-div " onclick=""><img src="./image/KM_xiaoxi.png" alt=""></div>
+                            <div class="egret-header-box egret-img-x egret-div " onclick="openMessage()"><img src="./image/KM_xiaoxi.png" alt=""></div>
                             <div class="egret-div">IA语音</div>
                             <div class="egret-div">熏听</div>
                             <div class="egret-div" onclick="fnReadWin()">朗读</div>
@@ -230,6 +230,14 @@
             color: '#6ab494'
         });
         funIniGroup();
+    }
+    //打开消息页面
+    function openMessage() {
+      api.openWin({
+          name: 'message',
+          url: './html/message.html',
+      });
+
     }
     // 打开历史页面
     function openHistorys() {
