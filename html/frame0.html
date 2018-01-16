@@ -365,7 +365,7 @@
     <div class="navbar">
         <div class="navbar-item" tapmode="navbar-item-hov" onclick=""><img src="../image/KM_goxue.png" alt="">国学馆</div>
         <div class="navbar-item" tapmode="navbar-item-hov" onclick=""><img src="../image/KM_bangdan.png" alt="">榜单</div>
-        <div class="navbar-item" tapmode="navbar-item-hov" onclick=""><img src="../image/KM_dasai.png" alt="">大赛</div>
+        <div class="navbar-item" tapmode="navbar-item-hov" onclick="fnMatchWin();"><img src="../image/KM_dasai.png" alt="">大赛</div>
         <div class="navbar-item" tapmode="navbar-item-hov" onclick=""><img src="../image/KM_guoxueji.png" alt="">国学机</div>
     </div>
     <div class="swiper-container">
@@ -510,9 +510,19 @@
             loop: true
         });
     };
+    function fnMatchWin() {
+      api.openWin({
+          name: 'match',
+          url: './match.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
 
+    }
     apiready = function() {
         // api.parseTapmode()
         fnInitSwiper();
     }
+
 </script>
