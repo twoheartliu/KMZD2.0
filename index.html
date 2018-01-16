@@ -190,7 +190,7 @@
                         <div class="topbar normalHeader">
                             <div class="egret-header-box egret-img-x egret-div " onclick=""><img src="./image/KM_xiaoxi.png" alt=""></div>
                             <div class="egret-div">IA语音</div>
-                            <div class="egret-div">熏听</div>
+                            <div class="egret-div" onclick="fnListenWin();">熏听</div>
                             <div class="egret-div" onclick="fnReadWin()">朗读</div>
                             <div class="egret-header-box egret-img-s egret-div"  onclick="openHistorys()"><img src="./image/KM_ls.png" alt=""></div>
                         </div>
@@ -255,6 +255,17 @@
       api.openWin({
           name: 'read',
           url: './html/read.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
+
+    }
+    // 熏听页面
+    function fnListenWin() {
+      api.openWin({
+          name: 'listen',
+          url: './html/listen.html',
           pageParam: {
               name: 'test'
           }
