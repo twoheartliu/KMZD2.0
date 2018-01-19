@@ -1,0 +1,151 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="copyright" content="www.apicloud.com" />
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+<title>评论</title>
+<link rel="stylesheet" type="text/css" href="../css/api.css" />
+<style>
+html,body {min-height: 100%;background: #ebebeb}
+.fr {float: right;}
+.fl {float: left;}
+.mt5 {margin-top: 5px;}
+.mt10 {margin-top: 10px;}
+.mt15 {margin-top: 15px;}
+.mt20 {margin-top: 20px;}
+.ml5 {margin-left: 0.5em;}
+.mr5 {margin-right: 0.5em;}
+.hdivider {width: 100%; height: 1px;background-color: #e0e0e0;}
+.br {border-right: 1px solid #e0e0e0;}
+.bb {border-bottom: 1px solid #e0e0e0;height: 1px;}
+.toRight {right: 0;}
+.row {display: -webkit-box;display: -webkit-flex;}
+.col {-webkit-box-flex:1; -webkit-flex:1; flex:1;margin: 0 5px; position: relative;}
+.swiper-container img {width: 100%;}
+/* 头部 */
+.nomessage {margin-top: 20px;font-size: 0.8em;text-align: center;color: #999;}
+section{border-top: 1px solid #ccc;margin-top: 10px;}
+section>ul{margin: 0 10px;}
+section ul li{width:100%;padding: 10px 0;}
+/*section ul li:nth-last-child(1){border-bottom: 1px solid #ccc;}*/
+.user-img{width:40px;height: 50px;line-height: 50px;display: inline-block;}
+.user-name{display: inline-block;vertical-align: top;position: relative;width: 85%;border-bottom: 1px solid #ccc;}
+.user-name p{font-size: 16px;color: #89211b;line-height: 30px;}
+.user-name p:nth-child(2){color: #535354;}
+.discuss{height: auto;padding: 10px;background-color: #f2f2f3;color: #999;border-radius: 5px;}
+.user-name p:nth-last-child(1){font-size: 12px;position: absolute;top: 0;right: 0;width:92px;color: #999;}
+#reply{display:none;}
+.replyButton{width:100%;height:30px;text-align: right;padding-bottom: 10px;}
+.replySend{width: 50px;height: 30px;line-height: 30px;border-radius: 5px;text-align: center;
+  background-color: #89211b;color:#FFF;}
+#reply textarea{background-color: #fff;}
+textarea:focus{outline-color: #fff;background-color: #fff;}
+</style>
+</head>
+<body>
+  <section>
+    <ul>
+      <li>
+        <div class="user-img"><img src="../image/icon-person.png" alt=""></div>
+        <div class="user-name"><p>云儿123</p>
+          <p onclick="fnOpendiscussFrame()" >回复我：时间就是最好的良药。</p>
+          <div class="reply" id="reply">
+            <textarea name="name" rows="6" cols="45" id="replyValue"></textarea>
+            <div class="replyButton" id="replySend" onclick="fnOpensendFrame()">
+              <button class="replySend" >发送</button></div>
+          </div>
+          <div class="discuss">
+            <span>我的评论：不知道为什么分开，很多喜欢以为永远会喜欢，到最后才发现任何事情都抵不过时过境迁。</span>
+          </div>
+          <p>2017年12月30日</p>
+        </div>
+      </li>
+      <li>
+        <div class="user-img"><img src="../image/icon-person.png" alt=""></div>
+        <div class="user-name"><p>云儿123</p>
+          <p onclick="fnOpendiscussFrame()" >回复我：时间就是最好的良药。</p>
+          <div class="reply" id="reply">
+            <textarea name="name" rows="6" cols="40" id="replyValue"></textarea>
+            <div class="replyButton" id="replySend" onclick="fnOpensendFrame()">
+              <button class="replySend" >发送</button></div>
+          </div>
+          <div class="discuss">
+            <span>我的评论：不知道为什么分开，很多喜欢以为永远会喜欢，到最后才发现任何事情都抵不过时过境迁。</span>
+          </div>
+          <p>2017年12月30日</p>
+        </div>
+      </li>
+      <li>
+        <div class="user-img"><img src="../image/icon-person.png" alt=""></div>
+        <div class="user-name"><p>云儿123</p>
+          <p onclick="fnOpendiscussFrame()" >回复我：时间就是最好的良药。</p>
+          <div class="reply" id="reply">
+            <textarea name="name" rows="6" cols="40" id="replyValue"></textarea>
+            <div class="replyButton" id="replySend" onclick="fnOpensendFrame()">
+              <button class="replySend" >发送</button></div>
+          </div>
+          <div class="discuss">
+            <span>我的评论：不知道为什么分开，很多喜欢以为永远会喜欢，到最后才发现任何事情都抵不过时过境迁。</span>
+          </div>
+          <p>2017年12月30日</p>
+        </div>
+      </li>
+      <li>
+        <div class="user-img"><img src="../image/icon-person.png" alt=""></div>
+        <div class="user-name"><p>云儿123</p>
+          <p onclick="fnOpendiscussFrame()" >回复我：时间就是最好的良药。</p>
+          <div class="reply" id="reply">
+            <textarea name="name" rows="6" cols="40" id="replyValue"></textarea>
+            <div class="replyButton" id="replySend" onclick="fnOpensendFrame()">
+              <button class="replySend" >发送</button></div>
+          </div>
+          <div class="discuss">
+            <span>我的评论：不知道为什么分开，很多喜欢以为永远会喜欢，到最后才发现任何事情都抵不过时过境迁。</span>
+          </div>
+          <p>2017年12月30日</p>
+        </div>
+      </li>
+    </ul>
+    <!-- <div class="nomessage">暂无消息01</div> -->
+  </section>
+  <!-- <div id="popup">
+    <ul style="margin: 0 10px;">
+      <li style="width:100%;padding: 10px 0;border-top: 1px solid #ccc;">
+        <div class="popup-img" >
+          <img src="../image/popup01.png" alt="" style="display: inline-block;width:35px;height: 35px;line-height: 35px;">
+          <span class="popup-name" style="display: inline-block;vertical-align: top;margin-top: 8px;margin-left: 5px;">回复评论</span>
+        </div>
+      </li>
+      <li style="width:100%;padding: 10px 0;border-top: 1px solid #ccc;">
+        <div class="popup-img">
+          <img src="../image/popup02.png" alt="" style="display: inline-block;width:35px;height: 35px;line-height: 35px;">
+          <span class="popup-name" style="display: inline-block;vertical-align: top;margin-top: 8px;margin-left: 5px;">查看品论</span>
+        </div>
+      </li>
+      <li style="width:100%;padding: 10px 0;border-top: 1px solid #ccc;">
+        <div class="popup-img">
+          <img src="../image/popup03.png" alt="" style="display: inline-block;width:35px;height: 35px;line-height: 35px;">
+          <span class="popup-name" style="display: inline-block;vertical-align: top;margin-top: 8px;margin-left: 5px;">举报</span>
+        </div>
+      </li>
+    </ul>
+  </div> -->
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+  apiready = function (){
+  }
+  function fnOpendiscussFrame(){
+    ereply = $api.byId('reply');
+    ereply.style.display='block';
+
+  }
+  function fnOpensendFrame(){
+    ereply = $api.byId('reply');
+    replyValue = $api.byId('replyValue');
+    ereply.style.display='none';
+    replyValue.value= " ";
+  }
+</script>
+</html>
