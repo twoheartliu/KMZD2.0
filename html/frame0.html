@@ -197,6 +197,7 @@
               </div>
           </div>
       </div>
+<<<<<<< HEAD
       <!-- 八大导航 -->
     <div class="nav">
         <div class="navbar" tapmode="navbar-item-hov" onclick=""><img src="../image/KM_yuyin.png" alt="">智能语音</div>
@@ -208,6 +209,27 @@
         <div class="navbar" tapmode="navbar-item-hov" onclick="fnMatchWin();"><img src="../image/KM_dasai.png" alt="">大赛</div>
         <div class="navbar" tapmode="navbar-item-hov" onclick=""><img src="../image/KM_guoxueji.png" alt="">国学机</div>
         <div class="clear"></div>
+=======
+
+    <div class="navbar">
+        <div class="navbar-item" tapmode="navbar-item-hov" onclick="fnGuoxueWin();"><img src="../image/KM_goxue.png" alt="">国学馆</div>
+        <div class="navbar-item" tapmode="navbar-item-hov" onclick=""><img src="../image/KM_bangdan.png" alt="">榜单</div>
+        <div class="navbar-item" tapmode="navbar-item-hov" onclick="fnMatchWin();"><img src="../image/KM_dasai.png" alt="">大赛</div>
+        <div class="navbar-item" tapmode="navbar-item-hov" onclick=""><img src="../image/KM_guoxueji.png" alt="">国学机</div>
+    </div>
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <img src="../image/frame0101cover/frame0101cover01.jpg" alt="">
+            </div>
+            <div class="swiper-slide">
+                <img src="../image/frame0101cover/frame0101cover02.jpg" alt="">
+            </div>
+            <div class="swiper-slide">
+                <img src="../image/frame0101cover/frame0101cover03.jpg" alt="">
+            </div>
+        </div>
+>>>>>>> a909442ef84517efc5c729c988a17e660d9e8011
     </div>
     <!-- 2 热门推荐 -->
     <div class="p20px">
@@ -349,6 +371,15 @@
       api.openWin({
           name: 'match',
           url: './match.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
+    }
+    function fnGuoxueWin() {
+      api.openWin({
+          name: 'guoxue',
+          url: './guoxue.html',
           pageParam: {
               name: 'test'
           }
