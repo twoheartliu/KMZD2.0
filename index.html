@@ -8,43 +8,101 @@
     <title>底部导航</title>
     <link rel="stylesheet" type="text/css" href="./css/api.css" />
     <link rel="stylesheet" type="text/css" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/iconfont/iconfont.css">
+    <link rel="stylesheet" href="./css/iconfont.css">
     <style>
-        header {
-            background-color: #89211b;
-        }
+    .hr01,.hr02 {height: 28px;}
+    .headerico {padding: 11px 15px 11px 15px;}
+    .headericohover {background: #DADDE0;}
+    .fr {float: right;}
+    .fl {float: left;}
+    .pa {position: absolute;}
+    img {vertical-align: top;}
+    header {background-color: #89211b;padding-top:10px;}
+    header ul li {display: none;}
+    header ul li.active {display: block;}
+    .activebar_p20px {
+        padding: 0 20px;
+    }
+    .topbar {
+        background: #89211b;
+        height: 50px;
+        position: relative;
+        display: -webkit-box;
+        -webkit-box-orient: horizontal;
+        text-align: center;
+        line-height: 50px;
+    }
 
-        header ul li {
-            display: none;
-        }
 
-        header ul li.active {
-            display: block;
-        }
+    .egret-header-box {
+        height: 50px;
+        background-color: #89211b;
+    }
+    .egret-img-x {
+        text-align: left;
+    }
+    .egret-img img {
+        height: 30px;
+        padding: 10px;
+    }
+    .egret-img-x img {
+        width: 30px;
+    }
+    .egret-img-s {
+        text-align: right;
+    }
+    .egret-img-s img {
+        width: 30px;
+    }
+    .egret-div {
+        -webkit-box-flex: 1;
+        color: #fff;
+    }
+    .egret-header-search {
+        background-color: #781711;
+        height: 40px;
+        margin-top: 8px;
+        border-radius: 4px;
+        margin: auto;
+    }
+
+    .egret-header-search img {
+        /*margin-left: 30px;*/
+        height: 20px;
+        margin-top: 7px;
+    }
+
+    .egret-header-search input {
+        line-height: 24px;
+        font-size: 14px;
+        padding-top: 5px;
+        color: #fff;
+        vertical-align: top;
+    }
+
+    .egret-header-search input:focus {
+        /*border:0;*/
+        outline: none;
+    }
 
         #footer {
-            background-color: #f2f2f2;
-            height:71px;
-        }
-
-        #footer ul {
-            position: relative;
-        }
-
-        #footer ul .footer_bofang img{
-            width: 100%;
-            height: 100%;
-            padding-top: 0;
+            background-color: #fff;
+            height: 60px;
+            /*padding: 0 10px;*/
         }
         #footer ul li {
-            padding-top: 36px;
-            padding-bottom: 4px;
-            background: url() no-repeat center 2px;
-            background-size: auto 30px;
-            text-align: center;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: contain;
+          text-align: center;
+          padding-top: 40px;
+          background: url() no-repeat center 2px;
+          background-size: auto 35px;
         }
 
         #footer ul li.active {
-            color: #6ab494;
+            color: #89211b;
         }
 
         #footer ul li:nth-child(1) {
@@ -56,15 +114,16 @@
         }
 
         #footer ul li:nth-child(3) {
-            /*background-image: url(./image/footer_bf.png);*/
         }
 
         #footer ul li:nth-child(4) {
             background-image: url(./image/footer_gy.png);
         }
+
         #footer ul li:nth-child(5) {
             background-image: url(./image/footer_wd.png);
         }
+
         #footer ul li:nth-child(1).active {
             background-image: url(./image/footer_sys.png);
         }
@@ -74,110 +133,22 @@
         }
 
         #footer ul li:nth-child(3).active {
-            /*background-image: url(./image/bottombtn0302.png);*/
         }
 
         #footer ul li:nth-child(4).active {
             background-image: url(./image/footer_gys.png);
         }
+
         #footer ul li:nth-child(5).active {
             background-image: url(./image/footer_wds.png);
         }
+
         .flex-con {
             /*overflow: auto*/
             overflow: hidden;
         }
-        /* 头部样式 */
 
-        .topbar {
-            background: #89211b;
-            height: 50px;
-            position: relative;
-            display: -webkit-box;
-            -webkit-box-orient: horizontal;
-            text-align: center;
-            line-height: 50px;
-        }
 
-        .topbar_title {
-            display: inline-block;
-            font-size: 20px;
-            height: 50px;
-            line-height: 50px;
-            padding-left: 12px;
-        }
-
-        .hr01,
-        .hr02 {
-            height: 28px;
-        }
-
-        .headerico {
-            padding: 11px 15px 11px 15px;
-        }
-
-        .headericohover {
-            background: #DADDE0;
-        }
-
-        .fr {
-            float: right;
-        }
-        .fl {
-            float: left;
-        }
-        .pa {
-            position: absolute;
-        }
-        img {
-            vertical-align: top;
-        }
-        /*第一头部*/
-
-        .egret-header-box {
-            height: 50px;
-            background-color: #89211b;
-        }
-
-        .egret-img img {
-            height: 30px;
-            padding: 10px;
-        }
-
-        .egret-img-x img {
-            width: 30px;
-            /*height: 30px;*/
-            padding: 10px;
-        }
-
-        .egret-img-x {
-            text-align: left;
-        }
-
-        .egret-img-s img {
-            width: 30px;
-            /*height: 30px;*/
-            padding: 10px;
-        }
-
-        .egret-img-s {
-            text-align: right;
-        }
-
-        .egret-div {
-            -webkit-box-flex: 1;
-            color: #fff;
-        }
-
-        .activebar_p20px {
-            padding: 0 20px;
-        }
-        #wrap {position: relative;background-color: #ebebeb;}
-        #footer ul li{background-color: #fff;margin-top: 40px;}
-        #footer{height:100px;}
-        .centerVideo{position: absolute;bottom: 5px;left:41%;width: 80px;height:80px;border-radius: 80px;background-color: #fff;
-          box-shadow: 0px -5px 5px rgba(0, 0, 0, 0.15); border-top-left-radius:80px;border-top-right-radius:80px;border-bottom-right-radius:0;border-bottom-left-radius:0;}
-        .videoButton{background: url(./image/footer_bf.png) no-repeat center 5px;width:100%;height:100%;}
     </style>
 </head>
 
@@ -186,15 +157,19 @@
         <header id="secHeader">
             <ul>
                 <li class="active">
-                    <div class="activebar_p20px">
-                        <div class="topbar normalHeader">
-                            <div class="egret-header-box egret-img-x egret-div " onclick="openMessage()"><img src="./image/KM_xiaoxi.png" alt=""></div>
-                            <div class="egret-div">IA语音</div>
-                            <div class="egret-div" onclick="fnListenWin();">熏听</div>
-                            <div class="egret-div" onclick="fnReadWin()">朗读</div>
-                            <div class="egret-header-box egret-img-s egret-div"  onclick="openHistorys()"><img src="./image/KM_ls.png" alt=""></div>
-                        </div>
-                    </div>
+                  <div class="activebar_p20px">
+                      <div class="topbar normalHeader">
+                          <div class="egret-header-box egret-img-x egret-div " onclick="openMessage()"><img src="./image/KM_xiaoxi.png" alt=""></div>
+                          <div class="egret-header-box egret-div">
+                                <div class="egret-header-search">
+                                    <img src="./image/header_search.png" alt="">
+                                    <input type="text" placeholder="请输入关键词搜索" onclick="OpenSearch();">
+                                    <img src="./image/video_header.png" alt="" >
+                                </div>
+                          </div>
+                          <div class="egret-header-box egret-img-s egret-div"  onclick="openHistorys()"><img src="./image/KM_ls.png" alt=""></div>
+                      </div>
+                  </div>
                 </li>
                 <li class="">端API</li>
                 <li class="">开发</li>
@@ -205,72 +180,86 @@
         <div id="main" class="flex-con">
 
         </div>
-        <div id="footer" >
+        <div id="footer">
             <ul class="flex-wrap">
                 <li tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con  active">首页</li>
                 <li tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con ">发现</li>
-                <li tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con" ></li>
+                <li tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con"></li>
                 <li tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con ">国友</li>
                 <li tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con ">我的</li>
             </ul>
         </div>
-        <div class="centerVideo">
-          <a  class="videoButton"></a>
-        </div>
     </div>
+    <!-- <div class="centerVideo" id="centerVideo">
+        <a class="videoButton"></a>
+    </div> -->
 </body>
 
 </html>
 <script type="text/javascript" src="script/api.js"></script>
+<script type="text/javascript" src="script/index.js"></script>
 <script type="text/javascript">
     apiready = function() {
+        var secHeader = $api.byId('secHeader');
         $api.fixStatusBar($api.dom('header'));
+        var footer = $api.byId('footer');
+        var headerH = $api.offset(secHeader).h;
+        var footerH = $api.offset(footer).h;
         api.setStatusBarStyle({
-            style: 'dark',
-            color: '#6ab494'
-        });
-        funIniGroup();
-    }
-    //打开消息页面
-    function openMessage() {
-      api.openWin({
-          name: 'message',
-          url: './html/message.html',
-      });
+              style: 'dark',
+              color: '#6ab494'
+          });
+          funIniGroup();
+          fnOpenCenterFrame();
+      }
+        function fnOpenCenterFrame(){
+            api.openFrame({
+                name: 'centerFrame',
+                url: './html/center_frame.html',
+                rect: {
+                    x: (api.frameWidth - 89) / 2,
+                    y: api.frameHeight - 89,
+                    w: 89,
+                    h: 89
+                },
+                pageParam: {
+                    name: 'test'
+                },
+                bounces: true,
+                bgColor: 'rgba(0,0,0,0)',
+                vScrollBarEnabled: true,
+                hScrollBarEnabled: true
+            });
 
+        }
+        //打开消息页面
+    function openMessage() {
+        api.openWin({
+            name: 'message',
+            url: './html/message.html',
+        });
     }
     // 打开历史页面
     function openHistorys() {
-      api.openWin({
-          name: 'historys',
-          url: './html/historys.html',
-          pageParam: {
-              name: 'test'
-          }
-      });
+        api.openWin({
+            name: 'historys',
+            url: './html/historys.html',
+        });
 
     }
     // 打开朗诵页面
     function fnReadWin() {
-      api.openWin({
-          name: 'read',
-          url: './html/read.html',
-          pageParam: {
-              name: 'test'
-          }
-      });
-
+        api.openWin({
+            name: 'read',
+            url: './html/read.html',
+        });
     }
     // 熏听页面
     function fnListenWin() {
-      api.openWin({
-          name: 'listen',
-          url: './html/listen.html',
-          pageParam: {
-              name: 'test'
-          }
-      });
-
+        api.openWin({
+            name: 'listen',
+            url: './html/listen.html',
+        });
     }
     // 底部导航
     function funIniGroup() {

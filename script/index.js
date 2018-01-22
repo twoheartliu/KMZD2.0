@@ -17,7 +17,7 @@ apiready = function () {
 function OpenSearch() {
     api.openWin({
         name: 'search',
-        url: 'search.html',
+        url: 'html/search.html',
         delay: 150
     });
 }
