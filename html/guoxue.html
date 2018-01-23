@@ -150,6 +150,26 @@
             },
             bounces: false,
         });
+        fnOpenCenterFrame();
+    }
+    function fnOpenCenterFrame() {
+        api.openFrame({
+            name: 'centerFrame',
+            url: './center_frame.html',
+            rect: {
+                x: (api.frameWidth - 89) / 2,
+                y: api.frameHeight - 89,
+                w: 89,
+                h: 89
+            },
+            pageParam: {
+                name: 'test'
+            },
+            bounces: true,
+            bgColor: 'rgba(0,0,0,0)',
+            vScrollBarEnabled: true,
+            hScrollBarEnabled: true
+        });
 
     }
 </script>
