@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="../css/iconfont/iconfont.css">
     <link rel="stylesheet" href="../css/iconfont.css">
     <style>
+
         html,body {
             min-height: 100%;
         }
@@ -201,14 +202,14 @@
 
       <!-- 八大导航 -->
     <div class="nav">
-        <div class="navbar" tapmode="navbar-item-hov" onclick=""><img src="../image/KM_yuyin.png" alt="">智能语音</div>
-        <div class="navbar" tapmode="navbar-item-hov" onclick=""><img src="../image/KM_goxue.png" alt="">国学馆</div>
-        <div class="navbar" tapmode="navbar-item-hov" onclick=""><img src="../image/KM_langsong.png" alt="">朗诵</div>
+        <div class="navbar" tapmode="navbar-item-hov" onclick="fnVoiceWin();"><img src="../image/KM_yuyin.png" alt="">智能语音</div>
+        <div class="navbar" tapmode="navbar-item-hov" onclick="fnGuoxueWin();"><img src="../image/KM_goxue.png" alt="">国学馆</div>
+        <div class="navbar" tapmode="navbar-item-hov" onclick="fnReadWin();"><img src="../image/KM_langsong.png" alt="">朗诵</div>
         <div class="navbar" tapmode="navbar-item-hov" onclick=""><img src="../image/KM_listen.png" alt="">熏听</div>
         <div class="navbar" tapmode="navbar-item-hov" onclick=""><img src="../image/KM_everyday.png" alt="">每日推荐</div>
         <div class="navbar" tapmode="navbar-item-hov" onclick="fnBillboard()"><img src="../image/KM_bangdan.png" alt="">榜单</div>
         <div class="navbar" tapmode="navbar-item-hov" onclick="fnMatchWin();"><img src="../image/KM_dasai.png" alt="">大赛</div>
-        <div class="navbar" tapmode="navbar-item-hov" onclick=""><img src="../image/KM_guoxueji.png" alt="">国学机</div>
+        <div class="navbar" tapmode="navbar-item-hov" onclick="fnMachineWin();"><img src="../image/KM_guoxueji1.png" alt="">国学机</div>
         <div class="clear"></div>
     </div>
     <!-- 2 热门推荐 -->
@@ -367,12 +368,34 @@
       });
 
     }
+
     // 打开榜单页面
     function fnBillboard(){
       api.openWin({
           name: 'billBoardFrame',
           url: './bill_board_frame.html',
       });
+    }
+
+    function fnReadWin() {
+      api.openWin({
+          name: 'read',
+          url: './read.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
+
+    }
+    function fnVoiceWin() {
+      api.openWin({
+          name: 'ai_voice',
+          url: './ai_voice.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
+
     }
 
 </script>
