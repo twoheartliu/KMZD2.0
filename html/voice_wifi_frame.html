@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>文档</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/idangerous.swiper.css">
+    <link rel="stylesheet" href="../css/swiper.min.css">
+    <link rel="stylesheet" href="../css/iconfont.css">
+    <style>
+        .fr {
+            float: right;
+        }
+
+        .fl {
+            float: left;
+        }
+
+        .p20px {
+            padding: 0px 20px;
+        }
+
+        .clr {
+            overflow: hidden;
+        }
+        /*#id{overflow: auto;}*/
+        .voice_wifi_frame{
+          width: 100%;
+          height: 180px;
+          background-color: #89211b;
+        }
+        .voice_wifi_frame_img  {
+          width: 120px;height: 120px;
+          margin: 0 auto;
+          padding-top: 10px;
+        }
+        .voice_wifi_frame_img img{width: 120px;height: 120px;}
+        .voice_wifi_frame p{width: 100%;text-align: center;font-size: 16px;color: #fffaf6;margin: 15px 0;}
+        .voice_wifi_frame_input { margin: 20px 0; }
+        .voice_wifi_frame_span span{color: #6c6c6c;}
+        .voice_wifi_frame_span b{color: #000;}
+        .voice_wifi_frame_inputs{width: 100%;height: 50px;border-bottom: 1px solid #ccc;}
+        .voice_wifi_frame_inputs input {width: 100%;height: 50px;line-height: 50px; outline:none;color: #6c6c6c;}
+        .voice_wifi_frame_but{height: 50px;background-color: #89211b;border-radius: 10px;text-align: center;color: #fffaf6;margin: 20px;line-height: 50px;}
+    </style>
+</head>
+
+<body>
+
+  <div class="voice_wifi_frame">
+    <div class="voice_wifi_frame_img"><img src="../image/lianjie.png" alt=""></div>
+    <p>发现路由器KMZD</p>
+  </div>
+  <div class="voice_wifi_frame_input">
+    <div class="p20px">
+      <div class="voice_wifi_frame_span"><span>网络名称</span>&nbsp;&nbsp;<b>KMZD</b></div>
+      <div class="voice_wifi_frame_inputs">
+          <input type="password" name="" value="" placeholder="密码">
+      </div>
+      <div class="voice_wifi_frame_but" onclick="fnAwakenWin();">立即连接</div>
+    </div>
+
+  </div>
+</body>
+
+</html>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+    apiready = function() {
+
+    }
+    function fnAwakenWin() {
+      api.openWin({
+          name: 'awaken',
+          url: './awaken.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
+
+    }
+</script>
