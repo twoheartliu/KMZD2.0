@@ -31,7 +31,6 @@ html,body {min-height: 100%;background: #ebebeb;}
 .egret-img img {height: 30px;padding: 10px;vertical-align: top;}
 .egret-header-title {position: absolute;width: 100%;text-align: center;line-height: 50px;color: #fff;font-size: 20px;}
 /*中间内容*/
-#container{}
 nav{height:70px;padding:8px;background-color: #fff;}
 .nav-left .nav-img{display: inline-block;width:70px;height:70px;}
 .nav-left .nav-txt{display: inline-block;vertical-align: top;width:150px;line-height: 35px;}
@@ -120,6 +119,8 @@ function goback () {
   api.closeWin({name:'messageNotDetailFrame'});
 }
 apiready = function (){
+  var notHeader = $api.byId('notHeader');
+  $api.fixStatusBar(notHeader);
 }
 </script>
 </html>

@@ -53,7 +53,8 @@
         }
         /* 八大导航 */
         .nav {
-          padding: 8px;
+          /*padding: 8px;*/
+          margin-bottom: 20px;
         }
         .navbar {
             position: relative;
@@ -64,12 +65,12 @@
             text-align: center;
         }
         .navbar img {
-            width: 50px;
-            height: 50px;
+            width:80px;
+            height:80px;
             display: block;
             text-align: center;
             margin: 0 auto;
-            padding-top: 20px;
+            /*padding-top: 20px;*/
         }
         .navbar-item-hov {
             background-color: rgba(254, 242, 228, 0.7);
@@ -205,7 +206,7 @@
         <div class="navbar" tapmode="navbar-item-hov" onclick=""><img src="../image/KM_langsong.png" alt="">朗诵</div>
         <div class="navbar" tapmode="navbar-item-hov" onclick=""><img src="../image/KM_listen.png" alt="">熏听</div>
         <div class="navbar" tapmode="navbar-item-hov" onclick=""><img src="../image/KM_everyday.png" alt="">每日推荐</div>
-        <div class="navbar" tapmode="navbar-item-hov" onclick=""><img src="../image/KM_bangdan.png" alt="">榜单</div>
+        <div class="navbar" tapmode="navbar-item-hov" onclick="fnBillboard()"><img src="../image/KM_bangdan.png" alt="">榜单</div>
         <div class="navbar" tapmode="navbar-item-hov" onclick="fnMatchWin();"><img src="../image/KM_dasai.png" alt="">大赛</div>
         <div class="navbar" tapmode="navbar-item-hov" onclick=""><img src="../image/KM_guoxueji.png" alt="">国学机</div>
         <div class="clear"></div>
@@ -331,8 +332,8 @@
         var frameWidth = api.frameWidth;
         var frameHeight = api.frameHeight;
         for(var i=0; i < 8 ;i++){
-          navbars.item(i).style.width = (frameWidth -20) /4 + "px";
-          navbars.item(i).style.height = (frameWidth -20) /4 * 1.004 + "px";
+          navbars.item(i).style.width = frameWidth /4 + "px";
+          navbars.item(i).style.height = frameWidth/4 * 1.1 + "px";
         };
         var hotCs = $api.domAll('.hotC');
         for( var j = 0; j < 6 ;j++){
@@ -346,6 +347,7 @@
             loop: true
         });
     };
+
     function fnMatchWin() {
       api.openWin({
           name: 'match',
@@ -365,6 +367,12 @@
       });
 
     }
-
+    // 打开榜单页面
+    function fnBillboard(){
+      api.openWin({
+          name: 'billBoardFrame',
+          url: './bill_board_frame.html',
+      });
+    }
 
 </script>
