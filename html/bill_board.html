@@ -99,7 +99,7 @@
   <script type="text/javascript" src="../script/api.js"></script>
   <script type="text/javascript">
     function goback () {
-      api.closeWin({name:'billBoardFrame'});
+      api.closeWin({name:'billBoard'});
     }
     apiready = function(){
       var eHeader = $api.byId('header')
@@ -110,7 +110,7 @@
         var tabs = $api.domAll('#tabs>.tab');
         $api.addCls(tabs.item(index), 'active');
         api.setFrameGroupIndex({
-            name: 'billBoardFrameGroup',
+            name: 'billBoardGroup',
             index: index,
             scroll: true
         });
@@ -121,7 +121,7 @@
         var eNav = $api.byId('nav');
         var eNavOffset = $api.offset(eNav);
         api.openFrameGroup ({
-            name: 'billBoardFrameGroup',
+            name: 'billBoardGroup',
             scrollEnabled: true,
             rect: {
                  x: 0,

@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="../css/iconfont/iconfont.css">
     <link rel="stylesheet" href="../css/iconfont.css">
     <style>
-
         html,body {
             min-height: 100%;
         }
@@ -225,7 +224,7 @@
         <div class="navbar" tapmode="navbar-item-hov" onclick="fnVoiceWin();"><img src="../image/KM_yuyin.png" alt="">智能语音</div>
         <div class="navbar" tapmode="navbar-item-hov" onclick="fnGuoxueWin();"><img src="../image/KM_goxue.png" alt="">国学馆</div>
         <div class="navbar" tapmode="navbar-item-hov" onclick="fnReadWin();"><img src="../image/KM_langsong.png" alt="">朗诵</div>
-        <div class="navbar" tapmode="navbar-item-hov" onclick=""><img src="../image/KM_listen.png" alt="">熏听</div>
+        <div class="navbar" tapmode="navbar-item-hov" onclick="fnListenWin();"><img src="../image/KM_listen.png" alt="">熏听</div>
         <div class="navbar" tapmode="navbar-item-hov" onclick=""><img src="../image/KM_everyday.png" alt="">每日推荐</div>
         <div class="navbar" tapmode="navbar-item-hov" onclick="fnBillboard()"><img src="../image/KM_bangdan.png" alt="">榜单</div>
         <div class="navbar" tapmode="navbar-item-hov" onclick="fnMatchWin();"><img src="../image/KM_dasai.png" alt="">大赛</div>
@@ -388,12 +387,22 @@
       });
 
     }
+    //打开熏听页面
+    function fnListenWin(){
+      api.openWin({
+          name: 'listenTo',
+          url: './listen_to.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
 
+    }
     // 打开榜单页面
     function fnBillboard(){
       api.openWin({
-          name: 'billBoardFrame',
-          url: './bill_board_frame.html',
+          name: 'billBoard',
+          url: './bill_board.html',
       });
     }
 
