@@ -29,17 +29,18 @@
         }
         /*#id{overflow: auto;}*/
 
-        .soundtrack_frameDiv{width: 100%;height: 51px;line-height: 50px;}
+        .soundtrack_frameDiv{width: 100%;height: 50px;line-height: 50px;overflow-y: hidden;}
         .tab{display: none;}
         .soundtrack_frameDiv1{overflow-y: hidden;background: #f2f2f2;}
         .soundtrack_frameDiv2{
           width: 50px;height: 50px;line-height: 50px;text-align: center;z-index: 10;background: #f2f2f2;position: absolute;right: 0;top: 0;
         }
         .soundtrack_frameDiv2 img {width: 14px;height: 8px;}
+        /*.soundtrack_frameP { }*/
         /*.main {width:400px; margin:0 auto;}*/
-        #title {width: 200%;}
-        #title span {width: 100px;height: 50px;line-height: 50px;font-size: 16px;color: #000;text-align: center;}
-        #title span.on { color:red;border-bottom: 1px solid red;}
+        #title {width: 250%;display: -webkit-box;display: -webkit-flex;display: flex;}
+        #title span {width: 100px;height: 50px;line-height: 50px;font-size: 16px;color: #000;text-align: center;box-sizing: border-box;float: left; -webkit-box-flex: 1; -webkit-flex: 1; flex: 1; margin: 0 5px; position: relative;}
+        #title span.on { color:red;border-bottom: 1px solid red;box-sizing: border-box;-webkit-box-flex: 1; -webkit-flex: 1; flex: 1; margin: 0 5px; position: relative;}
         /*#con {background:#fafafa; height:200px; }*/
         #con ul {display:none; padding:10px;}
         #con ul.on {display:block;}
@@ -49,6 +50,13 @@
         .on_li_divImg1 img{width: 30px;height: 30px;padding: 10px;}
         .soundtrack_title{padding: 0 10px;margin: 14px 0;}
         .soundtrack_title b{color: red;}
+        .row {
+
+        }
+
+        .col {
+
+        }
     </style>
 </head>
 
@@ -56,15 +64,15 @@
 
     <div class="wrapper">
         <!-- <div class="main"> -->
-            <div class="soundtrack_frameDiv" id="id" style="overflow: auto;">
+            <div class="soundtrack_frameDiv" id="id">
               <div class="soundtrack_frameDiv1"  id="title">
-                  <span class="soundtrack_frameP fl on">本地</span>
-                  <span class="soundtrack_frameP fl">热门</span>
-                  <span class="soundtrack_frameP fl">推荐</span>
-                  <span class="soundtrack_frameP fl">浪漫</span>
-                  <span class="soundtrack_frameP fl">怀旧</span>
-                  <span class="soundtrack_frameP fl">古典</span>
-                  <span class="soundtrack_frameP fl">沙哑</span>
+                  <span class="on">本地</span>
+                  <span class="">热门</span>
+                  <span class="">推荐</span>
+                  <span class="">浪漫</span>
+                  <span class="">怀旧</span>
+                  <span class="">古典</span>
+                  <span class="">沙哑</span>
               </div>
             </div>
             <!-- <div class="soundtrack_frameDiv2" onclick="text();"><img src="../image/KM_soundtrackXB.png" alt=""></div> -->
@@ -387,7 +395,6 @@
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/swiper.min.js"></script>
 <script type="text/javascript">
-
     apiready = function() {
 
 
@@ -407,45 +414,6 @@
               }
               this.className = 'on';
               aUl[this.index].className = 'on';
-
           }
-
       }
-
-
-
-
-      // function text(){
-      //     // console.log(document.getElementById('id1').style.color);
-      //
-      //     if(document.getElementById('id').style.overflow=="auto"){
-      //         document.getElementById('title').style.width="100%";
-      //         document.getElementById('id').style.overflow="none";
-      //     }
-      //     else{
-      //         document.getElementById('id').style.overflow="auto";
-      //     }
-      // }
-
-    // function fnXiabiao() {
-    //   // id = (id + 1)
-    //   id = 0
-    //             alert(id);
-    //     if (id == 0 ) {
-    //       // alert("1");
-    //
-    //       alert(id);
-    //       id += 1
-    //     }else {
-    //       alert(id)
-    //       id == 0
-    //       alert("0");
-    //     }
-    // }
-
-
-
-
-
-
 </script>
