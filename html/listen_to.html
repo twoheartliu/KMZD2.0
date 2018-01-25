@@ -8,34 +8,144 @@
       <style>
         body,html{
           /*background-color: #f2f2f2;*/
-          background: url(../image/KM_listen_bg.png) no-repeat;
+          background-image: url(../image/KM_listen_bg.png);
+          background-size: cover;
+          background-repeat: no-repeat;
         }
         /*头部样式*/
+
         header{
           height: 50px;
         }
         .egret-img {
-          /*position: absolute;*/
           display: inline-block;
+          padding-left: 6px;
         }
         .egret-img img {
           height: 30px;
-          padding: 10px;
+        }
+        .egret-txt{
+          display: inline-block;
+          margin: 0 auto;
+          width: 70%;
+          color: #fff;
+          text-align: center;
+          line-height: 20px;
+          height:50px;
+          vertical-align: top;
+        }
+        .egret-txt h1{
+          font-size: 16px;
+        }
+        .egret-txt p{
+          font-size: 14px;
+        }
+        nav{
+          width:100%;
+          text-align: center;
+        }
+        .table-img{
+          margin-top: -18px;;
+        }
+        .table-img img{
+          width:100%;
+          height:auto;
+        }
+        .bottom-img{
+          background-image : url(../image/bottom.png);
+          background-repeat: no-repeat;
+          background-size: contain;
+          width:260px;
+          height:260px;
+          margin: 90px auto 0;
+          position: relative;
+        }
+        .video{
+          width:190px;
+          height:190px;
+          position: absolute;
+          top: 34px;
+          left: 27px;
+        }
+        .video>img{
+          width:190px;
+        }
+        .play{
+          padding:10px 0;
+        }
+        .play>img{
+          width:72%;
+          line-height: 40px;
+        }
+        .play>span{
+          font-size: 14px;
+          color:#fff;
+          vertical-align: bottom;
+          line-height: 40px;
+          width:8%;
+          text-align: center;
+        }
+        section{
+          display: flex;
+          display: -webkit-flex;
+          display: -webkit-box;
 
         }
-
+        .item-sort{
+          flex:1;
+          -webkit-flex:1;
+          -webkit-box-flex:1;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: contain;
+          text-align: center;
+          line-height: 65px;
+        }
       </style>
   </head>
   <body>
     <!-- 头部 -->
       <header id="header">
           <div  class="egret-img"><img src="../image/KM_goback.png" alt="" onclick="goback()" ></div>
-          <h1></h1>
+          <div class="egret-txt">
+            <h1>失去地心的魔方</h1>
+            <p>周晓鑫</p>
+          </div>
       </header>
       <nav id="nav">
-
+        <div class="video-play">
+          <div class="bottom-img">
+            <div class="video">
+              <img src="../image/pan.png" alt="">
+            </div>
+          </div>
+          <div class="table-img">
+            <img src="../image/table.png" alt="">
+          </div>
+        </div>
+        <div class="play">
+          <span class="playTime">1.46</span>
+          <img src="../image/KM_play.png" alt="">
+          <span class="playTime">3.46</span>
+        </div>
       </nav>
-    </div>
+      <section>
+        <div class="item-sort">
+          <img src="../image/delete.png" alt="">
+        </div>
+        <div class="item-sort">
+          <img src="../image/collect.png" alt="">
+        </div>
+        <div class="item-sort">
+          <img src="../image/play.png" alt="">
+        </div>
+        <div class="item-sort">
+          <img src="../image/next.png" alt="">
+        </div>
+        <div class="item-sort">
+          <img src="../image/discuss.png" alt="">
+        </div>
+      </section>
   </body>
   <script type="text/javascript" src="../script/api.js"></script>
   <script type="text/javascript">
