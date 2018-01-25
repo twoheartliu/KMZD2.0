@@ -71,35 +71,30 @@
 
 <body>
   <div class="p20px">
-      <div class="sectionTitle">
-          <span class="TD_div fl">听单推荐</span>
-          <span class="fr more">更多</span>
-          <div class="clear"></div>
-      </div>
       <div class="hot">
-          <div class="hotC" >
+          <div class="hotC" onclick="fnMachineXiangqingWin();">
               <img src="../image/frame0101cover/frame0101cover06.png" alt="" >
-              <div class="listtitle">经典诗歌</div>
+              <div class="listtitle">F3如意国学机</div>
           </div>
-          <div class="hotC" >
+          <div class="hotC" onclick="fnMachineXiangqingWin();">
               <img src="../image/frame0101cover/frame0101cover07.png" alt="" >
-              <div class="listtitle">经典诗歌</div>
+              <div class="listtitle">F3如意国学机</div>
           </div>
-          <div class="hotC" onclick="openMusicList()">
+          <div class="hotC" onclick="fnMachineXiangqingWin();">
               <img src="../image/frame0101cover/frame0101cover08.png" alt="" >
-              <div class="listtitle">经典诗歌</div>
+              <div class="listtitle">F3如意国学机</div>
           </div>
-          <div class="hotC" onclick="openMusicList()">
+          <div class="hotC" onclick="fnMachineXiangqingWin();">
               <img src="../image/frame0101cover/frame0101cover09.png" alt="" >
-              <div class="listtitle">经典诗歌</div>
+              <div class="listtitle">F3如意国学机</div>
           </div>
-          <div class="hotC" onclick="openMusicList()">
+          <div class="hotC" onclick="fnMachineXiangqingWin();">
               <img src="../image/frame0101cover/frame0101cover10.png" alt="" >
-              <div class="listtitle">经典诗歌</div>
+              <div class="listtitle">F3如意国学机</div>
           </div>
-          <div class="hotC" onclick="openMusicList()">
+          <div class="hotC" onclick="fnMachineXiangqingWin();">
               <img src="../image/frame0101cover/frame0101cover11.png" alt="" >
-              <div class="listtitle">经典诗歌</div>
+              <div class="listtitle">F3如意国学机</div>
           </div>
           <div class="clear"></div>
       </div>
@@ -118,6 +113,16 @@ apiready = function() {
       hotCs.item(j).style.width = (frameWidth -40) /3 + "px";
       hotCs.item(j).style.height = (frameWidth -40) /3 * 1.224 + "px";
     };
+}
+function fnMachineXiangqingWin() {
+    api.openWin({
+        name: 'machine_xiangqing',
+        url: './machine_xiangqing.html',
+        pageParam: {
+            name: 'test'
+        }
+    });
+
 }
 
 </script>
