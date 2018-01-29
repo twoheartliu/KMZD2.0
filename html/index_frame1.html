@@ -53,7 +53,7 @@
     <div class="index_frame1">
         <div class="p20px">
             <img src="../image/KM_wd.png" alt="">
-            <div class="index_frame1_p fl"> 问答 </div>
+            <div class="index_frame1_p fl"> 社群 </div>
             <div class="index_frame1_span fr"> > </div>
         </div>
     </div>
@@ -73,7 +73,7 @@
             <div class="index_frame1_span fr"> > </div>
         </div>
     </div>
-    <div class="index_frame1">
+    <div class="index_frame1" onclick="fnMachineWin();">
         <div class="p20px">
             <img src="../image/KM_sc.png" alt="">
             <div class="index_frame1_p fl"> 商城 </div>
@@ -105,3 +105,15 @@
 </body>
 
 </html>
+<script type="text/javascript">
+  function fnMachineWin() {
+    api.openWin({
+        name: 'machine',
+        url: './machine.html',
+        pageParam: {
+            name: 'test'
+        }
+    });
+
+  }
+</script>

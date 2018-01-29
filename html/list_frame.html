@@ -58,6 +58,18 @@
             padding-bottom: 13px;
             border:
         }
+        .row {
+            display: -webkit-box;
+            display: -webkit-flex;
+        }
+
+        .col {
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+            margin: 0 5px;
+            position: relative;
+        }
         .border_t{border-top: 1px solid #f2f2f2;}
         .border_r{border-right: 1px solid #f2f2f2;}
         /* 弹出工具条 */
@@ -104,7 +116,7 @@
     </div>
     <div id="con">
         <ul class="on">
-            <li>
+            <li onclick="fnOpenPlay();">
               <div class="on_li_divImg fl">
               <img src="../image/KM_soundtrackBF.png" alt=""></div>
               <div class="fl">
@@ -112,7 +124,7 @@
               </div>
               <div class="on_li_divImg1 fr"> > </div>
             </li>
-            <li>
+            <li onclick="fnOpenPlay();">
               <div class="on_li_divImg fl">
               <img src="../image/KM_soundtrackBF.png" alt=""></div>
               <div class="fl">
@@ -120,7 +132,7 @@
               </div>
               <div class="on_li_divImg1 fr"> > </div>
             </li>
-            <li>
+            <li onclick="fnOpenPlay();">
               <div class="on_li_divImg fl">
               <img src="../image/KM_soundtrackBF.png" alt=""></div>
               <div class="fl">
@@ -128,7 +140,7 @@
               </div>
               <div class="on_li_divImg1 fr"> > </div>
             </li>
-            <li>
+            <li onclick="fnOpenPlay();">
               <div class="on_li_divImg fl">
               <img src="../image/KM_soundtrackBF.png" alt=""></div>
               <div class="fl">
@@ -136,7 +148,7 @@
               </div>
               <div class="on_li_divImg1 fr"> > </div>
             </li>
-            <li>
+            <li onclick="fnOpenPlay();">
               <div class="on_li_divImg fl">
               <img src="../image/KM_soundtrackBF.png" alt=""></div>
               <div class="fl">
@@ -144,7 +156,7 @@
               </div>
               <div class="on_li_divImg1 fr"> > </div>
             </li>
-            <li>
+            <li onclick="fnOpenPlay();">
               <div class="on_li_divImg fl">
               <img src="../image/KM_soundtrackBF.png" alt=""></div>
               <div class="fl">
@@ -152,7 +164,7 @@
               </div>
               <div class="on_li_divImg1 fr"> > </div>
             </li>
-            <li>
+            <li onclick="fnOpenPlay();">
               <div class="on_li_divImg fl">
               <img src="../image/KM_soundtrackBF.png" alt=""></div>
               <div class="fl">
@@ -160,7 +172,7 @@
               </div>
               <div class="on_li_divImg1 fr"> > </div>
             </li>
-            <li>
+            <li onclick="fnOpenPlay();">
               <div class="on_li_divImg fl">
               <img src="../image/KM_soundtrackBF.png" alt=""></div>
               <div class="fl">
@@ -190,5 +202,12 @@
     		clicktoolitem.setAttribute("data-click", 0);
     		toolbarlist.src = "../image/sc.png";
     	}
+    }
+    function fnOpenPlay(){
+      api.openWin({
+          name: 'play',
+          url: './play.html',
+      });
+
     }
 </script>

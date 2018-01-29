@@ -45,10 +45,9 @@
     <div class="index_header">
         <div class="index_header_div">
           <div class="index_header_img"><img src="../image/KM_tx.png" alt=""></div>
-          <div class="index_header_mvp"><img src="../image/MVP.png" alt=""></div>
           <div class="wode_bg">
               <div class="index_header_mvp_p">嘿！我不是朝天椒</div>
-              <div class="index_header_mvp_span">[普通用户]</div>
+              <div class="index_header_mvp_span">[ 学生 ]</div>
           </div>
           <div class="index_header_san">
               <div class="p13px">
@@ -59,8 +58,8 @@
                       <div><span>123456</span>分</div>
                     </div>
                     <div class="index_header_sans border_r">
-                      <div>我的钱包</div>
-                      <div><span>9999.9</span>元</div>
+                      <div>收到的赞</div>
+                      <div><span>9999</span>个赞</div>
                     </div>
                     <div class="index_header_sans" onclick="fnPersonalWin();">
                       <div>我的作品</div>
@@ -81,7 +80,7 @@
               <span class="index_name_div_span fl">我的成就</span>
               <div class="index_name_div_imgr fr"><img src="../image/index_y.png" alt=""></div>
             </div>
-            <div class="index_name_div">
+            <div class="index_name_div" onclick="fnCollectionWin();">
               <div class="index_name_div_img fl"><img src="../image/index_wdsc.png" alt=""></div>
               <span class="index_name_div_span fl">我的收藏</span>
               <div class="index_name_div_imgr fr"><img src="../image/index_y.png" alt=""></div>
@@ -92,14 +91,14 @@
     <div class="index_name">
         <div class="p20pxs">
           <div class="index_name_li">
-            <div class="index_name_div border_b">
+            <div class="index_name_div border_b" onclick="openHistorys();">
               <div class="index_name_div_img fl"><img src="../image/index_lsjl.png" alt=""></div>
               <span class="index_name_div_span fl">历史记录</span>
               <div class="index_name_div_imgr fr"><img src="../image/index_y.png" alt=""></div>
             </div>
-            <div class="index_name_div">
+            <div class="index_name_div" onclick="openMessage();">
               <div class="index_name_div_img fl"><img src="../image/index_wdtxl.png" alt=""></div>
-              <span class="index_name_div_span fl">我的通讯录</span>
+              <span class="index_name_div_span fl">我的消息</span>
               <div class="index_name_div_imgr fr"><img src="../image/index_y.png" alt=""></div>
             </div>
           </div>
@@ -134,5 +133,28 @@
           }
       });
 
+    }
+    function fnCollectionWin() {
+      api.openWin({
+          name: 'collection',
+          url: './collection.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
+
+    }
+    //打开消息页面
+    function openMessage() {
+        api.openWin({
+            name: 'message',
+            url: './message.html',
+        });
+    };
+    function openHistorys() {
+        api.openWin({
+            name: 'historys',
+            url: './historys.html',
+        });
     }
 </script>
