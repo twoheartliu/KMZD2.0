@@ -55,16 +55,22 @@
         .nav {
           /*padding: 8px;*/
           margin-bottom: 20px;
+          display: -webkit-box;
+          display: -webkit-flex;
+
         }
         .navbar {
-            position: relative;
-            float: left;
-            padding: 4px;
-            box-sizing: border-box;
-            background-clip: content-box;
-            text-align: center;
-            font-size: 14px;
-            color:#1a1a1a;
+          -webkit-box-flex: 1;
+          -webkit-flex: 1;
+          flex: 1;
+          position: relative;
+          /*float: left;
+          padding: 4px;
+          box-sizing: border-box;
+          background-clip: content-box;*/
+          text-align: center;
+          font-size: 14px;
+          color:#1a1a1a;
         }
         .navbar img {
             width:80px;
@@ -171,14 +177,14 @@
         .egret-flex-item-shelf03 div {
             float: left;
             line-height: 20px;
-            margin: 5px 3px;
+            margin: 5px 1px;
         }
 
         .egret-flex-item-shelf03 div img {
             width: 15px;
             height: 15px;
             line-height: 15px;
-            margin: 0 3px;
+            margin: 0 2px;
         }
 
         .egret-flex-item-shelf03 div span {
@@ -221,15 +227,11 @@
 
       <!-- 八大导航 -->
     <div class="nav">
-        <div class="navbar" tapmode="navbar-item-hov" onclick="fnVoiceWin();"><img src="../image/KM_yuyin.png" alt="">智能语音</div>
         <div class="navbar" tapmode="navbar-item-hov" onclick="fnGuoxueWin();"><img src="../image/KM_goxue.png" alt="">国学馆</div>
         <div class="navbar" tapmode="navbar-item-hov" onclick="fnReadWin();"><img src="../image/KM_langsong.png" alt="">朗诵</div>
         <div class="navbar" tapmode="navbar-item-hov" onclick="fnListenWin();"><img src="../image/KM_listen.png" alt="">熏听</div>
-        <div class="navbar" tapmode="navbar-item-hov" onclick=""><img src="../image/KM_everyday.png" alt="">每日推荐</div>
         <div class="navbar" tapmode="navbar-item-hov" onclick="fnBillboard()"><img src="../image/KM_bangdan.png" alt="">榜单</div>
-        <div class="navbar" tapmode="navbar-item-hov" onclick="fnMatchWin();"><img src="../image/KM_dasai.png" alt="">大赛</div>
-        <div class="navbar" tapmode="navbar-item-hov" onclick="fnMachineWin();"><img src="../image/KM_guoxueji1.png" alt="">国学机</div>
-        <div class="clear"></div>
+        <!-- <div class="clear"></div> -->
     </div>
     <!-- 2 热门推荐 -->
     <div class="p20px">
@@ -270,7 +272,7 @@
     <div class="p20px">
         <div class="sectionTitle mt20">
             <span class="TD_div fl">优秀作品</span>
-            <span class="fr more">更多</span>
+            <span class="fr more" onclick="fnBillboard();">更多</span>
             <div class="clear"></div>
         </div>
         <div class="egret-flex-item " tapmode="fmbtnhover" onclick="openFM()">
@@ -286,7 +288,7 @@
                 </div>
                 <div class="egret-flex-item-shelf02">作品：<span>《沁园春·雪》</span></div>
                 <div class="egret-flex-item-shelf03">
-                    <div><img src="../image/KM_qt.png" alt=""><span>100</span></div>
+                    <div><img src="../image/play_icon.png" alt=""><span>100</span></div>
                     <div><img src="../image/KM_dx.png" alt=""><span>100</span></div>
                     <div><img src="../image/KM_zf.png" alt=""><span>100</span></div>
                     <div><img src="../image/KM_dz.png" alt=""><span>100</span></div>
@@ -307,7 +309,7 @@
                 </div>
                 <div class="egret-flex-item-shelf02">作品：<span>《沁园春·雪》</span></div>
                 <div class="egret-flex-item-shelf03">
-                    <div><img src="../image/KM_qt.png" alt=""><span>100</span></div>
+                    <div><img src="../image/play_icon.png" alt=""><span>100</span></div>
                     <div><img src="../image/KM_dx.png" alt=""><span>100</span></div>
                     <div><img src="../image/KM_zf.png" alt=""><span>100</span></div>
                     <div><img src="../image/KM_dz.png" alt=""><span>100</span></div>
@@ -328,7 +330,7 @@
                 </div>
                 <div class="egret-flex-item-shelf02">作品：<span>《沁园春·雪》</span></div>
                 <div class="egret-flex-item-shelf03">
-                    <div><img src="../image/KM_qt.png" alt=""><span>100</span></div>
+                    <div><img src="../image/play_icon.png" alt=""><span>100</span></div>
                     <div><img src="../image/KM_dx.png" alt=""><span>100</span></div>
                     <div><img src="../image/KM_zf.png" alt=""><span>100</span></div>
                     <div><img src="../image/KM_dz.png" alt=""><span>100</span></div>
@@ -348,13 +350,13 @@
     apiready = function() {
         // api.parseTapmode()
         fnInitSwiper();
-        var navbars = $api.domAll('.navbar');
+        // var navbars = $api.domAll('.navbar');
         var frameWidth = api.frameWidth;
         var frameHeight = api.frameHeight;
-        for(var i=0; i < 8 ;i++){
-          navbars.item(i).style.width = frameWidth /4 + "px";
-          navbars.item(i).style.height = frameWidth/4 * 1.1 + "px";
-        };
+        // for(var i=0; i < 8 ;i++){
+        //   navbars.item(i).style.width = frameWidth /4 + "px";
+        //   navbars.item(i).style.height = frameWidth/4 * 1.1 + "px";
+        // };
         var hotCs = $api.domAll('.hotC');
         for( var j = 0; j < 6 ;j++){
           hotCs.item(j).style.width = (frameWidth -40) /3 + "px";
@@ -368,15 +370,6 @@
         });
     };
 
-    function fnMatchWin() {
-      api.openWin({
-          name: 'match',
-          url: './match.html',
-          pageParam: {
-              name: 'test'
-          }
-      });
-    }
     function fnGuoxueWin() {
       api.openWin({
           name: 'guoxue',
@@ -410,26 +403,6 @@
       api.openWin({
           name: 'read',
           url: './read.html',
-          pageParam: {
-              name: 'test'
-          }
-      });
-
-    }
-    function fnVoiceWin() {
-      api.openWin({
-          name: 'ai_voice',
-          url: './ai_voice.html',
-          pageParam: {
-              name: 'test'
-          }
-      });
-
-    }
-    function fnMachineWin() {
-      api.openWin({
-          name: 'machine',
-          url: './machine.html',
           pageParam: {
               name: 'test'
           }

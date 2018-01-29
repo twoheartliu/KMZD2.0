@@ -44,7 +44,7 @@
           text-align: center;
         }
         .table-img{
-          margin-top: -18px;;
+          /*margin-top: -18px;*/
         }
         .table-img img{
           width:100%;
@@ -100,6 +100,19 @@
           text-align: center;
           line-height: 65px;
         }
+        @-webkit-keyframes rotation{
+        from {-webkit-transform: rotate(0deg);}
+        to {-webkit-transform: rotate(360deg);}
+        }
+
+        .Rotation{
+        -webkit-transform: rotate(360deg);
+        animation: rotation 3s linear infinite;
+        -moz-animation: rotation 3s linear infinite;
+        -webkit-animation: rotation 3s linear infinite;
+        -o-animation: rotation 3s linear infinite;
+        }
+
       </style>
   </head>
   <body>
@@ -114,8 +127,8 @@
       <nav id="nav">
         <div class="video-play">
           <div class="bottom-img">
-            <div class="video">
-              <img src="../image/pan.png" alt="">
+            <div class="video" >
+              <img src="../image/pan.png" alt="" class=" " id="video">
             </div>
           </div>
           <div class="table-img">
@@ -136,7 +149,7 @@
           <img src="../image/collect.png" alt="">
         </div>
         <div class="item-sort">
-          <img src="../image/play.png" alt="">
+          <img src="../image/play.png" alt="" onclick="fnOpenPlayButton()"; id="playButton">
         </div>
         <div class="item-sort">
           <img src="../image/next.png" alt="">
@@ -155,6 +168,16 @@
       var eHeader = $api.byId('header')
       $api.fixStatusBar(eHeader);
     };
-
+    function fnOpenPlayButton(){
+      var playButton = $api.byId('playButton');
+      var video = $api.byId('video');
+      if(playButton.getAttribute("src",2)=="../image/play.png"){
+        playButton.src="../image/playing.png";
+        $api.addCls(video, 'Rotation');
+      }else{
+        playButton.src="../image/play.png";
+        $api.removeCls(video, 'Rotation');
+      }
+    }
   </script>
   </html>
