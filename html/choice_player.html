@@ -13,30 +13,11 @@
         }
         /*头部样式*/
 
-        header {
-            height: 50px;
-            background-color: #fff;
-            position: relative;
-        }
-
-        .egret-img {
-            position: absolute;
-        }
-
-        .egret-img img {
-            height: 30px;
-            padding: 10px;
-            vertical-align: top;
-        }
-
-        .egret-header-title {
-            position: absolute;
-            width: 100%;
-            text-align: center;
-            line-height: 50px;
-            color: #89211b;
-            font-size: 20px;
-        }
+        .topbar {background: #fff; height:50px; position: relative;}
+        .egret-header-box {height: 50px;}
+        .egret-img {position: absolute;}
+        .egret-img img {height: 30px;padding: 10px;vertical-align: top;}
+        .egret-header-title {position: absolute;width: 100%;text-align: center;line-height: 50px;color: #89211b;font-size: 20px;}
 
         #miniplayer .miniitem {
             margin-bottom: 10px;
@@ -139,10 +120,10 @@
 </head>
 
 <body>
-    <header id="header">
-        <div class="egret-img" ><img src="../image/KM_Hfh.png" alt=""  onclick="goback()"></div>
-        <div class="egret-header-title">选择播放器</div>
-    </header>
+  <header class="egret-header topbar" id="header">
+     <div class="egret-header-title">选择播放器</div>
+     <div  class="egret-img"><img src="../image/KM_Hfh.png" alt="" onclick="goback()" ></div>
+ </header>
     <div id="miniplayer">
         <div class="miniitem">
             <div class="minitxt"><img src="../image/KM_phone.png" alt=""><span>手机</span></div>
@@ -178,7 +159,7 @@
 <script type="text/javascript">
     function goback(){
         api.closeWin({
-            name: 'choicePlayer'
+            name: "choicePlayer"
         });
     };
     apiready = function() {
