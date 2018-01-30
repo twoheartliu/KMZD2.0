@@ -26,6 +26,19 @@
             padding: 0 20px;
         }
 
+        .row {
+            display: -webkit-box;
+            display: -webkit-flex;
+        }
+
+        .col {
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+            margin: 0 5px;
+            position: relative;
+        }
+
         header {
             width: 100%;
             height: 50px;
@@ -91,7 +104,10 @@
             background-image: url(../image/KM_bottom.png);
             background-size: 100% 100%;
             margin-bottom: 40px;
+            position: relative;
         }
+        .footer_bottoms_st {text-align: center;line-height: 100px;height: 100px;}
+        .footer_bottoms_st img{width: 50px;height: 50px;padding-top: 25px;}
     </style>
 </head>
 
@@ -104,8 +120,10 @@
     <footer id="footer">
         <div class="p20px">
             <div class="aloud_frame_bg_bottom" onclick="fnSoundtrackWin()"></div>
-            <div class="footer_bottom">
-                <div class="footer_bottoms"><img src="../image/KM_ly.png" alt=""></div>
+            <div class="footer_bottom row">
+                <div class="footer_bottoms_st col"><img src="../image/KM_shiting.png" alt=""></div>
+                <div class="footer_bottoms col"><img src="../image/KM_ly.png" alt=""></div>
+                <div class="footer_bottoms_st col"><img src="../image/KM_baocun.png" alt=""></div>
             </div>
         </div>
     </footer>

@@ -22,10 +22,16 @@
         .p20px {
             padding: 0px 20px;
         }
+        .row {
+            display: -webkit-box;
+            display: -webkit-flex;
+        }
 
-        .clr {
-
-            overflow: hidden;
+        .col {
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+            position: relative;
         }
         .index_header{width: 100%;background-color: #fff;margin-bottom: 5px;}
         .index_header_div {width: 100%;position: relative;}
@@ -39,7 +45,7 @@
         .index_header_mvp_span{font-size: 12px;color: #808080;}
         .index_header_bor{border: 1px solid #ccc;width: 90px;height: 90px;margin: 0 auto;border-radius: 45px;position: relative;}
         .index_main {width: 100%;background-color: #fff;}
-        .index_main_h1{height: 50px;line-height: 50px;}
+        .index_main_h1{height: 50px;line-height: 50px;overflow: hidden;}
         .index_main_img img{width: 21px;height: 20px;padding: 15px 0;}
         .index_main_span{font-size: 16px;color: #999;margin-left: 6px;}
         .index_main_span span{font-size: 16px;color: #999;}
@@ -48,6 +54,7 @@
             display: -webkit-box;
             -webkit-box-align: center;
             height: 100px;
+            border-bottom: 1px solid #f2f2f2;
         }
         .egret-flex-item-logo {
             max-width: 80px;
@@ -75,52 +82,43 @@
             overflow: hidden;
             margin-top: 5px;
         }
-
-        .egret-flex-item-shelf .egret-flex-item-shelf01 .span1 {
-            font-size: 15px;
-            color:#000;
+        .egret-flex-item-shelf01 span{text-align: center;font-size: 15px;
+        color:#000;}
+        .egret-flex-item-shelf .egret-flex-item-shelf01 .span4 {
+          width: 50px;
+          height: 18px;
+          border: 1px solid red;
+          font-size: 14px;
+          color: red;
+          line-height: 18px;
+          border-radius: 5px;
+          text-align: center;
         }
-
-        .egret-flex-item-shelf .egret-flex-item-shelf01 .span2 {
-            font-size: 15px;
-            color: #ff3db8;
-            margin: 0 5px;
-        }
-        .egret-flex-item-shelf .egret-flex-item-shelf01 .span3 {
-            font-size: 14px;
-            color: #000;
-        }
-
         .egret-flex-item-shelf .egret-flex-item-shelf02 {
             font-size: 15px;
             color: #666;
         }
-
         .egret-flex-item-shelf .egret-flex-item-shelf02 span {
             font-size: 15px;
             color: #000;
         }
-
         .egret-flex-item-shelf03 div {
             float: left;
             line-height: 20px;
             margin: 5px 3px;
         }
-
         .egret-flex-item-shelf03 div img {
             width: 15px;
             height: 15px;
             line-height: 15px;
             margin: 0 3px;
         }
-
         .egret-flex-item-shelf03 div span {
             line-height: 18px;
             vertical-align: top;
             font-size:14px;
             color:#b2b2b2;
         }
-
         .egret-flex-item-shelf .egret-flex-item-redclassify {
             color: #E03F40;
             border: 1px solid #E03F40;
@@ -133,14 +131,8 @@
         .fmbtnhover {
             background: #D8D9DA;
         }
-        .hdivider {
-            width: 100%;
-            height: 1px;
-            background-color: #b2b2b2;
-        }
     </style>
 </head>
-
 <body>
   <div class="index_header">
       <div class="index_header_div">
@@ -160,27 +152,101 @@
         <div class="index_main_img fl"><img src="../image/vip/index_fbzp.png" alt=""></div>
         <b class="index_main_span fl">发表作品(<span>20</span>)</b>
       </div>
-      <div class="egret-flex-item" tapmode="fmbtnhover" onclick="openFM()">
-          <div class="egret-flex-item-logo">
+      <div class="egret-flex-item" tapmode="fmbtnhover" >
+          <div class="egret-flex-item-logo" onclick="openFM()">
               <img src="../image/frame0101cover/frame0101cover16.png" alt="" class="">
           </div>
           <div class="egret-flex-item-shelf">
-              <div class="egret-flex-item-shelf01">
-                  <span class="span1 fl">唐嫣</span>
-                  <span class="span2 iconfont icon-nv fl"></span>
-                  <img src="../image/js.png" alt="" class="fl">
-                  <span class="span3 fr">昨天21.30</span>
+              <div class="egret-flex-item-shelf01 row">
+                  <span class="span1 col">《沁园春·雪》</span>
+                  <span class="span2 iconfont icon-nv col">1.23</span>
+                  <span class="span3 col">11:36</span>
+                  <span class="span4 col" onclick="javascript:this.innerHTML=(this.innerHTML=='公开'?'不公开':'公开');">公开</span>
               </div>
-              <div class="egret-flex-item-shelf02">作品：<span>《沁园春·雪》</span></div>
               <div class="egret-flex-item-shelf03">
-                  <div><img src="../image/KM_qt.png" alt=""><span>100</span></div>
+                  <div><img src="../image/play_icon.png" alt=""><span>100</span></div>
                   <div><img src="../image/KM_dx.png" alt=""><span>100</span></div>
                   <div><img src="../image/KM_zf.png" alt=""><span>100</span></div>
                   <div><img src="../image/KM_dz.png" alt=""><span>100</span></div>
               </div>
           </div>
       </div>
-      <div class="hdivider"></div>
+      <div class="egret-flex-item" tapmode="fmbtnhover" >
+          <div class="egret-flex-item-logo" onclick="openFM()">
+              <img src="../image/frame0101cover/frame0101cover16.png" alt="" class="">
+          </div>
+          <div class="egret-flex-item-shelf">
+              <div class="egret-flex-item-shelf01 row">
+                  <span class="span1 col">《沁园春·雪》</span>
+                  <span class="span2 iconfont icon-nv col">1.23</span>
+                  <span class="span3 col">11:36</span>
+                  <span class="span4 col" onclick="javascript:this.innerHTML=(this.innerHTML=='公开'?'不公开':'公开');">公开</span>
+              </div>
+              <div class="egret-flex-item-shelf03">
+                  <div><img src="../image/play_icon.png" alt=""><span>100</span></div>
+                  <div><img src="../image/KM_dx.png" alt=""><span>100</span></div>
+                  <div><img src="../image/KM_zf.png" alt=""><span>100</span></div>
+                  <div><img src="../image/KM_dz.png" alt=""><span>100</span></div>
+              </div>
+          </div>
+      </div>
+      <div class="egret-flex-item" tapmode="fmbtnhover" >
+          <div class="egret-flex-item-logo" onclick="openFM()">
+              <img src="../image/frame0101cover/frame0101cover16.png" alt="" class="">
+          </div>
+          <div class="egret-flex-item-shelf">
+              <div class="egret-flex-item-shelf01 row">
+                  <span class="span1 col">《沁园春·雪》</span>
+                  <span class="span2 iconfont icon-nv col">1.23</span>
+                  <span class="span3 col">11:36</span>
+                  <span class="span4 col" onclick="javascript:this.innerHTML=(this.innerHTML=='公开'?'不公开':'公开');">公开</span>
+              </div>
+              <div class="egret-flex-item-shelf03">
+                  <div><img src="../image/play_icon.png" alt=""><span>100</span></div>
+                  <div><img src="../image/KM_dx.png" alt=""><span>100</span></div>
+                  <div><img src="../image/KM_zf.png" alt=""><span>100</span></div>
+                  <div><img src="../image/KM_dz.png" alt=""><span>100</span></div>
+              </div>
+          </div>
+      </div>
+      <div class="egret-flex-item" tapmode="fmbtnhover" >
+          <div class="egret-flex-item-logo" onclick="openFM()">
+              <img src="../image/frame0101cover/frame0101cover16.png" alt="" class="">
+          </div>
+          <div class="egret-flex-item-shelf">
+              <div class="egret-flex-item-shelf01 row">
+                  <span class="span1 col">《沁园春·雪》</span>
+                  <span class="span2 iconfont icon-nv col">1.23</span>
+                  <span class="span3 col">11:36</span>
+                  <span class="span4 col" onclick="javascript:this.innerHTML=(this.innerHTML=='公开'?'不公开':'公开');">公开</span>
+              </div>
+              <div class="egret-flex-item-shelf03">
+                  <div><img src="../image/play_icon.png" alt=""><span>100</span></div>
+                  <div><img src="../image/KM_dx.png" alt=""><span>100</span></div>
+                  <div><img src="../image/KM_zf.png" alt=""><span>100</span></div>
+                  <div><img src="../image/KM_dz.png" alt=""><span>100</span></div>
+              </div>
+          </div>
+      </div>
+      <div class="egret-flex-item" tapmode="fmbtnhover" >
+          <div class="egret-flex-item-logo" onclick="openFM()">
+              <img src="../image/frame0101cover/frame0101cover16.png" alt="" class="">
+          </div>
+          <div class="egret-flex-item-shelf">
+              <div class="egret-flex-item-shelf01 row">
+                  <span class="span1 col">《沁园春·雪》</span>
+                  <span class="span2 iconfont icon-nv col">1.23</span>
+                  <span class="span3 col">11:36</span>
+                  <span class="span4 col" onclick="javascript:this.innerHTML=(this.innerHTML=='公开'?'不公开':'公开');">公开</span>
+              </div>
+              <div class="egret-flex-item-shelf03">
+                  <div><img src="../image/play_icon.png" alt=""><span>100</span></div>
+                  <div><img src="../image/KM_dx.png" alt=""><span>100</span></div>
+                  <div><img src="../image/KM_zf.png" alt=""><span>100</span></div>
+                  <div><img src="../image/KM_dz.png" alt=""><span>100</span></div>
+              </div>
+          </div>
+      </div>
     </div>
   </div>
 </body>
