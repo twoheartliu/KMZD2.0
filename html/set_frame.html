@@ -113,18 +113,12 @@
             <div class="index_name_div border_b" onclick="">
                 <div class="p20px">
                     <div class="index_name_div_img fl"><img src="../image/index_wdcj.png" alt=""></div>
-                    <span class="index_name_div_span fl">摇一摇搜索</span>
-                    <div class="index_name_div_imgr fr" id="buttion"></div>
-                </div>
-            </div>
-            <div class="bg"></div>
-            <div class="index_name_div border_b" onclick="">
-                <div class="p20px">
-                    <div class="index_name_div_img fl"><img src="../image/index_wdcj.png" alt=""></div>
                     <span class="index_name_div_span fl">升级</span>
                     <div class="index_name_div_imgr fr"><img src="../image/index_y.png" alt=""></div>
                 </div>
             </div>
+            <div class="bg"></div>
+
             <div class="index_name_div border_b" onclick="">
                 <div class="p20px">
                     <div class="index_name_div_img fl"><img src="../image/index_wdcj.png" alt=""></div>
@@ -146,38 +140,5 @@
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
-    apiready = function() {
-      fnbuttion();
-    }
-
-    function fnbuttion() {
-        var switchBtn = api.require('UISwitchButton');
-        var buttion = $api.byId('buttion');
-        var buttionH = $api.offset(buttion);
-        switchBtn.open({
-            id: 'buttion',
-            state: true,
-            rect: {
-                x: api.frameWidth  - buttionH.w,
-                y: api.frameHeight - buttionH.h - 555,
-                w: 80,
-                h: 20
-            },
-            styles: {
-                bgCorner: 15,
-                active: '#EEE',
-                inActive: '#0F0',
-                thumb: {
-                    active: '#fff',
-                    inActive: '#fff',
-                    size: 30,
-                    corner: 15
-                }
-            },
-            fixedOn: '',
-            fixed: true
-        }, function(ret) {
-            JSON.stringify(ret);
-        });
-    }
+    apiready = function() {}
 </script>
