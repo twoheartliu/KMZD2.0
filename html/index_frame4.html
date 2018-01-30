@@ -9,139 +9,280 @@
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
     <link rel="stylesheet" type="text/css" href="../css/style.css" />
     <style>
-      html,body{background-color: #f2f2f2;}
-      .p20pxs{padding: 0 13px;}
-      .border_r{border-right: 1px dotted #ccc;}
-      .border_b{border-bottom: 1px solid #ccc;}
-      .fl{float: left;}
-      .fr{float: right;}
-      .index_header{width: 100%;background-color: #89211b;}
-      .index_header_div {width: 100%;height: 248px;position: relative;}
-      .index_header_img {width: 75px;margin: 0 auto;border-radius: 37.5px;}
-      .index_header_img img{width: 100%;}
-      .index_header_mvp {position: absolute;top: 20px;right: 37px;width: 74px;}
-      .index_header_mvp img{width: 100%;}
-      .wode_bg {width: 100%;height: 100px;background-image: url(../image/wode_bg.png);background-size: 100%;background-repeat: no-repeat;}
-      .wode_bg div{color: #fff;text-align: center;}
-      .index_header_mvp_p{font-size: 13px;}
-      .index_header_mvp_span{font-size: 12px;}
-      .p13px{padding: 0 13px;width: 100%;}
-      .index_header_bg{width: 100%;height: 70px;background-color: #f2f2f2;}
-      .row { width: 100%; border-radius: 10px;background: #fff;}
-      .index_header_san{width: 100%;height: 120px;position: absolute;bottom: 0;display: -webkit-box;display: -webkit-flex;display: flex;}
-      .index_header_sans{-webkit-box-flex: 1;-webkit-flex: 1;flex: 1;position: relative;text-align: center;line-height: 40px;}
-      .index_header_sans div span{color: red;}
-      .p20px{padding: 20px 0;display: flex; display: -webkit-box; display: -webkit-flex;height: 80px;}
-      .index_name{width: 100%;margin: 10px 0;}
-      .index_name_li{width: 100%;height: 91px;border-radius: 5px;background: #fff;}
-      .index_name_div{line-height: 45px;height: 45px;overflow: hidden;}
-      .index_name_div_img {height: 45px;line-height: 45px;}
-      .index_name_div_img img{width: 30px;height: 30px;padding: 7px;}
-      .index_name_div_imgr {height: 45px;line-height: 45px;}
-      .index_name_div_imgr img{width: 13px;height: 23px;padding: 11px;}
+        html,
+        body {
+            background-color: #f2f2f2;
+        }
+
+        .p20pxs {
+            padding: 0 13px;
+        }
+
+        .border_r {
+            border-right: 1px dotted #ccc;
+        }
+
+        .border_b {
+            border-bottom: 1px solid #ccc;
+        }
+
+        .fl {
+            float: left;
+        }
+
+        .fr {
+            float: right;
+        }
+
+        .index_header {
+            width: 100%;
+            background-color: #89211b;
+        }
+
+        .index_header_div {
+            width: 100%;
+            height: 248px;
+            position: relative;
+        }
+
+        .index_header_img {
+            width: 75px;
+            margin: 0 auto;
+            border-radius: 37.5px;
+        }
+
+        .index_header_img img {
+            width: 100%;
+        }
+
+        .index_header_mvp {
+            position: absolute;
+            top: 20px;
+            right: 37px;
+            width: 74px;
+        }
+
+        .index_header_mvp img {
+            width: 100%;
+        }
+
+        .wode_bg {
+            width: 100%;
+            height: 100px;
+            background-image: url(../image/wode_bg.png);
+            background-size: 100%;
+            background-repeat: no-repeat;
+        }
+
+        .wode_bg div {
+            color: #fff;
+            text-align: center;
+        }
+
+        .index_header_mvp_p {
+            font-size: 13px;
+        }
+
+        .index_header_mvp_span {
+            font-size: 12px;
+        }
+
+        .p13px {
+            padding: 0 13px;
+            width: 100%;
+        }
+
+        .index_header_bg {
+            width: 100%;
+            height: 70px;
+            background-color: #f2f2f2;
+        }
+
+        .row {
+            width: 100%;
+            border-radius: 10px;
+            background: #fff;
+        }
+
+        .index_header_san {
+            width: 100%;
+            height: 120px;
+            position: absolute;
+            bottom: 0;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+        }
+
+        .index_header_sans {
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+            position: relative;
+            text-align: center;
+            line-height: 40px;
+        }
+
+        .index_header_sans div span {
+            color: red;
+        }
+
+        .p20px {
+            padding: 20px 0;
+            display: flex;
+            display: -webkit-box;
+            display: -webkit-flex;
+            height: 80px;
+        }
+
+        .index_name {
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        .index_name_li {
+            width: 100%;
+            height: 91px;
+            border-radius: 5px;
+            background: #fff;
+        }
+
+        .index_name_div {
+            line-height: 45px;
+            height: 45px;
+            overflow: hidden;
+        }
+
+        .index_name_div_img {
+            height: 45px;
+            line-height: 45px;
+        }
+
+        .index_name_div_img img {
+            width: 30px;
+            height: 30px;
+            padding: 7px;
+        }
+
+        .index_name_div_imgr {
+            height: 45px;
+            line-height: 45px;
+        }
+
+        .index_name_div_imgr img {
+            width: 13px;
+            height: 23px;
+            padding: 11px;
+        }
     </style>
 </head>
+
 <body>
     <div class="index_header">
         <div class="index_header_div">
-          <div class="index_header_img"><img src="../image/KM_tx.png" alt=""></div>
-          <div class="wode_bg">
-              <div class="index_header_mvp_p">嘿！我不是朝天椒</div>
-              <div class="index_header_mvp_span">[ 学生 ]</div>
-          </div>
-          <div class="index_header_san">
-              <div class="p13px">
-                <div class="row">
-                  <div class="p20px">
-                    <div class="index_header_sans border_r">
-                      <div>学分</div>
-                      <div><span>123456</span>分</div>
+            <div class="index_header_img"><img src="../image/KM_tx.png" alt=""></div>
+            <div class="wode_bg">
+                <div class="index_header_mvp_p">嘿！我不是朝天椒</div>
+                <div class="index_header_mvp_span">[ 学生 ]</div>
+            </div>
+            <div class="index_header_san">
+                <div class="p13px">
+                    <div class="row">
+                        <div class="p20px">
+                            <div class="index_header_sans border_r">
+                                <div>学分</div>
+                                <div><span>123456</span>分</div>
+                            </div>
+                            <div class="index_header_sans border_r">
+                                <div>收到的赞</div>
+                                <div><span>9999</span>个赞</div>
+                            </div>
+                            <div class="index_header_sans" onclick="fnPersonalWin();">
+                                <div>我的作品</div>
+                                <div><span>9999</span>份</div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="index_header_sans border_r">
-                      <div>收到的赞</div>
-                      <div><span>9999</span>个赞</div>
-                    </div>
-                    <div class="index_header_sans" onclick="fnPersonalWin();">
-                      <div>我的作品</div>
-                      <div><span>9999</span>份</div>
-                    </div>
-                  </div>
                 </div>
-              </div>
-          </div>
-          <div class="index_header_bg"></div>
+            </div>
+            <div class="index_header_bg"></div>
         </div>
     </div>
     <div class="index_name">
         <div class="p20pxs">
-          <div class="index_name_li">
-            <div class="index_name_div border_b">
-              <div class="index_name_div_img fl"><img src="../image/index_wdcj.png" alt=""></div>
-              <span class="index_name_div_span fl">我的成就</span>
-              <div class="index_name_div_imgr fr"><img src="../image/index_y.png" alt=""></div>
+            <div class="index_name_li">
+                <div class="index_name_div border_b" onclick="dialogBox_alert2();">
+                    <div class="index_name_div_img fl"><img src="../image/index_wdcj.png" alt=""></div>
+                    <span class="index_name_div_span fl">我的成就</span>
+                    <div class="index_name_div_imgr fr"><img src="../image/index_y.png" alt=""></div>
+                </div>
+                <div class="index_name_div" onclick="fnCollectionWin();">
+                    <div class="index_name_div_img fl"><img src="../image/index_wdsc.png" alt=""></div>
+                    <span class="index_name_div_span fl">我的收藏</span>
+                    <div class="index_name_div_imgr fr"><img src="../image/index_y.png" alt=""></div>
+                </div>
             </div>
-            <div class="index_name_div" onclick="fnCollectionWin();">
-              <div class="index_name_div_img fl"><img src="../image/index_wdsc.png" alt=""></div>
-              <span class="index_name_div_span fl">我的收藏</span>
-              <div class="index_name_div_imgr fr"><img src="../image/index_y.png" alt=""></div>
-            </div>
-          </div>
         </div>
     </div>
     <div class="index_name">
         <div class="p20pxs">
-          <div class="index_name_li">
-            <div class="index_name_div border_b" onclick="openHistorys();">
-              <div class="index_name_div_img fl"><img src="../image/index_lsjl.png" alt=""></div>
-              <span class="index_name_div_span fl">历史记录</span>
-              <div class="index_name_div_imgr fr"><img src="../image/index_y.png" alt=""></div>
+            <div class="index_name_li">
+                <div class="index_name_div border_b" onclick="openHistorys();">
+                    <div class="index_name_div_img fl"><img src="../image/index_lsjl.png" alt=""></div>
+                    <span class="index_name_div_span fl">历史记录</span>
+                    <div class="index_name_div_imgr fr"><img src="../image/index_y.png" alt=""></div>
+                </div>
+                <div class="index_name_div" onclick="openMessage();">
+                    <div class="index_name_div_img fl"><img src="../image/index_wdtxl.png" alt=""></div>
+                    <span class="index_name_div_span fl">我的消息</span>
+                    <div class="index_name_div_imgr fr"><img src="../image/index_y.png" alt=""></div>
+                </div>
             </div>
-            <div class="index_name_div" onclick="openMessage();">
-              <div class="index_name_div_img fl"><img src="../image/index_wdtxl.png" alt=""></div>
-              <span class="index_name_div_span fl">我的消息</span>
-              <div class="index_name_div_imgr fr"><img src="../image/index_y.png" alt=""></div>
-            </div>
-          </div>
         </div>
     </div>
     <div class="index_name">
         <div class="p20pxs">
-          <div class="index_name_li">
-            <div class="index_name_div border_b">
-              <div class="index_name_div_img fl"><img src="../image/index_bzyfk.png" alt=""></div>
-              <span class="index_name_div_span fl">帮助与反馈</span>
-              <div class="index_name_div_imgr fr"><img src="../image/index_y.png" alt=""></div>
+            <div class="index_name_li">
+                <div class="index_name_div border_b">
+                    <div class="index_name_div_img fl"><img src="../image/index_bzyfk.png" alt=""></div>
+                    <span class="index_name_div_span fl">帮助与反馈</span>
+                    <div class="index_name_div_imgr fr"><img src="../image/index_y.png" alt=""></div>
+                </div>
+                <div class="index_name_div" onclick="fnSetWin();">
+                    <div class="index_name_div_img fl"><img src="../image/index_sz.png" alt=""></div>
+                    <span class="index_name_div_span fl">设置</span>
+                    <div class="index_name_div_imgr fr"><img src="../image/index_y.png" alt=""></div>
+                </div>
             </div>
-            <div class="index_name_div">
-              <div class="index_name_div_img fl"><img src="../image/index_sz.png" alt=""></div>
-              <span class="index_name_div_span fl">设置</span>
-              <div class="index_name_div_imgr fr"><img src="../image/index_y.png" alt=""></div>
-            </div>
-          </div>
         </div>
     </div>
 </body>
+
 </html>
 <script type="text/javascript">
-    apiready = function() {}
-    function fnPersonalWin() {
-      api.openWin({
-          name: 'personal',
-          url: './personal.html',
-          pageParam: {
-              name: 'test'
-          }
-      });
+    apiready = function() {
 
     }
+
+    function fnPersonalWin() {
+        api.openWin({
+            name: 'personal',
+            url: './personal.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
+
+    }
+
     function fnCollectionWin() {
-      api.openWin({
-          name: 'collection',
-          url: './collection.html',
-          pageParam: {
-              name: 'test'
-          }
-      });
+        api.openWin({
+            name: 'collection',
+            url: './collection.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
 
     }
     //打开消息页面
@@ -151,10 +292,69 @@
             url: './message.html',
         });
     };
+
     function openHistorys() {
         api.openWin({
             name: 'historys',
             url: './historys.html',
         });
     }
+
+    function dialogBox_alert2() {
+        var dialogBox = api.require('dialogBox');
+        dialogBox.alert({
+            texts: {
+                content: '您关闭了小助手的消息提醒，店主妹妹因联系不到您哭晕在厕所！',
+                leftBtnTitle: '默默拒绝',
+                rightBtnTitle: '去开提醒'
+            },
+            styles: {
+                bg: '#fff',
+                corner: 6,
+                w: 280,
+                content: {
+                    color: '#000',
+                    size: 18
+                },
+                left: {
+                    marginB: 15,
+                    marginL: 30,
+                    w: 100,
+                    h: 40,
+                    corner: 20,
+                    color: "#fff",
+                    bg: '#CDCDCD',
+                    size: 16
+                },
+                right: {
+                    marginB: 15,
+                    marginL: 20,
+                    w: 100,
+                    h: 40,
+                    corner: 20,
+                    color: "#fff",
+                    bg: '#C087C0',
+                    size: 16
+                }
+            },
+            tapClose: true
+        }, function(ret) {
+            if (ret.eventType == 'left') {
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+            }
+        });
+    }
+    function fnSetWin() {
+      api.openWin({
+          name: 'set',
+          url: './set.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
+
+    }
+
 </script>

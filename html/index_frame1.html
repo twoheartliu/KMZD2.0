@@ -40,7 +40,11 @@
             height: 30px;
             padding: 10px;
         }
-        .index_frame1_p{font-size: 15px;}
+
+        .index_frame1_p {
+            font-size: 15px;
+        }
+
         .index_frame1_span {
             color: #ccc;
             font-size: 20px;
@@ -50,7 +54,7 @@
 
 <body>
     <div class="bg"></div>
-    <div class="index_frame1">
+    <div class="index_frame1" onclick="dialogBox_alert2();">
         <div class="p20px">
             <img src="../image/KM_wd.png" alt="">
             <div class="index_frame1_p fl"> 社群 </div>
@@ -58,7 +62,7 @@
         </div>
     </div>
     <div class="bg"></div>
-    <div class="index_frame1">
+    <div class="index_frame1" onclick="dialogBox_alert2();">
         <div class="p20px">
             <img src="../image/KM_yx.png" alt="">
             <div class="index_frame1_p fl"> 游戏 </div>
@@ -66,7 +70,7 @@
         </div>
     </div>
     <div class="bg"></div>
-    <div class="index_frame1">
+    <div class="index_frame1" onclick="dialogBox_alert2();">
         <div class="p20px">
             <img src="../image/KM_hd.png" alt="">
             <div class="index_frame1_p fl"> 活动 </div>
@@ -81,21 +85,21 @@
         </div>
     </div>
     <div class="bg"></div>
-    <div class="index_frame1">
+    <div class="index_frame1" onclick="dialogBox_alert2();">
         <div class="p20px">
             <img src="../image/KM_FXgxjd.png" alt="">
             <div class="index_frame1_p fl"> 国学院 </div>
             <div class="index_frame1_span fr"> > </div>
         </div>
     </div>
-    <div class="index_frame1">
+    <div class="index_frame1" onclick="dialogBox_alert2();">
         <div class="p20px">
             <img src="../image/KM_xgjx.png" alt="">
             <div class="index_frame1_p fl"> 小国精选 </div>
             <div class="index_frame1_span fr"> > </div>
         </div>
     </div>
-    <div class="index_frame1">
+    <div class="index_frame1" onclick="dialogBox_alert2();">
         <div class="p20px">
             <img src="../image/KM_etxl.png" alt="">
             <div class="index_frame1_p fl"> 儿童心理 </div>
@@ -106,14 +110,62 @@
 
 </html>
 <script type="text/javascript">
-  function fnMachineWin() {
-    api.openWin({
-        name: 'machine',
-        url: './machine.html',
-        pageParam: {
-            name: 'test'
-        }
-    });
+    function fnMachineWin() {
+        api.openWin({
+            name: 'machine',
+            url: './machine.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
 
-  }
+    }
+
+    function dialogBox_alert2() {
+        var dialogBox = api.require('dialogBox');
+        dialogBox.alert({
+            texts: {
+                content: '敬请期待~~',
+                leftBtnTitle: '确定'
+                // rightBtnTitle: '去开提醒'
+            },
+            styles: {
+                bg: '#fff',
+                corner: 6,
+                w: 300,
+                content: {
+                    color: '#000',
+                    size: 18
+                },
+                left: {
+                    marginB: 15,
+                    marginL: 30,
+                    marginR: 30,
+                    w: 240,
+                    h: 40,
+                    corner: 20,
+                    color: "#fff",
+                    bg: '#CDCDCD',
+                    size: 16
+                }
+                // right: {
+                //     marginB: 15,
+                //     marginL: 20,
+                //     w: 300,
+                //     h: 40,
+                //     corner: 20,
+                //     color: "#ccc",
+                //     bg: '#f2f2f2',
+                //     size: 16
+                // }
+            },
+            tapClose: true
+        }, function(ret) {
+            if (ret.eventType == 'left') {
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+            }
+        });
+    }
 </script>
