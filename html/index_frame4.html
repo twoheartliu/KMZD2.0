@@ -7,7 +7,6 @@
     <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
     <title>我的</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
-    <link rel="stylesheet" type="text/css" href="../css/style.css" />
     <style>
         html,
         body {
@@ -180,7 +179,7 @@
 <body>
     <div class="index_header">
         <div class="index_header_div">
-            <div class="index_header_img"><img src="../image/KM_tx.png" alt=""></div>
+            <div class="index_header_img" onclick="fnUpimg();"><img src="../image/KM_tx.png" alt=""></div>
             <div class="wode_bg">
                 <div class="index_header_mvp_p">嘿！我不是朝天椒</div>
                 <div class="index_header_mvp_span">[ 学生 ]</div>
@@ -259,11 +258,15 @@
 </body>
 
 </html>
+<script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
     apiready = function() {
+      // 优化点击事件
+      api.parseTapmode();
+    }
+    function fnUpimg() {
 
     }
-
     function fnPersonalWin() {
         api.openWin({
             name: 'personal',

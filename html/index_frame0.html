@@ -235,33 +235,33 @@
     </div>
     <!-- 2 热门推荐 -->
     <div class="p20px">
-        <div class="sectionTitle" onclick="fnRecommendWin();">
+        <div class="sectionTitle">
             <span class="TD_div fl">听单推荐</span>
-            <span class="fr more">更多</span>
+            <span class="fr more" onclick="fnRecommendWin();">更多</span>
             <div class="clear"></div>
         </div>
         <div class="hot">
-            <div class="hotC" >
+            <div class="hotC" onclick="fnSingleWin();">
                 <img src="../image/frame0101cover/frame0101cover06.png" alt="" >
                 <div class="listtitle">经典诗歌</div>
             </div>
-            <div class="hotC" >
+            <div class="hotC" onclick="fnSingleWin();">
                 <img src="../image/frame0101cover/frame0101cover07.png" alt="" >
                 <div class="listtitle">经典诗歌</div>
             </div>
-            <div class="hotC" onclick="openMusicList()">
+            <div class="hotC" onclick="fnSingleWin()">
                 <img src="../image/frame0101cover/frame0101cover08.png" alt="" >
                 <div class="listtitle">经典诗歌</div>
             </div>
-            <div class="hotC" onclick="openMusicList()">
+            <div class="hotC" onclick="fnSingleWin()">
                 <img src="../image/frame0101cover/frame0101cover09.png" alt="" >
                 <div class="listtitle">经典诗歌</div>
             </div>
-            <div class="hotC" onclick="openMusicList()">
+            <div class="hotC" onclick="fnSingleWin()">
                 <img src="../image/frame0101cover/frame0101cover10.png" alt="" >
                 <div class="listtitle">经典诗歌</div>
             </div>
-            <div class="hotC" onclick="openMusicList()">
+            <div class="hotC" onclick="fnSingleWin()">
                 <img src="../image/frame0101cover/frame0101cover11.png" alt="" >
                 <div class="listtitle">经典诗歌</div>
             </div>
@@ -362,6 +362,16 @@
           hotCs.item(j).style.width = (frameWidth -40) /3 + "px";
           hotCs.item(j).style.height = (frameWidth -40) /3 * 1.224 + "px";
         };
+    }
+    function fnSingleWin() {
+      api.openWin({
+          name: 'single',
+          url: './single.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
+
     }
     function fnRecommendWin() {
       api.openWin({
