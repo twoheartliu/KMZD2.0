@@ -43,7 +43,7 @@ section ul li{width:100%;height:45px;padding: 5px 0;}
 <body>
   <section>
     <ul>
-      <li onclick="fnOpennotDetailFrame()">
+      <li onclick="fnOpennotDetail()">
         <div class="user-img"><img src="../image/icon-person.png" alt=""></div>
         <div class="user-name"><p><span class="user-tit">走不出胡同的猫</span><span>赞了你的评论</span></p>
           <p>不知道为什么分开，很多喜欢以为永远会喜欢，到最后才发现任何事情都抵不过时过境迁。</p>
@@ -77,16 +77,16 @@ section ul li{width:100%;height:45px;padding: 5px 0;}
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
-apiready = function (){
-}
-function fnOpennotDetailFrame(){
-  api.openWin({
-      name: 'messageNotDetailFrame',
-      url: './message_notDetail_frame.html',
-      pageParam: {
-          name: 'test'
-      }
-  });
-}
+  apiready = function (){
+  }
+  function fnOpennotDetail(){
+    api.openWin({
+        name: 'messageNoticeDetail',
+        url: './message_notice_detail.html',
+        pageParam: {
+            name: 'test'
+        }
+    });
+  }
 </script>
 </html>
