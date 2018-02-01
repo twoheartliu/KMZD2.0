@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>熏听</title>
+      <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+      <style>
+        /*body,html{
+          background-color: #f2f2f2;
+          background-image: url(../image/KM_listen_bg.png);
+          background-size: cover;
+          background-repeat: no-repeat;
+        }*/
+        .wrap{
+          background-image: url(../image/KM_listen_bg.png);
+          background-size: cover;
+          background-repeat: no-repeat;
+        }
+        nav{
+          width:100%;
+          text-align: center;
+        }
+        .video-play{
+          padding-top: 145px;
+        }
+        .table-img{
+          margin-top: -30px;
+        }
+        .table-img img{
+          width:100%;
+          height:auto;
+        }
+        .bottom-img{
+          background-image : url(../image/bottom.png);
+          background-repeat: no-repeat;
+          background-size: contain;
+          width:260px;
+          height:260px;
+          margin: 0 auto;
+          position: relative;
+        }
+        .video{
+          width:190px;
+          height:190px;
+          position: absolute;
+          top: 34px;
+          left: 27px;
+        }
+        .video>img{
+          width:190px;
+        }
+        .play{
+          padding:10px 0;
+        }
+        .play>img{
+          width:72%;
+          line-height: 40px;
+        }
+        .play>span{
+          font-size: 14px;
+          color:#fff;
+          vertical-align: bottom;
+          line-height: 40px;
+          width:8%;
+          text-align: center;
+        }
+        section{
+          display: flex;
+          display: -webkit-flex;
+          display: -webkit-box;
+
+        }
+        .item-sort{
+          flex:1;
+          -webkit-flex:1;
+          -webkit-box-flex:1;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: contain;
+          text-align: center;
+          line-height: 95px;
+        }
+        @-webkit-keyframes rotation{
+          from {-webkit-transform: rotate(0deg);}
+          to {-webkit-transform: rotate(360deg);}
+        }
+        .Rotation{
+          -webkit-transform: rotate(360deg);
+          animation: rotation 3s linear infinite;
+          -moz-animation: rotation 3s linear infinite;
+          -webkit-animation: rotation 3s linear infinite;
+          -o-animation: rotation 3s linear infinite;
+        }
+        #slider{
+          height: 40px;
+          display: inline-block;
+          text-align: center;
+          /*position: relative;*/
+          /*margin: 0 10px;*/
+         }
+    		#slider span{
+    			/*position: absolute;
+          bottom: 0;*/
+          font-size: 12px;
+          color: #ccc;
+    		}
+    		#slider .s{
+    			left: 10px;
+    		}
+    		#slider .e{
+    			right: 10px;
+    		}
+      </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <nav id="nav">
+        <div class="video-play" >
+          <div class="bottom-img">
+            <div class="video" >
+              <img src="../image/pan.png" alt="" class=" " id="video">
+            </div>
+          </div>
+          <div class="table-img">
+            <img src="../image/table.png" alt="">
+          </div>
+        </div>
+        <div class="play">
+          <span class="playTime">1.46</span>
+          <!-- <span id="slider"></span> -->
+          <img src="../image/KM_play.png" alt="" >
+          <span class="playTime">3.46</span>
+        </div>
+      <!-- <div id="slider">
+    		<span class="s">13:00:00</span>
+    		<span class="e">14:00:00</span>
+    	</div> -->
+      </nav>
+      <section>
+        <div class="item-sort">
+          <img src="../image/delete.png" alt="">
+        </div>
+        <div class="item-sort">
+          <img src="../image/collect.png" alt=""  onclick="fnOpenCollect();" id="collect">
+        </div>
+        <div class="item-sort">
+          <img src="../image/play.png" alt="" onclick="fnOpenPlayButton();" id="playButton">
+        </div>
+        <div class="item-sort">
+          <img src="../image/next.png" alt="">
+        </div>
+        <div class="item-sort">
+          <img src="../image/discuss.png" alt="" onclick="fnOpenPlayDiscuss();">
+        </div>
+      </section>
+    </div>
+  </body>
+  <script type="text/javascript" src="../script/api.js"></script>
+  <script type="text/javascript">
+    apiready = function(){
+    }
+    //播放
+    function fnOpenPlayButton(){
+      var playButton = $api.byId('playButton');
+      var video = $api.byId('video');
+      if(playButton.getAttribute("src",2)=="../image/play.png"){
+        playButton.src="../image/playing.png";
+        $api.addCls(video, 'Rotation');
+      }else{
+        playButton.src="../image/play.png";
+        $api.removeCls(video, 'Rotation');
+      }
+    }
+    // 收藏
+    function fnOpenCollect(){
+      var collect = $api.byId('collect');
+      if(collect.getAttribute("src",2)=="../image/collect.png"){
+        collect.src="../image/collect1.png";
+      }else{
+        collect.src="../image/collect.png";
+      }
+    };
+    // 打开评论页面
+    function fnOpenPlayDiscuss(){
+      api.openWin({
+        name: 'playDiscuss',
+        url: './play_discuss.html',
+      })
+    }
+  </script>
+  </html>
