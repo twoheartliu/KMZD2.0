@@ -102,33 +102,33 @@
     <div class="index_name">
         <div class="index_name_li">
             <div class="bg"></div>
-            <div class="index_name_div border_b" onclick="">
+            <div class="index_name_div border_b" onclick="fnAiVoiceWin();">
                 <div class="p20px">
-                    <div class="index_name_div_img fl"><img src="../image/index_wdcj.png" alt=""></div>
+                    <div class="index_name_div_img fl"><img src="../image/tj.png" alt=""></div>
                     <span class="index_name_div_span fl">添加国学机</span>
                     <div class="index_name_div_imgr fr"><img src="../image/index_y.png" alt=""></div>
                 </div>
             </div>
             <div class="bg"></div>
-            <div class="index_name_div border_b" onclick="">
+            <div class="index_name_div border_b" onclick="dialogBox_alert2();">
                 <div class="p20px">
-                    <div class="index_name_div_img fl"><img src="../image/index_wdcj.png" alt=""></div>
+                    <div class="index_name_div_img fl"><img src="../image/sj.png" alt=""></div>
                     <span class="index_name_div_span fl">升级</span>
                     <div class="index_name_div_imgr fr"><img src="../image/index_y.png" alt=""></div>
                 </div>
             </div>
             <div class="bg"></div>
 
-            <div class="index_name_div border_b" onclick="">
+            <div class="index_name_div border_b" onclick="dialogBox_alert3();">
                 <div class="p20px">
-                    <div class="index_name_div_img fl"><img src="../image/index_wdcj.png" alt=""></div>
+                    <div class="index_name_div_img fl"><img src="../image/qcls.png" alt=""></div>
                     <span class="index_name_div_span fl">清除历史</span>
                     <div class="index_name_div_imgr fr"><img src="../image/index_y.png" alt=""></div>
                 </div>
             </div>
-            <div class="index_name_div border_b" onclick="">
+            <div class="index_name_div border_b" onclick="dialogBox_alert4();">
                 <div class="p20px">
-                    <div class="index_name_div_img fl"><img src="../image/index_wdcj.png" alt=""></div>
+                    <div class="index_name_div_img fl"><img src="../image/tc.png" alt=""></div>
                     <span class="index_name_div_span fl">退出</span>
                     <div class="index_name_div_imgr fr"><img src="../image/index_y.png" alt=""></div>
                 </div>
@@ -141,4 +141,122 @@
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
     apiready = function() {}
+    function fnAiVoiceWin() {
+      api.openWin({
+          name: 'aiVoice',
+          url: './ai_voice.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
+
+    }
+    function dialogBox_alert4() {
+        var dialogBox = api.require('dialogBox');
+        dialogBox.alert({
+            texts: {
+                content: '退出成功！！',
+                leftBtnTitle: '确定'
+            },
+            styles: {
+                bg: '#fff',
+                corner: 6,
+                w: 300,
+                content: {
+                    color: '#000',
+                    size: 18
+                },
+                left: {
+                    marginB: 15,
+                    marginL: 30,
+                    marginR: 30,
+                    w: 240,
+                    h: 40,
+                    corner: 20,
+                    color: "#fff",
+                    bg: '#CDCDCD',
+                    size: 16
+                }
+            },
+            tapClose: true
+        }, function(ret) {
+            if (ret.eventType == 'left') {
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+            }
+        });
+    }
+    function dialogBox_alert3() {
+        var dialogBox = api.require('dialogBox');
+        dialogBox.alert({
+            texts: {
+                content: '清除成功',
+                leftBtnTitle: '确定'
+            },
+            styles: {
+                bg: '#fff',
+                corner: 6,
+                w: 300,
+                content: {
+                    color: '#000',
+                    size: 18
+                },
+                left: {
+                    marginB: 15,
+                    marginL: 30,
+                    marginR: 30,
+                    w: 240,
+                    h: 40,
+                    corner: 20,
+                    color: "#fff",
+                    bg: '#CDCDCD',
+                    size: 16
+                }
+            },
+            tapClose: true
+        }, function(ret) {
+            if (ret.eventType == 'left') {
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+            }
+        });
+    }
+    function dialogBox_alert2() {
+        var dialogBox = api.require('dialogBox');
+        dialogBox.alert({
+            texts: {
+                content: '当前版本最高',
+                leftBtnTitle: '确定'
+            },
+            styles: {
+                bg: '#fff',
+                corner: 6,
+                w: 300,
+                content: {
+                    color: '#000',
+                    size: 18
+                },
+                left: {
+                    marginB: 15,
+                    marginL: 30,
+                    marginR: 30,
+                    w: 240,
+                    h: 40,
+                    corner: 20,
+                    color: "#fff",
+                    bg: '#CDCDCD',
+                    size: 16
+                }
+            },
+            tapClose: true
+        }, function(ret) {
+            if (ret.eventType == 'left') {
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+            }
+        });
+    }
 </script>
