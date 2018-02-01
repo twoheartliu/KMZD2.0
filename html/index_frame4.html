@@ -192,13 +192,13 @@
                                 <div>学分</div>
                                 <div><span>123456</span>分</div>
                             </div>
-                            <div class="index_header_sans border_r">
-                                <div>收到的赞</div>
-                                <div><span>9999</span>个赞</div>
+                            <div class="index_header_sans border_r" onclick="fnOpenMyCare();">
+                                <div>关注</div>
+                                <div><span>9999</span>个</div>
                             </div>
                             <div class="index_header_sans" onclick="fnPersonalWin();">
-                                <div>我的作品</div>
-                                <div><span>9999</span>份</div>
+                                <div>作品</div>
+                                <div><span>9999</span>个</div>
                             </div>
                         </div>
                     </div>
@@ -286,6 +286,17 @@
                 name: 'test'
             }
         });
+
+    }
+    //打开关注页面
+    function fnOpenMyCare(){
+      api.openWin({
+          name: 'myCare',
+          url: './my_care.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
 
     }
     //打开消息页面
