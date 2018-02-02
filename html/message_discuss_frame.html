@@ -25,7 +25,7 @@ html,body {min-height: 100%;background: #ebebeb}
 .swiper-container img {width: 100%;}
 /* 头部 */
 .nomessage {margin-top: 20px;font-size: 0.8em;text-align: center;color: #999;}
-section{border-top: 1px solid #ccc;margin-top: 10px;}
+section{border-top: 1px solid #ccc;}
 section>ul{margin: 0 10px;}
 section ul li{width:100%;padding: 10px 0;}
 /*section ul li:nth-last-child(1){border-bottom: 1px solid #ccc;}*/
@@ -35,24 +35,25 @@ section ul li{width:100%;padding: 10px 0;}
 .user-name p:nth-child(2){color: #535354;}
 .discuss{height: auto;padding: 10px;background-color: #f2f2f3;color: #999;border-radius: 5px;}
 .user-name p:nth-last-child(1){font-size: 12px;position: absolute;top: 0;right: 0;width:92px;color: #999;}
-#reply{display:none;}
+.reply{display:none;}
 .replyButton{width:100%;height:30px;text-align: right;padding-bottom: 10px;}
 .replySend{width: 50px;height: 30px;line-height: 30px;border-radius: 5px;text-align: center;
   background-color: #89211b;color:#FFF;}
-#reply textarea{background-color: #fff;}
+.reply textarea{background-color: #fff;}
 textarea:focus{outline-color: #fff;background-color: #fff;}
+button:focus{outline: none;}
 </style>
 </head>
 <body>
-  <section>
+  <section id="section">
     <ul>
       <li>
         <div class="user-img"><img src="../image/icon-person.png" alt=""></div>
         <div class="user-name"><p>云儿123</p>
-          <p onclick="fnOpendiscussFrame()" >回复我：时间就是最好的良药。</p>
-          <div class="reply" id="reply">
-            <textarea name="name" rows="6" cols="45" id="replyValue"></textarea>
-            <div class="replyButton" id="replySend" onclick="fnOpensendFrame()">
+          <p class="replyCont" >回复我：时间就是最好的良药。</p>
+          <div class="reply" >
+            <textarea name="name" rows="6" cols="45" class="replyValue"></textarea>
+            <div class="replyButton" >
               <button class="replySend" >发送</button></div>
           </div>
           <div class="discuss">
@@ -64,10 +65,10 @@ textarea:focus{outline-color: #fff;background-color: #fff;}
       <li>
         <div class="user-img"><img src="../image/icon-person.png" alt=""></div>
         <div class="user-name"><p>云儿123</p>
-          <p onclick="fnOpendiscussFrame()" >回复我：时间就是最好的良药。</p>
-          <div class="reply" id="reply">
-            <textarea name="name" rows="6" cols="40" id="replyValue"></textarea>
-            <div class="replyButton" id="replySend" onclick="fnOpensendFrame()">
+          <p class="replyCont" >回复我：时间就是最好的良药。</p>
+          <div class="reply" >
+            <textarea name="name" rows="6" cols="40" class="replyValue"></textarea>
+            <div class="replyButton" >
               <button class="replySend" >发送</button></div>
           </div>
           <div class="discuss">
@@ -79,10 +80,10 @@ textarea:focus{outline-color: #fff;background-color: #fff;}
       <li>
         <div class="user-img"><img src="../image/icon-person.png" alt=""></div>
         <div class="user-name"><p>云儿123</p>
-          <p onclick="fnOpendiscussFrame()" >回复我：时间就是最好的良药。</p>
-          <div class="reply" id="reply">
-            <textarea name="name" rows="6" cols="40" id="replyValue"></textarea>
-            <div class="replyButton" id="replySend" onclick="fnOpensendFrame()">
+          <p class="replyCont" >回复我：时间就是最好的良药。</p>
+          <div class="reply" >
+            <textarea name="name" rows="6" cols="40" class="replyValue"></textarea>
+            <div class="replyButton">
               <button class="replySend" >发送</button></div>
           </div>
           <div class="discuss">
@@ -94,11 +95,11 @@ textarea:focus{outline-color: #fff;background-color: #fff;}
       <li>
         <div class="user-img"><img src="../image/icon-person.png" alt=""></div>
         <div class="user-name"><p>云儿123</p>
-          <p onclick="fnOpendiscussFrame()" >回复我：时间就是最好的良药。</p>
-          <div class="reply" id="reply">
-            <textarea name="name" rows="6" cols="40" id="replyValue"></textarea>
-            <div class="replyButton" id="replySend" onclick="fnOpensendFrame()">
-              <button class="replySend" >发送</button></div>
+          <p class="replyCont" >回复我：时间就是最好的良药。</p>
+          <div class="reply" >
+            <textarea name="name" rows="6" cols="40" class="replyValue"></textarea>
+            <div class="replyButton"  >
+              <button class="replySend">发送</button></div>
           </div>
           <div class="discuss">
             <span>我的评论：不知道为什么分开，很多喜欢以为永远会喜欢，到最后才发现任何事情都抵不过时过境迁。</span>
@@ -135,17 +136,54 @@ textarea:focus{outline-color: #fff;background-color: #fff;}
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
   apiready = function (){
+    fnOpenUserButton();
+    fnOpensendFrame();
   }
-  function fnOpendiscussFrame(){
-    ereply = $api.byId('reply');
-    ereply.style.display='block';
-
+  function fnOpenUserButton() {
+    var section = document.getElementById('section');
+    var ul_lis = section.getElementsByClassName('replyCont');
+    var reply = section.getElementsByClassName('reply');
+    for (var i = 0; i < ul_lis.length; i++) {
+        ul_lis[i].index = i;
+        ul_lis[i].onclick = function() {
+            var j = this.index;
+            reply[j].style.display = (reply[j].style.display =='block'?'none':'block');
+            // $api.addCls(ul_lis[j], 'active');
+            // ul_lis[j].innerHTML="已关注"
+        }
+    }
   }
   function fnOpensendFrame(){
-    ereply = $api.byId('reply');
-    replyValue = $api.byId('replyValue');
-    ereply.style.display='none';
-    replyValue.value= " ";
-  }
+    var section = document.getElementById('section');
+    var replyValue = section.getElementsByClassName('replyValue');
+    var reply = section.getElementsByClassName('reply');
+    var replySend = section.getElementsByClassName('replySend');
+    for (var i = 0; i < replySend.length; i++) {
+        replySend[i].index = i;
+        replySend[i].onclick = function() {
+            var j = this.index;
+            reply[j].style.display='none';
+            replyValue[j].value= " ";
+            // $api.addCls(ul_lis[j], 'active');
+            // ul_lis[j].innerHTML="已关注"
+        }
+    }
+  //   ereply = $api.byId('reply');
+  //   replyValue = $api.byId('replyValue');
+  //   ereply.style.display='none';
+  //   replyValue.value= " ";
+   }
+  // function fnOpendiscussFrame(){
+  //
+  //   ereply = $api.byId('reply');
+  //   ereply.style.display='block';
+  //
+  // }
+  // function fnOpensendFrame(){
+  //   ereply = $api.byId('reply');
+  //   replyValue = $api.byId('replyValue');
+  //   ereply.style.display='none';
+  //   replyValue.value= " ";
+  // }
 </script>
 </html>

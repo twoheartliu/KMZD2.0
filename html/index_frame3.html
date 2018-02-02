@@ -96,26 +96,31 @@
 
         nav ul li {
             width: 100%;
-            height: 50px;
-            padding: 10px 0;
+            height: 70px;
+            padding: 10px 0 0;
+            border-bottom: 1px solid #ccc;
+            /*padding-bottom: 5px;*/
         }
         /*section ul li:nth-last-child(1){border-bottom: 1px solid #ccc;}*/
-
+        .user-detail{
+          display: inline-block;
+          width:78%;
+        }
         .user-img {
             width: 40px;
-            height: 50px;
-            line-height: 50px;
+            height: 70px;
+            line-height: 70px;
             display: inline-block;
+            vertical-align: middle;
         }
 
         .user-name {
-            height: 50px;
+            height:70px;
             display: inline-block;
-            vertical-align: top;
-            position: relative;
-            width: 85%;
-            border-bottom: 1px solid #ccc;
-            padding-bottom: 5px;
+            vertical-align: bottom;
+            width: 80%;
+            /*border-bottom: 1px solid #ccc;
+            padding-bottom: 5px;*/
         }
 
         .user-name p {
@@ -125,21 +130,23 @@
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
+            line-height: 16px;
         }
 
         .user-name p:nth-child(2) {
             font-size: 14px;
             margin-top: 5px;
-            color: #999;
+            color: #ccc;
         }
+        .user-name p:nth-child(3){font-size: 14px;margin-top: 5px;color: #ccc;}
         /*.user-name p:nth-last-child(1){font-size: 12px;width:92px;color: #999;float:right;}*/
-
+        .user-name p>span{margin-right: 10px;vertical-align: top;}
         .user-button {
-            position: absolute;
-            top: 0px;
-            right: 10px;
             width: 60px;
-            height: 50px;
+            height: 70px;
+            line-height: 70px;
+            text-align: center;
+            display: inline-block;
         }
 
         .user-button button {
@@ -151,6 +158,7 @@
             margin: 0 auto;
             background-color: #89211b;
             color: #fff;
+            font-size: 14px;
         }
 
         .user-button button:focus {
@@ -165,46 +173,141 @@
             text-align: center;
             margin: 0 auto;
             background-color: #f2f2f2;
-            color: #fff;
+            color: #CCC;
+            font-size: 14px;
         }
     </style>
 </head>
 
 <body>
-    <nav id="test">
+    <nav id="nav">
         <ul>
             <li>
+              <div class="user-detail" onclick="fnOpenmyPersonal();">
                 <div class="user-img"><img src="../image/icon-person.png" alt=""></div>
                 <div class="user-name">
                     <p>走不出胡同的猫</p>
                     <p>注册时间：2017年12月30日</p>
-                    <div class="user-button">
-                        <button class="userButton" tapmode onclick=";">关注</button>
-                    </div>
+                    <p>
+                      <img src="../image/product.png" alt=""><span>180</span>
+                      <img src="../image/morepeople.png" alt=""><span>180</span>
+                    </p>
+                </div>
+              </div>
+                <div class="user-button">
+                    <button class="userButton" >加关注</button>
                 </div>
             </li>
             <li>
+              <div class="user-detail" onclick="fnOpenmyPersonal();">
                 <div class="user-img"><img src="../image/icon-person.png" alt=""></div>
                 <div class="user-name">
                     <p>走不出胡同的猫</p>
                     <p>注册时间：2017年12月30日</p>
-                    <div class="user-button"><button class="userButton" tapmode onclick=";">关注</button></div>
+                    <p>
+                      <img src="../image/product.png" alt=""><span>180</span>
+                      <img src="../image/morepeople.png" alt=""><span>180</span>
+                    </p>
+                </div>
+              </div>
+                <div class="user-button">
+                    <button class="userButton" >加关注</button>
                 </div>
             </li>
             <li>
+              <div class="user-detail" onclick="fnOpenmyPersonal();">
                 <div class="user-img"><img src="../image/icon-person.png" alt=""></div>
                 <div class="user-name">
                     <p>走不出胡同的猫</p>
                     <p>注册时间：2017年12月30日</p>
-                    <div class="user-button"><button class="userButton" tapmode onclick="">关注</button></div>
+                    <p>
+                      <img src="../image/product.png" alt=""><span>180</span>
+                      <img src="../image/morepeople.png" alt=""><span>180</span>
+                    </p>
+                </div>
+              </div>
+                <div class="user-button">
+                    <button class="userButton" >加关注</button>
                 </div>
             </li>
             <li>
+              <div class="user-detail" onclick="fnOpenmyPersonal();">
                 <div class="user-img"><img src="../image/icon-person.png" alt=""></div>
                 <div class="user-name">
                     <p>走不出胡同的猫</p>
                     <p>注册时间：2017年12月30日</p>
-                    <div class="user-button"><button class="userButton" tapmode onclick=";">关注</button></div>
+                    <p>
+                      <img src="../image/product.png" alt=""><span>180</span>
+                      <img src="../image/morepeople.png" alt=""><span>180</span>
+                    </p>
+                </div>
+              </div>
+                <div class="user-button" onclick="fnOpenmyPersonal();">
+                    <button class="userButton" >加关注</button>
+                </div>
+            </li>
+            <li>
+              <div class="user-detail">
+                <div class="user-img"><img src="../image/icon-person.png" alt=""></div>
+                <div class="user-name">
+                    <p>走不出胡同的猫</p>
+                    <p>注册时间：2017年12月30日</p>
+                    <p>
+                      <img src="../image/product.png" alt=""><span>180</span>
+                      <img src="../image/morepeople.png" alt=""><span>180</span>
+                    </p>
+                </div>
+              </div>
+                <div class="user-button">
+                    <button class="userButton" >加关注</button>
+                </div>
+            </li>
+            <li>
+              <div class="user-detail" onclick="fnOpenmyPersonal();">
+                <div class="user-img"><img src="../image/icon-person.png" alt=""></div>
+                <div class="user-name">
+                    <p>走不出胡同的猫</p>
+                    <p>注册时间：2017年12月30日</p>
+                    <p>
+                      <img src="../image/product.png" alt=""><span>180</span>
+                      <img src="../image/morepeople.png" alt=""><span>180</span>
+                    </p>
+                </div>
+              </div>
+                <div class="user-button">
+                    <button class="userButton" >加关注</button>
+                </div>
+            </li>
+            <li>
+              <div class="user-detail" onclick="fnOpenmyPersonal();">
+                <div class="user-img"><img src="../image/icon-person.png" alt=""></div>
+                <div class="user-name">
+                    <p>走不出胡同的猫</p>
+                    <p>注册时间：2017年12月30日</p>
+                    <p>
+                      <img src="../image/product.png" alt=""><span>180</span>
+                      <img src="../image/morepeople.png" alt=""><span>180</span>
+                    </p>
+                </div>
+              </div>
+                <div class="user-button">
+                    <button class="userButton" >加关注</button>
+                </div>
+            </li>
+            <li>
+              <div class="user-detail" onclick="fnOpenmyPersonal();">
+                <div class="user-img"><img src="../image/icon-person.png" alt=""></div>
+                <div class="user-name">
+                    <p>走不出胡同的猫</p>
+                    <p>注册时间：2017年12月30日</p>
+                    <p>
+                      <img src="../image/product.png" alt=""><span>180</span>
+                      <img src="../image/morepeople.png" alt=""><span>180</span>
+                    </p>
+                </div>
+              </div>
+                <div class="user-button">
+                    <button class="userButton" >加关注</button>
                 </div>
             </li>
             <!-- <li>
@@ -221,27 +324,29 @@
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
     apiready = function() {
-        // window.onload = function() {
-        var ul = document.getElementById('test');
-        var ul_lis = ul.getElementsByClassName('userButton');
-        for (var i = 0; i < ul_lis.length; i++) {
-            ul_lis[i].index = i;
-            ul_lis[i].onclick = function() {
-                var j = this.index;
-                $api.addCls(ul_lis[j], 'active');
-                ul_lis[j].innerHTML="已关注"
-            }
-        }
-        // };
+        fnOpenUserButton();
     }
+    function fnOpenmyPersonal(){
+      api.openWin({
+          name: 'myPersonal',
+          url: './my_personal.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
 
+    };
     function fnOpenUserButton() {
-        // var userButton = $api.byId('userButton');
-        // var userButton = $api.domAll('.userButton');
-        //  var userButton = $api.hasCls('userButton');
-        //   $api.addCls(userButton , 'active');
-        //   userButton.innerHTML = "已关注";
-
+      var nav = document.getElementById('nav');
+      var ul_lis = nav.getElementsByClassName('userButton');
+      for (var i = 0; i < ul_lis.length; i++) {
+          ul_lis[i].index = i;
+          ul_lis[i].onclick = function() {
+              var j = this.index;
+              $api.addCls(ul_lis[j], 'active');
+              ul_lis[j].innerHTML="已关注"
+          }
+      }
     }
 </script>
 

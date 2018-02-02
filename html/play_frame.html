@@ -23,12 +23,12 @@
           .swiper-container{
             width: 100%;
             text-align: center;
-            height: 350px;
-            line-height: 350px;
+            height: 250px;
+            line-height: 250px;
           }
           .swiper-container img {
               width: 240px;
-              margin-top: 50px;
+              /*margin-top: 50px;*/
           }
 
           /*nav*/
@@ -94,14 +94,16 @@
             flex: 1;
             text-align: center;
           }
+          .select .item-icon>p{
+            font-size: 14px;
+            color: #999;
+          }
           .play-len{
             padding: 10px;
             text-align: center;
           }
-          .play-len img{
-            /*width:72%;*/
-            width:100%;
-            line-height: 40px;
+          .play-len input{
+            width:75%;
             vertical-align: middle;
           }
           .play-len>span{
@@ -116,14 +118,7 @@
             width: 75%;
             position: relative;
           }
-          .gary-line{
-            width:90%;
-            height:2px;
-            background-color: #d1a019;
-            position: absolute;
-            top: 45%;
-            left: 5%;
-          }
+
           /*banner*/
           banner{
             display: flex;
@@ -220,12 +215,15 @@
         <div class="select">
           <div class="item-icon">
             <img src="../image/play_list.png" alt=""  onclick="openRadioList()" id="play-list">
+            <p>播放列表</p>
           </div>
           <div class="item-icon">
             <img src="../image/play_collect.png" alt="" id="playCollect" onclick="fnOpenPlayCollect();">
+            <p>收藏</p>
           </div>
           <div class="item-icon">
             <img src="../image/play_discuss.png" alt="" onclick="fnOpenPlayDiscuss();" >
+            <p>评论</p>
           </div>
 
           <!-- <div class="item-icon" id="imgBox">
@@ -237,10 +235,11 @@
         </div>
         <div class="play-len" >
           <span >1.46</span>
-          <div class="length">
-            <img src="../image/play_len.png" alt="">
-            <div class="gary-line"></div>
-          </div>
+          <!-- <div class="length"> -->
+            <!-- <img src="../image/play_len.png" alt=""> -->
+          <input type="range" value="0" name="" id="range">
+          <!-- <progress max="100" value="0" id="pg"></progress> -->
+          <!-- </div> -->
           <span >3.46</span>
         </div>
       </nav>
@@ -326,6 +325,11 @@
   		    }
   		});
   	}
+
+    //滑块
+    function slider(){
+
+    }
     // 切换单曲循环、顺序播放、随机播放
     function fnOpenChangeImg(){
       var image_urls = [ "../image/play_change0.png", "../image/play_change1.png", "../image/play_change2.png"];
