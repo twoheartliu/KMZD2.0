@@ -213,13 +213,13 @@
         <!-- 轮播图 -->
       <div class="swiper-container">
           <div class="swiper-wrapper">
-              <div class="swiper-slide">
+              <div class="swiper-slide" onclick="fnMachineXiangqingWin();">
                   <img src="../image/frame0101cover/frame0101cover01.jpg" alt="">
               </div>
-              <div class="swiper-slide">
+              <div class="swiper-slide" onclick="fnMachineXiangqingWin();">
                   <img src="../image/frame0101cover/frame0101cover02.jpg" alt="">
               </div>
-              <div class="swiper-slide">
+              <div class="swiper-slide" onclick="fnMachineXiangqingWin();">
                   <img src="../image/frame0101cover/frame0101cover03.jpg" alt="">
               </div>
           </div>
@@ -433,6 +433,16 @@
           name: 'play',
           url: './play.html',
       });
+
+    }
+    function fnMachineXiangqingWin() {
+        api.openWin({
+            name: 'machine_xiangqing',
+            url: './machine_xiangqing.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
 
     }
 </script>

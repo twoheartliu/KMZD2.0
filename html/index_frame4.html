@@ -179,7 +179,7 @@
 <body>
     <div class="index_header">
         <div class="index_header_div">
-            <div class="index_header_img" onclick="fnUpimg();"><img src="../image/KM_tx.png" alt=""></div>
+            <div id="imgs" class="index_header_img" onclick="fnUpimg();"><img src="../image/KM_tx.png" alt=""></div>
             <div class="wode_bg">
                 <div class="index_header_mvp_p">嘿！我不是朝天椒</div>
                 <div class="index_header_mvp_span">[ 学生 ]</div>
@@ -242,7 +242,7 @@
     <div class="index_name">
         <div class="p20pxs">
             <div class="index_name_li">
-                <div class="index_name_div border_b">
+                <div class="index_name_div border_b" onclick="fnFeedbackWin()">
                     <div class="index_name_div_img fl"><img src="../image/index_bzyfk.png" alt=""></div>
                     <span class="index_name_div_span fl">帮助与反馈</span>
                     <div class="index_name_div_imgr fr"><img src="../image/index_y.png" alt=""></div>
@@ -261,12 +261,113 @@
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
     apiready = function() {
-      // 优化点击事件
-      api.parseTapmode();
+        // 优化点击事件
+        api.parseTapmode();
     }
-    function fnUpimg() {
+
+    function fnFeedbackWin() {
+        api.openWin({
+            name: 'feedback',
+            url: './feedback.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
 
     }
+
+    function fnUpimg() {
+      var dialogBox = api.require('dialogBox');
+      dialogBox.actionMenu({
+          rect: {
+              h: 200
+          },
+          texts: {
+              cancel: '取消'
+          },
+          items: [{
+              text: '相机',
+              icon: 'widget://image/xiangji.png'
+          }, {
+              text: '相册',
+              icon: 'widget://image/xiangce.png'
+          }],
+          styles: {
+              bg: '#FFF',
+              corner: 6,
+              column: 2,
+              itemText: {
+                  color: '#000',
+                  size: 14,
+                  marginT: 10
+              },
+              itemIcon: {
+                  size: 30
+              },
+              cancel: {
+                  bg: '#fff',
+                  color: '#333',
+                  h: 55,
+                  size: 14
+              }
+          },
+          tapClose: true
+      }, function(ret) {
+          var texts = ret.eventType;
+          var index = ret.index;
+          if (texts == "cancel") {
+              dialogBox.close({
+                  dialogName: 'alert'
+              });
+          } else if (index == 0) {
+              alert('相机')
+              api.getPicture({
+                  sourceType: 'camera',
+                  encodingType: 'jpg',
+                  mediaValue: 'pic',
+                  destinationType: 'url',
+                  allowEdit: true,
+                  quality: 50,
+                  targetWidth: 100,
+                  targetHeight: 100,
+                  saveToPhotoAlbum: false
+              }, function(ret, err) {
+                  if (ret) {
+                      alert(JSON.stringify(ret));
+                  } else {
+                      alert(JSON.stringify(err));
+                  }
+              });
+              dialogBox.close({
+                  dialogName: 'alert'
+              });
+          } else if (index == 1) {
+              alert('相册')
+              api.getPicture({
+                  sourceType: 'album',
+                  encodingType: 'jpg',
+                  mediaValue: 'pic',
+                  destinationType: 'url',
+                  allowEdit: true,
+                  quality: 50,
+                  targetWidth: 100,
+                  targetHeight: 100,
+                  saveToPhotoAlbum: false
+              }, function(ret, err) {
+                  if (ret) {
+                      alert(JSON.stringify(ret));
+                  } else {
+                      alert(JSON.stringify(err));
+                  }
+              });
+              dialogBox.close({
+                  dialogName: 'alert'
+              });
+          }
+      });
+
+    }
+
     function fnPersonalWin() {
         api.openWin({
             name: 'personal',
@@ -275,7 +376,6 @@
                 name: 'test'
             }
         });
-
     }
 
     function fnCollectionWin() {
@@ -286,17 +386,16 @@
                 name: 'test'
             }
         });
-
     }
     //打开关注页面
-    function fnOpenMyCare(){
-      api.openWin({
-          name: 'myCare',
-          url: './my_care.html',
-          pageParam: {
-              name: 'test'
-          }
-      });
+    function fnOpenMyCare() {
+        api.openWin({
+            name: 'myCare',
+            url: './my_care.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
 
     }
     //打开消息页面
@@ -318,9 +417,8 @@
         var dialogBox = api.require('dialogBox');
         dialogBox.alert({
             texts: {
-                content: '您关闭了小助手的消息提醒，店主妹妹因联系不到您哭晕在厕所！',
-                leftBtnTitle: '默默拒绝',
-                rightBtnTitle: '去开提醒'
+                content: '您获得的成就为：学生！',
+                leftBtnTitle: '确定'
             },
             styles: {
                 bg: '#fff',
@@ -332,22 +430,12 @@
                 },
                 left: {
                     marginB: 15,
-                    marginL: 30,
-                    w: 100,
+                    marginL: 15,
+                    w: 250,
                     h: 40,
                     corner: 20,
                     color: "#fff",
                     bg: '#CDCDCD',
-                    size: 16
-                },
-                right: {
-                    marginB: 15,
-                    marginL: 20,
-                    w: 100,
-                    h: 40,
-                    corner: 20,
-                    color: "#fff",
-                    bg: '#C087C0',
                     size: 16
                 }
             },
@@ -360,15 +448,15 @@
             }
         });
     }
+
     function fnSetWin() {
-      api.openWin({
-          name: 'set',
-          url: './set.html',
-          pageParam: {
-              name: 'test'
-          }
-      });
+        api.openWin({
+            name: 'set',
+            url: './set.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
 
     }
-
 </script>
