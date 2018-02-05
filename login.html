@@ -1,0 +1,152 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>孔孟之道--登陆</title>
+    <link rel="stylesheet" type="text/css" href="./css/api.css" />
+    <link rel="stylesheet" type="text/css" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/iconfont/iconfont.css">
+    <link rel="stylesheet" href="./css/iconfont.css">
+    <style>
+        html,body {
+          min-height: 100%;
+          background: #f2f2f2;
+        }
+        .fr {
+            float: right;
+        }
+
+        .fl {
+            float: left;
+        }
+
+        .pa {
+            position: absolute;
+        }
+        .bb {
+          border-bottom: 1px solid #e0e0e0;height: 1px;
+        }
+        .topbar {
+          /*background: #89211b;
+          border-bottom: 1px solid #89211b;*/
+          background: #f2f2f2;
+          border-bottom: 1px solid #f2f2f2;
+          height:50px;
+          position: relative;
+        }
+        .egret-header-title {
+          position: absolute;
+          width: 100%;
+          text-align: center;
+          line-height: 50px;
+          color: #000;
+          font-size: 20px;
+        }
+        .egret-register{
+          position: absolute;
+          right:10px;
+          line-height: 50px;
+          color:#89211b;
+          font-size: 16px;
+        }
+        #nav{
+          height:40px;
+          width:100%;
+          display: flex;
+          display: -webkit-flex;
+          display: -webkit-box;
+          background-color: #fff;
+          /*border-top: 1px solid #e0e0e0;*/
+          border-bottom: 1px solid #e0e0e0;
+        }
+        #nav>.tab{
+          line-height: 40px;
+          font-size: 14px;
+          color: #000;
+          flex:1;
+          -webkit-flex:1;
+          -webkit-box-flex:1;
+          text-align: center;
+          margin:0 30px;
+        }
+        #nav>.tab.active{
+          color: #89211b;
+          border-bottom: 1px solid #89211b;
+          margin:0 30px;
+        }
+    </style>
+</head>
+<body>
+  <header class="egret-header topbar" id="secHeader">
+     <div class="egret-header-title">登陆</div>
+     <div  class="egret-register " onclick="fnOpenRegister();">注册</div>
+ </header>
+ <nav id="nav">
+   <div class="tab active" onclick="fnSelectTab(0,this)" tapmode="active">账号密码登陆</div>
+   <div class="tab" onclick="fnSelectTab(1,this)" tapmode="active">快捷免密登陆</div>
+ </nav>
+ <div class="bb"></div>
+</body>
+
+</html>
+<script type="text/javascript" src="script/api.js"></script>
+<script type="text/javascript" src="script/index.js"></script>
+<script type="text/javascript">
+    apiready = function() {
+        var secHeader = $api.byId('secHeader');
+        $api.fixStatusBar(secHeader);
+        var headerH = $api.offset(secHeader).h;
+        fnOpenFrameGroup();
+    }
+    function fnSelectTab(index,ele){
+        var tabs = $api.domAll('#nav>.tab');
+        $api.addCls(tabs.item(index), 'active');
+        api.setFrameGroupIndex({
+            name: 'loginFrameGroup',
+            index: index,
+            scroll: true
+        });
+    }
+    function fnOpenFrameGroup(){
+        var eNav = $api.byId('nav');
+        var eNavOffset = $api.offset(eNav);
+        api.openFrameGroup ({
+            name: 'loginFrameGroup',
+            scrollEnabled: true,
+            rect: {
+                 x: 0,
+                 y: eNavOffset.t + eNavOffset.h,
+                 w: 'auto',
+                 h: 'auto'
+            },
+            index: 0,
+            preload:2,
+            frames: [{
+                name: 'login_user_frame',
+                url: './login_user_frame.html',
+            },{
+                name: 'login_free_frame',
+                url: './login_free_frame.html',
+            }]
+        }, function(ret, err){
+            var tabs = $api.domAll('#nav>.tab');
+            for(var i = 0;i < 2;i++){
+                var element = tabs.item(i);
+                $api.removeCls(element, 'active');
+            }
+            $api.addCls(tabs.item(ret.index), 'active');
+        });
+    }
+    // 打开注册页面
+    function fnOpenRegister(){
+      api.openWin({
+          name: 'register',
+          url: './register.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
+    }
+</script>
