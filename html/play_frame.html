@@ -222,6 +222,10 @@
             <p>收藏</p>
           </div>
           <div class="item-icon">
+            <img src="../image/play_share.png" alt=""  onclick="fnOpenPlayShare();">
+            <p>分享</p>
+          </div>
+          <div class="item-icon">
             <img src="../image/play_discuss.png" alt="" onclick="fnOpenPlayDiscuss();" >
             <p>评论</p>
           </div>
@@ -308,6 +312,54 @@
         name: 'playDiscuss',
         url: './play_discuss.html',
       })
+    }
+    //打开分享
+    function fnOpenPlayShare(){
+      var dialogBox = api.require('dialogBox');
+      dialogBox.actionMenu ({
+          rect:{
+              h: 150
+          },
+          texts:{
+               cancel: '取消'
+          },
+          items:[
+          {
+              text: '微信',
+              icon: 'widget://image/weixin.png'
+          },
+          {
+              text: 'QQ',
+              icon: 'widget://image/qq.png'
+          },
+          {
+              text: '朋友圈',
+              icon: 'widget://image/friends.png'
+          }
+          ],
+          styles:{
+              bg:'#FFF',
+              column: 3,
+              itemText: {
+                  color: '#000',
+                  size: 12,
+                  marginT:8
+              },
+              itemIcon:{
+                  size:48
+              },
+              cancel:{
+                  bg: 'fs://icon.png',
+                  color:'#000',
+                  h: 44 ,
+                  size: 14
+              }
+          }
+      }, function(ret){
+        dialogBox.close({
+                  dialogName: 'alert'
+        })
+      });
     }
     //打开播放列表
     function openRadioList(){
