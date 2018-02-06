@@ -11,26 +11,21 @@
         .fr {
             float: right;
         }
-
         .fl {
             float: left;
         }
-
         .p20pxs {
             padding: 5 40px;
         }
-
         header {
             width: 100%;
             height: 50px;
         }
-
         .header_fl img {
             width: 30px;
             height: 30px;
             padding: 10px;
         }
-
         .header_center {
             margin: 0 auto;
             width: 100%;
@@ -40,7 +35,6 @@
             font-size: 20px;
             color: #FFF;
         }
-
         .header_fr {
             width: 30px;
             height: 30px;
@@ -50,7 +44,6 @@
             color: #fff;
             /*display: none;*/
         }
-
         .header_fr img {
             width: 15px;
             height: 22px;
@@ -63,7 +56,6 @@
           width: 260px;
           margin: 0 auto;
           position: relative;
-
         }
         .egret-header-search {
             height: 34px;
@@ -74,13 +66,11 @@
             border-radius: 7px;
             border: 1px solid #e6e6e6;
         }
-
         .egret-header-search img {
             margin-left: 30px;
             height: 20px;
             position: relative;bottom: 5px;
         }
-
         .egret-header-search input {
             line-height: 24px;
             font-size: 14px;
@@ -88,7 +78,6 @@
             color: #2e2e2e;
             vertical-align: top;
         }
-
         .egret-header-search input:focus {
             outline: none;
         }
@@ -105,7 +94,7 @@
 <body>
     <header id="secHeader">
         <div class="header_fr fl" onclick="goback();"><img src="../image/KM_Heifh.png" alt=""></div>
-        <div class="header_fl fr"><img src="../image/KM_Hls.png" alt=""></div>
+        <div class="header_fl fr" onclick="openHistorys();"><img src="../image/KM_Hls.png" alt=""></div>
         <div class="header_center">
           <div class="header_center_div">
             <div class="egret-header-search">
@@ -113,7 +102,6 @@
                 <input type="text" placeholder="请输入关键词搜索" onclick="">
             </div>
           </div>
-
         </div>
     </header>
     <!-- <footer id="footer">
@@ -134,8 +122,6 @@
         var header = $api.byId('secHeader');
         $api.fixStatusBar(header);
         var headerPos = $api.offset(header);
-
-
         api.openFrame({
             name: 'guoxue_frame',
             url: './guoxue_frame.html',
@@ -170,6 +156,12 @@
             vScrollBarEnabled: true,
             hScrollBarEnabled: true
         });
-
+    }
+    // 打开历史页面
+    function openHistorys() {
+        api.openWin({
+            name: 'historys',
+            url: './historys.html'
+        });
     }
 </script>
