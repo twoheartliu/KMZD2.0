@@ -136,7 +136,7 @@
       <img src="./image/weixin.png" alt="">
       <p>微信登陆</p>
     </div>
-    <div class="login-item">
+    <div class="login-item" onclick="fnQQLogin()">
       <img src="./image/qq.png" alt="">
       <p>QQ登陆</p>
     </div>
@@ -148,6 +148,24 @@
 <script type="text/javascript">
     apiready = function() {
     }
+    function fnQQLogin(){
+        var qq = api.require('qq');
+        var login = function(){
+            qq.login(function(ret, err) {
+                api.alert({
+                    title: 'id和token',
+                    msg: ret.openId + ret.accessToken
+                });
+            });
+        };
+        qq.installed(function(ret, err) {
+            if (ret.status) {
+                login();
+            } else {
+                api.alert({ msg: "没有安装" });
+            }
+        });
+    };
     function fnOpenForgetPassword(){
       api.openWin({
           name: 'forget_password',
