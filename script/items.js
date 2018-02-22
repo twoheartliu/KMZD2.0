@@ -10,7 +10,6 @@ apiready = function() {
 	var engineUrl = enginesMap[engineName];
 	var searchText = pageParam.searchText;
 	pageNumber = pageParam.pageNumber;
-
 	api.addEventListener({
 		name : 'scrolltobottom'
 	}, function(ret, err) {
@@ -25,6 +24,7 @@ apiready = function() {
 		textUp : '松开刷新',
 		showTime : true
 	}, function(ret, err) {
+
 		var loading = $api.byId('loading');
 		pageNumber = 1;
 		$api.removeCls(loading, 'loaded');
@@ -57,58 +57,44 @@ function GetData(words, page, index, name, url, complete) {
 	words = EncodeWords(name, words);
 	url = url.replace(wordsReg, words);
 	url = url.replace(pageReg, page);
+	//console.log(JSON.stringify(url));
+	//url = 'http://47.100.11.38/kongmeng/thirdParty/search_playlist_by_name.php?page=1&size=20&search=三字经';
+	//console.log(JSON.stringify(url));
 	isLoading = true;
 	api.ajax({
 		url : url,
 		dataType : 'text',
+		method : 'post',
 		tag : name
 	}, function(ret, err) {
 		var body = $api.byId('body');
 		var loading = $api.byId('loading');
-		var html, htmlData;
 		if (ret) {
 			var data = ParseHTML(name, ret);
-			//迅雷是否安装
-			api.appInstalled({
-				appBundle : appsMap.app_thunder.appBundle
-			}, function(ret, err) {
-				htmlData = {
-					items : data,
-					page : page,
-					error : false,
-					app_thunder : ret.installed
-				};
-				//115是否安装
-				api.appInstalled({
-					appBundle : appsMap.app_115.appBundle
-				}, function(ret, err) {
-					htmlData['app_115'] = ret.installed;
-					html = template('items', htmlData);
-					page == 1 && (body.innerHTML = html);
-					page == 1 && api.execScript({
-						name : 'result',
-						script : 'SetEngineLoaded(' + index + ');'
-					});
-					page != 1 && data.length != 0 && body.appendHTML(html);
-					page != 1 && data.length != 0 && api.toast({
-						msg : '第' + page + '页加载完成'
-					});
-					page != 1 && data.length == 0 && api.toast({
-						msg : '已无更多数据'
-					});
-					page != 1 && data.length == 0 && pageNumber--;
-					$api.addCls(loading, 'loaded');
-					isLoading = false;
-					complete && complete();
-				});
-			});
-		} else {
 			htmlData = {
-				items : [],
-				error : true
+				items : data,
+				page : page,
+				error : false,
 			};
 			html = template('items', htmlData);
 			page == 1 && (body.innerHTML = html);
+			page == 1 && api.execScript({
+				name : 'result',
+				script : 'SetEngineLoaded(' + index + ');'
+			});
+			page != 1 && data.length != 0 && body.appendHTML(html);
+			page != 1 && data.length != 0 && api.toast({
+				msg : '第' + page + '页加载完成'
+			});
+			page != 1 && data.length == 0 && api.toast({
+				msg : '已无更多数据'
+			});
+			page != 1 && data.length == 0 && pageNumber--;
+			$api.addCls(loading, 'loaded');
+			isLoading = false;
+			complete && complete();
+
+		} else {
 			page == 1 && api.execScript({
 				name : 'result',
 				script : 'SetEngineLoaded(' + index + ');'
@@ -128,14 +114,39 @@ function GetData(words, page, index, name, url, complete) {
  * @returns {string} 文字编码
  */
 function EncodeWords(name, words) {
-	var encodeWords = '';
-	if (name == 'Btsearchs' || name == 'Cili360')
-		encodeWords = str2hex(utf16to8(words));
-	else
-		encodeWords = encodeURIComponent(words);
+	var encodeWords = words;
+	// var encodeWords = '';
+	// if (name == '智能搜索' || name == '歌曲')
+	// 	encodeWords = encodeURIComponent(words);
+	// else
+	// 	encodeWords = encodeURIComponent(words);
 	return encodeWords;
 }
-
+function setSousuoList(a,b){
+	if(a != undefined){
+		//alert(a);
+		var a = a;
+		api.openWin({
+			name: 'sousuomusic',
+			url: '../html/sousuomusic.html',
+			pageParam: {
+				a : a
+			},
+			delay: 200
+		});
+	}else if(b != undefined){
+		//alert(b);
+		var b = b;
+		api.openWin({
+			name: 'sousuomusiclist',
+			url: '../html/first_frame/sousuomusiclist.html',
+			pageParam: {
+				b : b
+			},
+			delay: 200
+		});
+	}
+}
 document.addEventListener('click', function(e) {
 	var target = e.target;
 	var targetClassName = target.className && target.className.trim().toLowerCase() || null;
@@ -148,33 +159,6 @@ document.addEventListener('click', function(e) {
 			ret.status && api.toast({
 				msg : '磁力链接已经复制到剪贴板'
 			});
-		});
-	} else if (targetClassName == 'down' || targetClassName == 'iconfont icon-download') {
-		//用浏览器下载种子文件
-		api.openApp({
-			androidPkg : 'android.intent.action.VIEW',
-			mimeType : 'text/html',
-			uri : target.getAttribute('data-torrent')
-		});
-	} else if (targetClassName == 'iconfont icon-thunder installed') {
-		//用迅雷下载
-		api.openApp({
-			androidPkg : appsMap.app_thunder.androidPkg,
-			uri : appsMap.app_thunder.uri.replace(/\{url\}/i, target.getAttribute('data-url'))
-		});
-	} else if (targetClassName == 'iconfont icon-thunder') {
-		api.toast({
-			msg : '尚未安装手机迅雷'
-		});
-	} else if (targetClassName == 'open-115' || targetClassName == 'iconfont icon-115 installed') {
-		//115网盘下载
-		api.openApp({
-			androidPkg : appsMap.app_115.androidPkg,
-			uri : appsMap.app_115.uri.replace(/\{url\}/i, target.getAttribute('data-url'))
-		});
-	} else if (targetClassName == 'open-115' || targetClassName == 'iconfont icon-115') {
-		api.toast({
-			msg : '尚未安装115网盘'
 		});
 	}
 	e.stopPropagation();

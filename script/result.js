@@ -68,6 +68,7 @@ function InitFrameGroup(y, searchText) {
             bounces: false
         };
         frames.push(frame);
+
     }
     api.openFrameGroup({
         name: 'items',
@@ -78,14 +79,17 @@ function InitFrameGroup(y, searchText) {
         },
         frames: frames
     }, function (ret, err) {
+        //alert(JSON.stringify(ret));
         SetEngineActive(ret.index);
     });
 }
 
 function SetEngineLoaded(index) {
+  //alert(index);
     var engines = $api.byId('engines');
     var enginesList = $api.domAll(engines, 'li');
     var target = enginesList[index];
+    //alert(target);
     $api.removeCls(target, 'loaded');
     $api.addCls(target, 'loaded');
 }
@@ -101,6 +105,7 @@ function SetEngineActive(index) {
 }
 
 function SetFrameActive(index) {
+
     api.setFrameGroupIndex({
         name: 'items',
         index: index,
@@ -115,7 +120,7 @@ function BackSearchWindow() {
 
 /**
  * 取元素在其父级元素中的索引
- * @param element 元素 
+ * @param element 元素
  * @return {number} 索引值
  */
 function ElementIndex(element) {
