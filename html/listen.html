@@ -1,0 +1,286 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>FM</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+        <style>
+                html,body{height: 100%;}
+                #wrap{
+                        height: 100%;
+                        background-color: #428bca;
+                        -webkit-background-size: cover;
+                        background-size: cover;
+                        display: -webkit-box;
+                        display: -webkit-flex;
+                        display: flex;
+                        -webkit-box-orient: vertical;
+                        -webkit-flex-flow: column;
+                        flex-flow: column;
+                }
+                #main{
+                        position: relative;
+                        -webkit-box-flex: 1;
+                        -webkit-flex: 1;
+                        flex: 1;
+                }
+                header{
+                    background-color: #5bc0de;
+                    border-color: #46b8da;
+                        display: -webkit-box;
+                        display: -webkit-flex;
+                        display: flex;
+                }
+                header div{
+                        font-size: 14px; color: #fff; text-align: center;
+                        line-height: 49px;
+                        -webkit-box-flex: 1;
+                        -webkit-flex: 1;
+                        flex: 1;
+                }
+                header i{
+                        display: block; width: 53px; height: 49px;
+                }
+                header .back{
+                        background: url(../image/navi_back.png) no-repeat;
+                        -webkit-background-size: contain;
+                        background-size: contain;
+                }
+                header .more{
+                        background: url(../image/navi_play_more.png) no-repeat;
+                        -webkit-background-size: contain;
+                        background-size: contain;
+                }
+
+                #action{
+                        margin-bottom: 10px;
+                        display: -webkit-box;
+                        display: -webkit-flex;
+                        display: flex;
+                }
+                #action li{
+                        text-align: center; color: #cbcbcb; font-size: 12px;
+                        -webkit-box-flex: 1;
+                        -webkit-flex: 1;
+                        flex: 1;
+                        padding-top: 30px;
+                        background-position: center top;
+                        background-repeat: no-repeat;
+                        -webkit-background-size: 25px;
+                        background-size: 25px;
+                }
+                #action .collect{
+                        background-image: url(../image/ic_play_fav.png);
+                }
+                #action .collect.focus{
+                        background-image: url(../image/ic_play_fav_s.png);
+                }
+                #action .share{
+                        background-image: url(../image/ic_play_share.png);
+                }
+                #action .share.focus{
+                        background-image: url(../image/ic_play_share_s.png);
+                }
+                #control{
+                        background-color: #2dbd82;
+                }
+                #slider{height: 50px; position: relative;}
+                #slider span{
+                        position: absolute; bottom: 0; font-size: 12px; color: #ccc;
+                }
+                #slider .s{
+                        left: 10px;
+                }
+                #slider .e{
+                        right: 10px;
+                }
+                #panel{
+                        display: -webkit-box;
+                        display: -webkit-flex;
+                        display: flex;
+                        padding: 30px 0 30px;
+                        direction:ltr;
+                }
+                #panel li{
+                        width: 30px; height: 30px;
+                        -webkit-box-flex: 1;
+                        -webkit-flex: 1;
+                        flex: 1;
+                        background-position: center;
+                        background-repeat: no-repeat;
+                        -webkit-background-size: 30px;
+                        background-size: 30px;
+                }
+                #panel .list{
+                        background-image: url(../image/ic_play_schedule.png);
+                        -webkit-background-size: 25px;
+                        background-size: 25px;
+                }
+                #panel .list.focus{
+                        background-image: url(../image/ic_play_schedule_s.png);
+                }
+                #panel .prev{
+                        background-image: url(../image/ic_play_pre.png);
+                }
+                #panel .prev.focus{
+                        background-image: url(../image/ic_play_pre_s.png);
+                }
+                #panel .play{
+                        background-image: url(../image/ic_play_play.png);
+                }
+                #panel .play.focus{
+                        background-image: url(../image/ic_play_play_s.png);
+                }
+                #panel .pause{
+                        background-image: url(../image/ic_play_pause.png);
+                }
+                #panel .pause.focus{
+                        background-image: url(../image/ic_play_pause_s.png);
+                }
+                #panel .buffer{
+                        background-image: none;
+                }
+                @-webkit-keyframes rotate{
+                        from{
+                                -webkit-transform: rotate(0deg);
+                        }
+                        to{
+                                -webkit-transform: rotate(360deg);
+                        }
+                }
+                @keyframes rotate{
+                        from{
+                                transform: rotate(0deg);
+                        }
+                        to{
+                                transform: rotate(360deg);
+                        }
+                }
+                #panel .buffer:before{
+                        content: '';
+                        display: inline-block; width: 100%; height: 100%;
+                        background: url(../image/ic_play_buffer.png) no-repeat center;
+                        -webkit-background-size: contain;
+                        background-size: contain;
+                        -webkit-animation: rotate 4s linear infinite;
+                        animation: rotate 4s linear infinite;
+                }
+                #panel .buffer.focus{
+                        background-image: url(../image/ic_play_buffer_s.png);
+                }
+                #panel .next{
+                        background-image: url(../image/ic_play_next.png);
+                }
+                #panel .next.focus{
+                        background-image: url(../image/ic_play_next_s.png);
+                }
+                #panel .download{
+                        background-image: url(../image/ic_play_download.png);
+                }
+                #panel .download.focus{
+                        background-image: url(../image/ic_play_download_s.png);
+                }
+                #chat{
+                        overflow: hidden; border-top: 1px solid #845253;
+                }
+                #chat a{
+                        float: right; padding: 10px; font-size: 12px; color: #ccc;
+                }
+
+                #main .wrap{
+                        position: absolute; margin:auto; width: 100%;
+                        bottom: 0; top: 0; height: 210px;
+                }
+                #main div{
+                        width:150px; height: 150px; margin:0 auto;
+                }
+                #main div img{
+                        width:100%; height:100%; display:block;
+                }
+                #main h1{
+                        padding-top: 15px; font-size: 18px; color: #fff; text-align: center;
+                }
+                #main label{
+                        display: block; text-align: center; font-size: 14px;
+                        color: #ccc; padding-top: 15px;
+                }
+        </style>
+</head>
+<body>
+<div id="wrap">
+        <header>
+                <i class="back" tapmode onclick="api.closeWin();"></i>
+                <div id="album_name"> </div>
+                <i class="more"></i>
+        </header>
+    <div id="main">
+            <div class="wrap" id="musicinfo">
+
+            </div>
+    </div>
+    <ul id="action">
+                <li class="collect toteshe" tapmode="focus">收藏</li>
+                <li class="share toteshe" tapmode="focus" onclick="openShareFrame()">分享</li>
+        </ul>
+    <div id="control">
+            <div id="slider">
+                    <span class="s">00:00:00</span>
+                    <span class="e">00:00:00</span>
+            </div>
+                <ul id="panel">
+                        <li class="list" tapmode="focus"></li>
+                        <li class="prev" tapmode="focus" onclick=""></li>
+                        <li class="play" tapmode="focus" onclick="objStart(this)"></li>
+                        <li class="next" tapmode="focus" onclick=""></li>
+                        <li class="download" tapmode="focus"></li>
+                </ul>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<!-- <script type="text/javascript" src="../script/zepto.js"></script> -->
+<script type="text/javascript">
+apiready = function() {
+
+    var id = api.pageParam.ID;
+    var html = '';
+    api.ajax({
+            url:"http://www.ww.cn/api/api.php?json=music&id="+id,
+            cache: false,
+            timeout: 30,
+            dataType: 'json'
+    },function(ret,err){
+        if (ret) {
+            for (var i = 0, len = ret.length; i < len; i++) {
+                    var thisItem = ret[i];
+                    var nType = thisItem.type;
+                    urls = ''+ thisItem.url +'';
+                    $api.byId('album_name').innerHTML ='' + thisItem.album + '';
+                    $api.byId('musicinfo').innerHTML ='<div><img src="' + thisItem.pic + '" /></div><h1>' + thisItem.title + '</h1><label>' + thisItem.geshou + '</label>';
+            }
+             objStart(this);
+        }
+    });
+};
+
+        function objStart(it){
+                if($(it).hasClass('pause')){
+                        $(it).removeClass().addClass('play');
+                        obj.pause();
+                }else{
+                        $(it).removeClass().addClass('buffer');
+                        setTimeout(function(){
+                                $(it).removeClass().addClass('pause');
+                                obj = api.require('netAudio');
+                                obj.play({
+                                    path: '' + urls + ''
+                                },function(ret,err){
+                                    var duration = ret.duration;
+                                    var current = ret.current;
+                                });
+                        },500);
+                }
+        }
+
+</script>
+</html>
