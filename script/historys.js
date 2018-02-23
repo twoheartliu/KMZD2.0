@@ -24,7 +24,7 @@ function InitHistory() {
             var tempLi = li.replace(/\{index\}/g, i);
             tempLi = tempLi.replace(/\{text\}/g, decodeURIComponent(historyArray[i]));
             history.appendHTML(tempLi);
-    
+          
         }
 
     });
