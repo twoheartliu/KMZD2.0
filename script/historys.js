@@ -13,7 +13,7 @@ apiready = function () {
 function InitHistory() {
     var history = $api.byId('history');
     api.getPrefs({
-        key: 'history'
+        key: 'historys'
     }, function (ret, err) {
         var historyText = ret.value || '';
         var historyArray = historyText.split(',');
@@ -24,29 +24,32 @@ function InitHistory() {
             var tempLi = li.replace(/\{index\}/g, i);
             tempLi = tempLi.replace(/\{text\}/g, decodeURIComponent(historyArray[i]));
             history.appendHTML(tempLi);
+    
         }
 
     });
 }
+
+
 function ClearHistory(index) {
     var history = $api.byId('history');
     if (!index) {
         history.innerHTML = '';
         api.removePrefs({
-            key: 'history'
+            key: 'historys'
         });
         api.toast({
             msg: '已清空所有历史记录'
         });
     } else {
         api.getPrefs({
-            key: 'history'
+            key: 'historys'
         }, function (ret, err) {
             var historyText = ret.value;
             var historyArray = historyText.split(',');
             historyArray.splice(index, 1);
             api.setPrefs({
-                key: 'history',
+                key: 'historys',
                 value: historyArray.join(',')
             });
             api.toast({

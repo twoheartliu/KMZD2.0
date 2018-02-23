@@ -125,8 +125,9 @@ function ChangeButton(flag) {
 
 //增加历史记录
 function AddHistory(words, fromRoot) {
+
     api.getPrefs({
-        key: 'history'
+        key: 'historys'
     }, function (ret, err) {
         var flag = false;//是否增加历史记录
         var historyText = ret.value || '';
@@ -136,7 +137,7 @@ function AddHistory(words, fromRoot) {
         }
         !flag && historyArrays.push(encodeURIComponent(words));
         !flag && api.setPrefs({
-            key: 'history',
+            key: 'historys',
             value: historyArrays.join(',')
         });
         api.openWin({

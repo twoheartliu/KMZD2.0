@@ -237,32 +237,15 @@
             <span class="fr more" onclick="fnRecommendWin();">更多</span>
             <div class="clear"></div>
         </div>
-        <div class="hot">
-            <div class="hotC" onclick="fnSingleWin();">
+        <div class="hot" id="hot">
+
+            <!-- <div class="hotC" onclick="fnSingleWin();">
                 <img src="../image/frame0101cover/frame0101cover06.png" alt="" >
                 <div class="listtitle">经典诗歌</div>
-            </div>
-            <div class="hotC" onclick="fnSingleWin();">
-                <img src="../image/frame0101cover/frame0101cover07.png" alt="" >
-                <div class="listtitle">经典诗歌</div>
-            </div>
-            <div class="hotC" onclick="fnSingleWin()">
-                <img src="../image/frame0101cover/frame0101cover08.png" alt="" >
-                <div class="listtitle">经典诗歌</div>
-            </div>
-            <div class="hotC" onclick="fnSingleWin()">
-                <img src="../image/frame0101cover/frame0101cover09.png" alt="" >
-                <div class="listtitle">经典诗歌</div>
-            </div>
-            <div class="hotC" onclick="fnSingleWin()">
-                <img src="../image/frame0101cover/frame0101cover10.png" alt="" >
-                <div class="listtitle">经典诗歌</div>
-            </div>
-            <div class="hotC" onclick="fnSingleWin()">
-                <img src="../image/frame0101cover/frame0101cover11.png" alt="" >
-                <div class="listtitle">经典诗歌</div>
-            </div>
+            </div> -->
+
             <div class="clear"></div>
+
         </div>
     </div>
     <!-- 3 个性化推荐 -->
@@ -344,19 +327,50 @@
 <script type="text/javascript">
     apiready = function() {
         // api.parseTapmode()
+        fnTingdanTuijian();
         fnInitSwiper();
+
         // var navbars = $api.domAll('.navbar');
-        var frameWidth = api.frameWidth;
-        var frameHeight = api.frameHeight;
+
         // for(var i=0; i < 8 ;i++){
         //   navbars.item(i).style.width = frameWidth /4 + "px";
         //   navbars.item(i).style.height = frameWidth/4 * 1.1 + "px";
         // };
-        var hotCs = $api.domAll('.hotC');
-        for( var j = 0; j < 6 ;j++){
-          hotCs.item(j).style.width = (frameWidth -40) /3 + "px";
-          hotCs.item(j).style.height = (frameWidth -40) /3 * 1.224 + "px";
-        };
+
+
+
+    }
+    //接口  推荐听单
+    function fnTingdanTuijian(){
+      api.ajax({
+          url: 'http://47.100.11.38/kongmeng/audios/getTypeList.php',
+          method: 'get',
+      }, function(ret, err) {
+          if (ret) {
+              fnTingdanZhanshi(ret);
+          } else {
+              alert(JSON.stringify(err));
+          }
+      });
+    }
+    //接口  听单展示
+    function fnTingdanZhanshi(data_){
+      alert(JSON.stringify(data_));
+      var stylelist = $api.byId('hot');
+      var html = '';
+      for (var i = 0; i < 6; i++) {
+          //alert(data_.data[i].name);
+          html += '<div class="hotC" onclick="fnSingleWin();"><img src="../image/frame0101cover/frame0101cover06.png" alt=""><div class="listtitle"> ' + data_.data[i].name + '</div></div>';
+      }
+      $api.html(stylelist, html);
+      var frameWidth = api.frameWidth;
+      var frameHeight = api.frameHeight;
+      var hotCs = $api.domAll('.hotC');
+      for( var j = 0; j < 6 ;j++){
+        hotCs.item(j).style.width = (frameWidth -40) /3 + "px";
+        hotCs.item(j).style.height = (frameWidth -40) /3 * 1.224 + "px";
+      };
+
     }
     function fnSingleWin() {
       api.openWin({
