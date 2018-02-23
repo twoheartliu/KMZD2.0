@@ -24,12 +24,28 @@ function InitHistory() {
             var tempLi = li.replace(/\{index\}/g, i);
             tempLi = tempLi.replace(/\{text\}/g, decodeURIComponent(historyArray[i]));
             history.appendHTML(tempLi);
-          
+            fnnone();
         }
 
     });
 }
-
+function fnnone() {
+  var ul = document.getElementById('history');
+  var ul_lis = ul.getElementsByClassName('historyImg');
+  var ul_lisdiv = ul.getElementsByClassName('history');
+  for (var i = 0; i < ul_lis.length; i++) {
+      ul_lis[i].index = i;
+      ul_lis[i].onclick = function() {
+          var j = this.index;
+          // $api.addCls(ul_lisdiv[j], 'active');
+            var text = ul_lisdiv[j].innerHTML;
+            var a = text.substring(-1,10);
+            alert(text);
+            alert(a);
+          // alert(j);
+      }
+  }
+}
 
 function ClearHistory(index) {
     var history = $api.byId('history');

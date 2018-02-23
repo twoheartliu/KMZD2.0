@@ -138,7 +138,7 @@ function AddHistory(words, fromRoot) {
         !flag && historyArray.push(encodeURIComponent(words));
         !flag && api.setPrefs({
             key: 'historys',
-            value: historyArrays.join(',')
+            value: historyArray.join(',')
         });
         api.openWin({
             name: 'result',
