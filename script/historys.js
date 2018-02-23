@@ -24,22 +24,9 @@ function InitHistory() {
             var tempLi = li.replace(/\{index\}/g, i);
             tempLi = tempLi.replace(/\{text\}/g, decodeURIComponent(historyArray[i]));
             history.appendHTML(tempLi);
-            fnNone();
         }
 
     });
-}
-function fnNone() {
-  var ul = document.getElementById('history');
-  var ul_lis = ul.getElementsByClassName('historyImg');
-  var ul_lisdiv = ul.getElementsByClassName('history')
-  for (var i = 0; i < ul_lis.length; i++) {
-      ul_lis[i].index = i;
-      ul_lis[i].onclick = function() {
-          var j = this.index;
-          $api.addCls(ul_lisdiv[j], 'active');
-      }
-  }
 }
 function ClearHistory(index) {
     var history = $api.byId('history');
@@ -74,7 +61,6 @@ function AppendHistory(text) {
     var index = history.children.length;
     var li = '<li class="history" data-index="' + index + '">' + text + '<img src="../image/x.png" alt="" style="float: right;"></li>';
     history.appendHTML(li);
-    fnNone();
 }
 
 document.addEventListener('click', function (e) {
@@ -90,6 +76,6 @@ document.addEventListener('click', function (e) {
                 addHistory: true
             }
         });
-        fnNone();
+
     }
 }, false);
