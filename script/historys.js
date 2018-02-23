@@ -3,12 +3,11 @@
  */
 apiready = function () {
     var clear = $api.byId('clear');
-
     $api.addEvt(clear, 'click', function () {
         ClearHistory();
     });
-
     InitHistory();
+
 };
 
 function InitHistory() {
@@ -42,8 +41,6 @@ function fnNone() {
       }
   }
 }
-
-
 function ClearHistory(index) {
     var history = $api.byId('history');
     if (!index) {
@@ -75,7 +72,7 @@ function ClearHistory(index) {
 function AppendHistory(text) {
     var history = $api.byId('history');
     var index = history.children.length;
-    var li = '<li class="history" data-index="' + index + '">' + text + '<img class="historyImg" src="../image/x.png" alt="" style="float: right;"></li>';
+    var li = '<li class="history" data-index="' + index + '">' + text + '<img src="../image/x.png" alt="" style="float: right;"></li>';
     history.appendHTML(li);
     fnNone();
 }
@@ -86,12 +83,13 @@ document.addEventListener('click', function (e) {
     if (targetClassName == 'history') {
         api.openWin({
             name: 'result',
-            url: '../html/result.html',
+            url: '../html/result1.html',
             delay: 500,
             pageParam: {
                 text: target.innerText,
                 addHistory: true
             }
         });
+        fnNone();
     }
 }, false);
