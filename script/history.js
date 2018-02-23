@@ -16,14 +16,14 @@ function InitHistory() {
     api.getPrefs({
         key: 'history'
     }, function (ret, err) {
-        var historyText = ret.value || '';
-        var historyArray = historyText.split(',');
+        var historyTexts = ret.value || '';
+        var historyArrays = historyTexts.split(',');
         var li = '<li class="history" data-index="{index}">{text}<img class="historyImg" src="../image/x.png" alt="" style="float: right;"></li>';
-        for (var i = 0; i < historyArray.length; i++) {
-            if (historyArray[i].length == 0)
+        for (var i = 0; i < historyArrays.length; i++) {
+            if (historyArrays[i].length == 0)
                 continue;
             var tempLi = li.replace(/\{index\}/g, i);
-            tempLi = tempLi.replace(/\{text\}/g, decodeURIComponent(historyArray[i]));
+            tempLi = tempLi.replace(/\{text\}/g, decodeURIComponent(historyArrays[i]));
             history.appendHTML(tempLi);
         }
 
@@ -45,12 +45,12 @@ function ClearHistory(index) {
         api.getPrefs({
             key: 'history'
         }, function (ret, err) {
-            var historyText = ret.value;
-            var historyArray = historyText.split(',');
-            historyArray.splice(index, 1);
+            var historyTexts = ret.value;
+            var historyArrays = historyTexts.split(',');
+            historyArrays.splice(index, 1);
             api.setPrefs({
                 key: 'history',
-                value: historyArray.join(',')
+                value: historyArrays.join(',')
             });
             api.toast({
                 msg: '已清除历史记录'
