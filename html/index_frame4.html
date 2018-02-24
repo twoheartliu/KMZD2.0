@@ -67,7 +67,7 @@
 
         .wode_bg {
             width: 100%;
-            height: 100px;
+            height: 107px;
             background-image: url(../image/wode_bg.png);
             background-size: 100%;
             background-repeat: no-repeat;
@@ -76,10 +76,13 @@
         .wode_bg div {
             color: #fff;
             text-align: center;
+
         }
 
         .index_header_mvp_p {
             font-size: 13px;
+            height: 30px;
+            line-height: 30px;
         }
 
         .index_header_mvp_span {
@@ -182,8 +185,8 @@
         <div class="index_header_div">
             <div id="imgs" class="index_header_img" onclick="fnUpimg();"><img src="../image/KM_tx.png" alt=""></div>
             <div class="wode_bg">
-                <div class="index_header_mvp_p">嘿！我不是朝天椒</div>
-                <div class="index_header_mvp_span">[ 学生 ]</div>
+                <div class="index_header_mvp_p" onclick="fnPrompt()">嘿！我不是朝天椒</div>
+                <div class="index_header_mvp_span">[ 宝宝 ]</div>
             </div>
             <div class="index_header_san">
                 <div class="p13px">
@@ -265,7 +268,18 @@
         // 优化点击事件
         api.parseTapmode();
     }
+    function fnPrompt() {
+      api.prompt({
+          buttons: ['确定', '取消']
+      }, function(ret, err){
+          if( ret ){
+               alert( JSON.stringify( ret ) );
+          }else{
+               alert( JSON.stringify( err ) );
+          }
+      });
 
+    }
     function fnFeedbackWin() {
         api.openWin({
             name: 'feedback',
@@ -418,7 +432,7 @@
         var dialogBox = api.require('dialogBox');
         dialogBox.alert({
             texts: {
-                content: '您获得的成就为：学生！',
+                content: '您获得的成就为：宝宝！',
                 leftBtnTitle: '确定'
             },
             styles: {
