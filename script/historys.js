@@ -18,8 +18,7 @@ function InitHistory() {
         var historyText = ret.value || '';
         var historyArray = historyText.split(',');
         var li = '<li class="history" data-index="{index}">{text}<img class="historyImg" src="../image/x.png" alt="" style="float: right;" onclick="ClearHistory({index})"></li>';
-        var i;
-        for (i = 0; i < historyArray.length; i++) {
+        for (var i = 0; i < historyArray.length; i++) {
             if (historyArray[i].length == 0)
                 continue;
             var tempLi = li.replace(/\{index\}/g, i);
@@ -33,7 +32,6 @@ function InitHistory() {
 
 
 function ClearHistory(index) {
-  alert(index);
     var history = $api.byId('history');
     if (!index) {
         history.innerHTML = '';
@@ -45,7 +43,6 @@ function ClearHistory(index) {
         });
     } else {
         api.getPrefs({
-            key: 'historys'
         }, function (ret, err) {
             var historyText = ret.value;
             var historyArray = historyText.split(',');
@@ -54,11 +51,16 @@ function ClearHistory(index) {
                 key: 'historys',
                 value: historyArray.join(',')
             });
+
+
             api.toast({
                 msg: '已清除历史记录'
             });
+            historys.go(0);
+            // //location.reload();
+            // history.innerHTML = '';
+            // InitHistory()
         });
-        location.reload();
     }
 }
 
