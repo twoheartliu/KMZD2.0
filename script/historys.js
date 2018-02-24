@@ -17,11 +17,7 @@ function InitHistory() {
     }, function (ret, err) {
         var historyText = ret.value || '';
         var historyArray = historyText.split(',');
-// <<<<<<< HEAD
-        // var li = '<li class="history" data-index="{index}">{text}<img class="historyImg" src="../image/x.png" alt="" style="float: right;"></li>';
-// =======
         var li = '<li class="history" data-index="{index}">{text}<img class="historyImg" src="../image/x.png" alt="" style="float: right;" onclick="ClearHistory({index})"></li>';
-// >>>>>>> 4d5250a06286e16dec1edeb23e10df7778179d6a
         for (var i = 0; i < historyArray.length; i++) {
             if (historyArray[i].length == 0)
                 continue;
@@ -52,7 +48,6 @@ function fnnone() {
 }
 
 function ClearHistory(index) {
-
     var history = $api.byId('history');
     if (!index) {
         history.innerHTML = '';
@@ -64,7 +59,6 @@ function ClearHistory(index) {
         });
     } else {
         api.getPrefs({
-            key: 'historys'
         }, function (ret, err) {
             var historyText = ret.value;
             var historyArray = historyText.split(',');
@@ -73,12 +67,15 @@ function ClearHistory(index) {
                 key: 'historys',
                 value: historyArray.join(',')
             });
+
+
             api.toast({
                 msg: '已清除历史记录'
             });
-            //location.reload();
-            history.innerHTML = '';
-            InitHistory()
+            historys.go(0);
+            // //location.reload();
+            // history.innerHTML = '';
+            // InitHistory()
         });
     }
 }
