@@ -17,9 +17,11 @@ function InitHistory() {
     api.getPrefs({
         key: 'historys'
     }, function (ret, err) {
+      //alert(JSON.stringify(ret));
         var historyText = ret.value || '';
         var historyArray = historyText.split(',');
-        var li = '<li class="history" data-index="{index}">{text}<img class="historyImg" src="../image/x.png" alt="" style="float: right;" tapmode onclick="ClearHistory({index})"></li>';
+        var li = '<li class="history" data-index="{index}">{text}<img class="historyImg" src="../image/x.png" alt="" style="float: right;"  ></li>';
+
         for (var i = 0; i < historyArray.length; i++) {
             if (historyArray[i].length == 0)
                 continue;
@@ -27,24 +29,34 @@ function InitHistory() {
             tempLi = tempLi.replace(/\{text\}/g, decodeURIComponent(historyArray[i]));
             history.appendHTML(tempLi);
             fnnone();
-
         }
 
     });
 }
-function fnnone() {
+function fnnone(a) {
   var ul = document.getElementById('history');
   var ul_lis = ul.getElementsByClassName('historyImg');
   var ul_lisdiv = ul.getElementsByClassName('history')
+  var j;
   for (var i = 0; i < ul_lis.length; i++) {
       ul_lis[i].index = i;
       ul_lis[i].onclick = function() {
-          var j = this.index;
+          j = this.index;
+
           $api.addCls(ul_lisdiv[j], 'active');
+          if(a){
+              alert(a);
+            ClearHistory(a);
+          }else{
+            ClearHistory(j);
+          }
+
       }
   }
+
 }
 function ClearHistory(index) {
+
     var history = $api.byId('history');
     if (!index) {
         history.innerHTML = '';
@@ -77,10 +89,10 @@ function ClearHistory(index) {
 function AppendHistory(text) {
     var history = $api.byId('history');
     var a = history.children.length;
-    var index = a + 1;
-    var li = '<li class="history" data-index="' + index + '">' + text + '<img  class="historyImg" src="../image/x.png" alt="" style="float: right;" tapmode onclick="ClearHistory(' + index + ')"></li>';
+    var index = a;
+    var li = '<li class="history" data-index="' + index + '">' + text + '<img  class="historyImg" src="../image/x.png" alt="" style="float: right;" ></li>';
     history.appendHTML(li);
-    fnnone();
+    fnnone(index);
 }
 
 document.addEventListener('click', function (e) {
