@@ -33,7 +33,7 @@ function InitHistory() {
 
     });
 }
-function fnnone(a) {
+function fnnone() {
   var ul = document.getElementById('history');
   var ul_lis = ul.getElementsByClassName('historyImg');
   var ul_lisdiv = ul.getElementsByClassName('history')
@@ -42,21 +42,15 @@ function fnnone(a) {
       ul_lis[i].index = i;
       ul_lis[i].onclick = function() {
           j = this.index;
-
           $api.addCls(ul_lisdiv[j], 'active');
-          if(a){
-              alert(a);
-            ClearHistory(a);
-          }else{
-            ClearHistory(j);
-          }
+          var b = j + 1;
+            ClearHistory(b);
 
       }
   }
-
 }
 function ClearHistory(index) {
-
+    alert(index);
     var history = $api.byId('history');
     if (!index) {
         history.innerHTML = '';
