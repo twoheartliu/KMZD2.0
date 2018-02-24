@@ -3,6 +3,7 @@
  */
 apiready = function () {
     var clear = $api.byId('clear');
+    var history = $api.byId('history');
     $api.addEvt(clear, 'click', function () {
         ClearHistory();
     });
@@ -11,6 +12,7 @@ apiready = function () {
 };
 
 function InitHistory() {
+
     var history = $api.byId('history');
     api.getPrefs({
         key: 'historys'
@@ -24,29 +26,10 @@ function InitHistory() {
             var tempLi = li.replace(/\{index\}/g, i);
             tempLi = tempLi.replace(/\{text\}/g, decodeURIComponent(historyArray[i]));
             history.appendHTML(tempLi);
-            fnnone();
         }
 
     });
 }
-function fnnone() {
-  var ul = document.getElementById('history');
-  var ul_lis = ul.getElementsByClassName('historyImg');
-  var ul_lisdiv = ul.getElementsByClassName('history');
-  for (var i = 0; i < ul_lis.length; i++) {
-      ul_lis[i].index = i;
-      ul_lis[i].onclick = function() {
-          var j = this.index;
-          // $api.addCls(ul_lisdiv[j], 'active');
-            var text = ul_lisdiv[j].innerHTML;
-            var a = text.substring(-1,10);
-            alert(text);
-            alert(a);
-          // alert(j);
-      }
-  }
-}
-
 function ClearHistory(index) {
     var history = $api.byId('history');
     if (!index) {
@@ -67,23 +50,21 @@ function ClearHistory(index) {
                 key: 'historys',
                 value: historyArray.join(',')
             });
-
-
+            historys.go(0);
+            history.innerHTML = '';
+            InitHistory();
             api.toast({
                 msg: '已清除历史记录'
             });
-            historys.go(0);
-            // //location.reload();
-            // history.innerHTML = '';
-            // InitHistory()
         });
     }
 }
 
 function AppendHistory(text) {
     var history = $api.byId('history');
-    var index = history.children.length;
-    var li = '<li class="history" data-index="' + index + '">' + text + '<img src="../image/x.png" alt="" style="float: right;"></li>';
+    var a = history.children.length;
+    var index = a + 1;
+    var li = '<li class="history" data-index="' + index + '">' + text + '<img src="../image/x.png" alt="" style="float: right;" onclick="ClearHistory(' + index + ')"></li>';
     history.appendHTML(li);
 }
 
