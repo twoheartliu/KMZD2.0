@@ -31,6 +31,7 @@ function InitHistory() {
     });
 }
 function ClearHistory(index) {
+    console.log('111');
     var history = $api.byId('history');
     if (!index) {
         history.innerHTML = '';
