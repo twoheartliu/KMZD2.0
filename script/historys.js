@@ -52,6 +52,7 @@ function fnnone() {
 }
 
 function ClearHistory(index) {
+
     var history = $api.byId('history');
     if (!index) {
         history.innerHTML = '';
@@ -63,6 +64,7 @@ function ClearHistory(index) {
         });
     } else {
         api.getPrefs({
+            key: 'historys'
         }, function (ret, err) {
             var historyText = ret.value;
             var historyArray = historyText.split(',');
@@ -71,15 +73,12 @@ function ClearHistory(index) {
                 key: 'historys',
                 value: historyArray.join(',')
             });
-
-
             api.toast({
                 msg: '已清除历史记录'
             });
-            historys.go(0);
-            // //location.reload();
-            // history.innerHTML = '';
-            // InitHistory()
+            //location.reload();
+            history.innerHTML = '';
+            InitHistory()
         });
     }
 }
