@@ -43,7 +43,6 @@ function ClearHistory(index) {
         });
     } else {
         api.getPrefs({
-            key: 'historys'
         }, function (ret, err) {
             var historyText = ret.value;
             var historyArray = historyText.split(',');
@@ -52,6 +51,7 @@ function ClearHistory(index) {
                 key: 'historys',
                 value: historyArray.join(',')
             });
+            historys.go(0);
             history.innerHTML = '';
             InitHistory();
             api.toast({
