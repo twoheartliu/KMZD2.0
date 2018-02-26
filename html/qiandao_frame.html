@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>孔孟之道--签到</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/idangerous.swiper.css">
+    <style>
+        html,body{background-color: #f9f9fb;}
+        #timeMonth {width: 100%;height: 20px;line-height: 20px;text-align: center;font-size: 15px;color: red;}
+
+    </style>
+</head>
+
+<body>
+    <div id="time">
+        <div id="timeMonth">
+
+        </div>
+    </div>
+</body>
+
+</html>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/swiper.min.js"></script>
+<script type="text/javascript">
+    apiready = function() {
+      var UICalendar = api.require('UICalendar');
+      UICalendar.open({
+          rect: {
+              x: 0,
+              y: api.frameHeight / 2,//api.frameHeight / 2 - 300
+              w: api.frameWidth,
+              h: 340
+          },
+          styles: {
+              bg: 'widget://image/timg.jpg',
+              week: {
+                  weekdayColor: '#3b3b3b',
+                  weekendColor: '#a8d400',
+                  size: 12
+              },
+              date: {
+                  color: '#3b3b3b',
+                  selectedColor: '#fff',
+                  selectedBg: '#a8d500',
+                  size: 12
+              },
+              today: {
+                  color: '#f85968',
+                  bg: ''
+              },
+              specialDate: {
+                  color: '#a8d500',
+                  bg: 'widget://image/a.png'
+              }
+          },
+          specialDate: [{
+              date: '2015-06-01'
+          }],
+          switchMode: 'vertical',
+          fixedOn: api.frameName,
+          fixed: false
+      }, function(ret, err) {
+          if (ret) {
+              alert(JSON.stringify(ret));
+              var timeMonth = $api.byId('timeMonth');
+              var times = ret.month
+              // alert(JSON.stringify(times));
+              var html = ' '+ times + '月'
+
+              $api.html(timeMonth, html);
+              // times.time.innerHTML = ''
+
+          } else {
+              alert(JSON.stringify(err));
+          }
+      });
+    }
+
+</script>
