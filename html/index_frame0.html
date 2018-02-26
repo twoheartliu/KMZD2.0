@@ -343,10 +343,11 @@
     //接口  推荐听单
     function fnTingdanTuijian(){
       api.ajax({
-          url: 'http://47.100.11.38/kongmeng/audios/getTypeList.php',
+          url: 'http://47.100.11.38/kongmeng/thirdParty/search_playlist_by_name.php?page=0&size=6',
           method: 'get',
       }, function(ret, err) {
           if (ret) {
+              //alert(JSON.stringify(ret));
               fnTingdanZhanshi(ret);
           } else {
               alert(JSON.stringify(err));
@@ -355,12 +356,12 @@
     }
     //接口  听单展示
     function fnTingdanZhanshi(data_){
-      alert(JSON.stringify(data_));
+
       var stylelist = $api.byId('hot');
       var html = '';
       for (var i = 0; i < 6; i++) {
-          //alert(data_.data[i].name);
-          html += '<div class="hotC" onclick="fnSingleWin();"><img src="../image/frame0101cover/frame0101cover06.png" alt=""><div class="listtitle"> ' + data_.data[i].name + '</div></div>';
+          html += '<div class="hotC" onclick="fnSingleWin(' + data_.data[i].id + ');"><img src="' + data_.data[i].logoMiddle + '" alt=""><div class="listtitle"> ' + data_.data[i].name + '</div></div>';
+
       }
       $api.html(stylelist, html);
       var frameWidth = api.frameWidth;
@@ -372,12 +373,13 @@
       };
 
     }
-    function fnSingleWin() {
+    function fnSingleWin(tuijiantingdanid) {
       api.openWin({
           name: 'single',
           url: './single.html',
           pageParam: {
-              name: 'test'
+              name: 'test',
+              tuijiantingdanid:tuijiantingdanid
           }
       });
 
