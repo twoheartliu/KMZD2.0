@@ -55,7 +55,7 @@
     <header id="secHeader">
         <div class="header_fl fl" onclick="goback();"><img src="../image/KM_Hfh.png" alt=""></div>
         <div class="header_fr fr"></div>
-        <div class="header_center">听单列表</div>
+        <div class="header_center" >听单列表</div>
     </header>
 </body>
 
@@ -69,6 +69,7 @@
         });
     }
     apiready = function() {
+      var tuijiantingdanid = api.pageParam.tuijiantingdanid;
         var header = $api.byId('secHeader');
         $api.fixStatusBar(header);
         var headerPos = $api.offset(header);
@@ -82,10 +83,18 @@
                 h: 'auto'
             },
             pageParam: {
-                name: 'test'
+                name: 'test',
+                tuijiantingdanid:tuijiantingdanid
             },
             bounces: false,
         });
 
     }
+
+    // function fnTingdanZhanshi(data_){
+    //   var stylelist = $api.byId('tingdanliebiaobiaoti');
+    //   var html = data_;
+    //   $api.html(stylelist, html);
+    //
+    // }
 </script>
