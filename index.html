@@ -85,9 +85,11 @@
             width: 25px;
             vertical-align: middle;
         }
+
         .egret-img-a img {
             width: 25px;
         }
+
         .egret-img-s {
             text-align: right;
         }
@@ -130,14 +132,19 @@
             /*border:0;*/
             outline: none;
         }
-        .faxian{font-size: 18px;}
-        .friend-tit{
-          font-size: 18px;
-          color: #fff;
-          text-align: center;
-          height: 50px;
-          line-height: 50px;
+
+        .faxian {
+            font-size: 18px;
         }
+
+        .friend-tit {
+            font-size: 18px;
+            color: #fff;
+            text-align: center;
+            height: 50px;
+            line-height: 50px;
+        }
+
         #footer {
             background-color: #fff;
             height: 50px;
@@ -200,6 +207,7 @@
         }
     </style>
 </head>
+
 <body>
     <div id="wrap" class="flex-wrap flex-vertical">
         <header id="secHeader">
@@ -211,11 +219,11 @@
                             <div class="egret-header-box egret-div">
                                 <div class="egret-header-search">
                                     <img src="./image/header_search.png" alt="">
-                                    <span  tapmode onclick="OpenSearch();">请输入关键词搜索</span>
+                                    <span tapmode onclick="OpenSearch();">请输入关键词搜索</span>
                                     <img src="./image/video_header.png" alt="">
                                 </div>
                             </div>
-                            <div class="egret-header-box egret-img-a egret-div" tapmode onclick="openHistorys()"><img src="./image/KM_ls.png" alt=""></div>
+                            <div class="egret-header-box egret-img-a egret-div" tapmode onclick="openQiandao()"><img src="./image/qiandao.png" alt=""></div>
                         </div>
                     </div>
 
@@ -233,14 +241,14 @@
                 </li>
                 <li class="">开发</li>
                 <li class="">
-                  <div class="friend-tit">
-                    国友
-                  </div>
+                    <div class="friend-tit">
+                        国友
+                    </div>
                 </li>
                 <li class="">
-                  <div class="activebar_p20px">
-                      <div class="topbar normalHeader"></div>
-                  </div>
+                    <div class="activebar_p20px">
+                        <div class="topbar normalHeader"></div>
+                    </div>
                 </li>
             </ul>
         </header>
@@ -260,6 +268,7 @@
     <!-- <div class="centerVideo" id="centerVideo">
         <a class="videoButton"></a>
     </div> -->
+
 </body>
 
 </html>
@@ -275,6 +284,59 @@
         funIniGroup();
         fnOpenCenterFrame();
         api.parseTapmode();
+        // var isFirst = true;
+        fnDenglu();
+    }
+
+    function openQiandao() {
+      api.openWin({
+          name: 'qiandao',
+          url: './html/qiandao.html'
+      });
+
+        // var UICalendar = api.require('UICalendar');
+        // UICalendar.open({
+        //     rect: {
+        //         x: 30,
+        //         y: api.frameHeight / 2 - 170,
+        //         w: api.frameWidth - 60,
+        //         h: 340
+        //     },
+        //     styles: {
+        //         bg: 'rgba(0,0,0,0)',
+        //         week: {
+        //             weekdayColor: '#3b3b3b',
+        //             weekendColor: '#a8d400',
+        //             size: 12
+        //         },
+        //         date: {
+        //             color: '#3b3b3b',
+        //             selectedColor: '#fff',
+        //             selectedBg: '#a8d500',
+        //             size: 12
+        //         },
+        //         today: {
+        //             color: 'rgb(230,46,37)',
+        //             bg: ''
+        //         },
+        //         specialDate: {
+        //             color: '#a8d500',
+        //             bg: 'widget://image/a.png'
+        //         }
+        //     },
+        //     specialDate: [{
+        //         date: '2015-06-01'
+        //     }],
+        //     switchMode: 'vertical',
+        //     fixedOn: api.frameName,
+        //     fixed: false
+        // }, function(ret, err) {
+        //     if (ret) {
+        //         alert(JSON.stringify(ret));
+        //     } else {
+        //         alert(JSON.stringify(err));
+        //     }
+        // });
     }
 
     function fnOpenCenterFrame() {
@@ -379,5 +441,49 @@
             name: 'group',
             index: index
         });
+    }
+
+
+    var isFirst = true;
+
+    function fnDenglu() {
+        if (isFirst) {
+            var dialogBox = api.require('dialogBox');
+            dialogBox.alert({
+                texts: {
+                    content: '+5分',
+                    leftBtnTitle: '确定'
+                        // rightBtnTitle: '去开提醒'
+                },
+                styles: {
+                    bg: '#fff',
+                    corner: 6,
+                    w: 300,
+                    content: {
+                        color: '#000',
+                        size: 18
+                    },
+                    left: {
+                        marginB: 15,
+                        marginL: 30,
+                        marginR: 30,
+                        w: 240,
+                        h: 40,
+                        corner: 20,
+                        color: "#fff",
+                        bg: '#CDCDCD',
+                        size: 16
+                    }
+                },
+                tapClose: true
+            }, function(ret) {
+                if (ret.eventType == 'left') {
+                    dialogBox.close({
+                        dialogName: 'alert'
+                    });
+                }
+            });
+        }
+        isFirst = false;
     }
 </script>
