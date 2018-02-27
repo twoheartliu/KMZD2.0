@@ -131,12 +131,13 @@ function AddHistory(words, fromRoot) {
     }, function (ret, err) {
 
         var flag = false;//是否增加历史记录
-        var historyText = '' || ret.value  ;
+        var historyText = '' || ret.value ;
+
         var historyArray = historyText.split(',');
         for (var i = 0; i < historyArray.length; i++) {
             decodeURIComponent(historyArray[i]) == words && (flag = true);
         }
-        !flag && historyArray.unshift(encodeURIComponent(words));
+        !flag && historyArray.splice('',1,encodeURIComponent(words));
         !flag && api.setPrefs({
             key: 'historys',
             value: historyArray.join(',')

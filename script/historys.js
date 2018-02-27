@@ -20,7 +20,7 @@ function InitHistory() {
     }, function (ret, err) {
         var historyText = '' || ret.value  ;
         var historyArray = historyText.split(',');
-        //alert(JSON.stringify(historyArray));
+        alert(JSON.stringify(historyArray));
         var li = '<li class="history" data-index="{index}">{text}<img class="historyImg" src="../image/x.png" alt="" style="float: right;" onclick="ClearHistory({index})" ></li>';
 
         for (var i = 0; i < historyArray.length; i++) {
@@ -41,9 +41,27 @@ function InitHistory() {
 //   var ul_lisdiv = ul.getElementsByClassName('history')
 //   var s = e - 1;
 //           $api.addCls(ul_lisdiv[s], 'active');
-//
+//var text = ul_lisdiv[j].innerHTML;
 //
 // }
+function fnnone() {
+  var ul = document.getElementById('history');
+  var ul_lis = ul.getElementsByClassName('historyImg');
+  var ul_lisdiv = ul.getElementsByClassName('history');
+  for (var i = 0; i < ul_lis.length; i++) {
+      ul_lis[i].index = i;
+      ul_lis[i].onclick = function() {
+          var j = this.index;
+          // $api.addCls(ul_lisdiv[j], 'active');
+            var text = ul_lisdiv[j];
+            var parent=document.getElementById("history");
+            //var child=document.getElementById("p1");
+            parent.removeChild(text);
+          // alert(j);
+      }
+  }
+}
+
 function ClearHistory(index) {
   //alert(index);
   //var e = index;
@@ -68,8 +86,21 @@ function ClearHistory(index) {
               key: 'historys',
               value: historyArray.join(',')
           });
-          history.innerHTML = '';
-          InitHistory();
+          //fnnone();
+          // var parent=document.getElementById("history");
+          // var child=document.getElementById("p1");
+          // parent.removeChild(child);
+          // api.historyBack({
+          //     frameName: ''
+          // }, function(ret, err) {
+          //   alert(JSON.stringify(ret));
+          //     if (!ret.status) {
+          //         api.closeWin();
+          //     }
+          // });
+          // history.innerHTML = '';
+          // InitHistory();
+          //setTimeout("location.reload()", 500);
           api.toast({
               msg: '已清除历史记录'
           });
@@ -80,17 +111,17 @@ function ClearHistory(index) {
 function AppendHistory(text) {
 
     var history = $api.byId('history');
-    // history.innerHTML = '';
-    // InitHistory()
-    var index = 0;
-    //alert(index);
-    var a = index + 1;
-    var li = '<li class="history" data-index="0">' + text + '<img  class="historyImg" src="../image/x.png" alt="" style="float: right;" onclick="ClearHistory(' + a + ')"></li>';
-        //li = '<li class="history" data-index="{index}">{text}<img class="historyImg" src="../image/x.png" alt="" style="float: right;" onclick="ClearHistory({index})" ></li>';
-    // var tempLi = li.replace(0, 0);
-    // tempLi = tempLi.replace(text, decodeURIComponent(0);
-    // alert(tempLi);
-    history.appendHTML(li);
+    history.innerHTML = '';
+    InitHistory()
+    // var index = 0;
+    // //alert(index);
+    // var a = index + 1;
+    // var li = '<li class="history" data-index="0">' + text + '<img  class="historyImg" src="../image/x.png" alt="" style="float: right;" onclick="ClearHistory(' + a + ')"></li>';
+    //     //li = '<li class="history" data-index="{index}">{text}<img class="historyImg" src="../image/x.png" alt="" style="float: right;" onclick="ClearHistory({index})" ></li>';
+    // // var tempLi = li.replace(0, 0);
+    // // tempLi = tempLi.replace(text, decodeURIComponent(0);
+    // // alert(tempLi);
+    // history.appendHTML(li);
 
 }
 

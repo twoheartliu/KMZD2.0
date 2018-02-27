@@ -132,7 +132,7 @@
     <span class="line"></span>
   </div>
   <div class="otherlogin ">
-    <div class="login-item">
+    <div class="login-item" onclick="fnWXLogin()">
       <img src="./image/weixin.png" alt="">
       <p>微信登陆</p>
     </div>
@@ -148,21 +148,77 @@
 <script type="text/javascript">
     apiready = function() {
     }
+    function fnWXLogin(){
+      var wx = api.require('wx');
+      var login = function(){
+          wx.auth({
+              apiKey: ''
+          }, function(ret, err) {
+              if (ret.status) {
+                  alert(JSON.stringify(ret));
+              } else {
+                  alert(err.code);
+              }
+          });
+          // wx.login(function(ret, err) {
+          //   //alert(JSON.stringify(ret));
+          //   api.alert({
+          //       title: 'id和token',
+          //       msg: ret.openId + ret.accessToken
+          //   });
+          //   wx.getUserInfo(function(ret,err) {
+          //      if (ret.status) {
+          //        console.log(JSON.stringify(ret));
+          //           //alert(JSON.stringify(ret));
+          //      }else{
+          //           alert(JSON.stringify(err));
+          //      }
+          //   });
+          //
+          // });
+      };
+      wx.isInstalled(function(ret, err) {
+          if (ret.installed) {
+            login();
+          } else {
+              alert('当前设备未安装微信客户端');
+          }
+      });
+    }
     function fnQQLogin(){
         var qq = api.require('qq');
         var login = function(){
             qq.login(function(ret, err) {
-                api.alert({
-                    title: 'id和token',
-                    msg: ret.openId + ret.accessToken
-                });
+              //alert(JSON.stringify(ret));
+              api.alert({
+                  title: 'id和token',
+                  msg: ret.openId + ret.accessToken
+              });
+              qq.getUserInfo(function(ret,err) {
+                 if (ret.status) {
+                   console.log(JSON.stringify(ret.info));
+                      //alert(JSON.stringify(ret));
+                    var qqziliao = ret.info;
+                    api.openWin({
+                        name: 'index',
+                        url: './index.html',
+                        pageParam: {
+                            name: 'test',
+                            qqziliao: qqziliao
+                        }
+                    });
+                 }else{
+                      alert(JSON.stringify(err));
+                 }
+              });
+
             });
         };
         qq.installed(function(ret, err) {
             if (ret.status) {
                 login();
             } else {
-                api.alert({ msg: "没有安装" });
+                api.alert({ msg: "没有安装QQ" });
             }
         });
     };

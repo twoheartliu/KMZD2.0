@@ -413,8 +413,6 @@
     function fnTingdanZhanshi(data_) {
         var stylelist = $api.byId('tuijianliebiaogequ');
         var html = '';
-        tingdan=data_.data[0].singerName;
-        alert(JSON.stringify(tingdan));
         for (var i = 0; i < data_.data.length; i++) {
             html +=
                 '<li onclick="fnOpenPlay();" ><div class="on_playall"><span class="fl">' + data_.data[i].name + ' </span><span class="fl"> ' + data_.data[i].singerName + '</span><span class="fr">2018-01</span></div><div class="on_playall_img">  <div class="on_playall_div fl"><div class="on_playall_div_img fl"><img src="../image/icn_ply.png" alt=""></div><div class="on_playall_div_span fl"><span>2.3万</span></div></div><div class="on_playall_div fl"><div class="on_playall_div_img1 fl"><img src="../image/KM_tmis.png" alt=""></div><div class="on_playall_div_span fl"><span>' + data_.data[i].play_time + '</span></div></div></div></li>';
@@ -450,6 +448,9 @@
         api.openWin({
             name: 'play',
             url: './play.html',
+            pageParam: {
+                name: 'test'
+            }
         });
 
     }

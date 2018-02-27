@@ -327,6 +327,7 @@
     }
     // 底部导航
     function funIniGroup() {
+      var qqziliao = api.pageParam.qqziliao;
         var eHeaderLis = $api.domAll('header li'),
             frames = [];
         for (var i = 0, len = eHeaderLis.length; i < len; i++) {
@@ -334,6 +335,10 @@
                 name: 'indexFrame' + i,
                 url: './html/index_frame' + i + '.html',
                 bgColor: 'rgba(0,0,0,.2)',
+                pageParam: {
+                    name: 'test',
+                    qqziliao: qqziliao
+                },
                 bounces: false
             })
         }

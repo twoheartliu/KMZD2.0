@@ -183,9 +183,11 @@
 <body>
     <div class="index_header">
         <div class="index_header_div">
-            <div id="imgs" class="index_header_img" onclick="fnUpimg();"><img src="../image/KM_tx.png" alt=""></div>
+            <div id="imgs" class="index_header_img" onclick="fnUpimg();">
+              <!-- <img src="../image/KM_tx.png" alt=""> -->
+            </div>
             <div class="wode_bg">
-                <div class="index_header_mvp_p" onclick="fnPrompt()">嘿！我不是朝天椒</div>
+                <div class="index_header_mvp_p" id="username" onclick="fnPrompt()" id="username">嘿！我不是朝天椒</div>
                 <div class="index_header_mvp_span">[ 宝宝 ]</div>
             </div>
             <div class="index_header_san">
@@ -266,7 +268,26 @@
 <script type="text/javascript">
     apiready = function() {
         // 优化点击事件
+        var weixin = api.pageParam.qqziliao;
+        fnYongHuTouXiang(weixin);
+        fnUserName(weixin);
+        //alert(JSON.stringify(qqziliao));
         api.parseTapmode();
+    }
+    function fnYongHuTouXiang(weixin){
+      var WXtouxiang = weixin.figureurl_qq_2;
+      alert(JSON.stringify(WXtouxiang));
+      var stylelist = $api.byId('imgs');
+      var html = '<img src="' + WXtouxiang + '" alt="">';
+      $api.html(stylelist, html);
+
+    }
+    function fnUserName(weixin){
+      var stylelist = $api.byId('username');
+      var WXusername = weixin.nickname;
+      var html = WXusername;
+      $api.html(stylelist, html);
+
     }
     function fnPrompt() {
       api.prompt({
