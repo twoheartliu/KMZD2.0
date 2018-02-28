@@ -1,5 +1,6 @@
 <!doctype html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
@@ -10,10 +11,12 @@
     <link rel="stylesheet" href="./css/iconfont/iconfont.css">
     <link rel="stylesheet" href="./css/iconfont.css">
     <style>
-        html,body {
-          min-height: 100%;
-          background: #fff;
+        html,
+        body {
+            min-height: 100%;
+            background: #fff;
         }
+
         .fr {
             float: right;
         }
@@ -25,192 +28,219 @@
         .pa {
             position: absolute;
         }
+
         .bb {
-          border-bottom: 1px solid #e0e0e0;height: 1px;
+            border-bottom: 1px solid #e0e0e0;
+            height: 1px;
         }
-        nav{
-          margin: 30px 25px;
+
+        nav {
+            margin: 30px 25px;
         }
-        nav .phonenum,.phonepassword{
-          width:100%;
-          height: 40px;
-          line-height: 40px;
-          border: 1px solid #ccc;
-          margin-top: 15px;
-          border-radius: 5px;
+
+        nav .phonenum,
+        .phonepassword {
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+            border: 1px solid #ccc;
+            margin-top: 15px;
+            border-radius: 5px;
         }
-        nav .phonenum>img,.phonepassword>img{
-          vertical-align: middle;
+
+        nav .phonenum>img,
+        .phonepassword>img {
+            vertical-align: middle;
         }
-        nav .phonenum>input,.phonepassword>input{
-          width: 85%;
-          height:36px;
-          line-height: 36px;
+
+        nav .phonenum>input,
+        .phonepassword>input {
+            width: 85%;
+            height: 36px;
+            line-height: 36px;
         }
-        nav input:focus,button:focus{
-          outline: none;
+
+        nav input:focus,
+        button:focus {
+            outline: none;
         }
-        nav .loginbutton{
-          width:100%;
-          height:75px;
-          line-height: 30px;
-          text-align: center;
+
+        nav .loginbutton {
+            width: 100%;
+            height: 75px;
+            line-height: 30px;
+            text-align: center;
         }
-        .loginbutton button{
-          width:100%;
-          height:40px;
-          line-height: 40px;
-          text-align: center;
-          background-color: #89211b;
-          color: #fff;
-          margin-top: 15px;
-          border-radius: 5px;
+
+        .loginbutton button {
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            background-color: #89211b;
+            color: #fff;
+            margin-top: 15px;
+            border-radius: 5px;
         }
-        .loginbutton>p{
-          text-align: right;
-          color: #89211b;
-          height: 30px;
-          line-height: 30px;
+
+        .loginbutton>p {
+            text-align: right;
+            color: #89211b;
+            height: 30px;
+            line-height: 30px;
         }
-        section{
-          margin: 25px;
+
+        section {
+            margin: 25px;
         }
-        section .other{
-          width: 100%;
-          height: 40px;
-          line-height: 40px;
-          text-align: center;
+
+        section .other {
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
         }
-        .other>span{
-          color:#ccc;
-          display: inline-block;
-          height: 40px;
-          line-height: 40px;
-          padding: 0 5px;
+
+        .other>span {
+            color: #ccc;
+            display: inline-block;
+            height: 40px;
+            line-height: 40px;
+            padding: 0 5px;
         }
-        .other .line{
-          display: inline-block;
-          width: 27%;
-          height: 1px;
-          background-color: #ccc;
-          line-height: 40px;
-          vertical-align: middle;
+
+        .other .line {
+            display: inline-block;
+            width: 27%;
+            height: 1px;
+            background-color: #ccc;
+            line-height: 40px;
+            vertical-align: middle;
         }
-        .otherlogin{
-          display: flex;
-          display: -webkit-flex;
-          display: -webkit-box;
+
+        .otherlogin {
+            display: flex;
+            display: -webkit-flex;
+            display: -webkit-box;
         }
-        .otherlogin .login-item{
-          flex:1;
-          -webkit-flex:1;
-          -webkit-box-flex:1;
-          text-align: center;
-          margin-top: 10px;
+
+        .otherlogin .login-item {
+            flex: 1;
+            -webkit-flex: 1;
+            -webkit-box-flex: 1;
+            text-align: center;
+            margin-top: 10px;
         }
     </style>
 </head>
+
 <body>
- <nav>
-   <div class="phonenum">
-     <img src="./image/phone.png" alt="">
-     <input type="text" placeholder="请输入手机号">
-   </div>
-   <div class="phonepassword">
-     <img src="./image/password.png" alt="">
-     <input type="text" placeholder="请输入密码">
-   </div>
-   <div class="loginbutton">
-     <button onclick="fnOpenlogin();">登陆</button>
-     <p onclick="fnOpenForgetPassword();">忘记密码？</p>
-   </div>
- </nav>
-<section>
-  <div class="other">
-    <span class="line"></span>
-    <span>其他登陆方式</span>
-    <span class="line"></span>
-  </div>
-  <div class="otherlogin ">
-    <div class="login-item" onclick="fnWXLogin()">
-      <img src="./image/weixin.png" alt="">
-      <p>微信登陆</p>
-    </div>
-    <div class="login-item" onclick="fnQQLogin()">
-      <img src="./image/qq.png" alt="">
-      <p>QQ登陆</p>
-    </div>
-  </div>
-</section>
+    <nav>
+        <div class="phonenum">
+            <img src="./image/phone.png" alt="">
+            <input type="text" placeholder="请输入手机号">
+        </div>
+        <div class="phonepassword">
+            <img src="./image/password.png" alt="">
+            <input type="text" placeholder="请输入密码">
+        </div>
+        <div class="loginbutton">
+            <button onclick="fnOpenlogin();">登陆</button>
+            <p onclick="fnOpenForgetPassword();">忘记密码？</p>
+        </div>
+    </nav>
+    <section>
+        <div class="other">
+            <span class="line"></span>
+            <span>其他登陆方式</span>
+            <span class="line"></span>
+        </div>
+        <div class="otherlogin ">
+            <div class="login-item" onclick="fnWXLogin()">
+                <img src="./image/weixin.png" alt="">
+                <p>微信登陆</p>
+            </div>
+            <div class="login-item" onclick="fnQQLogin()">
+                <img src="./image/qq.png" alt="">
+                <p>QQ登陆</p>
+            </div>
+            <div class="login-item" onclick="fnWBLogin()">
+                <img src="./image/weibo.png" alt="">
+                <p>微博登录</p>
+            </div>
+        </div>
+    </section>
 </body>
+
 </html>
 <script type="text/javascript" src="script/api.js"></script>
 <script type="text/javascript">
-    apiready = function() {
+    apiready = function() {}
+
+    function fnWXLogin() {
+        var wx = api.require('wx');
+        var login = function() {
+            wx.auth({
+                apiKey: ''
+            }, function(ret, err) {
+                if (ret.status) {
+                    alert(JSON.stringify(ret));
+                } else {
+                    alert(err.code);
+                }
+            });
+            // wx.login(function(ret, err) {
+            //   //alert(JSON.stringify(ret));
+            //   api.alert({
+            //       title: 'id和token',
+            //       msg: ret.openId + ret.accessToken
+            //   });
+            //   wx.getUserInfo(function(ret,err) {
+            //      if (ret.status) {
+            //        console.log(JSON.stringify(ret));
+            //           //alert(JSON.stringify(ret));
+            //      }else{
+            //           alert(JSON.stringify(err));
+            //      }
+            //   });
+            //
+            // });
+        };
+        wx.isInstalled(function(ret, err) {
+            if (ret.installed) {
+                login();
+            } else {
+                alert('当前设备未安装微信客户端');
+            }
+        });
     }
-    function fnWXLogin(){
-      var wx = api.require('wx');
-      var login = function(){
-          wx.auth({
-              apiKey: ''
-          }, function(ret, err) {
-              if (ret.status) {
-                  alert(JSON.stringify(ret));
-              } else {
-                  alert(err.code);
-              }
-          });
-          // wx.login(function(ret, err) {
-          //   //alert(JSON.stringify(ret));
-          //   api.alert({
-          //       title: 'id和token',
-          //       msg: ret.openId + ret.accessToken
-          //   });
-          //   wx.getUserInfo(function(ret,err) {
-          //      if (ret.status) {
-          //        console.log(JSON.stringify(ret));
-          //           //alert(JSON.stringify(ret));
-          //      }else{
-          //           alert(JSON.stringify(err));
-          //      }
-          //   });
-          //
-          // });
-      };
-      wx.isInstalled(function(ret, err) {
-          if (ret.installed) {
-            login();
-          } else {
-              alert('当前设备未安装微信客户端');
-          }
-      });
-    }
-    function fnQQLogin(){
+
+    function fnQQLogin() {
         var qq = api.require('qq');
-        var login = function(){
+        var login = function() {
             qq.login(function(ret, err) {
-              //alert(JSON.stringify(ret));
-              api.alert({
-                  title: 'id和token',
-                  msg: ret.openId + ret.accessToken
-              });
-              qq.getUserInfo(function(ret,err) {
-                 if (ret.status) {
-                   console.log(JSON.stringify(ret.info));
-                      //alert(JSON.stringify(ret));
-                    var qqziliao = ret.info;
-                    api.openWin({
-                        name: 'index',
-                        url: './index.html',
-                        pageParam: {
-                            name: 'test',
-                            qqziliao: qqziliao
-                        }
-                    });
-                 }else{
-                      alert(JSON.stringify(err));
-                 }
-              });
+                //alert(JSON.stringify(ret));
+                api.alert({
+                    title: 'id和token',
+                    msg: ret.openId + ret.accessToken
+                });
+                qq.getUserInfo(function(ret, err) {
+                    if (ret.status) {
+                        console.log(JSON.stringify(ret.info));
+                        //alert(JSON.stringify(ret));
+                        var qqziliao = ret.info;
+                        api.openWin({
+                            name: 'index',
+                            url: './index.html',
+                            pageParam: {
+                                name: 'test',
+                                qqziliao: qqziliao
+                            }
+                        });
+                    } else {
+                        alert(JSON.stringify(err));
+                    }
+                });
 
             });
         };
@@ -218,26 +248,39 @@
             if (ret.status) {
                 login();
             } else {
-                api.alert({ msg: "没有安装QQ" });
+                api.alert({
+                    msg: "没有安装QQ"
+                });
             }
         });
     };
-    function fnOpenForgetPassword(){
-      api.openWin({
-          name: 'forget_password',
-          url: './forget_password.html',
-          pageParam: {
-              name: 'test'
-          }
-      });
+
+    function fnOpenForgetPassword() {
+        api.openWin({
+            name: 'forget_password',
+            url: './forget_password.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
     }
-    function fnOpenlogin(){
-      api.openWin({
-          name: 'index',
-          url: './index.html',
-          pageParam: {
-              name: 'test'
-          }
-      });
+
+    function fnOpenlogin() {
+        api.openWin({
+            name: 'index',
+            url: './index.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
+    }
+
+    function fnWBLogin() {
+        var weibo = api.require('weibo');
+        weibo.auth(function(ret, err) {
+            if (ret.status) {
+                alert(JSON.stringify(ret));
+            }
+        });
     }
 </script>

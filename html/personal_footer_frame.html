@@ -36,14 +36,14 @@
             flex: 1;
             text-align: center;
             height: 50px;
-            color:#89211b;
+            color:#666;
         }
 
     </style>
 </head>
 <body>
   <footer class="row" id="footer">
-    <div class="col care"><img src="../image/personal_care_a.png" alt=""><p>加关注</p></div>
+    <div class="col care"><img src="../image/personal_care.png" alt=""><p>加关注</p></div>
     <div class="col private"><img src="../image/personal_private_a.png" onclick="fnOpenPersonalPrivate();"><p>私信</p></div>
   </footer>
 </body>
@@ -55,9 +55,9 @@
       var footer = document.getElementById('footer');
       var care = footer.getElementsByClassName('care');
       care[0].onclick = function(){
-        care[0].children[0].src="../image/personal_care.png";
+        care[0].children[0].src="../image/personal_care_a.png";
         care[0].children[1].innerHTML="已关注";
-        care[0].children[1].style.color="#ccc";
+        care[0].children[1].style.color="#89211b";
       }
     }
     function fnOpenPersonalPrivate(){
