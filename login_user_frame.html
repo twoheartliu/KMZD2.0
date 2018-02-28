@@ -146,7 +146,10 @@
 </html>
 <script type="text/javascript" src="script/api.js"></script>
 <script type="text/javascript">
+var wx,qq,weibo;
+var loginParam={};
     apiready = function() {
+
     }
     function fnWXLogin(){
       var wx = api.require('wx');
@@ -184,33 +187,48 @@
               alert('当前设备未安装微信客户端');
           }
       });
-    }
+}
     function fnQQLogin(){
         var qq = api.require('qq');
         var login = function(){
             qq.login(function(ret, err) {
+              if(ret.status){
+                api.alert({
+                    title: '授权成功',
+                    msg: '正在打开孔孟知道...',
+                }, function(ret, err){
+                    if( ret ){
+                         //alert( JSON.stringify( ret ) );
+                         qq.getUserInfo(function(ret,err) {
+                            if (ret.status) {
+                              //console.log(JSON.stringify(ret.info));
+                                 //alert(JSON.stringify(ret));
+                               var qqziliao = ret.info;
+                               api.openWin({
+                                   name: 'index',
+                                   url: './index.html',
+                                   pageParam: {
+                                       name: 'test',
+                                       qqziliao: qqziliao
+                                   }
+                               });
+                            }else{
+                                 alert(JSON.stringify(err));
+                            }
+                         });
+                    }else{
+                         alert( JSON.stringify( err ) );
+                    }
+                });
+              }else {
+                  var toast = new auiToast();
+                  toast.fail({
+                      title: "授权失败",
+                      duration: 1500
+                  });
+              }
               //alert(JSON.stringify(ret));
-              api.alert({
-                  title: 'id和token',
-                  msg: ret.openId + ret.accessToken
-              });
-              qq.getUserInfo(function(ret,err) {
-                 if (ret.status) {
-                   console.log(JSON.stringify(ret.info));
-                      //alert(JSON.stringify(ret));
-                    var qqziliao = ret.info;
-                    api.openWin({
-                        name: 'index',
-                        url: './index.html',
-                        pageParam: {
-                            name: 'test',
-                            qqziliao: qqziliao
-                        }
-                    });
-                 }else{
-                      alert(JSON.stringify(err));
-                 }
-              });
+
 
             });
         };

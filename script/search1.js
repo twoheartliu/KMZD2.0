@@ -137,7 +137,7 @@ function AddHistory(words, fromRoot) {
         for (var i = 0; i < historyArray.length; i++) {
             decodeURIComponent(historyArray[i]) == words && (flag = true);
         }
-        !flag && historyArray.splice('',1,encodeURIComponent(words));
+        !flag && historyArray.splice(1,0,encodeURIComponent(words));
         !flag && api.setPrefs({
             key: 'historys',
             value: historyArray.join(',')

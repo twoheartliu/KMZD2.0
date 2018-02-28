@@ -20,7 +20,7 @@ function InitHistory() {
     }, function (ret, err) {
         var historyText = '' || ret.value  ;
         var historyArray = historyText.split(',');
-        alert(JSON.stringify(historyArray));
+        //alert(JSON.stringify(historyArray));
         var li = '<li class="history" data-index="{index}">{text}<img class="historyImg" src="../image/x.png" alt="" style="float: right;" onclick="ClearHistory({index})" ></li>';
 
         for (var i = 0; i < historyArray.length; i++) {
@@ -65,9 +65,10 @@ function fnnone() {
 function ClearHistory(index) {
   //alert(index);
   //var e = index;
-
+      alert(index);
     var history = $api.byId('history');
-    if (index == '') {
+    if (!index) {
+
         history.innerHTML = '';
         api.removePrefs({
             key: 'historys'
@@ -100,6 +101,7 @@ function ClearHistory(index) {
           // });
           // history.innerHTML = '';
           // InitHistory();
+          window.location.reload();
           //setTimeout("location.reload()", 500);
           api.toast({
               msg: '已清除历史记录'
