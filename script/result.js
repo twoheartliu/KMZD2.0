@@ -20,7 +20,7 @@ apiready = function () {
     !root && !flag && api.execScript({
         name: 'search',
         frameName: 'history',
-        script: 'AppendHistory("' + title + '");'
+        //script: 'AppendHistory("' + title + '");'
     });
 
     InitNavbar();
@@ -115,7 +115,9 @@ function SetFrameActive(index) {
 }
 
 function BackSearchWindow() {
-    api.closeWin();
+  api.closeToWin({
+    name: 'read'
+  });
 }
 
 /**
