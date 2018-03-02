@@ -4,6 +4,7 @@
 var pageNumber, isLoading;
 
 apiready = function() {
+
 	var pageParam = api.pageParam;
 	var index = pageParam.index;
 	var engineName = pageParam.engineName;
@@ -15,6 +16,7 @@ apiready = function() {
 	}, function(ret, err) {
 		!isLoading && GetData(searchText, ++pageNumber, index, engineName, engineUrl);
 	});
+
 
 	api.setRefreshHeaderInfo({
 		visible : true,
@@ -44,17 +46,9 @@ apiready = function() {
 
 // 初始化事件监听
 function initEventListenner() {
-		initEventListenner();
+
 		//监听关闭音频
-		api.addEventListener({
-				name: 'netbofang'
-		}, function(ret, err) {
-				if (ret) {
-					bofang = JSON.stringify(ret);
-					//alert(ret);
-						// netAudiopause(ret)
-				}
-		});
+
 		fnOpenPlayFrame(bofang);
 }
 
@@ -141,7 +135,16 @@ function EncodeWords(name, words) {
 }
 function setSousuoList(a,b){
 	if(a != undefined){
-		//alert(a);
+		alert(a);
+		api.addEventListener({
+				name: 'netbofang'
+		}, function(ret, err) {
+				if (ret) {
+					bofang = JSON.stringify(ret);
+					//alert(ret);
+						// netAudiopause(ret)
+				}
+		});
 		var a = a;
 		api.openWin({
 			name: 'play',

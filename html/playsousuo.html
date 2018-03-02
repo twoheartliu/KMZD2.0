@@ -41,13 +41,15 @@
     apiready = function(){
       var eHeader = $api.byId('header')
       $api.fixStatusBar(eHeader);
-      fnOpenPlayFrame();
-      initEventListenner();
+
+
     };
+    var bofang;
     function fnOpenPlayFrame(){
       var eHeader = $api.byId('header')
       var headerH = $api.offset(eHeader).h;
       var a = api.pageParam.a;
+
       api.openFrame({
           name: 'playsousuoFrame',
           url: './playsousuo_frame.html',
@@ -66,20 +68,9 @@
           vScrollBarEnabled: true,
           hScrollBarEnabled: true
       });
+        //  alert(a);
 
     }
-    // 初始化事件监听
-    function initEventListenner() {
 
-        //监听关闭音频
-        api.addEventListener({
-    				name: 'netbofang'
-    		}, function(ret, err) {
-    				if (ret) {
-              alert(ret);
-    						// netAudiopause(ret)
-    				}
-    		});
-    }
   </script>
   </html>
