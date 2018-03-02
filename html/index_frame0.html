@@ -66,6 +66,23 @@ font-size: inherit; padding: 0 0.1em; border-radius: 1px; margin-right: 5px; box
 
         </div>
     </div>
+    <div class="p20px">
+        <div class="sectionTitle">
+            <span class="TD_div fl">喜马拉雅</span>
+            <span class="fr more" onclick="fnRecommendWin();">更多</span>
+            <div class="clear"></div>
+        </div>
+        <div class="hot" id="喜马拉雅">
+
+            <!-- <div class="hotC" onclick="fnSingleWin();">
+                <img src="../image/frame0101cover/frame0101cover06.png" alt="" >
+                <div class="listtitle">经典诗歌</div>
+            </div> -->
+
+            <div class="clear"></div>
+
+        </div>
+    </div>
     <!-- 3 个性化推荐 -->
     <div class="p20px">
         <div class="sectionTitle mt20" onclick="">
@@ -145,20 +162,51 @@ font-size: inherit; padding: 0 0.1em; border-radius: 1px; margin-right: 5px; box
 </html>
 <script type="text/javascript">
     apiready = function() {
-            var qqziliao = api.pageParam.qqziliao;
-            // alert(JSON.stringify(qqziliao));
-            // api.parseTapmode()
-            fnTingdanTuijian();
-            fnInitSwiper();
+<<<<<<< HEAD
 
-            // var navbars = $api.domAll('.navbar');
+      // alert(JSON.stringify(qqziliao));
+        // api.parseTapmode()
+        fnTingdanTuijian();
+        fnInitSwiper();
+        fnXiMaLaYaTingDan()
+        var qqziliao = api.pageParam.qqziliao;
+        // var navbars = $api.domAll('.navbar');
 
-            // for(var i=0; i < 8 ;i++){
-            //   navbars.item(i).style.width = frameWidth /4 + "px";
-            //   navbars.item(i).style.height = frameWidth/4 * 1.1 + "px";
-            // };
+        // for(var i=0; i < 8 ;i++){
+        //   navbars.item(i).style.width = frameWidth /4 + "px";
+        //   navbars.item(i).style.height = frameWidth/4 * 1.1 + "px";
+        // };
 
-        }
+
+
+    }
+    //接口  推荐听单
+    function fnXiMaLaYaTingDan(){
+      var ximalaya = api.require('ximalaya');
+      var param = {
+          appsecret: "e1f6e1927fdab1ef1a8de1997557b6db"
+      };
+      ximalaya.initXmly(param, function(ret, err) {
+          if (ret)
+              alert(JSON.stringify(ret));
+          else
+              alert(JSON.stringify(err));
+      });
+    }
+    //接口  推荐听单
+    function fnTingdanTuijian(){
+      api.ajax({
+          url: 'http://47.100.11.38/kongmeng/thirdParty/search_playlist_by_name.php?page=0&size=6',
+          method: 'get',
+      }, function(ret, err) {
+          if (ret) {
+              //alert(JSON.stringify(ret));
+              fnTingdanZhanshi(ret);
+          } else {
+              alert(JSON.stringify(err));
+          }
+      });
+  }
         //接口  推荐听单
     function fnTingdanTuijian() {
         api.ajax({
@@ -172,6 +220,7 @@ font-size: inherit; padding: 0 0.1em; border-radius: 1px; margin-right: 5px; box
                 alert(JSON.stringify(err));
             }
         });
+
     }
     //接口  听单展示
     function fnTingdanZhanshi(data_) {
