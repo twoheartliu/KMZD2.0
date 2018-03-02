@@ -36,7 +36,7 @@
             /*background-color: #fff;*/
           }
           .play-tit{
-            font-size: 16px;
+            font-size: 18px;
             color:#000;
             text-align: center;
             margin:0 10px;
@@ -274,17 +274,62 @@
       var eHeader = $api.byId('header')
       fnInitSwiper();
       fnOpenChangeImg();
+
     };
     //播放
     function fnOpenPlayer(){
       var player = $api.byId('player');
       if(player.getAttribute("src",2)=="../image/play_stop.png"){
         player.src="../image/play_now.png";
-        alert('111');
+        fnNetAudiosPlayByID();
+        var bofang = 1;
+        api.sendEvent({
+  				name: 'netbofang',
+  				extra: {
+  					bofang: bofang
+  				}
+  			});
       }else{
         player.src="../image/play_stop.png";
-        alert('222');
+        var netAudiopausess = '';
+        var bofang = 0;
+        api.sendEvent({
+  				name: 'netbofang',
+  				extra: {
+  					bofang: bofang
+  				}
+  			});
+  			api.sendEvent({
+  				name: 'netAudiopause',
+  				extra: {
+  					netAudiopauses: netAudiopausess
+  				}
+  			});
       }
+    }
+    function fnNetAudiosPlayByID(){
+      //alert('333');
+      var id = api.pageParam.a;
+      //alert(id);
+      api.ajax({
+				url: 'http://47.100.11.38/kongmeng/thirdParty/search_songs_by_id.php?id= ' + id,
+				method: 'get',
+				dataType: 'json',
+			}, function(ret, err) {
+				if (ret) {
+					//console.log(JSON.stringify(ret));
+					//c = ret.data[0].id;
+					netAudioss = ret;
+					api.sendEvent({
+						name: 'netAudioplay',
+						extra: {
+							netAudios: netAudioss
+						}
+					});
+				} else {
+					alert(JSON.stringify(err));
+				}
+			});
     }
     // 轮播
     function fnInitSwiper() {

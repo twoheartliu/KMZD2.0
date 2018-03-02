@@ -158,7 +158,8 @@
             text-align: center;
             padding-top: 30px;
             background: url() no-repeat center 2px;
-            background-size: auto 25px;
+            background-size: auto 23px;
+            font-size: 11px;
         }
 
         #footer ul li.active {
@@ -223,7 +224,7 @@
                                     <img src="./image/video_header.png" alt="">
                                 </div>
                             </div>
-                            <div class="egret-header-box egret-img-a egret-div" tapmode onclick="openQiandao()"><img src="./image/qiandao.png" alt=""></div>
+                            <div class="egret-header-box egret-img-a egret-div" tapmode onclick="fnDenglu()"><img src="./image/qiandao.png" alt=""></div>
                         </div>
                     </div>
 
@@ -284,70 +285,21 @@
         funIniGroup();
         fnOpenCenterFrame();
         api.parseTapmode();
+        initEventListenner();
         // var isFirst = true;
         // fnDenglu();
     }
 
-    function openQiandao() {
-      api.openWin({
-          name: 'qiandao',
-          url: './html/qiandao.html'
-      });
-
-        // var UICalendar = api.require('UICalendar');
-        // UICalendar.open({
-        //     rect: {
-        //         x: 30,
-        //         y: api.frameHeight / 2 - 170,
-        //         w: api.frameWidth - 60,
-        //         h: 340
-        //     },
-        //     styles: {
-        //         bg: 'rgba(0,0,0,0)',
-        //         week: {
-        //             weekdayColor: '#3b3b3b',
-        //             weekendColor: '#a8d400',
-        //             size: 12
-        //         },
-        //         date: {
-        //             color: '#3b3b3b',
-        //             selectedColor: '#fff',
-        //             selectedBg: '#a8d500',
-        //             size: 12
-        //         },
-        //         today: {
-        //             color: 'rgb(230,46,37)',
-        //             bg: ''
-        //         },
-        //         specialDate: {
-        //             color: '#a8d500',
-        //             bg: 'widget://image/a.png'
-        //         }
-        //     },
-        //     specialDate: [{
-        //         date: '2015-06-01'
-        //     }],
-        //     switchMode: 'vertical',
-        //     fixedOn: api.frameName,
-        //     fixed: false
-        // }, function(ret, err) {
-        //     if (ret) {
-        //         alert(JSON.stringify(ret));
-        //     } else {
-        //         alert(JSON.stringify(err));
-        //     }
-        // });
-    }
 
     function fnOpenCenterFrame() {
         api.openFrame({
             name: 'centerFrame',
             url: './html/center_frame.html',
             rect: {
-                x: (api.frameWidth - 89) / 2,
-                y: api.frameHeight - 89,
-                w: 89,
-                h: 89
+                x: (api.frameWidth - 70) / 2,
+                y: api.frameHeight - 70,
+                w: 70,
+                h: 70
             },
             pageParam: {
                 name: 'test'
@@ -389,7 +341,7 @@
     }
     // 底部导航
     function funIniGroup() {
-      var qqziliao = api.pageParam.qqziliao;
+        var qqziliao = api.pageParam.qqziliao;
         var eHeaderLis = $api.domAll('header li'),
             frames = [];
         for (var i = 0, len = eHeaderLis.length; i < len; i++) {
@@ -448,42 +400,78 @@
 
     function fnDenglu() {
         if (isFirst) {
-            var dialogBox = api.require('dialogBox');
-            dialogBox.alert({
-                texts: {
-                    content: '+5分',
-                    leftBtnTitle: '确定'
-                        // rightBtnTitle: '去开提醒'
-                },
-                styles: {
-                    bg: '#fff',
-                    corner: 6,
-                    w: 300,
-                    content: {
-                        color: '#000',
-                        size: 18
-                    },
-                    left: {
-                        marginB: 15,
-                        marginL: 30,
-                        marginR: 30,
-                        w: 240,
-                        h: 40,
-                        corner: 20,
-                        color: "#fff",
-                        bg: '#CDCDCD',
-                        size: 16
-                    }
-                },
-                tapClose: true
-            }, function(ret) {
-                if (ret.eventType == 'left') {
-                    dialogBox.close({
-                        dialogName: 'alert'
-                    });
-                }
+            api.toast({
+                msg: '签到成功',
+                duration: 2000,
+                location: 'middle'
             });
         }
         isFirst = false;
+    }
+    //音频播放模块
+    function netAudios(urls) {
+        var name = urls.value.netAudios.data[0].url;
+        var netAudio = api.require('netAudio');
+        netAudio.play({
+            path: name
+        }, function(ret, err) {
+            if (ret) {
+                //alert(JSON.stringify(ret));
+            } else {
+                alert(JSON.stringify(err));
+            }
+        });
+    }
+    //关闭音频
+    function netAudiopause() {
+        var netAudio = api.require('netAudio');
+        netAudio.pause();
+    }
+    // 初始化事件监听
+    function initEventListenner() {
+        // 监听城市切换事件（自定义事件）
+        // api.addEventListener({
+        //     name: 'cityChange'
+        // }, function(ret, err) {
+        //     if (ret) {
+        //         // 打开商品列表等首页的Frames
+        //         openFrames();
+        //     }
+        // });
+        //监听打开音频
+        api.addEventListener({
+            name: 'netAudioplay'
+        }, function(ret, err) {
+            if (ret) {
+                alert(ret);
+                netAudios(ret)
+            }
+        });
+        //监听关闭音频
+        api.addEventListener({
+            name: 'netAudiopause'
+        }, function(ret, err) {
+            if (ret) {
+                netAudiopause(ret)
+            }
+        });
+
+        // 拦截Android的返回键，在首页点击返回键，提示退出应用
+        api.addEventListener({
+            name: 'keyback'
+        }, function(ret, err) {
+            api.confirm({
+                title: '提示',
+                msg: '是否退出应用',
+                buttons: ['确定', '取消']
+            }, function(ret, err) {
+                if (ret.buttonIndex == 1) {
+                    // 关闭当前的主Widget，就可以实现推出APP的效果
+                    api.closeWidget({
+                        silent: true //直接退出，无需提示
+                    });
+                }
+            });
+        });
     }
 </script>

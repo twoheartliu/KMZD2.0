@@ -41,15 +41,18 @@
     apiready = function(){
       var eHeader = $api.byId('header')
       $api.fixStatusBar(eHeader);
-      fnOpenPlayFrame();
+
+
     };
+    var bofang;
     function fnOpenPlayFrame(){
       var eHeader = $api.byId('header')
       var headerH = $api.offset(eHeader).h;
       var a = api.pageParam.a;
+
       api.openFrame({
-          name: 'playFrame',
-          url: './play_frame.html',
+          name: 'playsousuoFrame',
+          url: './playsousuo_frame.html',
           rect: {
               x: 0,
               y: headerH,
@@ -65,6 +68,7 @@
           vScrollBarEnabled: true,
           hScrollBarEnabled: true
       });
+        //  alert(a);
 
     }
 
