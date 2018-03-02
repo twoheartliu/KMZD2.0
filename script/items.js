@@ -42,6 +42,22 @@ apiready = function() {
 	GetData(searchText, pageNumber, index, engineName, engineUrl);
 };
 
+// 初始化事件监听
+function initEventListenner() {
+		initEventListenner();
+		//监听关闭音频
+		api.addEventListener({
+				name: 'netbofang'
+		}, function(ret, err) {
+				if (ret) {
+					bofang = JSON.stringify(ret);
+					//alert(ret);
+						// netAudiopause(ret)
+				}
+		});
+		fnOpenPlayFrame(bofang);
+}
+
 /**
  *
  * @param words 关键词
@@ -128,8 +144,8 @@ function setSousuoList(a,b){
 		//alert(a);
 		var a = a;
 		api.openWin({
-			name: 'sousuomusic',
-			url: '../html/sousuomusic.html',
+			name: 'play',
+			url: '../html/playsousuo.html',
 			pageParam: {
 				a : a
 			},

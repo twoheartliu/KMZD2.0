@@ -42,14 +42,15 @@
       var eHeader = $api.byId('header')
       $api.fixStatusBar(eHeader);
       fnOpenPlayFrame();
+      initEventListenner();
     };
     function fnOpenPlayFrame(){
       var eHeader = $api.byId('header')
       var headerH = $api.offset(eHeader).h;
       var a = api.pageParam.a;
       api.openFrame({
-          name: 'playFrame',
-          url: './play_frame.html',
+          name: 'playsousuoFrame',
+          url: './playsousuo_frame.html',
           rect: {
               x: 0,
               y: headerH,
@@ -67,6 +68,18 @@
       });
 
     }
+    // 初始化事件监听
+    function initEventListenner() {
 
+        //监听关闭音频
+        api.addEventListener({
+    				name: 'netbofang'
+    		}, function(ret, err) {
+    				if (ret) {
+              alert(ret);
+    						// netAudiopause(ret)
+    				}
+    		});
+    }
   </script>
   </html>

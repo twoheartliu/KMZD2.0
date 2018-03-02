@@ -284,6 +284,7 @@
         funIniGroup();
         fnOpenCenterFrame();
         api.parseTapmode();
+        initEventListenner();
         // var isFirst = true;
         // fnDenglu();
     }
@@ -485,5 +486,71 @@
             });
         }
         isFirst = false;
+    }
+    //音频播放模块
+    function netAudios(urls){
+              var name = urls.value.netAudios.data[0].url;
+              var netAudio = api.require('netAudio');
+              netAudio.play({
+                  path: name
+              }, function(ret, err) {
+                  if (ret) {
+                      //alert(JSON.stringify(ret));
+                  } else {
+                      alert(JSON.stringify(err));
+                  }
+              });
+    }
+    //关闭音频
+    function netAudiopause (){
+      var netAudio = api.require('netAudio');
+      netAudio.pause();
+    }
+    // 初始化事件监听
+    function initEventListenner() {
+        // 监听城市切换事件（自定义事件）
+        // api.addEventListener({
+        //     name: 'cityChange'
+        // }, function(ret, err) {
+        //     if (ret) {
+        //         // 打开商品列表等首页的Frames
+        //         openFrames();
+        //     }
+        // });
+        //监听打开音频
+        api.addEventListener({
+    				name: 'netAudioplay'
+    		}, function(ret, err) {
+    				if (ret) {
+              alert(ret);
+    						netAudios(ret)
+    				}
+    		});
+        //监听关闭音频
+        api.addEventListener({
+    				name: 'netAudiopause'
+    		}, function(ret, err) {
+    				if (ret) {
+    						netAudiopause(ret)
+    				}
+    		});
+
+        // 拦截Android的返回键，在首页点击返回键，提示退出应用
+        api.addEventListener({
+            name: 'keyback'
+        }, function(ret, err) {
+            api.confirm({
+                title: '提示',
+                msg: '是否退出应用',
+                buttons: ['确定', '取消']
+            }, function(ret, err) {
+                if (ret.buttonIndex == 1) {
+                    // 关闭当前的主Widget，就可以实现推出APP的效果
+                    api.closeWidget({
+                        silent: true //直接退出，无需提示
+                    });
+                }
+            });
+        });
     }
 </script>
