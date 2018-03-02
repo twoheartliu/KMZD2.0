@@ -162,12 +162,11 @@ font-size: inherit; padding: 0 0.1em; border-radius: 1px; margin-right: 5px; box
 </html>
 <script type="text/javascript">
     apiready = function() {
-
       // alert(JSON.stringify(qqziliao));
         // api.parseTapmode()
         fnTingdanTuijian();
         fnInitSwiper();
-        fnXiMaLaYaTingDan()
+        fnXiMaLaYaTingDan();
         var qqziliao = api.pageParam.qqziliao;
         // var navbars = $api.domAll('.navbar');
 
@@ -181,16 +180,44 @@ font-size: inherit; padding: 0 0.1em; border-radius: 1px; margin-right: 5px; box
     }
     //接口  推荐听单
     function fnXiMaLaYaTingDan(){
+      var ximalaya = null;
       var ximalaya = api.require('ximalaya');
       var param = {
-          appsecret: "e1f6e1927fdab1ef1a8de1997557b6db"
+        appkey : "a2bef6e953c529b6ac0b656a32079ecf",
+        appsecret : "8b34f88377b74cdde91e2d10111769d1  "
       };
       ximalaya.initXmly(param, function(ret, err) {
-          if (ret)
-              alert(JSON.stringify(ret));
-          else
-              alert(JSON.stringify(err));
+        if (ret)
+          alert(JSON.stringify(ret.message));
+        else
+        console.log(JSON.stringify(err));
+          alert(JSON.stringify(err));
       });
+      function getSearchedTracks() {
+				var param = {
+					keyword : "爱情",
+					categoryid : 1,
+					page : 1,
+					pagesize : 3
+				};
+				ximalaya.getSearchedTracks(param, function(ret, err) {
+					if (ret)
+						alert(JSON.stringify(ret.total_count));
+					else
+						alert(JSON.stringify(err));
+				});
+			}
+      // var param = {
+      //     //appkey: "a2bef6e953c529b6ac0b656a32079ecf",
+      //     appsecret: "e1f6e1927fdab1ef1a8de1997557b6db"
+      // };
+      // ximalaya.initXmly(param, function(ret, err) {
+      //     if (ret)
+      //         alert(JSON.stringify(ret));
+      //     else
+      //         alert(JSON.stringify(err));
+      // });
+
     }
     //接口  推荐听单
     function fnTingdanTuijian(){
