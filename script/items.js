@@ -147,7 +147,7 @@ function setSousuoList(a,b){
 		});
 		var a = a;
 		api.openWin({
-			name: 'play',
+			name: 'playsousuo',
 			url: '../html/playsousuo.html',
 			pageParam: {
 				a : a
