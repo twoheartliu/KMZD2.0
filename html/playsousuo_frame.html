@@ -308,16 +308,16 @@
       }
     }
     function fnNetAudiosPlayByID(){
-      //alert('333');
+      alert('333');
       var id = api.pageParam.a;
-      //alert(id);
+      alert(id);
       api.ajax({
 				url: 'http://47.100.11.38/kongmeng/thirdParty/search_songs_by_id.php?id= ' + id,
 				method: 'get',
 				dataType: 'json',
 			}, function(ret, err) {
 				if (ret) {
-					//console.log(JSON.stringify(ret));
+					console.log(JSON.stringify(ret));
 					//c = ret.data[0].id;
 					netAudioss = ret;
 					api.sendEvent({

@@ -110,22 +110,22 @@ function ClearHistory(index) {
     }
 }
 
-// function AppendHistory(text) {
-//
-//     var history = $api.byId('history');
-//     // history.innerHTML = '';
-//     // InitHistory()
-//     var index = 1;
-//     //alert(index);
-//     //var a = index + 1;
-//     var li = '<li class="history" data-index="1">' + text + '<img  class="historyImg" src="../image/x.png" alt="" style="float: right;" onclick="ClearHistory(' + index + ')"></li>';
-//         //li = '<li class="history" data-index="{index}">{text}<img class="historyImg" src="../image/x.png" alt="" style="float: right;" onclick="ClearHistory({index})" ></li>';
-//     // var tempLi = li.replace(0, 0);
-//     // tempLi = tempLi.replace(text, decodeURIComponent(0);
-//     // alert(tempLi);
-//     history.appendHTML(li);
-//
-// }
+function AppendHistory(text) {
+
+    var history = $api.byId('history');
+    // history.innerHTML = '';
+    // InitHistory()
+    var index = 1;
+    //alert(index);
+    //var a = index + 1;
+    var li = '<li class="history" data-index="1">' + text + '<img  class="historyImg" src="../image/x.png" alt="" style="float: right;" onclick="ClearHistory(' + index + ')"></li>';
+        //li = '<li class="history" data-index="{index}">{text}<img class="historyImg" src="../image/x.png" alt="" style="float: right;" onclick="ClearHistory({index})" ></li>';
+    // var tempLi = li.replace(0, 0);
+    // tempLi = tempLi.replace(text, decodeURIComponent(0);
+    // alert(tempLi);
+    history.appendHTML(li);
+
+}
 
 
 document.addEventListener('click', function (e) {
