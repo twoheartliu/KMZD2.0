@@ -30,28 +30,29 @@
 <script type="text/javascript">
 
     apiready = function() {
-      var bofang = 0;
 
+      var bofang = 0;
       api.addEventListener({
   				name: 'netbofang'
   		}, function(ret, err) {
   				bofang = JSON.stringify(ret.value);
           alert(bofang);
   		});
-      if (bofang = 0) {
+
+      if (bofang == 0) {
         alert(bofang);
         // var stylelist = $api.byId('centerVedeo');
         var stylelist = $api.byId('centerVedeo');
         var html = '';
         html += '<img src="../image/footer_bf' + bofang + '.png" alt="">';
         $api.html(stylelist, html);
-      } else if(bofang = 1) {
-
+      } else if (bofang == 1) {
+        alert(bofang);
         // var stylelist = $api.byId('centerVedeo');
 
         var stylelist = $api.byId('centerVedeo');
         var html = '';
-        html += '<img src="../image/footer_bf' + bofang + '.png" alt="">';
+        html += '<img src="../image/footer_bf ' + bofang + '.png" alt="">';
         $api.html(stylelist, html);
       }
     };
