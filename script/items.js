@@ -146,7 +146,7 @@ function setSousuoList(a,b){
 				name: 'netbofang'
 		}, function(ret, err) {
 				if (ret) {
-					bofang = ret.value;
+					bofang = JSON.stringify(ret.value);
 					//alert(bofang);
 						// netAudiopause(ret)
 				}
