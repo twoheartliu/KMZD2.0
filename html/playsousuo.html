@@ -41,7 +41,7 @@
     apiready = function(){
       var eHeader = $api.byId('header')
       $api.fixStatusBar(eHeader);
-
+      fnOpenPlayFrame()
 
     };
     var bofang;
@@ -49,10 +49,10 @@
       var eHeader = $api.byId('header')
       var headerH = $api.offset(eHeader).h;
       var a = api.pageParam.a;
-
+      //alert(a);
       api.openFrame({
           name: 'playsousuoFrame',
-          url: './playsousuo_frame.html',
+          url: '../html/playsousuo_frame.html',
           rect: {
               x: 0,
               y: headerH,

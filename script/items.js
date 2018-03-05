@@ -136,15 +136,15 @@ function EncodeWords(name, words) {
 function setSousuoList(a,b){
 	if(a != undefined){
 		alert(a);
-		api.addEventListener({
-				name: 'netbofang'
-		}, function(ret, err) {
-				if (ret) {
-					bofang = JSON.stringify(ret);
-					//alert(ret);
-						// netAudiopause(ret)
-				}
-		});
+		// api.addEventListener({
+		// 		name: 'netbofang'
+		// }, function(ret, err) {
+		// 		if (ret) {
+		// 			bofang = JSON.stringify(ret);
+		// 			//alert(ret);
+		// 				// netAudiopause(ret)
+		// 		}
+		// });
 		var a = a;
 		api.openWin({
 			name: 'playsousuo',
