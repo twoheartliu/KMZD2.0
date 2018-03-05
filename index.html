@@ -441,17 +441,17 @@
     }
     //音频播放模块
     function netAudios(urls){
-              var name = urls.value.netAudios.data[0].url;
-              var netAudio = api.require('netAudio');
-              netAudio.play({
-                  path: name
-              }, function(ret, err) {
-                  if (ret) {
-                      //alert(JSON.stringify(ret));
-                  } else {
-                      alert(JSON.stringify(err));
-                  }
-              });
+        var name = urls.value.netAudios.data[0].url;
+        var netAudio = api.require('netAudio');
+        netAudio.play({
+            path: name
+        }, function(ret, err) {
+            if (ret) {
+                //alert(JSON.stringify(ret));
+            } else {
+                alert(JSON.stringify(err));
+            }
+        });
     }
     //关闭音频
     function netAudiopause (){
