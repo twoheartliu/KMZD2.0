@@ -18,7 +18,7 @@
             background-position: center;
             background-repeat: no-repeat;
             background-size: contain;
-            background-image: url(../image/footer_bf1.png);
+            background-image: url();
         }
     </style>
 </head>
@@ -28,18 +28,42 @@
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
+
     apiready = function() {
+      var bofang = 0;
+
       api.addEventListener({
   				name: 'netbofang'
   		}, function(ret, err) {
-  				if (ret) {
-  					//bofang = ret.value;
-            bofang = JSON.stringify(ret.value);
-  					alert(bofang);
-  						// netAudiopause(ret)
-  				}
+  				bofang = JSON.stringify(ret.value);
+          alert(bofang);
   		});
+      if (bofang = 0) {
+        alert(bofang);
+        // var stylelist = $api.byId('centerVedeo');
+        var stylelist = $api.byId('centerVedeo');
+        var html = '';
+        html += '<img src="../image/footer_bf' + bofang + '.png" alt="">';
+        $api.html(stylelist, html);
+      } else if(bofang = 1) {
+
+        // var stylelist = $api.byId('centerVedeo');
+
+        var stylelist = $api.byId('centerVedeo');
+        var html = '';
+        html += '<img src="../image/footer_bf' + bofang + '.png" alt="">';
+        $api.html(stylelist, html);
+      }
     };
+
+      //bofang = ret.value;
+
+      // bofang = JSON.stringify(ret.value);
+
+        // netAudiopause(ret)
+
+
+
     function fnOpenPlay() {
         api.openWin({
             name: 'play',
