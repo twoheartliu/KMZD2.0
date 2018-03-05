@@ -29,6 +29,16 @@
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
     apiready = function() {
+      api.addEventListener({
+  				name: 'netbofang'
+  		}, function(ret, err) {
+  				if (ret) {
+  					//bofang = ret.value;
+            bofang = JSON.stringify(ret.value);
+  					alert(bofang);
+  						// netAudiopause(ret)
+  				}
+  		});
     };
     function fnOpenPlay() {
         api.openWin({
