@@ -10,18 +10,21 @@
 			height: 100%; background-color: transparent;
 			overflow: hidden;
 		}
-		#mask{height: 25%;}
+		#mask{
+		  height: 35%;
+    }
 		#radio-list{
 			-webkit-transition: all .3s;
 			transition: all .3s;
 			-webkit-transform: translateY(100%);
-			height: 75%;
+			height: 65%;
 			display: -webkit-box;
 			display: -webkit-flex;
 			display: flex;
 			-webkit-box-orient: vertical;
 			-webkit-flex-flow: column;
 			flex-flow: column;
+      background-color: #eaeaea;
 		}
 		#radio-list.in{
 			-webkit-transform: translateY(0%);
@@ -40,12 +43,15 @@
 			-webkit-box-flex: 1;
 			-webkit-flex: 1;
 			flex: 1;
+      height: 100%;
+      /*height: 20px;*/
 		}
 		#radio-list li{
 			overflow: hidden; padding: 10px 10px 0;
 			background: url(../image/ic_arrow_general.png) no-repeat 96% center;
 			-webkit-background-size: 18px;
 			background-size: 18px;
+      height: 50px;
 		}
 		#radio-list li.focus{
 			background-color: #bebebe;
@@ -86,7 +92,7 @@
 					<label>时长: 24分10秒</label>
 				</div>
 			</li>
-			<li tapmode="focus">
+			<!-- <li tapmode="focus">
 				<div>
 					<p>【美食地图】天南地北一张饼</p>
 					<label>时长: 24分10秒</label>
@@ -139,10 +145,11 @@
 					<p>【美食地图】天南地北一张饼</p>
 					<label>时长: 24分10秒</label>
 				</div>
-			</li>
+			</li> -->
 		</ul>
 	</div>
 </div>
+<div id="mask"></div>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
