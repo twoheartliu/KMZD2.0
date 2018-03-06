@@ -342,7 +342,7 @@
     }
     // 底部导航
     function funIniGroup() {
-      var qqziliao = api.pageParam.qqziliao;
+        var qqziliao = api.pageParam.qqziliao;
         var eHeaderLis = $api.domAll('header li'),
             frames = [];
         for (var i = 0, len = eHeaderLis.length; i < len; i++) {
@@ -401,46 +401,16 @@
 
     function fnDenglu() {
         if (isFirst) {
-            var dialogBox = api.require('dialogBox');
-            dialogBox.alert({
-                texts: {
-                    content: '签到成功！',
-                    leftBtnTitle: '确定'
-                        // rightBtnTitle: '去开提醒'
-                },
-                styles: {
-                    bg: '#fff',
-                    corner: 6,
-                    w: 300,
-                    content: {
-                        color: '#000',
-                        size: 18
-                    },
-                    left: {
-                        marginB: 15,
-                        marginL: 30,
-                        marginR: 30,
-                        w: 240,
-                        h: 40,
-                        corner: 20,
-                        color: "#fff",
-                        bg: '#CDCDCD',
-                        size: 16
-                    }
-                },
-                tapClose: true
-            }, function(ret) {
-                if (ret.eventType == 'left') {
-                    dialogBox.close({
-                        dialogName: 'alert'
-                    });
-                }
+            api.toast({
+                msg: '签到成功',
+                duration: 2000,
+                location: 'bottom'
             });
         }
         isFirst = false;
     }
     //音频播放模块
-    function netAudios(urls){
+    function netAudios(urls) {
         var name = urls.value.netAudios.data[0].url;
         var netAudio = api.require('netAudio');
         netAudio.play({
@@ -454,9 +424,9 @@
         });
     }
     //关闭音频
-    function netAudiopause (){
-      var netAudio = api.require('netAudio');
-      netAudio.pause();
+    function netAudiopause() {
+        var netAudio = api.require('netAudio');
+        netAudio.pause();
     }
     // 初始化事件监听
     function initEventListenner() {
@@ -480,12 +450,12 @@
         });
         //监听关闭音频
         api.addEventListener({
-    				name: 'netAudiopause'
-    		}, function(ret, err) {
-    				if (ret) {
-    						netAudiopause(ret)
-    				}
-    		});
+            name: 'netAudiopause'
+        }, function(ret, err) {
+            if (ret) {
+                netAudiopause(ret)
+            }
+        });
 
         // 拦截Android的返回键，在首页点击返回键，提示退出应用
         api.addEventListener({
