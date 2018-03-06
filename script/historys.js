@@ -3,7 +3,7 @@
  */
 apiready = function () {
     var clear = $api.byId('clear');
-    var history = $api.byId('history');
+      var history = $api.byId('history');
     $api.addEvt(clear, 'click', function () {
         ClearHistory();
     });

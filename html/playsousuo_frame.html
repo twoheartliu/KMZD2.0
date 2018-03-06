@@ -500,53 +500,22 @@
                 //console.log(JSON.stringify(ret));
                    var flag = false;//是否增加历史记录
                    var historyText = ret.value ;
-                  if(historyText ==''){
-                    var historyArray = historyText.split(',');
-                    for (var i = 0; i < historyArray.length; i++) {
-                        decodeURIComponent(historyArray[i]) == id && (flag = true);
-                    }
-                    !flag && historyArray.splice(1,0,encodeURIComponent(id));
-                    !flag && api.setPrefs({
-                        key: 'sousuohistory',
-                        value: historyArray.join(',')
-                    });
-                  }else{
-                    var historyArray = historyText.split(',');
-                    for (var i = 0; i < historyArray.length; i++) {
-                        decodeURIComponent(historyArray[i]) == id && (flag = true);
-                    }
-                    !flag && historyArray.splice(1,0,encodeURIComponent(id));
-                    !flag && api.setPrefs({
-                        key: 'sousuohistory',
-                        value: historyArray.join(',')
-                    });
-                  }
 
-                   alert( JSON.stringify( historyArray ) );
+                    var historyArray = historyText.split(',');
+                    for (var i = 0; i < historyArray.length; i++) {
+                        decodeURIComponent(historyArray[i]) == id && (flag = true);
+                    }
+                    !flag && historyArray.splice(1,0,encodeURIComponent(id));
+                    !flag && api.setPrefs({
+                        key: 'sousuohistory',
+                        value: historyArray.join(',')
+                    });
+
               }else{
                    alert( JSON.stringify( err ) );
               }
           });
 
-          // api.getPrefs({
-          //     key: 'sousuohistory'
-          // }, function (ret, err) {
-          //   alert(JSON.stringify(ret));
-          //     console.log(JSON.stringify(ret));
-          //     var flag = false;//是否增加历史记录
-          //     var historyText = '' || ret ;
-          //      var historyArray = historyText.split(',');
-          //      console.log(historyArray);
-          //     for (var i = 0; i < historyArray.length; i++) {
-          //         decodeURIComponent(historyArray[i]) == data && (flag = true);
-          //     }
-          //     !flag && historyArray.splice(1,0,encodeURIComponent(data));
-          //     !flag && api.setPrefs({
-          //         key: 'sousuohistory',
-          //         value: historyArray.join(',')
-          //     });
-          //
-          // });
 
     }
     //滑块
