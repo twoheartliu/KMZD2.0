@@ -76,7 +76,7 @@ function GetData(words, page, index, name, url, complete) {
 	//console.log(JSON.stringify(url));
 	//url = 'http://47.100.11.38/kongmeng/thirdParty/search_playlist_by_name.php?page=1&size=20&search=三字经';
 	//url = 'http://47.100.11.38/kongmeng/thirdParty/search_songs_by_name.php?page=0&size=10&search=三字经';
-	console.log(JSON.stringify(url));
+	//console.log(JSON.stringify(url));
 	isLoading = true;
 	api.ajax({
 		url : url,

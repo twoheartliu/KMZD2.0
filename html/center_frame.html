@@ -44,32 +44,36 @@
       api.addEventListener({
   				name: 'netbofang'
   		}, function(ret, err) {
-  				bofang = JSON.stringify(ret.value.bofang);
-          fnBOFangJian(bofang);
+        var a;
+          bofang = JSON.stringify(ret.value.bofang),
+          a = JSON.stringify(ret.value.a)
+
+
+          fnBOFangJian(bofang,a);
   		});
     };
-    function fnBOFangJian(bofang){
-      //alert(bofang);
+    function fnBOFangJian(bofang,a){
+
       if (bofang == 0) {
         //alert(bofang);
         // var stylelist = $api.byId('centerVedeo');
         var stylelist = $api.byId('centerVedeo');
         var html = '';
-        html += '<div onclick="fnOpenPlay( ' + bofang + ');"><img src="../image/footer_bf' + bofang + '.png" alt=""></div>';
+        html += '<div onclick="fnOpenPlay( ' + bofang + ',' + a + ');"><img src="../image/footer_bf' + bofang + '.png" alt=""></div>';
         $api.html(stylelist, html);
       } else if (bofang == 1) {
-        alert(bofang);
+        //alert(bofang);
         // var stylelist = $api.byId('centerVedeo');
-
         var stylelist = $api.byId('centerVedeo');
         var html = '';
-        html += '<div onclick="fnOpenPlay( ' + bofang + ');"><img src="../image/footer_bf' + bofang + '.png" alt=""></div>';
+        html += '<div onclick="fnOpenPlay( ' + bofang + ',' + a + ');"><img src="../image/footer_bf' + bofang + '.png" alt=""></div>';
         $api.html(stylelist, html);
       }
       api.sendEvent({
         name: 'netbofangs',
         extra: {
-          bofang: bofang
+          bofang: bofang,
+          a:bofang
         }
       });
     }
@@ -81,7 +85,7 @@
 
 
 
-    function fnOpenPlay(bofang) {
+    function fnOpenPlay(bofang,a) {
       // api.addEventListener({
   		// 		name: 'netbofangs'
   		// }, function(ret, err) {
@@ -93,7 +97,8 @@
             url: './playsousuo.html',
             pageParam: {
                 name: 'test',
-                bofang:bofang
+                bofang:bofang,
+                a:a
             },
         });
       }else if(bofang == 1){
@@ -102,7 +107,8 @@
             url: './playsousuo.html',
             pageParam: {
                 name: 'test',
-                bofang:bofang
+                bofang:bofang,
+                a:a
             },
         });
       }else if(bofang == 2){

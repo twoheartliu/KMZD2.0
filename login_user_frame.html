@@ -4,7 +4,7 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
 		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
-		<title>孔孟之道--登陆</title>
+		<title>孔孟之道--登录</title>
 		<link rel="stylesheet" type="text/css" href="./css/api.css" />
 		<link rel="stylesheet" type="text/css" href="./css/style.css" />
 		<link rel="stylesheet" href="./css/iconfont/iconfont.css">
@@ -121,7 +121,7 @@
 			</div>
 			<div class="loginbutton">
 				<button onclick="fnOpenlogin();">
-					登陆
+					登录
 				</button>
 				<p onclick="fnOpenForgetPassword();">
 					忘记密码？
@@ -131,20 +131,20 @@
 		<section>
 			<div class="other">
 				<span class="line"></span>
-				<span>其他登陆方式</span>
+				<span>其他登录方式</span>
 				<span class="line"></span>
 			</div>
 			<div class="otherlogin ">
 				<div class="login-item" onclick="fnWXLogin()" tapmode>
 					<img src="./image/weixin.png" alt="">
 					<p>
-						微信登陆
+						微信登录
 					</p>
 				</div>
 				<div class="login-item" onclick="fnQQLogin()">
 					<img src="./image/qq.png" alt="">
 					<p>
-						QQ登陆
+						QQ登录
 					</p>
 				</div>
 				<div class="login-item" onclick="fnWBLogin()">
@@ -210,6 +210,7 @@
 			if (ret.installed) {
 				alert(JSON.stringify(ret.installed));
 				wx.auth(function(ret, err) {
+					console.log(JSON.stringify(ret));
 					alert('111');
 					if (ret.status) {
 						alert('111');
@@ -220,6 +221,7 @@
 						}, function(ret, err) {
 							if (ret.status) {
 								alert(JSON.stringify(ret));
+								console.log(JSON.stringify(ret));
 								accessToken = ret.accessToken;
 								openId = ret.openId;
 								wx.getUserInfo({
@@ -228,6 +230,7 @@
 								}, function(ret, err) {
 									var wxjibenziliao = ret;
 									if (ret.status) {
+										console.log(JSON.stringify(ret));
 										api.openWin({
 											name : 'index',
 											url : './index.html',

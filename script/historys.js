@@ -13,7 +13,6 @@ apiready = function () {
 };
 
 function InitHistory() {
-
     var history = $api.byId('history');
     api.getPrefs({
         key: 'historys'
@@ -22,13 +21,11 @@ function InitHistory() {
         var historyArray = historyText.split(',');
         //alert(JSON.stringify(historyArray));
         var li = '<li class="history " id="historysss{index}" data-index="{index}">{text}<img class="historyImg" src="../image/x.png" alt="" style="float: right;" onclick="ClearHistory({index})" ></li>';
-
         for (var i = 0; i < historyArray.length; i++) {
             if (historyArray[i].length == 0)
                 continue;
             var tempLi = li.replace(/\{index\}/g, i);
             tempLi = tempLi.replace(/\{text\}/g, decodeURIComponent(historyArray[i]));
-
             history.appendHTML(tempLi);
 
         }
