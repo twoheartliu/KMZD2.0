@@ -24,27 +24,38 @@
 </head>
 
 <body>
-    <div id="centerVedeo" onclick="fnOpenPlay();"></div>
+    <div id="centerVedeo" ></div>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
 
     apiready = function() {
 
-      var bofang = 0;
-      api.addEventListener({
-  				name: 'netbofang'
-  		}, function(ret, err) {
-  				bofang = JSON.stringify(ret.value);
-          alert(bofang);
-  		});
+      var bofang = '';
 
-      if (bofang == 0) {
-        alert(bofang);
+      if (bofang =='') {
+        //alert(bofang);
         // var stylelist = $api.byId('centerVedeo');
         var stylelist = $api.byId('centerVedeo');
         var html = '';
-        html += '<img src="../image/footer_bf' + bofang + '.png" alt="">';
+        html += '<div onclick="fnOpenPlay( ' + bofang + ');"><img src="../image/footer_bf0.png" alt=""></div>';
+        $api.html(stylelist, html);
+      }
+      api.addEventListener({
+  				name: 'netbofang'
+  		}, function(ret, err) {
+  				bofang = JSON.stringify(ret.value.bofang);
+          fnBOFangJian(bofang);
+  		});
+    };
+    function fnBOFangJian(bofang){
+      //alert(bofang);
+      if (bofang == 0) {
+        //alert(bofang);
+        // var stylelist = $api.byId('centerVedeo');
+        var stylelist = $api.byId('centerVedeo');
+        var html = '';
+        html += '<div onclick="fnOpenPlay( ' + bofang + ');"><img src="../image/footer_bf' + bofang + '.png" alt=""></div>';
         $api.html(stylelist, html);
       } else if (bofang == 1) {
         alert(bofang);
@@ -52,11 +63,16 @@
 
         var stylelist = $api.byId('centerVedeo');
         var html = '';
-        html += '<img src="../image/footer_bf ' + bofang + '.png" alt="">';
+        html += '<div onclick="fnOpenPlay( ' + bofang + ');"><img src="../image/footer_bf' + bofang + '.png" alt=""></div>';
         $api.html(stylelist, html);
       }
-    };
-
+      api.sendEvent({
+        name: 'netbofangs',
+        extra: {
+          bofang: bofang
+        }
+      });
+    }
       //bofang = ret.value;
 
       // bofang = JSON.stringify(ret.value);
@@ -65,11 +81,59 @@
 
 
 
-    function fnOpenPlay() {
+    function fnOpenPlay(bofang) {
+      // api.addEventListener({
+  		// 		name: 'netbofangs'
+  		// }, function(ret, err) {
+      //   bofang = JSON.stringify(ret.value);
+      // });
+      if(bofang == 0){
+        api.openWin({
+            name: 'playsousuo',
+            url: './playsousuo.html',
+            pageParam: {
+                name: 'test',
+                bofang:bofang
+            },
+        });
+      }else if(bofang == 1){
+        api.openWin({
+            name: 'playsousuo',
+            url: './playsousuo.html',
+            pageParam: {
+                name: 'test',
+                bofang:bofang
+            },
+        });
+      }else if(bofang == 2){
         api.openWin({
             name: 'play',
             url: './play.html',
+            pageParam: {
+                name: 'test',
+                bofang:bofang
+            },
         });
+      }else if(bofang == 3){
+        api.openWin({
+            name: 'play',
+            url: './play.html',
+            pageParam: {
+                name: 'test',
+                bofang:bofang
+            },
+        });
+      }else{
+        api.openWin({
+            name: 'play',
+            url: './play.html',
+            pageParam: {
+                name: 'test',
+                bofang:bofang
+            },
+        });
+      }
+
 
     }
 </script>
