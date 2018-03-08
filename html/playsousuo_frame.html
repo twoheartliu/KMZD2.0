@@ -487,9 +487,9 @@
                     var historyArray = historyText.split(',');
                     //console.log(JSON.stringify(historyArray));
                     for (var i = 0; i < historyArray.length; i++) {
-                        decodeURIComponent(historyArray[i]) == id && (flag = true);
+                        historyArray[i] == id && (flag = true);
                     }
-                    !flag && historyArray.splice(1,0,encodeURIComponent(id));
+                    !flag && historyArray.splice(1,0,id);
                     !flag && api.setPrefs({
                         key: 'sousuohistory',
                         value: historyArray.join(',')
