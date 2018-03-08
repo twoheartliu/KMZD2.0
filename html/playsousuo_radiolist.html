@@ -80,12 +80,12 @@
 	<h2>节目单</h2>
 	<div class="list">
 		<ul id="history">
-			<li class="active" tapmode="focus">
+			<!-- <li class="active" tapmode="focus">
 				<div>
 					<p>【美食地图】天南地北一张饼</p>
 					<label>时长: 24分10秒</label>
 				</div>
-			</li>
+			</li> -->
 		</ul>
 	</div>
 </div>
@@ -112,23 +112,102 @@
     function InitHistory() {
         var history = $api.byId('history');
         api.getPrefs({
-            key: 'historys'
+            key: 'sousuohistory'
         }, function (ret, err) {
+
             var historyText = '' || ret.value  ;
             var historyArray = historyText.split(',');
-            //alert(JSON.stringify(historyArray));
+
             //var li = '<li class="history " id="historysss{index}" data-index="{index}">{text}<img class="historyImg" src="../image/x.png" alt="" style="float: right;" onclick="ClearHistory({index})" ></li>';
+            //console.log(JSON.stringify(historyArray.length));
             for (var i = 0; i < historyArray.length; i++) {
+              var stylelist = $api.byId('history');
+              var html = '';
                 if (historyArray[i].length == 0)
                     continue;
-                var tempLi = li.replace(/\{index\}/g, i);
-                tempLi = tempLi.replace(/\{text\}/g, decodeURIComponent(historyArray[i]));
-                history.appendHTML(tempLi);
+                    //alert(JSON.stringify(historyArray[i]));
+                    //var slideArray = { abc:  historyArray };
+                    // var slideArray = { abc: historyArray};
+                    // console.log(JSON.stringify(slideArray));
+                    //console.log(JSON.stringify(slideArray.abc));
 
+                    api.ajax({
+                      url: 'http://47.100.11.38/kongmeng/thirdParty/search_songs_by_id.php?id= ' + historyArray[i],
+                      method: 'get',
+                      dataType: 'json',
+                    }, function(ret, err) {
+                      if (ret) {
+                        for (var s = 0; s < ret.length; s++) {
+                          var historyText = '' || [s]' + : + ' ' + ret[s].data[0].name + ';
+                          var historyArray = historyText.split(',');
+                        }
+                        // //var slideArray = { abc: historyArray[i].ret};
+                        console.log(JSON.stringify(historyArray));
+                        // var abc = new Array();
+                        // abc.puch(ret);
+                         //console.log(JSON.stringify(ret));
+                        // for (var i = 0; i < ret.data[0].name.length; i++) {
+                        //
+                        // //console.log(JSON.stringify(ret.data[0].name.length));
+                        //
+
+
+                            html += '<li class="active" tapmode="focus" id="historyArray' + i + '" data-index="' + i + '"><div><p>' + ret.data[0].name + '</p><label>时长: ' + ret.data[0].play_time + '</label></div></li>';
+                        // }
+                      } else {
+                        alert(JSON.stringify(err));
+                      }
+
+                    });
+                //fnTitlexianshi(historyArray[i]);
+
+                // var tempLi = li.replace(/\{index\}/g, i);
+                // tempLi = tempLi.replace(/\{text\}/g, decodeURIComponent(historyArray[i]));
+                // history.appendHTML(tempLi);
+
+                $api.html(stylelist, html);
+                history.appendHTML(html);
             }
-
         });
     }
+    function fnTitlexianshi(datas_){
+      // api.removePrefs({
+      //     key: 'sousuohistory'
+      // });
+       //console.log(JSON.stringify(datas_));
+       var history = $api.byId('history');
+       //console.log(JSON.stringify(datas_.length));
+      //  for (var i = 0; i < data_.length; i++) {
+      //      var slideArray = { abc: ["' + i + '" = ' + data_[i] + '] };
+      //  }
 
+         //console.log(JSON.stringify(data_[i].data_));
+          // api.ajax({
+          //   url: 'http://47.100.11.38/kongmeng/thirdParty/search_songs_by_id.php?id= ' + datas_,
+          //   method: 'get',
+          //   dataType: 'json',
+          // }, function(ret, err) {
+          //   if (ret) {
+          //
+          //     // var abc = new Array();
+          //     // abc.puch(ret);
+          //      console.log(JSON.stringify(slideArray));
+          //     for (var i = 0; i < ret.data[0].name.length; i++) {
+          //
+          //     //console.log(JSON.stringify(ret.data[0].name.length));
+          //
+          //     var stylelist = $api.byId('history');
+          //     var html = '';
+          //     html += '<li class="active" tapmode="focus" id="historyArray' + i + '" data-index="' + i + '"><div><p>' + ret.data[0].name + '</p><label>时长: ' + ret.data[0].play_time + '</label></div></li>';
+          //     $api.html(stylelist, html);
+          //     history.appendHTML(html);
+          //     }
+          //   } else {
+          //     alert(JSON.stringify(err));
+          //   }
+          //
+          // });
+
+    }
 </script>
 </html>

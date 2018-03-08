@@ -476,23 +476,6 @@
   		});
   	}
     function AddHistory(id) {
-      // var historyText = '' || id ;
-      // var historyArray = historyText.split(',');
-      // var sousuohistory = new Array();
-      //  sousuohistory.push(id);
-      //  document.write(sousuohistory);
-      // var data = {
-      //     values: {
-      //       sousuohistory: sousuohistory,
-      //     }
-      //   };
-      //   $api.setStorage("sousuohistory", data);
-      //   console.log(JSON.stringify($api.getStorage("sousuohistory")));
-
-          //console.log(JSON.stringify(ret));
-          //var data = id;
-
-          //  alert(JSON.stringify(sousuohistory));
           api.getPrefs({
               key: 'sousuohistory'
           }, function(ret, err){
@@ -502,6 +485,7 @@
                    var historyText = ret.value ;
 
                     var historyArray = historyText.split(',');
+                    //console.log(JSON.stringify(historyArray));
                     for (var i = 0; i < historyArray.length; i++) {
                         decodeURIComponent(historyArray[i]) == id && (flag = true);
                     }
