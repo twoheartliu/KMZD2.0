@@ -114,7 +114,9 @@
         api.getPrefs({
             key: 'sousuohistory'
         }, function (ret, err) {
-
+          // api.removePrefs({
+          //     key: 'sousuohistory'
+          // });
             var historyText = '' || ret.value  ;
             var historyArray = historyText.split(',');
             for (var i = 0; i < historyArray.length; i++) {
@@ -146,7 +148,7 @@
                         // //console.log(JSON.stringify(ret.data[0].name.length));
                         //
                         var name = ret.data[0].name;
-                        var playtime = ret.data[0].play_time;
+                        var singerName = ret.data[0].singerName;
                         //shuzu.push(ret.data[0].name);
                         //shuzu.concat(shuzu);
                         // var historyTexts = '' || ret.data[0].name;
@@ -161,7 +163,8 @@
                         // });
                         // console.log(JSON.stringify(historyArrays));
                         //shuzu.concat(ret.data[0].name);
-                        fnTitlexianshi(name,playtime);
+                        fnTitlexianshi(name);
+                        fnTitlexianshis(singerName);
                         // var shuzus;
                         // for (var r = 0; r < historyArray.length; r++) {
                         //    shuzus = new Array();
@@ -186,13 +189,17 @@
             }
         });
     }
-    function fnTitlexianshi(name,playtime){
+    function fnTitlexianshi(name){
       api.getPrefs({
           key: 'namehistorys'
       }, function (ret, err) {
+        // api.removePrefs({
+        //     key: 'namehistorys'
+        // });
           var flag = false;//是否增加历史记录
           var historyText = '' || ret.value ;
           var historyArray = historyText.split(',');
+          //console.log(JSON.stringify(historyArray));
           for (var i = 0; i < historyArray.length; i++) {
               historyArray[i] == name && (flag = true);
           }
@@ -202,44 +209,30 @@
               value: historyArray.join(',')
           });
       });
+
+      fnTitlexianshiss();
+    }
+    function fnTitlexianshis(singerName){
       api.getPrefs({
-          key: 'playtimehistorys'
+          key: 'singerNamehistorys'
       }, function (ret, err) {
+        // api.removePrefs({
+        //     key: 'playtimehistorys'
+        // });
           var flag = false;//是否增加历史记录
           var historyText = '' || ret.value ;
           var historyArray = historyText.split(',');
+          //console.log(JSON.stringify(historyArray));
           for (var i = 0; i < historyArray.length; i++) {
-              historyArray[i] == playtime && (flag = true);
+              historyArray[i] == singerName && (flag = true);
           }
-          !flag && historyArray.splice(1,0,playtime);
+          !flag && historyArray.splice(1,0,singerName);
           !flag && api.setPrefs({
-              key: 'playtimehistorys',
+              key: 'singerNamehistorys',
               value: historyArray.join(',')
           });
       });
       fnTitlexianshiss();
-    }
-    function fnTitlexianshiss(){
-      var history = $api.byId('history');
-      api.getPrefs({
-          key: 'namehistorys'
-      }, function (ret, err) {
-          var historyText = '' || ret.value  ;
-          var historyArray = historyText.split(',');
-          for (var i = 0; i < historyArray.length; i++) {
-              if (historyArray[i].length == 0)
-                  continue;
-              var stylelist = $api.byId('history');
-              var html = '';
-              for (var s = 1; s < historyArray.length; s++) {
-                console.log(JSON.stringify(historyArray[s]));
-                  html += '<li class="active" tapmode="focus" id="historyArray' + historyArray[s] + '" data-index="' + historyArray[s] + '"><div><p>' + historyArray[s] + '</p><label>时长: ' +  + '</label></div></li>';
-              }
-              $api.html(stylelist, html);
-              //history.appendHTML(html);
-
-          }
-      });
     }
     // function fnTitlexianshiss(){
     //   var history = $api.byId('history');
@@ -248,38 +241,70 @@
     //   }, function (ret, err) {
     //       var historyText = '' || ret.value  ;
     //       var historyArray = historyText.split(',');
-    //       var historyArrayname;
     //       for (var i = 0; i < historyArray.length; i++) {
     //           if (historyArray[i].length == 0)
     //               continue;
     //           var stylelist = $api.byId('history');
     //           var html = '';
     //           for (var s = 1; s < historyArray.length; s++) {
-    //             historyArrayname = historyArray[s];
-    //             // console.log(JSON.stringify(historyArray[s]));
-    //               // html += '<li class="active" tapmode="focus" id="historyArray' + historyArray[s] + '" data-index="' + historyArray[s] + '"><div><p>' + historyArray[z] + '</p><label>时长: ' + historyArrayplaytime[z] + '</label></div></li>';
+    //             console.log(JSON.stringify(historyArray[s]));
+    //               html += '<li class="active" tapmode="focus" id="historyArray' + historyArray[s] + '" data-index="' + historyArray[s] + '"><div><p>' + historyArray[s] + '</p><label>时长: ' +  + '</label></div></li>';
     //           }
     //           $api.html(stylelist, html);
-    //
+    //           $api.html(stylelist, html);
     //       }
-    //       api.getPrefs({
-    //           key: 'playtimehistorys'
-    //       }, function (ret, err) {
-    //           var historyTextplaytime = '' || ret.value  ;
-    //           var historyArrayplaytime = historyTextplaytime.split(',');
-    //           for (var i = 0; i < historyArrayplaytime.length; i++) {
-    //               if (historyArrayplaytime[i].length == 0)
-    //                   continue;
-    //               var stylelist = $api.byId('history');
-    //               var html = '';
-    //               for (var z = 1; z < historyArrayplaytime.length; z++) {
-    //                 // console.log(JSON.stringify(historyArray[s]));
-    //                   html += '<li class="active" tapmode="focus" id="historyArray' + historyArrayplaytime[z] + '" data-index="' + historyArrayplaytime[z] + '"><div><p>' + historyArrayname + '</p><label>时长: ' + historyArrayplaytime[z] + '</label></div></li>';
-    //               }
-    //               $api.html(stylelist, html);
-    //           }
-    //       });
     //   });
     // }
+    function fnTitlexianshiss(){
+      var history = $api.byId('history');
+      api.getPrefs({
+          key: 'singerNamehistorys'
+      }, function (ret, err) {
+        // api.removePrefs({
+        //     key: 'playtimehistorys'
+        // });
+          var historyTextsingerName = '' || ret.value  ;
+          var historyArraysingerName = historyTextsingerName.split(',');
+          var historyArrayname;
+          for (var i = 0; i < historyArraysingerName.length; i++) {
+              if (historyArraysingerName[i].length == 0)
+                  continue;
+              var stylelist = $api.byId('history');
+              var html = '';
+              for (var z = 1; z < historyArraysingerName.length; z++) {
+                historysingerName = historyArraysingerName;
+                fnxia(historysingerName);
+                  //html += '<li class="active" tapmode="focus" id="historyArray' + historyArraysingerName[z] + '" data-index="' + historyArraysingerName[z] + '"><div><p>' + a[z] + '</p><label>作者: ' + historyArraysingerName[z] + '</label></div></li>';
+              }
+              $api.html(stylelist, html);
+          }
+      });
+    }
+function fnxia(a){
+  api.getPrefs({
+      key: 'namehistorys'
+  }, function (ret, err) {
+    // api.removePrefs({
+    //     key: 'namehistorys'
+    // });
+      var historyText = '' || ret.value  ;
+      var historyArray = historyText.split(',');
+      for (var i = 0; i < historyArray.length; i++) {
+          if (historyArray[i].length == 0)
+              continue;
+          var stylelist = $api.byId('history');
+          var html = '';
+          for (var s = 1; s < historyArray.length; s++) {
+            html += '<li class="active" tapmode="focus" id="historyArray' + historyArray[s] + '" data-index="' + historyArray[s] + '"><div><p>' + historyArray[s] + '</p><label>作者: ' + a[s] + '</label></div></li>';
+          }
+          $api.html(stylelist, html);
+
+
+      }
+
+  });
+
+}
+
 </script>
 </html>
