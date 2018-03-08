@@ -121,8 +121,7 @@
             //var li = '<li class="history " id="historysss{index}" data-index="{index}">{text}<img class="historyImg" src="../image/x.png" alt="" style="float: right;" onclick="ClearHistory({index})" ></li>';
             //console.log(JSON.stringify(historyArray.length));
             for (var i = 0; i < historyArray.length; i++) {
-              var stylelist = $api.byId('history');
-              var html = '';
+
                 if (historyArray[i].length == 0)
                     continue;
                     //alert(JSON.stringify(historyArray[i]));
@@ -137,12 +136,12 @@
                       dataType: 'json',
                     }, function(ret, err) {
                       if (ret) {
-                        for (var s = 0; s < ret.length; s++) {
-                          var historyText = '' || [s]' + : + ' ' + ret[s].data[0].name + ';
-                          var historyArray = historyText.split(',');
-                        }
-                        // //var slideArray = { abc: historyArray[i].ret};
-                        console.log(JSON.stringify(historyArray));
+                        // for (var s = 0; s < ret.length; s++) {
+                        //   var historyText = '' || [s]' + : + ' ' + ret[s].data[0].name + ';
+                        //   var historyArray = historyText.split(',');
+                        // }
+                        // // //var slideArray = { abc: historyArray[i].ret};
+                        // console.log(JSON.stringify(historyArray));
                         // var abc = new Array();
                         // abc.puch(ret);
                          //console.log(JSON.stringify(ret));
@@ -151,8 +150,13 @@
                         // //console.log(JSON.stringify(ret.data[0].name.length));
                         //
 
-
-                            html += '<li class="active" tapmode="focus" id="historyArray' + i + '" data-index="' + i + '"><div><p>' + ret.data[0].name + '</p><label>时长: ' + ret.data[0].play_time + '</label></div></li>';
+                        var stylelist = $api.byId('history');
+                        var html = '';
+                        for (var s = 0; s < historyArray.length; s++) {
+                            html += '<li class="active" tapmode="focus" id="historyArray' + s + '" data-index="' + s + '"><div><p>' + historyArray[s].ret.data[0].name + '</p><label>时长: ' + ret.data[0].play_time + '</label></div></li>';
+                        }
+                        $api.html(stylelist, html);
+                        //shistory.appendHTML(html);
                         // }
                       } else {
                         alert(JSON.stringify(err));
@@ -165,8 +169,7 @@
                 // tempLi = tempLi.replace(/\{text\}/g, decodeURIComponent(historyArray[i]));
                 // history.appendHTML(tempLi);
 
-                $api.html(stylelist, html);
-                history.appendHTML(html);
+
             }
         });
     }
