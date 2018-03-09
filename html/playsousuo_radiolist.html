@@ -111,36 +111,34 @@
           ClearHistory();
       });
       InitHistory();
-
-
     };
     function InitHistory() {
-        var history = $api.byId('history');
-        api.getPrefs({
-            key: 'sousuohistory'
-        }, function (ret, err) {
-            var historyText = '' || ret.value  ;
-            var historyArray = historyText.split(',');
-            for (var i = 0; i < historyArray.length; i++) {
-              if (historyArray[i].length == 0)
-                  continue;
-              api.ajax({
-                url: 'http://47.100.11.38/kongmeng/thirdParty/search_songs_by_id.php?id= ' + historyArray[i],
-                method: 'get',
-                dataType: 'json',
-              }, function(ret, err) {
-                if (ret) {
-                  //console.log(JSON.stringify(ret));
-                  var name = ret.data[0].name;
-                  var singerName = ret.data[0].singerName;
-                  fnSousuoLishiname(name);
-                  fnSousuoLishisingerName(singerName);
-                } else {
-                  alert(JSON.stringify(err));
-                }
-              });
-            }
-        });
+      var history = $api.byId('history');
+      api.getPrefs({
+          key: 'sousuohistory'
+      }, function (ret, err) {
+          var historyText = '' || ret.value  ;
+          var historyArray = historyText.split(',');
+          for (var i = 0; i < historyArray.length; i++) {
+            if (historyArray[i].length == 0)
+                continue;
+            api.ajax({
+              url: 'http://47.100.11.38/kongmeng/thirdParty/search_songs_by_id.php?id= ' + historyArray[i],
+              method: 'get',
+              dataType: 'json',
+            }, function(ret, err) {
+              if (ret) {
+                //console.log(JSON.stringify(ret));
+                var name = ret.data[0].name;
+                var singerName = ret.data[0].singerName;
+                fnSousuoLishiname(name);
+                fnSousuoLishisingerName(singerName);
+              } else {
+                alert(JSON.stringify(err));
+              }
+            });
+          }
+      });
     }
     function fnSousuoLishiname(name){
       api.getPrefs({
