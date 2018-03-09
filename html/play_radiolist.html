@@ -22,6 +22,7 @@
 			-webkit-box-orient: vertical;
 			-webkit-flex-flow: column;
 			flex-flow: column;
+      background-color: #eee;
 		}
 		#radio-list.in{
 			-webkit-transform: translateY(0%);
@@ -40,6 +41,7 @@
 			-webkit-box-flex: 1;
 			-webkit-flex: 1;
 			flex: 1;
+
 		}
 		#radio-list li{
 			overflow: hidden; padding: 10px 10px 0;
@@ -86,7 +88,7 @@
 					<label>时长: 24分10秒</label>
 				</div>
 			</li>
-			<li tapmode="focus">
+			<!-- <li tapmode="focus">
 				<div>
 					<p>【美食地图】天南地北一张饼</p>
 					<label>时长: 24分10秒</label>
@@ -139,7 +141,7 @@
 					<p>【美食地图】天南地北一张饼</p>
 					<label>时长: 24分10秒</label>
 				</div>
-			</li>
+			</li> -->
 		</ul>
 	</div>
 </div>
@@ -147,6 +149,7 @@
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
     apiready = function(){
+            // fnSetGender();
     	var list = $api.byId('radio-list');
       $api.addCls(list, 'in');
       var bodyW = document.getElementsByTagName("body")[0];
@@ -158,6 +161,32 @@
       			},350);
       		}
       }
+
     };
+
+    // function fnSetGender(){
+    //   // var stylelist = $api.byId('play-list');
+    //   // // var buttons = buttons;
+    //   // var html = '';
+    //   //     html += '<li class="active" tapmode="focus"><div><p>【美食地图】天南地北一张饼</p><label>时长: 24分10秒</label></div></li>';
+    //   // var index = $api.html(stylelist, html);
+    //
+    //   var index = ['huih','dhuas','shdua','huih','dhuas','shdua','huih','dhuas','shdua','huih','dhuas','shdua','huih','dhuas','shdua']
+  	// 		api.actionSheet({
+  	// 				title: '节目单',
+  	// 				cancelTitle: '取消',
+  	// 				buttons: index
+  	// 		}, function(ret, err){
+  	// 				if( ret.buttonIndex >= index.length){
+    //           			setTimeout(function(){
+    //           				api.closeFrame();
+    //           			},350);
+  	// 						return;
+    //
+  	// 				}
+  	// 				// var gender = ret.buttonIndex === 1?'男':'女';
+  	// 				// fnUpdateUserInfo('gender',gender)
+  	// 		});
+    //   }
 </script>
 </html>
