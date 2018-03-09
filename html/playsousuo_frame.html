@@ -252,13 +252,13 @@
           <img src="../image/play_change0.png" alt="" id="img">
         </div>
         <div class="item-sort">
-          <img src="../image/play_prev.png" alt="">
+          <img src="../image/play_prev.png" onclick="fnOpenPlayershangyi();" alt="">
         </div>
         <div class="item-sort" id="openplayer">
-          <!-- <img src="../image/play_stop.png" alt="" onclick="fnOpenPlayer()"; id="player"> -->
+          <!-- <img src="../image/play_stop.png" alt="" onclick="fnOpenPlayer()" id="player"> -->
         </div>
         <div class="item-sort">
-          <img src="../image/play_next.png" alt="">
+          <img src="../image/play_next.png" onclick="fnOpenPlayerxiayi();" alt="">
         </div>
         <div class="item-sort side">
           <img src="../image/play_choice.png" alt="" onclick="fnOpenChoicePlayer();">
@@ -276,30 +276,27 @@
       var eHeader = $api.byId('header')
       fnInitSwiper();
       fnOpenChangeImg();
-
       AddHistory(id);
       fnTitle();
       var bofang = api.pageParam.bofang;
       if (!bofang) {
-        //alert(bofang);
-        // var stylelist = $api.byId('centerVedeo');
         var stylelist = $api.byId('openplayer');
         var html = '';
-        html += '<img src="../image/play_stop.png" alt="" onclick="fnOpenPlayer()"; id="player"></div>';
+        html += '<img src="../image/play_stop.png" alt="" onclick="fnOpenPlayer();" id="player"></div>';
         $api.html(stylelist, html);
       }else if (bofang == 0){
         var stylelist = $api.byId('openplayer');
         var html = '';
-        html += '<img src="../image/play_stop.png" alt="" onclick="fnOpenPlayer()"; id="player"></div>';
+        html += '<img src="../image/play_stop.png" alt="" onclick="fnOpenPlayer();" id="player"></div>';
         $api.html(stylelist, html);
       }else if(bofang == 1){
         var stylelist = $api.byId('openplayer');
         var html = '';
-        html += '<img src="../image/play_now.png" alt="" onclick="fnOpenPlayer()"; id="player"></div>';
+        html += '<img src="../image/play_now.png" alt="" onclick="fnOpenPlayer();" id="player"></div>';
         $api.html(stylelist, html);
       }
     };
-    //播放
+    //播放，暂停键
     function fnOpenPlayer(){
       var player = $api.byId('player');
       if(player.getAttribute("src",2)=="../image/play_stop.png"){
@@ -307,7 +304,6 @@
         fnNetAudiosPlayByID();
         var bofang = 1;
         var a = api.pageParam.a;
-
         api.sendEvent({
   				name: 'netbofang',
   				extra: {
@@ -319,9 +315,7 @@
         player.src="../image/play_stop.png";
         var netAudiopausess = '';
         var bofang = 0;
-        //alert(bofang);
         var a = api.pageParam.a;
-
         api.sendEvent({
   				name: 'netbofang',
   				extra: {
@@ -337,16 +331,24 @@
   			});
       }
     }
+    //上一曲
+    function fnOpenPlayershangyi(){
+
+    }
+    //下一曲
+    function fnOpenPlayerxiayi(){
+
+    }
+    //播放
+    var id;
     function fnNetAudiosPlayByID(){
-      var id = api.pageParam.a;
+      id = api.pageParam.a;
       api.ajax({
 				url: 'http://47.100.11.38/kongmeng/thirdParty/search_songs_by_id.php?id= ' + id,
 				method: 'get',
 				dataType: 'json',
 			}, function(ret, err) {
 				if (ret) {
-					//console.log(JSON.stringify(ret));
-					//c = ret.data[0].id;
 					netAudioss = ret;
 					api.sendEvent({
 						name: 'netAudioplay',
@@ -359,6 +361,7 @@
 				}
 			});
     }
+    //大标题
     function fnTitle(){
       var id = api.pageParam.a;
       api.ajax({
@@ -367,13 +370,13 @@
 				dataType: 'json',
 			}, function(ret, err) {
 				if (ret) {
-					//console.log(JSON.stringify(ret));
 					fnTitlexianshi(ret);
 				} else {
 					alert(JSON.stringify(err));
 				}
 			});
     }
+    //赋值大标题
     function fnTitlexianshi(ret){
       var stylelist = $api.byId('title');
       var html = ret.data[0].name;
