@@ -145,8 +145,8 @@
   <body>
     <div id="wrap">
       <nav>
-        <div class="play-tit">
-          周易 下经 解卦 第四十
+        <div class="play-tit" id="title">
+          <!-- 周易 下经 解卦 第四十 -->
         </div>
         <div class="swiper-container">
             <div class="swiper-wrapper">
@@ -254,8 +254,8 @@
         <div class="item-sort">
           <img src="../image/play_prev.png" alt="">
         </div>
-        <div class="item-sort">
-          <img src="../image/play_stop.png" alt="" onclick="fnOpenPlayer()"; id="player">
+        <div class="item-sort" id="openplayer">
+          <!-- <img src="../image/play_stop.png" alt="" onclick="fnOpenPlayer()"; id="player"> -->
         </div>
         <div class="item-sort">
           <img src="../image/play_next.png" alt="">
@@ -265,16 +265,39 @@
         </div>
       </banner>
     </div>
+    <input type="hidden" id="input" value="">
   </body>
   <script type="text/javascript" src="../script/api.js"></script>
   <script type="text/javascript" src="../script/swiper.min.js"></script>
   <script type="text/javascript">
 
     apiready = function(){
+      var id = api.pageParam.a;
       var eHeader = $api.byId('header')
       fnInitSwiper();
       fnOpenChangeImg();
 
+      AddHistory(id);
+      fnTitle();
+      var bofang = api.pageParam.bofang;
+      if (!bofang) {
+        //alert(bofang);
+        // var stylelist = $api.byId('centerVedeo');
+        var stylelist = $api.byId('openplayer');
+        var html = '';
+        html += '<img src="../image/play_stop.png" alt="" onclick="fnOpenPlayer()"; id="player"></div>';
+        $api.html(stylelist, html);
+      }else if (bofang == 0){
+        var stylelist = $api.byId('openplayer');
+        var html = '';
+        html += '<img src="../image/play_stop.png" alt="" onclick="fnOpenPlayer()"; id="player"></div>';
+        $api.html(stylelist, html);
+      }else if(bofang == 1){
+        var stylelist = $api.byId('openplayer');
+        var html = '';
+        html += '<img src="../image/play_now.png" alt="" onclick="fnOpenPlayer()"; id="player"></div>';
+        $api.html(stylelist, html);
+      }
     };
     //播放
     function fnOpenPlayer(){
@@ -283,21 +306,27 @@
         player.src="../image/play_now.png";
         fnNetAudiosPlayByID();
         var bofang = 1;
+        var a = api.pageParam.a;
+
         api.sendEvent({
   				name: 'netbofang',
   				extra: {
-  					bofang: bofang
+  					bofang: bofang,
+            a: a
   				}
   			});
       }else{
         player.src="../image/play_stop.png";
         var netAudiopausess = '';
         var bofang = 0;
-        alert(bofang);
+        //alert(bofang);
+        var a = api.pageParam.a;
+
         api.sendEvent({
   				name: 'netbofang',
   				extra: {
-  					bofang: bofang
+  					bofang: bofang,
+            a: a
   				}
   			});
   			api.sendEvent({
@@ -309,9 +338,7 @@
       }
     }
     function fnNetAudiosPlayByID(){
-      //alert('333');
       var id = api.pageParam.a;
-      //alert(id);
       api.ajax({
 				url: 'http://47.100.11.38/kongmeng/thirdParty/search_songs_by_id.php?id= ' + id,
 				method: 'get',
@@ -331,6 +358,26 @@
 					alert(JSON.stringify(err));
 				}
 			});
+    }
+    function fnTitle(){
+      var id = api.pageParam.a;
+      api.ajax({
+				url: 'http://47.100.11.38/kongmeng/thirdParty/search_songs_by_id.php?id= ' + id,
+				method: 'get',
+				dataType: 'json',
+			}, function(ret, err) {
+				if (ret) {
+					//console.log(JSON.stringify(ret));
+					fnTitlexianshi(ret);
+				} else {
+					alert(JSON.stringify(err));
+				}
+			});
+    }
+    function fnTitlexianshi(ret){
+      var stylelist = $api.byId('title');
+      var html = ret.data[0].name;
+      $api.html(stylelist, html);
     }
     // 轮播
     function fnInitSwiper() {
@@ -416,8 +463,8 @@
     function openRadioList(){
   		var height = api.frameHeight + 50 ;
   		api.openFrame({
-  		    name: 'play_radiolist',
-  		    url: './play_radiolist.html',
+  		    name: 'playsousuo_radiolist',
+  		    url: './playsousuo_radiolist.html',
   		    bounces: false,
   		    bgColor: 'rgba(0,0,0,0.6)',
   		    rect:{
@@ -428,7 +475,33 @@
   		    }
   		});
   	}
+    function AddHistory(id) {
+          api.getPrefs({
+              key: 'sousuohistory'
+          }, function(ret, err){
+              if( ret ){
+                //console.log(JSON.stringify(ret));
+                   var flag = false;//是否增加历史记录
+                   var historyText = ret.value ;
 
+                    var historyArray = historyText.split(',');
+                    //console.log(JSON.stringify(historyArray));
+                    for (var i = 0; i < historyArray.length; i++) {
+                        historyArray[i] == id && (flag = true);
+                    }
+                    !flag && historyArray.splice(1,0,id);
+                    !flag && api.setPrefs({
+                        key: 'sousuohistory',
+                        value: historyArray.join(',')
+                    });
+
+              }else{
+                   alert( JSON.stringify( err ) );
+              }
+          });
+
+
+    }
     //滑块
     function slider(){
 

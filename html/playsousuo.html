@@ -36,7 +36,7 @@
   <script type="text/javascript" src="../script/swiper.min.js"></script>
   <script type="text/javascript">
     function goback () {
-      api.closeWin({name:'play'});
+      api.closeWin({name:'playsousuo'});
     }
     apiready = function(){
       var eHeader = $api.byId('header')
@@ -48,6 +48,8 @@
       var eHeader = $api.byId('header')
       var headerH = $api.offset(eHeader).h;
       var a = api.pageParam.a;
+      //alert(a);
+      var bofang = api.pageParam.bofang;
       api.openFrame({
           name: 'playsousuoFrame',
           url: '../html/playsousuo_frame.html',
@@ -59,7 +61,8 @@
           },
           pageParam: {
               name: 'test',
-              a:a
+              a:a,
+              bofang:bofang
           },
           bounces: false,
           bgColor: 'rgba(0,0,0,0)',
@@ -76,7 +79,7 @@
     				name: 'netbofang'
     		}, function(ret, err) {
     				if (ret) {
-              alert(ret);
+              //alert(ret);
     						// netAudiopause(ret)
     				}
     		});

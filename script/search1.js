@@ -70,6 +70,7 @@ function OpenInputBox() {
             UIInput.value(function (ret) {
                 if (ret.status) {
                     text = ret.msg;
+                    //console.log(text);
                     OpenResult();
                 }
             });
@@ -108,6 +109,7 @@ function OpenResult() {
     if (text.trim().length == 0) {
         return;
     }
+    //console.log(text);
     AddHistory(text);
 }
 
@@ -129,7 +131,8 @@ function AddHistory(words, fromRoot) {
     api.getPrefs({
         key: 'historys'
     }, function (ret, err) {
-
+      //console.log(JSON.stringify(ret));
+        //alert(JSON.stringify(ret));
         var flag = false;//是否增加历史记录
         var historyText = '' || ret.value ;
 
