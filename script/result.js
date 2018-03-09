@@ -115,9 +115,7 @@ function SetFrameActive(index) {
 }
 
 function BackSearchWindow() {
-  api.closeToWin({
-    name: 'read'
-  });
+  api.closeWin();
 }
 
 /**
