@@ -1,418 +1,334 @@
-<!DOCTYPE html>
-  <html>
-  <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
-      <title>孔孟之道--播放</title>
-      <link rel="stylesheet" type="text/css" href="../css/api.css"/>
-      <link rel="stylesheet" href="../css/swiper.min.css">
-      <style>
-        /*#wrap{
-          height: 100%;
-    			background: url(../image/play/play_bg_tra.jpg) no-repeat;
-    			-webkit-background-size: cover;
-    			background-size: cover;
-    			display: -webkit-box;
-    			display: -webkit-flex;
-    			display: flex;
-    			-webkit-box-orient: vertical;
-    			-webkit-flex-flow: column;
-    			flex-flow: column;
-        }*/
-          /*轮播图        */
-          .swiper-container{
-            width: 100%;
-            text-align: center;
-            height: 250px;
-            line-height: 250px;
-          }
-          .swiper-container img {
-              width: 240px;
-              /*margin-top: 50px;*/
-          }
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>蜻蜓FM</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+	<style>
+		html,body{height: 100%;}
+		#wrap{
+			height: 100%;
+			background: url(../image/img/play_bg_tra.jpg) no-repeat;
+			-webkit-background-size: cover;
+			background-size: cover;
+			display: -webkit-box;
+			display: -webkit-flex;
+			display: flex;
+			-webkit-box-orient: vertical;
+			-webkit-flex-flow: column;
+			flex-flow: column;
+		}
+		#main{
+			position: relative;
+			-webkit-box-flex: 1;
+			-webkit-flex: 1;
+			flex: 1;
+		}
+		header{
+			display: -webkit-box;
+			display: -webkit-flex;
+			display: flex;
+		}
+		header div{
+			font-size: 14px; color: #fff; text-align: center;
+			line-height: 49px;
+			-webkit-box-flex: 1;
+			-webkit-flex: 1;
+			flex: 1;
+		}
+		header i{
+			display: block; width: 53px; height: 49px;
+		}
+		header .back{
+			background: url(../image/img/navi_back.png) no-repeat;
+			-webkit-background-size: contain;
+			background-size: contain;
+		}
+		header .more{
+			background: url(../image/img/navi_play_more.png) no-repeat;
+			-webkit-background-size: contain;
+			background-size: contain;
+		}
 
-          /*nav*/
-          nav{
-            /*background-color: #fff;*/
-          }
-          .play-tit{
-            font-size: 18px;
-            color:#000;
-            text-align: center;
-            margin:0 10px;
-            padding-left: 10px;
-            padding-bottom: 10px;
-          }
-          .play-poster{
-            margin-left: 40px;
-            margin-right: 40px;
-            text-align: center;
-          }
-          .play-poster>img{
-            width: 100%;
-            height: auto;
-          }
-          .play-txt{
-            width: 100%;
-            height: 320px;
-            margin: 0 auto 20px;
-            text-align: center;
-            overflow: hidden;
-          }
-          .play-txt>p{
-            color: #b2b2b2;
-            font-size: 13px;
-            text-align: center;
-            line-height: 20px;
-          }
-          .play-txt>p:nth-of-type(4){
-            color: #000;
-            font-size: 15px;
-          }
-          .play-list{
-            width: 100%;
-            height: 320px;
-            margin: 0 auto 20px;
-            text-align: center;
-            overflow: hidden;
-          }
-          .play-list>p{
-            color: #000;
-            font-size: 14px;
-            text-align: left;
-            /*padding-left: 50px;*/
-            text-align: center;
-            line-height: 25px;
-          }
-          .select {
-            display: -webkit-box;
-            display: -webkit-flex;
-          }
-          .select .item-icon {
-            -webkit-box-flex: 1;
-            -webkit-flex: 1;
-            flex: 1;
-            text-align: center;
-          }
-          .select .item-icon>p{
-            font-size: 14px;
-            color: #999;
-          }
-          .play-len{
-            padding: 10px;
-            text-align: center;
-          }
-          .play-len input{
-            width:75%;
-            vertical-align: middle;
-          }
-          .play-len>span{
-            font-size: 14px;
-            color:#000;
-            line-height: 40px;
-            width:10%;
-            text-align: center;
-          }
-          .length{
-            display: inline-block;
-            width: 75%;
-            position: relative;
-          }
+		#action{
+			margin-bottom: 10px;
+			display: -webkit-box;
+			display: -webkit-flex;
+			display: flex;
+		}
+		#action li{
+			text-align: center; color: #cbcbcb; font-size: 12px;
+			-webkit-box-flex: 1;
+			-webkit-flex: 1;
+			flex: 1;
+			padding-top: 30px;
+			background-position: center top;
+			background-repeat: no-repeat;
+			-webkit-background-size: 25px;
+			background-size: 25px;
+		}
+		#action .collect{
+			background-image: url(../image/img/ic_play_fav.png);
+		}
+		#action .collect.focus{
+			background-image: url(../image/img/ic_play_fav_s.png);
+		}
+		#action .timer{
+			background-image: url(../image/img/ic_play_timer.png);
+		}
+		#action .timer.focus{
+			background-image: url(../image/img/ic_play_timer_s.png);
+		}
+		#action .share{
+			background-image: url(../image/img/ic_play_share.png);
+		}
+		#action .share.focus{
+			background-image: url(../image/img/ic_play_share_s.png);
+		}
+		#action .checkin{
+			background-image: url(../image/img/ic_play_checkin.png);
+		}
+		#action .checkin.focus{
+			background-image: url(../image/img/ic_play_checkin_s.png);
+		}
+		#control{
+			background-color: #672d32;
+		}
+		#slider{height: 50px; position: relative;}
+		#slider span{
+			position: absolute; bottom: 0; font-size: 12px; color: #ccc;
+		}
+		#slider .s{
+			left: 10px;
+		}
+		#slider .e{
+			right: 10px;
+		}
+		#panel{
+			display: -webkit-box;
+			display: -webkit-flex;
+			display: flex;
+			padding: 30px 0 60px;
+		}
+		#panel li{
+			width: 30px; height: 30px;
+			-webkit-box-flex: 1;
+			-webkit-flex: 1;
+			flex: 1;
+			background-position: center;
+			background-repeat: no-repeat;
+			-webkit-background-size: 30px;
+			background-size: 30px;
+		}
+		#panel .list{
+			background-image: url(../image/img/ic_play_schedule.png);
+			-webkit-background-size: 25px;
+			background-size: 25px;
+		}
+		#panel .list.focus{
+			background-image: url(../image/img/ic_play_schedule_s.png);
+		}
+		#panel .prev{
+			background-image: url(../image/img/ic_play_pre.png);
+		}
+		#panel .prev.focus{
+			background-image: url(../image/img/ic_play_pre_s.png);
+		}
+		#panel .play{
+			background-image: url(../image/img/ic_play_play.png);
+		}
+		#panel .play.focus{
+			background-image: url(../image/img/ic_play_play_s.png);
+		}
+		#panel .pause{
+			background-image: url(../image/img/ic_play_pause.png);
+		}
+		#panel .pause.focus{
+			background-image: url(../image/img/ic_play_pause_s.png);
+		}
+		#panel .buffer{
+			background-image: none;
+		}
+		@-webkit-keyframes rotate{
+			from{
+				-webkit-transform: rotate(0deg);
+			}
+			to{
+				-webkit-transform: rotate(360deg);
+			}
+		}
+		@keyframes rotate{
+			from{
+				transform: rotate(0deg);
+			}
+			to{
+				transform: rotate(360deg);
+			}
+		}
+		#panel .buffer:before{
+			content: '';
+			display: inline-block; width: 100%; height: 100%;
+			background: url(../image/img/ic_play_buffer.png) no-repeat center;
+			-webkit-background-size: contain;
+			background-size: contain;
+			-webkit-animation: rotate 4s linear infinite;
+			animation: rotate 4s linear infinite;
+		}
+		#panel .buffer.focus{
+			background-image: url(../image/img/ic_play_buffer_s.png);
+		}
+		#panel .next{
+			background-image: url(../image/img/ic_play_next.png);
+		}
+		#panel .next.focus{
+			background-image: url(../image/img/ic_play_next_s.png);
+		}
+		#panel .download{
+			background-image: url(../image/img/ic_play_download.png);
+		}
+		#panel .download.focus{
+			background-image: url(../image/img/ic_play_download_s.png);
+		}
+		#chat{
+			overflow: hidden; border-top: 1px solid #845253;
+		}
+		#chat a{
+			float: right; padding: 10px; font-size: 12px; color: #ccc;
+		}
 
-          /*banner*/
-          banner{
-            display: flex;
-            display: -webkit-flex;
-            display: -webkit-box;
-            /*background-color: #fff;*/
-            padding-left: 8px;
-          }
-          banner .item-sort{
-            flex:1;
-            -webkit-flex:1;
-            -webkit-box-flex:1;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: contain;
-            text-align: center;
-            line-height: 108px;
-          }
-          /*banner .side{
-            margin-top: 6px;
-          }*/
-      </style>
-  </head>
-  <body>
-    <div id="wrap">
-      <nav>
-        <div class="play-tit">
-          周易 下经 解卦 第四十
-        </div>
-        <div class="swiper-container">
-            <div class="swiper-wrapper">
-              <div class="swiper-slide">
-                  <img src="../image/poster.png" alt="">
-              </div>
-              <div class="swiper-slide">
-                  <div class="play-txt">
-                    <p>解：利西南；</p>
-                    <p>无所往，其来复吉；</p>
-                    <p>有攸往，夙吉。</p>
-                    <p>解：利西南；</p>
-                    <p>无所往，其来复吉；</p>
-                    <p>有攸往，夙吉。</p>
-                    <p>解：利西南；</p>
-                    <p>无所往，其来复吉；</p>
-                    <p>有攸往，夙吉。</p>
-                    <p>解：利西南；</p>
-                    <p>无所往，其来复吉；</p>
-                    <p>有攸往，夙吉。</p>
-                    <p>解：利西南；</p>
-                    <p>无所往，其来复吉；</p>
-                    <p>有攸往，夙吉。</p>
-                    <p>解：利西南；</p>
-                    <p>无所往，其来复吉；</p>
-                    <p>有攸往，夙吉。</p>
-                    <p>解：利西南；</p>
-                    <p>无所往，其来复吉；</p>
-                    <p>有攸往，夙吉。</p>
-                    <p>解：利西南；</p>
-                    <p>无所往，其来复吉；</p>
-                    <p>有攸往，夙吉。</p>
-                  </div>
-              </div>
-              <div class="swiper-slide">
-                  <div class="play-list">
-                    <p>1152 周易上经 乾卦第一.mp3</p>
-                    <p>1153 周易上经 坤卦第二.mp3</p>
-                    <p>1154 周易上经 屯卦第三.mp3</p>
-                    <p>1155 周易上经 蒙卦第四.mp3</p>
-                    <p>1156 周易上经 需卦第五.mp3</p>
-                    <p>1157 周易上经 讼卦第六.mp3</p>
-                    <p>1158 周易上经 师卦第七.mp3</p>
-                    <p>1159 周易上经 比卦第八.mp3</p>
-                    <p>1160 周易上经 小畜卦第九.mp3</p>
-                    <p>1161 周易上经 履卦第十.mp3</p>
-                    <p>1162 周易上经 泰卦第十一.mp3</p>
-                    <p>1163 周易上经 否卦第十二.mp3</p>
-                    <p>1164 周易上经 同人卦第十三.mp3</p>
-                    <p>1165 周易上经 大有卦第十四.mp3</p>
-                    <p>1166 周易上经 谦卦第十五.mp3</p>
-                    <p>1167 周易上经 豫卦第十六.mp3</p>
-                    <p>1168 周易上经 随卦第十七.mp3</p>
-                    <p>1169 周易上经 蛊卦第十八.mp3</p>
-                    <p>1170 周易上经 临卦第十九.mp3</p>
-                    <p>1171 周易上经 观卦第二十.mp3</p>
-                    <p>1172 周易上经 噬嗑卦第二十一.mp3</p>
-                    <p>1173 周易上经 贲卦第二十二.mp3</p>
-                    <p>1174 周易上经 剥卦第二十三.mp3</p>
-                    <p>1175 周易上经 复卦第二十四.mp3</p>
-                    <p>1176 周易上经 无妄卦第二十五.mp3</p>
-                  </div>
-                </div>
-            </div>
-        </div>
-        <div class="select">
-          <div class="item-icon">
-            <img src="../image/play_list.png" alt=""  onclick="openRadioList()" id="play-list">
-            <p>播放列表</p>
-          </div>
-          <div class="item-icon">
-            <img src="../image/play_collect.png" alt="" id="playCollect" onclick="fnOpenPlayCollect();">
-            <p>收藏</p>
-          </div>
-          <div class="item-icon">
-            <img src="../image/play_share.png" alt=""  onclick="fnOpenPlayShare();">
-            <p>分享</p>
-          </div>
-          <div class="item-icon">
-            <img src="../image/play_discuss.png" alt="" onclick="fnOpenPlayDiscuss();" >
-            <p>评论</p>
-          </div>
-
-          <!-- <div class="item-icon" id="imgBox">
-            <img src="../image/play_list.png" alt=""  >
-            <img src="../image/play_list.png" alt="" onclick="fnOpenChangeImg(0);" style="display:inline;" >
-            <img src="../image/play_choice.png" alt="" onclick="fnOpenChangeImg(1);"  style="display:none;" >
-            <img src="../image/play_list.png" alt="" onclick="fnOpenChangeImg(2);"  style="display:none;" >
-          </div> -->
-        </div>
-        <div class="play-len" >
-          <span >1.46</span>
-          <!-- <div class="length"> -->
-            <!-- <img src="../image/play_len.png" alt=""> -->
-          <input type="range" value="0" name="" id="range">
-          <!-- <progress max="100" value="0" id="pg"></progress> -->
-          <!-- </div> -->
-          <span >3.46</span>
-        </div>
-      </nav>
-      <banner>
-        <div class="item-sort">
-          <img src="../image/play_change0.png" alt="" id="img">
-        </div>
-        <div class="item-sort">
-          <img src="../image/play_prev.png" alt="">
-        </div>
-        <div class="item-sort">
-          <img src="../image/play_stop.png" alt="" onclick="fnOpenPlayer()"; id="player">
-        </div>
-        <div class="item-sort">
-          <img src="../image/play_next.png" alt="">
-        </div>
-        <div class="item-sort side">
-          <img src="../image/play_choice.png" alt="" onclick="fnOpenChoicePlayer();">
-        </div>
-      </banner>
+		#main .wrap{
+			position: absolute; margin:auto; width: 100%;
+			bottom: 0; top: 0; height: 60px;
+		}
+		#main h1{
+			font-size: 20px; color: #fff; text-align: center;
+		}
+		#main label{
+			display: block; text-align: center; font-size: 14px;
+			color: #ccc; padding-top: 20px;
+		}
+	</style>
+</head>
+<body>
+<div id="wrap">
+	<header>
+		<i class="back" tapmode onclick="api.closeWin();"></i>
+		<div>AsiaFM亚洲音乐台</div>
+		<i class="more"></i>
+	</header>
+    <div id="main">
+    	<div class="wrap">
+    		<h1>摇摆亚洲</h1>
+    		<label>主播 杰森 AsiaFM</label>
+    	</div>
     </div>
-  </body>
-  <script type="text/javascript" src="../script/api.js"></script>
-  <script type="text/javascript" src="../script/swiper.min.js"></script>
-  <script type="text/javascript">
+    <ul id="action">
+		<li class="collect" tapmode="focus">收藏</li>
+		<li class="timer" tapmode="focus">定时</li>
+		<li class="share" tapmode="focus">分享</li>
+		<li class="checkin" tapmode="focus">签到</li>
+	</ul>
+    <div id="control">
+    	<div id="slider">
+    		<span class="s">13:00:00</span>
+    		<span class="e">14:00:00</span>
+    	</div>
+		<ul id="panel">
+			<li class="list" tapmode="focus"></li>
+			<li class="prev" tapmode="focus" onclick="prevRadio()"></li>
+			<li class="play" tapmode="focus" onclick="playRadio(this)"></li>
+			<li class="next" tapmode="focus" onclick="nextRadio()"></li>
+			<li class="download" tapmode="focus"></li>
+		</ul>
+    	<div id="chat">
+    		<a>进入官方群聊天 &gt;</a>
+    	</div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="../script/api-lite.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>
+<script type="text/javascript">
+	var radios = ['see_you_again','new_soul','i_am_you'];
+	var i = 0;
+	function playRadio(it){
+		if($(it).hasClass('pause')){
+			$(it).removeClass().addClass('play');
+			api.stopPlay();
+		}else{
+			$(it).removeClass().addClass('buffer');
+			setTimeout(function(){
+				$(it).removeClass().addClass('pause');
+				var radio = radios[i];
+				api.startPlay({
+				    path: 'widget://res/'+ radio +'.mp3'
+				},function(){
+				    // api.alert({msg: '播放完成'});
+				});
+			},500);
+		}
+	}
+
+	function prevRadio(){
+		i--;
+		if(i <= 0){
+			i = 0;
+		}
+		var radio = radios[i];
+		api.stopPlay();
+		api.startPlay({
+		    path: 'widget://res/'+ radio +'.mp3'
+		},function(){
+		    // api.alert({msg: '播放完成'});
+		});
+	}
+	function nextRadio(){
+		i++;
+		if(i > 2){
+			i = 0;
+		}
+		var radio = radios[i];
+		api.stopPlay();
+		api.startPlay({
+		    path: 'widget://res/'+ radio +'.mp3'
+		},function(){
+		    // api.alert({msg: '播放完成'});
+		});
+	}
 
     apiready = function(){
-      var eHeader = $api.byId('header')
-      fnInitSwiper();
-      fnOpenChangeImg();
-    };
-    //播放
-    function fnOpenPlayer(){
-      var player = $api.byId('player');
-      if(player.getAttribute("src",2)=="../image/play_stop.png"){
-        player.src="../image/play_now.png";
-        alert('111');
-      }else{
-        player.src="../image/play_stop.png";
-        alert('222');
-      }
-    }
-    // 轮播
-    function fnInitSwiper() {
-        var mySwiper = new Swiper('.swiper-container', {
-            autoplay: false,
-            loop: true,
-        });
-    };
-    // 选择播放器
-    function fnOpenChoicePlayer(){
-      api.openWin({
-          name: 'choicePlayer',
-          url: './choice_player.html',
-      });
-    };
-    // 收藏
-    function fnOpenPlayCollect(){
-      var playCollect = $api.byId('playCollect');
-      if(playCollect.getAttribute("src",2)=="../image/play_collect.png"){
-        playCollect.src="../image/play_collect0.png";
+    	var header = document.querySelector('header');
+        $api.fixIos7Bar(header);
 
-      }else{
-        playCollect.src="../image/play_collect.png";
+        var $slider = $('#slider');
+        var sliderPos = $slider.offset();
+        var obj = api.require('slider');
+		obj.open({
+	         x: 0,
+	         y: sliderPos.top + 10,
+	         w: api.winWidth,
+	         bgImg: "widget://image/slider/slider-bg.png",
+	         selectedBgImg: "widget://image/slider/slider-fg.png",
+	         bar: {
+	         	barWidth: 20,
+	         	barHeight: 20,
+	         	barImg: "widget://image/slider/slider-btn.png"
+	         },
+	         bubble: {
+	         	bubbleWidth: 0,
+	         	bubbleHeight: 0
+	         },
+	         minValue: 0,
+	         maxValue: 100,
+	         defValue: 0,
+	         fixed: true
+		},function(ret,err){
+		    if(ret.touchCancel){
+		        // api.alert({msg:ret.value});
+		    }
+		});
 
-      }
     };
-    // 打开评论页面
-    function fnOpenPlayDiscuss(){
-      api.openWin({
-        name: 'playDiscuss',
-        url: './play_discuss.html',
-      })
-    }
-    //打开分享
-    function fnOpenPlayShare(){
-      var dialogBox = api.require('dialogBox');
-      dialogBox.actionMenu ({
-          rect:{
-              h: 150
-          },
-          texts:{
-               cancel: '取消'
-          },
-          items:[
-          {
-              text: '微信',
-              icon: 'widget://image/weixin.png'
-          },
-          {
-              text: 'QQ',
-              icon: 'widget://image/qq.png'
-          },
-          {
-              text: '朋友圈',
-              icon: 'widget://image/friends.png'
-          }
-          ],
-          styles:{
-              bg:'#FFF',
-              column: 3,
-              itemText: {
-                  color: '#000',
-                  size: 12,
-                  marginT:8
-              },
-              itemIcon:{
-                  size:48
-              },
-              cancel:{
-                  bg: 'fs://icon.png',
-                  color:'#000',
-                  h: 44 ,
-                  size: 14
-              }
-          }
-      }, function(ret){
-        dialogBox.close({
-                  dialogName: 'alert'
-        })
-      });
-    }
-    //打开播放列表
-    function openRadioList(){
-  		var height = api.frameHeight + 50 ;
-  		api.openFrame({
-  		    name: 'play_radiolist',
-  		    url: './play_radiolist.html',
-  		    bounces: false,
-  		    bgColor: 'rgba(0,0,0,0.6)',
-  		    rect:{
-  		        x: 0,
-  		        y: 0,
-  		        w: api.frameWidth,
-  		        h: height
-  		    }
-  		});
-  	}
-
-    //滑块
-    function slider(){
-
-    }
-    // 切换单曲循环、顺序播放、随机播放
-    function fnOpenChangeImg(){
-      var image_urls = [ "../image/play_change0.png", "../image/play_change1.png", "../image/play_change2.png"];
-        // 初始化数组键值 (0 = 第一个图片)
-        var idx = 0;
-        // 点击 id 为 img 的图片
-      document.getElementById("img").onclick = function() {
-          // idx + 1，如果为最后一张，还原回第一张
-          idx = idx === image_urls.length - 1 ? 0 : idx + 1;
-          // 设置 src
-          this.src = image_urls[idx];
-          // 测试
-          // alert(this.src);
-      };
-      // var imgs = document.getElementById('imgBox').getElementsByTagName('img');
-      // for(var i=0;i<=imgs.length;i++){
-      //   if(i==num+1){
-      //      imgs[i].style.display="inline";
-      //   }else{
-      //     imgs[i].style.display="none";
-      //   };
-      //   if(num==2){
-      //     imgs[0].style.display="inline";
-      //   };
-      // }
-    };
-
-  </script>
-  </html>
+</script>
+</html>
