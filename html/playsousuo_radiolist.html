@@ -43,10 +43,21 @@
 		}
 		#radio-list li{
 			overflow: hidden; padding: 10px 10px 0;
-			background: url(../image/ic_arrow_general.png) no-repeat 96% center;
+			/*background: url(../image/ic_arrow_general.png) no-repeat 96% center;*/
 			-webkit-background-size: 18px;
 			background-size: 18px;
 		}
+    #radio-list li .delete-img{
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      float: right;
+      line-height: 50px;
+    }
+    #radio-list li .delete-img img{
+      width: 20px;
+      height: 20px;
+    }
 		#radio-list li.focus{
 			background-color: #bebebe;
 		}
@@ -62,7 +73,8 @@
 		#radio-list li p{
 			margin-bottom: 6px;
 		}
-		#radio-list li div{
+		#radio-list li .txt{
+		  display: inline-block;
 			font-size: 16px; color: #272930;
 			border-bottom: 1px solid #ddd;
 		}
@@ -82,10 +94,11 @@
 	<div class="list">
 		<ul id="history">
 			<li class="active" tapmode="focus">
-				<div>
+				<div class="txt">
 					<p>【美食地图】天南地北一张饼</p>
 					<label>时长: 24分10秒</label>
 				</div>
+        <div class="delete-img"><img src="../image/ic_arrow_general.png" alt=""></div>
 			</li>
 		</ul>
 	</div>
@@ -213,7 +226,7 @@ function fnHistorysingerName(a){
       var stylelist = $api.byId('history');
       var html = '';
       for (var s = 1; s < historyArray.length; s++) {
-        html += '<li class="active" tapmode="focus" id="historyArray' + historyArray[s] + '" data-index="' + historyArray[s] + '"><div><p>' + historyArray[s] + '</p><label>作者: ' + a[s] + '</label></div></li>';
+        html += '<li class="active" tapmode="focus" id="historyArray' + historyArray[s] + '" data-index="' + historyArray[s] + '"><div class="txt"><p>' + historyArray[s] + '</p><label>作者: ' + a[s] + '</label></div><div class="delete-img"><img src="../image/ic_arrow_general.png" alt=""></div></li>';
       }
       $api.html(stylelist, html);
     }
