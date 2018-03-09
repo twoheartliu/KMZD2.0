@@ -343,6 +343,7 @@
     var id;
     function fnNetAudiosPlayByID(){
       id = api.pageParam.a;
+      ajaxPlay(a);
       api.ajax({
 				url: 'http://47.100.11.38/kongmeng/thirdParty/search_songs_by_id.php?id= ' + id,
 				method: 'get',
@@ -478,32 +479,34 @@
   		    }
   		});
   	}
+    var dangqianbofangid;
     function AddHistory(id) {
-          api.getPrefs({
-              key: 'sousuohistory'
-          }, function(ret, err){
-              if( ret ){
-                //console.log(JSON.stringify(ret));
-                   var flag = false;//是否增加历史记录
-                   var historyText = ret.value ;
-
-                    var historyArray = historyText.split(',');
-                    //console.log(JSON.stringify(historyArray));
-                    for (var i = 0; i < historyArray.length; i++) {
-                        historyArray[i] == id && (flag = true);
-                    }
-                    !flag && historyArray.splice(1,0,id);
-                    !flag && api.setPrefs({
-                        key: 'sousuohistory',
-                        value: historyArray.join(',')
-                    });
-
-              }else{
-                   alert( JSON.stringify( err ) );
-              }
-          });
-
-
+      bofangid = id;
+      api.sendEvent({
+        name: 'dangqianbofangid',
+        extra: {
+          dangqianbofangid: dangqianbofangid
+        }
+      });
+      api.getPrefs({
+          key: 'sousuohistory'
+      }, function(ret, err){
+          if( ret ){
+           var flag = false;//是否增加历史记录
+           var historyText = ret.value ;
+            var historyArray = historyText.split(',');
+            for (var i = 0; i < historyArray.length; i++) {
+              historyArray[i] == id && (flag = true);
+            }
+            !flag && historyArray.splice(1,0,id);
+            !flag && api.setPrefs({
+                key: 'sousuohistory',
+                value: historyArray.join(',')
+            });
+          }else{
+               alert( JSON.stringify( err ) );
+          }
+      });
     }
     //滑块
     function slider(){
