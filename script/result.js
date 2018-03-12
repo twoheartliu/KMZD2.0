@@ -103,9 +103,7 @@ function SetEngineActive(index) {
     $api.addCls(target, 'active');
     iscroll.scrollToElement(target, 300, true);
 }
-
 function SetFrameActive(index) {
-
     api.setFrameGroupIndex({
         name: 'items',
         index: index,
@@ -113,7 +111,6 @@ function SetFrameActive(index) {
     });
     SetEngineActive(index);
 }
-
 function BackSearchWindow() {
   api.closeWin();
 }

@@ -93,7 +93,7 @@
   <h2 id="clear">清除历史记录</h2>
 	<div class="list">
 		<ul id="history">
-			<li class="active" tapmode="focus">
+			<li class="active" tapmode="" onclick="fnccc();">
 				<div class="txt">
 					<p>【美食地图】天南地北一张饼</p>
 					<label>时长: 24分10秒</label>
@@ -118,13 +118,14 @@
       			},350);
       		}
       }
-      var history = $api.byId('history');
-      var clear = $api.byId('clear');
-      $api.addEvt(clear, 'click', function () {
-          ClearHistory();
-      });
-      InitHistory();
+      // var history = $api.byId('history');
+      // var clear = $api.byId('clear');
+      // $api.addEvt(clear, 'click', function () {
+      //     ClearHistory();
+      // });
+      //InitHistory();
     };
+    var retsss;
     function InitHistory() {
       var history = $api.byId('history');
       api.getPrefs({
@@ -142,16 +143,40 @@
             }, function(ret, err) {
               if (ret) {
                 //console.log(JSON.stringify(ret));
+                var id = ret.data[0].id;
                 var name = ret.data[0].name;
+                //console.log(JSON.stringify(name));
                 var singerName = ret.data[0].singerName;
-                fnSousuoLishiname(name);
-                fnSousuoLishisingerName(singerName);
+                asdf(JSON.stringify(name),JSON.stringify(id),JSON.stringify(singerName));
+                //console.log(JSON.stringify(singerName));
+
+                // fnSousuoLishiname(name);
+                // fnSousuoLishisingerName(singerName);
               } else {
                 alert(JSON.stringify(err));
               }
             });
+
+            function asdf(name,id,singerName){
+              //console.log(retsss.data);
+              //console.log(JSON.stringify(ret.length));
+              //ret = ret.data[0].name;
+              //console.log(JSON.stringify(ret));
+              var stylelist = $api.byId('history');
+              var html = '';
+              for (var s = 1; s < historyArray.length; s++) {
+                //console.log(JSON.stringify(historyArray[s].name));
+                html += '<li class="active"  onclick="fnccc(' + id + ');" tapmode="focus" id="historyArray' + s + '" data-index="' + s + '" ><div class="txt" ><p>' + s + '' + name + '</p><label>作者: ' + singerName + '</label></div><div class="delete-img"><img src="../image/ic_arrow_general.png" alt=""></div></li>';
+              }
+              $api.html(stylelist, html);
+            }
+            //console.log(JSON.stringify(retsss));
           }
       });
+    }
+    function fnccc(){
+      console.log('111');
+      alert("123456")
     }
     function fnSousuoLishiname(name){
       api.getPrefs({
@@ -212,76 +237,83 @@
         }
       });
     }
-function fnHistorysingerName(a){
-  api.getPrefs({
-      key: 'namehistorys'
-  }, function (ret, err) {
-    var historyText = '' || ret.value  ;
-    var historyArray = historyText.split(',');
-    for (var i = 0; i < historyArray.length; i++) {
-      if (historyArray[i].length == 0)
-          continue;
-      var stylelist = $api.byId('history');
-      var html = '';
-      for (var s = 1; s < historyArray.length; s++) {
-        html += '<li class="active" tapmode="focus" id="historyArray' + historyArray[s] + '" data-index="' + historyArray[s] + '"><div class="txt"><p>' + historyArray[s] + '</p><label>作者: ' + a[s] + '</label></div><div class="delete-img"><img src="../image/ic_arrow_general.png" alt=""></div></li>';
-      }
-      $api.html(stylelist, html);
+    function fnHistorysingerName(a){
+      api.getPrefs({
+          key: 'namehistorys'
+      }, function (ret, err) {
+        var historyText = '' || ret.value  ;
+        var historyArray = historyText.split(',');
+        for (var i = 0; i < historyArray.length; i++) {
+          if (historyArray[i].length == 0)
+              continue;
+          var stylelist = $api.byId('history');
+          var html = '';
+          for (var s = 1; s < historyArray.length; s++) {
+            html += '<li class="active" tapmode="focus" id="historyArray{index}" data-index="{index}"><div class="txt"><p>' + historyArray[s] + '</p><label>作者: ' + a[s] + '</label></div><div class="delete-img"><img src="../image/ic_arrow_general.png" alt=""></div></li>';
+          }
+
+          $api.html(stylelist, html);
+        }
+      });
     }
-  });
-}
-function ClearHistory(index) {
-  //alert(index);
-  //var e = index;
+    function ClearHistory(index) {
       //alert(index);
-    var history = $api.byId('history');
-    if (!index) {
-        history.innerHTML = '';
-        api.removePrefs({
-            key: 'sousuohistory'
-        });
-        api.removePrefs({
-            key: 'playtimehistorys'
-        });
-        api.removePrefs({
-            key: 'namehistorys'
-        });
-        api.toast({
-            msg: '已清空所有历史记录'
-        });
-    }else{
-      // api.getPrefs({
-      //     key: 'historys'
-      // }, function (ret, err) {
-      //     var historyText = ret.value;
-      //     var historyArray = historyText.split(',');
-      //     historyArray.splice(index, 1);
-      //     api.setPrefs({
-      //         key: 'historys',
-      //         value: historyArray.join(',')
-      //     });
-      //     //fnnone();
-      //      var parent=document.getElementById("history");
-      //      var child=document.getElementById("historysss" + index);
-      //      parent.removeChild(child);
-      //     // api.historyBack({
-      //     //     frameName: ''
-      //     // }, function(ret, err) {
-      //     //   alert(JSON.stringify(ret));
-      //     //     if (!ret.status) {
-      //     //         api.closeWin();
-      //     //     }
-      //     // });
-      //     // history.innerHTML = '';
-      //     // InitHistory();
-      //     //window.location.reload();
-      //     //setTimeout("location.reload()", 500);
-      //     api.toast({
-      //         msg: '已清除历史记录'
-      //     });
-      // });
+      //var e = index;
+          //alert(index);
+        var history = $api.byId('history');
+        if (!index) {
+            history.innerHTML = '';
+            api.removePrefs({
+                key: 'sousuohistory'
+            });
+            api.removePrefs({
+                key: 'playtimehistorys'
+            });
+            api.removePrefs({
+                key: 'namehistorys'
+            });
+            api.removePrefs({
+                key: 'sousuohistorytitle'
+            });
+            api.removePrefs({
+                key: 'sousuohistorysingerName'
+            });
+            api.toast({
+                msg: '已清空所有历史记录'
+            });
+        }else{
+          // api.getPrefs({
+          //     key: 'historys'
+          // }, function (ret, err) {
+          //     var historyText = ret.value;
+          //     var historyArray = historyText.split(',');
+          //     historyArray.splice(index, 1);
+          //     api.setPrefs({
+          //         key: 'historys',
+          //         value: historyArray.join(',')
+          //     });
+          //     //fnnone();
+          //      var parent=document.getElementById("history");
+          //      var child=document.getElementById("historysss" + index);
+          //      parent.removeChild(child);
+          //     // api.historyBack({
+          //     //     frameName: ''
+          //     // }, function(ret, err) {
+          //     //   alert(JSON.stringify(ret));
+          //     //     if (!ret.status) {
+          //     //         api.closeWin();
+          //     //     }
+          //     // });
+          //     // history.innerHTML = '';
+          //     // InitHistory();
+          //     //window.location.reload();
+          //     //setTimeout("location.reload()", 500);
+          //     api.toast({
+          //         msg: '已清除历史记录'
+          //     });
+          // });
+        }
     }
-}
 
 </script>
 </html>
