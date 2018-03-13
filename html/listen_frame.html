@@ -89,10 +89,10 @@
         }
         .Rotation{
           -webkit-transform: rotate(360deg);
-          animation: rotation 3s linear infinite;
-          -moz-animation: rotation 3s linear infinite;
-          -webkit-animation: rotation 3s linear infinite;
-          -o-animation: rotation 3s linear infinite;
+          animation: rotation 5s linear infinite;
+          -moz-animation: rotation 5s linear infinite;
+          -webkit-animation: rotation 5s linear infinite;
+          -o-animation: rotation 5s linear infinite;
         }
         #slider{
           height: 40px;
@@ -147,7 +147,7 @@
           <img src="../image/collect.png" alt=""  onclick="fnOpenCollect();" id="collect">
         </div>
         <div class="item-sort">
-          <img src="../image/play.png" alt="" onclick="fnOpenPlayButton();" id="playButton">
+          <img src="../image/footer_bf0.png" alt="" onclick="fnOpenPlayButton();" id="playButton">
         </div>
         <div class="item-sort">
           <img src="../image/next.png" alt="">
@@ -166,11 +166,11 @@
     function fnOpenPlayButton(){
       var playButton = $api.byId('playButton');
       var video = $api.byId('video');
-      if(playButton.getAttribute("src",2)=="../image/play.png"){
-        playButton.src="../image/playing.png";
+      if(playButton.getAttribute("src",2)=="../image/footer_bf0.png"){
+        playButton.src="../image/footer_bf1.png";
         $api.addCls(video, 'Rotation');
       }else{
-        playButton.src="../image/play.png";
+        playButton.src="../image/footer_bf0.png";
         $api.removeCls(video, 'Rotation');
       }
     }
