@@ -93,18 +93,12 @@
   <h2 id="clear">清除历史记录</h2>
 	<div class="list">
 		<ul id="history">
-			<li class="active" tapmode="" onclick="fnccc();">
-				<div class="txt">
-					<p>【美食地图】天南地北一张饼</p>
-					<label>时长: 24分10秒</label>
-				</div>
-        <div class="delete-img"><img src="../image/ic_arrow_general.png" alt=""></div>
-			</li>
 		</ul>
 	</div>
 </div>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>
 <script type="text/javascript">
     apiready = function(){
     	var list = $api.byId('radio-list');
@@ -118,14 +112,13 @@
       			},350);
       		}
       }
-      // var history = $api.byId('history');
-      // var clear = $api.byId('clear');
-      // $api.addEvt(clear, 'click', function () {
-      //     ClearHistory();
-      // });
-      //InitHistory();
+      var history = $api.byId('history');
+      var clear = $api.byId('clear');
+      $api.addEvt(clear, 'click', function () {
+          ClearHistory();
+      });
+     InitHistory();
     };
-    var retsss;
     function InitHistory() {
       var history = $api.byId('history');
       api.getPrefs({
@@ -145,40 +138,20 @@
                 //console.log(JSON.stringify(ret));
                 var id = ret.data[0].id;
                 var name = ret.data[0].name;
-                //console.log(JSON.stringify(name));
                 var singerName = ret.data[0].singerName;
-                asdf(JSON.stringify(name),JSON.stringify(id),JSON.stringify(singerName));
-                //console.log(JSON.stringify(singerName));
-
-                // fnSousuoLishiname(name);
-                // fnSousuoLishisingerName(singerName);
+                fnSousuoLishiname(name,singerName);
               } else {
                 alert(JSON.stringify(err));
               }
             });
-
-            function asdf(name,id,singerName){
-              //console.log(retsss.data);
-              //console.log(JSON.stringify(ret.length));
-              //ret = ret.data[0].name;
-              //console.log(JSON.stringify(ret));
-              var stylelist = $api.byId('history');
-              var html = '';
-              for (var s = 1; s < historyArray.length; s++) {
-                //console.log(JSON.stringify(historyArray[s].name));
-                html += '<li class="active"  onclick="fnccc(' + id + ');" tapmode="focus" id="historyArray' + s + '" data-index="' + s + '" ><div class="txt" ><p>' + s + '' + name + '</p><label>作者: ' + singerName + '</label></div><div class="delete-img"><img src="../image/ic_arrow_general.png" alt=""></div></li>';
-              }
-              $api.html(stylelist, html);
-            }
-            //console.log(JSON.stringify(retsss));
-          }
+         }
       });
     }
     function fnccc(){
       console.log('111');
       alert("123456")
     }
-    function fnSousuoLishiname(name){
+    function fnSousuoLishiname(name,singerName){
       api.getPrefs({
           key: 'namehistorys'
       }, function (ret, err) {
@@ -188,54 +161,13 @@
         for (var i = 0; i < historyArray.length; i++) {
             historyArray[i] == name && (flag = true);
         }
-        !flag && historyArray.splice(1,0,name);
+        !flag && historyArray.splice(1,0,name,singerName);
         !flag && api.setPrefs({
             key: 'namehistorys',
             value: historyArray.join(',')
         });
       });
-
-      //fnSousuoLishi();
-    }
-    function fnSousuoLishisingerName(singerName){
-      api.getPrefs({
-          key: 'singerNamehistorys'
-      }, function (ret, err) {
-          var flag = false;//是否增加历史记录
-          var historyText = '' || ret.value ;
-          var historyArray = historyText.split(',');
-          //console.log(JSON.stringify(historyArray));
-          for (var i = 0; i < historyArray.length; i++) {
-              historyArray[i] == singerName && (flag = true);
-          }
-          !flag && historyArray.splice(1,0,singerName);
-          !flag && api.setPrefs({
-              key: 'singerNamehistorys',
-              value: historyArray.join(',')
-          });
-      });
-      fnSousuoLishi();
-    }
-    function fnSousuoLishi(){
-      var history = $api.byId('history');
-      api.getPrefs({
-          key: 'singerNamehistorys'
-      }, function (ret, err) {
-        var historyTextsingerName = '' || ret.value  ;
-        var historyArraysingerName = historyTextsingerName.split(',');
-        var historyArrayname;
-        for (var i = 0; i < historyArraysingerName.length; i++) {
-          if (historyArraysingerName[i].length == 0)
-              continue;
-          var stylelist = $api.byId('history');
-          var html = '';
-          for (var z = 1; z < historyArraysingerName.length; z++) {
-            historysingerName = historyArraysingerName;
-            fnHistorysingerName(historysingerName);
-          }
-          $api.html(stylelist, html);
-        }
-      });
+      fnHistorysingerName();
     }
     function fnHistorysingerName(a){
       api.getPrefs({
@@ -243,15 +175,19 @@
       }, function (ret, err) {
         var historyText = '' || ret.value  ;
         var historyArray = historyText.split(',');
+        //console.log(JSON.stringify(historyArray));
         for (var i = 0; i < historyArray.length; i++) {
           if (historyArray[i].length == 0)
               continue;
           var stylelist = $api.byId('history');
           var html = '';
           for (var s = 1; s < historyArray.length; s++) {
-            html += '<li class="active" tapmode="focus" id="historyArray{index}" data-index="{index}"><div class="txt"><p>' + historyArray[s] + '</p><label>作者: ' + a[s] + '</label></div><div class="delete-img"><img src="../image/ic_arrow_general.png" alt=""></div></li>';
+            if(historyArray[2*s-1]){
+              //console.log(JSON.stringify(historyArray[2*s-1]));
+              //console.log(JSON.stringify(historyArray[2*s]));
+             html += '<li class="active" tapmode="focus" onclick="fnccc()" id="historyArray{index}" data-index="{index}"><div class="txt"><p>' + historyArray[2*s-1] + '</p><label>作者: ' + historyArray[2*s] + '</label></div><div class="delete-img"><img src="../image/ic_arrow_general.png" alt=""></div></li>';
+            }
           }
-
           $api.html(stylelist, html);
         }
       });
@@ -267,16 +203,10 @@
                 key: 'sousuohistory'
             });
             api.removePrefs({
-                key: 'playtimehistorys'
-            });
-            api.removePrefs({
                 key: 'namehistorys'
             });
             api.removePrefs({
                 key: 'sousuohistorytitle'
-            });
-            api.removePrefs({
-                key: 'sousuohistorysingerName'
             });
             api.toast({
                 msg: '已清空所有历史记录'
