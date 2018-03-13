@@ -153,11 +153,11 @@
 						微博登录
 					</p>
 				</div>
-				<div class="login-item" onclick="fntuichuWBLogin()">
+				<!-- <div class="login-item" onclick="fntuichuWBLogin()">
 					<p>
 						tuichu 登录
 					</p>
-				</div>
+				</div> -->
 			</div>
 		</section>
 	</body>
@@ -217,28 +217,46 @@
 	var accessToken;
 	var openId;
 	function fnWXLogin() {
-		alert("1");
+		//alert("1");
 		var weiXin = api.require('weiXin');
 		var code;
 		weiXin.registerApp(function(ret, err) {
-			alert("222");
-			api.alert({ msg: '' + ret.status });
+			//alert("222");
+			//api.alert({ msg: '' + ret.status });
 			if (ret.status) {
-				alert(JSON.stringify(ret.status));
+				//alert(JSON.stringify(ret.status));
+				//alert('111');
+				var weiXin = api.require('weiXin');
+				// weiXin.refreshToken(function(ret, err) {
+				//     if (ret.status) {
+				//         api.alert({ msg: '刷新成功' });
+				//     } else {
+				//         api.alert({ msg: err.msg });
+				//     }
+				// });
 				weiXin.auth(function(ret, err) {
-					console.log(JSON.stringify(ret));
-					alert('111');
+					//console.log(JSON.stringify(ret));
+					//api.alert({ msg: ret.status });
+					//api.alert({ msg: ret.token });
 					if (ret.status) {
-						 api.alert({ msg: ret.token });
-						//alert('111');
+
+
 						//alert(JSON.stringify(ret.status));
 						//alert(JSON.stringify(ret.code));
 
 								weiXin.getUserInfo(function(ret, err) {
 									var wxjibenziliao = ret;
 									if (ret.status) {
-										console.log(JSON.stringify(ret));
-
+										//alert('222');
+										//console.log(JSON.stringify(ret));
+										api.openWin({
+											name : 'index',
+											url : './index.html',
+											pageParam : {
+												name : 'test',
+												wxjibenziliao : wxjibenziliao
+											}
+										});
 										var data = {
 												values: {
 													openid: ret.openid,
@@ -253,15 +271,8 @@
 												}
 											};
 											$api.setStorage("userInfo", data);
-											console.log(JSON.stringify($api.getStorage("userInfo")));
-											api.openWin({
-												name : 'index',
-												url : './index.html',
-												pageParam : {
-													name : 'test',
-													wxjibenziliao : wxjibenziliao
-												}
-											});
+											//console.log(JSON.stringify($api.getStorage("userInfo")));
+
 										//alert(JSON.stringify(ret));
 										//alert(JSON.stringify(nickname));
 									} else {

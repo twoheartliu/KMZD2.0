@@ -174,8 +174,8 @@
                        <img src="../image/poster.png" alt="">
                    </div>
                    <div class="swiper-slide">
-                       <div class="play-txt">
-                           <p id="sousuogeci"></p>
+                       <div class="play-txt" id="sousuogeci">
+
                        </div>
                    </div>
                    <!-- <div class="swiper-slide">
@@ -210,7 +210,7 @@
                <input type="range" value="0" name="" id="range">
                <!-- <progress max="100" value="0" id="pg"></progress> -->
                <!-- </div> -->
-               <span>3.46</span>
+               <span id="zongshichang">00:00</span>
            </div>
        </nav>
        <banner>
@@ -236,14 +236,17 @@
 <script type="text/javascript" src="../script/swiper.min.js"></script>
 <script type="text/javascript">
    var id;
+   var dqbfid;
    apiready = function() {
+     dqbfid = api.pageParam.a;
      id = api.pageParam.a;
        api.addEventListener({
            name: 'dangqianbofang'
        }, function(ret, err) {
            if (ret) {
-               id = ret.value.dangqianbofangid;
-               fnGeCixianshi(id);
+             //id = ret.value.dangqianbofangid;
+               dqbfid = ret.value.dangqianbofangid;
+               fnGeCixianshi(dqbfid);
            } else {
                alert(JSON.stringify(err));
            }
@@ -330,7 +333,7 @@
                var historyArray = historyText.split(',');
                for (var i = 0; i < historyArray.length; i++) {
                    var id1 = historyArray[i];
-                   var id2 = id;
+                   var id2 = dqbfid;
                    if (id1 == id2) {
                        var ii;
                        if (!i) {
@@ -375,7 +378,7 @@
              var historyArray = historyText.split(',');
              for (var i = 0; i < historyArray.length; i++) {
                  var id1 = historyArray[i];
-                 var id2 = id;
+                 var id2 = dqbfid;
                  if (id1 == id2) {
                      var ii;
                      var historyArraylength = JSON.stringify(historyArray.length) -1;
@@ -414,6 +417,7 @@
    }
    //播放
    function fnNetAudiosPlayByID(id) {
+     //alert(id);
        if (id) {
            api.ajax({
                url: 'http://47.100.11.38/kongmeng/thirdParty/search_songs_by_id.php?id= ' + id,
@@ -422,7 +426,8 @@
            }, function(ret, err) {
                if (ret) {
                    fnTitlexianshi(ret);
-                   //fnGeCixianshi(ret);
+                   fnGeCixianshi(ret);
+                   fnZongShiChang(ret);
                    netAudioss = ret;
                    api.sendEvent({
                        name: 'netAudioplay',
@@ -444,6 +449,37 @@
                    alert(JSON.stringify(err));
                }
            });
+         }else {
+             api.ajax({
+                 url: 'http://47.100.11.38/kongmeng/thirdParty/search_songs_by_id.php?id= ' + dqbfid,
+                 method: 'get',
+                 dataType: 'json',
+             }, function(ret, err) {
+                 if (ret) {
+                   fnTitlexianshi(ret);
+                   fnGeCixianshi(ret);
+                   fnZongShiChang(ret);
+                   netAudioss = ret;
+                   api.sendEvent({
+                       name: 'netAudioplay',
+                       extra: {
+                           netAudios: netAudioss
+                       }
+                   });
+                   var dangqianbofangid = ret.data[0].id;
+                   api.sendEvent({
+                       name: 'dangqianbofang',
+                       extra: {
+                           dangqianbofangid: dangqianbofangid
+                       }
+                   });
+                   var title = ret.data[0].name;
+                   var singerName = ret.data[0].singerName;
+                    AddHistoryTitle (title,singerName);
+                 } else {
+                     alert(JSON.stringify(err));
+                 }
+             });
          }
 
    }
@@ -463,7 +499,7 @@
          }, function(ret, err) {
              if (ret) {
                var stylelist = $api.byId('sousuogeci');
-              var html =  ret.data[0].desc;
+              var html = '<p >' + ret.data[0].desc + '</p>' ;
               $api.html(stylelist, html);
                 // $api.html(stylelist, html);
              } else {
@@ -473,10 +509,46 @@
          });
        }
    }
+   var timer2;
+   var timer1;
+   function jindutiao(){
+ //获取当前歌曲的歌长
+    var lenth=play[index].duration;
+    timer1=setInterval(function(){
+    cur=play[index].currentTime;//获取当前的播放时间
+      fillbar.style.width=""+parseFloat(cur/lenth)*300+"px";
+    },50)
+   }
+   function addtime(){
+      timer2=setInterval(function(){
+          //cur=parseInt(play[index].currentTime);//秒数
+      //     var temp=cur;
+      //     minute=parseInt(temp/60);
+      //     if(cur%60<10){
+      //         time.innerHTML=""+minute+":0"+cur%60+"";
+      //     }else{
+      //         time.innerHTML=""+minute+":"+cur%60+"";
+      //     }
+      },1000);
+    }
+   //赋值大标题
+   function fnTitlexianshi(ret) {
+       var stylelist = $api.byId('title');
+       var html = ret.data[0].name;
+       $api.html(stylelist, html);
+   }
+   //赋值总时长
+   function fnZongShiChang(ret) {
+       var stylelist = $api.byId('zongshichang');
+       var playtime = ret.data[0].play_time
+       var playtime =  playtime.slice(3,8);
+       var html = playtime;
+       $api.html(stylelist, html);
+   }
    // 轮播
    function fnInitSwiper() {
      var mySwiper = new Swiper('.swiper-container', {
-         loop: true,
+         loop: false,
      });
    }
    // 选择播放器
