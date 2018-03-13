@@ -37,6 +37,7 @@
             display: -webkit-box;
             display: -webkit-flex;
             display: flex;
+            height: 50px;
         }
 
         header div {
@@ -311,7 +312,7 @@
 <body>
     <div id="wrap" class="mh">
       <!-- <img src="" alt=""> -->
-        <header class="qx">
+        <header class="qx" id="secHeader">
             <i class="back" tapmode onclick="api.closeWin();"></i>
             <div>三字经</div>
             <i class="more"></i>
@@ -462,6 +463,9 @@
     }
 
     apiready = function() {
+        var secHeader = $api.byId('secHeader');
+        $api.fixStatusBar(secHeader);
+        var headerH = $api.offset(secHeader).h;
         var header = document.querySelector('header');
         $api.fixIos7Bar(header);
 
