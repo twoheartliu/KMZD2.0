@@ -7,7 +7,6 @@ apiready = function () {
     var header = $api.byId('header');
     //适配iOS 7+和Android 4.4+沉浸式状态栏
     $api.fixStatusBar(header);
-
     var headerPos = $api.offset(header);
     var clear = $api.byId('clear');
     var trans = $api.byId('trans');
@@ -15,7 +14,6 @@ apiready = function () {
     var search = $api.byId('search');
     var main = $api.byId('main');
     var mainPos = $api.offset(main);
-
     $api.addEvt(clear, 'click', ClearInputBox);
     $api.addEvt(trans, 'click', TransInputBox);
     $api.addEvt(cancel, 'click', BackMainWindow);

@@ -43,10 +43,21 @@
 		}
 		#radio-list li{
 			overflow: hidden; padding: 10px 10px 0;
-			background: url(../image/ic_arrow_general.png) no-repeat 96% center;
+			/*background: url(../image/ic_arrow_general.png) no-repeat 96% center;*/
 			-webkit-background-size: 18px;
 			background-size: 18px;
 		}
+    #radio-list li .delete-img{
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      float: right;
+      line-height: 50px;
+    }
+    #radio-list li .delete-img img{
+      width: 20px;
+      height: 20px;
+    }
 		#radio-list li.focus{
 			background-color: #bebebe;
 		}
@@ -62,7 +73,8 @@
 		#radio-list li p{
 			margin-bottom: 6px;
 		}
-		#radio-list li div{
+		#radio-list li .txt{
+		  display: inline-block;
 			font-size: 16px; color: #272930;
 			border-bottom: 1px solid #ddd;
 		}
@@ -78,14 +90,16 @@
 <div id="mask"></div>
 <div id="radio-list">
 	<h2>节目单</h2>
+  <h2 id="clear">清除历史记录</h2>
 	<div class="list">
 		<ul id="history">
-			<!-- <li class="active" tapmode="focus">
-				<div>
+			<li class="active" tapmode="" onclick="fnccc();">
+				<div class="txt">
 					<p>【美食地图】天南地北一张饼</p>
 					<label>时长: 24分10秒</label>
 				</div>
-			</li> -->
+        <div class="delete-img"><img src="../image/ic_arrow_general.png" alt=""></div>
+			</li>
 		</ul>
 	</div>
 </div>
@@ -104,121 +118,89 @@
       			},350);
       		}
       }
-      var history = $api.byId('history');
-      InitHistory();
-
-
+      // var history = $api.byId('history');
+      // var clear = $api.byId('clear');
+      // $api.addEvt(clear, 'click', function () {
+      //     ClearHistory();
+      // });
+      //InitHistory();
     };
+    var retsss;
     function InitHistory() {
-        var history = $api.byId('history');
-        api.getPrefs({
-            key: 'sousuohistory'
-        }, function (ret, err) {
-          // api.removePrefs({
-          //     key: 'sousuohistory'
-          // });
-            var historyText = '' || ret.value  ;
-            var historyArray = historyText.split(',');
-            for (var i = 0; i < historyArray.length; i++) {
-                if (historyArray[i].length == 0)
-                    continue;
-                    //alert(JSON.stringify(historyArray[i]));
-                    //var slideArray = { abc:  historyArray };
-                    // var slideArray = { abc: historyArray};
-                    // console.log(JSON.stringify(slideArray));
-                    //console.log(JSON.stringify(slideArray.abc));
-                    api.ajax({
-                      url: 'http://47.100.11.38/kongmeng/thirdParty/search_songs_by_id.php?id= ' + historyArray[i],
-                      method: 'get',
-                      dataType: 'json',
-                    }, function(ret, err) {
-                      if (ret) {
-                        //console.log(JSON.stringify(ret));
-                        // for (var s = 0; s < ret.length; s++) {
-                        //   var historyText = '' || [s]' + : + ' ' + ret[s].data[0].name + ';
-                        //   var historyArray = historyText.split(',');
-                        // }
-                        // // //var slideArray = { abc: historyArray[i].ret};
-                        // console.log(JSON.stringify(historyArray));
-                        // var abc = new Array();
-                        // abc.push(ret);
-                         //console.log(JSON.stringify(ret));
-                        // for (var i = 0; i < ret.data[0].name.length; i++) {
-                        //
-                        // //console.log(JSON.stringify(ret.data[0].name.length));
-                        //
-                        var name = ret.data[0].name;
-                        var singerName = ret.data[0].singerName;
-                        //shuzu.push(ret.data[0].name);
-                        //shuzu.concat(shuzu);
-                        // var historyTexts = '' || ret.data[0].name;
-                        // var historyArrays = historyTexts.split(',');
-                        // for (var i = 0; i < historyArrays.length; i++) {
-                        //     decodeURIComponent(historyArrays[i]) == ret.data[0].name && (flag = true);
-                        // }
-                        // !flag && historyArrays.splice(1,0,encodeURIComponent(ret.data[0].name));
-                        // !flag && api.setPrefs({
-                        //     key: 'namehistorys',
-                        //     value: historyArrays.join(',')
-                        // });
-                        // console.log(JSON.stringify(historyArrays));
-                        //shuzu.concat(ret.data[0].name);
-                        fnTitlexianshi(name);
-                        fnTitlexianshis(singerName);
-                        // var shuzus;
-                        // for (var r = 0; r < historyArray.length; r++) {
-                        //    shuzus = new Array();
-                        //    shuzus.push(shuzu);
-                        // }
-                        // console.log(JSON.stringify(shuzu));
-                        // console.log(JSON.stringify(shuzus));
-                        // var stylelist = $api.byId('history');
-                        // var html = '';
-                        // for (var s = 0; s < historyArray.length; s++) {
-                        //     html += '<li class="active" tapmode="focus" id="historyArray' + historyArray[i] + '" data-index="' + historyArray[i] + '">' + s + '<div><p>' + ret.data[0].name + '</p><label>时长: ' + ret.data[0].play_time + '</label></div></li>';
-                        // }
-                        // $api.html(stylelist, html);
-                        // history.appendHTML(html);
-                        // }
-                      } else {
-                        alert(JSON.stringify(err));
-                      }
+      var history = $api.byId('history');
+      api.getPrefs({
+          key: 'sousuohistory'
+      }, function (ret, err) {
+          var historyText = '' || ret.value  ;
+          var historyArray = historyText.split(',');
+          for (var i = 0; i < historyArray.length; i++) {
+            if (historyArray[i].length == 0)
+                continue;
+            api.ajax({
+              url: 'http://47.100.11.38/kongmeng/thirdParty/search_songs_by_id.php?id= ' + historyArray[i],
+              method: 'get',
+              dataType: 'json',
+            }, function(ret, err) {
+              if (ret) {
+                //console.log(JSON.stringify(ret));
+                var id = ret.data[0].id;
+                var name = ret.data[0].name;
+                //console.log(JSON.stringify(name));
+                var singerName = ret.data[0].singerName;
+                asdf(JSON.stringify(name),JSON.stringify(id),JSON.stringify(singerName));
+                //console.log(JSON.stringify(singerName));
 
-                    });
-                //fnTitlexianshi(historyArray[i]);
+                // fnSousuoLishiname(name);
+                // fnSousuoLishisingerName(singerName);
+              } else {
+                alert(JSON.stringify(err));
+              }
+            });
+
+            function asdf(name,id,singerName){
+              //console.log(retsss.data);
+              //console.log(JSON.stringify(ret.length));
+              //ret = ret.data[0].name;
+              //console.log(JSON.stringify(ret));
+              var stylelist = $api.byId('history');
+              var html = '';
+              for (var s = 1; s < historyArray.length; s++) {
+                //console.log(JSON.stringify(historyArray[s].name));
+                html += '<li class="active"  onclick="fnccc(' + id + ');" tapmode="focus" id="historyArray' + s + '" data-index="' + s + '" ><div class="txt" ><p>' + s + '' + name + '</p><label>作者: ' + singerName + '</label></div><div class="delete-img"><img src="../image/ic_arrow_general.png" alt=""></div></li>';
+              }
+              $api.html(stylelist, html);
             }
-        });
+            //console.log(JSON.stringify(retsss));
+          }
+      });
     }
-    function fnTitlexianshi(name){
+    function fnccc(){
+      console.log('111');
+      alert("123456")
+    }
+    function fnSousuoLishiname(name){
       api.getPrefs({
           key: 'namehistorys'
       }, function (ret, err) {
-        // api.removePrefs({
-        //     key: 'namehistorys'
-        // });
-          var flag = false;//是否增加历史记录
-          var historyText = '' || ret.value ;
-          var historyArray = historyText.split(',');
-          //console.log(JSON.stringify(historyArray));
-          for (var i = 0; i < historyArray.length; i++) {
-              historyArray[i] == name && (flag = true);
-          }
-          !flag && historyArray.splice(1,0,name);
-          !flag && api.setPrefs({
-              key: 'namehistorys',
-              value: historyArray.join(',')
-          });
+        var flag = false;//是否增加历史记录
+        var historyText = '' || ret.value ;
+        var historyArray = historyText.split(',');
+        for (var i = 0; i < historyArray.length; i++) {
+            historyArray[i] == name && (flag = true);
+        }
+        !flag && historyArray.splice(1,0,name);
+        !flag && api.setPrefs({
+            key: 'namehistorys',
+            value: historyArray.join(',')
+        });
       });
 
-      fnTitlexianshiss();
+      //fnSousuoLishi();
     }
-    function fnTitlexianshis(singerName){
+    function fnSousuoLishisingerName(singerName){
       api.getPrefs({
           key: 'singerNamehistorys'
       }, function (ret, err) {
-        // api.removePrefs({
-        //     key: 'playtimehistorys'
-        // });
           var flag = false;//是否增加历史记录
           var historyText = '' || ret.value ;
           var historyArray = historyText.split(',');
@@ -232,79 +214,106 @@
               value: historyArray.join(',')
           });
       });
-      fnTitlexianshiss();
+      fnSousuoLishi();
     }
-    // function fnTitlexianshiss(){
-    //   var history = $api.byId('history');
-    //   api.getPrefs({
-    //       key: 'namehistorys'
-    //   }, function (ret, err) {
-    //       var historyText = '' || ret.value  ;
-    //       var historyArray = historyText.split(',');
-    //       for (var i = 0; i < historyArray.length; i++) {
-    //           if (historyArray[i].length == 0)
-    //               continue;
-    //           var stylelist = $api.byId('history');
-    //           var html = '';
-    //           for (var s = 1; s < historyArray.length; s++) {
-    //             console.log(JSON.stringify(historyArray[s]));
-    //               html += '<li class="active" tapmode="focus" id="historyArray' + historyArray[s] + '" data-index="' + historyArray[s] + '"><div><p>' + historyArray[s] + '</p><label>时长: ' +  + '</label></div></li>';
-    //           }
-    //           $api.html(stylelist, html);
-    //           $api.html(stylelist, html);
-    //       }
-    //   });
-    // }
-    function fnTitlexianshiss(){
+    function fnSousuoLishi(){
       var history = $api.byId('history');
       api.getPrefs({
           key: 'singerNamehistorys'
       }, function (ret, err) {
-        // api.removePrefs({
-        //     key: 'playtimehistorys'
-        // });
-          var historyTextsingerName = '' || ret.value  ;
-          var historyArraysingerName = historyTextsingerName.split(',');
-          var historyArrayname;
-          for (var i = 0; i < historyArraysingerName.length; i++) {
-              if (historyArraysingerName[i].length == 0)
-                  continue;
-              var stylelist = $api.byId('history');
-              var html = '';
-              for (var z = 1; z < historyArraysingerName.length; z++) {
-                historysingerName = historyArraysingerName;
-                fnxia(historysingerName);
-                  //html += '<li class="active" tapmode="focus" id="historyArray' + historyArraysingerName[z] + '" data-index="' + historyArraysingerName[z] + '"><div><p>' + a[z] + '</p><label>作者: ' + historyArraysingerName[z] + '</label></div></li>';
-              }
-              $api.html(stylelist, html);
+        var historyTextsingerName = '' || ret.value  ;
+        var historyArraysingerName = historyTextsingerName.split(',');
+        var historyArrayname;
+        for (var i = 0; i < historyArraysingerName.length; i++) {
+          if (historyArraysingerName[i].length == 0)
+              continue;
+          var stylelist = $api.byId('history');
+          var html = '';
+          for (var z = 1; z < historyArraysingerName.length; z++) {
+            historysingerName = historyArraysingerName;
+            fnHistorysingerName(historysingerName);
           }
+          $api.html(stylelist, html);
+        }
       });
     }
-function fnxia(a){
-  api.getPrefs({
-      key: 'namehistorys'
-  }, function (ret, err) {
-    // api.removePrefs({
-    //     key: 'namehistorys'
-    // });
-      var historyText = '' || ret.value  ;
-      var historyArray = historyText.split(',');
-      for (var i = 0; i < historyArray.length; i++) {
+    function fnHistorysingerName(a){
+      api.getPrefs({
+          key: 'namehistorys'
+      }, function (ret, err) {
+        var historyText = '' || ret.value  ;
+        var historyArray = historyText.split(',');
+        for (var i = 0; i < historyArray.length; i++) {
           if (historyArray[i].length == 0)
               continue;
           var stylelist = $api.byId('history');
           var html = '';
           for (var s = 1; s < historyArray.length; s++) {
-            html += '<li class="active" tapmode="focus" id="historyArray' + historyArray[s] + '" data-index="' + historyArray[s] + '"><div><p>' + historyArray[s] + '</p><label>作者: ' + a[s] + '</label></div></li>';
+            html += '<li class="active" tapmode="focus" id="historyArray{index}" data-index="{index}"><div class="txt"><p>' + historyArray[s] + '</p><label>作者: ' + a[s] + '</label></div><div class="delete-img"><img src="../image/ic_arrow_general.png" alt=""></div></li>';
           }
+
           $api.html(stylelist, html);
-
-
-      }
-
-  });
-
-}
+        }
+      });
+    }
+    function ClearHistory(index) {
+      //alert(index);
+      //var e = index;
+          //alert(index);
+        var history = $api.byId('history');
+        if (!index) {
+            history.innerHTML = '';
+            api.removePrefs({
+                key: 'sousuohistory'
+            });
+            api.removePrefs({
+                key: 'playtimehistorys'
+            });
+            api.removePrefs({
+                key: 'namehistorys'
+            });
+            api.removePrefs({
+                key: 'sousuohistorytitle'
+            });
+            api.removePrefs({
+                key: 'sousuohistorysingerName'
+            });
+            api.toast({
+                msg: '已清空所有历史记录'
+            });
+        }else{
+          // api.getPrefs({
+          //     key: 'historys'
+          // }, function (ret, err) {
+          //     var historyText = ret.value;
+          //     var historyArray = historyText.split(',');
+          //     historyArray.splice(index, 1);
+          //     api.setPrefs({
+          //         key: 'historys',
+          //         value: historyArray.join(',')
+          //     });
+          //     //fnnone();
+          //      var parent=document.getElementById("history");
+          //      var child=document.getElementById("historysss" + index);
+          //      parent.removeChild(child);
+          //     // api.historyBack({
+          //     //     frameName: ''
+          //     // }, function(ret, err) {
+          //     //   alert(JSON.stringify(ret));
+          //     //     if (!ret.status) {
+          //     //         api.closeWin();
+          //     //     }
+          //     // });
+          //     // history.innerHTML = '';
+          //     // InitHistory();
+          //     //window.location.reload();
+          //     //setTimeout("location.reload()", 500);
+          //     api.toast({
+          //         msg: '已清除历史记录'
+          //     });
+          // });
+        }
+    }
 
 </script>
 </html>
