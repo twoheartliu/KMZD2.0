@@ -175,14 +175,14 @@
                    </div>
                    <div class="swiper-slide">
                        <div class="play-txt">
-                           <p id="sousuogeci">解：利西南；</p>
+                           <p id="sousuogeci"></p>
                        </div>
                    </div>
-                   <div class="swiper-slide">
+                   <!-- <div class="swiper-slide">
                        <div class="play-list" id="sousuoliebiao">
-                           <!-- <p>1152 周易上经 乾卦第一.mp3</p> -->
+                           <p>1152 周易上经 乾卦第一.mp3</p>
                        </div>
-                   </div>
+                   </div> -->
                </div>
            </div>
            <div class="select">
@@ -235,7 +235,6 @@
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/swiper.min.js"></script>
 <script type="text/javascript">
-
    var id;
    apiready = function() {
      id = api.pageParam.a;
@@ -474,14 +473,11 @@
          });
        }
    }
-
    // 轮播
    function fnInitSwiper() {
-       var mySwiper = new Swiper('.swiper-container', {
-           autoplay: true,
-           loop: true,
-       });
-
+     var mySwiper = new Swiper('.swiper-container', {
+         loop: true,
+     });
    }
    // 选择播放器
    function fnOpenChoicePlayer() {
@@ -630,8 +626,8 @@
          var html = '';
          for (var s = 1; s < historyArray.length; s++) {
            if(historyArray[2*s-1]){
-             console.log(JSON.stringify(historyArray[2*s-1]));
-             console.log(JSON.stringify(historyArray[2*s]));
+             //console.log(JSON.stringify(historyArray[2*s-1]));
+             //console.log(JSON.stringify(historyArray[2*s]));
             html += '<p>' + historyArray[2*s-1] + '  ' + historyArray[2*s] + '</p>';
            }
          }
