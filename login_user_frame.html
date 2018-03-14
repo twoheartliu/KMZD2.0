@@ -153,6 +153,11 @@
 						微博登录
 					</p>
 				</div>
+				<!-- <div class="login-item" onclick="fntuichuWBLogin()">
+					<p>
+						tuichu 登录
+					</p>
+				</div> -->
 			</div>
 		</section>
 	</body>
@@ -175,6 +180,16 @@
 			});
 		}
 		//alert("1");
+	}
+	function fntuichuWBLogin(){
+		var weiXin = api.require('weiXin');
+		weiXin.cancelAuth(function(ret, err) {
+		    if (ret.status) {
+		        api.alert({ msg: '退出成功' });
+		    } else {
+		        api.alert({ msg: err.msg });
+		    }
+		});
 	}
 	// function a() {
 	// 	var wx = api.require('wx');
@@ -202,35 +217,38 @@
 	var accessToken;
 	var openId;
 	function fnWXLogin() {
-		alert("1");
-		var wx = api.require('wx');
+		//alert("1");
+		var weiXin = api.require('weiXin');
 		var code;
-		wx.isInstalled(function(ret, err) {
-			alert("222");
-			if (ret.installed) {
-				alert(JSON.stringify(ret.installed));
-				wx.auth(function(ret, err) {
-					console.log(JSON.stringify(ret));
-					alert('111');
+		weiXin.registerApp(function(ret, err) {
+			//alert("222");
+			//api.alert({ msg: '' + ret.status });
+			if (ret.status) {
+				//alert(JSON.stringify(ret.status));
+				//alert('111');
+				var weiXin = api.require('weiXin');
+				// weiXin.refreshToken(function(ret, err) {
+				//     if (ret.status) {
+				//         api.alert({ msg: '刷新成功' });
+				//     } else {
+				//         api.alert({ msg: err.msg });
+				//     }
+				// });
+				weiXin.auth(function(ret, err) {
+					//console.log(JSON.stringify(ret));
+					//api.alert({ msg: ret.status });
+					//api.alert({ msg: ret.token });
 					if (ret.status) {
-						alert('111');
+
+
 						//alert(JSON.stringify(ret.status));
 						//alert(JSON.stringify(ret.code));
-						wx.getToken({
-							code : ret.code
-						}, function(ret, err) {
-							if (ret.status) {
-								alert(JSON.stringify(ret));
-								console.log(JSON.stringify(ret));
-								accessToken = ret.accessToken;
-								openId = ret.openId;
-								wx.getUserInfo({
-									accessToken : accessToken,
-									openId : openId
-								}, function(ret, err) {
+
+								weiXin.getUserInfo(function(ret, err) {
 									var wxjibenziliao = ret;
 									if (ret.status) {
-										console.log(JSON.stringify(ret));
+										//alert('222');
+										//console.log(JSON.stringify(ret));
 										api.openWin({
 											name : 'index',
 											url : './index.html',
@@ -241,30 +259,34 @@
 										});
 										var data = {
 												values: {
-													openId: openId,
-													open_id: ret.openid,
-													nick_name: ret.nickname,
+													openid: ret.openid,
+													nickname: ret.nickname,
 													sex: ret.sex,
-													avatar: ret.headimgurl,
+													headimgurl: ret.headimgurl,
+													province: ret.province,
+													city: ret.city,
+													privilege: ret.privilege,
+													country: ret.country,
+													unionid: ret.unionid,
 												}
 											};
 											$api.setStorage("userInfo", data);
-											console.log(JSON.stringify($api.getStorage("userInfo")));
+											//console.log(JSON.stringify($api.getStorage("userInfo")));
+
 										//alert(JSON.stringify(ret));
 										//alert(JSON.stringify(nickname));
 									} else {
-										alert(err.code);
+										 api.alert({ msg: err.msg });
+										//alert(err.code);
 									}
 								});
 							} else {
-								alert(err.code);
+								 api.alert({ msg: err.msg });
+								//alert(err.code);
 							}
-						});
-					} else {
-						alert(err.code);
-					}
 				});
 			} else {
+				api.alert({ msg: err.msg });
 				alert('当前设备未安装微信客户端');
 			}
 		});
