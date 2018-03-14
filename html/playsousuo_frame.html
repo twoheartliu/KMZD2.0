@@ -204,13 +204,13 @@
                 </div>
             </div>
             <div class="play-len">
-                <span id="kaishijishi">00:00</span>
+                <span id="kaishijishi">0:00</span>
                 <!-- <div class="length"> -->
                 <!-- <img src="../image/play_len.png" alt=""> -->
                 <input type="range" value="0" name="" id="range">
                 <!-- <progress max="100" value="0" id="pg"></progress> -->
                 <!-- </div> -->
-                <span id="zongshichang">00:00</span>
+                <span id="zongshichang"></span>
             </div>
         </nav>
         <banner>
@@ -249,16 +249,17 @@
             if (ret) {
                 //id = ret.value.dangqianbofangid;
                 dqbfid = ret.value.dangqianbofangid;
-                fnGeCixianshi(dqbfid);
+                //fnGeCixianshi(dqbfid);
             } else {
                 alert(JSON.stringify(err));
             }
         });
-        fnGeCixianshi(id);
+        //fnGeCixianshi(id);
         var eHeader = $api.byId('header')
         fnInitSwiper();
         fnOpenChangeImg();
         AddHistory(id);
+        fnbofangshijian();
         var bofang = api.pageParam.bofang;
         if (!bofang) {
             var stylelist = $api.byId('openplayer');
@@ -287,6 +288,17 @@
         }
 
     };
+    function fnbofangshijian(){
+      api.addEventListener({
+          name: 'bofangshijian'
+      }, function(ret, err) {
+          if (ret) {
+              var stylelist = $api.byId('kaishijishi');
+              var html = ret.value.bofangshijian;
+              $api.html(stylelist, html);
+          }
+      });
+    }
     //播放，暂停键
     function fnOpenPlayer() {
         var player = $api.byId('player');
@@ -304,6 +316,7 @@
             });
         } else {
             player.src = "../image/play_stop.png";
+            fnNetAudiosPlayByIDs();
             var netAudiopausess = '';
             var bofang = 0;
             var a = api.pageParam.a;
@@ -314,18 +327,20 @@
                     a: a
                 }
             });
-            api.sendEvent({
-                name: 'netAudiopause',
-                extra: {
-                    netAudiopauses: netAudiopausess
-                }
-            });
+
         }
     }
     //上一曲
     function fnOpenPlayershangyi() {
         var player = $api.byId('player');
         player.src = "../image/play_now.png";
+        var c = 1;
+        api.sendEvent({
+            name: 'bofangshangyi',
+            extra: {
+              c:c
+            }
+        });
         api.getPrefs({
             key: 'sousuohistory'
         }, function(ret, err) {
@@ -371,6 +386,13 @@
     }
     //下一曲
     function fnOpenPlayerxiayi() {
+      var c = 2;
+      api.sendEvent({
+          name: 'bofangshangyi',
+          extra: {
+            c:c
+          }
+      });
         api.getPrefs({
             key: 'sousuohistory'
         }, function(ret, err) {
@@ -417,6 +439,7 @@
             }
         });
     }
+
     //播放
     function fnNetAudiosPlayByID(id) {
         if (id) {
@@ -449,6 +472,7 @@
                         }
                     });
                     //addtime(dangqianbofangurl);
+                    fnbofangshijian();
                     var title = ret.data[0].name;
                     var singerName = ret.data[0].singerName;
                     AddHistoryTitle(title, singerName);
@@ -496,22 +520,7 @@
         }
 
     }
-    function fnBoFangUrl(url){
-      //alert(JSON.stringify(url));
-      //console.log(url);
-      var stylelist = $api.byId('myAudio');
-      var html = '<source src="' + url + '" type="audio/mpeg">';
-      //console.log(html);
-      $api.html(stylelist, html);
-    }
-    //赋值大标题
-    function fnTitlexianshi(ret) {
-        var stylelist = $api.byId('title');
-        var html = ret.data[0].name;
-        $api.html(stylelist, html);
-    }
-    //赋值歌词
-    function fnGeCixianshi(ret) {
+    function fnNetAudiosPlayByIDs(id) {
         if (id) {
             api.ajax({
                 url: 'http://47.100.11.38/kongmeng/thirdParty/search_songs_by_id.php?id= ' + id,
@@ -519,14 +528,60 @@
                 dataType: 'json',
             }, function(ret, err) {
                 if (ret) {
-                    var stylelist = $api.byId('sousuogeci');
-                    var html = '<p >' + ret.data[0].desc + '</p>';
-                    $api.html(stylelist, html);
+                  var dangqianbofangurl = ret.data[0].url;
+                  var  netAudiopausess = ret;
+                    api.sendEvent({
+                        name: 'netAudiopause',
+                        extra: {
+                            netAudiopauses: netAudiopausess
+                        }
+                    });
+                } else {
+                    alert(JSON.stringify(err));
+                }
+            });
+        } else {
+            api.ajax({
+                url: 'http://47.100.11.38/kongmeng/thirdParty/search_songs_by_id.php?id= ' + dqbfid,
+                method: 'get',
+                dataType: 'json',
+            }, function(ret, err) {
+                if (ret) {
+                  var dangqianbofangurl = ret.data[0].url;
+                  var  netAudiopausess = ret;
+                    api.sendEvent({
+                        name: 'netAudiopause',
+                        extra: {
+                            netAudiopauses: netAudiopausess
+                        }
+                    });
                 } else {
                     alert(JSON.stringify(err));
                 }
             });
         }
+
+    }
+    // function fnBoFangUrl(url){
+    //   //alert(JSON.stringify(url));
+    //   //console.log(url);
+    //   var stylelist = $api.byId('myAudio');
+    //   var html = '<source src="' + url + '" type="audio/mpeg">';
+    //   //console.log(html);
+    //   $api.html(stylelist, html);
+    // }
+    //赋值大标题
+    // function fnTitlexianshi(ret) {
+    //     var stylelist = $api.byId('title');
+    //     var html = ret.data[0].name;
+    //     $api.html(stylelist, html);
+    // }
+    //赋值歌词
+    function fnGeCixianshi(ret) {
+      //console.log(JSON.stringify(ret));
+      var stylelist = $api.byId('sousuogeci');
+      var html = '<p >' + ret.data[0].desc + '</p>';
+      $api.html(stylelist, html);
     }
     var timer2;
     var timer1;
@@ -540,8 +595,6 @@
             fillbar.style.width = "" + parseFloat(cur / lenth) * 300 + "px";
         }, 50)
     }
-
-
     //赋值大标题
     function fnTitlexianshi(ret) {
         var stylelist = $api.byId('title');
