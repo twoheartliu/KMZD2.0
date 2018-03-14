@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
-    <title>蜻蜓FM</title>
+    <title>孔孟之道--播放</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
     <link rel="stylesheet" href="../css/swiper.min.css">
     <style>
@@ -135,6 +135,9 @@
         #slider {
             height: 50px;
             position: relative;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
         }
 
         #slider span {
@@ -142,6 +145,9 @@
             bottom: 0;
             font-size: 12px;
             color: #ccc;
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
         }
 
         #slider .s {
@@ -151,7 +157,10 @@
         #slider .e {
             right: 10px;
         }
-
+        #slider .f{
+          left: 19%;
+          width: 63%;
+        }
         #panel {
             display: -webkit-box;
             display: -webkit-flex;
@@ -306,6 +315,38 @@
             width: 240px;
             /*margin-top: 50px;*/
         }
+        #pg{
+          width: 100%;
+          height: 8px;
+          border-radius: 4px;
+          color:#ccc;
+          /*vertical-align: middle;*/
+          /*margin-left: 30%;*/
+          -webkit-appearance: none;
+        }
+        progress ::-webkit-progress-inner-element { }
+        progress ::-webkit-progress-bar { border: 1px solid black; }
+        progress ::-webkit-progress-value { background: #fff; }
+
+        progress::-moz-progress-bar { background: #fff; }
+
+        progress ::-ms-fill { background: #fff; }
+        progress::-webkit-progress-inner-element { border-radius: 10px; }
+        progress::-webkit-progress-value { border-radius: 10px; }
+        progress::-webkit-progress-bar { border-radius: 10px; }
+        /*progress::-webkit-progress-bar { background: transparent; }*/
+        ::-ms-fill{
+            background:#89211b;
+        }
+        ::-moz-progress-bar{
+            background:#89211b;
+         }
+        ::-webkit-progress-bar{
+            background:#fff;
+         }
+        ::-webkit-progress-value{
+            background:#89211b;
+        }
     </style>
 </head>
 
@@ -396,6 +437,7 @@
         <div id="control" class="qx">
             <div id="slider">
                 <span class="s">13:00:00</span>
+                <span class="f"><progress max="100" value="0" id="pg"></progress></span>
                 <span class="e">14:00:00</span>
             </div>
             <ul id="panel">
@@ -416,12 +458,27 @@
     var radios = ['see_you_again', 'new_soul', 'i_am_you'];
     var i = 0;
 
+    // 进度条
+    var time1;
+    function a(){
+      var pg = document.getElementById('pg')
+      time1=setInterval(function(e){
+            if(pg.value!=100) pg.value++;
+             else pg.value=0;
+       },200);
+    }
+    function b(){
+      clearInterval(time1);
+    }
+
     function playRadio(it) {
         if ($(it).hasClass('pause')) {
             $(it).removeClass().addClass('play');
             api.stopPlay();
+            b();
         } else {
             $(it).removeClass().addClass('buffer');
+            a();
             setTimeout(function() {
                 $(it).removeClass().addClass('pause');
                 var radio = radios[i];
@@ -469,33 +526,33 @@
         var header = document.querySelector('header');
         $api.fixIos7Bar(header);
 
-        var $slider = $('#slider');
-        var sliderPos = $slider.offset();
-        var obj = api.require('slider');
-        obj.open({
-            x: 0,
-            y: sliderPos.top + 10,
-            w: api.winWidth,
-            bgImg: "widget://image/slider/slider-bg.png",
-            selectedBgImg: "widget://image/slider/slider-fg.png",
-            bar: {
-                barWidth: 20,
-                barHeight: 20,
-                barImg: "widget://image/slider/slider-btn.png"
-            },
-            bubble: {
-                bubbleWidth: 0,
-                bubbleHeight: 0
-            },
-            minValue: 0,
-            maxValue: 100,
-            defValue: 0,
-            fixed: true
-        }, function(ret, err) {
-            if (ret.touchCancel) {
-                // api.alert({msg:ret.value});
-            }
-        });
+        // var $slider = $('#slider');
+        // var sliderPos = $slider.offset();
+        // var obj = api.require('slider');
+        // obj.open({
+        //     x: 0,
+        //     y: sliderPos.top + 10,
+        //     w: api.winWidth,
+        //     bgImg: "widget://image/slider/slider-bg.png",
+        //     selectedBgImg: "widget://image/slider/slider-fg.png",
+        //     bar: {
+        //         barWidth: 20,
+        //         barHeight: 20,
+        //         barImg: "widget://image/slider/slider-btn.png"
+        //     },
+        //     bubble: {
+        //         bubbleWidth: 0,
+        //         bubbleHeight: 0
+        //     },
+        //     minValue: 0,
+        //     maxValue: 100,
+        //     defValue: 0,
+        //     fixed: true
+        // }, function(ret, err) {
+        //     if (ret.touchCancel) {
+        //         // api.alert({msg:ret.value});
+        //     }
+        // });
         fnInitSwiper();
         fnOpenChangeImg();
     };
