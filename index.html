@@ -270,7 +270,8 @@
     <!-- <div class="centerVideo" id="centerVideo">
         <a class="videoButton"></a>
     </div> -->
-
+    <audio id="myAudio" >
+    </audio>
 </body>
 
 </html>
@@ -440,22 +441,69 @@
     }
     //音频播放模块
     function netAudios(urls){
-        var name = urls.value.netAudios.data[0].url;
+        var name = urls;
         var netAudio = api.require('netAudio');
+
         netAudio.play({
             path: name
         }, function(ret, err) {
             if (ret) {
+              addtime();
                 //alert(JSON.stringify(ret));
             } else {
                 alert(JSON.stringify(err));
             }
         });
+
+    }
+    function addtime() {
+      var x = document.getElementById("myAudio");
+      //console.log(JSON.stringify(x));
+      x.play();
+        timer2 = setInterval(function() {
+           cur = parseInt(x.currentTime);//秒数
+          //alert(cur);
+                   temp=cur;
+
+                  minute=parseInt(temp/60);
+
+                if(cur%60<10){
+                    //var stylelist = $api.byId('kaishijishi');
+                    var html = ""+minute+":0"+cur%60+"";
+                    console.log(html);
+                    api.sendEvent({
+                        name: 'bofangshijian',
+                        extra: {
+                            bofangshijian: html
+                        }
+                    });
+
+                }else{
+                  //var stylelist = $api.byId('kaishijishi');
+                  var html = ""+minute+":"+cur%60+"";
+                  console.log(html);
+                  api.sendEvent({
+                      name: 'bofangshijian',
+                      extra: {
+                          bofangshijian: html
+                      }
+                  });
+
+                }
+        }, 1000);
     }
     //关闭音频
     function netAudiopause (){
-      var netAudio = api.require('netAudio');
-      netAudio.pause();
+      var x = document.getElementById("myAudio");
+      x.pause();
+    }
+    function fnBoFangUrl(url){
+      //alert(JSON.stringify(url));
+      //console.log(url);
+      var stylelist = $api.byId('myAudio');
+      var html = '<source src="' + url + '" type="audio/mpeg">';
+      //console.log(html);
+      $api.html(stylelist, html);
     }
     // 初始化事件监听
     function initEventListenner() {
@@ -474,7 +522,9 @@
         }, function(ret, err) {
             if (ret) {
                 //alert(ret);
-                netAudios(ret)
+                //netAudios(ret.value.netAudios.data[0].url)
+                fnBoFangUrl(ret.value.netAudios.data[0].url);
+                addtime();
             }
         });
         //监听关闭音频
