@@ -240,6 +240,7 @@
 <script type="text/javascript">
     var id;
     var dqbfid;
+    var time1;
     apiready = function() {
         dqbfid = api.pageParam.a;
         id = api.pageParam.a;
@@ -305,6 +306,7 @@
         if (player.getAttribute("src", 2) == "../image/play_stop.png") {
             player.src = "../image/play_now.png";
             fnNetAudiosPlayByID();
+
             var bofang = 1;
             var a = api.pageParam.a;
             api.sendEvent({
@@ -317,6 +319,7 @@
         } else {
             player.src = "../image/play_stop.png";
             fnNetAudiosPlayByIDs();
+            b ();
             var netAudiopausess = '';
             var bofang = 0;
             var a = api.pageParam.a;
@@ -329,6 +332,16 @@
             });
 
         }
+    }
+
+    function a(){
+      time1=setInterval(function(e){
+            if(range.value!=100) range.value++;
+             else range.value=0;
+       },200);
+    }
+    function b(){
+      clearInterval(time1);
     }
     //上一曲
     function fnOpenPlayershangyi() {
@@ -454,8 +467,7 @@
                     fnTitlexianshi(ret);
                     fnGeCixianshi(ret);
                     fnZongShiChang(ret);
-
-
+                    a();
                     netAudioss = ret;
                     api.sendEvent({
                         name: 'netAudioplay',

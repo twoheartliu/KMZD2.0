@@ -281,6 +281,9 @@
 <script type="text/javascript" src="script/index.js"></script>
 <script type="text/javascript">
     apiready = function() {
+      if(clearInterval(timer2)){
+        clearInterval(timer2)
+      }
         var secHeader = $api.byId('secHeader');
         $api.fixStatusBar(secHeader);
         var footer = $api.byId('footer');
@@ -521,13 +524,14 @@
     function netAudiopause (){
       var x = document.getElementById("myAudio");
       x.pause();
+
     }
     function fnBoFangUrl(url){
       //alert(JSON.stringify(url));
       //console.log(url);
       var stylelist = $api.byId('yinpin');
       var html = '<audio id="myAudio" ><source src="' + url + '" type="audio/mpeg"></audio>';
-      console.log(html);
+      //console.log(html);
       $api.html(stylelist, html);
       addtime();
     }
