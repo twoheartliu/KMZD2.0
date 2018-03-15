@@ -270,8 +270,10 @@
     <!-- <div class="centerVideo" id="centerVideo">
         <a class="videoButton"></a>
     </div> -->
-    <audio id="myAudio" >
-    </audio>
+    <div id="yinpin">
+    <!-- <audio id="myAudio" >
+    </audio> -->
+  </div>
 </body>
 
 </html>
@@ -279,6 +281,9 @@
 <script type="text/javascript" src="script/index.js"></script>
 <script type="text/javascript">
     apiready = function() {
+      if(clearInterval(timer2)){
+        clearInterval(timer2)
+      }
         var secHeader = $api.byId('secHeader');
         $api.fixStatusBar(secHeader);
         var footer = $api.byId('footer');
@@ -456,21 +461,45 @@
         });
 
     }
+    //清空所有的计时器
+    function qingkong(){
+    	//imagePause();
+
+        clearInterval(timer2);
+
+    }
+    //将进度条置0
+    function reducejindutiao(){
+    	clearInterval(timer1);
+    	fillbar.style.width="0";
+    }
+    //获取当前歌曲的歌长
+    function jindutiao(){
+    	var lenth=play[index].duration;
+    	timer1=setInterval(function(){
+    		cur=play[index].currentTime;//获取当前的播放时间
+    		fillbar.style.width=""+parseFloat(cur/lenth)*300+"px";
+    	},50)
+    }
+    //播放时间
     function addtime() {
+      // var timer2;
+      // if(timer2){
+      //   clearInterval(timer2);
+      // }else{
+      //
+      // }
       var x = document.getElementById("myAudio");
       //console.log(JSON.stringify(x));
       x.play();
         timer2 = setInterval(function() {
-           cur = parseInt(x.currentTime);//秒数
-          //alert(cur);
+           cur = parseInt(x.currentTime);
                    temp=cur;
-
                   minute=parseInt(temp/60);
 
                 if(cur%60<10){
-                    //var stylelist = $api.byId('kaishijishi');
                     var html = ""+minute+":0"+cur%60+"";
-                    console.log(html);
+                    //console.log(html);
                     api.sendEvent({
                         name: 'bofangshijian',
                         extra: {
@@ -479,9 +508,8 @@
                     });
 
                 }else{
-                  //var stylelist = $api.byId('kaishijishi');
                   var html = ""+minute+":"+cur%60+"";
-                  console.log(html);
+                  //console.log(html);
                   api.sendEvent({
                       name: 'bofangshijian',
                       extra: {
@@ -496,14 +524,16 @@
     function netAudiopause (){
       var x = document.getElementById("myAudio");
       x.pause();
+
     }
     function fnBoFangUrl(url){
       //alert(JSON.stringify(url));
       //console.log(url);
-      var stylelist = $api.byId('myAudio');
-      var html = '<source src="' + url + '" type="audio/mpeg">';
+      var stylelist = $api.byId('yinpin');
+      var html = '<audio id="myAudio" ><source src="' + url + '" type="audio/mpeg"></audio>';
       //console.log(html);
       $api.html(stylelist, html);
+      addtime();
     }
     // 初始化事件监听
     function initEventListenner() {
@@ -524,7 +554,7 @@
                 //alert(ret);
                 //netAudios(ret.value.netAudios.data[0].url)
                 fnBoFangUrl(ret.value.netAudios.data[0].url);
-                addtime();
+
             }
         });
         //监听关闭音频
@@ -532,10 +562,27 @@
     				name: 'netAudiopause'
     		}, function(ret, err) {
     				if (ret) {
-    						netAudiopause(ret)
+    						netAudiopause(ret);
     				}
     		});
-
+        api.addEventListener({
+            name: 'bofangshangyi'
+        }, function(ret, err) {
+            if (ret) {
+              //console.log('111');
+              qingkong();
+              netAudiopause ();
+            }
+        });
+        api.addEventListener({
+            name: 'bofangxiayi'
+        }, function(ret, err) {
+            if (ret) {
+              console.log('111');
+              qingkong();
+              netAudiopause ();
+            }
+        });
         // 拦截Android的返回键，在首页点击返回键，提示退出应用
         api.addEventListener({
             name: 'keyback'
