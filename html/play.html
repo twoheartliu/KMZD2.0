@@ -416,6 +416,19 @@
     var radios = ['see_you_again', 'new_soul', 'i_am_you'];
     var i = 0;
 
+    // 进度条
+    var time1;
+    function a(){
+      var pg = document.getElementById('pg')
+      time1=setInterval(function(e){
+            if(pg.value!=100) pg.value++;
+             //else pg.value=0;
+       },200);
+    }
+    function b(){
+      clearInterval(time1);
+    }
+
     function playRadio(it) {
         if ($(it).hasClass('pause')) {
             $(it).removeClass().addClass('play');
