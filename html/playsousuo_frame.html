@@ -120,8 +120,12 @@
 
         .play-len input {
             width: 75%;
-            vertical-align: middle;
         }
+        /*.play-len .rangesss {
+            width: 75%;
+            vertical-align: middle;
+            background-color: red;
+        }*/
 
         .play-len>span {
             font-size: 14px;
@@ -208,7 +212,8 @@
                 <!-- <div class="length"> -->
                 <!-- <img src="../image/play_len.png" alt=""> -->
                 <input type="range" value="0" name="" id="range">
-                <progress max="100" value="0" id="pg"></progress>
+                <!-- <div class="rangesss"></div> -->
+                <!-- <progress max="100" value="0" id="pg"></progress> -->
                 <!-- </div> -->
                 <span id="zongshichang"></span>
             </div>
@@ -347,7 +352,7 @@
         } else {
             player.src = "../image/play_stop.png";
             // fnNetAudiosPlayByIDs();
-            b();
+            //b();
             var netAudiopausess = '';
             //var  netAudiopausess = ret;
             api.sendEvent({
@@ -369,20 +374,22 @@
         }
     }
     function jindutiao(){
-      time1 = setInterval(function(e){
-          if(pg.value!=100) pg.value++;
-           else pg.value=0;
-       },200);
-      //  api.addEventListener({
-      //      name: 'zongJinDu'
-      //  }, function(ret, err) {
-      //      if (ret) {
-      //          var stylelist = $api.byId('zongshichang');
-      //          var html = ret.value.zongSC;
-      //          //$api.html(stylelist, html);
-      //          //fillbar.style.width=""+parseFloat(cur/lenth)*240+"px";
-      //      }
-      //  });
+      // time1 = setInterval(function(e){
+      //     if(range.value!=100) range.value++;
+      //      else range.value=0;
+      //  },200);
+
+       api.addEventListener({
+           name: 'zongJinDu'
+       }, function(ret, err) {
+           if (ret) {
+               var stylelist = $api.byId('zongshichang');
+               var lenth = ret.value.lenth;
+               var cur = ret.value.cur;
+               //$api.html(stylelist, html);
+               range.style.width=""+parseFloat(cur/lenth)*240+"px";
+           }
+       });
     }
     // function b(){
     //   clearInterval(time1);
@@ -510,7 +517,7 @@
                   var dangqianbofangurl = ret.data[0].url;
                     fnTitlexianshi(ret);
                     fnGeCixianshi(ret);
-                    a ();
+                    //a ();
                     netAudioss = ret;
                     api.sendEvent({
                         name: 'netAudioplay',
