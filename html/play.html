@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
-    <title>孔孟之道--播放</title>
+    <title>蜻蜓FM</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
     <link rel="stylesheet" href="../css/swiper.min.css">
     <style>
@@ -26,6 +26,7 @@
             -webkit-flex-flow: column;
             flex-flow: column;
         }
+
         #main {
             position: relative;
             -webkit-box-flex: 1;
@@ -90,19 +91,18 @@
         }
 
         #action .collect {
-          text-align: center;
-          color: #cbcbcb;
-          font-size: 12px;
-          -webkit-box-flex: 1;
-          -webkit-flex: 1;
-          flex: 1;
-          padding-top: 0px;
-          background-position: center top;
-          background-repeat: no-repeat;
-          -webkit-background-size: 25px;
-          background-size: 25px;
+            text-align: center;
+            color: #cbcbcb;
+            font-size: 12px;
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+            padding-top: 0px;
+            background-position: center top;
+            background-repeat: no-repeat;
+            -webkit-background-size: 25px;
+            background-size: 25px;
         }
-
 
         #action .timer {
             background-image: url(../image/play_choice.png);
@@ -135,9 +135,6 @@
         #slider {
             height: 50px;
             position: relative;
-            display: -webkit-box;
-            display: -webkit-flex;
-            display: flex;
         }
 
         #slider span {
@@ -145,9 +142,6 @@
             bottom: 0;
             font-size: 12px;
             color: #ccc;
-            -webkit-box-flex: 1;
-            -webkit-flex: 1;
-            flex: 1;
         }
 
         #slider .s {
@@ -157,10 +151,7 @@
         #slider .e {
             right: 10px;
         }
-        #slider .f{
-          left: 19%;
-          width: 63%;
-        }
+
         #panel {
             display: -webkit-box;
             display: -webkit-flex;
@@ -315,44 +306,12 @@
             width: 240px;
             /*margin-top: 50px;*/
         }
-        #pg{
-          width: 100%;
-          height: 8px;
-          border-radius: 4px;
-          color:#ccc;
-          vertical-align: middle;
-          /*margin-left: 30%;*/
-          -webkit-appearance: none;
-        }
-        progress ::-webkit-progress-inner-element { }
-        progress ::-webkit-progress-bar { border: 1px solid black; }
-        progress ::-webkit-progress-value { background: #fff; }
-
-        progress::-moz-progress-bar { background: #fff; }
-
-        progress ::-ms-fill { background: #fff; }
-        progress::-webkit-progress-inner-element { border-radius: 10px; }
-        progress::-webkit-progress-value { border-radius: 10px; }
-        progress::-webkit-progress-bar { border-radius: 10px; }
-        /*progress::-webkit-progress-bar { background: transparent; }*/
-        ::-ms-fill{
-            background:#89211b;
-        }
-        ::-moz-progress-bar{
-            background:#89211b;
-         }
-        ::-webkit-progress-bar{
-            background:#fff;
-         }
-        ::-webkit-progress-value{
-            background:#89211b;
-        }
     </style>
 </head>
 
 <body>
     <div id="wrap" class="mh">
-      <!-- <img src="" alt=""> -->
+        <!-- <img src="" alt=""> -->
         <header class="qx" id="secHeader">
             <i class="back" tapmode onclick="api.closeWin();"></i>
             <div>三字经</div>
@@ -427,8 +386,8 @@
         </div>
         <ul id="action" class="qx">
             <li class="collect">
-              <img src="../image/play_collect.png" alt="" id="playCollect" onclick="fnOpenPlayCollect();">
-              <p>收藏</p>
+                <img src="../image/play_collect.png" alt="" id="playCollect" onclick="fnOpenPlayCollect();">
+                <p>收藏</p>
             </li>
             <li class="timer" tapmode="focus" onclick="fnOpenChoicePlayer();">切换国学机</li>
             <li class="share" tapmode="focus" onclick="fnOpenPlayShare();">分享</li>
@@ -437,7 +396,6 @@
         <div id="control" class="qx">
             <div id="slider">
                 <span class="s">13:00:00</span>
-                <span class="f"><progress max="100" value="0" id="pg"></progress></span>
                 <span class="e">14:00:00</span>
             </div>
             <ul id="panel">
@@ -445,7 +403,7 @@
                 <li class="prev" tapmode="focus" onclick="prevRadio()"></li>
                 <li class="play" tapmode="focus" onclick="playRadio(this)"></li>
                 <li class="next" tapmode="focus" onclick="nextRadio()"></li>
-                <li ><img src="../image/play_change0.png" alt="" id="img"></li>
+                <li><img src="../image/play_change0.png" alt="" id="img"></li>
             </ul>
         </div>
     </div>
@@ -458,27 +416,12 @@
     var radios = ['see_you_again', 'new_soul', 'i_am_you'];
     var i = 0;
 
-    // 进度条
-    var time1;
-    function a(){
-      var pg = document.getElementById('pg')
-      time1=setInterval(function(e){
-            if(pg.value!=100) pg.value++;
-             else pg.value=0;
-       },200);
-    }
-    function b(){
-      clearInterval(time1);
-    }
-
     function playRadio(it) {
         if ($(it).hasClass('pause')) {
             $(it).removeClass().addClass('play');
             api.stopPlay();
-            b();
         } else {
             $(it).removeClass().addClass('buffer');
-            a();
             setTimeout(function() {
                 $(it).removeClass().addClass('pause');
                 var radio = radios[i];
@@ -488,9 +431,13 @@
                     // api.alert({msg: '播放完成'});
                 });
             }, 500);
-        }
-    }
 
+        }
+
+    }
+    //  alert(JSON.stringify(it));
+    //  alert(it)
+    // 向左播放减一
     function prevRadio() {
         i--;
         if (i <= 0) {
@@ -504,7 +451,7 @@
             // api.alert({msg: '播放完成'});
         });
     }
-
+    // 向右播放加一
     function nextRadio() {
         i++;
         if (i > 2) {
@@ -526,33 +473,43 @@
         var header = document.querySelector('header');
         $api.fixIos7Bar(header);
 
-        // var $slider = $('#slider');
-        // var sliderPos = $slider.offset();
-        // var obj = api.require('slider');
-        // obj.open({
-        //     x: 0,
-        //     y: sliderPos.top + 10,
-        //     w: api.winWidth,
-        //     bgImg: "widget://image/slider/slider-bg.png",
-        //     selectedBgImg: "widget://image/slider/slider-fg.png",
-        //     bar: {
-        //         barWidth: 20,
-        //         barHeight: 20,
-        //         barImg: "widget://image/slider/slider-btn.png"
-        //     },
-        //     bubble: {
-        //         bubbleWidth: 0,
-        //         bubbleHeight: 0
-        //     },
-        //     minValue: 0,
-        //     maxValue: 100,
-        //     defValue: 0,
-        //     fixed: true
-        // }, function(ret, err) {
-        //     if (ret.touchCancel) {
-        //         // api.alert({msg:ret.value});
-        //     }
-        // });
+        var $slider = $('#slider');
+        var sliderPos = $slider.offset();
+        var obj = api.require('slider');
+        var values = 50;
+
+        obj.open({
+            x: 0,
+            y: sliderPos.top + 10,
+            w: api.winWidth,
+            bgImg: "widget://image/slider/slider-bg.png",
+            selectedBgImg: "widget://image/slider/slider-fg.png",
+            bar: {
+                barWidth: 20,
+                barHeight: 20,
+                barImg: "widget://image/slider/slider-btn.png"
+            },
+            bubble: {
+                bubbleWidth: 0,
+                bubbleHeight: 0
+            },
+            minValue: 0,
+            maxValue: 100,
+            defValue: 0,
+            fixed: true,
+            // value:values
+        }, function(ret, err) {
+          // var slider = api.require('slider');
+          // slider.setValue({
+          //     id: 1,
+          //     value: 51
+          // });
+            // alert(JSON.stringify( ret ));
+            console.log(JSON.stringify(values));
+            if (ret.touchCancel) {
+                // api.alert({msg:ret.value});
+            }
+        });
         fnInitSwiper();
         fnOpenChangeImg();
     };
@@ -564,118 +521,114 @@
         });
     };
     // 切换单曲循环、顺序播放、随机播放
-    function fnOpenChangeImg(){
-      var image_urls = [ "../image/play_change0.png", "../image/play_change1.png", "../image/play_change2.png"];
+    function fnOpenChangeImg() {
+        var image_urls = ["../image/play_change0.png", "../image/play_change1.png", "../image/play_change2.png"];
         // 初始化数组键值 (0 = 第一个图片)
         var idx = 0;
         // 点击 id 为 img 的图片
-      document.getElementById("img").onclick = function() {
-          // idx + 1，如果为最后一张，还原回第一张
-          idx = idx === image_urls.length - 1 ? 0 : idx + 1;
-          // 设置 src
-          this.src = image_urls[idx];
-          // 测试
-          // alert(this.src);
-      };
-      // var imgs = document.getElementById('imgBox').getElementsByTagName('img');
-      // for(var i=0;i<=imgs.length;i++){
-      //   if(i==num+1){
-      //      imgs[i].style.display="inline";
-      //   }else{
-      //     imgs[i].style.display="none";
-      //   };
-      //   if(num==2){
-      //     imgs[0].style.display="inline";
-      //   };
-      // }
+        document.getElementById("img").onclick = function() {
+            // idx + 1，如果为最后一张，还原回第一张
+            idx = idx === image_urls.length - 1 ? 0 : idx + 1;
+            // 设置 src
+            this.src = image_urls[idx];
+            // 测试
+            // alert(this.src);
+        };
+        // var imgs = document.getElementById('imgBox').getElementsByTagName('img');
+        // for(var i=0;i<=imgs.length;i++){
+        //   if(i==num+1){
+        //      imgs[i].style.display="inline";
+        //   }else{
+        //     imgs[i].style.display="none";
+        //   };
+        //   if(num==2){
+        //     imgs[0].style.display="inline";
+        //   };
+        // }
     };
     // 选择播放器
-    function fnOpenChoicePlayer(){
-      api.openWin({
-          name: 'choicePlayer',
-          url: './choice_player.html',
-      });
+    function fnOpenChoicePlayer() {
+        api.openWin({
+            name: 'choicePlayer',
+            url: './choice_player.html',
+        });
     };
     // 收藏
-    function fnOpenPlayCollect(){
-      var playCollect = $api.byId('playCollect');
-      if(playCollect.getAttribute("src",2)=="../image/play_collect.png"){
-        playCollect.src="../image/play_collect0.png";
-      }else{
-        playCollect.src="../image/play_collect.png";
-      }
+    function fnOpenPlayCollect() {
+        var playCollect = $api.byId('playCollect');
+        if (playCollect.getAttribute("src", 2) == "../image/play_collect.png") {
+            playCollect.src = "../image/play_collect0.png";
+        } else {
+            playCollect.src = "../image/play_collect.png";
+        }
     };
     // 打开评论页面
-    function fnOpenPlayDiscuss(){
-      api.openWin({
-        name: 'playDiscuss',
-        url: './play_discuss.html',
-      })
+    function fnOpenPlayDiscuss() {
+        api.openWin({
+            name: 'playDiscuss',
+            url: './play_discuss.html',
+        })
     }
     //打开分享
-    function fnOpenPlayShare(){
-      var dialogBox = api.require('dialogBox');
-      dialogBox.actionMenu ({
-          rect:{
-              h: 150
-          },
-          texts:{
-               cancel: '取消'
-          },
-          items:[
-          {
-              text: '微信',
-              icon: 'widget://image/weixin.png'
-          },
-          {
-              text: 'QQ',
-              icon: 'widget://image/qq.png'
-          },
-          {
-              text: '朋友圈',
-              icon: 'widget://image/friends.png'
-          }
-          ],
-          styles:{
-              bg:'#FFF',
-              column: 3,
-              itemText: {
-                  color: '#000',
-                  size: 12,
-                  marginT:8
-              },
-              itemIcon:{
-                  size:48
-              },
-              cancel:{
-                  bg: 'fs://icon.png',
-                  color:'#000',
-                  h: 44 ,
-                  size: 14
-              }
-          }
-      }, function(ret){
-        dialogBox.close({
-                  dialogName: 'alert'
-        })
-      });
+    function fnOpenPlayShare() {
+        var dialogBox = api.require('dialogBox');
+        dialogBox.actionMenu({
+            rect: {
+                h: 150
+            },
+            texts: {
+                cancel: '取消'
+            },
+            items: [{
+                text: '微信',
+                icon: 'widget://image/weixin.png'
+            }, {
+                text: 'QQ',
+                icon: 'widget://image/qq.png'
+            }, {
+                text: '朋友圈',
+                icon: 'widget://image/friends.png'
+            }],
+            styles: {
+                bg: '#FFF',
+                column: 3,
+                itemText: {
+                    color: '#000',
+                    size: 12,
+                    marginT: 8
+                },
+                itemIcon: {
+                    size: 48
+                },
+                cancel: {
+                    bg: 'fs://icon.png',
+                    color: '#000',
+                    h: 44,
+                    size: 14
+                }
+            }
+        }, function(ret) {
+            dialogBox.close({
+                dialogName: 'alert'
+            })
+        });
     }
     //打开播放列表
-    function openRadioList(){
-  		var height = api.frameHeight + 50 ;
-  		api.openFrame({
-  		    name: 'play_radiolist',
-  		    url: './play_radiolist.html',
-  		    bounces: false,
-  		    bgColor: 'rgba(0,0,0,0.6)',
-  		    rect:{
-  		        x: 0,
-  		        y: 0,
-  		        w: api.frameWidth,
-  		        h: height
-  		    }
-  		});
-  	}
+    function openRadioList() {
+        var height = api.frameHeight + 50;
+        api.openFrame({
+            name: 'play_radiolist',
+            url: './play_radiolist.html',
+            bounces: false,
+            bgColor: 'rgba(0,0,0,0.6)',
+            rect: {
+                x: 0,
+                y: 0,
+                w: api.frameWidth,
+                h: height
+            }
+        });
+    }
 </script>
 
 </html>

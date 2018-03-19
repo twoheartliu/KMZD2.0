@@ -1,13 +1,10 @@
-<!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
     <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
     <title>孔孟之道--首页发现</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
-    <link rel="stylesheet" type="text/css" href="../css/style.css" />
     <style>
         .fl {
             float: left;
@@ -37,7 +34,7 @@
         .index_frame1 img {
             float: left;
             width: 20px;
-            padding: 15px 15px 15px 0;
+            padding: 15px 10px 15px 0;
         }
 
         .index_frame1_p {
@@ -61,14 +58,22 @@
         </div>
     </div>
     <div class="bg"></div>
-    <div class="index_frame1" onclick="dialogBox_alert2();">
+    <div class="index_frame1" onclick="dialogBox_youxi();">
         <div class="p20px">
             <img src="../image/KM_yx.png" alt="">
-            <div class="index_frame1_p fl"> 游戏 </div>
+            <div class="index_frame1_p fl"> 看图猜字 </div>
             <div class="index_frame1_span fr"> > </div>
         </div>
     </div>
     <div class="bg"></div>
+    <!-- <div class="index_frame1" onclick="dialogBox_mogu();">
+        <div class="p20px">
+            <img src="../image/KM_yx.png" alt="">
+            <div class="index_frame1_p fl"> 拯救小蘑菇 </div>
+            <div class="index_frame1_span fr"> > </div>
+        </div>
+    </div> -->
+    <!-- <div class="bg"></div> -->
     <div class="index_frame1" onclick="dialogBox_alert2();">
         <div class="p20px">
             <img src="../image/KM_hd.png" alt="">
@@ -157,4 +162,34 @@
             }
         });
     }
+    function dialogBox_youxi() {
+      api.openWin({
+          name: 'dialogBox_youxi',
+          url: './dialogBox_youxi.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
+
+    }
+    // function dialogBox_mogu() {
+    //   api.openWin({
+    //       name: 'dialogBox_mogu',
+    //       url: './dialogBox_mogu.html',
+    //       pageParam: {
+    //           name: 'test'
+    //       }
+    //   });
+    //
+    // }
+    // function dialogBox_squn() {
+    //   api.openWin({
+    //       name: 'dialogBox_squn',
+    //       url: 'https://www.myfans.cc/c/8uzed18dec#/home',
+    //       pageParam: {
+    //           name: 'test'
+    //       }
+    //   });
+    //
+    // }
 </script>
