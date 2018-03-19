@@ -163,6 +163,10 @@
         /*banner .side{
            margin-top: 6px;
          }*/
+        .red{
+          background-color: #f00;
+        }
+
     </style>
 </head>
 
@@ -212,7 +216,10 @@
                 <!-- <div class="length"> -->
                 <!-- <img src="../image/play_len.png" alt=""> -->
                 <input type="range" value="0" name="" id="range">
+<<<<<<< HEAD
                 <!-- <div class="rangesss"></div> -->
+=======
+>>>>>>> 89d824d36ffa5d1d350f01aab59ced90465019de
                 <!-- <progress max="100" value="0" id="pg"></progress> -->
                 <!-- </div> -->
                 <span id="zongshichang"></span>
@@ -274,7 +281,7 @@
         AddHistory(id);
         fnbofangshijian();
         fnZongShiChang();
-        jindutiao();
+        //jindutiao();
         var bofang = api.pageParam.bofang;
         if (!bofang) {
             var stylelist = $api.byId('openplayer');
@@ -352,7 +359,11 @@
         } else {
             player.src = "../image/play_stop.png";
             // fnNetAudiosPlayByIDs();
+<<<<<<< HEAD
             //b();
+=======
+            // b();
+>>>>>>> 89d824d36ffa5d1d350f01aab59ced90465019de
             var netAudiopausess = '';
             //var  netAudiopausess = ret;
             api.sendEvent({
@@ -373,6 +384,7 @@
 
         }
     }
+<<<<<<< HEAD
     function jindutiao(){
       // time1 = setInterval(function(e){
       //     if(range.value!=100) range.value++;
@@ -394,6 +406,30 @@
     // function b(){
     //   clearInterval(time1);
     // }
+=======
+    function a(){
+      time1 = setInterval(function(e){
+          if(range.value!=100){
+            range.value++;
+            length = $api.byId('range');
+            length.addCls("red");
+          }else {
+            range.value=0;
+          }
+       },200);
+      //  api.addEventListener({
+      //      name: 'zongJinDu'
+      //  }, function(ret, err) {
+      //      if (ret) {
+      //          var stylelist = $api.byId('zongshichang');
+      //          var html = ret.value.zongSC;
+      //          //$api.html(stylelist, html);
+      //          //fillbar.style.width=""+parseFloat(cur/lenth)*240+"px";
+      //      }
+      //  });
+    };
+
+>>>>>>> 89d824d36ffa5d1d350f01aab59ced90465019de
     //上一曲
     function fnOpenPlayershangyi() {
         var player = $api.byId('player');
@@ -517,7 +553,11 @@
                   var dangqianbofangurl = ret.data[0].url;
                     fnTitlexianshi(ret);
                     fnGeCixianshi(ret);
+<<<<<<< HEAD
                     //a ();
+=======
+                    // a ();
+>>>>>>> 89d824d36ffa5d1d350f01aab59ced90465019de
                     netAudioss = ret;
                     api.sendEvent({
                         name: 'netAudioplay',
