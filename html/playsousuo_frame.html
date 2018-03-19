@@ -208,7 +208,7 @@
                 <!-- <div class="length"> -->
                 <!-- <img src="../image/play_len.png" alt=""> -->
                 <input type="range" value="0" name="" id="range">
-                <!-- <progress max="100" value="0" id="pg"></progress> -->
+                <progress max="100" value="0" id="pg"></progress>
                 <!-- </div> -->
                 <span id="zongshichang"></span>
             </div>
@@ -240,15 +240,22 @@
 <script type="text/javascript">
     var id;
     var dqbfid;
-    var time1;
+    var timer1;
     apiready = function() {
         dqbfid = api.pageParam.a;
         id = api.pageParam.a;
+        if(id){
+          api.sendEvent({
+              name: 'netUrl',
+              extra: {
+                id: id
+              }
+          });
+        }
         api.addEventListener({
             name: 'dangqianbofang'
         }, function(ret, err) {
             if (ret) {
-                //id = ret.value.dangqianbofangid;
                 dqbfid = ret.value.dangqianbofangid;
                 //fnGeCixianshi(dqbfid);
             } else {
@@ -261,6 +268,8 @@
         fnOpenChangeImg();
         AddHistory(id);
         fnbofangshijian();
+        fnZongShiChang();
+        jindutiao();
         var bofang = api.pageParam.bofang;
         if (!bofang) {
             var stylelist = $api.byId('openplayer');
@@ -289,6 +298,7 @@
         }
 
     };
+    //播放时间
     function fnbofangshijian(){
       api.addEventListener({
           name: 'bofangshijian'
@@ -300,13 +310,24 @@
           }
       });
     }
+    //赋值总时长
+    function fnZongShiChang() {
+      api.addEventListener({
+          name: 'zongSC'
+      }, function(ret, err) {
+          if (ret) {
+              var stylelist = $api.byId('zongshichang');
+              var html = ret.value.zongSC;
+              $api.html(stylelist, html);
+          }
+      });
+    }
     //播放，暂停键
     function fnOpenPlayer() {
         var player = $api.byId('player');
         if (player.getAttribute("src", 2) == "../image/play_stop.png") {
             player.src = "../image/play_now.png";
             fnNetAudiosPlayByID();
-
             var bofang = 1;
             var a = api.pageParam.a;
             api.sendEvent({
@@ -316,11 +337,25 @@
                     a: a
                 }
             });
+            var zaicibf
+            api.sendEvent({
+                name: 'zaicibf',
+                extra: {
+                    zaicibf: zaicibf,
+                }
+            });
         } else {
             player.src = "../image/play_stop.png";
-            fnNetAudiosPlayByIDs();
-            b ();
+            // fnNetAudiosPlayByIDs();
+            b();
             var netAudiopausess = '';
+            //var  netAudiopausess = ret;
+            api.sendEvent({
+                name: 'netAudiopause',
+                extra: {
+                    netAudiopauses: netAudiopausess
+                }
+            });
             var bofang = 0;
             var a = api.pageParam.a;
             api.sendEvent({
@@ -333,16 +368,25 @@
 
         }
     }
-
-    function a(){
-      time1=setInterval(function(e){
-            if(range.value!=100) range.value++;
-             else range.value=0;
+    function jindutiao(){
+      time1 = setInterval(function(e){
+          if(pg.value!=100) pg.value++;
+           else pg.value=0;
        },200);
+      //  api.addEventListener({
+      //      name: 'zongJinDu'
+      //  }, function(ret, err) {
+      //      if (ret) {
+      //          var stylelist = $api.byId('zongshichang');
+      //          var html = ret.value.zongSC;
+      //          //$api.html(stylelist, html);
+      //          //fillbar.style.width=""+parseFloat(cur/lenth)*240+"px";
+      //      }
+      //  });
     }
-    function b(){
-      clearInterval(time1);
-    }
+    // function b(){
+    //   clearInterval(time1);
+    // }
     //上一曲
     function fnOpenPlayershangyi() {
         var player = $api.byId('player');
@@ -354,105 +398,106 @@
               c:c
             }
         });
-        api.getPrefs({
-            key: 'sousuohistory'
-        }, function(ret, err) {
-            if (ret) {
-                var flag = false; //是否增加历史记录
-                var historyText = ret.value;
-                var historyArray = historyText.split(',');
-                for (var i = 0; i < historyArray.length; i++) {
-                    var id1 = historyArray[i];
-                    var id2 = dqbfid;
-                    if (id1 == id2) {
-                        var ii;
-                        if (!i) {
-                            ii = historyArray.length - 1;
-                        } else if (i == 1) {
-                            ii = historyArray.length - 1;
-                        } else {
-                            ii = i - 1;
-                        }
-                        var dangqianbofangid = historyArray.splice(ii, 1);
-                        api.sendEvent({
-                            name: 'dangqianbofang',
-                            extra: {
-                                dangqianbofangid: dangqianbofangid
-                            }
-                        });
-                        var bofang = 1;
-                        var a = dangqianbofangid;
-                        api.sendEvent({
-                            name: 'netbofang',
-                            extra: {
-                                bofang: bofang,
-                                a: a
-                            }
-                        });
-                        fnNetAudiosPlayByID(dangqianbofangid);
-                    }
-                }
-            } else {
-                alert(JSON.stringify(err));
-            }
-        });
+        // api.getPrefs({
+        //     key: 'sousuohistory'
+        // }, function(ret, err) {
+        //     if (ret) {
+        //         var flag = false; //是否增加历史记录
+        //         var historyText = ret.value;
+        //         var historyArray = historyText.split(',');
+        //         for (var i = 0; i < historyArray.length; i++) {
+        //             var id1 = historyArray[i];
+        //             var id2 = dqbfid;
+        //             if (id1 == id2) {
+        //                 var ii;
+        //                 if (!i) {
+        //                     ii = historyArray.length - 1;
+        //                 } else if (i == 1) {
+        //                     ii = historyArray.length - 1;
+        //                 } else {
+        //                     ii = i - 1;
+        //                 }
+        //                 var dangqianbofangid = historyArray.splice(ii, 1);
+        //                 api.sendEvent({
+        //                     name: 'dangqianbofang',
+        //                     extra: {
+        //                         dangqianbofangid: dangqianbofangid
+        //                     }
+        //                 });
+        //                 var bofang = 1;
+        //                 var a = dangqianbofangid;
+        //                 api.sendEvent({
+        //                     name: 'netbofang',
+        //                     extra: {
+        //                         bofang: bofang,
+        //                         a: a
+        //                     }
+        //                 });
+        //                 fnNetAudiosPlayByID(dangqianbofangid);
+        //             }
+        //         }
+        //     } else {
+        //         alert(JSON.stringify(err));
+        //     }
+        // });
     }
     //下一曲
     function fnOpenPlayerxiayi() {
       var c = 2;
       api.sendEvent({
-          name: 'bofangshangyi',
+          name: 'bofangxiayi',
           extra: {
             c:c
           }
       });
-        api.getPrefs({
-            key: 'sousuohistory'
-        }, function(ret, err) {
-            if (ret) {
-                var flag = false; //是否增加历史记录
-                var historyText = ret.value;
-                var historyArray = historyText.split(',');
-                for (var i = 0; i < historyArray.length; i++) {
-                    var id1 = historyArray[i];
-                    var id2 = dqbfid;
-                    if (id1 == id2) {
-                        var ii;
-                        var historyArraylength = JSON.stringify(historyArray.length) - 1;
-                        if (!i) {
-                            ii = 1;
-                        } else if (i == historyArraylength) {
-                            ii = 1;
-                        } else {
-                            ii = i + 1;
-                        }
-                        var dangqianbofangid = historyArray.splice(ii, 1);
-                        api.sendEvent({
-                            name: 'dangqianbofang',
-                            extra: {
-                                dangqianbofangid: dangqianbofangid
-                            }
-                        });
-                        var bofang = 1;
-                        var a = dangqianbofangid;
-                        api.sendEvent({
-                            name: 'netbofang',
-                            extra: {
-                                bofang: bofang,
-                                a: a
-                            }
-                        });
-                        fnNetAudiosPlayByID(dangqianbofangid);
-                        var player = $api.byId('player');
-                        player.src = "../image/play_now.png";
-                    }
-                }
-            } else {
-                alert(JSON.stringify(err));
-            }
-        });
+      var player = $api.byId('player');
+      player.src = "../image/play_now.png";
+        // api.getPrefs({
+        //     key: 'sousuohistory'
+        // }, function(ret, err) {
+        //     if (ret) {
+        //         var flag = false; //是否增加历史记录
+        //         var historyText = ret.value;
+        //         var historyArray = historyText.split(',');
+        //         for (var i = 0; i < historyArray.length; i++) {
+        //             var id1 = historyArray[i];
+        //             var id2 = dqbfid;
+        //             if (id1 == id2) {
+        //                 var ii;
+        //                 var historyArraylength = JSON.stringify(historyArray.length) - 1;
+        //                 if (!i) {
+        //                     ii = 1;
+        //                 } else if (i == historyArraylength) {
+        //                     ii = 1;
+        //                 } else {
+        //                     ii = i + 1;
+        //                 }
+        //                 var dangqianbofangid = historyArray.splice(ii, 1);
+        //                 api.sendEvent({
+        //                     name: 'dangqianbofang',
+        //                     extra: {
+        //                         dangqianbofangid: dangqianbofangid
+        //                     }
+        //                 });
+        //                 var bofang = 1;
+        //                 var a = dangqianbofangid;
+        //                 api.sendEvent({
+        //                     name: 'netbofang',
+        //                     extra: {
+        //                         bofang: bofang,
+        //                         a: a
+        //                     }
+        //                 });
+        //                 fnNetAudiosPlayByID(dangqianbofangid);
+        //                 var player = $api.byId('player');
+        //                 player.src = "../image/play_now.png";
+        //             }
+        //         }
+        //     } else {
+        //         alert(JSON.stringify(err));
+        //     }
+        // });
     }
-
     //播放
     function fnNetAudiosPlayByID(id) {
         if (id) {
@@ -463,11 +508,9 @@
             }, function(ret, err) {
                 if (ret) {
                   var dangqianbofangurl = ret.data[0].url;
-                  //fnBoFangUrl(dangqianbofangurl);
                     fnTitlexianshi(ret);
                     fnGeCixianshi(ret);
-                    fnZongShiChang(ret);
-                    a();
+                    a ();
                     netAudioss = ret;
                     api.sendEvent({
                         name: 'netAudioplay',
@@ -476,14 +519,13 @@
                         }
                     });
                     var dangqianbofangid = ret.data[0].id;
-
                     api.sendEvent({
                         name: 'dangqianbofang',
                         extra: {
                             dangqianbofangid: dangqianbofangid
                         }
                     });
-                    //addtime(dangqianbofangurl);
+                    fnZongShiChang();
                     fnbofangshijian();
                     var title = ret.data[0].name;
                     var singerName = ret.data[0].singerName;
@@ -500,11 +542,9 @@
             }, function(ret, err) {
                 if (ret) {
                   var dangqianbofangurl = ret.data[0].url;
-                  //fnBoFangUrl(dangqianbofangurl);
                     fnTitlexianshi(ret);
                     fnGeCixianshi(ret);
                     fnZongShiChang(ret);
-
                     netAudioss = ret;
                     api.sendEvent({
                         name: 'netAudioplay',
@@ -519,9 +559,6 @@
                             dangqianbofangid: dangqianbofangid
                         }
                     });
-                    //addtime(dangqianbofangurl);
-                    //jindutiao();
-
                     var title = ret.data[0].name;
                     var singerName = ret.data[0].singerName;
                     AddHistoryTitle(title, singerName);
@@ -532,95 +569,21 @@
         }
 
     }
-    function fnNetAudiosPlayByIDs(id) {
-        if (id) {
-            api.ajax({
-                url: 'http://47.100.11.38/kongmeng/thirdParty/search_songs_by_id.php?id= ' + id,
-                method: 'get',
-                dataType: 'json',
-            }, function(ret, err) {
-                if (ret) {
-                  var dangqianbofangurl = ret.data[0].url;
-                  var  netAudiopausess = ret;
-                    api.sendEvent({
-                        name: 'netAudiopause',
-                        extra: {
-                            netAudiopauses: netAudiopausess
-                        }
-                    });
-                } else {
-                    alert(JSON.stringify(err));
-                }
-            });
-        } else {
-            api.ajax({
-                url: 'http://47.100.11.38/kongmeng/thirdParty/search_songs_by_id.php?id= ' + dqbfid,
-                method: 'get',
-                dataType: 'json',
-            }, function(ret, err) {
-                if (ret) {
-                  var dangqianbofangurl = ret.data[0].url;
-                  var  netAudiopausess = ret;
-                    api.sendEvent({
-                        name: 'netAudiopause',
-                        extra: {
-                            netAudiopauses: netAudiopausess
-                        }
-                    });
-                } else {
-                    alert(JSON.stringify(err));
-                }
-            });
-        }
-
-    }
-    // function fnBoFangUrl(url){
-    //   //alert(JSON.stringify(url));
-    //   //console.log(url);
-    //   var stylelist = $api.byId('myAudio');
-    //   var html = '<source src="' + url + '" type="audio/mpeg">';
-    //   //console.log(html);
-    //   $api.html(stylelist, html);
-    // }
-    //赋值大标题
-    // function fnTitlexianshi(ret) {
-    //     var stylelist = $api.byId('title');
-    //     var html = ret.data[0].name;
-    //     $api.html(stylelist, html);
-    // }
     //赋值歌词
     function fnGeCixianshi(ret) {
-      //console.log(JSON.stringify(ret));
       var stylelist = $api.byId('sousuogeci');
       var html = '<p >' + ret.data[0].desc + '</p>';
       $api.html(stylelist, html);
     }
     var timer2;
-    var timer1;
 
-    function jindutiao() {
-        //获取当前歌曲的歌长
-
-        var lenth = play[index].duration;
-        timer1 = setInterval(function() {
-            cur = play[index].currentTime; //获取当前的播放时间
-            fillbar.style.width = "" + parseFloat(cur / lenth) * 300 + "px";
-        }, 50)
-    }
     //赋值大标题
     function fnTitlexianshi(ret) {
         var stylelist = $api.byId('title');
         var html = ret.data[0].name;
         $api.html(stylelist, html);
     }
-    //赋值总时长
-    function fnZongShiChang(ret) {
-        var stylelist = $api.byId('zongshichang');
-        var playtime = ret.data[0].play_time
-        var playtime = playtime.slice(3, 8);
-        var html = playtime;
-        $api.html(stylelist, html);
-    }
+
     // 轮播
     function fnInitSwiper() {
         var mySwiper = new Swiper('.swiper-container', {
