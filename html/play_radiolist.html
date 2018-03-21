@@ -108,65 +108,28 @@
 <body>
     <div id="mask"></div>
     <div id="radio-list">
-        <h2>节目单</h2>
+        <h2 id="gedanmingcheng">
+          <!-- 节目单 -->
+        </h2>
         <div class="list">
-            <ul>
-                <li class="active" tapmode="focus" onclick="ccg12();">
+            <ul id="liebiao">
+                <!-- <li class="active" tapmode="focus" onclick="ccg12();">
                     <div>
                         <p>【美食地图】天南地北一张饼</p>
                         <label>时长: 24分10秒</label>
                     </div>
-                </li>
-                <li tapmode="focus">
-                    <div>
-                        <p>【美食地图】天南地北一张饼</p>
-                        <label>时长: 24分10秒</label>
-                    </div>
-                </li>
-                <li tapmode="focus">
-                    <div>
-                        <p>【美食地图】天南地北一张饼</p>
-                        <label>时长: 24分10秒</label>
-                    </div>
-                </li>
-                <li tapmode="focus">
-                    <div>
-                        <p>【美食地图】天南地北一张饼</p>
-                        <label>时长: 24分10秒</label>
-                    </div>
-                </li>
-                <li tapmode="focus">
-                    <div>
-                        <p>【美食地图】天南地北一张饼</p>
-                        <label>时长: 24分10秒</label>
-                    </div>
-                </li>
-                <li tapmode="focus">
-                    <div>
-                        <p>【美食地图】天南地北一张饼</p>
-                        <label>时长: 24分10秒</label>
-                    </div>
-                </li>
-                <li tapmode="focus">
-                    <div>
-                        <p>【美食地图】天南地北一张饼</p>
-                        <label>时长: 24分10秒</label>
-                    </div>
-                </li>
-                <li tapmode="focus">
-                    <div>
-                        <p>【美食地图】天南地北一张饼</p>
-                        <label>时长: 24分10秒</label>
-                    </div>
-                </li>
+                </li> -->
             </ul>
         </div>
     </div>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
+var playlistid;
+
     apiready = function() {
         // fnSetGender();
+        playlistid = api.pageParam.tuijiantingdanid;
         var list = $api.byId('radio-list');
         $api.addCls(list, 'in');
         var bodyW = document.getElementsByTagName("body")[0];
@@ -178,11 +141,48 @@
                 }, 350);
             }
         }
-
+        fnTingdanTuijian()
     };
+    //接口  推荐听单
+    var tingdanliebiaobiaoti;
+    function fnTingdanTuijian() {
+      playlistid = api.pageParam.playlistid;
+      console.log(playlistid);
+        api.ajax({
+            url: 'http://47.100.11.38/kongmeng/thirdParty/get_songs_by_playlist.php?page=0&size=10&playlistid= ' + playlistid,
+            method: 'get',
+        }, function(ret, err) {
+            if (ret) {
+              alert(JSON.stringify(ret));
+              gedanmingcheng=ret.data[0].albumName;
 
-    function ccg12() {
-        alert("1123");
+                fnGeDanMingCheng(gedanmingcheng);
+                fnGeDanLieBiao(ret);
+            } else {
+                alert(JSON.stringify(err));
+            }
+        });
+    }
+    //接口  听单展示
+    function fnGeDanLieBiao(data_) {
+        var stylelist = $api.byId('liebiao');
+        var html = '';
+        for (var i = 0; i < data_.data.length; i++) {
+            html += '<li class="active" tapmode="focus" onclick="fnPlayGeQu(' + data_.data[i].id + ');"><div><p>' + data_.data[i].name + '</p><label>作者:' + data_.data[i].singerName + '</label></div></li>';
+        }
+        $api.html(stylelist, html);
+
+    }
+
+    function fnGeDanMingCheng(data_) {
+        var stylelist = $api.byId('gedanmingcheng');
+        var html = data_;
+        $api.html(stylelist, html);
+
+    }
+
+    function fnPlayGeQu(id) {
+
     }
 
     // function fnSetGender(){

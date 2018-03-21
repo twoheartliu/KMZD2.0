@@ -436,20 +436,20 @@
         });
     }
     //接口  推荐听单
-    function fnTingdanTuijian() {
-        api.ajax({
-            url: 'http://47.100.11.38/kongmeng/thirdParty/search_playlist_by_name.php?page=0&size=6',
-            method: 'get',
-        }, function(ret, err) {
-            if (ret) {
-                //alert(JSON.stringify(ret));
-                fnTingdanZhanshi(ret);
-            } else {
-                alert(JSON.stringify(err));
-            }
-        });
-
-    }
+    // function fnTingdanTuijian() {
+    //     api.ajax({
+    //         url: 'http://47.100.11.38/kongmeng/thirdParty/search_playlist_by_name.php?page=0&size=6',
+    //         method: 'get',
+    //     }, function(ret, err) {
+    //         if (ret) {
+    //             //alert(JSON.stringify(ret));
+    //             fnTingdanZhanshi(ret);
+    //         } else {
+    //             alert(JSON.stringify(err));
+    //         }
+    //     });
+    //
+    // }
     //接口  听单展示
     function fnTingdanZhanshi(data_) {
         var stylelist = $api.byId('hot');

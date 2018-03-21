@@ -373,11 +373,13 @@
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
+
     apiready = function() {
 
             fnTingdanTuijian()
             //fnTingdanTuijianliebiao()
         }
+
         //接口  推荐听单
     var tingdanliebiaobiaoti;
     function fnTingdanTuijian() {
@@ -398,26 +400,13 @@
             }
         });
     }
-    // function fnTingdanTuijianliebiao(playlistid) {
-    //     api.ajax({
-    //         url: 'http://47.100.11.38/kongmeng/thirdParty/get_songs_by_playlist.php?page=0&size=10&playlistid = ' + playlistid,
-    //         method: 'get',
-    //     }, function(ret, err) {
-    //         if (ret) {
-    //             fnTingdanZhanshi(tingdanliebiaobiaoti);
-    //             fnTingdanZhanshi(ret);
-    //         } else {
-    //             alert(JSON.stringify(err));
-    //         }
-    //     });
-    // }
     //接口  听单展示
     function fnTingdanZhanshi(data_) {
         var stylelist = $api.byId('tuijianliebiaogequ');
         var html = '';
         for (var i = 0; i < data_.data.length; i++) {
             html +=
-                '<li onclick="fnOpenPlay();" ><div class="on_playall"><span class="fl on_playall_name">' + data_.data[i].name + ' </span><span class="fl on_playall_name"> ' + data_.data[i].singerName + '</span><span class="fr on_playall_names">2018-01</span></div><div class="on_playall_img">  <div class="on_playall_div fl"><div class="on_playall_div_img fl"><img src="../image/icn_ply.png" alt=""></div><div class="on_playall_div_span fl"><span>2.3万</span></div></div><div class="on_playall_div fl"><div class="on_playall_div_img1 fl"><img src="../image/KM_tmis.png" alt=""></div><div class="on_playall_div_span fl"><span>' + data_.data[i].play_time + '</span></div></div></div></li>';
+                '<li onclick="fnOpenPlay(' + data_.data[i].id + ');" ><div class="on_playall"><span class="fl on_playall_name">' + data_.data[i].name + ' </span><span class="fl on_playall_name"> ' + data_.data[i].singerName + '</span><span class="fr on_playall_names">2018-01</span></div><div class="on_playall_img">  <div class="on_playall_div fl"><div class="on_playall_div_img fl"><img src="../image/icn_ply.png" alt=""></div><div class="on_playall_div_span fl"><span>2.3万</span></div></div><div class="on_playall_div fl"><div class="on_playall_div_img1 fl"><img src="../image/KM_tmis.png" alt=""></div><div class="on_playall_div_span fl"><span>' + data_.data[i].play_time + '</span></div></div></div></li>';
 
         }
         $api.html(stylelist, html);
@@ -446,14 +435,18 @@
         }
     }
 
-    function fnOpenPlay() {
+    function fnOpenPlay(a) {
+      var playlistid = api.pageParam.tuijiantingdanid;
         api.openWin({
             name: 'play',
             url: './play.html',
             pageParam: {
-                name: 'test'
+                name: 'test',
+                a: a,
+                playlistid: playlistid
+
             }
         });
-
+    //console.log(playlistid);
     }
 </script>
