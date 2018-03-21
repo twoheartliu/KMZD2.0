@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
-    <title>蜻蜓FM</title>
+    <title></title>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
     <link rel="stylesheet" href="../css/swiper.min.css">
     <style>
@@ -309,7 +309,7 @@
     </style>
 </head>
 
-<body>
+<body id="body">
     <div id="wrap" class="mh">
         <!-- <img src="" alt=""> -->
         <header class="qx" id="secHeader">
@@ -418,15 +418,17 @@
 
     // 进度条
     var time1;
-    function a(){
-      var pg = document.getElementById('pg')
-      time1=setInterval(function(e){
-            if(pg.value!=100) pg.value++;
-             //else pg.value=0;
-       },200);
+
+    function a() {
+        var pg = document.getElementById('pg')
+        time1 = setInterval(function(e) {
+            if (pg.value != 100) pg.value++;
+            //else pg.value=0;
+        }, 200);
     }
-    function b(){
-      clearInterval(time1);
+
+    function b() {
+        clearInterval(time1);
     }
 
     function playRadio(it) {
@@ -478,7 +480,51 @@
             // api.alert({msg: '播放完成'});
         });
     }
+    document.getElementById('body').onkeydown = function(){
+      var secHeader = $api.byId('secHeader');
+      $api.fixStatusBar(secHeader);
+      var headerH = $api.offset(secHeader).h;
+      var header = document.querySelector('header');
+      $api.fixIos7Bar(header);
 
+      var $slider = $('#slider');
+      var sliderPos = $slider.offset();
+      var obj = api.require('slider');
+      obj.open({
+          x: 0,
+          y: sliderPos.top + 10,
+          w: api.winWidth,
+          bgImg: "widget://image/slider/slider-bg.png",
+          selectedBgImg: "widget://image/slider/slider-fg.png",
+          bar: {
+              barWidth: 20,
+              barHeight: 20,
+              barImg: "widget://image/slider/slider-btn.png"
+          },
+          bubble: {
+              bubbleWidth: 0,
+              bubbleHeight: 0
+          },
+          minValue: 0,
+          maxValue: 100,
+          defValue: 0,
+          fixed: true
+              // value:values
+      }, function(ret, err) {
+          // var slider = api.require('slider');
+          // slider.setValue({
+          //     id: 1,
+          //     value: 51
+          // });
+          // alert(JSON.stringify( ret ));
+          console.log(JSON.stringify(ret));
+          if (ret.touchCancel) {
+              // api.alert({msg:ret.value});
+          }
+      });
+      fnInitSwiper();
+      fnOpenChangeImg();
+    }
     apiready = function() {
         var secHeader = $api.byId('secHeader');
         $api.fixStatusBar(secHeader);
@@ -489,7 +535,6 @@
         var $slider = $('#slider');
         var sliderPos = $slider.offset();
         var obj = api.require('slider');
-        var values = 50;
 
         obj.open({
             x: 0,
@@ -509,16 +554,16 @@
             minValue: 0,
             maxValue: 100,
             defValue: 0,
-            fixed: true,
-            // value:values
+            fixed: true
+                // value:values
         }, function(ret, err) {
-          // var slider = api.require('slider');
-          // slider.setValue({
-          //     id: 1,
-          //     value: 51
-          // });
+            // var slider = api.require('slider');
+            // slider.setValue({
+            //     id: 1,
+            //     value: 51
+            // });
             // alert(JSON.stringify( ret ));
-            console.log(JSON.stringify(values));
+            console.log(JSON.stringify(ret));
             if (ret.touchCancel) {
                 // api.alert({msg:ret.value});
             }

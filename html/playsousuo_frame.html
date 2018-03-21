@@ -120,6 +120,7 @@
 
         .play-len input {
             width: 75%;
+            vertical-align: middle;
         }
         /*.play-len .rangesss {
             width: 75%;
@@ -163,10 +164,61 @@
         /*banner .side{
            margin-top: 6px;
          }*/
-        .red{
-          background-color: #f00;
-        }
+         input[type=range] {
+                    -webkit-appearance: none;
+                    width: 80%;
+                    border-radius: 10px; /*这个属性设置使填充进度条时的图形为圆角*/
+                    /*background: -webkit-linear-gradient(#059CFA, #059CFA) no-repeat;*/
+                    /*background: -webkit-linear-gradient(#059CFA, #059CFA) no-repeat;*/
+                    /*background-size: 0% 100%;*/
+                }
+                input[type=range]::-webkit-slider-thumb {
+                    -webkit-appearance: none;
+                    height: 20px;
+                    width: 20px;
+                    margin-top: -5px; /*使滑块超出轨道部分的偏移量相等*/
+                    background: #ffffff;
+                    border-radius: 50%; /*外观设置为圆形*/
+                    border: solid 0.025em rgba(205, 224, 230, 0.5); /*设置边框*/
+                    box-shadow: 0 .025em .025em #3b4547; /*添加底部阴影*/
+                }
+                input[type=range]:focus {
+                    outline: none;
+                }
+                input[type=range]::-webkit-slider-runnable-track {
+                    height: 10px;
+                    border-radius: 10px; /*将轨道设为圆角的*/
+                    box-shadow: 0 1px 1px #def3f8, inset 0 .125em .125em #0d1112; /*轨道内置阴影效果*/
+                }
 
+                input[type=range]::-ms-fill-lower {
+                    /*进度条已填充的部分*/
+                    height: 22px;
+                    border-radius: 10px;
+                    background: linear-gradient(to right, #ff0000, #1abc9c 100%, #123);
+                    /*background: red !important;*/
+                }
+                input[type=range]::-ms-fill-upper {
+                    /*进度条未填充的部分*/
+                    height: 22px;
+                    border-radius: 10px;
+                    background: #ffffff;
+                }
+                input[type=range]:focus::-ms-fill-lower {
+                    background: linear-gradient(to right, #059CFA, white 100%, white);
+                }
+                input[type=range]:focus::-ms-fill-upper {
+                    background: #ffffff;
+                }
+
+                input[type=range]::-moz-range-progress {
+                    background: linear-gradient(to right, #059CFA, white 100%, white);
+                    height: 13px;
+                    border-radius: 10px;
+                }
+                .red{
+                  background: #000;
+                }
     </style>
 </head>
 
@@ -215,11 +267,9 @@
                 <span id="kaishijishi">0:00</span>
                 <!-- <div class="length"> -->
                 <!-- <img src="../image/play_len.png" alt=""> -->
-                <input type="range" value="0" name="" id="range">
-<<<<<<< HEAD
+                <!-- <input type="range" value="0" name="" id="range"> -->
+                <input type="range" id="range" name="range" min="0" max="100" step="1" value="0" class="red"/>
                 <!-- <div class="rangesss"></div> -->
-=======
->>>>>>> 89d824d36ffa5d1d350f01aab59ced90465019de
                 <!-- <progress max="100" value="0" id="pg"></progress> -->
                 <!-- </div> -->
                 <span id="zongshichang"></span>
@@ -242,13 +292,17 @@
             </div>
         </banner>
     </div>
-    <input type="hidden" id="input" value="">
+    <!-- <input type="hidden" id="input" value=""> -->
 
     <!-- <button onclick="getCurTime()" type="button">获取当前时间点</button>
     <button onclick="setCurTime()" type="button">设置时间位置为5秒</button> -->
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/swiper.min.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>
+<script type="text/javascript" src="../script/audio2.js"></script>
+
+<script type="text/javascript"></script>
 <script type="text/javascript">
     var id;
     var dqbfid;
@@ -281,7 +335,7 @@
         AddHistory(id);
         fnbofangshijian();
         fnZongShiChang();
-        //jindutiao();
+        jindutiao();
         var bofang = api.pageParam.bofang;
         if (!bofang) {
             var stylelist = $api.byId('openplayer');
@@ -359,11 +413,7 @@
         } else {
             player.src = "../image/play_stop.png";
             // fnNetAudiosPlayByIDs();
-<<<<<<< HEAD
             //b();
-=======
-            // b();
->>>>>>> 89d824d36ffa5d1d350f01aab59ced90465019de
             var netAudiopausess = '';
             //var  netAudiopausess = ret;
             api.sendEvent({
@@ -384,7 +434,6 @@
 
         }
     }
-<<<<<<< HEAD
     function jindutiao(){
       // time1 = setInterval(function(e){
       //     if(range.value!=100) range.value++;
@@ -395,41 +444,28 @@
            name: 'zongJinDu'
        }, function(ret, err) {
            if (ret) {
-               var stylelist = $api.byId('zongshichang');
+               var range = $api.byId('range');
                var lenth = ret.value.lenth;
                var cur = ret.value.cur;
                //$api.html(stylelist, html);
-               range.style.width=""+parseFloat(cur/lenth)*240+"px";
+               var a = cur/lenth;
+              //  console.log(a);
+              range.value = JSON.stringify(cur/lenth*100) ;
+              var sssss= 100-range.value;
+
+              //不渐变
+              // range.style.background = 'linear-gradient(to left, #89211b ' + sssss + '%, #000 0,#000  )';
+              // range.css( 'background', 'linear-gradient(to right, #059CFA, white ' + range.value + '%, white)' );
+              range.style.background = 'linear-gradient(to left, #89211b ' + sssss + '%, blue ' + range.value + '%,#789  )';
+
            }
        });
+
+
     }
     // function b(){
     //   clearInterval(time1);
     // }
-=======
-    function a(){
-      time1 = setInterval(function(e){
-          if(range.value!=100){
-            range.value++;
-            length = $api.byId('range');
-            length.addCls("red");
-          }else {
-            range.value=0;
-          }
-       },200);
-      //  api.addEventListener({
-      //      name: 'zongJinDu'
-      //  }, function(ret, err) {
-      //      if (ret) {
-      //          var stylelist = $api.byId('zongshichang');
-      //          var html = ret.value.zongSC;
-      //          //$api.html(stylelist, html);
-      //          //fillbar.style.width=""+parseFloat(cur/lenth)*240+"px";
-      //      }
-      //  });
-    };
-
->>>>>>> 89d824d36ffa5d1d350f01aab59ced90465019de
     //上一曲
     function fnOpenPlayershangyi() {
         var player = $api.byId('player');
@@ -553,11 +589,7 @@
                   var dangqianbofangurl = ret.data[0].url;
                     fnTitlexianshi(ret);
                     fnGeCixianshi(ret);
-<<<<<<< HEAD
                     //a ();
-=======
-                    // a ();
->>>>>>> 89d824d36ffa5d1d350f01aab59ced90465019de
                     netAudioss = ret;
                     api.sendEvent({
                         name: 'netAudioplay',
@@ -822,6 +854,13 @@
         //   };
         // }
     };
+</script>
+<script>
+    var change = function($input) {
+        /*内容可自行定义*/
+        // console.log("123");
+    }
+    $('input').RangeSlider({ callback: change});
 </script>
 
 </html>
