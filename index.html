@@ -503,9 +503,9 @@
     }
 
     function fnBoFangyinpinxinxi() {
-
+        var playgedan = Data.data[b].id
         api.ajax({
-            url: 'http://47.100.11.38/kongmeng/thirdParty/search_songs_by_id.php?id= ' + play,
+            url: 'http://47.100.11.38/kongmeng/thirdParty/search_songs_by_id.php?id= ' + playgedan,
             method: 'get',
             dataType: 'json',
         }, function(ret, err) {
@@ -685,25 +685,24 @@
 
     function fnTingdanZhanshi(data_) {
         Data = data_;
-        for (var b = 0; b < Data.data.length; b++) {
+        for (b = 0; b < Data.data.length; b++) {
             var id1 = Data.data[b].id;
             var id2 = DangQianbofangid;
             var w = b;
             if (id1 == id2) {
-                //console.log(b);
-                fnAudioid(b);
+                fnBoFangyinpinxinxi();
             }
 
         }
 
     }
 
-    function fnAudioid(b) {
-        play = Data.data[b].id;
-        //console.log(play);
-
-        fnBoFangyinpinxinxi();
-    }
+    // function fnAudioid(b) {
+    //     play = Data.data[b].id;
+    //     //console.log(play);
+    //
+    //     fnBoFangyinpinxinxi();
+    // }
     // 初始化事件监听
     function initEventListenner() {
         // 监听城市切换事件（自定义事件）

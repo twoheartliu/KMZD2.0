@@ -399,11 +399,11 @@
                 <span class="e">14:00:00</span>
             </div>
             <ul id="panel">
-                <li class="list" tapmode="focus" onclick="openRadioList()"></li>
-                <li class="prev" tapmode="focus" onclick="prevRadio()"></li>
-                <li class="play" tapmode="focus" onclick="playRadio(this)"></li>
-                <li class="next" tapmode="focus" onclick="nextRadio()"></li>
-                <li><img src="../image/play_change0.png" alt="" id="img"></li>
+              <li class="list" tapmode="focus" onclick="openRadioList()"></li>
+              <li class="prev" tapmode="focus" onclick="fnOpenPlayershangyi()"></li>
+              <li class="play" tapmode="focus" id="openplayer"></li>
+              <li class="next" tapmode="focus" onclick="fnOpenPlayerxiayi()"></li>
+              <li ><img src="../image/play_change0.png" alt="" id="img"></li>
             </ul>
         </div>
     </div>
@@ -413,280 +413,454 @@
 <script type="text/javascript" src="../script/zepto.js"></script>
 <script type="text/javascript" src="../script/swiper.min.js"></script>
 <script type="text/javascript">
-    var radios = ['see_you_again', 'new_soul', 'i_am_you'];
-    var i = 0;
+var radios = ['see_you_again', 'new_soul', 'i_am_you'];
+var i = 0;
+var playlistid;
+apiready = function() {
+    playlistid = api.pageParam.playlistid;
+    var secHeader = $api.byId('secHeader');
+    $api.fixStatusBar(secHeader);
+    var headerH = $api.offset(secHeader).h;
+    var header = document.querySelector('header');
+    $api.fixIos7Bar(header);
 
-    // 进度条
-    var time1;
-
-    function a() {
-        var pg = document.getElementById('pg')
-        time1 = setInterval(function(e) {
-            if (pg.value != 100) pg.value++;
-            //else pg.value=0;
-        }, 200);
-    }
-
-    function b() {
-        clearInterval(time1);
-    }
-
-    function playRadio(it) {
-        if ($(it).hasClass('pause')) {
-            $(it).removeClass().addClass('play');
-            api.stopPlay();
-        } else {
-            $(it).removeClass().addClass('buffer');
-            setTimeout(function() {
-                $(it).removeClass().addClass('pause');
-                var radio = radios[i];
-                api.startPlay({
-                    path: 'widget://res/' + radio + '.mp3'
-                }, function() {
-                    // api.alert({msg: '播放完成'});
-                });
-            }, 500);
-
-        }
-
-    }
-    //  alert(JSON.stringify(it));
-    //  alert(it)
-    // 向左播放减一
-    function prevRadio() {
-        i--;
-        if (i <= 0) {
-            i = 0;
-        }
-        var radio = radios[i];
-        api.stopPlay();
-        api.startPlay({
-            path: 'widget://res/' + radio + '.mp3'
-        }, function() {
-            // api.alert({msg: '播放完成'});
-        });
-    }
-    // 向右播放加一
-    function nextRadio() {
-        i++;
-        if (i > 2) {
-            i = 0;
-        }
-        var radio = radios[i];
-        api.stopPlay();
-        api.startPlay({
-            path: 'widget://res/' + radio + '.mp3'
-        }, function() {
-            // api.alert({msg: '播放完成'});
-        });
-    }
-    document.getElementById('body').onkeydown = function(){
-      var secHeader = $api.byId('secHeader');
-      $api.fixStatusBar(secHeader);
-      var headerH = $api.offset(secHeader).h;
-      var header = document.querySelector('header');
-      $api.fixIos7Bar(header);
-
-      var $slider = $('#slider');
-      var sliderPos = $slider.offset();
-      var obj = api.require('slider');
-      obj.open({
-          x: 0,
-          y: sliderPos.top + 10,
-          w: api.winWidth,
-          bgImg: "widget://image/slider/slider-bg.png",
-          selectedBgImg: "widget://image/slider/slider-fg.png",
-          bar: {
-              barWidth: 20,
-              barHeight: 20,
-              barImg: "widget://image/slider/slider-btn.png"
-          },
-          bubble: {
-              bubbleWidth: 0,
-              bubbleHeight: 0
-          },
-          minValue: 0,
-          maxValue: 100,
-          defValue: 0,
-          fixed: true
-              // value:values
-      }, function(ret, err) {
-          // var slider = api.require('slider');
-          // slider.setValue({
-          //     id: 1,
-          //     value: 51
-          // });
-          // alert(JSON.stringify( ret ));
-          console.log(JSON.stringify(ret));
-          if (ret.touchCancel) {
-              // api.alert({msg:ret.value});
+    var $slider = $('#slider');
+    var sliderPos = $slider.offset();
+    var obj = api.require('slider');
+    obj.open({
+        x: 0,
+        y: sliderPos.top + 10,
+        w: api.winWidth,
+        bgImg: "widget://image/slider/slider-bg.png",
+        selectedBgImg: "widget://image/slider/slider-fg.png",
+        bar: {
+            barWidth: 20,
+            barHeight: 20,
+            barImg: "widget://image/slider/slider-btn.png"
+        },
+        bubble: {
+            bubbleWidth: 0,
+            bubbleHeight: 0
+        },
+        minValue: 0,
+        maxValue: 100,
+        defValue: 80,
+        fixed: true
+    }, function(ret, err) {
+        // alert(JSON.stringify( ret ));
+          // console.log(JSON.stringify( ret ));
+          // if (ret.touchCancel) {
+          //     // api.alert({msg:ret.value});
+          // }
+    });
+    dqbfid = api.pageParam.a;
+    id = api.pageParam.a;
+    if(id){
+      api.sendEvent({
+          name: 'netPlayUrl',
+          extra: {
+            id: id
           }
       });
-      fnInitSwiper();
-      fnOpenChangeImg();
     }
-    apiready = function() {
-        var secHeader = $api.byId('secHeader');
-        $api.fixStatusBar(secHeader);
-        var headerH = $api.offset(secHeader).h;
-        var header = document.querySelector('header');
-        $api.fixIos7Bar(header);
+    if(playlistid){
+      api.sendEvent({
+            name: 'netPlayLieIdUrl',
+          extra: {
+            playlistid: playlistid
+          }
+      });
+    }
+    //console.log(id);
 
-        var $slider = $('#slider');
-        var sliderPos = $slider.offset();
-        var obj = api.require('slider');
-
-        obj.open({
-            x: 0,
-            y: sliderPos.top + 10,
-            w: api.winWidth,
-            bgImg: "widget://image/slider/slider-bg.png",
-            selectedBgImg: "widget://image/slider/slider-fg.png",
-            bar: {
-                barWidth: 20,
-                barHeight: 20,
-                barImg: "widget://image/slider/slider-btn.png"
-            },
-            bubble: {
-                bubbleWidth: 0,
-                bubbleHeight: 0
-            },
-            minValue: 0,
-            maxValue: 100,
-            defValue: 0,
-            fixed: true
-                // value:values
-        }, function(ret, err) {
-            // var slider = api.require('slider');
-            // slider.setValue({
-            //     id: 1,
-            //     value: 51
-            // });
-            // alert(JSON.stringify( ret ));
-            console.log(JSON.stringify(ret));
-            if (ret.touchCancel) {
-                // api.alert({msg:ret.value});
-            }
-        });
-        fnInitSwiper();
-        fnOpenChangeImg();
-    };
-    // 轮播
-    function fnInitSwiper() {
-        var mySwiper = new Swiper('.swiper-container', {
-            autoplay: false,
-            loop: true,
-        });
-    };
-    // 切换单曲循环、顺序播放、随机播放
-    function fnOpenChangeImg() {
-        var image_urls = ["../image/play_change0.png", "../image/play_change1.png", "../image/play_change2.png"];
-        // 初始化数组键值 (0 = 第一个图片)
-        var idx = 0;
-        // 点击 id 为 img 的图片
-        document.getElementById("img").onclick = function() {
-            // idx + 1，如果为最后一张，还原回第一张
-            idx = idx === image_urls.length - 1 ? 0 : idx + 1;
-            // 设置 src
-            this.src = image_urls[idx];
-            // 测试
-            // alert(this.src);
-        };
-        // var imgs = document.getElementById('imgBox').getElementsByTagName('img');
-        // for(var i=0;i<=imgs.length;i++){
-        //   if(i==num+1){
-        //      imgs[i].style.display="inline";
-        //   }else{
-        //     imgs[i].style.display="none";
-        //   };
-        //   if(num==2){
-        //     imgs[0].style.display="inline";
-        //   };
-        // }
-    };
-    // 选择播放器
-    function fnOpenChoicePlayer() {
-        api.openWin({
-            name: 'choicePlayer',
-            url: './choice_player.html',
-        });
-    };
-    // 收藏
-    function fnOpenPlayCollect() {
-        var playCollect = $api.byId('playCollect');
-        if (playCollect.getAttribute("src", 2) == "../image/play_collect.png") {
-            playCollect.src = "../image/play_collect0.png";
+    api.addEventListener({
+        name: 'dangqianbofang'
+    }, function(ret, err) {
+        if (ret) {
+            dqbfid = ret.value.dangqianbofangid;
+            //fnGeCixianshi(dqbfid);
         } else {
-            playCollect.src = "../image/play_collect.png";
+            alert(JSON.stringify(err));
         }
-    };
-    // 打开评论页面
-    function fnOpenPlayDiscuss() {
-        api.openWin({
-            name: 'playDiscuss',
-            url: './play_discuss.html',
-        })
-    }
-    //打开分享
-    function fnOpenPlayShare() {
-        var dialogBox = api.require('dialogBox');
-        dialogBox.actionMenu({
-            rect: {
-                h: 150
-            },
-            texts: {
-                cancel: '取消'
-            },
-            items: [{
-                text: '微信',
-                icon: 'widget://image/weixin.png'
-            }, {
-                text: 'QQ',
-                icon: 'widget://image/qq.png'
-            }, {
-                text: '朋友圈',
-                icon: 'widget://image/friends.png'
-            }],
-            styles: {
-                bg: '#FFF',
-                column: 3,
-                itemText: {
-                    color: '#000',
-                    size: 12,
-                    marginT: 8
-                },
-                itemIcon: {
-                    size: 48
-                },
-                cancel: {
-                    bg: 'fs://icon.png',
-                    color: '#000',
-                    h: 44,
-                    size: 14
-                }
-            }
-        }, function(ret) {
-            dialogBox.close({
-                dialogName: 'alert'
-            })
-        });
-    }
-    //打开播放列表
-    function openRadioList() {
-        var height = api.frameHeight + 50;
-        api.openFrame({
-            name: 'play_radiolist',
-            url: './play_radiolist.html',
-            bounces: false,
-            bgColor: 'rgba(0,0,0,0.6)',
-            rect: {
-                x: 0,
-                y: 0,
-                w: api.frameWidth,
-                h: height
+    });
+    fnInitSwiper();
+    fnOpenChangeImg();
+    var bofang = api.pageParam.bofang;
+    if (!bofang) {
+        var stylelist = $api.byId('openplayer');
+        var html = '';
+        html += '<img src="../image/img/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player"></div>';
+        $api.html(stylelist, html);
+        bofang = 3;
+        api.sendEvent({
+            name: 'netbofang',
+            extra: {
+                bofang: bofang,
+                a: id
             }
         });
+        fnNetAudiosPlayByID(id);
+    } else if (bofang == 2) {
+        var stylelist = $api.byId('openplayer');
+        var html = '';
+        html += '<img src="../image/img/ic_play_play.png" alt="" onclick="fnOpenPlayer();" id="player"></div>';
+        $api.html(stylelist, html);
+    } else if (bofang == 3) {
+        var stylelist = $api.byId('openplayer');
+        var html = '';
+        html += '<img src="../image/img/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player"></div>';
+        $api.html(stylelist, html);
     }
+}
+// function playRadio(it) {
+//     if ($(it).hasClass('pause')) {
+//         $(it).removeClass().addClass('play');
+//         api.stopPlay();
+//     } else {
+//         $(it).removeClass().addClass('buffer');
+//         setTimeout(function() {
+//             $(it).removeClass().addClass('pause');
+//             var radio = radios[i];
+//             api.startPlay({
+//                 path: 'widget://res/' + radio + '.mp3'
+//             }, function() {
+//                 // api.alert({msg: '播放完成'});
+//             });
+//         }, 500);
+//     }
+//
+// }
+
+// function prevRadio() {
+//     i--;
+//     if (i <= 0) {
+//         i = 0;
+//     }
+//     var radio = radios[i];
+//     api.stopPlay();
+//     api.startPlay({
+//         path: 'widget://res/' + radio + '.mp3'
+//     }, function() {
+//         // api.alert({msg: '播放完成'});
+//     });
+// }
+
+// function nextRadio() {
+//     i++;
+//     if (i > 2) {
+//         i = 0;
+//     }
+//     var radio = radios[i];
+//     api.stopPlay();
+//     api.startPlay({
+//         path: 'widget://res/' + radio + '.mp3'
+//     }, function() {
+//         // api.alert({msg: '播放完成'});
+//     });
+// }
+//播放时间
+function fnbofangshijian(){
+  api.addEventListener({
+      name: 'bofangshijian'
+  }, function(ret, err) {
+      if (ret) {
+          var stylelist = $api.byId('kaishijishi');
+          var html = ret.value.bofangshijian;
+          $api.html(stylelist, html);
+      }
+  });
+}
+//赋值总时长
+function fnZongShiChang() {
+  api.addEventListener({
+      name: 'zongSC'
+  }, function(ret, err) {
+      if (ret) {
+          var stylelist = $api.byId('zongshichang');
+          var html = ret.value.zongSC;
+          $api.html(stylelist, html);
+      }
+  });
+}
+function fnOpenPlayer() {
+    var player = $api.byId('player');
+    if (player.getAttribute("src", 2) == "../image/img/ic_play_play.png") {
+        player.src = "../image/img/ic_play_pause.png";
+        fnNetAudiosPlayByID();
+        var bofang = 3;
+        var a = api.pageParam.a;
+        api.sendEvent({
+            name: 'netbofang',
+            extra: {
+                bofang: bofang,
+                a: a
+            }
+        });
+        var zaicibf
+        api.sendEvent({
+            name: 'zaicibf',
+            extra: {
+                zaicibf: zaicibf,
+            }
+        });
+    } else {
+        player.src = "../image/img/ic_play_play.png";
+        // fnNetAudiosPlayByIDs();
+        //b();
+        var netAudiopausess = '';
+        //var  netAudiopausess = ret;
+        api.sendEvent({
+            name: 'netAudiopause',
+            extra: {
+                netAudiopauses: netAudiopausess
+            }
+        });
+        var bofang = 2;
+        var a = api.pageParam.a;
+        api.sendEvent({
+            name: 'netbofang',
+            extra: {
+                bofang: bofang,
+                a: a
+            }
+        });
+
+    }
+}
+//上一曲
+function fnOpenPlayershangyi() {
+    var player = $api.byId('player');
+    player.src = "../image/img/ic_play_pause.png";
+    var c = 1;
+    api.sendEvent({
+        name: 'GeDanshangyi',
+        extra: {
+          c:c
+        }
+    });
+}
+//下一曲
+function fnOpenPlayerxiayi() {
+  var c = 2;
+  api.sendEvent({
+      name: 'GeDanxiayi',
+      extra: {
+        c:c
+      }
+  });
+  var player = $api.byId('player');
+  player.src = "../image/img/ic_play_pause.png";
+}
+//播放
+function fnNetAudiosPlayByID(id) {
+    if (id) {
+        api.ajax({
+            url: 'http://47.100.11.38/kongmeng/thirdParty/search_songs_by_id.php?id= ' + id,
+            method: 'get',
+            dataType: 'json',
+        }, function(ret, err) {
+            if (ret) {
+              var dangqianbofangurl = ret.data[0].url;
+                fnTitlexianshi(ret);
+                fnGeCixianshi(ret);
+                //a ();
+                netAudioss = ret;
+                api.sendEvent({
+                    name: 'netAudioplay',
+                    extra: {
+                        netAudios: netAudioss
+                    }
+                });
+                var dangqianbofangid = ret.data[0].id;
+                api.sendEvent({
+                    name: 'dangqianbofang',
+                    extra: {
+                        dangqianbofangid: dangqianbofangid
+                    }
+                });
+                fnZongShiChang();
+                fnbofangshijian();
+                var title = ret.data[0].name;
+                var singerName = ret.data[0].singerName;
+                // AddHistoryTitle(title, singerName);
+            } else {
+                alert(JSON.stringify(err));
+            }
+        });
+    } else {
+        api.ajax({
+            url: 'http://47.100.11.38/kongmeng/thirdParty/search_songs_by_id.php?id= ' + dqbfid,
+            method: 'get',
+            dataType: 'json',
+        }, function(ret, err) {
+            if (ret) {
+              var dangqianbofangurl = ret.data[0].url;
+                fnTitlexianshi(ret);
+                fnGeCixianshi(ret);
+                fnZongShiChang(ret);
+                netAudioss = ret;
+                api.sendEvent({
+                    name: 'netAudioplay',
+                    extra: {
+                        netAudios: netAudioss
+                    }
+                });
+                var dangqianbofangid = ret.data[0].id;
+                api.sendEvent({
+                    name: 'dangqianbofang',
+                    extra: {
+                        dangqianbofangid: dangqianbofangid
+                    }
+                });
+                var title = ret.data[0].name;
+                var singerName = ret.data[0].singerName;
+                AddHistoryTitle(title, singerName);
+            } else {
+                alert(JSON.stringify(err));
+            }
+        });
+    }
+
+}
+//赋值歌词
+function fnGeCixianshi(ret) {
+  var stylelist = $api.byId('sousuogeci');
+  var html = '<p >' + ret.data[0].desc + '</p>';
+  $api.html(stylelist, html);
+}
+var timer2;
+
+//赋值大标题
+function fnTitlexianshi(ret) {
+    var stylelist = $api.byId('title');
+    var html = ret.data[0].name;
+    $api.html(stylelist, html);
+}
+
+// 轮播
+function fnInitSwiper() {
+    var mySwiper = new Swiper('.swiper-container', {
+        loop: true,
+    });
+};
+// 切换单曲循环、顺序播放、随机播放
+function fnOpenChangeImg(){
+  var image_urls = [ "../image/play_change0.png", "../image/play_change1.png", "../image/play_change2.png"];
+    // 初始化数组键值 (0 = 第一个图片)
+    var idx = 0;
+    // 点击 id 为 img 的图片
+  document.getElementById("img").onclick = function() {
+      // idx + 1，如果为最后一张，还原回第一张
+      idx = idx === image_urls.length - 1 ? 0 : idx + 1;
+      // 设置 src
+      this.src = image_urls[idx];
+      // 测试
+      // alert(this.src);
+  };
+  // var imgs = document.getElementById('imgBox').getElementsByTagName('img');
+  // for(var i=0;i<=imgs.length;i++){
+  //   if(i==num+1){
+  //      imgs[i].style.display="inline";
+  //   }else{
+  //     imgs[i].style.display="none";
+  //   };
+  //   if(num==2){
+  //     imgs[0].style.display="inline";
+  //   };
+  // }
+};
+// 选择播放器
+function fnOpenChoicePlayer(){
+  api.openWin({
+      name: 'choicePlayer',
+      url: './choice_player.html',
+  });
+};
+// 收藏
+function fnOpenPlayCollect(){
+  var playCollect = $api.byId('playCollect');
+  if(playCollect.getAttribute("src",2)=="../image/play_collect.png"){
+    playCollect.src="../image/play_collect0.png";
+  }else{
+    playCollect.src="../image/play_collect.png";
+  }
+};
+// 打开评论页面
+function fnOpenPlayDiscuss(){
+  api.openWin({
+    name: 'playDiscuss',
+    url: './play_discuss.html',
+  })
+}
+//打开分享
+function fnOpenPlayShare(){
+  var dialogBox = api.require('dialogBox');
+  dialogBox.actionMenu ({
+      rect:{
+          h: 150
+      },
+      texts:{
+           cancel: '取消'
+      },
+      items:[
+      {
+          text: '微信',
+          icon: 'widget://image/weixin.png'
+      },
+      {
+          text: 'QQ',
+          icon: 'widget://image/qq.png'
+      },
+      {
+          text: '朋友圈',
+          icon: 'widget://image/friends.png'
+      }
+      ],
+      styles:{
+          bg:'#FFF',
+          column: 3,
+          itemText: {
+              color: '#000',
+              size: 12,
+              marginT:8
+          },
+          itemIcon:{
+              size:48
+          },
+          cancel:{
+              bg: 'fs://icon.png',
+              color:'#000',
+              h: 44 ,
+              size: 14
+          }
+      }
+  }, function(ret){
+    dialogBox.close({
+              dialogName: 'alert'
+    })
+  });
+}
+//打开播放列表
+function openRadioList(){
+  playlistid = api.pageParam.playlistid;
+  var height = api.frameHeight + 50 ;
+  api.openFrame({
+      name: 'play_radiolist',
+      url: './play_radiolist.html',
+      bounces: false,
+      bgColor: 'rgba(0,0,0,0.6)',
+      rect:{
+          x: 0,
+          y: 0,
+          w: api.frameWidth,
+          h: height
+      },
+      pageParam: {
+          playlistid: playlistid
+      }
+  });
+  //console.log(playlistid);
+}
 </script>
 
 </html>
