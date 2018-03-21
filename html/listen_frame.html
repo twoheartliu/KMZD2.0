@@ -94,18 +94,16 @@
           -webkit-animation: rotation 5s linear infinite;
           -o-animation: rotation 5s linear infinite;
         }
-        #slider{
-          height: 40px;
-          display: inline-block;
-          text-align: center;
-          /*position: relative;*/
-          /*margin: 0 10px;*/
-         }
+        #slider {
+            height: 50px;
+            position: relative;
+        }
     		#slider span{
-    			/*position: absolute;
-          bottom: 0;*/
+    			position: absolute;
+          bottom: 0;
           font-size: 12px;
           color: #ccc;
+          /*display: inline-block;*/
     		}
     		#slider .s{
     			left: 10px;
@@ -160,13 +158,17 @@
             <img src="../image/table.png" alt="">
           </div>
         </div>
-        <div class="play">
-          <span class="playTime">1.46</span>
+        <div id="control" class="qx">
+          <div id="slider">
+              <span class="s">13:00:00</span>
+              <span class="e">14:00:00</span>
+          </div>
+          <!-- <span class="playTime">1.46</span> -->
           <!-- <span id="slider"></span> -->
           <!-- <img src="../image/KM_play.png" alt="" > -->
           <!--外层容器-->
-          <progress max="100" value="0" id="pg"></progress>
-          <span class="playTime">3.46</span>
+          <!-- <progress max="100" value="0" id="pg"></progress> -->
+          <!-- <span class="playTime">3.46</span> -->
         </div>
       <!-- <div id="slider">
     		<span class="s">13:00:00</span>
@@ -193,34 +195,73 @@
     </div>
   </body>
   <script type="text/javascript" src="../script/api.js"></script>
+  <script type="text/javascript" src="../script/zepto.js"></script>
+  <script type="text/javascript" src="../script/swiper.min.js"></script>
   <script type="text/javascript">
     apiready = function(){
+      var $slider = $('#slider');
+      var sliderPos = $slider.offset();
+      var obj = api.require('slider');
+      var values = 50;
+
+      obj.open({
+          x: 56,
+          y: sliderPos.top + 108,
+          w: api.winWidth-100,
+          bgImg: "widget://image/slider/slider-bg.png",
+          selectedBgImg: "widget://image/slider/slider-fg.png",
+          bar: {
+              barWidth: 20,
+              barHeight: 20,
+              barImg: "widget://image/slider/slider-btn.png"
+          },
+          bubble: {
+              bubbleWidth: 0,
+              bubbleHeight: 0
+          },
+          minValue: 0,
+          maxValue: 100,
+          defValue: 0,
+          fixed: true,
+          // value:values
+      }, function(ret, err) {
+        // var slider = api.require('slider');
+        // slider.setValue({
+        //     id: 1,
+        //     value: 51
+        // });
+          // alert(JSON.stringify( ret ));
+          // console.log(JSON.stringify(values));
+          if (ret.touchCancel) {
+              // api.alert({msg:ret.value});
+          }
+      });
 
     }
     //播放
-    var time1;
-    function a (){
-      var pg = document.getElementById('pg')
-      time1=setInterval(function(e){
-            if(pg.value!=100) pg.value++;
-             else pg.value=0;
-       },200);
-    }
-    function b(){
-      clearInterval(time1);
-    }
+    // var time1;
+    // function a (){
+    //   var pg = document.getElementById('pg')
+    //   time1=setInterval(function(e){
+    //         if(pg.value!=100) pg.value++;
+    //          else pg.value=0;
+    //    },200);
+    // }
+    // function b(){
+    //   clearInterval(time1);
+    // }
     function fnOpenPlayButton(){
       var playButton = $api.byId('playButton');
       var video = $api.byId('video');
       if(playButton.getAttribute("src",2)=="../image/footer_bf0.png"){
         playButton.src="../image/footer_bf1.png";
         // $api.addCls(video, 'Rotation');
-        a();
+        // a();
 
       }else{
         playButton.src="../image/footer_bf0.png";
         // $api.removeCls(video, 'Rotation');
-        b();
+        // b();
       }
     }
     // 收藏
