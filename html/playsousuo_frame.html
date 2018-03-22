@@ -182,13 +182,23 @@
                     border: solid 0.025em rgba(205, 224, 230, 0.5); /*设置边框*/
                     box-shadow: 0 .025em .025em #3b4547; /*添加底部阴影*/
                 }
+                input[type=range]::-webkit-slider-thumb::UIButtonActivate {
+                    -webkit-appearance: none;
+                    height: 20px;
+                    width: 20px;
+                    margin-top: -5px; /*使滑块超出轨道部分的偏移量相等*/
+                    background: red;
+                    border-radius: 50%; /*外观设置为圆形*/
+                    border: solid 0.025em rgba(205, 224, 230, 0.5); /*设置边框*/
+                    box-shadow: 0 .025em .025em #3b4547; /*添加底部阴影*/
+                }
                 input[type=range]:focus {
                     outline: none;
                 }
                 input[type=range]::-webkit-slider-runnable-track {
                     height: 10px;
                     border-radius: 10px; /*将轨道设为圆角的*/
-                    box-shadow: 0 1px 1px #def3f8, inset 0 .125em .125em #0d1112; /*轨道内置阴影效果*/
+                    box-shadow: 0 1px 0px #def3f8, inset 0 1px 0px #0d1112; /*轨道内置阴影效果*/
                 }
 
                 input[type=range]::-ms-fill-lower {
@@ -216,10 +226,12 @@
                     height: 13px;
                     border-radius: 10px;
                 }
-                .red{
+                /*.red{
                   background: #000;
+                }*/
+                .focuss {
+                  background: red;
                 }
-
     </style>
 </head>
 
@@ -270,7 +282,7 @@
                 <!-- <img src="../image/play_len.png" alt=""> -->
 
                 <!-- <input type="range" value="0" name="" id="range"> -->
-                <input type="range" id="range" name="range" min="0" max="100" step="1" value="0" class="red"/>
+                <input  type="range" id="range" name="range" min="0" max="100" step="1" value="0" class="red"/>
 
                 <!-- <input type="range" value="0" name="" id="range"> -->
 
@@ -339,6 +351,7 @@
         fnbofangshijian();
         fnZongShiChang();
         jindutiao();
+        api.parseTapmode();
         var bofang = api.pageParam.bofang;
         if (!bofang) {
             var stylelist = $api.byId('openplayer');
