@@ -325,6 +325,78 @@
         .play-list {
             padding: 0 100px;
         }
+
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 80%;
+            border-radius: 10px;
+            display: block;
+            margin: 0 auto;
+            /*这个属性设置使填充进度条时的图形为圆角*/
+            /*background: -webkit-linear-gradient(#059CFA, #059CFA) no-repeat;*/
+            /*background: -webkit-linear-gradient(#059CFA, #059CFA) no-repeat;*/
+            /*background-size: 0% 100%;*/
+        }
+
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 20px;
+            width: 20px;
+            margin-top: -5px;
+            /*使滑块超出轨道部分的偏移量相等*/
+            background: #ffffff;
+            border-radius: 50%;
+            /*外观设置为圆形*/
+            border: solid 0.025em rgba(205, 224, 230, 0.5);
+            /*设置边框*/
+            box-shadow: 0 .025em .025em #3b4547;
+            /*添加底部阴影*/
+        }
+      
+        input[type=range]:focus {
+            outline: none;
+        }
+
+        input[type=range]::-webkit-slider-runnable-track {
+            height: 10px;
+            border-radius: 10px;
+            /*将轨道设为圆角的*/
+            box-shadow: 0 1px 1px #def3f8, inset 0 .125em .125em #0d1112;
+            /*轨道内置阴影效果*/
+        }
+
+        input[type=range]::-ms-fill-lower {
+            /*进度条已填充的部分*/
+            height: 22px;
+            border-radius: 10px;
+            background: linear-gradient(to right, #ff0000, #1abc9c 100%, #123);
+            /*background: red !important;*/
+        }
+
+        input[type=range]::-ms-fill-upper {
+            /*进度条未填充的部分*/
+            height: 22px;
+            border-radius: 10px;
+            background: #ffffff;
+        }
+
+        input[type=range]:focus::-ms-fill-lower {
+            background: linear-gradient(to right, #059CFA, white 100%, white);
+        }
+
+        input[type=range]:focus::-ms-fill-upper {
+            background: #ffffff;
+        }
+
+        input[type=range]::-moz-range-progress {
+            background: linear-gradient(to right, #059CFA, white 100%, white);
+            height: 13px;
+            border-radius: 10px;
+        }
+
+        .red {
+            background: #000;
+        }
     </style>
 </head>
 
@@ -415,6 +487,7 @@
         <div id="control" class="qx">
             <div id="slider">
                 <span class="s">13:00:00</span>
+                <input type="range" id="range" name="range" min="0" max="100" step="1" value="0" class="red" />
                 <span class="e">14:00:00</span>
             </div>
             <ul id="panel">
@@ -431,47 +504,48 @@
 <!-- <script type="text/javascript" src="../script/api-lite.js"></script> -->
 <script type="text/javascript" src="../script/zepto.js"></script>
 <script type="text/javascript" src="../script/swiper.min.js"></script>
+<script type="text/javascript" src="../script/audio2.js"></script>
 <script type="text/javascript">
     var radios = ['see_you_again', 'new_soul', 'i_am_you'];
     var i = 0;
     var playlistid;
     apiready = function() {
-            playlistid = api.pageParam.playlistid;
-            var secHeader = $api.byId('secHeader');
-            $api.fixStatusBar(secHeader);
-            var headerH = $api.offset(secHeader).h;
-            var header = document.querySelector('header');
-            $api.fixIos7Bar(header);
-
-            var $slider = $('#slider');
-            var sliderPos = $slider.offset();
-            var obj = api.require('slider');
-            obj.open({
-                x: 0,
-                y: sliderPos.top + 10,
-                w: api.winWidth,
-                bgImg: "widget://image/slider/slider-bg.png",
-                selectedBgImg: "widget://image/slider/slider-fg.png",
-                bar: {
-                    barWidth: 20,
-                    barHeight: 20,
-                    barImg: "widget://image/slider/slider-btn.png"
-                },
-                bubble: {
-                    bubbleWidth: 0,
-                    bubbleHeight: 0
-                },
-                minValue: 0,
-                maxValue: 100,
-                defValue: 80,
-                fixed: true
-            }, function(ret, err) {
-                // alert(JSON.stringify( ret ));
-                // console.log(JSON.stringify( ret ));
-                // if (ret.touchCancel) {
-                //     // api.alert({msg:ret.value});
-                // }
-            });
+            // playlistid = api.pageParam.playlistid;
+            // var secHeader = $api.byId('secHeader');
+            // $api.fixStatusBar(secHeader);
+            // var headerH = $api.offset(secHeader).h;
+            // var header = document.querySelector('header');
+            // $api.fixIos7Bar(header);
+            //
+            // var $slider = $('#slider');
+            // var sliderPos = $slider.offset();
+            // var obj = api.require('slider');
+            // obj.open({
+            //     x: 0,
+            //     y: sliderPos.top + 10,
+            //     w: api.winWidth,
+            //     bgImg: "widget://image/slider/slider-bg.png",
+            //     selectedBgImg: "widget://image/slider/slider-fg.png",
+            //     bar: {
+            //         barWidth: 20,
+            //         barHeight: 20,
+            //         barImg: "widget://image/slider/slider-btn.png"
+            //     },
+            //     bubble: {
+            //         bubbleWidth: 0,
+            //         bubbleHeight: 0
+            //     },
+            //     minValue: 0,
+            //     maxValue: 100,
+            //     defValue: 80,
+            //     fixed: true
+            // }, function(ret, err) {
+            //     // alert(JSON.stringify( ret ));
+            //     // console.log(JSON.stringify( ret ));
+            //     // if (ret.touchCancel) {
+            //     //     // api.alert({msg:ret.value});
+            //     // }
+            // });
             dqbfid = api.pageParam.a;
             id = api.pageParam.a;
             if (id) {
@@ -861,6 +935,15 @@
         });
         //console.log(playlistid);
     }
+</script>
+<script>
+    var change = function($input) {
+        /*内容可自行定义*/
+        // console.log("123");
+    }
+    $('input').RangeSlider({
+        callback: change
+    });
 </script>
 
 </html>
