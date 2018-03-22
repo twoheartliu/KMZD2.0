@@ -283,9 +283,14 @@
     var play;
     var timer2;
     var historyUrlArray;
-    var b;
+    var y;
     var DangQianbofangid;
     var Data;
+    //var playgedan;
+    var shunxuplay;
+    var danquplay;
+    var suijiplay;
+    var bofangmoshiid;
     apiready = function() {
 
         var secHeader = $api.byId('secHeader');
@@ -297,6 +302,8 @@
         fnOpenCenterFrame();
         api.parseTapmode();
         initEventListenner();
+
+        // initEventListennerBoFangMoshi();
         // var isFirst = true;
         // fnDenglu();
     }
@@ -451,6 +458,8 @@
         var myAudio = document.getElementById("myAudio");
         //console.log(myAudio.src);
         myAudio.play();
+        initEventListennerBoFangMoshi();
+        fnBoFangmoshiid();
     }
     //清空所有的计时器
     // function qingkong(){
@@ -458,6 +467,7 @@
     //   clearInterval(timer2);
     //
     // }
+
     //将进度条置0
     function reducejindutiao() {
         clearInterval(timer1);
@@ -501,9 +511,10 @@
             }
         });
     }
-
+    //播放歌单音频
     function fnBoFangyinpinxinxi() {
-        var playgedan = Data.data[b].id
+      var playgedan = Data.data[play].id;
+      console.log(play);
         api.ajax({
             url: 'http://47.100.11.38/kongmeng/thirdParty/search_songs_by_id.php?id= ' + playgedan,
             method: 'get',
@@ -646,11 +657,11 @@
         myAudio.currentTime = 0;
         netAudiopause();
         clearInterval(timer2);
-        play = play - 1;
-        if (play == 0) {
-            play = historyUrlArray.length - 1;
+        play--;
+        if (play < 0) {
+            play = Data.data.length-1;
         }
-        fnBoFangyinpinxinxi();
+        fnBoFangyinpinxinxi(play);
     }
     //歌单下一首
     function fnGeDanxiaYi() {
@@ -658,21 +669,21 @@
         myAudio.currentTime = 0;
         clearInterval(timer2);
         netAudiopause();
-        play = play + 1;
-        if (play > historyUrlArray.length - 1) {
-            play = 1;
+        play++;
+        if (play > Data.data.length-1) {
+            play = 0;
         }
         fnBoFangyinpinxinxi();
     }
     //获取歌单歌曲id
     function netPlayLieIdUrl(playlistid) {
         api.ajax({
-            url: 'http://47.100.11.38/kongmeng/thirdParty/get_songs_by_playlist.php?page=0&size=10&playlistid= ' + playlistid,
+            url: 'http://47.100.11.38/kongmeng/thirdParty/get_songs_by_playlist.php?playlistid= ' + playlistid,
+            // url: 'http://47.100.11.38/kongmeng/thirdParty/get_songs_by_playlist.php?page=0&size=10&playlistid= ' + playlistid,
             method: 'get',
         }, function(ret, err) {
             if (ret) {
                 fnTingdanZhanshi(ret);
-
             } else {
                 alert(JSON.stringify(err));
             }
@@ -683,42 +694,124 @@
         DangQianbofangid = id;
     }
 
+    function fnDQBF(y){
+      play = y;
+      fnBoFangyinpinxinxi();
+    }
     function fnTingdanZhanshi(data_) {
         Data = data_;
-        for (b = 0; b < Data.data.length; b++) {
-            var id1 = Data.data[b].id;
+        for (y = 0; y < Data.data.length; y++) {
+            var id1 = Data.data[y].id;
             var id2 = DangQianbofangid;
-            var w = b;
             if (id1 == id2) {
-                fnBoFangyinpinxinxi();
+              fnDQBF(y);
             }
-
         }
+    }
+    //随机播放歌曲
+    function suiji(){
+      var myAudio = document.getElementById("myAudio");
+    	clearInterval(shunxuplay);
+      var n = Math.ceil(Math.random()*Data.data.length);
+    	suijiplay=setInterval(function(){
+    		if(myAudio.ended){
+           clearInterval(timer2);
+           //console.log(n);
+           if(n == Data.data.length){
+             n == Data.data.length-1;
+             fnBoFangMoShiGeQuid(n);
+           }else {
+             fnBoFangMoShiGeQuid(n);
+           }
+
+    		}
+    	},1000);
+    }
+    //顺序播放
+    function shunxu(){
+      var myAudio = document.getElementById("myAudio");
+    	clearInterval(danquplay);
+    	shunxuplay=setInterval(function(){
+    		if(myAudio.ended){
+    			fnGeDanxiaYi();
+    		}
+    	},1000);
 
     }
+    //单曲播放
+    function bfdanqu(){
+      var myAudio = document.getElementById("myAudio");
+    	clearInterval(suijiplay);
+    	danquplay=setInterval(function(){
+    		if(myAudio.ended){
+          fndanqubofangmoshi();
 
+    		}
+    	},1000);
+    }
+    function fnBoFangMoShiGeQuid(n) {
+      play = n;
+      var myAudio = document.getElementById("myAudio");
+      myAudio.currentTime = 0;
+      netAudiopause();
+      clearInterval(timer2);
+      fnBoFangyinpinxinxi();
+    }
+    function fndanqubofangmoshi(){
+      var myAudio = document.getElementById("myAudio");
+      myAudio.currentTime = 0;
+      netAudiopause();
+      clearInterval(timer2);
+      fnBoFangyinpinxinxi();
+    }
     // function fnAudioid(b) {
     //     play = Data.data[b].id;
     //     //console.log(play);
     //
     //     fnBoFangyinpinxinxi();
     // }
+    function fnBFMoshi(MoShiId){
+      bofangmoshiid = MoShiId;
+      console.log(bofangmoshiid);
+      fnBoFangmoshiid();
+    }
+    function fnBoFangmoshiid(){
+      if(!bofangmoshiid){
+        console.log('123');
+        shunxu();
+      }else{
+        if(bofangmoshiid == '0'){
+          console.log('123');
+          shunxu();
+        }else if (bofangmoshiid == '1'){
+          console.log('456');
+          suiji();
+        }else{
+          console.log('789');
+          bfdanqu();
+        }
+      }
+
+    }
+    function initEventListennerBoFangMoshi() {
+      //监听播放模式
+      api.addEventListener({
+          name: 'bofangmoshi'
+      }, function(ret, err) {
+          if (ret) {
+              fnBFMoshi(ret.value.bofangmoshi);
+              console.log(ret.value.bofangmoshi);
+          }
+      });
+    }
+
     // 初始化事件监听
     function initEventListenner() {
-        // 监听城市切换事件（自定义事件）
-        // api.addEventListener({
-        //     name: 'cityChange'
-        // }, function(ret, err) {
-        //     if (ret) {
-        //         // 打开商品列表等首页的Frames
-        //         openFrames();
-        //     }
-        // });
+
         api.addEventListener({
             name: 'netPlayUrl'
         }, function(ret, err) {
             if (ret) {
-
                 fnBFid(ret.value.id);
             }
         });
@@ -753,6 +846,7 @@
                 jindutiao();
             }
         });
+
         //监听打开音频
         // api.addEventListener({
         //     name: 'netAudioplay'

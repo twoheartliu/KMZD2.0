@@ -153,11 +153,10 @@ var playlistid;
             method: 'get',
         }, function(ret, err) {
             if (ret) {
-              alert(JSON.stringify(ret));
+              //alert(JSON.stringify(ret));
               gedanmingcheng=ret.data[0].albumName;
-
-                fnGeDanMingCheng(gedanmingcheng);
-                fnGeDanLieBiao(ret);
+              fnGeDanMingCheng(gedanmingcheng);
+              fnGeDanLieBiao(ret);
             } else {
                 alert(JSON.stringify(err));
             }
