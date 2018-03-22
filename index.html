@@ -646,9 +646,9 @@
         myAudio.currentTime = 0;
         netAudiopause();
         clearInterval(timer2);
-        play = play - 1;
-        if (play == 0) {
-            play = historyUrlArray.length - 1;
+        b--;
+        if (b < 0) {
+            b = Data.data.length;
         }
         fnBoFangyinpinxinxi();
     }
@@ -658,9 +658,9 @@
         myAudio.currentTime = 0;
         clearInterval(timer2);
         netAudiopause();
-        play = play + 1;
-        if (play > historyUrlArray.length - 1) {
-            play = 1;
+        b++;
+        if (b > Data.data.length) {
+            b = 0;
         }
         fnBoFangyinpinxinxi();
     }
