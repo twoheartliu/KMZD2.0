@@ -386,7 +386,8 @@
       var playlistid = api.pageParam.tuijiantingdanid;
       //alert(playlistid);
         api.ajax({
-            url: 'http://47.100.11.38/kongmeng/thirdParty/get_songs_by_playlist.php?page=0&size=10&playlistid= ' + playlistid,
+            url: 'http://47.100.11.38/kongmeng/thirdParty/get_songs_by_playlist.php?playlistid= ' + playlistid,
+            // url: 'http://47.100.11.38/kongmeng/thirdParty/get_songs_by_playlist.php?page=0&size=10&playlistid= ' + playlistid,
             method: 'get',
         }, function(ret, err) {
             if (ret) {
