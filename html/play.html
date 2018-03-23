@@ -352,7 +352,7 @@
             box-shadow: 0 .025em .025em #3b4547;
             /*添加底部阴影*/
         }
-      
+
         input[type=range]:focus {
             outline: none;
         }
@@ -405,7 +405,9 @@
         <!-- <img src="" alt=""> -->
         <header class="qx" id="secHeader">
             <i class="back" tapmode onclick="api.closeWin();"></i>
-            <div>三字经</div>
+            <div id="title">
+              <!-- 三字经 -->
+            </div>
             <i class="more"></i>
         </header>
         <div id="main" class="qx">
@@ -416,62 +418,16 @@
                         <img src="../image/poster.png" alt="">
                     </div>
                     <div class="swiper-slide">
-                        <div class="play-txt">
-                            <p>解：利西南；解：利西南；解：利西南；解：利西南；解：利西南；解：利西南；解：利西南；解：利西南；</p>
-                            <p>无所往，其来复吉；</p>
-                            <p>有攸往，夙吉。</p>
-                            <p>解：利西南；</p>
-                            <p>无所往，其来复吉；</p>
-                            <p>有攸往，夙吉。</p>
-                            <p>解：利西南；</p>
-                            <p>无所往，其来复吉；</p>
-                            <p>有攸往，夙吉。</p>
-                            <p>解：利西南；</p>
-                            <p>无所往，其来复吉；</p>
-                            <p>有攸往，夙吉。</p>
-                            <p>解：利西南；</p>
-                            <p>无所往，其来复吉；</p>
-                            <p>有攸往，夙吉。</p>
-                            <p>解：利西南；</p>
-                            <p>无所往，其来复吉；</p>
-                            <p>有攸往，夙吉。</p>
-                            <p>解：利西南；</p>
-                            <p>无所往，其来复吉；</p>
-                            <p>有攸往，夙吉。</p>
-                            <p>解：利西南；</p>
-                            <p>无所往，其来复吉；</p>
-                            <p>有攸往，夙吉。</p>
+                        <div class="play-txt" >
+                          <p id="geci"></p>
+                            <!-- <p>无所往，其来复吉；</p> -->
                         </div>
                     </div>
-                    <div class="swiper-slide">
-                        <div class="play-list">
+                    <!-- <div class="swiper-slide">
+                        <div class="play-list" id="sousuoliebiao">
                             <p>1152 周易上经 乾卦第一.mp3</p>
-                            <p>1153 周易上经 坤卦第二.mp3</p>
-                            <p>1154 周易上经 屯卦第三.mp3</p>
-                            <p>1155 周易上经 蒙卦第四.mp3</p>
-                            <p>1156 周易上经 需卦第五.mp3</p>
-                            <p>1157 周易上经 讼卦第六.mp3</p>
-                            <p>1158 周易上经 师卦第七.mp3</p>
-                            <p>1159 周易上经 比卦第八.mp3</p>
-                            <p>1160 周易上经 小畜卦第九.mp3</p>
-                            <p>1161 周易上经 履卦第十.mp3</p>
-                            <p>1162 周易上经 泰卦第十一.mp3</p>
-                            <p>1163 周易上经 否卦第十二.mp3</p>
-                            <p>1164 周易上经 同人卦第十三.mp3</p>
-                            <p>1165 周易上经 大有卦第十四.mp3</p>
-                            <p>1166 周易上经 谦卦第十五.mp3</p>
-                            <p>1167 周易上经 豫卦第十六.mp3</p>
-                            <p>1168 周易上经 随卦第十七.mp3</p>
-                            <p>1169 周易上经 蛊卦第十八.mp3</p>
-                            <p>1170 周易上经 临卦第十九.mp3</p>
-                            <p>1171 周易上经 观卦第二十.mp3</p>
-                            <p>1172 周易上经 噬嗑卦第二十一.mp3</p>
-                            <p>1173 周易上经 贲卦第二十二.mp3</p>
-                            <p>1174 周易上经 剥卦第二十三.mp3</p>
-                            <p>1175 周易上经 复卦第二十四.mp3</p>
-                            <p>1176 周易上经 无妄卦第二十五.mp3</p>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -486,9 +442,13 @@
         </ul>
         <div id="control" class="qx">
             <div id="slider">
-                <span class="s">13:00:00</span>
-                <input type="range" id="range" name="range" min="0" max="100" step="1" value="0" class="red" />
-                <span class="e">14:00:00</span>
+                <span class="s" id="kaishijishi">
+                  0:00
+                </span>
+                <input type="range" id="range" name="range" min="0" max="100" step="1" value="0.01" class="red" />
+                <span class="e" id="zongshichang">
+                  0:00
+                </span>
             </div>
             <ul id="panel">
                 <li class="list" tapmode="focus" onclick="openRadioList()"></li>
@@ -501,112 +461,75 @@
     </div>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
-<!-- <script type="text/javascript" src="../script/api-lite.js"></script> -->
-<script type="text/javascript" src="../script/zepto.js"></script>
 <script type="text/javascript" src="../script/swiper.min.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>
 <script type="text/javascript" src="../script/audio2.js"></script>
 <script type="text/javascript">
     var radios = ['see_you_again', 'new_soul', 'i_am_you'];
     var i = 0;
     var playlistid;
+    var dqbfid;
+    var zongJindu;
+    var dangqianbofangid;
     apiready = function() {
-            // playlistid = api.pageParam.playlistid;
-            // var secHeader = $api.byId('secHeader');
-            // $api.fixStatusBar(secHeader);
-            // var headerH = $api.offset(secHeader).h;
-            // var header = document.querySelector('header');
-            // $api.fixIos7Bar(header);
-            //
-            // var $slider = $('#slider');
-            // var sliderPos = $slider.offset();
-            // var obj = api.require('slider');
-            // obj.open({
-            //     x: 0,
-            //     y: sliderPos.top + 10,
-            //     w: api.winWidth,
-            //     bgImg: "widget://image/slider/slider-bg.png",
-            //     selectedBgImg: "widget://image/slider/slider-fg.png",
-            //     bar: {
-            //         barWidth: 20,
-            //         barHeight: 20,
-            //         barImg: "widget://image/slider/slider-btn.png"
-            //     },
-            //     bubble: {
-            //         bubbleWidth: 0,
-            //         bubbleHeight: 0
-            //     },
-            //     minValue: 0,
-            //     maxValue: 100,
-            //     defValue: 80,
-            //     fixed: true
-            // }, function(ret, err) {
-            //     // alert(JSON.stringify( ret ));
-            //     // console.log(JSON.stringify( ret ));
-            //     // if (ret.touchCancel) {
-            //     //     // api.alert({msg:ret.value});
-            //     // }
-            // });
-            dqbfid = api.pageParam.a;
-            id = api.pageParam.a;
-            if (id) {
-                api.sendEvent({
-                    name: 'netPlayUrl',
-                    extra: {
-                        id: id
-                    }
-                });
-            }
-            if (playlistid) {
-                api.sendEvent({
-                    name: 'netPlayLieIdUrl',
-                    extra: {
-                        playlistid: playlistid
-                    }
-                });
-            }
-            //console.log(id);
-
-            api.addEventListener({
-                name: 'dangqianbofang'
-            }, function(ret, err) {
-                if (ret) {
-                    dqbfid = ret.value.dangqianbofangid;
-                    //fnGeCixianshi(dqbfid);
-                } else {
-                    alert(JSON.stringify(err));
+			 playlistid = api.pageParam.playlistid;
+        dqbfid = api.pageParam.a;
+        id = api.pageParam.a;
+        if (id) {
+            api.sendEvent({
+                name: 'netPlayUrl',
+                extra: {
+                    id: id
                 }
             });
-
-            var bofang = api.pageParam.bofang;
-            if (!bofang) {
-                var stylelist = $api.byId('openplayer');
-                var html = '';
-                html += '<img src="../image/img/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player"></div>';
-                $api.html(stylelist, html);
-                bofang = 3;
-                api.sendEvent({
-                    name: 'netbofang',
-                    extra: {
-                        bofang: bofang,
-                        a: id
-                    }
-                });
-                fnNetAudiosPlayByID(id);
-            } else if (bofang == 2) {
-                var stylelist = $api.byId('openplayer');
-                var html = '';
-                html += '<img src="../image/img/ic_play_play.png" alt="" onclick="fnOpenPlayer();" id="player"></div>';
-                $api.html(stylelist, html);
-            } else if (bofang == 3) {
-                var stylelist = $api.byId('openplayer');
-                var html = '';
-                html += '<img src="../image/img/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player"></div>';
-                $api.html(stylelist, html);
-            }
-            fnInitSwiper();
-            fnOpenChangeImg();
         }
-        //播放时间
+        if (playlistid) {
+            api.sendEvent({
+                name: 'netPlayLieIdUrl',
+                extra: {
+                    playlistid: playlistid
+                }
+            });
+        }
+        fnInitSwiper();
+        fnOpenChangeImg();
+        api.parseTapmode();
+        var eHeader = $api.byId('header')
+        var bofang = api.pageParam.bofang;
+        if (!bofang) {
+            var stylelist = $api.byId('openplayer');
+            var html = '';
+            html += '<img src="../image/img/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player"></div>';
+            $api.html(stylelist, html);
+            bofang = 3;
+            api.sendEvent({
+                name: 'netbofang',
+                extra: {
+                    bofang: bofang,
+                    a: id
+                }
+            });
+            fnNetAudiosPlayByID(id);
+        } else if (bofang == 2) {
+            var stylelist = $api.byId('openplayer');
+            var html = '';
+            html += '<img src="../image/img/ic_play_play.png" alt="" onclick="fnOpenPlayer();" id="player"></div>';
+            $api.html(stylelist, html);
+        } else if (bofang == 3) {
+            var stylelist = $api.byId('openplayer');
+            var html = '';
+            html += '<img src="../image/img/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player"></div>';
+            $api.html(stylelist, html);
+        }
+        AddHistory(id);
+        fnbofangshijian();
+        fnJiBenXinXi()
+        jindutiao();
+        if(dangqianbofangid){
+          qbfid = dangqianbofangid;
+        }
+    }
+    //播放时间
     function fnbofangshijian() {
         api.addEventListener({
             name: 'bofangshijian'
@@ -618,19 +541,43 @@
             }
         });
     }
-    //赋值总时长
-    function fnZongShiChang() {
-        api.addEventListener({
-            name: 'zongSC'
-        }, function(ret, err) {
-            if (ret) {
-                var stylelist = $api.byId('zongshichang');
-                var html = ret.value.zongSC;
-                $api.html(stylelist, html);
-            }
-        });
-    }
 
+    //赋值歌词、总时长、标题
+    function fnJiBenXinXi() {
+      api.addEventListener({
+          name: 'jibenxinxi'
+      }, function(ret, err) {
+          if (ret) {
+            //赋值歌词
+            if(ret.value.desc){
+              var str1 = JSON.stringify(ret.value.desc);
+              var str2 = str1.replace(/n/g, '<br>');
+              //result = str.split('-').
+              //var reg=new RegExp( ' \ ' ,"g");
+              var str3 = str2.split('\\').join('');
+              var str4 = str3.split("\"").join('');
+              //console.log(JSON.stringify(str2));
+              var stylelist = $api.byId('geci');
+              var html0 = str4 ;
+              $api.html(stylelist, html0);
+            }
+            //赋值总时长
+            if(ret.value.play_time){
+              var stylelist = $api.byId('zongshichang');
+              var html1 = ret.value.play_time;
+              var html = html1.slice(3);
+              $api.html(stylelist, html);
+            }
+            //赋值标题
+            if(ret.value.titlename){
+              var stylelist = $api.byId('title');
+              var html2 = ret.value.titlename;
+              $api.html(stylelist, html2);
+            }
+          }
+      });
+    }
+    //播放、暂停
     function fnOpenPlayer() {
         var player = $api.byId('player');
         if (player.getAttribute("src", 2) == "../image/img/ic_play_play.png") {
@@ -650,6 +597,7 @@
                 name: 'zaicibf',
                 extra: {
                     zaicibf: zaicibf,
+                    a:a
                 }
             });
             fnOpenChangeImg();
@@ -676,6 +624,43 @@
             });
 
         }
+    }
+    //进度条
+    function jindutiao(){
+       api.addEventListener({
+           name: 'zongJinDu'
+       }, function(ret, err) {
+           if (ret) {
+               var range = $api.byId('range');
+               var lenth = ret.value.lenth;
+               var cur = ret.value.cur;
+               var a = cur/lenth;
+              range.value = JSON.stringify(cur/lenth*100) ;
+              var sssss= 100-range.value;
+              //不渐变
+              // range.style.background = 'linear-gradient(to left, #89211b ' + sssss + '%, #000 0,#000  )';
+              // range.css( 'background', 'linear-gradient(to right, #059CFA, white ' + range.value + '%, white)' );
+              range.style.background = 'linear-gradient(to left, #89211b ' + sssss + '%, blue ' + range.value + '%,#789  )';
+              fnZongJinDu(lenth);
+
+           }
+       });
+    }
+
+    function fnZongJinDu(lenth){
+      zongJindu = lenth;
+    }
+    //调整播放进度
+    function adjust(){
+      var range = $api.byId('range');
+      var x = range.value/100;
+      var playTime = x*zongJindu;
+      api.sendEvent({
+          name: 'playTime',
+          extra: {
+              playTime: playTime
+          }
+      });
     }
     //上一曲
     function fnOpenPlayershangyi() {
@@ -713,9 +698,6 @@
             }, function(ret, err) {
                 if (ret) {
                     var dangqianbofangurl = ret.data[0].url;
-                    fnTitlexianshi(ret);
-                    fnGeCixianshi(ret);
-                    //a ();
                     netAudioss = ret;
                     api.sendEvent({
                         name: 'netAudioplay',
@@ -724,17 +706,18 @@
                         }
                     });
                     var dangqianbofangid = ret.data[0].id;
+                    //console.log(dangqianbofangid);
                     api.sendEvent({
                         name: 'dangqianbofang',
                         extra: {
                             dangqianbofangid: dangqianbofangid
                         }
                     });
-                    fnZongShiChang();
+                    fnJiBenXinXi()
                     fnbofangshijian();
                     var title = ret.data[0].name;
                     var singerName = ret.data[0].singerName;
-                    // AddHistoryTitle(title, singerName);
+                    AddHistoryTitle(title, singerName);
                 } else {
                     alert(JSON.stringify(err));
                 }
@@ -747,9 +730,6 @@
             }, function(ret, err) {
                 if (ret) {
                     var dangqianbofangurl = ret.data[0].url;
-                    fnTitlexianshi(ret);
-                    fnGeCixianshi(ret);
-                    fnZongShiChang(ret);
                     netAudioss = ret;
                     api.sendEvent({
                         name: 'netAudioplay',
@@ -764,35 +744,22 @@
                             dangqianbofangid: dangqianbofangid
                         }
                     });
+                    fnJiBenXinXi();
+                    fnbofangshijian();
                     var title = ret.data[0].name;
                     var singerName = ret.data[0].singerName;
-                    //AddHistoryTitle(title, singerName);
+                    AddHistoryTitle(title, singerName);
                 } else {
                     alert(JSON.stringify(err));
                 }
             });
         }
-
-    }
-    //赋值歌词
-    function fnGeCixianshi(ret) {
-        var stylelist = $api.byId('sousuogeci');
-        var html = '<p >' + ret.data[0].desc + '</p>';
-        $api.html(stylelist, html);
-    }
-    var timer2;
-
-    //赋值大标题
-    function fnTitlexianshi(ret) {
-        var stylelist = $api.byId('title');
-        var html = ret.data[0].name;
-        $api.html(stylelist, html);
     }
 
     // 轮播
     function fnInitSwiper() {
         var mySwiper = new Swiper('.swiper-container', {
-            loop: true,
+            loop: false,
         });
     };
     // 切换单曲循环、顺序播放、随机播放
@@ -813,9 +780,7 @@
             idx = idx === image_urls.length - 1 ? 0 : idx + 1;
             // 设置 src
             this.src = image_urls[idx];
-            //this.src = image_urls[idx];
             if (idx == 1) {
-                console.log(idx);
                 var bofangmoshi = 1;
                 api.sendEvent({
                     name: 'bofangmoshi',
@@ -823,9 +788,7 @@
                         bofangmoshi: bofangmoshi
                     }
                 });
-
             } else if (idx == 2) {
-                console.log(idx);
                 var bofangmoshi = 2;
                 api.sendEvent({
                     name: 'bofangmoshi',
@@ -834,7 +797,6 @@
                     }
                 });
             } else {
-                console.log(idx);
                 var bofangmoshi = 0;
                 api.sendEvent({
                     name: 'bofangmoshi',
@@ -935,11 +897,85 @@
         });
         //console.log(playlistid);
     }
+    function AddHistory(id) {
+        var dangqianbofangid = id;
+        api.sendEvent({
+            name: 'dangqianbofang',
+            extra: {
+                dangqianbofangid: dangqianbofangid
+            }
+        });
+        api.getPrefs({
+            key: 'sousuohistory'
+        }, function(ret, err) {
+            if (ret) {
+                var flag = false; //是否增加历史记录
+                var historyText = ret.value;
+                var historyArray = historyText.split(',');
+                //console.log(JSON.stringify(historyArray));
+                for (var i = 0; i < historyArray.length; i++) {
+                    historyArray[i] == id && (flag = true);
+                }!flag && historyArray.splice(1, 0, id);
+                !flag && api.setPrefs({
+                    key: 'sousuohistory',
+                    value: historyArray.join(',')
+                });
+            } else {
+                alert(JSON.stringify(err));
+            }
+        });
+    }
+
+    function AddHistoryTitle(title, singerName) {
+        api.getPrefs({
+            key: 'sousuohistorytitle'
+        }, function(ret, err) {
+            if (ret) {
+                var flag = false; //是否增加历史记录
+                var historyText = ret.value;
+                var historyArray = historyText.split(',');
+                for (var i = 0; i < historyArray.length; i++) {
+                    historyArray[i] == title && (flag = true);
+                }!flag && historyArray.splice(1, 0, title, singerName);
+                !flag && api.setPrefs({
+                    key: 'sousuohistorytitle',
+                    value: historyArray.join(',')
+                });
+            } else {
+                alert(JSON.stringify(err));
+            }
+        });
+        fnHistorysingerName();
+    }
+
+    function fnHistorysingerName() {
+        api.getPrefs({
+            key: 'sousuohistorytitle'
+        }, function(ret, err) {
+            var historyText = '' || ret.value;
+            var historyArray = historyText.split(',');
+            for (var i = 0; i < historyArray.length; i++) {
+                if (historyArray[i].length == 0)
+                    continue;
+                var stylelist = $api.byId('sousuoliebiao');
+                var html = '';
+                for (var s = 1; s < historyArray.length; s++) {
+                    if (historyArray[2 * s - 1]) {
+                        //console.log(JSON.stringify(historyArray[2*s-1]));
+                        //console.log(JSON.stringify(historyArray[2*s]));
+                        html += '<p>' + historyArray[2 * s - 1] + '  ' + historyArray[2 * s] + '</p>';
+                    }
+                }
+                $api.html(stylelist, html);
+            }
+        });
+    }
 </script>
 <script>
     var change = function($input) {
         /*内容可自行定义*/
         // console.log("123");
+        adjust();
     }
     $('input').RangeSlider({
         callback: change
