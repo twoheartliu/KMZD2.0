@@ -68,12 +68,22 @@
             var html = '';
             html += '<div onclick="fnOpenPlay( ' + bofang + ',' + a + ');"><img src="../image/footer_bf' + bofang + '.png" alt=""></div>';
             $api.html(stylelist, html);
+        } else if (bofang == 2){
+            var stylelist = $api.byId('centerVedeo');
+            var html = '';
+            html += '<div onclick="fnOpenPlay( ' + bofang + ',' + a + ');"><img src="../image/footer_bf' + bofang + '.png" alt=""></div>';
+            $api.html(stylelist, html);
+        } else if (bofang == 3){
+            var stylelist = $api.byId('centerVedeo');
+            var html = '';
+            html += '<div onclick="fnOpenPlay( ' + bofang + ',' + a + ');"><img src="../image/footer_bf' + bofang + '.png" alt=""></div>';
+            $api.html(stylelist, html);
         }
         api.sendEvent({
             name: 'netbofangs',
             extra: {
                 bofang: bofang,
-                a: bofang
+                a: a
             }
         });
     }
@@ -133,8 +143,6 @@
                 },
             });
         }
-
-
     }
 </script>
 

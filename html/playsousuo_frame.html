@@ -479,9 +479,6 @@
 
 
     }
-    // function b(){
-    //   clearInterval(time1);
-    // }
     //上一曲
     function fnOpenPlayershangyi() {
         var player = $api.byId('player');
@@ -605,7 +602,6 @@
                   var dangqianbofangurl = ret.data[0].url;
                     fnTitlexianshi(ret);
                     fnGeCixianshi(ret);
-                    //a ();
                     netAudioss = ret;
                     api.sendEvent({
                         name: 'netAudioplay',
@@ -624,7 +620,7 @@
                     fnbofangshijian();
                     var title = ret.data[0].name;
                     var singerName = ret.data[0].singerName;
-                    AddHistoryTitle(title, singerName);
+                    //AddHistoryTitle(title, singerName);
                 } else {
                     alert(JSON.stringify(err));
                 }
