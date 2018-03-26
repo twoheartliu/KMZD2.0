@@ -1,0 +1,112 @@
+@charset "utf-8";
+
+html, body {
+    height: 100%;
+}
+
+input[type="search"] {
+    -webkit-appearance: none;
+}
+
+input::-webkit-search-cancel-button {
+    display: none;
+}
+
+#wrap {
+    height: 100%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-flex-flow: column;
+    flex-flow: column;
+}
+
+#header {
+    text-align: center;
+    /*background-color: #017a25;*/
+    background-color: #89211b;
+    color: #fff;
+    width: 100%;
+    padding-bottom: 7px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+}
+
+#main {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+}
+
+#center {
+    width: 80%;
+    height: 40px;
+    font-size: 0;
+    line-height: 40px;
+    padding-left: 7px;
+    box-sizing: border-box;
+    flex: 1;
+    -webkit-flex: 1;
+    -webkit-box-flex: 1;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+}
+
+#input {
+    flex: 1;
+    -webkit-flex: 1;
+    -webkit-box-flex: 1;
+    width: 80%;
+    height: 100%;
+    line-height: 40px;
+    background-color: #fff;
+}
+
+#input input {
+    width: 100%;
+    height: 100%;
+    outline: none;
+    font-size: 16px;
+    padding-left: 10px;
+}
+
+#icon, #clear, #trans {
+    height: 100%;
+    width: 30px;
+    line-height: 40px;
+    color: #666;
+    background-color: #fff;
+}
+
+#icon span, #clear span, #trans span {
+    font-size: 20px;
+}
+
+#icon span {
+    transform: scale(1.2);
+    -webkit-transform: scale(1.2);
+}
+
+#trans span {
+    transform: rotate(90deg) scaleY(1.3);
+    -webkit-transform: rotate(90deg) scaleY(1.3);
+}
+
+#clear span:before {
+    display: block;
+}
+
+#cancel, #search {
+    height: 100%;
+    width: 50px;
+    line-height: 40px;
+    font-size: 18px;
+    display: none;
+}
+
+#cancel.active, #search.active {
+    display: block;
+}
