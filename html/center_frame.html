@@ -30,17 +30,11 @@
 
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
-var playlistid;
-var bofang;
-var a ;
-
+    var playlistid;
+    var bofang;
+    var a;
     apiready = function() {
-
-        //bofang = api.pageParam.bofang;
-
         if (!bofang) {
-            //alert(bofang);
-            // var stylelist = $api.byId('centerVedeo');
             var stylelist = $api.byId('centerVedeo');
             var html = '';
             html += '<div onclick="fnOpenPlay( ' + bofang + ');"><img src="../image/footer_bf0.png" alt=""></div>';
@@ -50,78 +44,73 @@ var a ;
             name: 'netbofangsssssss'
         }, function(ret, err) {
             var a;
-             var bofang = JSON.stringify(ret.value.bofang);
-              a = ret.value.a;
-              var playlistid = ret.value.playlistid;
-              if(playlistid){
-                fnBOFangJian(bofang, a,playlistid);
-              }else{
+            var bofang = JSON.stringify(ret.value.bofang);
+            a = ret.value.a;
+            var playlistid = ret.value.playlistid;
+            if (playlistid) {
+                fnBOFangJian(bofang, a, playlistid);
+            } else {
                 fnBOFangJian(bofang, a);
-              }
+            }
         });
         api.addEventListener({
             name: 'neizhiliebiaoPlay'
         }, function(ret, err) {
             var a;
-             var bofang = JSON.stringify(ret.value.bofang);
-            //alert(bofang);
-              a = ret.value.a;
-              // console.log(a);
-              var playlistid = ret.value.playlistid;
-              if(playlistid){
-                fnBOFangJian(bofang, a,playlistid);
-              }else{
+            var bofang = JSON.stringify(ret.value.bofang);
+            a = ret.value.a;
+            var playlistid = ret.value.playlistid;
+            if (playlistid) {
+                fnBOFangJian(bofang, a, playlistid);
+            } else {
                 fnBOFangJian(bofang, a);
-              }
+            }
         });
     };
 
-    function fnBOFangJian(bofang, a,playlistid) {
+    function fnBOFangJian(bofang, a, playlistid) {
         if (bofang == 0) {
-            //alert(bofang);
-            // var stylelist = $api.byId('centerVedeo');
             var stylelist = $api.byId('centerVedeo');
             var html = '';
             html += '<div onclick="fnOpenPlay( ' + bofang + ',' + a + ');"><img src="../image/footer_bf' + bofang + '.png" alt=""></div>';
             $api.html(stylelist, html);
         } else if (bofang == 1) {
-            //alert(bofang);
-            // var stylelist = $api.byId('centerVedeo');
             var stylelist = $api.byId('centerVedeo');
             var html = '';
             html += '<div onclick="fnOpenPlay( ' + bofang + ',' + a + ');"><img src="../image/footer_bf' + bofang + '.png" alt=""></div>';
             $api.html(stylelist, html);
-        } else if (bofang == 2){
+        } else if (bofang == 2) {
             var stylelist = $api.byId('centerVedeo');
             var html = '';
             html += '<div onclick="fnOpenPlay( ' + bofang + ',' + a + ',' + playlistid + ');"><img src="../image/footer_bf' + bofang + '.png" alt=""></div>';
             $api.html(stylelist, html);
-        } else if (bofang == 3){
+        } else if (bofang == 3) {
             var stylelist = $api.byId('centerVedeo');
             var html = '';
             html += '<div onclick="fnOpenPlay( ' + bofang + ',' + a + ',' + playlistid + ');"><img src="../image/footer_bf' + bofang + '.png" alt=""></div>';
             $api.html(stylelist, html);
         }
-        if(playlistid){
-          api.sendEvent({
-              name: 'netbofangs',
-              extra: {
-                  bofang: bofang,
-                  a: a,
-                  playid:playlistid
-              }
-          });
-        }else{
-          api.sendEvent({
-              name: 'netbofangs',
-              extra: {
-                  bofang: bofang,
-                  a: a
-              }
-          });
+        if (playlistid) {
+            api.sendEvent({
+                name: 'netbofangs',
+                extra: {
+                    bofang: bofang,
+                    a: a,
+                    playid: playlistid
+                }
+            });
+        } else {
+            api.sendEvent({
+                name: 'netbofangs',
+                extra: {
+                    bofang: bofang,
+                    a: a
+                }
+            });
         }
 
     }
+
     function fnOpenPlay(bofang, a, playlistid) {
         if (bofang == 0) {
             api.openWin({
@@ -151,7 +140,7 @@ var a ;
                     name: 'test',
                     bofang: bofang,
                     a: a,
-                    playid:playlistid
+                    playid: playlistid
                 },
             });
         } else if (bofang == 3) {
@@ -162,7 +151,7 @@ var a ;
                     name: 'test',
                     bofang: bofang,
                     a: a,
-                    playid:playlistid
+                    playid: playlistid
                 },
             });
         } else {
