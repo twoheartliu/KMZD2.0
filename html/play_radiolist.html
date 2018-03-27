@@ -157,7 +157,7 @@ var playlistid;
             method: 'get',
         }, function(ret, err) {
             if (ret) {
-              //alert(JSON.stringify(ret));
+              //console.log(JSON.stringify(ret));
               gedanmingcheng=ret.data[0].albumName;
               fnGeDanMingCheng(gedanmingcheng);
               fnGeDanLieBiao(ret);
@@ -190,12 +190,15 @@ var playlistid;
     }
 
     function fnPlayGeQu(a) {
-      playlistid = api.pageParam.tuijiantingdanid;
+      playlistid = api.pageParam.playlistid;
+      console.log(a);
+      var bofang = 3;
       api.sendEvent({
-          name: 'playTime',
+          name: 'neizhiliebiaoPlay',
           extra: {
               a: a,
-              playlistid: playlistid
+              playlistid:playlistid,
+              bofang:bofang
           }
       });
     }
