@@ -66,6 +66,7 @@
             -webkit-box-orient: horizontal;
             text-align: center;
             line-height: 50px;
+            clear: both;
         }
 
         .egret-header-box {
@@ -89,6 +90,20 @@
 
         .egret-img-a img {
             width: 25px;
+            display: block;
+            margin-top: 7.5px;
+        }
+
+        .left_img {
+            position: absolute;
+            left: 0;
+            bottom: 12.5px;
+        }
+
+        .right_img {
+            position: absolute;
+            right: 0;
+            bottom: 12.5px;
         }
 
         .egret-img-s {
@@ -121,10 +136,10 @@
         }
 
         .egret-header-search span {
-            line-height: 24px;
+            height: 40px;
+            line-height: 40px;
             width: 150px;
             font-size: 14px;
-            padding-top: 8px;
             color: #fff;
             vertical-align: top;
         }
@@ -217,15 +232,14 @@
                 <li class="active">
                     <div class="activebar_p20px">
                         <div class="topbar normalHeader">
-                            <div class="egret-header-box egret-img-a egret-div " tapmode onclick="openMessage()"><img src="./image/KM_xiaoxi.png" alt=""></div>
+                            <div class="egret-header-box egret-img-a egret-div " tapmode onclick="openMessage()"><img class="left_img" src="./image/KM_xiaoxi.png" alt=""></div>
                             <div class="egret-header-box egret-div">
                                 <div class="egret-header-search">
                                     <img src="./image/header_search.png" alt="">
                                     <span tapmode onclick="OpenSearch();">请输入关键词搜索</span>
-                                    <img src="./image/video_header.png" alt="">
                                 </div>
                             </div>
-                            <div class="egret-header-box egret-img-a egret-div" tapmode onclick="fnDenglu()"><img src="./image/qiandao.png" alt=""></div>
+                            <div class="egret-header-box egret-img-a egret-div" tapmode onclick="fnDenglu()"><img class="right_img" src="./image/qiandao.png" alt=""></div>
                         </div>
                     </div>
 
@@ -315,10 +329,10 @@
                 name: 'centerFrame',
                 url: './html/center_frame.html',
                 rect: {
-                    x: (api.frameWidth - 70) / 2,
-                    y: api.frameHeight - 70,
-                    w: 70,
-                    h: 70
+                    x: (api.frameWidth - 50) / 2,
+                    y: api.frameHeight - 55,
+                    w: 50,
+                    h: 50
                 },
                 bounces: false,
                 bgColor: 'rgba(0,0,0,0)',
@@ -330,10 +344,10 @@
                 name: 'centerFrame',
                 url: './html/center_frame.html',
                 rect: {
-                    x: (api.frameWidth - 70) / 2,
-                    y: api.frameHeight - 70,
-                    w: 70,
-                    h: 70
+                    x: (api.frameWidth - 50) / 2,
+                    y: api.frameHeight - 55,
+                    w: 50,
+                    h: 50
                 },
                 pageParam: {
                     name: 'test'
@@ -433,40 +447,10 @@
 
     function fnDenglu() {
         if (isFirst) {
-            var dialogBox = api.require('dialogBox');
-            dialogBox.alert({
-                texts: {
-                    content: '签到成功！',
-                    leftBtnTitle: '确定'
-                        // rightBtnTitle: '去开提醒'
-                },
-                styles: {
-                    bg: '#fff',
-                    corner: 6,
-                    w: 300,
-                    content: {
-                        color: '#000',
-                        size: 18
-                    },
-                    left: {
-                        marginB: 15,
-                        marginL: 30,
-                        marginR: 30,
-                        w: 240,
-                        h: 40,
-                        corner: 20,
-                        color: "#fff",
-                        bg: '#CDCDCD',
-                        size: 16
-                    }
-                },
-                tapClose: true
-            }, function(ret) {
-                if (ret.eventType == 'left') {
-                    dialogBox.close({
-                        dialogName: 'alert'
-                    });
-                }
+            api.toast({
+                msg: '签到成功',
+                duration: 2000,
+                location: 'bottom'
             });
         }
         isFirst = false;
