@@ -30,34 +30,45 @@
 
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
-var playlistid;
+    var playlistid;
+    var bofang;
+    var a;
     apiready = function() {
-        var bofang = '';
-        if (bofang == '') {
+        if (!bofang) {
             var stylelist = $api.byId('centerVedeo');
             var html = '';
             html += '<div onclick="fnOpenPlay( ' + bofang + ');"><img src="../image/footer_bf0.png" alt=""></div>';
             $api.html(stylelist, html);
         }
         api.addEventListener({
-            name: 'netbofang'
+            name: 'netbofangsssssss'
         }, function(ret, err) {
             var a;
-            bofang = JSON.stringify(ret.value.bofang);
+            var bofang = JSON.stringify(ret.value.bofang);
             a = ret.value.a;
-            fnBOFangJian(bofang, a);
+            var playlistid = ret.value.playlistid;
+            if (playlistid) {
+                fnBOFangJian(bofang, a, playlistid);
+            } else {
+                fnBOFangJian(bofang, a);
+            }
         });
         api.addEventListener({
-            name: 'netListId'
+            name: 'neizhiliebiaoPlay'
         }, function(ret, err) {
-            listid = ret.value.playlistid;
-            fnPlayListID(listid);
+            var a;
+            var bofang = JSON.stringify(ret.value.bofang);
+            a = ret.value.a;
+            var playlistid = ret.value.playlistid;
+            if (playlistid) {
+                fnBOFangJian(bofang, a, playlistid);
+            } else {
+                fnBOFangJian(bofang, a);
+            }
         });
     };
-    function fnPlayListID(listid){
-      playlistid = listid;
-    }
-    function fnBOFangJian(bofang, a) {
+
+    function fnBOFangJian(bofang, a, playlistid) {
         if (bofang == 0) {
             var stylelist = $api.byId('centerVedeo');
             var html = '';
@@ -68,38 +79,39 @@ var playlistid;
             var html = '';
             html += '<div onclick="fnOpenPlay( ' + bofang + ',' + a + ');"><img src="../image/footer_bf' + bofang + '.png" alt=""></div>';
             $api.html(stylelist, html);
-        } else if (bofang == 2){
+        } else if (bofang == 2) {
             var stylelist = $api.byId('centerVedeo');
             var html = '';
-            html += '<div onclick="fnOpenPlay( ' + bofang + ',' + a + ' ,' + playlistid + ');"><img src="../image/footer_bf' + bofang + '.png" alt=""></div>';
+            html += '<div onclick="fnOpenPlay( ' + bofang + ',' + a + ',' + playlistid + ');"><img src="../image/footer_bf' + bofang + '.png" alt=""></div>';
             $api.html(stylelist, html);
-        } else if (bofang == 3){
+        } else if (bofang == 3) {
             var stylelist = $api.byId('centerVedeo');
             var html = '';
-            html += '<div onclick="fnOpenPlay( ' + bofang + ',' + a + ' ,' + playlistid + ');"><img src="../image/footer_bf' + bofang + '.png" alt=""></div>';
+            html += '<div onclick="fnOpenPlay( ' + bofang + ',' + a + ',' + playlistid + ');"><img src="../image/footer_bf' + bofang + '.png" alt=""></div>';
             $api.html(stylelist, html);
         }
-        if(playlistid){
-          api.sendEvent({
-              name: 'netbofangs',
-              extra: {
-                  bofang: bofang,
-                  a: a,
-                  playlistid:playlistid
-              }
-          });
-        }else{
-          api.sendEvent({
-              name: 'netbofangs',
-              extra: {
-                  bofang: bofang,
-                  a: a
-              }
-          });
+        if (playlistid) {
+            api.sendEvent({
+                name: 'netbofangs',
+                extra: {
+                    bofang: bofang,
+                    a: a,
+                    playid: playlistid
+                }
+            });
+        } else {
+            api.sendEvent({
+                name: 'netbofangs',
+                extra: {
+                    bofang: bofang,
+                    a: a
+                }
+            });
         }
 
     }
-    function fnOpenPlay(bofang, a) {
+
+    function fnOpenPlay(bofang, a, playlistid) {
         if (bofang == 0) {
             api.openWin({
                 name: 'playsousuo',
@@ -128,7 +140,7 @@ var playlistid;
                     name: 'test',
                     bofang: bofang,
                     a: a,
-                    playlistid:playlistid
+                    playid: playlistid
                 },
             });
         } else if (bofang == 3) {
@@ -139,7 +151,7 @@ var playlistid;
                     name: 'test',
                     bofang: bofang,
                     a: a,
-                    playlistid:playlistid
+                    playid: playlistid
                 },
             });
         } else {
