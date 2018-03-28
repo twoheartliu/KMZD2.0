@@ -72,9 +72,9 @@
             position: relative;bottom: 5px;
         }
         .egret-header-search input {
-            line-height: 24px;
+            line-height: 36px;
+            height: 36px;
             font-size: 14px;
-            padding-top: 5px;
             color: #2e2e2e;
             vertical-align: top;
         }
@@ -136,27 +136,27 @@
             },
             bounces: false,
         });
-        fnOpenCenterFrame();
+        // fnOpenCenterFrame();
     }
-    function fnOpenCenterFrame() {
-        api.openFrame({
-            name: 'centerFrame',
-            url: './center_frame.html',
-            rect: {
-                x: (api.frameWidth - 89) / 2,
-                y: api.frameHeight - 89,
-                w: 89,
-                h: 89
-            },
-            pageParam: {
-                name: 'test'
-            },
-            bounces: true,
-            bgColor: 'rgba(0,0,0,0)',
-            vScrollBarEnabled: true,
-            hScrollBarEnabled: true
-        });
-    }
+    // function fnOpenCenterFrame() {
+    //     api.openFrame({
+    //         name: 'centerFrame',
+    //         url: './center_frame.html',
+    //         rect: {
+    //             x: (api.frameWidth - 89) / 2,
+    //             y: api.frameHeight - 89,
+    //             w: 89,
+    //             h: 89
+    //         },
+    //         pageParam: {
+    //             name: 'test'
+    //         },
+    //         bounces: true,
+    //         bgColor: 'rgba(0,0,0,0)',
+    //         vScrollBarEnabled: true,
+    //         hScrollBarEnabled: true
+    //     });
+    // }
     // 打开历史页面
     function openHistorys() {
         api.openWin({
