@@ -30,6 +30,7 @@ apiready = function () {
 var iscroll;
 
 function InitNavbar() {
+  // var scrollerWidth = 0;
   var navbarheight = 0;
   var navbar = $api.byId('navbar');
     var engines = $api.byId('engines');
@@ -40,9 +41,14 @@ function InitNavbar() {
         var tempEngine = engine.replace(/\{engineName\}/g, engineName);
         tempEngine = tempEngine.replace(/\{engineUrl\}/g, engineUrl);
         engines.appendHTML(tempEngine);
+        //一行一个
         navbarheight += 0;
+        //一行三个
+        // scrollerWidth += 120;
+        //一行两个
+        // scrollerWidth += 180;
     }
-
+    // navbar.style.height = scrollerWidth + 'px';
     navbar.style.height = navbarheight + 'px';
     iscroll = new IScroll('#wrapper', {scrollX: false, scrollY: false, mouseWheel: false, click: true});
 
