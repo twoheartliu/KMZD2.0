@@ -16,12 +16,12 @@ function ParseHTML(engineName, engineHTML) {
 			case '智能搜索':
 				data = Zhinengsousuo(engineHTML);
 				break;
-			case '歌曲':
-				data = Gequ(engineHTML);
-				break;
-			case '歌单':
-				data = Gedan(engineHTML);
-				break;
+			// case '歌曲':
+			// 	data = Gequ(engineHTML);
+			// 	break;
+			// case '歌单':
+			// 	data = Gedan(engineHTML);
+			// 	break;
 		}
 	} catch (e) {
 		data = [];
@@ -54,49 +54,49 @@ function Zhinengsousuo(jsonString) {
 	return data;
 }
 
-function Gequ(jsonString) {
-	var data = [];
-	var json = JSON.parse(jsonString);
-	json = json.data;
-	for (var hash in json) {
-		var item = json[hash];
-		var name = eval('"' + item['name'] + '"');
-		var url = item['url'];
-		var createDate = item['createDate'];
-		var singerName = item['singerName'];
-		var size = item['size'];
-		var singerId = item['singerId'];
-		var id = item['id'];
-		data.push({
-			title : name,
-			createDate : createDate,
-			url : url,
-			name : singerName,
-			size : size,
-			body : singerId,
-			id : id,
-		});
-	}
-	//console.log(JSON.stringify(data));
-	return data;
-}
-function Gedan(jsonString) {
-	var data = [];
-	var json = JSON.parse(jsonString);
-	json = json.data;
-	//console.log(JSON.stringify(json));
-		for (var hash in json) {
-			var item = json[hash];
-			var name = eval('"' + item['name'] + '"');
-			var songCounts = item['songCounts'];
-			var singerName = item['singerName'];
-			var id = item['id'];
-			data.push({
-				title : name,
-				songCounts : songCounts,
-				name : singerName,
-			});
-		}
-		//console.log(JSON.stringify(data));
-	return data;
-}
+// function Gequ(jsonString) {
+// 	var data = [];
+// 	var json = JSON.parse(jsonString);
+// 	json = json.data;
+// 	for (var hash in json) {
+// 		var item = json[hash];
+// 		var name = eval('"' + item['name'] + '"');
+// 		var url = item['url'];
+// 		var createDate = item['createDate'];
+// 		var singerName = item['singerName'];
+// 		var size = item['size'];
+// 		var singerId = item['singerId'];
+// 		var id = item['id'];
+// 		data.push({
+// 			title : name,
+// 			createDate : createDate,
+// 			url : url,
+// 			name : singerName,
+// 			size : size,
+// 			body : singerId,
+// 			id : id,
+// 		});
+// 	}
+// 	//console.log(JSON.stringify(data));
+// 	return data;
+// }
+// function Gedan(jsonString) {
+// 	var data = [];
+// 	var json = JSON.parse(jsonString);
+// 	json = json.data;
+// 	//console.log(JSON.stringify(json));
+// 		for (var hash in json) {
+// 			var item = json[hash];
+// 			var name = eval('"' + item['name'] + '"');
+// 			var songCounts = item['songCounts'];
+// 			var singerName = item['singerName'];
+// 			var id = item['id'];
+// 			data.push({
+// 				title : name,
+// 				songCounts : songCounts,
+// 				name : singerName,
+// 			});
+// 		}
+// 		//console.log(JSON.stringify(data));
+// 	return data;
+// }

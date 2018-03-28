@@ -24,24 +24,26 @@ apiready = function () {
     });
 
     InitNavbar();
-    InitFrameGroup(headerPos.h + navbarPos.h, title);
+    InitFrameGroup(headerPos.h, title);
 };
 
 var iscroll;
 
 function InitNavbar() {
-    var scrollerWidth = 0;
+  var navbarheight = 0;
+  var navbar = $api.byId('navbar');
     var engines = $api.byId('engines');
     var scroller = $api.byId('scroller');
-    var engine = '<li data-engineName="{engineName}" data-engineUrl="{engineUrl}">{engineName}</li>';
+    var wrapper = $api.byId('wrapper');
+    var engine = '<li data-engineName="{engineName}" data-engineUrl="{engineUrl}"></li>';
     for (var engineName in enginesMap) {
         var engineUrl = enginesMap[engineName];
         var tempEngine = engine.replace(/\{engineName\}/g, engineName);
         tempEngine = tempEngine.replace(/\{engineUrl\}/g, engineUrl);
         engines.appendHTML(tempEngine);
-        scrollerWidth += 120;
+        navbarheight += 0;
     }
-    scroller.style.width = scrollerWidth + 'px';
+    navbar.style.height = navbarheight + 'px';
     iscroll = new IScroll('#wrapper', {scrollX: false, scrollY: false, mouseWheel: false, click: true});
     $api.addEvt(scroller, 'click', function (e) {
         var target = e.target;
