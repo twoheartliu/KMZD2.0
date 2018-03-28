@@ -293,6 +293,9 @@
     var suijiplay;
     var bofangmoshiid;
     var playTime;
+    var a;
+    var bofang;
+    var playlistid;
     apiready = function() {
             var secHeader = $api.byId('secHeader');
             $api.fixStatusBar(secHeader);
@@ -551,9 +554,9 @@
     }
     //音频播放模块
     function netAudios() {
-        clearInterval(timer3);
-        clearInterval(timer2);
-        clearInterval(timer1);
+        // clearInterval(timer3);
+        // clearInterval(timer2);
+        // clearInterval(timer1);
         var myAudio = document.getElementById("myAudio");
         myAudio.play();
         initEventListennerBoFangMoshi();
@@ -830,9 +833,7 @@
             }
         });
     }
-    var a;
-    var bofang;
-    var playlistid;
+
 
     function fnBOFangJian(bofangs, aa, playlist) {
         a = aa;
@@ -876,15 +877,16 @@
             }
         });
         //监听再次播放
-        api.addEventListener({
-            name: 'zaicibf'
-        }, function(ret, err) {
-            if (ret) {
-                netAudios();
-                addtime();
-                jindutiao();
-            }
-        });
+        // api.addEventListener({
+        //     name: 'zaicibf'
+        // }, function(ret, err) {
+        //     if (ret) {
+        //       console.log('111');
+        //         netAudios();
+        //         addtime();
+        //         jindutiao();
+        //     }
+        // });
         //监听关闭音频
         api.addEventListener({
             name: 'netAudiopause'
