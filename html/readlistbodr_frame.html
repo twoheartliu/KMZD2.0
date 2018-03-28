@@ -73,54 +73,60 @@
     <div class="body">
         <div class="sousuo"><input type="text" placeholder="搜作者，诗词名称，诗词内容"></div>
     </div>
-    <div class="bodyLi" onclick="fnLangduWin();">
-       <div class="body_li">
-           <div class="body_li_1">静夜思（李白）</div>
-           <div class="body_li_3">
-               <div class="body_li_2">床前明月光，疑是地上霜。举头望明月，低头思故乡。</div>
-               <div class="body_li_4"> > </div>
+    <div id=" jubenlist ">
+        <div class="bodyLi" onclick="fnLangduWin();">
+           <div class="body_li">
+               <div class="body_li_1">静夜思（李白）</div>
+               <div class="body_li_3">
+                   <div class="body_li_2">床前明月光，疑是地上霜。举头望明月，低头思故乡。</div>
+                   <div class="body_li_4"> > </div>
+               </div>
            </div>
-       </div>
-    </div>
-    <div class="bodyLi"  onclick="fnLangduWin();">
-       <div class="body_li">
-           <div class="body_li_1">静夜思（李白）</div>
-           <div class="body_li_3">
-               <div class="body_li_2">床前明月光，疑是地上霜。举头望明月，低头思故乡。</div>
-               <div class="body_li_4"> > </div>
-           </div>
-       </div>
-    </div>
-    <div class="bodyLi" onclick="fnLangduWin();">
-       <div class="body_li">
-           <div class="body_li_1">静夜思（李白）</div>
-           <div class="body_li_3">
-               <div class="body_li_2">床前明月光，疑是地上霜。举头望明月，低头思故乡。</div>
-               <div class="body_li_4"> > </div>
-           </div>
-       </div>
-    </div>
-    <div class="bodyLi" onclick="fnLangduWin();">
-       <div class="body_li">
-           <div class="body_li_1">静夜思（李白）</div>
-           <div class="body_li_3">
-               <div class="body_li_2">床前明月光，疑是地上霜。举头望明月，低头思故乡。</div>
-               <div class="body_li_4"> > </div>
-           </div>
-       </div>
+        </div>
     </div>
 </body>
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
-    apiready = function() {}
-    function fnLangduWin() {
-      api.openWin({
-          name: 'aloud',
-          url: './aloud.html',
-          pageParam: {
-              name: 'test'
-          }
-      });
+    apiready = function() {
+
     }
+    function fnGetJubenlist() {
+  		var id = api.pageParam.CompanyInfojubenByID;
+  		//alert(id);
+  		api.ajax({
+  			url: 'http://47.100.11.38/kongmeng/scripts/getScriptTitle.php?&type_id= ' + id,
+  			method: 'get',
+  			dataType: 'json',
+  		}, function(ret, err) {
+  			if (ret) {
+  				fnUpdateLyricList(ret);
+  			} else {
+  				alert(JSON.stringify(err));
+  			}
+  		});
+  	}
+  	function fnUpdateLyricList(data_) {
+  		var stylelist = $api.byId('jubenlist');
+  		var html = '';
+  		 for (var i = 0; i < data_.data.length; i++) {
+  		 	html +='<div class="bodyLi" onclick="fnLangdujubenWin(' + data_.data[i].id + ');"> <div class="body_li"><div class="body_li_1">' + data_.data[i].title + '（' + data_.data[i].name + '）</div><div class="body_li_3"><div class="body_li_2">' + data_.data[i].body + '</div><div class="body_li_4"> > </div></div></div></div>';
+
+      }
+  		$api.html(stylelist, html);
+  	}
+  	function fnLangdujubenWin(CompanyInfojubenType){
+  		api.sendEvent({
+  			name: 'netJuBenplay',
+  			extra: {
+  				CompanyInfojubenType: CompanyInfojubenType
+  			}
+  		});
+  		api.openWin({
+  			name: 'aloud',
+  			url: '../aloud.html',
+  			delay: 200
+  		});
+
+  	}
 </script>

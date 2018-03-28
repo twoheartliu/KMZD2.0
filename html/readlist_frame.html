@@ -57,7 +57,7 @@
     <div class="body">
         <div class="sousuo"><input type="text" placeholder="搜作者，诗词名称，诗词内容"></div>
     </div>
-    <div class="bodyLi" id="list">
+    <div class="bodyLi" id="typejubenlist">
       <!-- <div onclick="fnReadListBodr();">
           <img src="../image/readlist.png" alt="">
           <span>《唐诗三百首》</span>
@@ -86,17 +86,18 @@
   	}
   	function fnUpdateLyricList(data_) {
 
-  		var stylelist = $api.byId('typejuben');
+  		var stylelist = $api.byId('typejubenlist');
   		var html = '';
   		 for (var i = 0; i < data_.data.length; i++) {
-  		 	html +='<div class="egret-flex-item musiclist-item" tapmode="allplayhover" onclick="openJubenlist( ' + data_.data[i].type_id + ' )"><div class="egret-flex-item-abright"><div class="egret-flex-item-shelf pl10"><div class="egret-flex-item-shelf01"> ' + data_.data[i].name + '</div><div class="egret-flex-item-shelf02">雁卿 - Magic</div>	</div>	<div class="egret-flex-item-arrow"><img src="../../image/musiclist/musiclistmore.png" alt="" class="toobarimg" onclick="expandlist(0, this)"></div></div></div>';
-  		}
+  		 	html +='<div onclick="fnReadListBodr(' + data_.data[i].type_id + ');"><img src="../image/readlist.png" alt=""><span>' + data_.data[i].name + '</span></div>';
+
+      }
   		$api.html(stylelist, html);
   	}
-  	function openJubenlist(CompanyInfojubenByID) {
+  	function fnReadListBodr(CompanyInfojubenByID) {
   		api.openWin({
-  			name: 'newjubenlist',
-  			url: './newjubenlist.html',
+  			name: 'readlistbodr',
+  			url: './readlistbodr.html',
   			pageParam: {
   				CompanyInfojubenByID : CompanyInfojubenByID
   			},
