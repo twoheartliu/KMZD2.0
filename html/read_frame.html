@@ -233,7 +233,7 @@
             <div class="navbar-item" tapmode="navbar-item-hov" onclick="fnGouXueJingDIanWin();"><img src="../image/KM_gxjd.png" alt="">国学经典</div>
             <div class="navbar-item" tapmode="navbar-item-hov" onclick="fnReadListWin();"><img src="../image/KM_wymp.png" alt="">外语名篇</div>
             <div class="navbar-item" tapmode="navbar-item-hov" onclick="fnReadListWin();"><img src="../image/KM_wzhy.png" alt="">玩转汉语</div>
-            <div class="navbar-item" tapmode="navbar-item-hov" onclick="fnReadListWin();"><img src="../image/KM_xsgs.png" alt="">小说故事</div>
+            <div class="navbar-item" tapmode="navbar-item-hov" onclick="fnZyldWin();"><img src="../image/KM_xsgs.png" alt="">自由朗读</div>
         </div>
     </div>
     <div class="read_frame_shaixuan">
@@ -346,6 +346,16 @@
                 name: 'test'
             }
         });
+    }
+    function fnZyldWin() {
+      api.openWin({
+          name: 'zyldwin',
+          url: './zyldwin.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
+
     }
     apiready = function() {
         fnInitSwiper();

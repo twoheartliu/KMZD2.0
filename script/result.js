@@ -42,7 +42,7 @@ function InitNavbar() {
         scrollerWidth += 120;
     }
     scroller.style.width = scrollerWidth + 'px';
-    iscroll = new IScroll('#wrapper', {scrollX: true, scrollY: false, mouseWheel: false, click: true});
+    iscroll = new IScroll('#wrapper', {scrollX: false, scrollY: false, mouseWheel: false, click: true});
     $api.addEvt(scroller, 'click', function (e) {
         var target = e.target;
         SetFrameActive(ElementIndex(target));
