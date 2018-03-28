@@ -76,79 +76,11 @@
       <div class="recommend_frame_img"><img src="../image/KM_tp.jpg" alt=""></div>
   </div>
   <div class="p20px">
-      <div class="hot">
-          <div class="hotC" onclick="fnSingleWin();">
+      <div class="hot" id="hot">
+          <!-- <div class="hotC" onclick="fnSingleWin();">
               <img src="../image/frame0101cover/frame0101cover06.png" alt="" >
               <div class="listtitle">F3如意国学机</div>
-          </div>
-          <div class="hotC" onclick="fnSingleWin();">
-              <img src="../image/frame0101cover/frame0101cover07.png" alt="" >
-              <div class="listtitle">F3如意国学机</div>
-          </div>
-          <div class="hotC" onclick="fnSingleWin();">
-              <img src="../image/frame0101cover/frame0101cover08.png" alt="" >
-              <div class="listtitle">F3如意国学机</div>
-          </div>
-          <div class="hotC" onclick="fnSingleWin();">
-              <img src="../image/frame0101cover/frame0101cover09.png" alt="" >
-              <div class="listtitle">F3如意国学机</div>
-          </div>
-          <div class="hotC" onclick="fnSingleWin();">
-              <img src="../image/frame0101cover/frame0101cover10.png" alt="" >
-              <div class="listtitle">F3如意国学机</div>
-          </div>
-          <div class="hotC" onclick="fnSingleWin();">
-              <img src="../image/frame0101cover/frame0101cover11.png" alt="" >
-              <div class="listtitle">F3如意国学机</div>
-          </div>
-          <div class="hotC" onclick="fnSingleWin();">
-              <img src="../image/frame0101cover/frame0101cover10.png" alt="" >
-              <div class="listtitle">F3如意国学机</div>
-          </div>
-          <div class="hotC" onclick="fnSingleWin();">
-              <img src="../image/frame0101cover/frame0101cover11.png" alt="" >
-              <div class="listtitle">F3如意国学机</div>
-          </div>
-          <div class="hotC" onclick="fnSingleWin();">
-              <img src="../image/frame0101cover/frame0101cover10.png" alt="" >
-              <div class="listtitle">F3如意国学机</div>
-          </div>
-          <div class="hotC" onclick="fnSingleWin();">
-              <img src="../image/frame0101cover/frame0101cover11.png" alt="" >
-              <div class="listtitle">F3如意国学机</div>
-          </div>
-          <div class="hotC" onclick="fnSingleWin();">
-              <img src="../image/frame0101cover/frame0101cover10.png" alt="" >
-              <div class="listtitle">F3如意国学机</div>
-          </div>
-          <div class="hotC" onclick="fnSingleWin();">
-              <img src="../image/frame0101cover/frame0101cover11.png" alt="" >
-              <div class="listtitle">F3如意国学机</div>
-          </div>
-          <div class="hotC" onclick="fnSingleWin();">
-              <img src="../image/frame0101cover/frame0101cover10.png" alt="" >
-              <div class="listtitle">F3如意国学机</div>
-          </div>
-          <div class="hotC" onclick="fnSingleWin();">
-              <img src="../image/frame0101cover/frame0101cover11.png" alt="" >
-              <div class="listtitle">F3如意国学机</div>
-          </div>
-          <div class="hotC" onclick="fnSingleWin();">
-              <img src="../image/frame0101cover/frame0101cover10.png" alt="" >
-              <div class="listtitle">F3如意国学机</div>
-          </div>
-          <div class="hotC" onclick="fnSingleWin();">
-              <img src="../image/frame0101cover/frame0101cover11.png" alt="" >
-              <div class="listtitle">F3如意国学机</div>
-          </div>
-          <div class="hotC" onclick="fnSingleWin();">
-              <img src="../image/frame0101cover/frame0101cover10.png" alt="" >
-              <div class="listtitle">F3如意国学机</div>
-          </div>
-          <div class="hotC" onclick="fnSingleWin();">
-              <img src="../image/frame0101cover/frame0101cover11.png" alt="" >
-              <div class="listtitle">F3如意国学机</div>
-          </div>
+          </div> -->
       </div>
   </div>
 </body>
@@ -158,21 +90,46 @@
 <script type="text/javascript" src="../script/swiper.min.js"></script>
 <script type="text/javascript">
 apiready = function() {
+
+    fnTingdanTuijian();
+}
+function fnTingdanTuijian() {
+    api.ajax({
+        url: 'http://47.100.11.38/kongmeng/thirdParty/search_playlist_by_name.php',
+        method: 'get',
+    }, function(ret, err) {
+        if (ret) {
+            //alert(JSON.stringify(ret));
+            fnTingdanZhanshi(ret);
+        } else {
+            alert(JSON.stringify(err));
+        }
+    });
+}
+//接口  听单展示
+function fnTingdanZhanshi(data_) {
+    var stylelist = $api.byId('hot');
+    var html = '';
+    for (var i = 0; i < data_.data.length; i++) {
+        html += '<div class="hotC" onclick="fnSingleWin(' + data_.data[i].id + ');"><img src="' + data_.data[i].logoMiddle + '" alt=""><div class="listtitle"> ' + data_.data[i].name + '</div></div>';
+    }
+    $api.html(stylelist, html);
     var frameWidth = api.frameWidth;
     var frameHeight = api.frameHeight;
     var hotCs = $api.domAll('.hotC');
-    var index = 18
-    for( var j = 0; j < index ;j++){
-      hotCs.item(j).style.width = (frameWidth -40) /3 + "px";
-      hotCs.item(j).style.height = (frameWidth -40) /3 * 1.224 + "px";
+    for (var j = 0; j < data_.data.length; j++) {
+        hotCs.item(j).style.width = (frameWidth - 40) / 3 + "px";
+        hotCs.item(j).style.height = (frameWidth - 40) / 3 * 1.224 + "px";
     };
+
 }
-function fnSingleWin() {
+function fnSingleWin(tuijiantingdanid) {
   api.openWin({
       name: 'single',
       url: './single.html',
       pageParam: {
-          name: 'test'
+          name: 'test',
+          tuijiantingdanid: tuijiantingdanid
       }
   });
 

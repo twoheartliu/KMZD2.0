@@ -129,7 +129,7 @@
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
-var playlistid;
+    var playlistid;
 
     apiready = function() {
         // fnSetGender();
@@ -149,18 +149,17 @@ var playlistid;
     };
     //接口  推荐听单
     var tingdanliebiaobiaoti;
+
     function fnTingdanTuijian() {
-      playlistid = api.pageParam.playlistid;
-      //console.log(playlistid);
+        playlistid = api.pageParam.playlistid;
         api.ajax({
             url: 'http://47.100.11.38/kongmeng/thirdParty/get_songs_by_playlist.php?page=0&size=10&playlistid= ' + playlistid,
             method: 'get',
         }, function(ret, err) {
             if (ret) {
-              //alert(JSON.stringify(ret));
-              gedanmingcheng=ret.data[0].albumName;
-              fnGeDanMingCheng(gedanmingcheng);
-              fnGeDanLieBiao(ret);
+                gedanmingcheng = ret.data[0].albumName;
+                fnGeDanMingCheng(gedanmingcheng);
+                fnGeDanLieBiao(ret);
             } else {
                 alert(JSON.stringify(err));
             }
@@ -171,12 +170,11 @@ var playlistid;
         var stylelist = $api.byId('liebiao');
         var html = '';
         for (var i = 0; i < data_.data.length; i++) {
-          if(data_.data[i].singerName){
-            html += '<li class="active" tapmode="focus" onclick="fnPlayGeQu(' + data_.data[i].id + ');"><div><p>' + data_.data[i].name + '</p><label>作者:' + data_.data[i].singerName + '</label></div></li>';
-          }else{
-            html += '<li class="active" tapmode="focus" onclick="fnPlayGeQu(' + data_.data[i].id + ');"><div><p>' + data_.data[i].name + '</p><label>作者:未知</label></div></li>';
-          }
-
+            if (data_.data[i].singerName) {
+                html += '<li class="active" tapmode="focus" onclick="fnPlayGeQu(' + data_.data[i].id + ');"><div><p>' + data_.data[i].name + '</p><label>作者:' + data_.data[i].singerName + '</label></div></li>';
+            } else {
+                html += '<li class="active" tapmode="focus" onclick="fnPlayGeQu(' + data_.data[i].id + ');"><div><p>' + data_.data[i].name + '</p><label>作者:未知</label></div></li>';
+            }
         }
         $api.html(stylelist, html);
 
@@ -186,18 +184,27 @@ var playlistid;
         var stylelist = $api.byId('gedanmingcheng');
         var html = data_;
         $api.html(stylelist, html);
-
     }
 
     function fnPlayGeQu(a) {
-      playlistid = api.pageParam.tuijiantingdanid;
-      api.sendEvent({
-          name: 'playTime',
-          extra: {
-              a: a,
-              playlistid: playlistid
-          }
-      });
+        playlistid = api.pageParam.playlistid;
+        var bofang = 3;
+        api.sendEvent({
+            name: 'neizhiliebiaoPlay',
+            extra: {
+                a: a,
+                playlistid: playlistid,
+                bofang: bofang
+            }
+        });
+        api.sendEvent({
+            name: 'neizhiliebiaoPlaysss',
+            extra: {
+                a: a,
+                playlistid: playlistid,
+                bofang: bofang
+            }
+        });
     }
 
     // function fnSetGender(){
