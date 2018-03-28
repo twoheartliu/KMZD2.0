@@ -57,51 +57,52 @@
     <div class="body">
         <div class="sousuo"><input type="text" placeholder="搜作者，诗词名称，诗词内容"></div>
     </div>
-    <div class="bodyLi">
-      <div onclick="fnReadListBodr();">
+    <div class="bodyLi" id="list">
+      <!-- <div onclick="fnReadListBodr();">
           <img src="../image/readlist.png" alt="">
           <span>《唐诗三百首》</span>
-      </div>
-      <div onclick="fnReadListBodr();">
-          <img src="../image/readlist.png" alt="">
-          <span>《唐诗三百首》</span>
-      </div>
-      <div onclick="fnReadListBodr();">
-          <img src="../image/readlist.png" alt="">
-          <span>《唐诗三百首》</span>
-      </div>
-      <div onclick="fnReadListBodr();">
-          <img src="../image/readlist.png" alt="">
-          <span>《唐诗三百首》</span>
-      </div>
-      <div onclick="fnReadListBodr();">
-          <img src="../image/readlist.png" alt="">
-          <span>《唐诗三百首》</span>
-      </div>
-      <div onclick="fnReadListBodr();">
-          <img src="../image/readlist.png" alt="">
-          <span>《唐诗三百首》</span>
-      </div>
-      <div onclick="fnReadListBodr();">
-          <img src="../image/readlist.png" alt="">
-          <span>《唐诗三百首》</span>
-      </div>
-      <div onclick="fnReadListBodr();">
-          <img src="../image/readlist.png" alt="">
-          <span>《唐诗三百首》</span>
-      </div>
-      <div onclick="fnReadListBodr();">
-          <img src="../image/readlist.png" alt="">
-          <span>《唐诗三百首》</span>
-      </div>
+      </div> -->
+
     </div>
 </body>
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
     apiready = function() {
-
+      fnGetJubenTypelist()
     }
+    function fnGetJubenTypelist() {
+  		api.ajax({
+  			url: 'http://47.100.11.38/kongmeng/scripts/getScriptList.php',
+  			method: 'get',
+  			dataType: 'json',
+  		}, function(ret, err) {
+  			if (ret) {
+  				fnUpdateLyricList(ret);
+  			} else {
+  				alert(JSON.stringify(err));
+  			}
+  		});
+  	}
+  	function fnUpdateLyricList(data_) {
+
+  		var stylelist = $api.byId('typejuben');
+  		var html = '';
+  		 for (var i = 0; i < data_.data.length; i++) {
+  		 	html +='<div class="egret-flex-item musiclist-item" tapmode="allplayhover" onclick="openJubenlist( ' + data_.data[i].type_id + ' )"><div class="egret-flex-item-abright"><div class="egret-flex-item-shelf pl10"><div class="egret-flex-item-shelf01"> ' + data_.data[i].name + '</div><div class="egret-flex-item-shelf02">雁卿 - Magic</div>	</div>	<div class="egret-flex-item-arrow"><img src="../../image/musiclist/musiclistmore.png" alt="" class="toobarimg" onclick="expandlist(0, this)"></div></div></div>';
+  		}
+  		$api.html(stylelist, html);
+  	}
+  	function openJubenlist(CompanyInfojubenByID) {
+  		api.openWin({
+  			name: 'newjubenlist',
+  			url: './newjubenlist.html',
+  			pageParam: {
+  				CompanyInfojubenByID : CompanyInfojubenByID
+  			},
+  			delay: 200
+  		});
+  	}
     function fnReadListBodr() {
       api.openWin({
           name: 'readlistbodr',
