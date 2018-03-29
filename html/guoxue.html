@@ -71,11 +71,12 @@
             height: 20px;
             position: relative;bottom: 5px;
         }
-        .egret-header-search input {
+        .egret-header-search span {
             line-height: 36px;
             height: 36px;
             font-size: 14px;
-            color: #2e2e2e;
+            /*color: #2e2e2e;*/
+            color: #ccc;
             vertical-align: top;
         }
         .egret-header-search input:focus {
@@ -97,9 +98,10 @@
         <div class="header_fl fr" onclick="openHistorys();"><img src="../image/KM_Hls.png" alt=""></div>
         <div class="header_center">
           <div class="header_center_div">
-            <div class="egret-header-search">
+            <div class="egret-header-search" tapmode onclick="OpenSearch();">
                 <img src="../image/header_search.png" alt="">
-                <input type="text" placeholder="请输入关键词搜索" onclick="">
+                <!-- <input type="text" placeholder="请输入关键词搜索" > -->
+                <span >请输入关键词搜索</span>
             </div>
           </div>
         </div>
@@ -111,7 +113,7 @@
 
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
-
+<script type="text/javascript" src="../script/index3.js"></script>
 <script type="text/javascript">
     function goback() {
         api.closeWin({

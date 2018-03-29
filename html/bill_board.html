@@ -40,7 +40,7 @@
             margin-top: 10px;
         }
 
-        .egret-header-search input {
+        .egret-header-search span {
             height: 40px;
             line-height: 40px;
             font-size: 14px;
@@ -85,9 +85,10 @@
     <!-- 头部 -->
     <header id="header">
         <div  class="egret-img"><img src="../image/KM_Hfh.png" alt="" onclick="goback()" ></div>
-        <div class="egret-header-search">
+        <div class="egret-header-search" tapmode onclick="OpenSearch();">
           <img src="../image/header_search.png" alt="">
-          <input type="text" placeholder="请输入关键词搜索" >
+          <!-- <input type="text"  placeholder="请输入关键词搜索" > -->
+          <span >请输入关键词搜索</span>
       </div>
     </header>
     <nav id="nav">
@@ -99,6 +100,7 @@
     </nav>
   </body>
   <script type="text/javascript" src="../script/api.js"></script>
+  <script type="text/javascript" src="../script/index2.js"></script>
   <script type="text/javascript">
     function goback () {
       api.closeWin({name:'billBoard'});
