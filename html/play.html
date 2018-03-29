@@ -441,6 +441,10 @@
                 <img src="../image/play_collect.png" alt="" id="playCollect" onclick="fnOpenPlayCollect();">
                 <p>收藏</p>
             </li>
+            <li class="collect">
+                <img src="../image/dianzan.png" alt="" id="playDz" onclick="fnOpenPlayDz();">
+                <p>点赞</p>
+            </li>
             <li class="timer" tapmode="focus" onclick="fnOpenChoicePlayer();">切换国学机</li>
             <li class="share" tapmode="focus" onclick="fnOpenPlayShare();">分享</li>
             <li class="checkin" tapmode="focus" onclick="fnOpenPlayDiscuss();">评论</li>
@@ -1028,6 +1032,15 @@
             playCollect.src = "../image/play_collect0.png";
         } else {
             playCollect.src = "../image/play_collect.png";
+        }
+    };
+    // 点赞
+    function fnOpenPlayDz() {
+        var playDz = $api.byId('playDz');
+        if (playDz.getAttribute("src", 2) == "../image/dianzan1.png") {
+            playDz.src = "../image/dianzan.png";
+        } else {
+            playDz.src = "../image/dianzan1.png";
         }
     };
     // 打开评论页面
