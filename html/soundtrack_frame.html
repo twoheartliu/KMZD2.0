@@ -50,7 +50,7 @@
         .on_li_divImg1 img{width: 15px;height: 15px;padding: 16px;}
         .soundtrack_title{padding: 0 10px;margin: 14px 0;}
         .soundtrack_title b{color: red;}
-        
+
     </style>
 </head>
 
@@ -391,9 +391,7 @@
 <script type="text/javascript">
     apiready = function() {
 
-
-    }
-    // var oTitle = document.getElementById('title');
+      fnGetBeiJingYinYueTypelist();
       var oTitle = $api.byId('title');
       var aSpan = oTitle.getElementsByTagName('span');
       var oCon = document.getElementById('con');
@@ -410,4 +408,54 @@
               aUl[this.index].className = 'on';
           }
       }
+    }
+    function fnGetBeiJingYinYueTypelist() {
+  		api.ajax({
+  			url: 'http://47.100.11.38/kongmeng/bgmusic/getStyleList.php',
+  			method: 'get',
+  			dataType: 'json',
+  		}, function(ret, err) {
+  			if (ret) {
+  				//alert(JSON.stringify(ret));
+  				fnUpdateLyricList(ret);
+          fnBytitleList(ret);
+  			} else {
+  				alert(JSON.stringify(err));
+  			}
+  		});
+  	}
+    function fnBytitleList(data_) {
+  		var stylelist = $api.byId('title');
+  		var html = '';
+  		 for (var i = 0; i < data_.data.length; i++) {
+         if( i == 0){
+           html = '<span class="on">' + data_.data[i].name + '</span>';
+         }
+         if(i >0){
+           html += '<span class="">' + data_.data[i].name + '</span>';
+         }
+  			 //arrayid.push(data_.data[0].id);
+
+
+
+  		}
+  		//alert(data_.data[0].id);
+  		$api.html(stylelist, html);
+  	}
+  	//var arrayid  = new Array();
+  	function fnUpdateLyricList(data_) {
+  		var stylelist = $api.byId('typebeijingyinyue');
+  		var html = '';
+  		 for (var i = 0; i < data_.data.length; i++) {
+  			 //arrayid.push(data_.data[0].id);
+  		 	html +='<div class="egret-flex-item musiclist-item" tapmode="allplayhover" onclick="openbeijingyinyeulist( ' + data_.data[i].id + ' )"><div class="egret-flex-item-abright"><div class="egret-flex-item-shelf pl10"><div class="egret-flex-item-shelf01"> ' + data_.data[i].name + '</div><div class="egret-flex-item-shelf02">雁卿 - Magic</div>	</div>	<div class="egret-flex-item-arrow"><img src="../../image/musiclist/musiclistmore.png" alt="" class="toobarimg" onclick="expandlist(0, this)"></div></div></div>';
+  		}
+  		//alert(data_.data[0].id);
+  		$api.html(stylelist, html);
+  	}
+
+
+
+    // var oTitle = document.getElementById('title');
+
 </script>

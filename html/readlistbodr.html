@@ -70,20 +70,22 @@
         var header = $api.byId('secHeader');
         $api.fixStatusBar(header);
         var headerPos = $api.offset(header);
+        var CompanyInfojubenByID = api.pageParam.CompanyInfojubenByID;
         api.openFrame({
-            name: 'readlistbodr_frame',
-            url: './readlistbodr_frame.html',
-            rect: {
-                x: 0,
-                y: headerPos.h,
-                w: 'auto',
-                h: 'auto'
-            },
-            pageParam: {
-                name: 'test'
-            },
-            bounces: false,
-        });
+          name: 'readlistbodr_frame',
+          url: './readlistbodr_frame.html',
+          bounces: false,
+          opaque: false,
+          pageParam : {
+            CompanyInfojubenByID : CompanyInfojubenByID
+          },
+          rect: {
+            x: 0,
+            y: headerPos.h,
+            w: 'auto',
+            h: 'auto'
+          }
 
+        });
     }
 </script>
