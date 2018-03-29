@@ -207,8 +207,8 @@
     <div class="name_bg">
       <div class="name">
         <div class="name_name">
-          <div class="name_h1">我是标题</div>
-          <div class="name_h2">我是副标题</div>
+          <div class="name_h1" id="jubentitle">我是标题</div>
+          <div class="name_h2" id="jubenname">我是副标题</div>
         </div>
         <div class="name_this">
           ·正在录制 00:01
@@ -217,42 +217,10 @@
       <div class="name_ov">
         <div class="name_nr">
           <div class="p20px">
-            <p>
-              gfuiagsihixzhcjxzhouxizhuighuagdsagsgadyisgadisagdisaoguidosagdoogdasodg
+            <p id="jubenbody">
+              <!-- gfuiagsihixzhcjxzhouxizhuighuagdsagsgadyisgadisagdisaoguidosagdoogdasodg -->
             </p>
-            <p>
-              gfuiagsihixzhcjxzhouxizhuighuagdsagsgadyisgadisagdisaoguidosagdoogdasodg
-            </p>
-            <p>
-              gfuiagsihixzhcjxzhouxizhuighuagdsagsgadyisgadisagdisaoguidosagdoogdasodg
-            </p>
-            <p>
-              gfuiagsihixzhcjxzhouxizhuighuagdsagsgadyisgadisagdisaoguidosagdoogdasodg
-            </p>
-            <p>
-              gfuiagsihixzhcjxzhouxizhuighuagdsagsgadyisgadisagdisaoguidosagdoogdasodg
-            </p>
-            <p>
-              gfuiagsihixzhcjxzhouxizhuighuagdsagsgadyisgadisagdisaoguidosagdoogdasodg
-            </p>
-            <p>
-              gfuiagsihixzhcjxzhouxizhuighuagdsagsgadyisgadisagdisaoguidosagdoogdasodg
-            </p>
-            <p>
-              gfuiagsihixzhcjxzhouxizhuighuagdsagsgadyisgadisagdisaoguidosagdoogdasodg
-            </p>
-            <p>
-              gfuiagsihixzhcjxzhouxizhuighuagdsagsgadyisgadisagdisaoguidosagdoogdasodg
-            </p>
-            <p>
-              gfuiagsihixzhcjxzhouxizhuighuagdsagsgadyisgadisagdisaoguidosagdoogdasodg
-            </p>
-            <p>
-              gfuiagsihixzhcjxzhouxizhuighuagdsagsgadyisgadisagdisaoguidosagdoogdasodg
-            </p>
-            <p>
-              gfuiagsihixzhcjxzhouxizhuighuagdsagsgadyisgadisagdisaoguidosagdoogdasodg
-            </p>
+
           </div>
         </div>
       </div>
@@ -287,6 +255,48 @@
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
+    apiready = function() {
+      var secHeader = $api.byId('secHeader');
+      $api.fixStatusBar(secHeader);
+      var headerH = $api.offset(secHeader).h;
+      fnGetJubenlist();
+    };
+    function fnGetJubenlist() {
+  		var id = api.pageParam.InfojubenType;
+  		api.ajax({
+  			url: 'http://47.100.11.38/kongmeng/scripts/getScriptById.php?id= ' + id,
+  			method: 'get',
+  			dataType: 'json',
+  		}, function(ret, err) {
+  			if (ret) {
+          fnGetJubentitle(ret.data[0].title);
+          fnGetJubenname(ret.data[0].name);
+          fnGetJubenbody(ret.data[0].body);
+  			} else {
+  				alert(JSON.stringify(err));
+  			}
+  		});
+  	}
+  	function fnGetJubentitle(title) {
+  		var stylelist = $api.byId('jubentitle');
+  		var	html = title;
+  		$api.html(stylelist, html);
+  	}
+    function fnGetJubenname(name) {
+  		var stylelist = $api.byId('jubenname');
+  		var	html = name;
+  		$api.html(stylelist, html);
+  	}
+    function fnGetJubenbody(body) {
+  		var stylelist = $api.byId('jubenbody');
+      var str1 = JSON.stringify(body);
+      var str2 = str1.replace(/r/g, '<br>');
+      var str3 = str2.replace(/n/g, '<br>');
+      var str4 = str3.split('\\').join('');
+      var str5 = str4.split("\"").join('');
+  		var	html = str5;
+  		$api.html(stylelist, html);
+  	}
     function goback() {
         api.closeWin({
             name: 'aloud'
@@ -304,12 +314,7 @@
 
     }
 
-    apiready = function() {
-      var secHeader = $api.byId('secHeader');
-      $api.fixStatusBar(secHeader);
-      var headerH = $api.offset(secHeader).h;
 
-    }
     function fnOpenPlayCollect() {
         var playCollect = $api.byId('playCollect');
         if (playCollect.getAttribute("src", 2) == "../image/aloud/428129250927140404.png") {

@@ -69,8 +69,8 @@
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
     apiready = function() {
-      fnGetJubenTypelist()
-    }
+      fnGetJubenTypelist();
+    };
     function fnGetJubenTypelist() {
   		api.ajax({
   			url: 'http://47.100.11.38/kongmeng/scripts/getScriptList.php',
@@ -89,8 +89,9 @@
   		var stylelist = $api.byId('typejubenlist');
   		var html = '';
   		 for (var i = 0; i < data_.data.length; i++) {
-  		 	html +='<div onclick="fnReadListBodr(' + data_.data[i].type_id + ');"><img src="../image/readlist.png" alt=""><span>' + data_.data[i].name + '</span></div>';
-
+         onclick
+  		 	html +='<div  onclick = "fnReadListBodr(' + data_.data[i].type_id + ');"><img src="../image/readlist.png" alt=""><span>' + data_.data[i].name + '</span></div>';
+        //console.log(data_.data[i].type_id);
       }
   		$api.html(stylelist, html);
   	}
@@ -104,13 +105,5 @@
   			delay: 200
   		});
   	}
-    function fnReadListBodr() {
-      api.openWin({
-          name: 'readlistbodr',
-          url: './readlistbodr.html',
-          pageParam: {
-              name: 'test'
-          }
-      });
-    }
+
 </script>
