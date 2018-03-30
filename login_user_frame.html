@@ -46,6 +46,7 @@
             line-height: 40px;
             margin-top: 15px;
             border-radius: 5px;
+            border: 1px solid #ccc;
         }
 
         nav .phonenum>img {
@@ -57,7 +58,7 @@
             width: 85%;
             height: 36px;
             line-height: 36px;
-            border-bottom: 1px solid #ccc;
+            /*border-bottom: 1px solid #ccc;*/
         }
 
         .code>input {
@@ -65,7 +66,7 @@
             height: 36px;
             line-height: 36px;
             padding-left: 10px;
-            border-bottom: 1px solid #ccc;
+            /*border-bottom: 1px solid #ccc;*/
         }
 
         .code>img {
@@ -134,7 +135,8 @@
 					width: 100px;
 					height: 50px;
 					line-height: 50px;
-					text-align: right;
+					/*text-align: right;*/
+					text-align: center;
 				}
     </style>
 </head>
@@ -157,7 +159,11 @@
         <div class="loginbutton" onclick="fnIndexOpenWin();">
             <button>登录</button>
         </div>
-				<div class="loginFree"><div class="loginFreeText fr" onclick="fnLoginFreeText();">注册账号</div></div>
+				<div class="loginFree">
+          <div class="loginFreeText fl" onclick="fnLoginFreeText();">注册账号</div>
+          <div class="loginFreeText fr" onclick="fnForgetText();">忘记密码？</div>
+        </div>
+				<!-- <div class="loginFree"></div> -->
     </nav>
 </body>
 
@@ -206,6 +212,16 @@
 			api.openWin({
 			    name: 'login_free',
 			    url: './login_free.html',
+			    pageParam: {
+			        name: 'test'
+			    }
+			});
+
+		}
+    function fnForgetText() {
+			api.openWin({
+			    name: 'forget_password',
+			    url: './forget_password.html',
 			    pageParam: {
 			        name: 'test'
 			    }
