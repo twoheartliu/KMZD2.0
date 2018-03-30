@@ -201,7 +201,7 @@
 <body>
     <header id="secHeader">
         <div class="header_fls fl" onclick="goback();"><img src="../image/KM_Hfh.png" alt=""></div>
-        <div class="header_fl fr"><span>保存</span></div>
+        <div class="header_fl fr" onclick="fnLuYinBaoCun();"><span>保存</span></div>
         <div class="header_center">朗读</div>
     </header>
     <div class="name_bg">
@@ -231,7 +231,7 @@
       <div class="name_bt">
           <div class="name_bt_c"></div>
           <div class="name_bt_b"><img src="../image/aloud/63734540119813241.png" alt="" id="playCollect" onclick="fnOpenPlayCollect();"></div>
-          <div class="name_bt_s"></div>
+          <div class="name_bt_s" onclick="fnLuYinshiting();"></div>
       </div>
         <!-- <div class="p20px"> -->
             <div class="aloud_frame_bg_bottom" onclick="fnSoundtrackWin()">
@@ -255,14 +255,69 @@
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
+var jubenid;
+var beiyueid;
+var CompanyInfobeiyue;
+var input;
+var beiyueid;
+var jubenid;
+var jubentitle;
+var path;
+var duration;
+var caogaowenjianming;
+var caogaozuozhe;
+var duration;
+var timestamp=new Date().getTime();
+var timestamps;
     apiready = function() {
+      var CompanyInfobeiyue;
       var secHeader = $api.byId('secHeader');
       $api.fixStatusBar(secHeader);
       var headerH = $api.offset(secHeader).h;
       fnGetJubenlist();
-    };
+      api.addEventListener({
+  				name: 'netBeiyueId'
+  		}, function(ret, err) {
+  				if (ret) {
+  					var inputss = ret.value.InfobeiyueId;
+            // console.log(inputss);
+  					fninputvalue(inputss);
+  				}
+  		});
+    }
+    //播放背景音乐
+  	function fnBeiYueplay(){
+  			var byid = input;
+  			api.ajax({
+  				url: 'http://47.100.11.38/kongmeng/bgmusic/getbgMusicById.php?id= ' + byid,
+  				method: 'get',
+  				dataType: 'json',
+  			}, function(ret, err) {
+  				if (ret) {
+  					var yinyueid = ret.data[0].url;
+  					var netAudio = api.require('netAudio');
+  					netAudio.play({
+  							path: yinyueid
+  					}, function(ret, err) {
+  							if (ret) {
+
+  							} else {
+  									alert(JSON.stringify(err));
+  							}
+  					});
+  				} else {
+  					alert(JSON.stringify(err));
+  				}
+  			});
+  	}
+    //隐藏域存值
+  	function fninputvalue(text){
+  		input = text;
+  	}
+    //获取剧本基本信息
     function fnGetJubenlist() {
   		var id = api.pageParam.InfojubenType;
+      jubenid = api.pageParam.InfojubenType;
   		api.ajax({
   			url: 'http://47.100.11.38/kongmeng/scripts/getScriptById.php?id= ' + id,
   			method: 'get',
@@ -277,16 +332,19 @@
   			}
   		});
   	}
+    //赋值剧本标题
   	function fnGetJubentitle(title) {
   		var stylelist = $api.byId('jubentitle');
   		var	html = title;
   		$api.html(stylelist, html);
   	}
+    //赋值剧本作者
     function fnGetJubenname(name) {
   		var stylelist = $api.byId('jubenname');
   		var	html = name;
   		$api.html(stylelist, html);
   	}
+    //赋值剧本歌词
     function fnGetJubenbody(body) {
   		var stylelist = $api.byId('jubenbody');
       var str1 = JSON.stringify(body);
@@ -297,12 +355,13 @@
   		var	html = str5;
   		$api.html(stylelist, html);
   	}
+    //返回
     function goback() {
         api.closeWin({
             name: 'aloud'
         });
     }
-
+    //进入背景音乐列表
     function fnSoundtrackWin() {
         api.openWin({
             name: 'soundtrack',
@@ -313,14 +372,119 @@
         });
 
     }
+    //保存
+  	function fnLuYinBaoCun(){
+  		//fs 文件管理 删除  拷贝  移除等
+  		//创建目录
+  		// var fs = api.require('fs');
+  		// fs.createDir({
+  		//     path: 'fs://floder'
+  		// }, function(ret, err) {
+  		//     if (ret.status) {
+  		//         alert(JSON.stringify(ret));
+  		//     } else {
+  		//         alert(JSON.stringify(err));
+  		//     }
+  		// });
+  		//拷贝文件
+  		var fs = api.require('fs');
+  		fs.copyTo({
+  		    oldPath: path,
+  		    newPath: 'fs://caogaoxiang'
+  		}, function(ret, err) {
+  				var paths = 'fs://caogaoxiang/' + timestamps +'';
+  		    if (ret.status) {
+  					var fs = api.require('fs');
+  					fs.rename({
+  						oldPath: paths,
+  						newPath: 'fs://caogaoxiang/' + timestamp +'' + jubenid + ''
+  					}, function(ret, err) {
+  						if (ret.status) {
+  								alert(JSON.stringify(ret));
+  						} else {
+  								alert(JSON.stringify(err));
+  						}
+  					});
+  		    } else {
+  		        alert(JSON.stringify(err));
+  		    }
+  		});
+  	}
+  	//试听
+  	function fnLuYinshiting(){
+  		//console.log(path);
+  		fnLuYinshitings();
+  		if(path){
+  			var netAudio = api.require('netAudio');
+  			netAudio.play({
+  					path: path
+  			}, function(ret, err) {
+  					if (ret) {
+  							//alert(JSON.stringify(ret));
+  					} else {
+  							alert(JSON.stringify(err));
+  					}
+  			});
+
+  		}else{
+  			alert('请先录音');
+  		}
+  	}
+  	//试听
+  	function fnLuYinshitings(){
+  		if(path){
+  			var netAudio = api.require('netAudio');
+  			netAudio.play({
+  					path: path
+  			}, function(ret, err) {
+  					if (ret) {
+  							//alert(JSON.stringify(ret));
+  					} else {
+  							alert(JSON.stringify(err));
+  					}
+  			});
+  		}else{
+  			alert('请先录音');
+  		}
+  	}
+    //暂停播放试听
+  	function fnTingZhishiting(){
+  		//暂停播放试听
+  		var netAudio = api.require('netAudio');
+  		netAudio.pause();
+  	}
+    //点击播放并录音
+  	function fnNetAudiosLuYinByID(){
 
 
+  			if(input){
+  				fnBeiYueplay()
+  			}
+  			api.startRecord({
+  			    path: 'fs://luyin/' + timestamp + ''
+  			});
+  			timestamps = timestamp;
+
+  	}
+    //开始暂停
     function fnOpenPlayCollect() {
         var playCollect = $api.byId('playCollect');
-        if (playCollect.getAttribute("src", 2) == "../image/aloud/428129250927140404.png") {
-            playCollect.src = "../image/aloud/63734540119813241.png";
-        } else {
+        if (playCollect.getAttribute("src", 2) == "../image/aloud/63734540119813241.png") {
             playCollect.src = "../image/aloud/428129250927140404.png";
+            fnNetAudiosLuYinByID();
+        } else {
+            playCollect.src = "../image/aloud/63734540119813241.png";
+
+      			//暂停播放
+      			var netAudio = api.require('netAudio');
+      			netAudio.pause();
+      			//暂停录音
+      			api.stopRecord(function(ret, err) {
+      			    if (ret) {
+      			        path = ret.path;
+      			        duration = ret.duration;
+      			    }
+      			});
         }
     };
 </script>

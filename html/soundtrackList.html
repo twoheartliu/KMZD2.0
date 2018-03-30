@@ -86,22 +86,6 @@
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
-    function goback() {
-        api.closeWin({
-            name: 'soundtrackList'
-        });
-
-    }
-    function fnSoundtrackWin() {
-      api.openWin({
-          name: 'soundtrackList',
-          url: './soundtrackList.html',
-          pageParam: {
-              name: 'test'
-          }
-      });
-
-    }
     apiready = function() {
       var header = $api.byId('secHeader');
       $api.fixStatusBar(header);
@@ -120,9 +104,15 @@
                 h: 'auto'
             },
             pageParam: {
-                name: 'test'
+                byid: api.pageParam.byid
             },
             bounces: false,
+        });
+
+    }
+    function goback() {
+        api.closeWin({
+            name: 'soundtrackList'
         });
 
     }

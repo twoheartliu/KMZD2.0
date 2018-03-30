@@ -53,15 +53,15 @@
     <div class="wrapper">
             <!-- <div class="soundtrack_frameDiv2" onclick="text();"><img src="../image/KM_soundtrackXB.png" alt=""></div> -->
             <div id="con">
-                <ul class="on">
+                <!-- <ul class="on">
                     <li onclick="fnSoundtrackList()">
                       <div class="on_li_divImg fl">
                       <img src="../image/KM_soundtrackBF.png" alt=""></div>
-                      <div class="fl">
-                        <span>疗伤</span><span>00:30</span>
+                      <div class="fl" id = "title">
+                        <span>疗伤</span>
                       </div>
                     </li>
-                </ul>
+                </ul> -->
             </div>
         <!-- </div> -->
     </div>
@@ -73,15 +73,41 @@
 <script type="text/javascript" src="../script/swiper.min.js"></script>
 <script type="text/javascript">
     apiready = function() {
-
+      fnGetBeiJingYinYueTypelist();
 
     }
-    function fnSoundtrackList() {
+    function fnGetBeiJingYinYueTypelist() {
+  		api.ajax({
+  			url: 'http://47.100.11.38/kongmeng/bgmusic/getStyleList.php',
+  			method: 'get',
+  			dataType: 'json',
+  		}, function(ret, err) {
+  			if (ret) {
+  				//alert(JSON.stringify(ret));
+          fnBytitleList(ret);
+  			} else {
+  				alert(JSON.stringify(err));
+  			}
+  		});
+  	}
+    function fnBytitleList(data_) {
+      //console.log(JSON.stringify(data_));
+  		var stylelist = $api.byId('con');
+  		var html = '';
+  		 for (var i = 0; i < data_.data.length; i++) {
+        html += '<ul class="on">  <li onclick="fnSoundtrackList(' + data_.data[i].id + ');"><div class="on_li_divImg fl">  <img src="../image/KM_soundtrackBF.png" alt=""></div><div class="fl" id = "title"><span >' + data_.data[i].name + '</span></div></li></ul>';
+  		}
+  		$api.html(stylelist, html);
+      //aSpan[0].className = 'on';
+      //console.log(aSpan.length);
+
+  	}
+    function fnSoundtrackList(byid) {
       api.openWin({
           name: 'soundtrackList',
           url: './soundtrackList.html',
           pageParam: {
-              name: 'test'
+              byid: byid
           }
       });
 
