@@ -20,7 +20,7 @@ apiready = function () {
     $api.addEvt(search, 'click', OpenResult);
 
     api.openFrame({
-        name: 'history',
+        name: 'history1',
         url: '../html/history1.html',
         bounces: false,
         rect: {
@@ -127,24 +127,24 @@ function ChangeButton(flag) {
 function AddHistory(words, fromRoot) {
 
     api.getPrefs({
-        key: 'historys'
+        key: 'history1'
     }, function (ret, err) {
       //console.log(JSON.stringify(ret));
         //alert(JSON.stringify(ret));
         var flag = false;//是否增加历史记录
-        var historyText = '' || ret.value ;
+        var historyText1 = '' || ret.value ;
 
-        var historyArray = historyText.split(',');
-        for (var i = 0; i < historyArray.length; i++) {
-            decodeURIComponent(historyArray[i]) == words && (flag = true);
+        var historyArray1 = historyText1.split(',');
+        for (var i = 0; i < historyArray1.length; i++) {
+            decodeURIComponent(historyArray1[i]) == words && (flag = true);
         }
-        !flag && historyArray.splice(1,0,encodeURIComponent(words));
+        !flag && historyArray1.splice(1,0,encodeURIComponent(words));
         !flag && api.setPrefs({
-            key: 'historys',
-            value: historyArray.join(',')
+            key: 'history1',
+            value: historyArray1.join(',')
         });
         api.openWin({
-            name: 'result',
+            name: 'result1',
             url: '../html/result1.html',
             delay: 500,
             pageParam: {
