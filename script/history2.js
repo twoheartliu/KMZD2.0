@@ -14,11 +14,11 @@ apiready = function () {
 function InitHistory() {
     var history = $api.byId('history');
     api.getPrefs({
-        key: 'history'
+        key: 'history2'
     }, function (ret, err) {
         var historyText = ret.value || '';
         var historyArray = historyText.split(',');
-        //console.log(historyArray);
+        //console.log(historyArrays);
         var li = '<li class="history" data-index="{index}">{text}<img class="historyImg" src="../image/x.png" alt="" style="float: right;"></li>';
         for (var i = 0; i < historyArray.length; i++) {
             if (historyArray[i].length == 0)
@@ -37,21 +37,21 @@ function ClearHistory(index) {
     if (!index) {
         history.innerHTML = '';
         api.removePrefs({
-            key: 'history'
+            key: 'history2'
         });
         api.toast({
             msg: '已清空所有历史记录'
         });
     } else {
         api.getPrefs({
-            key: 'history'
+            key: 'history2'
         }, function (ret, err) {
-            var historyText = ret.value;
-            var historyArray = historyText.split(',');
-            historyArray.splice(index, 1);
+            var historyText2 = ret.value;
+            var historyArray2 = historyText2.split(',');
+            historyArray2.splice(index, 1);
             api.setPrefs({
-                key: 'history',
-                value: historyArray.join(',')
+                key: 'history2',
+                value: historyArray2.join(',')
             });
             api.toast({
                 msg: '已清除历史记录'
@@ -73,7 +73,7 @@ document.addEventListener('click', function (e) {
     if (targetClassName == 'history') {
         api.openWin({
             name: 'result',
-            url: '../html/result.html',
+            url: '../html/result2.html',
             delay: 500,
             pageParam: {
                 text: target.innerText,

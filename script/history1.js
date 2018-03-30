@@ -15,7 +15,7 @@ apiready = function () {
 function InitHistory() {
     var history = $api.byId('history');
     api.getPrefs({
-        key: 'historys'
+        key: 'history1'
     }, function (ret, err) {
         var historyText = '' || ret.value  ;
         var historyArray = historyText.split(',');
@@ -63,26 +63,26 @@ function ClearHistory(index) {
   //alert(index);
   //var e = index;
       alert(index);
-    var history = $api.byId('history');
+    var history1 = $api.byId('history');
     if (!index) {
 
-        history.innerHTML = '';
+        history1.innerHTML = '';
         api.removePrefs({
-            key: 'historys'
+            key: 'history1'
         });
         api.toast({
             msg: '已清空所有历史记录'
         });
     }else{
       api.getPrefs({
-          key: 'historys'
+          key: 'history1'
       }, function (ret, err) {
-          var historyText = ret.value;
-          var historyArray = historyText.split(',');
-          historyArray.splice(index, 1);
+          var historyText1 = ret.value;
+          var historyArray1 = historyText1.split(',');
+          historyArray1.splice(index, 1);
           api.setPrefs({
-              key: 'historys',
-              value: historyArray.join(',')
+              key: 'history1',
+              value: historyArray1.join(',')
           });
           //fnnone();
            var parent=document.getElementById("history");
@@ -109,7 +109,7 @@ function ClearHistory(index) {
 
 function AppendHistory(text) {
 
-    var history = $api.byId('history');
+    var histor = $api.byId('history');
     // history.innerHTML = '';
     // InitHistory()
     var index = 1;

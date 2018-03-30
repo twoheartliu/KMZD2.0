@@ -14,11 +14,11 @@ apiready = function () {
 function InitHistory() {
     var history = $api.byId('history');
     api.getPrefs({
-        key: 'history'
+        key: 'history3'
     }, function (ret, err) {
         var historyText = ret.value || '';
         var historyArray = historyText.split(',');
-        //console.log(historyArray);
+        //console.log(historyArrays);
         var li = '<li class="history" data-index="{index}">{text}<img class="historyImg" src="../image/x.png" alt="" style="float: right;"></li>';
         for (var i = 0; i < historyArray.length; i++) {
             if (historyArray[i].length == 0)
@@ -33,25 +33,25 @@ function InitHistory() {
 
 
 function ClearHistory(index) {
-    var history = $api.byId('history');
+    var history3 = $api.byId('history');
     if (!index) {
-        history.innerHTML = '';
+        history3.innerHTML = '';
         api.removePrefs({
-            key: 'history'
+            key: 'history3'
         });
         api.toast({
             msg: '已清空所有历史记录'
         });
     } else {
         api.getPrefs({
-            key: 'history'
+            key: 'history3'
         }, function (ret, err) {
-            var historyText = ret.value;
-            var historyArray = historyText.split(',');
-            historyArray.splice(index, 1);
+            var historyText3 = ret.value;
+            var historyArray3 = historyText3.split(',');
+            historyArray3.splice(index, 1);
             api.setPrefs({
-                key: 'history',
-                value: historyArray.join(',')
+                key: 'history3',
+                value: historyArray3.join(',')
             });
             api.toast({
                 msg: '已清除历史记录'
@@ -73,7 +73,7 @@ document.addEventListener('click', function (e) {
     if (targetClassName == 'history') {
         api.openWin({
             name: 'result',
-            url: '../html/result.html',
+            url: '../html/result3.html',
             delay: 500,
             pageParam: {
                 text: target.innerText,

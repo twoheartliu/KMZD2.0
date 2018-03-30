@@ -129,15 +129,15 @@ function AddHistory(words, fromRoot) {
         key: 'history'
     }, function (ret, err) {
         var flag = false;//是否增加历史记录
-        var historyTexts = ret.value || '';
-        var historyArrays = historyTexts.split(',');
-        for (var i = 0; i < historyArrays.length; i++) {
-            decodeURIComponent(historyArrays[i]) == words && (flag = true);
+        var historyText = ret.value || '';
+        var historyArray = historyText.split(',');
+        for (var i = 0; i < historyArray.length; i++) {
+            decodeURIComponent(historyArray[i]) == words && (flag = true);
         }
-        !flag && historyArrays.push(encodeURIComponent(words));
+        !flag && historyArray.push(encodeURIComponent(words));
         !flag && api.setPrefs({
             key: 'history',
-            value: historyArrays.join(',')
+            value: historyArray.join(',')
         });
         api.openWin({
             name: 'result',

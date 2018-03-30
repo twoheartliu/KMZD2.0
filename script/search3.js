@@ -20,8 +20,8 @@ apiready = function () {
     $api.addEvt(search, 'click', OpenResult);
 
     api.openFrame({
-        name: 'history1',
-        url: '../html/history1.html',
+        name: 'history3',
+        url: '../html/history3.html',
         bounces: false,
         rect: {
             x: 0,
@@ -54,7 +54,7 @@ function OpenInputBox() {
             }
         },
         maxRows: 1,
-        placeholder: '搜电影、软件、明星、番号...',
+        placeholder: '请输入关键词搜索...',
         keyboardType: 'search',
         fixedOn: ''
     }, function (ret) {
@@ -127,25 +127,25 @@ function ChangeButton(flag) {
 function AddHistory(words, fromRoot) {
 
     api.getPrefs({
-        key: 'history1'
+        key: 'history3'
     }, function (ret, err) {
       //console.log(JSON.stringify(ret));
         //alert(JSON.stringify(ret));
         var flag = false;//是否增加历史记录
-        var historyText1 = '' || ret.value ;
+        var historyText3 = '' || ret.value ;
 
-        var historyArray1 = historyText1.split(',');
-        for (var i = 0; i < historyArray1.length; i++) {
-            decodeURIComponent(historyArray1[i]) == words && (flag = true);
+        var historyArray3 = historyText3.split(',');
+        for (var i = 0; i < historyArray3.length; i++) {
+            decodeURIComponent(historyArray3[i]) == words && (flag = true);
         }
-        !flag && historyArray1.splice(1,0,encodeURIComponent(words));
+        !flag && historyArray3.splice(1,0,encodeURIComponent(words));
         !flag && api.setPrefs({
-            key: 'history1',
-            value: historyArray1.join(',')
+            key: 'history3',
+            value: historyArray3.join(',')
         });
         api.openWin({
-            name: 'result1',
-            url: '../html/result1.html',
+            name: 'result',
+            url: '../html/result3.html',
             delay: 500,
             pageParam: {
                 text: words,
