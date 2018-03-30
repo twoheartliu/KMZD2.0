@@ -26,7 +26,8 @@
         .header_fl img {
             width: 15px;
             height: 20px;
-            padding: 10px;
+            /*padding: 10px;*/
+            padding: 10px 10px 10px 20px;
         }
 
         .header_center {
@@ -42,11 +43,15 @@
         .header_fr {
             width: 30px;
             height: 30px;
-            padding: 10px;
+            padding: 10px 20px 10px 10px;
             line-height: 30px;
             font-size: 15px;
             color: #fff;
             /*display: none;*/
+        }
+        .header_fr img{
+          width: 100%;
+
         }
     </style>
 </head>
@@ -54,7 +59,7 @@
 <body>
     <header id="secHeader">
         <div class="header_fl fl" onclick="goback();"><img src="../image/KM_Hfh.png" alt=""></div>
-        <div class="header_fr fr"></div>
+        <div class="header_fr fr" onclick="fnCgxWin();"><img src="../image/aloud/246274041330857389.png" alt=""></div>
         <div class="header_center">朗读</div>
     </header>
 </body>
@@ -67,6 +72,16 @@
         api.closeWin({
             name: 'read'
         });
+    }
+    function fnCgxWin() {
+        api.openWin({
+            name: 'cgxwin',
+            url: './cgxwin.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
+
     }
     apiready = function() {
         var header = $api.byId('secHeader');
