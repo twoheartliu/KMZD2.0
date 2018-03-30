@@ -175,14 +175,19 @@
         .name_bt div{
           flex: 1;
         }
-        .name_bt_c{
-          background-image: url(../image/aloud/738958635261814309.png);
-          background-repeat: no-repeat;
-          /*background-size: ;*/
-          background-position: center;
+        .name_bt_c {
+            /*background-image: url(../image/aloud/738958635261814309.png);*/
+            background-repeat: no-repeat;
+            /*background-size: ;*/
+            background-position: center;
+        }
+        .name_bt_c img {
+            display: block;
+            margin: 25px auto;
+            /*line-height: 100px;*/
         }
         .name_bt_s{
-          background-image: url(../image/aloud/801115447645509676.png);
+          background-image: url(../image/aloud/673516943132436237.png);
           background-repeat: no-repeat;
           /*background-size: ;*/
           background-position: center;
@@ -229,7 +234,7 @@
     </div>
     <footer id="footer">
       <div class="name_bt">
-          <div class="name_bt_c"></div>
+          <div class="name_bt_c"><img src="../image/aloud/335551519577750673.png" alt="" id="playCollects" onclick="fnAletr();"></div>
           <div class="name_bt_b"><img src="../image/aloud/63734540119813241.png" alt="" id="playCollect" onclick="fnOpenPlayCollect();"></div>
           <div class="name_bt_s" onclick="fnLuYinshiting();"></div>
       </div>
@@ -413,22 +418,31 @@ var timestamps;
   	//试听
   	function fnLuYinshiting(){
   		//console.log(path);
-  		fnLuYinshitings();
-  		if(path){
-  			var netAudio = api.require('netAudio');
-  			netAudio.play({
-  					path: path
-  			}, function(ret, err) {
-  					if (ret) {
-  							//alert(JSON.stringify(ret));
-  					} else {
-  							alert(JSON.stringify(err));
-  					}
-  			});
+  		// fnLuYinshitings();
+  		// if(path){
+  		// 	var netAudio = api.require('netAudio');
+  		// 	netAudio.play({
+  		// 			path: path
+  		// 	}, function(ret, err) {
+  		// 			if (ret) {
+  		// 					//alert(JSON.stringify(ret));
+  		// 			} else {
+  		// 					alert(JSON.stringify(err));
+  		// 			}
+  		// 	});
+      //
+  		// }else{
+  		// 	alert('请先录音');
+  		// }
+        api.openWin({
+            name: 'ctwin',
+            url: './ctwin.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
 
-  		}else{
-  			alert('请先录音');
-  		}
+
   	}
   	//试听
   	function fnLuYinshitings(){
@@ -487,4 +501,26 @@ var timestamps;
       			});
         }
     };
+    function fnAletr() {
+        // api.confirm({
+        //     title: '是否重新录制',
+        //     msg: 'testmsg',
+        //     buttons: ['确定', '取消']
+        // }, function(ret, err) {
+        //     var index = ret.buttonIndex;
+        //     alert(JSON.stringify( ret ));
+        //     if (index == 1) {
+        //       alert(1)
+        //     }else {
+        //       alert(2)
+        //     }
+        // });
+        var playCollect = $api.byId('playCollects');
+        if (playCollect.getAttribute("src", 2) == "../image/aloud/738958635261814309.png") {
+            playCollect.src = "../image/aloud/335551519577750673.png";
+        } else {
+            playCollect.src = "../image/aloud/738958635261814309.png";
+        }
+
+    }
 </script>
