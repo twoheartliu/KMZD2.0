@@ -289,6 +289,8 @@ var timestamps;
   					fninputvalue(inputss);
   				}
   		});
+
+
     }
     //播放背景音乐
   	function fnBeiYueplay(){
@@ -382,15 +384,7 @@ var timestamps;
   		//fs 文件管理 删除  拷贝  移除等
   		//创建目录
   		// var fs = api.require('fs');
-  		// fs.createDir({
-  		//     path: 'fs://floder'
-  		// }, function(ret, err) {
-  		//     if (ret.status) {
-  		//         alert(JSON.stringify(ret));
-  		//     } else {
-  		//         alert(JSON.stringify(err));
-  		//     }
-  		// });
+
   		//拷贝文件
   		var fs = api.require('fs');
   		fs.copyTo({
@@ -414,6 +408,52 @@ var timestamps;
   		        alert(JSON.stringify(err));
   		    }
   		});
+      //var fs = api.require('fs');
+      fs.exist({
+          path: 'fs://luyintxt'
+      }, function(ret, err) {
+          if (ret.exist) {
+              console.log('222');
+              if (ret.directory) {
+                fs.createFile({
+                    path: 'fs://luyintxt/' + timestamp +'' + jubenid + '.txt'
+                }, function(ret, err) {
+                    if (ret.status) {
+                        alert(JSON.stringify(ret));
+                    } else {
+                        alert(JSON.stringify(err));
+                    }
+                });
+                  //alert('文件夹');
+              } else {
+                  alert('文件');
+              }
+          } else {
+            console.log('111');
+            fs.createDir({
+                path: 'fs://luyintxt'
+            }, function(ret, err) {
+                if (ret.status) {
+                  fs.createFile({
+                      path: 'fs://luyintxt/' + timestamp +'' + jubenid + '.txt'
+                  }, function(ret, err) {
+                      if (ret.status) {
+                          alert(JSON.stringify(ret));
+                      } else {
+                          alert(JSON.stringify(err));
+                      }
+                  });
+
+                } else {
+                    alert(JSON.stringify(err));
+                }
+            });
+            //  alert(JSON.stringify(err));
+          }
+      });
+
+
+
   	}
   	//试听
   	function fnLuYinshiting(){
