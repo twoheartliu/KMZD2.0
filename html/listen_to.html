@@ -16,9 +16,20 @@
         header{
           height: 50px;
           background-color: #111010;
+          overflow: hidden;
         }
         .egret-img {
-          display: inline-block;
+          display: block;
+          float: left;
+          /*padding-left: 18px;*/
+          width: 45px;
+          height: 50px;
+        }
+        .egret-imgs {
+          display: block;
+          float: right;
+          width: 45px;
+          height: 50px;
           /*padding-left: 18px;*/
         }
         .egret-img img {
@@ -27,14 +38,14 @@
           padding: 15px;
         }
         .egret-txt{
-          display: inline-block;
+          display: block;
           margin: 0 auto;
           width: 75%;
           color: #fff;
           text-align: center;
-          line-height: 20px;
+          line-height: 25px;
           height:50px;
-          vertical-align: top;
+          /*vertical-align: top;*/
         }
         .egret-txt h1{
           font-size: 16px;
@@ -49,10 +60,12 @@
     <!-- 头部 -->
       <header id="header">
           <div  class="egret-img"><img src="../image/cm2_icn_back.png" alt="" onclick="goback()" ></div>
+          <div  class="egret-imgs"></div>
           <div class="egret-txt">
             <h1>失去地心的魔方</h1>
             <p>周晓鑫</p>
           </div>
+
       </header>
   </body>
   <script type="text/javascript" src="../script/api.js"></script>
