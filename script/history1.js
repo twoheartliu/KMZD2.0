@@ -20,7 +20,7 @@ function InitHistory() {
         var historyText = '' || ret.value  ;
         var historyArray = historyText.split(',');
         //alert(JSON.stringify(historyArray));
-        var li = '<li class="history " id="historysss{index}" data-index="{index}">{text}<img class="historyImg" src="../image/x.png" alt="" style="float: right;" onclick="ClearHistory({index})" ></li>';
+        var li = '<li class="history " id="historysss{index}" data-index="{index}">{text}<img class="historyImg" src="../image/x.png" alt="" style="float: right;padding-top:5px;" onclick="ClearHistory({index})" ></li>';
         for (var i = 0; i < historyArray.length; i++) {
             if (historyArray[i].length == 0)
                 continue;
