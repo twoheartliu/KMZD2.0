@@ -538,9 +538,9 @@
     }
     //音频播放模块
     function netAudios() {
-        // clearInterval(timer3);
-        // clearInterval(timer2);
-        // clearInterval(timer1);
+        clearInterval(timer3);
+        clearInterval(timer2);
+        clearInterval(timer1);
         var myAudio = document.getElementById("myAudio");
         myAudio.play();
         initEventListennerBoFangMoshi();
@@ -733,26 +733,39 @@
         play = y;
         fnBoFangyinpinxinxi();
     }
-
     function fnTingdanZhanshi(data_) {
-    // console.log(data_.data);
-        //Data = data_;
-        for (y = 0; y < data_.data.length; y++) {
-            var id1 = data_.data[y];
-// console.log(id1);
+        Data = data_;
+        for (y = 0; y < Data.data.length; y++) {
+            var id1 = Data.data[y].id;
             var id2 = DangQianbofangid;
-// console.log(id2);
             if (id1 == id2) {
-              // console.log(id1);
-              // console.log(y);
-                // clearInterval(timer3);
-                // clearInterval(timer2);
-                // clearInterval(timer1);
-                // fnDQBF(y);
+                clearInterval(timer3);
+                clearInterval(timer2);
+                clearInterval(timer1);
+                fnDQBF(y);
             }
         }
-        // console.log(y);
     }
+
+//     function fnTingdanZhanshi(data_) {
+//     // console.log(data_.data);
+//         //Data = data_;
+//         for (y = 0; y < data_.data.length; y++) {
+//             var id1 = data_.data[y];
+// // console.log(id1);
+//             var id2 = DangQianbofangid;
+// // console.log(id2);
+//             if (id1 == id2) {
+//               // console.log(id1);
+//               console.log(y);
+//                 clearInterval(timer3);
+//                 clearInterval(timer2);
+//                 clearInterval(timer1);
+//                 fnDQBF(y);
+//             }
+//         }
+//         // console.log(y);
+//     }
     //随机播放歌曲
     function suiji() {
         var myAudio = document.getElementById("myAudio");
@@ -881,6 +894,7 @@
             name: 'netUrl'
         }, function(ret, err) {
             if (ret) {
+              console.log(ret.value.id);
                 netUrl(ret.value.id);
             }
         });
@@ -888,6 +902,7 @@
             name: 'netPlayLieIdUrl'
         }, function(ret, err) {
             if (ret) {
+              console.log(ret.value.playlistid);
                 netPlayLieIdUrl(ret.value.playlistid);
             }
         });
