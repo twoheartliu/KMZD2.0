@@ -274,6 +274,7 @@ var caogaozuozhe;
 var duration;
 var timestamp=new Date().getTime();
 var timestamps;
+var Guid = new Array();
     apiready = function() {
       var CompanyInfobeiyue;
       var secHeader = $api.byId('secHeader');
@@ -322,6 +323,10 @@ var timestamps;
   		input = text;
   	}
     //获取剧本基本信息
+    var title;
+    var name;
+    var body;
+    var cgxid;
     function fnGetJubenlist() {
   		var id = api.pageParam.InfojubenType;
       jubenid = api.pageParam.InfojubenType;
@@ -331,6 +336,18 @@ var timestamps;
   			dataType: 'json',
   		}, function(ret, err) {
   			if (ret) {
+        // var ccc =   typeof(timestamp);
+        // console.log(ccc);
+
+          cgxid = timestamp.toString() + jubenid.toString();
+          title = ret.data[0].title;
+          name = ret.data[0].name;
+          body = ret.data[0].body;
+          Guid.push(cgxid);
+          Guid.push(title);
+          Guid.push(name);
+          Guid.push(body);
+          // Guid = '' + cgxid + ' , ' + title + ' , ' + name + ' , ' + body + '';
           fnGetJubentitle(ret.data[0].title);
           fnGetJubenname(ret.data[0].name);
           fnGetJubenbody(ret.data[0].body);
@@ -399,7 +416,7 @@ var timestamps;
   						newPath: 'fs://caogaoxiang/' + timestamp +'' + jubenid + ''
   					}, function(ret, err) {
   						if (ret.status) {
-  								alert(JSON.stringify(ret));
+  								//alert(JSON.stringify(ret));
   						} else {
   								alert(JSON.stringify(err));
   						}
@@ -408,53 +425,103 @@ var timestamps;
   		        alert(JSON.stringify(err));
   		    }
   		});
-      //var fs = api.require('fs');
+      // var fs = api.require('fs');
       fs.exist({
-          path: 'fs://luyintxt'
+          path: 'fs://luyintxtss',
       }, function(ret, err) {
           if (ret.exist) {
-              console.log('222');
+
               if (ret.directory) {
-                fs.createFile({
-                    path: 'fs://luyintxt/' + timestamp +'' + jubenid + '.txt'
-                }, function(ret, err) {
-                    if (ret.status) {
-                        alert(JSON.stringify(ret));
-                    } else {
-                        alert(JSON.stringify(err));
-                    }
-                });
-                  //alert('文件夹');
+                newLuyinWenjian();
               } else {
                   alert('文件');
               }
           } else {
-            console.log('111');
-            fs.createDir({
-                path: 'fs://luyintxt'
-            }, function(ret, err) {
-                if (ret.status) {
-                  fs.createFile({
-                      path: 'fs://luyintxt/' + timestamp +'' + jubenid + '.txt'
-                  }, function(ret, err) {
-                      if (ret.status) {
-                          alert(JSON.stringify(ret));
-                      } else {
-                          alert(JSON.stringify(err));
-                      }
-                  });
+            // console.log(JSON.stringify(ret));
 
-                } else {
-                    alert(JSON.stringify(err));
-                }
-            });
+            newluyintxt();
             //  alert(JSON.stringify(err));
           }
       });
-
-
-
   	}
+    function newluyintxt(){
+      var fs = api.require('fs');
+      fs.createDir({
+          path: 'fs://luyintxtss',
+      }, function(ret, err) {
+        // console.log(JSON.stringify(ret));
+          if (ret.status) {
+            // console.log('44444');
+            newLuyinWenjian();
+          } else {
+            console.log(JSON.stringify(err));
+              // alert(JSON.stringify(err));
+          }
+      });
+    }
+    //创建录音文件；
+    function newLuyinWenjian(){
+      var fs = api.require('fs');
+      // console.log('33');
+      fs.createFile({
+          path: 'fs://luyintxtss/' + timestamp +'' + jubenid + '.txt'
+      }, function(ret, err) {
+          if (ret.status) {
+              // console.log('222');
+              var fs = api.require('fs');
+              // fs.open({
+              //     path: 'fs://luyintxtss/' + timestamp +'' + jubenid + '.txt',
+              //     flags: 'write'
+              // }, function(ret, err) {
+              //     if (ret.status) {
+              //       // console.log();
+              //       //var fd = ret.fd;
+              //       console.log(JSON.stringify(ret));
+              //       // var fs = api.require('fs');
+              //       fs.write({
+              //         data: '11111111111',
+              //         offset: 0
+              //       }, function(ret, err) {
+              //         console.log(JSON.stringify(ret));
+              //         if (ret.status) {
+              //           console.log(JSON.stringify(ret));
+              //             //alert(JSON.stringify(ret));
+              //         } else {
+              //           console.log(JSON.stringify(err));
+              //             // alert(JSON.stringify(err));
+              //         }
+              //       });
+              //         //alert(JSON.stringify(ret));
+              //     } else {
+              //         // alert(JSON.stringify(err));
+              //         console.log(JSON.stringify(err));
+              //     }
+              // });
+              var aaaa = JSON.stringify(Guid);
+              console.log(Guid);
+              fs.writeByLength({
+                  path: 'fs://luyintxtss/' + timestamp +'' + jubenid + '.txt',
+                  content: aaaa,
+                  place: {
+                      start: 0
+                  }
+              }, function(ret, err) {
+                console.log('1111');
+                console.log(JSON.stringify(ret));
+                  if (ret.status) {
+                      // alert(JSON.stringify(ret));
+
+                  } else {
+                    // console.log(JSON.stringify(err));
+                      alert(JSON.stringify(err));
+                  }
+              });
+              //alert(JSON.stringify(ret));
+          } else {
+              alert(JSON.stringify(err));
+          }
+      });
+    }
   	//试听
   	function fnLuYinshiting(){
   		//console.log(path);
