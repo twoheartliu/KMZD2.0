@@ -343,10 +343,13 @@ var Guid = new Array();
           title = ret.data[0].title;
           name = ret.data[0].name;
           body = ret.data[0].body;
-          Guid.push(cgxid);
-          Guid.push(title);
-          Guid.push(name);
-          Guid.push(body);
+          if(!name){
+            name = '';
+          }
+          // Guid.push(cgxid);
+          // Guid.push(title);
+          // Guid.push(name);
+          // Guid.push(body);
           // Guid = '' + cgxid + ' , ' + title + ' , ' + name + ' , ' + body + '';
           fnGetJubentitle(ret.data[0].title);
           fnGetJubenname(ret.data[0].name);
@@ -425,24 +428,53 @@ var Guid = new Array();
   		        alert(JSON.stringify(err));
   		    }
   		});
-      // var fs = api.require('fs');
-      fs.exist({
-          path: 'fs://luyintxtss',
+
+      api.getPrefs({
+          key: 'cgxlist'
       }, function(ret, err) {
-          if (ret.exist) {
-
-              if (ret.directory) {
-                newLuyinWenjian();
-              } else {
-                  alert('文件');
-              }
+          if (ret) {
+              var flag = false; //是否增加历史记录
+              var historyUrlText = ret.value;
+              var historyUrlArray = historyUrlText.split(',');
+              for (var i = 0; i < historyUrlArray.length; i++) {
+                  historyUrlArray[i] == cgxid && (flag = true);
+              }!flag && historyUrlArray.splice(1, 0, cgxid,title,name,body);
+              !flag && api.setPrefs({
+                  key: 'cgxlist',
+                  value: historyUrlArray.join(',')
+              });
+              // fnHistoryUrl(id);
           } else {
-            // console.log(JSON.stringify(ret));
-
-            newluyintxt();
-            //  alert(JSON.stringify(err));
+              alert(JSON.stringify(err));
           }
       });
+      // api.sendEvent({
+      //     name: 'netPlayLieCgx',
+      //     extra: {
+      //         cgxid: cgxid,
+      //         title: title,
+      //         name: name,
+      //         body: body
+      //     }
+      // });
+      // var fs = api.require('fs');
+      // fs.exist({
+      //     path: 'fs://luyintxtss',
+      // }, function(ret, err) {
+      //     if (ret.exist) {
+      //
+      //         if (ret.directory) {
+      //           newLuyinWenjian();
+      //         } else {
+      //             alert('文件');
+      //         }
+      //     } else {
+      //       // console.log(JSON.stringify(ret));
+      //
+      //       newluyintxt();
+      //       //  alert(JSON.stringify(err));
+      //     }
+      // });
   	}
     function newluyintxt(){
       var fs = api.require('fs');

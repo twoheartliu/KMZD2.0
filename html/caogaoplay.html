@@ -503,8 +503,8 @@
         api.addEventListener({
             name: 'neizhiliebiaoPlaysss'
         }, function(ret, err) {
-            listid = ret.value.playlistid;
-            aa = ret.value.a;
+            listid = ret.value.cgxid;
+            aa = ret.value.cgxid;
             bofangs = ret.value.bofang;
             fnA(aa, bofangs);
             fnAAaa(aa, bofangs);
@@ -525,7 +525,7 @@
       playid = api.pageParam.playid;
       dqbfid = api.pageParam.a;
       a = api.pageParam.a;
-      id = api.pageParam.cg;
+      id = api.pageParam.cgxid;
       //console.log(id);
       if (id) {
           api.sendEvent({
@@ -973,7 +973,7 @@
         var idx = 0;
         var bofangmoshi = 0;
         api.sendEvent({
-            name: 'bofangmoshi',
+            name: 'bofangmoshiluyin',
             extra: {
                 bofangmoshi: bofangmoshi
             }
@@ -987,7 +987,7 @@
             if (idx == 1) {
                 var bofangmoshi = 1;
                 api.sendEvent({
-                    name: 'bofangmoshi',
+                    name: 'bofangmoshiluyin',
                     extra: {
                         bofangmoshi: bofangmoshi
                     }
@@ -995,7 +995,7 @@
             } else if (idx == 2) {
                 var bofangmoshi = 2;
                 api.sendEvent({
-                    name: 'bofangmoshi',
+                    name: 'bofangmoshiluyin',
                     extra: {
                         bofangmoshi: bofangmoshi
                     }
@@ -1003,7 +1003,7 @@
             } else {
                 var bofangmoshi = 0;
                 api.sendEvent({
-                    name: 'bofangmoshi',
+                    name: 'bofangmoshiluyin',
                     extra: {
                         bofangmoshi: bofangmoshi
                     }
