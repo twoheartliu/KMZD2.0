@@ -54,7 +54,7 @@ function OpenInputBox() {
             }
         },
         maxRows: 1,
-        placeholder: '搜电影、软件、明星、番号...',
+        placeholder: '请输入关键词搜索...',
         keyboardType: 'search',
         fixedOn: ''
     }, function (ret) {
