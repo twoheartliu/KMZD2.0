@@ -12,7 +12,7 @@
     <style>
         html,body {
           /*min-height: 100%;*/
-          background-image: url(./image/aloud/757019096033136456.png);
+          background-image: url(./image/aloud/7894654165.png);
           background-size: 100% 100%;
           width: 100%;
           height: 100%;
@@ -24,7 +24,7 @@
         .clr{clear: both;}
         #footer{
             width: 100%;
-            height: 200px;
+            height: 150px;
             position: absolute;
             bottom: 0;
         }
@@ -49,7 +49,7 @@
     </div>
     <div class="login_footer">
       <div class="p20px">
-        <div class="login_qq fl" onclick="fnqqDl();">QQ登录 ></div>
+        <div class="login_qq fl" onclick="fnQQLogin();">QQ登录 ></div>
         <div class="login_sj fr" onclick="fnSjWin();">手机号登录 ></div>
         <div class="clr"></div>
       </div>
@@ -77,4 +77,58 @@
       });
 
     }
+    function fnQQLogin() {
+      var qq = api.require('qq');
+      var login = function() {
+        qq.login(function(ret, err) {
+          var openId = ret.openId;
+          var accessToken = ret.accessToken;
+          if(ret.status){
+            api.alert({
+                title: '授权成功',
+                msg: '正在打开孔孟知道...',
+            }, function(ret, err){
+                if( ret ){
+                     //alert( JSON.stringify( ret ) );
+                     qq.getUserInfo(function(ret,err) {
+                        if (ret.status) {
+                          //console.log(JSON.stringify(ret.info));
+                             //alert(JSON.stringify(ret));
+                           var qqziliao = ret.info;
+                           api.openWin({
+                               name: 'index',
+                               url: './index.html',
+                               pageParam: {
+                                   name: 'test',
+                                   qqziliao: qqziliao
+                               }
+                           });
+                        }else{
+                             alert(JSON.stringify(err));
+                        }
+                     });
+                }else{
+                     alert( JSON.stringify( err ) );
+                }
+            });
+          }else {
+              //var toast = new auiToast();
+              // var toast.fail({
+              //     title: "授权失败",
+              //     duration: 1500
+              // });
+          }
+        });
+      };
+      qq.installed(function(ret, err) {
+        if (ret.status) {
+          login();
+        } else {
+          api.alert({
+            msg : "当前设备未安装QQ客户端"
+          });
+        }
+      });
+    };
+
 </script>

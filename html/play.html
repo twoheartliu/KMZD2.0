@@ -329,10 +329,14 @@
 
         input[type=range] {
             -webkit-appearance: none;
-            width: 80%;
+            width: 63%;
             border-radius: 10px;
             display: block;
             margin: 0 auto;
+            position: absolute;
+            bottom: 4px;
+            left: 18%;
+            height: 5px;
             /*这个属性设置使填充进度条时的图形为圆角*/
             /*background: -webkit-linear-gradient(#059CFA, #059CFA) no-repeat;*/
             /*background: -webkit-linear-gradient(#059CFA, #059CFA) no-repeat;*/
@@ -341,8 +345,8 @@
 
         input[type=range]::-webkit-slider-thumb {
             -webkit-appearance: none;
-            height: 20px;
-            width: 20px;
+            height: 15px;
+            width: 15px;
             margin-top: -5px;
             /*使滑块超出轨道部分的偏移量相等*/
             background: #ffffff;
@@ -359,25 +363,25 @@
         }
 
         input[type=range]::-webkit-slider-runnable-track {
-            height: 10px;
-            border-radius: 10px;
+            height: 5px;
+            border-radius: 2.5px;
             /*将轨道设为圆角的*/
-            box-shadow: 0 1px 1px #def3f8, inset 0 .125em .125em #0d1112;
+            /*box-shadow: 0 1px 1px #def3f8, inset 0 .125em .125em #0d1112;*/
             /*轨道内置阴影效果*/
         }
 
         input[type=range]::-ms-fill-lower {
             /*进度条已填充的部分*/
-            height: 22px;
-            border-radius: 10px;
-            background: linear-gradient(to right, #ff0000, #1abc9c 100%, #123);
+            height: 15px;
+            border-radius: 5px;
+            /*background: linear-gradient(to right, #ff0000, #1abc9c 100%, #123);*/
             /*background: red !important;*/
         }
 
         input[type=range]::-ms-fill-upper {
             /*进度条未填充的部分*/
-            height: 22px;
-            border-radius: 10px;
+            height: 15px;
+            /*border-radius: 10px;*/
             background: #ffffff;
         }
 
@@ -390,13 +394,13 @@
         }
 
         input[type=range]::-moz-range-progress {
-            background: linear-gradient(to right, #059CFA, white 100%, white);
-            height: 13px;
-            border-radius: 10px;
+            /*background: linear-gradient(to right, #059CFA, white 100%, white);*/
+            height: 5px;
+            /*border-radius: 5px;*/
         }
 
         .red {
-            background: #000;
+            background: #89211b;
         }
         #player{
           display: block;
@@ -452,11 +456,11 @@
         <div id="control" class="qx">
             <div id="slider">
                 <span class="s" id="kaishijishi">
-                  0:00
+                  00:00:00
                 </span>
                 <input type="range" id="range" name="range" min="0" max="100" step="1" value="1" class="red" />
                 <span class="e" id="zongshichang">
-                  0:00
+                  00:00:00
                 </span>
             </div>
             <ul id="panel">
@@ -818,9 +822,9 @@
                 range.value = JSON.stringify(cur / lenth * 100);
                 var sssss = 100 - range.value;
                 //不渐变
-                // range.style.background = 'linear-gradient(to left, #89211b ' + sssss + '%, #000 0,#000  )';
+                range.style.background = 'linear-gradient(to left, #89211b ' + sssss + '%, #f2f2f2 0,#f2f2f2  )';
                 // range.css( 'background', 'linear-gradient(to right, #059CFA, white ' + range.value + '%, white)' );
-                range.style.background = 'linear-gradient(to left, #89211b ' + sssss + '%, blue ' + range.value + '%,#789  )';
+                // range.style.background = 'linear-gradient(to left, #89211b ' + sssss + '%, blue ' + range.value + '%,#789  )';
                 fnZongJinDu(lenth);
 
             }
@@ -1125,7 +1129,7 @@
             playlistid = api.pageParam.playid;
 
         }
-        var height = api.frameHeight + 50;
+        var height = api.frameHeight;
         api.openFrame({
             name: 'play_radiolist',
             url: './play_radiolist.html',
