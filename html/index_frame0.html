@@ -244,9 +244,10 @@
     <!-- 八大导航 -->
     <div class="nav">
         <div class="navbar" tapmode="navbar-item-hov" onclick="fnGuoxueWin();"><img src="../image/KM_goxue.png" alt="">国学馆</div>
-        <div class="navbar" tapmode="navbar-item-hov" onclick="fnReadWin();"><img src="../image/KM_langsong.png" alt="">朗诵</div>
         <div class="navbar" tapmode="navbar-item-hov" onclick="fnListenWin();"><img src="../image/KM_listen.png" alt="">熏听</div>
         <div class="navbar" tapmode="navbar-item-hov" onclick="fnBillboard()"><img src="../image/KM_bangdan.png" alt="">榜单</div>
+        <!-- <div class="navbar" tapmode="navbar-item-hov" onclick="fnReadWin();"><img src="../image/KM_langsong.png" alt="">国学机</div> -->
+        <div class="navbar" tapmode="navbar-item-hov" onclick="fnReadWin();"><img src="../image/KM_guoxueji1.png" alt="">国学机</div>
         <!-- <div class="clear"></div> -->
     </div>
     <!-- 2 热门推荐 -->
@@ -527,11 +528,11 @@
             url: './bill_board.html',
         });
     }
-
+// 打开国学机页面
     function fnReadWin() {
         api.openWin({
-            name: 'read',
-            url: './read.html',
+            name: 'machine',
+            url: './machine.html',
             pageParam: {
                 name: 'test'
             }

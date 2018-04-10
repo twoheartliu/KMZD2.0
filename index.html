@@ -222,6 +222,36 @@
             /*overflow: auto*/
             overflow: hidden;
         }
+        .header_center {
+            margin: 0 auto;
+            width: 100%;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            font-size: 20px;
+            /*color: #000;*/
+        }
+
+        .header_fr {
+            width: 30px;
+            height: 30px;
+            padding: 10px 20px 10px 10px;
+            line-height: 30px;
+            font-size: 15px;
+            color: #fff;
+            position: absolute;
+            right: 5px;
+            bottom:-0px;
+            /*display: inline-block;*/
+            /*display: none;*/
+        }
+        .header_fr img{
+          width: 100%;
+
+        }
+        .clear{
+          clear:both;
+        }
     </style>
 </head>
 
@@ -257,9 +287,15 @@
                 </li>
                 <li class="">开发</li>
                 <li class="">
-                    <div class="friend-tit">
-                        国友
-                    </div>
+                        <div class="friend-tit egret-header-box egret-div">
+                            朗诵
+                          <div class="header_fr " onclick="fnCgxWin();"><img src="./image/aloud/246274041330857389.png" alt=""></div>
+                        </div>
+                        <!-- <div class="header_fr fr" onclick="fnCgxWin();"><img src="./image/aloud/246274041330857389.png" alt=""></div> -->
+                        <!-- <div class="egret-header-box egret-img-a egret-div" tapmode onclick="fnCgxWin()">
+                          <img class="right_img" src="./image/aloud/246274041330857389.png" alt="">
+                        </div> -->
+
                 </li>
                 <li class="">
                     <div class="activebar_p20px">
@@ -276,7 +312,7 @@
                 <li tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con  active">首页</li>
                 <li tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con ">发现</li>
                 <li tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con"></li>
-                <li tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con ">国友</li>
+                <li tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con ">朗诵</li>
                 <li tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con ">我的</li>
             </ul>
         </div>
@@ -564,10 +600,6 @@
             console.log(arr);
             // datasss = JSON.parse(arr);
             return false;
-            console.log(arr);
-            console.log(datasss);
-            return false;
-              console.log(JSON.stringify(datasss));
 
                 if (playlistid) {
                     api.sendEvent({
@@ -1443,5 +1475,15 @@
         //         fnBOFangJian(bofang, a);
         //     }
         // });
+    }
+    function fnCgxWin() {
+        api.openWin({
+            name: 'cgxwin',
+            url: './html/cgxwin.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
+
     }
 </script>
