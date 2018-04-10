@@ -80,7 +80,6 @@
 
         .index_name_div_img img {
             width: 23px;
-
             padding: 11px;
         }
 
@@ -94,7 +93,14 @@
             height: 23px;
             padding: 11px;
         }
-        #buttion{width: 100px;height: 30px;position: absolute;right: 0;top: 10px;}
+
+        #buttion {
+            width: 100px;
+            height: 30px;
+            position: absolute;
+            right: 0;
+            top: 10px;
+        }
     </style>
 </head>
 
@@ -141,52 +147,30 @@
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
     apiready = function() {}
-    function fnAiVoiceWin() {
-      api.openWin({
-          name: 'aiVoice',
-          url: './ai_voice.html',
-          pageParam: {
-              name: 'test'
-          }
-      });
 
-    }
-    function dialogBox_alert4() {
-        var dialogBox = api.require('dialogBox');
-        dialogBox.alert({
-            texts: {
-                content: '退出成功！！',
-                leftBtnTitle: '确定'
-            },
-            styles: {
-                bg: '#fff',
-                corner: 6,
-                w: 300,
-                content: {
-                    color: '#000',
-                    size: 18
-                },
-                left: {
-                    marginB: 15,
-                    marginL: 30,
-                    marginR: 30,
-                    w: 240,
-                    h: 40,
-                    corner: 20,
-                    color: "#fff",
-                    bg: '#CDCDCD',
-                    size: 16
-                }
-            },
-            tapClose: true
-        }, function(ret) {
-            if (ret.eventType == 'left') {
-                dialogBox.close({
-                    dialogName: 'alert'
-                });
+    function fnAiVoiceWin() {
+        api.openWin({
+            name: 'aiVoice',
+            url: './ai_voice.html',
+            pageParam: {
+                name: 'test'
             }
         });
+
     }
+
+    function dialogBox_alert4() {
+        // $api.rmStorage('login');
+        api.toast({
+            msg: '清除缓存成功！',
+            duration: 2000,
+            location: 'middle'
+        });
+        $api.clearStorage();
+
+
+    }
+
     function dialogBox_alert3() {
         var dialogBox = api.require('dialogBox');
         dialogBox.alert({
@@ -223,6 +207,7 @@
             }
         });
     }
+
     function dialogBox_alert2() {
         var dialogBox = api.require('dialogBox');
         dialogBox.alert({
