@@ -305,6 +305,9 @@
     var shunxuplay;
     var danquplay;
     var suijiplay;
+    var shunxuplays;
+    var danquplays;
+    var suijiplays;
     var bofangmoshiid;
     var playTime;
     var a;
@@ -532,6 +535,40 @@
             dataType: 'json',
         }, function(ret, err) {
             if (ret) {
+              // console.log(JSON.stringify(ret));
+              // var datasss="[{'name':'a','value':1}]";
+              // var jsonarray = eval('('+datasss+')');
+              // var arr =   {
+              //   "name" : $('#names').val(),
+              //   "value" : $('#values').val()
+              //  }
+              // jsonarray.push(arr);
+
+              var arr ;
+              arr = '[';
+              var datasss;
+            // var arrs = '[{"id": scheduleId, "isDelete": true}]';
+            // console.log(arrs);
+            // return false;
+            for(var i = 0 ; i < ret.data.length ; i++){
+              // datasss[i]['id'] = ret.data[i].id;
+              // datasss[i]['name'] = ret.data[i].name;
+              arr += '{"id": ' + ret.data[i].id + ', "name":' + ret.data[i].name + '},';
+              // datasss = JSON.parse(arr);
+              // // var datasss;
+              // datasss.push(arr);
+
+            }
+            arr += ']';
+
+            console.log(arr);
+            // datasss = JSON.parse(arr);
+            return false;
+            console.log(arr);
+            console.log(datasss);
+            return false;
+              console.log(JSON.stringify(datasss));
+
                 if (playlistid) {
                     api.sendEvent({
                         name: 'netbofangsssssss',
@@ -561,12 +598,6 @@
         });
     }
     //开始播放
-    function kaishibofangLY() {
-        netAudioLuYin();
-        addtime();
-        jindutiao();
-    }
-    //开始播放
     function kaishibofang() {
         netAudios();
         addtime();
@@ -577,6 +608,8 @@
         clearInterval(timer3);
         clearInterval(timer2);
         clearInterval(timer1);
+        var audioStreamer = api.require('audioStreamer');
+        audioStreamer.stop();
         var myAudio = document.getElementById("myAudio");
         myAudio.play();
         initEventListennerBoFangMoshi();
@@ -585,10 +618,19 @@
     //luyin音频播放模块
     var zongshichang;
     function netAudioLuYin(url) {
+
+      var myAudio = document.getElementById("myAudio");
+      if(myAudio){
+        myAudio.pause();
+      }
+
+      clearInterval(timer3);
+      clearInterval(timer2);
+      clearInterval(timer1);
       var audioStreamer = api.require('audioStreamer');
-      urls = url;
+      // console.log(url);
       audioStreamer.openPlayer({
-        path: 'fs://caogaoxiang/' + urls +'',
+        path: 'fs://caogaoxiang/' + url +'',
       }, function(ret) {
         if (ret.status) {
             zongshichang = ret.duration;
@@ -708,9 +750,7 @@
         });
     }
     //循环搜索历史id
-    var aaaaaaa;
-    var ccccccc;
-    var sssssss;
+
     function fnHistoryUrl(id) {
         var yinpin = $api.byId('yinpin');
         api.getPrefs({
@@ -724,7 +764,6 @@
                 var id1 = historyUrlArray[i];
                 var id2 = id;
                  var w = i;
-                //  aaaaaaa
                 if (id1 == id2) {
                     fnAudio(i);
                 }
@@ -797,9 +836,9 @@
         clearInterval(timer3);
         clearInterval(timer2);
         clearInterval(timer1);
-        play = play - 3;
+        play = play - 4;
         if (play < 0) {
-            play = historyUrlArray.length - 3;
+            play = historyUrlArray.length - 4;
         }
         cgxPlay(play);
     }
@@ -811,8 +850,9 @@
         clearInterval(timer3);
         clearInterval(timer2);
         clearInterval(timer1);
-        play = play + 3;
-        if (play > historyUrlArray.length - 3) {
+        play = play + 4;
+
+        if (play > historyUrlArray.length - 4) {
             play = 1;
         }
         cgxPlay(play);
@@ -866,47 +906,83 @@
     }
     var Guid = new Array();
     //获取 草稿箱列表歌曲
-    var cgxid;
-    function netPlayLieCgx(cgxid) {
-      sssssss = cgxid;
+    // var cgxid;
+    function netPlayLieCgx(cgxnewid) {
+
       api.getPrefs({
           key: 'cgxlist'
       }, function(ret, err) {
           var historyUrlText = '' || ret.value;
           historyUrlArray = historyUrlText.split(',');
-          var length = historyUrlArray.length-1;
-          for (var i = 0; i < length/4+1; i++) {
-              if (historyUrlArray[i].length == 0)
-                  continue;
-                  if(historyUrlArray[i*4-2]){
-                    if(historyUrlArray[i*4-3]){
-                      var id1 = historyUrlArray[i*4-3];
-                      var id2 = sssssss;
-                      ccccccc = i;
-                      if (id1 == id2) {
-                        cgxPlay(i);
-                      }
-                    }
-                  }
-          }
+          // console.log('111');
+          cgxPlay(cgxnewid);
       });
       // fnTingdanZhanshi(cgxid,title,name);
 
     }
-    function cgxPlay(i){
+    function cgxPlay(cgxnewids){
+      console.log(cgxnewids);
+      cgxnewid = cgxnewids;
+      var length = historyUrlArray.length-1;
+      // console.log(historyUrlArray);
+      for (var i = 0; i < length/4+1; i++) {
+          if (historyUrlArray[i].length == 0)
+              continue;
+              if(historyUrlArray[i*4-2]){
+                if(historyUrlArray[i*4-3]){
+                  // console.log('111');
+                  if(play){
+                    var ffff = historyUrlArray[i*4-3];
+                    // console.log(play);
+                    // var playsss= play - 1;
+                    // var playssssss = play/4;
+                    var id11 = historyUrlArray[play];
+                    // console.log(id11);
 
-      var url = historyUrlArray[i*4-3];
-      fnFuZhiAudioLuYin(url);
-      timer3 = setInterval(function() {
-          api.sendEvent({
-              name: 'jibenxinxi',
-              extra: {
-                  luyintitle: historyUrlArray[i*4-2],
-                  luyinname: historyUrlArray[i*4-1],
-                  luyinbody: historyUrlArray[i*4]
+
+                      fnFuZhiAudioLuYin(historyUrlArray[play]);
+                      timer3 = setInterval(function() {
+                          api.sendEvent({
+                              name: 'jibenxinxi',
+                              extra: {
+                                  luyintitle: historyUrlArray[play*4-2],
+                                  luyinname: historyUrlArray[play*4-1],
+                                  luyinbody: historyUrlArray[play*4]
+                              }
+                          });
+                      }, 1000)
+
+
+                  }else{
+                    // console.log('2222');
+                    var id1 = historyUrlArray[i*4-3];
+                    var id2 = cgxnewid;
+                    console.log(id2);
+                    if (id1 == id2) {
+                      console.log(i);
+                      play = i;
+                      // console.log(id1);
+                      fnFuZhiAudioLuYin(historyUrlArray[i*4-3]);
+                      timer3 = setInterval(function() {
+                          api.sendEvent({
+                              name: 'jibenxinxi',
+                              extra: {
+                                  luyintitle: historyUrlArray[i*4-2],
+                                  luyinname: historyUrlArray[i*4-1],
+                                  luyinbody: historyUrlArray[i*4]
+                              }
+                          });
+                      }, 1000)
+
+                    }
+                  }
+
+
+                }
               }
-          });
-      }, 1000)
+      }
+
+
     }
     //草稿箱  当前播放
     function fnBFcgx(id) {
@@ -954,9 +1030,9 @@
     //随机播放歌曲
     function suiji() {
         var myAudio = document.getElementById("myAudio");
-        clearInterval(shunxuplay);
+        clearInterval(shunxuplays);
         var n = Math.ceil(Math.random() * Data.data.length);
-        suijiplay = setInterval(function() {
+        suijiplays = setInterval(function() {
             if (myAudio.ended) {
                 clearInterval(timer2);
                 //console.log(n);
@@ -973,8 +1049,8 @@
     //顺序播放
     function shunxu() {
         var myAudio = document.getElementById("myAudio");
-        clearInterval(danquplay);
-        shunxuplay = setInterval(function() {
+        clearInterval(danquplays);
+        shunxuplays = setInterval(function() {
             if (myAudio.ended) {
                 fnGeDanxiaYi();
             }
@@ -984,8 +1060,8 @@
     //单曲播放
     function bfdanqu() {
         var myAudio = document.getElementById("myAudio");
-        clearInterval(suijiplay);
-        danquplay = setInterval(function() {
+        clearInterval(suijiplays);
+        danquplays = setInterval(function() {
             if (myAudio.ended) {
                 fndanqubofangmoshi();
 
@@ -1026,7 +1102,7 @@
     function luyinsuiji() {
         // var myAudio = document.getElementById("myAudio");
         clearInterval(shunxuplay);
-        var n = Math.ceil(Math.random() * historyUrlArray[i*4-3].length);
+        var n = Math.ceil(Math.random() * historyUrlArray.length);
         console.log(n);
         // suijiplay = setInterval(function() {
         //   var audioStreamer = api.require('audioStreamer');
@@ -1056,8 +1132,9 @@
           var audioStreamer = api.require('audioStreamer');
           audioStreamer.getCurrentTime(function(ret) {
             cur = parseInt(ret.current);
-            lenth = zongshichang;
-            if (cur = lenth) {
+            lenth = zongshichang -1;
+
+            if (cur == lenth) {
                 fnCgxxiaYi();
 
             }
@@ -1075,8 +1152,10 @@
           var audioStreamer = api.require('audioStreamer');
           audioStreamer.getCurrentTime(function(ret) {
             cur = parseInt(ret.current);
-            lenth = zongshichang;
-            if (cur = lenth) {
+            lenth = zongshichang -1;
+            // console.log(cur);
+            // console.log(lenth);
+            if (cur == lenth) {
                 fnLYdanqubofangmoshi();
 
             }
@@ -1088,8 +1167,8 @@
     //luyin随机播放歌曲跟新
     function fnLYSuiJiBoFangMoShi(n) {
         play = n;
-        var myAudio = document.getElementById("myAudio");
-        myAudio.currentTime = 0;
+        // var myAudio = document.getElementById("myAudio");
+        // myAudio.currentTime = 0;
         netLuYinstop();
         clearInterval(timer3);
         clearInterval(timer2);
@@ -1098,18 +1177,8 @@
     }
     //luyin单曲循环播放更新
     function fnLYdanqubofangmoshi() {
-        var myAudio = document.getElementById("myAudio");
-        myAudio.currentTime = 0;
-        netLuYinstop();
-        clearInterval(timer3);
-        clearInterval(timer2);
-        clearInterval(timer1);
-        cgxPlay();
-    }
-    //luyin单曲循环播放更新
-    function fnLYdanqubofangmoshi() {
-        var myAudio = document.getElementById("myAudio");
-        myAudio.currentTime = 0;
+        // var myAudio = document.getElementById("myAudio");
+        // myAudio.currentTime = 0;
         netLuYinstop();
         clearInterval(timer3);
         clearInterval(timer2);
@@ -1117,16 +1186,9 @@
         cgxPlay();
     }
 
-    function fnBFMoshi(MoShiId) {
-        bofangmoshiid = MoShiId;
-        fnBoFangmoshiid();
-    }
-    function fnBFMoshiLuYin(MoShiId) {
-        bofangmoshiid = MoShiId;
-        luyinBoFangmoshi();
-    }
     //判断播放模式
     function luyinBoFangmoshi() {
+      console.log(bofangmoshiid);
         if (!bofangmoshiid) {
             luyinshunxu();
         } else {
@@ -1183,33 +1245,42 @@
     }
 
     function fnBOFangJian(bofangs, aa, playlist) {
+      if(playlistid){
         a = aa;
         bofang = bofangs;
         playlistid = playlist;
+      }else{
+        a = aa;
+        bofang = bofangs;
+      }
     }
     //监听播放模式
     function initEventListennerBoFangMoshi() {
+      api.addEventListener({
+          name: 'bofangmoshiluyin'
+      }, function(ret, err) {
+          if (ret) {
+              // fnBFMoshi(ret.value.bofangmoshi);
+              fnBFMoshiLuYin(ret.value.bofangmoshi);
+              // console.log(ret.value.bofangmoshi);
+          }
+      });
         //监听播放模式
         api.addEventListener({
             name: 'bofangmoshi'
         }, function(ret, err) {
             if (ret) {
                 fnBFMoshi(ret.value.bofangmoshi);
+                // console.log(ret.value.bofangmoshi);
                 // fnBFMoshiLuYin(ret.value.bofangmoshi);
             }
         });
-        api.addEventListener({
-            name: 'bofangmoshiluyin'
-        }, function(ret, err) {
-            if (ret) {
-                // fnBFMoshi(ret.value.bofangmoshi);
-                fnBFMoshiLuYin(ret.value.bofangmoshi);
-            }
-        });
+
     }
 
     // 初始化事件监听
     function initEventListenner() {
+
         api.addEventListener({
             name: 'netPlayUrl'
         }, function(ret, err) {
@@ -1237,7 +1308,7 @@
         });
         // 草稿箱  当前播放
         api.addEventListener({
-            name: 'netPlayCgx'
+              name: 'netPlayCgx'
         }, function(ret, err) {
             if (ret) {
               // console.log(ret.value.id);
@@ -1351,24 +1422,26 @@
             var bofang = ret.value.bofang;
             var a = ret.value.a;
             var playlistid = ret.value.playlistid;
+                        console.log(bofang);
             if (playlistid) {
                 fnBOFangJian(bofang, a, playlistid);
             } else {
                 fnBOFangJian(bofang, a);
             }
         });
-        api.addEventListener({
-            name: 'neizhiliebiaoPlay'
-        }, function(ret, err) {
-            var a;
-            var bofang = JSON.stringify(ret.value.bofang);
-            a = ret.value.a;
-            var playlistid = ret.value.playlistid;
-            if (playlistid) {
-                fnBOFangJian(bofang, a, playlistid);
-            } else {
-                fnBOFangJian(bofang, a);
-            }
-        });
+        // api.addEventListener({
+        //     name: 'neizhiliebiaoPlay'
+        // }, function(ret, err) {
+        //     var a;
+        //     var bofang = JSON.stringify(ret.value.bofang);
+        //     console.log(bofang);
+        //     a = ret.value.a;
+        //     var playlistid = ret.value.playlistid;
+        //     if (playlistid) {
+        //         fnBOFangJian(bofang, a, playlistid);
+        //     } else {
+        //         fnBOFangJian(bofang, a);
+        //     }
+        // });
     }
 </script>
