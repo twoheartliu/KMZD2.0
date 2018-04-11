@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>孔孟之道--朗读</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" href="../css/swiper.min.css">
+    <link rel="stylesheet" href="../css/iconfont.css">
+    <style>
+      .Cover{
+        width: 100%;
+        height: 100px;
+      }
+      .Cover_img{width: 100px;height: 100px;float: left;}
+      .Cover_img img{width: 100%;}
+      .Cover_title{width: 100px;height: 100px;text-align: center;float: right;}
+
+    </style>
+</head>
+
+<body>
+    <div class="Cover" onclick="fnSettings();">
+      <div class="Cover_img"><img src="../image/img/header.png" alt=""></div>
+      <div class="Cover_title">封面</div>
+    </div>
+</body>
+
+</html>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/swiper.min.js"></script>
+<script type="text/javascript">
+    apiready = function() {
+
+    }
+    function fnSettings() {
+        var dialogBox = api.require('dialogBox');
+        dialogBox.actionMenu({
+            rect: {
+                h: 200
+            },
+            texts: {
+                cancel: '取消',
+                cancels: '123'
+            },
+            items: [{
+                text: '编辑',
+                icon: 'widget://image/bb_play_share.png'
+            },{
+                text: '编辑',
+                icon: 'widget://image/bb_play_share.png'
+            }, {
+                text: '删除',
+                icon: 'widget://image/shanchu.png'
+            }],
+            styles: {
+                bg: '#FFF',
+                corner: 6,
+                column: 3,
+                itemText: {
+                    color: '#000',
+                    size: 14,
+                    marginT: 10
+                },
+                itemIcon: {
+                    size: 30
+                },
+                cancel: {
+                    bg: '#fff',
+                    color: '#333',
+                    h: 55,
+                    size: 14
+                }
+            },
+            tapClose: true
+        }, function(ret) {
+            var texts = ret.eventType;
+            var index = ret.index;
+            if (texts == "cancel") {
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+            } else if (index == 0) {
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+                api.openWin({
+                    name: 'page1',
+                    url: './page1.html',
+                    pageParam: {
+                        name: 'test'
+                    }
+                });
+
+
+            } else if (index == 1) {
+                alert('删除')
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+
+            }else if (index == 2) {
+              alert('自定义')
+              dialogBox.close({
+                  dialogName: 'alert'
+              });
+            }
+        });
+
+    }
+</script>
