@@ -140,7 +140,7 @@
         </div>
         <div class="phonenum">
             <img src="image/aloud/202743094329955877.png" alt="">
-            <input type="text" placeholder="请输入手机号" onblur="fnSjyanzheng();" id="fnSjyanzheng">
+            <input type="text" placeholder="请输入手机号" onblur="" id="phone">
         </div>
         <div class="code">
             <img src="./image/aloud/254415195589740260.png" alt="" state="off" id="img">
@@ -163,6 +163,7 @@
 </html>
 <script type="text/javascript" src="script/api.js"></script>
 <script type="text/javascript">
+var wait = 60;
     apiready = function() {
 
         // var ele_pass_box = document.getElementsByTagName("div")[0];
@@ -195,27 +196,61 @@
             var buttons = document.getElementById("button");
             buttons.style.backgroundColor='#cccccc';
             time(this);
-            console.log("123456");
+            fnSjyanzheng();
         }
-        function time(o) {
-            if (wait == 0) {
-                o.removeAttribute("disabled");
-                o.innerHTML = "获取验证码";
-                var buttons = document.getElementById("button");
-                buttons.style.backgroundColor='#89211b';
-                wait = 60;
-            } else {
-                o.setAttribute("disabled", true);
-                o.innerHTML = wait + "秒重新发送";
-                wait--;
-                setTimeout(function() {
-                    time(o);
+        //获取短信注册验证码；
 
-                }, 1000)
-            }
+    }
+    var getCode ;
+    var createDateTime;
+    var phone;
+    function fnGetSmsVerificationCode(phone){
+      console.log(phone);
+      api.ajax({
+          url: 'http://47.100.11.38/kongmeng/sms/getCode.php?type=reg&phone=' + phone,
+          method: 'post',
+          dataType: 'json',
+      }, function(ret, err) {
+
+        if(ret){
+          // console.log(JSON.stringify(ret));
+          if (ret.message == 'ok') {
+            getCode = ret.v_code;
+            createDateTime = ret.create_date;
+            console.log(getCode);
+
+          }
+          // else {
+          //     //alert(JSON.stringify(err));
+          //     console.log(JSON.stringify(err));
+          // }
+        }
+        // else{
+        //   console.log(JSON.stringify(err));
+        // }
+      });
+      // console.log('1111');
+    }
+    function time(o) {
+        if (wait == 0) {
+            o.removeAttribute("disabled");
+            o.innerHTML = "获取验证码";
+            var buttons = document.getElementById("button");
+            buttons.style.backgroundColor='#89211b';
+            wait = 60;
+
+
+        } else {
+
+            o.setAttribute("disabled", true);
+            o.innerHTML = wait + "秒重新发送";
+            wait--;
+            setTimeout(function() {
+                time(o);
+
+            }, 1000)
         }
     }
-
     function fnIndexOpenWin() {
         api.openWin({
             name: 'index',
@@ -228,23 +263,24 @@
     }
 
     function fnSjyanzheng() {
-        var byid = $api.byId('fnSjyanzheng')
-        var sjyanzheng = $api.byId('fnSjyanzheng').value;
-        var sjyanzhengs = /^(13[0-9]|15[012356789]|17[0135678]|18[0-9]|14[579])[0-9]{8}$/;
-        if (sjyanzheng == '') {
+        var phones = $api.byId('phone');
+        phone = $api.byId('phone').value;
+
+        var phoneRegular = /^(13[0-9]|15[012356789]|17[0135678]|18[0-9]|14[579])[0-9]{8}$/;
+        if (phone == '') {
             api.toast({
                 msg: '手机不能为空',
                 duration: 2000,
                 location: 'bottom'
             });
             return;
-        } else if (!sjyanzhengs.test(sjyanzheng)) {
+        } else if (!phoneRegular.test(phone)) {
             api.toast({
                 msg: '手机格式不正确',
                 duration: 2000,
                 location: 'bottom'
             });
-            byid.value = '';
+            phones.value = '';
             return;
         } else {
             api.toast({
@@ -252,6 +288,7 @@
                 duration: 2000,
                 location: 'bottom'
             });
+            fnGetSmsVerificationCode(phone);
         }
     }
 </script>
