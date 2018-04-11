@@ -571,36 +571,6 @@
             dataType: 'json',
         }, function(ret, err) {
             if (ret) {
-              // console.log(JSON.stringify(ret));
-              // var datasss="[{'name':'a','value':1}]";
-              // var jsonarray = eval('('+datasss+')');
-              // var arr =   {
-              //   "name" : $('#names').val(),
-              //   "value" : $('#values').val()
-              //  }
-              // jsonarray.push(arr);
-
-              var arr ;
-              arr = '[';
-              var datasss;
-            // var arrs = '[{"id": scheduleId, "isDelete": true}]';
-            // console.log(arrs);
-            // return false;
-            for(var i = 0 ; i < ret.data.length ; i++){
-              // datasss[i]['id'] = ret.data[i].id;
-              // datasss[i]['name'] = ret.data[i].name;
-              arr += '{"id": ' + ret.data[i].id + ', "name":' + ret.data[i].name + '},';
-              // datasss = JSON.parse(arr);
-              // // var datasss;
-              // datasss.push(arr);
-
-            }
-            arr += ']';
-
-            console.log(arr);
-            // datasss = JSON.parse(arr);
-            return false;
-
                 if (playlistid) {
                     api.sendEvent({
                         name: 'netbofangsssssss',
@@ -956,63 +926,91 @@
       console.log(cgxnewids);
       cgxnewid = cgxnewids;
       var length = historyUrlArray.length-1;
-      // console.log(historyUrlArray);
+      var caogaoId;
+      var caogaoTitle;
+      var caogaoName;
+      var caogaoBody;
+
+      var arrayObj = new Array();
       for (var i = 0; i < length/4+1; i++) {
-          if (historyUrlArray[i].length == 0)
-              continue;
-              if(historyUrlArray[i*4-2]){
-                if(historyUrlArray[i*4-3]){
-                  // console.log('111');
-                  if(play){
-                    var ffff = historyUrlArray[i*4-3];
-                    // console.log(play);
-                    // var playsss= play - 1;
-                    // var playssssss = play/4;
-                    var id11 = historyUrlArray[play];
-                    // console.log(id11);
+        if (historyUrlArray[i].length == 0)
+            continue;
 
-
-                      fnFuZhiAudioLuYin(historyUrlArray[play]);
-                      timer3 = setInterval(function() {
-                          api.sendEvent({
-                              name: 'jibenxinxi',
-                              extra: {
-                                  luyintitle: historyUrlArray[play*4-2],
-                                  luyinname: historyUrlArray[play*4-1],
-                                  luyinbody: historyUrlArray[play*4]
-                              }
-                          });
-                      }, 1000)
-
-
-                  }else{
-                    // console.log('2222');
-                    var id1 = historyUrlArray[i*4-3];
-                    var id2 = cgxnewid;
-                    console.log(id2);
-                    if (id1 == id2) {
-                      console.log(i);
-                      play = i;
-                      // console.log(id1);
-                      fnFuZhiAudioLuYin(historyUrlArray[i*4-3]);
-                      timer3 = setInterval(function() {
-                          api.sendEvent({
-                              name: 'jibenxinxi',
-                              extra: {
-                                  luyintitle: historyUrlArray[i*4-2],
-                                  luyinname: historyUrlArray[i*4-1],
-                                  luyinbody: historyUrlArray[i*4]
-                              }
-                          });
-                      }, 1000)
-
-                    }
-                  }
-
-
-                }
-              }
+        caogaoId ='';
+        caogaoId += historyUrlArray[i*4-3];
+        caogaoTitle ='';
+        caogaoTitle += historyUrlArray[i*4-2];
+        caogaoName ='';
+        caogaoName += historyUrlArray[i*4-1];
+        caogaoBody ='';
+        caogaoBody += historyUrlArray[i*4];
+        arrayObj.push({ "caogaoId" :  caogaoId ,"caogaoTitle" : caogaoTitle ,"caogaoName" : caogaoName ,"caogaoBody" : caogaoBody});
+          //     if(historyUrlArray[i*4-2]){
+          //       if(historyUrlArray[i*4-3]){
+          //         // console.log('111');
+          //         if(play){
+          //           var ffff = historyUrlArray[i*4-3];
+          //           // console.log(play);
+          //           // var playsss= play - 1;
+          //           // var playssssss = play/4;
+          //           var id11 = historyUrlArray[play];
+          //           // console.log(id11);
+          //
+          //
+          //             fnFuZhiAudioLuYin(historyUrlArray[play]);
+          //             timer3 = setInterval(function() {
+          //                 api.sendEvent({
+          //                     name: 'jibenxinxi',
+          //                     extra: {
+          //                         luyintitle: historyUrlArray[play*4-2],
+          //                         luyinname: historyUrlArray[play*4-1],
+          //                         luyinbody: historyUrlArray[play*4]
+          //                     }
+          //                 });
+          //             }, 1000)
+          //
+          //
+          //         }else{
+          //           // console.log('2222');
+          //           var id1 = historyUrlArray[i*4-3];
+          //           var id2 = cgxnewid;
+          //           console.log(id2);
+          //           if (id1 == id2) {
+          //             console.log(i);
+          //             play = i;
+          //             // console.log(id1);
+          //             fnFuZhiAudioLuYin(historyUrlArray[i*4-3]);
+          //             timer3 = setInterval(function() {
+          //                 api.sendEvent({
+          //                     name: 'jibenxinxi',
+          //                     extra: {
+          //                         luyintitle: historyUrlArray[i*4-2],
+          //                         luyinname: historyUrlArray[i*4-1],
+          //                         luyinbody: historyUrlArray[i*4]
+          //                     }
+          //                 });
+          //             }, 1000)
+          //
+          //           }
+          //         }
+          //
+          //
+          //       }
+          //     }
       }
+
+      console.log(JSON.stringify(arrayObj));
+      console.log(arrayObj[0].caogaoId);
+      console.log(arrayObj[0].caogaoTitle);
+      console.log(arrayObj[0].caogaoName);
+      console.log(arrayObj[0].caogaoBody);
+      // arr += ']';
+      // console.log(historyUrlArray.length);
+      // console.log(arr);
+      // console.log(arr.id);
+      // console.log(arr[2].id);
+      // datasss = JSON.parse(arr);
+      return false;
 
 
     }
