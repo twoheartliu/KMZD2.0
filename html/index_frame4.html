@@ -188,6 +188,20 @@
           font-size: 14px;
           line-height: 46px;
         }
+        .index_header_mvp_span{
+          position: relative;
+        }
+        #scoreDisplay{
+          font-size: 15px;
+          position: absolute;
+          top: 0;
+        }
+        .dengJi{
+          position: absolute;
+          top: 0;
+          left: 25%;
+          font-size: 15px;
+        }
     </style>
 </head>
 
@@ -199,22 +213,28 @@
             </div>
             <div class="wode_bg">
                 <div class="index_header_mvp_p" onclick="" id="username">嘿！我不是朝天椒</div>
-                <div class="index_header_mvp_span">[ 童声 ]</div>
+                <div class="index_header_mvp_span">
+                  <div class="bar">
+                    <div id="scoreBar">&nbsp;</div>
+                  </div>
+                  <span id="scoreDisplay"></span>
+                  <span class="dengJi">童生</span>
+                </div>
             </div>
             <div class="index_header_san">
                 <div class="p13px">
                     <div class="row">
                         <div class="p20px">
-                            <div class="index_header_sans border_r">
-                                <div>学分</div>
-                                <div><span>123456</span>分</div>
+                            <div class="index_header_sans border_r" onclick="fnPersonalWin();">
+                                <div>作品</div>
+                                <div><span>123456</span>个</div>
                             </div>
                             <div class="index_header_sans border_r" onclick="fnOpenMyCare();">
                                 <div>关注</div>
                                 <div><span>9999</span>个</div>
                             </div>
-                            <div class="index_header_sans" onclick="fnPersonalWin();">
-                                <div>作品</div>
+                            <div class="index_header_sans">
+                                <div>粉丝</div>
                                 <div><span>9999</span>个</div>
                             </div>
                         </div>
@@ -317,7 +337,7 @@
     }
 
     function fnUpimg() {
-      
+
       api.openWin({
           name: 'upimg',
           url: './upimg.html',
@@ -375,39 +395,14 @@
     }
 
     function dialogBox_alert2() {
-        var dialogBox = api.require('dialogBox');
-        dialogBox.alert({
-            texts: {
-                content: '您获得的成就为：童声！',
-                leftBtnTitle: '确定'
-            },
-            styles: {
-                bg: '#fff',
-                corner: 6,
-                w: 280,
-                content: {
-                    color: '#000',
-                    size: 18
-                },
-                left: {
-                    marginB: 15,
-                    marginL: 15,
-                    w: 250,
-                    h: 40,
-                    corner: 20,
-                    color: "#fff",
-                    bg: '#CDCDCD',
-                    size: 16
-                }
-            },
-            tapClose: true
-        }, function(ret) {
-            if (ret.eventType == 'left') {
-                dialogBox.close({
-                    dialogName: 'alert'
-                });
+        api.openWin({
+            name: 'achievement',
+            url: './achievementWin.html',
+            pageParam: {
+                name: 'test'
             }
         });
+
     }
 
     function fnSetWin() {
@@ -420,4 +415,45 @@
         });
 
     }
+</script>
+<script type="text/javascript">
+  // 经验条
+  // 数组内的数据是根据那个等级升级
+  var IknowLevel=[0,100,500,1000,2500,5000,8000,12000,16000,20000,25000,35000,50000,80000,120000,180000,250000,400000];
+  function scoreRake(score){
+      var len=IknowLevel.length;
+      var i=getUserLevel(score);
+      var min,max,rake;
+
+      if(i==0)return 0;
+      if(i>=len){return 100;}
+      min=IknowLevel[i-1];
+
+      max=IknowLevel[i];
+      if(score>min&&score<=max)
+          return (score-min)*100/(max-min);
+      return 0;
+  }
+  function getUserLevel(score){
+      for(i=0,l=IknowLevel.length;i<l;i++){
+          if(score<=IknowLevel[i])break;
+      }
+      return i;
+  }
+  function scoreBar(score,scoreBarId,scoreDisplayId){
+
+      document.write("<style>.bar{width:120px;height:15px;border:1px solid #53d242;margin: 0 auto;border-radius: 5px;}#scoreBar{background:#6c0;height:100%;width:0;font-size:0px;}</style>");
+      var rake=scoreRake(score);
+      G(scoreBarId).style.width=rake+"%";
+      var level=getUserLevel(score);
+      if(level>=18){level=17;needscore="";}else{needscore = "/"+IknowLevel[level];}
+      if(score<0){needscore="";}
+
+      G(scoreDisplayId).innerHTML=score+needscore;
+  }
+  function G(id){return document.getElementById(id);}
+</script>
+<script type="text/javascript">
+    // 根据当前分值进度来升级
+    scoreBar(60,"scoreBar","scoreDisplay");
 </script>
