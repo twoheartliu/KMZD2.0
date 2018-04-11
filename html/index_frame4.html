@@ -195,6 +195,7 @@
           font-size: 15px;
           position: absolute;
           top: 0;
+          left: 45%;
         }
         .dengJi{
           position: absolute;
@@ -267,10 +268,15 @@
     </div>
     <div class="index_name">
         <div class="p20pxs">
-            <div class="index_name_li">
+            <div class="index_name_li1">
                 <div class="index_name_div border_b" onclick="openHistorys();">
                     <div class="index_name_div_img fl"><img src="../image/index_lsjl.png" alt=""></div>
                     <span class="index_name_div_span fl">历史记录</span>
+                    <div class="index_name_div_imgr fr"><img src="../image/index_y.png" alt=""></div>
+                </div>
+                <div class="index_name_div border_b" onclick="fnListeningListWin();">
+                    <div class="index_name_div_img fl"><img src="../image/index_lsjl.png" alt=""></div>
+                    <span class="index_name_div_span fl">我的听单</span>
                     <div class="index_name_div_imgr fr"><img src="../image/index_y.png" alt=""></div>
                 </div>
                 <div class="index_name_div" onclick="openMessage();">
@@ -309,6 +315,16 @@
         fnUserName(qqziliao);
         //alert(JSON.stringify(qqziliao));
         api.parseTapmode();
+    }
+    function fnListeningListWin() {
+      api.openWin({
+          name: 'ListeningList',
+          url: './ListeningList.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
+
     }
     function fnYongHuTouXiang(qqziliao){
       var QQusername = qqziliao.figureurl_qq_2;
@@ -396,7 +412,7 @@
 
     function dialogBox_alert2() {
         api.openWin({
-            name: 'achievement',
+            name: 'achievementWin',
             url: './achievementWin.html',
             pageParam: {
                 name: 'test'

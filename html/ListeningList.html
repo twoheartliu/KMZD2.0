@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
     <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
-    <title>孔孟之道--成就详情</title>
+    <title>孔孟之道--我的听单</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
     <link rel="stylesheet" type="text/css" href="../css/style.css" />
     <style>
@@ -27,7 +27,7 @@
             width: 15px;
             height: 20px;
             /*padding: 10px;*/
-            padding: 10px 10px 10px 20px;
+            padding: 16px 10px 10px 20px;
         }
 
         .header_center {
@@ -46,7 +46,7 @@
             padding: 10px 20px 10px 10px;
             line-height: 30px;
             font-size: 15px;
-            color: #fff;
+            /*color: #fff;*/
             /*display: none;*/
         }
         .header_fr img{
@@ -59,8 +59,8 @@
 <body>
     <header id="secHeader">
         <div class="header_fl fl" onclick="goback();"><img src="../image/KM_Hfh.png" alt=""></div>
-        <div class="header_fr fr" onclick=""></div>
-        <div class="header_center">成就详情</div>
+        <div class="header_fr fr" onclick="fnNewWin();">新建</div>
+        <div class="header_center">我的听单</div>
     </header>
 </body>
 
@@ -70,7 +70,7 @@
 <script type="text/javascript">
     function goback() {
         api.closeWin({
-            name: 'achievementWin'
+            name: 'ListeningList'
         });
     }
 
@@ -79,8 +79,8 @@
         $api.fixStatusBar(header);
         var headerPos = $api.offset(header);
         api.openFrame({
-            name: 'achievementWin_frame',
-            url: './achievementWin_frame.html',
+            name: 'ListeningList_frame',
+            url: './ListeningList_frame.html',
             rect: {
                 x: 0,
                 y: headerPos.h,
@@ -92,6 +92,16 @@
             },
             bounces: false,
         });
+
+    }
+    function fnNewWin() {
+      api.openWin({
+          name: 'New',
+          url: './New.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
 
     }
 </script>
