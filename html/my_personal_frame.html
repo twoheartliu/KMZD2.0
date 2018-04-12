@@ -167,16 +167,19 @@
           bottom: 4px;
           right: 15px;
           z-index: 1;
-          width: 100px;
-          height: 22px;
-          border: 1px solid #ccc;
+          width: 90px;
+          height: 18px;
+          border: 1px solid #89211b;
           padding: 5px 3px;
-          border-radius: 8px;
+          border-radius: 15px;
           line-height: 20px;
           display: inline-block;
-          background-color: #89211b;
+          /*background-color: #89211b;*/
         }
-        .index_header_care img{height:24px;vertical-align: top;}
+        .index_header_care img{
+          height:20px;
+          vertical-align: top;
+        }
     </style>
 </head>
 <body>
@@ -192,8 +195,8 @@
             <div class="index_header_mvp_p">
                 <div class="user_name">小小</div>
               <div class="index_header_care">
-                <img src="../image/care-a.png" alt="" class="indexHeaderCare1">
-                <img src="../image/personal_private_a.png" alt="" class="indexHeaderCare1">
+                <img src="../image/care_a.png" alt="" class="indexHeaderCare1">
+                <img src="../image/personal_private_a.png" alt="" class="indexHeaderCare1" onclick="fnOpenPersonalPrivate();">
               </div>
             <!-- <div class="message"><p>发私信</p></div></div> -->
             <div class="index_header_mvp_span"><b>个性签名：</b>我是一个狠辣狠辣的辣椒，哈哈哈哈</div>
@@ -357,6 +360,15 @@
           });
         }
 
+      }
+      function fnOpenPersonalPrivate(){
+        api.openWin({
+            name: 'personalPrivate',
+            url: './personal_private.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
       }
 
 </script>
