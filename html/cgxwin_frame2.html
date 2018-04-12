@@ -283,7 +283,7 @@ var Guid = new Array();
       }, function(ret, err) {
           var historyUrlText = '' || ret.value;
           historyUrlArray = historyUrlText.split(',');
-          // console.log(historyUrlArray);
+          console.log(historyUrlArray);
           var length = historyUrlArray.length-1;
           var stylelist = $api.byId('lists');
           var html = '';
@@ -292,6 +292,7 @@ var Guid = new Array();
               if (historyUrlArray[i].length == 0)
                   continue;
               var cgxid = historyUrlArray[i*4-3];
+              console.log(cgxid);
               var title = historyUrlArray[i*4-2];
               var name = historyUrlArray[i*4-1];
               var body = historyUrlArray[i*4];
