@@ -257,7 +257,7 @@
           margin: 0 auto;
         }
         .friend_list{
-          width: 32.5%;
+          width: 32%;
           display: inline-block;
           padding: 15px 0;
         }
@@ -357,7 +357,7 @@
     <div class="friend " id="friend">
       <div class="friend_list ">
         <div class="user_img" onclick="fnOpenmyPersonal();"><img src="../image/icon-person.png" alt=""></div>
-        <p>小小 <img src="../image/care.png" alt="" class="userButton" id="userButton" onclick="fnOpenUserButton();"></p>
+        <p>小小 <img src="../image/care.png" alt="" class="userButton" ></p>
         <p class="p">
           <img src="../image/product.png" alt=""><span>180</span>
           <img src="../image/morepeople.png" alt=""><span>180</span>
@@ -365,7 +365,7 @@
       </div>
       <div class="friend_list ">
         <div class="user_img" onclick="fnOpenmyPersonal();"><img src="../image/icon-person.png" alt=""></div>
-        <p>小小 <img src="../image/care.png" alt="" class="userButton" id="userButton" onclick="fnOpenUserButton();"></p>
+        <p>小小 <img src="../image/care.png" alt="" class="userButton" ></p>
         <p class="p">
           <img src="../image/product.png" alt=""><span>180</span>
           <img src="../image/morepeople.png" alt=""><span>180</span>
@@ -373,7 +373,7 @@
       </div>
       <div class="friend_list ">
         <div class="user_img" onclick="fnOpenmyPersonal();"><img src="../image/icon-person.png" alt=""></div>
-        <p>小小 <img src="../image/care.png" alt="" class="userButton" id="userButton" onclick="fnOpenUserButton();"></p>
+        <p>小小 <img src="../image/care.png" alt="" class="userButton"  ></p>
         <p class="p">
           <img src="../image/product.png" alt=""><span>180</span>
           <img src="../image/morepeople.png" alt=""><span>180</span>
@@ -381,7 +381,7 @@
       </div>
       <div class="friend_list ">
         <div class="user_img" onclick="fnOpenmyPersonal();"><img src="../image/icon-person.png" alt=""></div>
-        <p>小小 <img src="../image/care.png" alt="" class="userButton" id="userButton" onclick="fnOpenUserButton();"></p>
+        <p>小小 <img src="../image/care.png" alt="" class="userButton"  ></p>
         <p class="p">
           <img src="../image/product.png" alt=""><span>180</span>
           <img src="../image/morepeople.png" alt=""><span>180</span>
@@ -389,7 +389,7 @@
       </div>
       <div class="friend_list ">
         <div class="user_img" onclick="fnOpenmyPersonal();"><img src="../image/icon-person.png" alt=""></div>
-        <p>小小 <img src="../image/care.png" alt="" class="userButton" id="userButton" onclick="fnOpenUserButton();"></p>
+        <p>小小 <img src="../image/care.png" alt="" class="userButton" ></p>
         <p class="p">
           <img src="../image/product.png" alt=""><span>180</span>
           <img src="../image/morepeople.png" alt=""><span>180</span>
@@ -397,7 +397,7 @@
       </div>
       <div class="friend_list ">
         <div class="user_img" onclick="fnOpenmyPersonal();"><img src="../image/icon-person.png" alt=""></div>
-        <p>小小 <img src="../image/care.png" alt="" class="userButton"  id="userButton" onclick="fnOpenUserButton();"></p>
+        <p>小小 <img src="../image/care.png" alt="" class="userButton" ></p>
         <p class="p">
           <img src="../image/product.png" alt=""><span>180</span>
           <img src="../image/morepeople.png" alt=""><span>180</span>
@@ -532,6 +532,7 @@
     }
     apiready = function() {
         fnInitSwiper();
+        fnOpenUserButton();
         // fnInitSwiper1();
 
     }
@@ -566,72 +567,75 @@
     };
     //加关注
     function fnOpenUserButton() {
-      // var friend = document.getElementById('friend');
-      // var friend_lis = friend.getElementsByClassName('userButton');
-      // for (var i = 0; i < friend_lis.length; i++) {
-      //     friend_lis[i].index = i;
-      //     friend_lis[i].onclick = function() {
-      //       var j = this.index;
-      //     if(friend_lis[j].getAttribute("src",2)=="../image/care.png"){
-      //       friend_lis[j].src="../image/care1.png";
-      //     }
-      //   }
-      // }
-      var dialogBox = api.require('dialogBox');
-          dialogBox.alert({
-              texts:{
-                  // title: '确认',          //（可选项）字符串类型；标题内容，若不传则不显示该文本
-                  content:'确定要添加关注吗？', //（可选项）字符串类型：对话框文本内容，文本所占区域的高度随字文本多少自适应，若不传则不显示该文本
-                  leftBtnTitle: '取消',   //（可选项）字符串类型；左边按钮标题，若不传则不显示该文本
-                  rightBtnTitle: '确认'   //（可选项）字符串类型；右边按钮标题，若不传则不显示该文本
-              },
-              styles: {
-                  bg: '#fff',
-                  w: 300,
-                  // title: {
-                  //     marginT: 20,
-                  //     icon: 'widget://res/gou.png',
-                  //     iconSize: 40,
-                  //     titleSize: 14,
-                  //     titleColor: '#000'
-                  // },
-                  content: {
-                      color: '#000',
-                      size: 14
-                  },
-                  left: {
-                      marginB: 15,
-                      marginL: 20,
-                      w: 100,
-                      h: 35,
-                      corner: 2,
-                      bg: '#ccc',
-                      size: 12
-                  },
-                  right: {
-                      marginB: 15,
-                      marginL: 60,
-                      w: 100,
-                      h: 35,
-                      corner: 2,
-                      bg: '#ccc',
-                      size: 12
+      var friend = document.getElementById('friend');
+      var friend_lis = friend.getElementsByClassName('userButton');
+      for (var i = 0; i < friend_lis.length; i++) {
+          friend_lis[i].index = i;
+          friend_lis[i].onclick = function() {
+            var j = this.index;
+            var dialogBox = api.require('dialogBox');
+                dialogBox.alert({
+                    texts:{
+                        // title: '确认',
+                        content:'确定要添加关注吗？',
+                        leftBtnTitle: '取消',
+                        rightBtnTitle: '确认'
+                    },
+                    styles: {
+                        bg: '#fff',
+                        w: 300,
+                        // title: {
+                        //     marginT: 20,
+                        //     icon: 'widget://res/gou.png',
+                        //     iconSize: 40,
+                        //     titleSize: 14,
+                        //     titleColor: '#000'
+                        // },
+                        content: {
+                            color: '#000',
+                            size: 14
+                        },
+                        left: {
+                            marginB: 15,
+                            marginL: 20,
+                            w: 100,
+                            h: 35,
+                            corner: 2,
+                            bg: '#ccc',
+                            size: 12
+                        },
+                        right: {
+                            marginB: 15,
+                            marginL: 60,
+                            w: 100,
+                            h: 35,
+                            corner: 2,
+                            bg: '#ccc',
+                            size: 12
+                        }
+                    }
+                  },function(ret) {
+                    if (ret.eventType == 'right') {
+                        // confire();
+                        if(friend_lis[j].getAttribute("src",2)=="../image/care.png"){
+                          friend_lis[j].src="../image/care1.png";
+                        }
+                        var dialogBox = api.require('dialogBox');
+                        dialogBox.close({
+                            dialogName: 'alert'
+                        });
+                    }else if (ret.eventType == 'left') {
+                      var dialogBox = api.require('dialogBox');
+                      dialogBox.close({
+                          dialogName: 'alert'
+                      });
                   }
-              }
-            },function(ret) {
-              if (ret.eventType == 'right') {
-                  confire();
-                  var dialogBox = api.require('dialogBox');
-                  dialogBox.close({
-                      dialogName: 'alert'
-                  });
-              }else if (ret.eventType == 'left') {
-                var dialogBox = api.require('dialogBox');
-                dialogBox.close({
-                    dialogName: 'alert'
-                });
-            }
-        });
+              });
+
+
+        }
+      }
+
       }
       function confire(){
         //   var friend = document.getElementById('friend');

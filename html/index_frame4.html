@@ -314,9 +314,9 @@
 <script type="text/javascript">
     apiready = function() {
         // 优化点击事件
-        var qqziliao = api.pageParam.qqziliao;
-        fnYongHuTouXiang(qqziliao);
-        fnUserName(qqziliao);
+        // var qqziliao = api.pageParam.qqziliao;
+        // fnYongHuTouXiang(qqziliao);
+        // fnUserName(qqziliao);
         //alert(JSON.stringify(qqziliao));
         api.parseTapmode();
     }
@@ -338,13 +338,13 @@
       $api.html(stylelist, html);
 
     }
-    function fnUserName(qqziliao){
-      var stylelist = $api.byId('username');
-      var QQusername = qqziliao.nickname;
-      var html = QQusername;
-      $api.html(stylelist, html);
-
-    }
+    // function fnUserName(qqziliao){
+    //   var stylelist = $api.byId('username');
+    //   var QQusername = qqziliao.nickname;
+    //   var html = QQusername;
+    //   $api.html(stylelist, html);
+    //
+    // }
     function fnFeedbackWin() {
         api.openWin({
             name: 'feedback',
@@ -353,11 +353,8 @@
                 name: 'test'
             }
         });
-
     }
-
     function fnUpimg() {
-
       api.openWin({
           name: 'upimg',
           url: './upimg.html',
@@ -365,10 +362,7 @@
               name: 'test'
           }
       });
-
-
     }
-
     function fnPersonalWin() {
         api.openWin({
             name: 'personal',
