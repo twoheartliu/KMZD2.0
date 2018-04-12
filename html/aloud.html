@@ -564,22 +564,9 @@ var Guid = new Array();
                 timestamps : timestamps
             }
         });
-  			var netAudio = api.require('netAudio');
-  			// netAudio.play({
-  			// 		path: path
-  			// }, function(ret, err) {
-  			// 		if (ret) {
-  			// 				//alert(JSON.stringify(ret));
-  			// 		} else {
-  			// 				alert(JSON.stringify(err));
-  			// 		}
-  			// });
-
   		}else{
   			alert('请先录音');
   		}
-
-
 
   	}
   	//试听
@@ -607,23 +594,35 @@ var Guid = new Array();
               var temp = c;
               minute = parseInt(temp / 60);
               if (c < 10) {
-                  var html = "" + minute + ":0" + c + "";
+                  var html = "0" + minute + ":0" + c + "";
               }else if(9 < c){
                 if(c <60){
-                  var html = "" + minute + ":" + c + "";
+                  var html = "0" + minute + ":" + c + "";
                 }else{
                   var m = c - minute * 60;
-                  if(m == 0 ){
-                    var html = "" + minute + ":00";
-                  }else{
-                    if(m<10){
-                      var html = "" + minute + ":0" + m + "";
+                  if(minute<10){
+                    if(m == 0 ){
+                      var html = "0" + minute + ":00";
                     }else{
-                      var html = "" + minute + ":" + m + "";
+                      if(m<10){
+                        var html = "0" + minute + ":0" + m + "";
+                      }else{
+                        var html = "0" + minute + ":" + m + "";
+                      }
+
                     }
+                  }else{
+                    if(m == 0 ){
+                      var html = "" + minute + ":00";
+                    }else{
+                      if(m<10){
+                        var html = "" + minute + ":0" + m + "";
+                      }else{
+                        var html = "" + minute + ":" + m + "";
+                      }
 
+                    }
                   }
-
                 }
               }
       $api.html(stylelist, html);
@@ -642,17 +641,29 @@ var Guid = new Array();
           var html = "0" + minute + ":" + c + "";
         }else{
           var m = c - minute * 60;
-          if(m == 0 ){
-            var html = "0" + minute + ":00";
-          }else{
-            if(m<10){
-              var html = "0" + minute + ":0" + m + "";
+          if(minute<10){
+            if(m == 0 ){
+              var html = "0" + minute + ":00";
             }else{
-              var html = "" + minute + ":" + m + "";
+              if(m<10){
+                var html = "0" + minute + ":0" + m + "";
+              }else{
+                var html = "0" + minute + ":" + m + "";
+              }
+
             }
+          }else{
+            if(m == 0 ){
+              var html = "" + minute + ":00";
+            }else{
+              if(m<10){
+                var html = "" + minute + ":0" + m + "";
+              }else{
+                var html = "" + minute + ":" + m + "";
+              }
 
+            }
           }
-
         }
       }
       clearTimeout(t);
