@@ -37,12 +37,12 @@
         .index_header_div {width: 100%;position: relative;}
         .index_header_img {width: 75px;margin: 7.5px auto;border-radius: 37.5px;z-index: 0;}
         .index_header_img img{width: 100%;}
-        .index_header_mvp{position: absolute;bottom: 0;right: 0;z-index: 1;}
-        .index_header_mvp img{width: 20px;height: 20px;}
+
         .wode_bg {width: 100%;padding-bottom: 25px;}
         .wode_bg div{text-align: center;}
-        .index_header_mvp_p{color: #333333;font-size: 13px;}
-        .index_header_mvp_span{font-size: 12px;color: #808080;}
+        .index_header_mvp_p{height:40px;position: relative;line-height: 40px;}
+        /*.index_header_mvp_p{color: #333333;font-size: 13px;}*/
+        .index_header_mvp_span{font-size: 14px;color: #808080;}
         .index_header_bor{border: 1px solid #fff;width: 90px;height: 90px;margin: 0 auto;border-radius: 45px;position: relative;}
         .index_main {width: 100%;background-color: #fff;}
         .index_main_h1{height: 50px;line-height: 50px;overflow: hidden;}
@@ -138,17 +138,64 @@
         /*.fmbtnhover {
             background: #D8D9DA;
         }*/
+        /*.message{
+            position: absolute;
+            bottom: 7px;
+            right: 32px;
+            width:40px;
+            height:25px;
+            text-align: center;
+            display: inline-block;
+        }
+        .message>p{
+          width:60px;
+          height:25px;
+          line-height: 25px;
+          border-radius: 8px;
+          background-color: #89211b;
+          color:#fff;
+          font-size: 12px;
+
+        }*/
+        .user_name{
+          display: inline-block;
+          color: #333333;
+          font-size: 16px;
+        }
+        .index_header_care{
+          position: absolute;
+          bottom: 4px;
+          right: 15px;
+          z-index: 1;
+          width: 100px;
+          height: 22px;
+          border: 1px solid #ccc;
+          padding: 5px 3px;
+          border-radius: 8px;
+          line-height: 20px;
+          display: inline-block;
+          background-color: #89211b;
+        }
+        .index_header_care img{height:24px;vertical-align: top;}
     </style>
 </head>
 <body>
-  <div class="index_header">
+  <div class="index_header" id="indexHeader">
       <div class="index_header_div">
         <div class="index_header_bor">
             <div class="index_header_img"><img src="../image/KM_tx.png" alt=""></div>
-            <!-- <div class="index_header_mvp"><img src="../image/vip/vip_icon5.png" alt=""></div> -->
+            <!-- <div class="index_header_care"><img src="../image/care.png" alt="" class="indexHeaderCare1"></div>
+            <div class="message"><p>发私信</p></div> -->
         </div>
+
         <div class="wode_bg">
-            <div class="index_header_mvp_p">嘿！我不是朝天椒</div>
+            <div class="index_header_mvp_p">
+                <div class="user_name">小小</div>
+              <div class="index_header_care">
+                <img src="../image/care-a.png" alt="" class="indexHeaderCare1">
+                <img src="../image/personal_private_a.png" alt="" class="indexHeaderCare1">
+              </div>
+            <!-- <div class="message"><p>发私信</p></div></div> -->
             <div class="index_header_mvp_span"><b>个性签名：</b>我是一个狠辣狠辣的辣椒，哈哈哈哈</div>
         </div>
       </div>
@@ -251,6 +298,65 @@
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
-    apiready = function() {}
+    apiready = function() {
+      fnOpenAddCare();
+    }
+    //加关注
+    function fnOpenAddCare() {
+      var indexHeader = document.getElementById('indexHeader');
+      var indexHeaderCare1 = indexHeader.getElementsByClassName('indexHeaderCare1');
+      indexHeaderCare1[0].onclick = function() {
+        var dialogBox = api.require('dialogBox');
+            dialogBox.alert({
+                texts:{
+                    content:'确定要添加关注吗？',
+                    leftBtnTitle: '取消',
+                    rightBtnTitle: '确认'
+                },
+                styles: {
+                    bg: '#fff',
+                    w: 300,
+                    content: {
+                        color: '#000',
+                        size: 14
+                    },
+                    left: {
+                        marginB: 15,
+                        marginL: 20,
+                        w: 100,
+                        h: 35,
+                        corner: 2,
+                        bg: '#ccc',
+                        size: 12
+                    },
+                    right: {
+                        marginB: 15,
+                        marginL: 60,
+                        w: 100,
+                        h: 35,
+                        corner: 2,
+                        bg: '#ccc',
+                        size: 12
+                    }
+                }
+              },function(ret) {
+                if (ret.eventType == 'right') {
+                    if(indexHeaderCare1[0].getAttribute("src",2)=="../image/care_a.png"){
+                      indexHeaderCare1[0].src="../image/care_g.png";
+                    }
+                    var dialogBox = api.require('dialogBox');
+                    dialogBox.close({
+                        dialogName: 'alert'
+                    });
+                }else if (ret.eventType == 'left') {
+                  var dialogBox = api.require('dialogBox');
+                  dialogBox.close({
+                      dialogName: 'alert'
+                  });
+              }
+          });
+        }
+
+      }
 
 </script>
