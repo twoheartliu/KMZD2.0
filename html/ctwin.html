@@ -386,26 +386,30 @@
 <body>
     <header id="secHeader">
         <div class="header_fls fl" onclick="goback();"><img src="../image/KM_Hfh.png" alt=""></div>
-        <div class="header_fl fr"><span>保存</span></div>
+        <div class="header_fl fr" onclick="fnLuYinBaoCun();"><span>保存</span></div>
         <div class="header_center">朗读</div>
     </header>
+    <div id="yinpin">
+        <!-- <audio id="myAudio" >
+    </audio> -->
+    </div>
     <div class="name_bg">
         <div class="name">
             <div class="name_name">
                 <div class="zyld_name">
                     <!-- <div class="zyld_h1">命名</div> -->
 
-                    <div class="zyld_input">
-                      三字经
+                    <div class="zyld_input" id="jubentitle">
+                      <!-- 三字经 -->
                       <!-- <input type="text" name="" value="" placeholder="标题" onclick="" id="inputId"> -->
                     </div>
 
                 </div>
-                <div class="zyld_name">
+                <div class="zyld_name" >
                     <!-- <div class="zyld_h1">命名</div> -->
 
-                    <div class="zyld_input">
-                      小许
+                    <div class="zyld_input" id="jubenname">
+                      <!-- 小许 -->
                       <!-- <input type="text" name="" value="" placeholder="作者" onclick="" id="inputId"> -->
                     </div>
 
@@ -415,9 +419,9 @@
         <div class="name_ov">
             <div class="zyld_text">
                 <div class="p20px">
-                    <p>1234564654546545456</p>
-                    <!-- <textarea placeholder="长按粘贴文本" class="replyValue" type="text" id="bar" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea> -->
-                    <!-- <button class="btn" data-clipboard-action="copy" data-clipboard-target="#bar" onclick="fncabtton();">123123</button> -->
+                    <p id="jubenbody">
+                      <!-- 1234564654546545456 -->
+                    </p>
                 </div>
 
             </div>
@@ -441,6 +445,7 @@
             </span>
         </div>
     </footer>
+
 </body>
 
 </html>
@@ -448,38 +453,191 @@
 <script type="text/javascript" src="../script/zepto.js"></script>
 <script type="text/javascript" src="../script/audio2.js"></script>
 <script type="text/javascript">
+
+    var title;
+    var name;
+    var body;
+    var cgxid;
+    var path;
+    var timestamp;
+    var timestamps;
+    var jubenid;
+    apiready = function() {
+        var secHeader = $api.byId('secHeader');
+        $api.fixStatusBar(secHeader);
+        var headerH = $api.offset(secHeader).h;
+        title = api.pageParam.title;
+        name = api.pageParam.name;
+        body = api.pageParam.body;
+        path = api.pageParam.path;
+        jubenid = api.pageParam.jubenid;
+        timestamp = api.pageParam.timestamp;
+        timestamps = api.pageParam.timestamps;
+        fnGetJubentitle();
+        fnGetJubenname();
+        fnGetJubenbody();
+        fnFuZhiAudio();
+    }
+    function fnFuZhiAudio(url) {
+        var stylelist = $api.byId('yinpin');
+        var html = '<audio id="myAudio" ><source src=" ' + path + '" type="audio/mpeg"></audio>';
+        $api.html(stylelist, html);
+
+    }
+    //赋值剧本标题
+  	function fnGetJubentitle() {
+  		var stylelist = $api.byId('jubentitle');
+  		var	html = title;
+  		$api.html(stylelist, html);
+  	}
+    //赋值剧本作者
+    function fnGetJubenname() {
+  		var stylelist = $api.byId('jubenname');
+  		var	html = name;
+  		$api.html(stylelist, html);
+  	}
+    //赋值剧本歌词
+    function fnGetJubenbody() {
+  		var stylelist = $api.byId('jubenbody');
+      var str1 = JSON.stringify(body);
+      var str2 = str1.replace(/r/g, '<br>');
+      var str3 = str2.replace(/n/g, '<br>');
+      var str4 = str3.split('\\').join('');
+      var str5 = str4.split("\"").join('');
+  		var	html = str5;
+      shiTingBody = str5;
+  		$api.html(stylelist, html);
+  	}
+    function fnOpenPlayCollect() {
+        var playCollect = $api.byId('playCollect');
+        if (playCollect.getAttribute("src", 2) == "../image/aloud/63734540119813241.png") {
+            playCollect.src = "../image/aloud/428129250927140404.png";
+            fnLuYinshiting();
+
+        } else {
+            playCollect.src = "../image/aloud/63734540119813241.png";
+            var myAudio = document.getElementById("myAudio");
+            myAudio.pause();
+        }
+    };
+
+    var c = 0;
+    var t
+    function fnLuYinshiting(){
+  		//console.log(path);
+  		if(path){
+        // var audioStreamer = api.require('audioStreamer');
+        // audioStreamer.stop();
+        var myAudio = document.getElementById("myAudio");
+        myAudio.play();
+        var sss = myAudio.getStartDate();
+        console.log(sss);
+  		}
+      // var stylelist = $api.byId('appTime');
+      //         c=c+1;
+      //         var temp = c;
+      //         minute = parseInt(temp / 60);
+      //         if (c < 10) {
+      //             var html = "" + minute + ":0" + c + "";
+      //         }else if(9 < c){
+      //           if(c <60){
+      //             var html = "" + minute + ":" + c + "";
+      //           }else{
+      //             var m = c - minute * 60;
+      //             if(m == 0 ){
+      //               var html = "" + minute + ":00";
+      //             }else{
+      //               if(m<10){
+      //                 var html = "" + minute + ":0" + m + "";
+      //               }else{
+      //                 var html = "" + minute + ":" + m + "";
+      //               }
+      //
+      //             }
+      //
+      //           }
+      //         }
+      // $api.html(stylelist, html);
+      // t=setTimeout("timedCount()",1000)
+  	}
+    function stopCount(){
+      var stylelist = $api.byId('appTime');
+      var temp = c;
+      minute = parseInt(temp / 60);
+      if (c < 10) {
+          var html = "0" + minute + ":0" + c + "";
+      }else if(9 < c){
+        if(c <60){
+          var html = "0" + minute + ":" + c + "";
+        }else{
+          var m = c - minute * 60;
+          if(m == 0 ){
+            var html = "0" + minute + ":00";
+          }else{
+            if(m<10){
+              var html = "0" + minute + ":0" + m + "";
+            }else{
+              var html = "" + minute + ":" + m + "";
+            }
+
+          }
+
+        }
+      }
+      clearTimeout(t);
+      $api.html(stylelist, html);
+    }
+    //保存
+  	function fnLuYinBaoCun(){
+  		//fs 文件管理 删除  拷贝  移除等
+  		//拷贝文件
+  		var fs = api.require('fs');
+  		fs.copyTo({
+  		    oldPath: path,
+  		    newPath: 'fs://caogaoxiang'
+  		}, function(ret, err) {
+  				var paths = 'fs://caogaoxiang/' + timestamps +'';
+  		    if (ret.status) {
+  					var fs = api.require('fs');
+  					fs.rename({
+  						oldPath: paths,
+  						newPath: 'fs://caogaoxiang/' + timestamp +'' + jubenid + ''
+  					}, function(ret, err) {
+  						if (ret.status) {
+  								alert('已保存');
+  						} else {
+  								alert(JSON.stringify(err));
+  						}
+  					});
+  		    } else {
+  		        alert(JSON.stringify(err));
+  		    }
+  		});
+      api.getPrefs({
+          key: 'cgxlist'
+      }, function(ret, err) {
+          if (ret) {
+              var flag = false; //是否增加历史记录
+              var historyUrlText = ret.value;
+              var historyUrlArray = historyUrlText.split('');
+              for (var i = 0; i < historyUrlArray.length; i++) {
+                  historyUrlArray[i] == cgxid && (flag = true);
+              }!flag && historyUrlArray.splice(1, 0, cgxid,title,name,body);
+              !flag && api.setPrefs({
+                  key: 'cgxlist',
+                  value: historyUrlArray.join(',')
+              });
+              // fnHistoryUrl(id);
+          } else {
+              alert(JSON.stringify(err));
+          }
+      });
+  	}
     function goback() {
         api.closeWin({
             name: 'ctwin'
         });
     }
-
-    function fnSoundtrackWin() {
-        api.openWin({
-            name: 'soundtrack',
-            url: './soundtrack.html',
-            pageParam: {
-                name: 'test'
-            }
-        });
-
-    }
-
-    apiready = function() {
-        var secHeader = $api.byId('secHeader');
-        $api.fixStatusBar(secHeader);
-        var headerH = $api.offset(secHeader).h;
-
-    }
-
-    function fnOpenPlayCollect() {
-        var playCollect = $api.byId('playCollect');
-        if (playCollect.getAttribute("src", 2) == "../image/aloud/428129250927140404.png") {
-            playCollect.src = "../image/aloud/63734540119813241.png";
-        } else {
-            playCollect.src = "../image/aloud/428129250927140404.png";
-        }
-    };
 </script>
 <script>
     var change = function($input) {
