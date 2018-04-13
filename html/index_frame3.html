@@ -569,92 +569,65 @@
     function fnOpenUserButton() {
       var friend = document.getElementById('friend');
       var friend_lis = friend.getElementsByClassName('userButton');
-      for (var i = 0; i < friend_lis.length; i++) {
+        for (var i = 0; i < friend_lis.length; i++) {
           friend_lis[i].index = i;
-          friend_lis[i].onclick = function() {
-            var j = this.index;
-            var dialogBox = api.require('dialogBox');
-                dialogBox.alert({
-                    texts:{
-                        // title: '确认',
-                        content:'确定要添加关注吗？',
-                        leftBtnTitle: '取消',
-                        rightBtnTitle: '确认'
-                    },
-                    styles: {
-                        bg: '#fff',
-                        w: 300,
-                        // title: {
-                        //     marginT: 20,
-                        //     icon: 'widget://res/gou.png',
-                        //     iconSize: 40,
-                        //     titleSize: 14,
-                        //     titleColor: '#000'
-                        // },
-                        content: {
-                            color: '#000',
-                            size: 14
-                        },
-                        left: {
-                            marginB: 15,
-                            marginL: 20,
-                            w: 100,
-                            h: 35,
-                            corner: 2,
-                            bg: '#ccc',
-                            color: '#fff',
-                            size: 12
-                        },
-                        right: {
-                            marginB: 15,
-                            marginL: 60,
-                            w: 100,
-                            h: 35,
-                            corner: 2,
-                            bg: '#ccc',
-                            color: '#fff',
-                            size: 12
-                        }
-                    }
-                  },function(ret) {
-                    if (ret.eventType == 'right') {
-                        // confire();
-                        if(friend_lis[j].getAttribute("src",2)=="../image/care.png"){
-                          friend_lis[j].src="../image/care1.png";
-                        }
+            friend_lis[i].onclick = function() {
+              var j = this.index;
+                var dialogBox = api.require('dialogBox');
+                  dialogBox.alert({
+                      texts:{
+                          content:'确定要添加关注吗？',
+                          leftBtnTitle: '取消',
+                          rightBtnTitle: '确认'
+                      },
+                      styles: {
+                          bg: '#fff',
+                          w: 300,
+                          content: {
+                              color: '#000',
+                              size: 14
+                          },
+                          left: {
+                              marginB: 15,
+                              marginL: 20,
+                              w: 100,
+                              h: 35,
+                              corner: 2,
+                              bg: '#ccc',
+                              color: '#fff',
+                              size: 12
+                          },
+                          right: {
+                              marginB: 15,
+                              marginL: 60,
+                              w: 100,
+                              h: 35,
+                              corner: 2,
+                              bg: '#ccc',
+                              color: '#fff',
+                              size: 12
+                          }
+                      }
+                    },function(ret) {
+                      if (ret.eventType == 'right') {
+                          if(friend_lis[j].getAttribute("src",2)=="../image/care.png"){
+                            friend_lis[j].src="../image/care1.png";
+                          }
+                          var dialogBox = api.require('dialogBox');
+                          dialogBox.close({
+                              dialogName: 'alert'
+                          });
+                      }else if (ret.eventType == 'left') {
                         var dialogBox = api.require('dialogBox');
                         dialogBox.close({
                             dialogName: 'alert'
                         });
-                    }else if (ret.eventType == 'left') {
-                      var dialogBox = api.require('dialogBox');
-                      dialogBox.close({
-                          dialogName: 'alert'
-                      });
-                  }
-              });
-
+                    }
+                });
 
         }
       }
 
       }
-      function confire(){
-        //   var friend = document.getElementById('friend');
-        //   var friend_lis = friend.getElementsByClassName('userButton');
-        //   for (var i = 0; i < friend_lis.length; i++) {
-        //     friend_lis[i].index = i;
-        //     friend_lis[i].onclick = function() {
-        //       var j = this.index;
-        //     if(friend_lis[j].getAttribute("src",2)=="../image/care.png"){
-        //       friend_lis[j].src="../image/care1.png";
-        //     }
-        //   }
-        // }
-        var userButton = $api.byId('userButton');
-        if (userButton.getAttribute("src", 2) == "../image/care.png") {
-            userButton.src = "../image/care1.png";
-        }
 
-      }
 </script>
