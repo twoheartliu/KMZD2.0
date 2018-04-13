@@ -456,7 +456,7 @@
 
     var title;
     var name;
-    var body;
+    var desc;
     var cgxid;
     var path;
     var timestamp;
@@ -468,7 +468,8 @@
         var headerH = $api.offset(secHeader).h;
         title = api.pageParam.title;
         name = api.pageParam.name;
-        body = api.pageParam.body;
+        desc = api.pageParam.desc;
+        cgxid = api.pageParam.cgxid;
         path = api.pageParam.path;
         jubenid = api.pageParam.jubenid;
         timestamp = api.pageParam.timestamp;
@@ -478,7 +479,8 @@
         fnGetJubenbody();
         fnFuZhiAudio();
     }
-    function fnFuZhiAudio(url) {
+    function fnFuZhiAudio() {
+      // console.log(path);
         var stylelist = $api.byId('yinpin');
         var html = '<audio id="myAudio" ><source src=" ' + path + '" type="audio/mpeg"></audio>';
         $api.html(stylelist, html);
@@ -511,7 +513,7 @@
     //赋值剧本歌词
     function fnGetJubenbody() {
   		var stylelist = $api.byId('jubenbody');
-      var str1 = JSON.stringify(body);
+      var str1 = JSON.stringify(desc);
       var str2 = str1.replace(/r/g, '<br>');
       var str3 = str2.replace(/n/g, '<br>');
       var str4 = str3.split('\\').join('');
@@ -586,9 +588,9 @@
               if(minute < 10){
                 var html = "0" + minute + ":" + cur % 60 + "";
               }else{
-                if(9 < minute < 60){
+
                   var html = "" + minute + ":" + cur % 60 + "";
-                }
+
 
               }
 
@@ -616,9 +618,9 @@
           if(minute < 10){
             var html = "0" + minute + ":" + lenth % 60 + "";
           }else{
-            if(9 < minute < 60){
+
               var html = "" + minute + ":" + lenth % 60 + "";
-            }
+
 
           }
 
@@ -660,7 +662,7 @@
               var historyUrlArray = historyUrlText.split('');
               for (var i = 0; i < historyUrlArray.length; i++) {
                   historyUrlArray[i] == cgxid && (flag = true);
-              }!flag && historyUrlArray.splice(1, 0, cgxid,title,name,body);
+              }!flag && historyUrlArray.splice(1, 0, cgxid,title,name,desc);
               !flag && api.setPrefs({
                   key: 'cgxlist',
                   value: historyUrlArray.join(',')

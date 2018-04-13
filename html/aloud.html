@@ -325,7 +325,7 @@ var Guid = new Array();
     //获取剧本基本信息
     var title;
     var name;
-    var body;
+    var desc;
     var cgxid;
     function fnGetJubenlist() {
   		var id = api.pageParam.InfojubenType;
@@ -336,13 +336,11 @@ var Guid = new Array();
   			dataType: 'json',
   		}, function(ret, err) {
   			if (ret) {
-        // var ccc =   typeof(timestamp);
-        // console.log(ccc);
+        // console.log(JSON.stringify(ret));
 
-          cgxid = timestamp.toString() + jubenid.toString();
           title = ret.data[0].title;
           name = ret.data[0].name;
-          body = ret.data[0].body;
+          desc = ret.data[0].body;
           if(!name){
             name = '';
           }
@@ -369,7 +367,7 @@ var Guid = new Array();
     //赋值剧本歌词
     function fnGetJubenbody() {
   		var stylelist = $api.byId('jubenbody');
-      var str1 = JSON.stringify(body);
+      var str1 = JSON.stringify(desc);
       var str2 = str1.replace(/r/g, '<br>');
       var str3 = str2.replace(/n/g, '<br>');
       var str4 = str3.split('\\').join('');
@@ -421,17 +419,17 @@ var Guid = new Array();
   		        alert(JSON.stringify(err));
   		    }
   		});
-
+        cgxid = ''+ timestamp + '' + jubenid + '';
       api.getPrefs({
           key: 'cgxlist'
       }, function(ret, err) {
           if (ret) {
               var flag = false; //是否增加历史记录
               var historyUrlText = ret.value;
-              var historyUrlArray = historyUrlText.split('');
+              var historyUrlArray = historyUrlText.split(',');
               for (var i = 0; i < historyUrlArray.length; i++) {
                   historyUrlArray[i] == cgxid && (flag = true);
-              }!flag && historyUrlArray.splice(1, 0, cgxid,title,name,body);
+              }!flag && historyUrlArray.splice(1, 0, cgxid,title,name,desc);
               !flag && api.setPrefs({
                   key: 'cgxlist',
                   value: historyUrlArray.join(',')
@@ -479,8 +477,8 @@ var Guid = new Array();
             // console.log('44444');
             newLuyinWenjian();
           } else {
-            console.log(JSON.stringify(err));
-              // alert(JSON.stringify(err));
+            // console.log(JSON.stringify(err));
+              alert(JSON.stringify(err));
           }
       });
     }
@@ -492,38 +490,8 @@ var Guid = new Array();
           path: 'fs://luyintxtss/' + timestamp +'' + jubenid + '.txt'
       }, function(ret, err) {
           if (ret.status) {
-              // console.log('222');
               var fs = api.require('fs');
-              // fs.open({
-              //     path: 'fs://luyintxtss/' + timestamp +'' + jubenid + '.txt',
-              //     flags: 'write'
-              // }, function(ret, err) {
-              //     if (ret.status) {
-              //       // console.log();
-              //       //var fd = ret.fd;
-              //       console.log(JSON.stringify(ret));
-              //       // var fs = api.require('fs');
-              //       fs.write({
-              //         data: '11111111111',
-              //         offset: 0
-              //       }, function(ret, err) {
-              //         console.log(JSON.stringify(ret));
-              //         if (ret.status) {
-              //           console.log(JSON.stringify(ret));
-              //             //alert(JSON.stringify(ret));
-              //         } else {
-              //           console.log(JSON.stringify(err));
-              //             // alert(JSON.stringify(err));
-              //         }
-              //       });
-              //         //alert(JSON.stringify(ret));
-              //     } else {
-              //         // alert(JSON.stringify(err));
-              //         console.log(JSON.stringify(err));
-              //     }
-              // });
               var aaaa = JSON.stringify(Guid);
-              console.log(Guid);
               fs.writeByLength({
                   path: 'fs://luyintxtss/' + timestamp +'' + jubenid + '.txt',
                   content: aaaa,
@@ -531,17 +499,12 @@ var Guid = new Array();
                       start: 0
                   }
               }, function(ret, err) {
-                console.log('1111');
-                console.log(JSON.stringify(ret));
                   if (ret.status) {
-                      // alert(JSON.stringify(ret));
 
                   } else {
-                    // console.log(JSON.stringify(err));
                       alert(JSON.stringify(err));
                   }
               });
-              //alert(JSON.stringify(ret));
           } else {
               alert(JSON.stringify(err));
           }
@@ -549,17 +512,17 @@ var Guid = new Array();
     }
   	//试听
   	function fnLuYinshiting(){
-  		//console.log(path);
   		if(path){
         api.openWin({
             name: 'ctwin',
             url: './ctwin.html',
             pageParam: {
                 path : path,
-                body : body,
+                desc : desc,
                 title : title,
                 name : name,
                 jubenid : jubenid,
+                cgxid : cgxid,
                 timestamp : timestamp,
                 timestamps : timestamps
             }
@@ -701,6 +664,7 @@ var Guid = new Array();
       			//暂停录音
       			api.stopRecord(function(ret, err) {
       			    if (ret) {
+                  // console.log(ret.path);
       			        path = ret.path;
       			        duration = ret.duration;
       			    }

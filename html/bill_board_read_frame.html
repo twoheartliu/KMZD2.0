@@ -3,7 +3,7 @@
   <head>
       <meta charset="utf-8">
       <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
-      <title>孔孟之道--榜单</title>
+      <title>孔孟之道--朗诵榜</title>
       <link rel="stylesheet" type="text/css" href="../css/api.css"/>
       <style>
         body,html{
@@ -137,7 +137,7 @@
   <body>
     <section>
       <div class="egret-flex-item " >
-          <div class="egret-flex-item-logo">
+          <div class="egret-flex-item-logo" onclick="fnOpenListeningList();">
               <img src="../image/frame0101cover/frame0101cover16.png" alt="" class="">
           </div>
           <div class="egret-flex-item-shelf">
@@ -158,7 +158,7 @@
       </div>
       <div class="hdivider"></div>
       <div class="egret-flex-item " >
-          <div class="egret-flex-item-logo">
+          <div class="egret-flex-item-logo" onclick="fnOpenListeningList();">
               <img src="../image/frame0101cover/frame0101cover16.png" alt="" class="">
           </div>
           <div class="egret-flex-item-shelf">
@@ -179,7 +179,7 @@
       </div>
       <div class="hdivider"></div>
       <div class="egret-flex-item " >
-          <div class="egret-flex-item-logo">
+          <div class="egret-flex-item-logo" onclick="fnOpenListeningList();">
               <img src="../image/frame0101cover/frame0101cover16.png" alt="" class="">
           </div>
           <div class="egret-flex-item-shelf">
@@ -200,7 +200,7 @@
       </div>
       <div class="hdivider"></div>
       <div class="egret-flex-item " >
-          <div class="egret-flex-item-logo">
+          <div class="egret-flex-item-logo" onclick="fnOpenListeningList();">
               <img src="../image/frame0101cover/frame0101cover16.png" alt="" class="">
           </div>
           <div class="egret-flex-item-shelf">
@@ -221,7 +221,7 @@
       </div>
       <div class="hdivider"></div>
       <div class="egret-flex-item " >
-          <div class="egret-flex-item-logo">
+          <div class="egret-flex-item-logo" onclick="fnOpenListeningList();">
               <img src="../image/frame0101cover/frame0101cover16.png" alt="" class="">
           </div>
           <div class="egret-flex-item-shelf">
@@ -242,7 +242,7 @@
       </div>
       <div class="hdivider"></div>
       <div class="egret-flex-item " >
-          <div class="egret-flex-item-logo">
+          <div class="egret-flex-item-logo" onclick="fnOpenListeningList();">
               <img src="../image/frame0101cover/frame0101cover16.png" alt="" class="">
           </div>
           <div class="egret-flex-item-shelf">
@@ -268,5 +268,14 @@
   <script type="text/javascript">
     apiready = function(){
     };
+    function fnOpenListeningList() {
+      api.openWin({
+          name: 'ListeningList',
+          url: './ListeningList.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
+    }
   </script>
   </html>
