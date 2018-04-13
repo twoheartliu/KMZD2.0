@@ -325,7 +325,7 @@ var Guid = new Array();
     //获取剧本基本信息
     var title;
     var name;
-    var body;
+    var desc;
     var cgxid;
     function fnGetJubenlist() {
   		var id = api.pageParam.InfojubenType;
@@ -336,12 +336,11 @@ var Guid = new Array();
   			dataType: 'json',
   		}, function(ret, err) {
   			if (ret) {
-        // var ccc =   typeof(timestamp);
-        // console.log(ccc);
+        // console.log(JSON.stringify(ret));
 
           title = ret.data[0].title;
           name = ret.data[0].name;
-          body = ret.data[0].body;
+          desc = ret.data[0].body;
           if(!name){
             name = '';
           }
@@ -368,7 +367,7 @@ var Guid = new Array();
     //赋值剧本歌词
     function fnGetJubenbody() {
   		var stylelist = $api.byId('jubenbody');
-      var str1 = JSON.stringify(body);
+      var str1 = JSON.stringify(desc);
       var str2 = str1.replace(/r/g, '<br>');
       var str3 = str2.replace(/n/g, '<br>');
       var str4 = str3.split('\\').join('');
@@ -430,7 +429,7 @@ var Guid = new Array();
               var historyUrlArray = historyUrlText.split(',');
               for (var i = 0; i < historyUrlArray.length; i++) {
                   historyUrlArray[i] == cgxid && (flag = true);
-              }!flag && historyUrlArray.splice(1, 0, cgxid,title,name,body);
+              }!flag && historyUrlArray.splice(1, 0, cgxid,title,name,desc);
               !flag && api.setPrefs({
                   key: 'cgxlist',
                   value: historyUrlArray.join(',')
@@ -519,7 +518,7 @@ var Guid = new Array();
             url: './ctwin.html',
             pageParam: {
                 path : path,
-                body : body,
+                desc : desc,
                 title : title,
                 name : name,
                 jubenid : jubenid,
@@ -665,6 +664,7 @@ var Guid = new Array();
       			//暂停录音
       			api.stopRecord(function(ret, err) {
       			    if (ret) {
+                  // console.log(ret.path);
       			        path = ret.path;
       			        duration = ret.duration;
       			    }

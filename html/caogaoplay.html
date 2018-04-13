@@ -718,7 +718,7 @@
         });
     }
 
-    //赋值歌词、总时长、标题
+    //赋值歌词、作者、标题
     function fnJiBenXinXi() {
         api.addEventListener({
             name: 'jibenxinxi'
@@ -734,13 +734,13 @@
                     var html0 = str4;
                     $api.html(stylelist, html0);
                 }
-                //赋值总时长
-                if (ret.value.play_time) {
-                    var stylelist = $api.byId('zongshichang');
-                    var html1 = ret.value.play_time;
-                    var html = html1.slice(3);
-                    $api.html(stylelist, html);
-                }
+                //赋值作者
+                // if (ret.value.play_time) {
+                //     var stylelist = $api.byId('zongshichang');
+                //     var html1 = ret.value.singerName;
+                //     var html = html1.slice(3);
+                //     $api.html(stylelist, html);
+                // }
                 //赋值标题
                 if (ret.value.titlename) {
                     var stylelist = $api.byId('title');
@@ -785,11 +785,11 @@
             fnOpenChangeImg();
         } else {
             player.src = "../image/img/ic_play_play.png";
-            var netAudiopausess = '';
+            var netAudioPausess = '';
             api.sendEvent({
-                name: 'netLuYinpause',
+                name: 'netAudioPause',
                 extra: {
-                    netAudiopauses: netAudiopausess
+                    netAudioPausess: netAudioPausess
                 }
             });
             var bofang = 2;
@@ -831,7 +831,19 @@
             }
         });
     }
-
+    function netTotalTime(){
+      api.addEventListener({
+          name: 'jibenxinxi'
+      }, function(ret, err) {
+          if (ret) {
+            var stylelist = $api.byId('zongshichang');
+            var html1 = ret.value.lenth;
+            var html = html1.slice(3);
+            $api.html(stylelist, html);
+            fnZongJinDu(ret.value.lenth);
+          }
+      });
+    }
     function fnZongJinDu(lenth) {
         zongJindu = lenth;
     }
@@ -853,7 +865,7 @@
         player.src = "../image/img/ic_play_pause.png";
         var c = 1;
         api.sendEvent({
-            name: 'Cgxshangyi',
+            name: 'GeDanshangyi',
             extra: {
                 c: c
             }
@@ -864,7 +876,7 @@
     function fnOpenPlayerxiayi() {
         var c = 2;
         api.sendEvent({
-            name: 'Cgxxiayi',
+            name: 'GeDanxiayi',
             extra: {
                 c: c
             }
@@ -953,23 +965,24 @@
   	// 	ajaxPlay(a)
   	// 	//console.log(JSON.stringify(caogaoyinyue));
   	// }
-    function ajaxPlay(a) {
-  		a = c;
-  		if(!a){
+    // function ajaxPlay(a) {
+  	// 	a = c;
+  	// 	if(!a){
+    //
+  	// 		var netAudio = api.require('netAudio');
+  	// 		netAudio.play({
+  	// 				path: 'fs://caogaoxiang/' + id + ''
+  	// 		}, function(ret, err) {
+  	// 				if (ret) {
+  	// 				} else {
+  	// 						alert(JSON.stringify(err));
+  	// 				}
+  	// 		});
+    //
+    //
+  	// 	}
+  	// }
 
-  			var netAudio = api.require('netAudio');
-  			netAudio.play({
-  					path: 'fs://caogaoxiang/' + id + ''
-  			}, function(ret, err) {
-  					if (ret) {
-  					} else {
-  							alert(JSON.stringify(err));
-  					}
-  			});
-
-
-  		}
-  	}
     // 轮播
     function fnInitSwiper() {
         var mySwiper = new Swiper('.swiper-container', {
@@ -983,7 +996,7 @@
         var idx = 0;
         var bofangmoshi = 0;
         api.sendEvent({
-            name: 'bofangmoshiluyin',
+            name: 'bofangmoshi',
             extra: {
                 bofangmoshi: bofangmoshi
             }
@@ -998,7 +1011,7 @@
             if (idx == 1) {
                 var bofangmoshi = 1;
                 api.sendEvent({
-                    name: 'bofangmoshiluyin',
+                    name: 'bofangmoshi',
                     extra: {
                         bofangmoshi: bofangmoshi
                     }
@@ -1006,7 +1019,7 @@
             } else if (idx == 2) {
                 var bofangmoshi = 2;
                 api.sendEvent({
-                    name: 'bofangmoshiluyin',
+                    name: 'bofangmoshi',
                     extra: {
                         bofangmoshi: bofangmoshi
                     }
@@ -1014,7 +1027,7 @@
             } else {
                 var bofangmoshi = 0;
                 api.sendEvent({
-                    name: 'bofangmoshiluyin',
+                    name: 'bofangmoshi',
                     extra: {
                         bofangmoshi: bofangmoshi
                     }
