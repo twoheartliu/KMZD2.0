@@ -8,8 +8,6 @@
     <title>听单列表</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
     <style>
-        body {}
-
         .fr {
             float: right;
         }
@@ -336,18 +334,19 @@
                 <div class="userinfocol" tapmode="toolhover" onclick="collectmusic(this)" data-click="0">
                     <div class="info"><img src="../image/KM_hxs.png" alt="" class="collectmusic"></div>
                 </div>
-                <div class="userinfocol" tapmode="toolhover" onclick="fnOpenPlayShare();">
-                    <div class="info"><img src="../image/fx.png" alt=""></div>
+                <div class="userinfocol" tapmode="toolhover" onclick="collectmusicFx(this)">
+                    <div class="info"><img src="../image/KM_ListingsListDzs.png" alt="" class="collectmusicFx"></div>
                 </div>
-                <div class="userinfocol" tapmode="toolhover" onclick="fnOpenPlayShare();">
-                    <div class="info"><img src="../image/fx.png" alt=""></div>
+                <div class="userinfocol" tapmode="toolhover" onclick="">
+                    <div class="info"><img src="../image/KM_ListingsListYzpd.png" alt=""></div>
                 </div>
-                <div class="userinfocol" tapmode="toolhover" onclick="fnOpenPlayShare();">
-                    <div class="info"><img src="../image/fx.png" alt=""></div>
+                <div class="userinfocol" tapmode="toolhover" onclick="openMessage();">
+                    <div class="info"><img src="../image/ListingsListSx.png" alt=""></div>
                 </div>
-                <div class="userinfocol" tapmode="toolhover" onclick="fnOpenPlayShare();">
-                    <div class="info"><img src="../image/fx.png" alt=""></div>
+                <div class="userinfocol" tapmode="toolhover" onclick="ListingsListGd();">
+                    <div class="info"><img src="../image/ListingsListGd.png" alt=""></div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -362,7 +361,7 @@
             <li>
                 <div class="on_playall">
                     <span class="fl on_playall_name">昏昏欲睡：</span>
-                    <span class="fr on_playall_img" onclick="onPlayallImg();"><img src="../image/under.png" alt=""></span>
+                    <span class="fr on_playall_img" onclick="fnOpenPlayShare();"><img src="../image/under.png" alt=""></span>
                 </div>
                 <div class="author">
                     作者：小许
@@ -395,7 +394,22 @@
                 toolbarlist.src = "../image/KM_hxs.png";
             }
         }
-    function onPlayallImg() {
+        function collectmusicFx(clicktoolitem) {
+                var toolbarlist = document.getElementsByClassName('collectmusicFx')[0];
+                var click = clicktoolitem.getAttribute("data-click");
+
+                if (click == 0) {
+                    // 点开
+                    clicktoolitem.setAttribute("data-click", 1);
+                    toolbarlist.src = "../image/KM_ListingsLisDz.png";
+                } else {
+                    // 关闭
+                    clicktoolitem.setAttribute("data-click", 0);
+                    toolbarlist.src = "../image/KM_ListingsListDzs.png";
+                }
+            }
+
+    function ListingsListGd() {
       var dialogBox = api.require('dialogBox');
       dialogBox.actionMenu({
           rect: {
@@ -406,13 +420,13 @@
           },
           items: [{
               text: '分享',
-              icon: 'widget://image/weixin.png'
+              icon: 'widget://image/ListingsListFenXiang.png'
           }, {
               text: '添加到听单',
-              icon: 'widget://image/qq.png'
+              icon: 'widget://image/AddToListenlist.png'
           }, {
               text: '删除',
-              icon: 'widget://image/friends.png'
+              icon: 'widget://image/shanchus.png'
           }],
           styles: {
               bg: '#FFF',
@@ -439,6 +453,7 @@
             dialogBox.close({
                 dialogName: 'alert'
             });
+            fnOpenPlayShare();
             // alert(1);
         }else if (ret.index == "1") {
           dialogBox.close({
@@ -458,7 +473,7 @@
         // dialogBox.close({
         //     dialogName: 'alert'
         // })
-        alert(JSON.stringify(ret))
+        // alert(JSON.stringify(ret))
 
       });
     }
@@ -530,4 +545,11 @@
 
         });
     }
+    //打开消息页面
+    function openMessage() {
+        api.openWin({
+            name: 'message',
+            url: './message.html',
+        });
+    };
 </script>
