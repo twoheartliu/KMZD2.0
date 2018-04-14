@@ -145,11 +145,41 @@
                 }, 350);
             }
         }
-        fnTingdanTuijian()
+        fnGetBeiJingYinYueTypelist();
     };
     //接口  推荐听单
-    var tingdanliebiaobiaoti;
+    var historyUrlArray;
+    function fnGetBeiJingYinYueTypelist() {
+      // console.log('111');
+      api.getPrefs({
+          key: 'cgxlist'
+      }, function(ret, err) {
+          var historyUrlText = '' || ret.value;
+          historyUrlArray = historyUrlText.split(',');
+          // console.log(historyUrlArray);
+          var length = historyUrlArray.length-1;
+          var stylelist = $api.byId('liebiao');
+          var html = '';
+          for (var i = 0; i < length/4+1; i++) {
 
+              if (historyUrlArray[i].length == 0)
+                  continue;
+              var cgxid = historyUrlArray[i*4-3];
+              // console.log(cgxid);
+              var title = historyUrlArray[i*4-2];
+              var name = historyUrlArray[i*4-1];
+              var desc = historyUrlArray[i*4];
+              if (historyUrlArray[i*4-1]) {
+                  html += '<li class="active" tapmode="focus" onclick="fnPlayGeQu(' + i + ');"><div><p>' + historyUrlArray[i*4-2] + '</p><label>作者:' + historyUrlArray[i*4-1] + '</label></div></li>';
+              } else {
+                  html += '<li class="active" tapmode="focus" onclick="fnPlayGeQu(' + i + ');"><div><p>' + historyUrlArray[i*4-2] + '</p><label>作者:未知</label></div></li>';
+              }
+              $api.html(stylelist, html);
+              fnGeDanMingCheng();
+          }
+      });
+
+  	}
     function fnTingdanTuijian() {
         // playlistid = api.pageParam.playlistid;
         // api.ajax({
@@ -181,12 +211,13 @@
     }
 
     function fnGeDanMingCheng(data_) {
-        var stylelist = $api.byId('gedanmingcheng');
-        var html = data_;
-        $api.html(stylelist, html);
+      var stylelist = $api.byId('gedanmingcheng');
+      var html = '草稿箱';
+      $api.html(stylelist, html);
     }
 
     function fnPlayGeQu(a) {
+      // console.log(a);
         // playlistid = api.pageParam.playlistid;
         var bofang = 3;
         api.sendEvent({
