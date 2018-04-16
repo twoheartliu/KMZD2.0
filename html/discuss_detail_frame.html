@@ -101,13 +101,14 @@ html,body {min-height: 100%;background: #f2f2f2}
   ul li{width:100%;padding: 10px 0;border-bottom: 1px solid #ccc; }
   .user-img{width:50px;height: 50px;line-height: 50px;display: inline-block;}
   .user-img img{width:45px;height: 45px;}
-  .user-name{display: inline-block;vertical-align: top;position: relative;width: 80%;}
+  .user-name{display: inline-block;vertical-align: top;position: relative;width: 83%;}
   .user-name p{font-size: 16px;color: #89211b;line-height: 25px;font-size: 12px;}
   .user-name p:nth-child(2){color: #535354;color: #999;}
   .user-name .replyCont{color: #535354;font-size: 15px;line-height: 22px;}
   .discuss{height: auto;background-color: #f2f2f3;color: #999;line-height: 20px;}
   .discuss span{color: #999;font-size: 14px;}
-  /*.user-name p:nth-last-child(1){font-size: 12px;position: absolute;top: 0;right: 0;width:92px;color: #999;}*/
+  .user-name p:nth-last-child(1){position: absolute;top: 0;right: 0px;width:50px;}
+  .user-name p:nth-last-child(1) img{width: 30px;}
   button:focus{outline: none;}
   .clear{clear: both;}
 </style>
@@ -136,12 +137,24 @@ html,body {min-height: 100%;background: #f2f2f2}
               <div class="playall_span fl">当前评论</div>
               <div class="clear"></div>
           </div>
-          <ul>
+          <ul  id="playall">
             <li>
               <div class="user-img"><img src="../image/icon-person.png" alt=""></div>
-              <div class="user-name"><p>云儿123</p>
+              <div class="user-name">
+                <p>云儿123</p>
                 <p>2017年12月30日</p>
                 <p class="replyCont" >时间就是最好的良药。</p>
+                <P ><img src="../image/KM_listdz.png" alt="" class="replyImg"></P>
+              </div>
+
+            </li>
+            <li>
+              <div class="user-img"><img src="../image/icon-person.png" alt=""></div>
+              <div class="user-name">
+                <p>云儿123</p>
+                <p>2017年12月30日</p>
+                <p class="replyCont" >时间就是最好的良药。</p>
+                <P ><img src="../image/KM_listdz.png" alt="" class="replyImg"></P>
               </div>
 
             </li>
@@ -154,6 +167,21 @@ html,body {min-height: 100%;background: #f2f2f2}
   apiready = function (){
     var mHeader = $api.byId('mesHeader');
     var headerPos = $api.offset(mHeader);
+    var playall = document.getElementById('playall');
+    var ul_lis = playall.getElementsByClassName('replyImg');
+    for (var i = 0; i < ul_lis.length; i++) {
+        ul_lis[i].index = i;
+
+        ul_lis[i].onclick = function() {
+          // alert(1);
+          var j = this.index;
+          if(ul_lis[j].getAttribute("src",2)=="../image/KM_listdz.png"){
+            ul_lis[j].src="../image/KM_listdzs.png";
+          }else{
+            ul_lis[j].src="../image/KM_listdz.png";
+          }
+        }
+      }
   }
 
 </script>
