@@ -124,103 +124,83 @@
     var openId;
 
     function fnWXLogin() {
-        var wx = api.require('wx');
-        wx.isInstalled(function(ret, err) {
+        wx = api.require('weiXin');
+        var code;
+        wx.registerApp(function(ret, err) {
+            console.log('111');
+            //api.alert({ msg: '' + ret.status });
+            if (ret.status) {
+                //alert(JSON.stringify(ret.status));
+                console.log('222');
 
-            if (ret.installed) {
-                wx.auth({
-                    apiKey: ''
-                }, function(ret, err) {
-                  alert(JSON.stringify(ret));
+                // weiXin.refreshToken(function(ret, err) {
+                //     if (ret.status) {
+                //         api.alert({ msg: '刷新成功' });
+                //     } else {
+                //         api.alert({ msg: err.msg });
+                //     }
+                // });
+                wx.auth(function(ret, err) {
+                  console.log('333');
+                    //console.log(JSON.stringify(ret));
+                    //api.alert({ msg: ret.status });
+                    //api.alert({ msg: ret.token });
                     if (ret.status) {
+                        //alert(JSON.stringify(ret.status));
+                        //alert(JSON.stringify(ret.code));
 
+                        wx.getUserInfo(function(ret, err) {
+                            var wxjibenziliao = ret;
+                            if (ret.status) {
+                                //alert('222');
+                                //console.log(JSON.stringify(ret));
+                                api.openWin({
+                                    name: 'index',
+                                    url: './index.html',
+                                    pageParam: {
+                                        name: 'test',
+                                        wxjibenziliao: wxjibenziliao
+                                    }
+                                });
+                                var data = {
+                                    values: {
+                                        openid: ret.openid,
+                                        nickname: ret.nickname,
+                                        sex: ret.sex,
+                                        headimgurl: ret.headimgurl,
+                                        province: ret.province,
+                                        city: ret.city,
+                                        privilege: ret.privilege,
+                                        country: ret.country,
+                                        unionid: ret.unionid,
+                                    }
+                                };
+                                $api.setStorage("userInfo", data);
+                                console.log(JSON.stringify($api.getStorage("userInfo")));
+
+                                //alert(JSON.stringify(ret));
+                                //alert(JSON.stringify(nickname));
+                            } else {
+                                api.alert({
+                                    msg: err.msg
+                                });
+                                //alert(err.code);
+                            }
+                        });
                     } else {
-                        alert(err.code);
+                        api.alert({
+                            msg: err.msg
+                        });
+                        //alert(err.code);
                     }
                 });
             } else {
-              // alert(JSON.stringify(ret.installed));
+                api.alert({
+                    msg: err.msg
+                });
                 alert('当前设备未安装微信客户端');
             }
         });
-        //alert("1");
-        // wx = api.require('weiXin');
-        // var code;
-        // wx.registerApp(function(ret, err) {
-        //     console.log('111');
-        //     //api.alert({ msg: '' + ret.status });
-        //     if (ret.status) {
-        //         //alert(JSON.stringify(ret.status));
-        //         console.log('222');
-        //
-        //         // weiXin.refreshToken(function(ret, err) {
-        //         //     if (ret.status) {
-        //         //         api.alert({ msg: '刷新成功' });
-        //         //     } else {
-        //         //         api.alert({ msg: err.msg });
-        //         //     }
-        //         // });
-        //         wx.auth(function(ret, err) {
-        //           console.log('333');
-        //             //console.log(JSON.stringify(ret));
-        //             //api.alert({ msg: ret.status });
-        //             //api.alert({ msg: ret.token });
-        //             if (ret.status) {
-        //                 //alert(JSON.stringify(ret.status));
-        //                 //alert(JSON.stringify(ret.code));
-        //
-        //                 wx.getUserInfo(function(ret, err) {
-        //                     var wxjibenziliao = ret;
-        //                     if (ret.status) {
-        //                         //alert('222');
-        //                         //console.log(JSON.stringify(ret));
-        //                         api.openWin({
-        //                             name: 'index',
-        //                             url: './index.html',
-        //                             pageParam: {
-        //                                 name: 'test',
-        //                                 wxjibenziliao: wxjibenziliao
-        //                             }
-        //                         });
-        //                         var data = {
-        //                             values: {
-        //                                 openid: ret.openid,
-        //                                 nickname: ret.nickname,
-        //                                 sex: ret.sex,
-        //                                 headimgurl: ret.headimgurl,
-        //                                 province: ret.province,
-        //                                 city: ret.city,
-        //                                 privilege: ret.privilege,
-        //                                 country: ret.country,
-        //                                 unionid: ret.unionid,
-        //                             }
-        //                         };
-        //                         $api.setStorage("userInfo", data);
-        //                         console.log(JSON.stringify($api.getStorage("userInfo")));
-        //
-        //                         //alert(JSON.stringify(ret));
-        //                         //alert(JSON.stringify(nickname));
-        //                     } else {
-        //                         api.alert({
-        //                             msg: err.msg
-        //                         });
-        //                         //alert(err.code);
-        //                     }
-        //                 });
-        //             } else {
-        //                 api.alert({
-        //                     msg: err.msg
-        //                 });
-        //                 //alert(err.code);
-        //             }
-        //         });
-        //     } else {
-        //         api.alert({
-        //             msg: err.msg
-        //         });
-        //         alert('当前设备未安装微信客户端');
-        //     }
-        // });
     }
 
     function fnQQLogin() {
