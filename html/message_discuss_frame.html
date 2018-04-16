@@ -149,12 +149,158 @@ button:focus{outline: none;}
     for (var i = 0; i < ul_lis.length; i++) {
         ul_lis[i].index = i;
         ul_lis[i].onclick = function() {
-            var j = this.index;
-            reply[j].style.display = (reply[j].style.display =='block'?'none':'block');
-            // $api.addCls(ul_lis[j], 'active');
-            // ul_lis[j].innerHTML="已关注"
+            // var j = this.index;
+            // reply[j].style.display = (reply[j].style.display =='block'?'none':'block');
+            // var dialogBox = api.require('dialogBox');
+            // dialogBox.confirm({
+            //     tapClose: false,
+            //     msg: {
+            //         // content:'这里是文本内容',
+            //         leftBtnTitle: '回复',
+            //         rightBtnTitle:'查看详情'
+            //     },
+            //     styles: {
+            //         bg: '#fff',
+            //         maskBg:'rgba(0,0,0,0.5)',
+            //         h: 80,
+            //         msg :{
+            //             color : '#000000',
+            //             size  : 20,
+            //             maginLR: 10 ,
+            //             maginT: 15
+            //         },
+            //         // border : {
+            //         //        left : '10 #FF0000',
+            //         //       right : '10 #FF0000',
+            //         //        top : '10 #0000FF',
+            //         //       bottom : '10 #0000FF'
+            //         // },
+            //         leftBtn :{
+            //             borderColor: 'rgba(0,0,0,0)',
+            //             // color: '#007FFF',
+            //             highlightBg : '#ccc',
+            //             color: '#89211b',
+            //             size: 14
+            //         },
+            //         rightBtn :{
+            //             bg: 'rgba(0,0,0,0)',
+            //             selectedBg:'#ccc',
+            //             highlightBg : '#ccc',
+            //             // color: '#007FFF',
+            //             color: '#89211b',
+            //             size: 14
+            //         }
+            //     }
+            // }, function(ret) {
+            //   if (ret.eventType == 'ok') {
+            //       var j = this.index;
+            //       // reply[j].style.display = 'block';
+            //       // $api.css(reply[j],'display:block');
+            //       // $api.addCls(reply[j], 'active');
+            //       var dialogBox = api.require('dialogBox');
+            //       dialogBox.close({
+            //           dialogName: 'alert'
+            //       });
+            //   }else if (ret.eventType == 'cancel') {
+            //     var dialogBox = api.require('dialogBox');
+            //     dialogBox.close({
+            //         dialogName: 'alert'
+            //     });
+            //   }
+            // });
+            var dialogBox = api.require('dialogBox');
+            dialogBox.actionMenu({
+                rect: {
+                    h: 150
+                },
+                texts: {
+                    cancel: '取消'
+                },
+                items: [{
+                    text: '回复',
+                    icon: 'widget://image/reply.png'
+                }, {
+                    text: '查看详情',
+                    icon: 'widget://image/detail.png'
+                }],
+                styles: {
+                    bg: '#FFF',
+                    corner: 6,
+                    column: 2,
+                    itemText: {
+                        color: '#000',
+                        size: 14,
+                        marginT: 10
+                    },
+                    itemIcon: {
+                        size: 30
+                    },
+                    cancel: {
+                        bg: '#fff',
+                        color: '#333',
+                        h: 55,
+                        size: 14
+                    }
+                },
+                tapClose: true
+            }, function(ret) {
+                var texts = ret.eventType;
+                var index = ret.index;
+                if (texts == "cancel") {
+                    dialogBox.close({
+                        dialogName: 'alert'
+                    });
+                } else if (index == 0) {
+                  fnOpenMessageNotDetail();
+                    // alert('公开')
+                    dialogBox.close({
+                        dialogName: 'alert'
+                    });
+                } else if (index == 1) {
+                    // alert('删除')
+                    fnOpendiscuss();
+                    dialogBox.close({
+                        dialogName: 'alert'
+                    });
+
+                }
+            });
+
         }
+      }
     }
+  function fnOpendiscuss(){
+    api.openWin({
+        name: 'discussDetail',
+        url: './discuss_detail.html',
+        pageParam: {
+            name: 'test'
+        }
+    });
+  }
+  function fnOpenMessageNotDetail(){
+    // var nHeader = $api.byId('secHeader');
+    var section = $api.byId('section');
+    // var headerH = $api.offset(nHeader).h;
+    var sectionH = $api.offset(section).h;
+
+    api.openFrame({
+        name: 'replyDetailFrame',
+        url: './reply_detail_frame.html',
+        rect: {
+            x: 0,
+            y: sectionH+100,
+            w: api.frameWidth,
+            h: 'auto'
+        },
+        pageParam: {
+            name: 'test'
+        },
+        bounces: true,
+        bgColor: 'rgba(0,0,0,0)',
+        vScrollBarEnabled: true,
+        hScrollBarEnabled: true
+    });
   }
   function fnOpensendFrame(){
     var section = document.getElementById('section');
