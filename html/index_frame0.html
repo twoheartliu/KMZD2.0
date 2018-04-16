@@ -423,6 +423,8 @@
 
     }
     //接口  推荐听单
+    //var b = 'ret';
+    // var a = 
     function fnTingdanTuijian() {
         api.ajax({
             url: 'http://47.100.11.38/kongmeng/thirdParty/search_playlist_by_name.php?page=0&size=6',
@@ -430,7 +432,7 @@
         }, function(ret, err) {
             if (ret) {
                 // alert(JSON.stringify(ret));
-                fnTingdanZhanshi(ret);
+              fnTingdanZhanshi(ret);
             } else {
                 alert(JSON.stringify(err));
             }

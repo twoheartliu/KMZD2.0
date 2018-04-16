@@ -57,78 +57,43 @@
           </div>
       </div>
     </div>
-    <div class="guoxue">
-        <div class="boder_r div_img" onclick="guoxue_Listframe()"><img src="../image/KM_MX.png" alt="">蒙学蒙学</div>
+    <div class="guoxue" id = "RecommendedDirectory">
+        <!-- <div class="boder_r div_img" onclick="guoxue_Listframe()"><img src="../image/KM_MX.png" alt="">蒙学蒙学</div>
         <div class="boder_r boder_b" onclick="guoxue_Listframe()">蒙学蒙学</div>
         <div class="boder_r boder_b">蒙学蒙学</div>
         <div class="boder_b">蒙学蒙学</div>
         <div class="boder_r ">蒙学蒙学</div>
         <div class="boder_r">蒙学蒙学</div>
-        <div class="">蒙学蒙学</div>
+        <div class="">蒙学蒙学</div> -->
     </div>
-    <div class="bg"></div>
+    <!-- <div class="bg"></div>
     <div class="guoxueYi">
       <div class="boder_r">诗品</div>
       <div class="boder_r">声韵启蒙</div>
       <div class="boder_r">声韵启蒙</div>
       <div>声韵启蒙</div>
+    </div> -->
+    <div id= "directory">
+
     </div>
-    <div class="guoxueLi p20px"><img src="../image/KM_gxjds.png" alt=""><span>国学经典</span></div>
-    <div class="guoxueLis">
-      <div class="boder_r boder_b">大学</div>
-      <div class="boder_r boder_b">中庸</div>
-      <div class="boder_b">大学</div>
-      <div class="boder_r">中庸</div>
-      <div class="boder_r">大学</div>
-      <div>中庸</div>
+    <!-- var = current_id;
+    for{
+      if(p_id == 0){
+        current_id = id;
+    <div id="Directory">
+        <div class="guoxueLi p20px"><img src="../image/KM_gxjds.png" alt=""><span>国学经典</span></div>
+      }
+
+        <div class="guoxueLis" id="DirectoryList">
+          for{
+            if(p_id != 0 && p_id == current_id){
+            <div class="boder_r boder_b">大学</div>
+          }
+          }
+
+        </div>
     </div>
-    <div class="guoxueLi p20px"><img src="../image/KM_gxjds.png" alt=""><span>国学经典</span></div>
-    <div class="guoxueLis">
-      <div class="boder_r boder_b">大学</div>
-      <div class="boder_r boder_b">中庸</div>
-      <div class="boder_b">大学</div>
-      <div class="boder_r">中庸</div>
-      <div class="boder_r">大学</div>
-      <div>中庸</div>
-    </div>
-    <div class="guoxueLi p20px"><img src="../image/KM_gxjds.png" alt=""><span>国学经典</span></div>
-    <div class="guoxueLis">
-      <div class="boder_r boder_b">大学</div>
-      <div class="boder_r boder_b">中庸</div>
-      <div class="boder_b">大学</div>
-      <div class="boder_r">中庸</div>
-      <div class="boder_r">大学</div>
-      <div>中庸</div>
-    </div>
-    <div class="guoxueLi p20px"><img src="../image/KM_gxjds.png" alt=""><span>国学经典</span></div>
-    <div class="guoxueLis">
-      <div class="boder_r boder_b">大学</div>
-      <div class="boder_r boder_b">中庸</div>
-      <div class="boder_b">大学</div>
-      <div class="boder_r">中庸</div>
-      <div class="boder_r">大学</div>
-      <div>中庸</div>
-    </div>
-    <div class="guoxueLi p20px"><img src="../image/KM_gxjds.png" alt=""><span>国学经典</span></div>
-    <div class="guoxueLis">
-      <div class="boder_r boder_b">大学</div>
-      <div class="boder_r boder_b">中庸</div>
-      <div class="boder_b">大学</div>
-      <div class="boder_r">中庸</div>
-      <div class="boder_r">大学</div>
-      <div>中庸</div>
-    </div>
-    <div class="guoxueLi p20px"><img src="../image/KM_gxjds.png" alt=""><span>国学经典</span></div>
-    <div class="guoxueLis">
-      <div class="boder_r boder_b">大学</div>
-      <div class="boder_r boder_b">中庸</div>
-      <div class="boder_b">大学</div>
-      <div class="boder_r">中庸</div>
-      <div class="boder_r">大学</div>
-      <div>中庸</div>
-    </div>
-    <div class="guoxueLi p20px"></div>
-    <div class="guoxueLi p20px"></div>
+  }  -->
 </body>
 
 </html>
@@ -136,13 +101,144 @@
 <script type="text/javascript" src="../script/swiper.min.js"></script>
 <script type="text/javascript">
 
-   apiready = function() { }
-    function guoxue_Listframe () {
+   apiready = function() {
+     var sType = api.systemType;
+
+     fnGetLieBiao(sType);
+     fnGetDirectory(sType);
+   }
+   var host = 'http://47.100.11.38/kmzd/2.0';
+   var uri = '/category/hot';
+   var method = 'get';
+   var dataType = 'json';
+   function fnGetLieBiao(sType){
+     uri = '/category/hot';
+    //  console.log(sType);
+     api.ajax({
+         url: host + uri,
+         method: method,
+         dataType: dataType,
+         headers: {
+           "source":sType,
+           "version":"2.0"
+         }
+        //  headers: headers,
+     }, function(ret, err) {
+         if (ret) {
+            fnRecommendedDirectory(ret);
+         } else {
+             alert(JSON.stringify(err));
+         }
+     });
+   }
+   function fnRecommendedDirectory(ret){
+     var stylelist = $api.byId('RecommendedDirectory');
+     var html = '';
+     for (var i = 0; i < ret.data.length; i++) {
+       if(i == 0){
+         html += '<div class="boder_r div_img" onclick="guoxue_Listframe('+ ret.data[i].id +')"><img src="../image/KM_MX.png" alt="">'+ ret.data[i].name +'</div>';
+       }
+       if(i>0){
+         html += '<div class="" onclick="guoxue_Listframe('+ ret.data[i].id +')">'+ ret.data[i].name +'</div>';
+       }
+
+
+     }
+     $api.html(stylelist, html);
+   }
+   function fnGetDirectory(sType){
+    uri = '/category';
+     api.ajax({
+         url: host + uri,
+         method: method,
+         dataType: dataType,
+         headers: {
+           "source":sType,
+           "version":"2.0"
+         }
+        //  headers: headers,
+     }, function(ret, err) {
+         if (ret) {
+            fnDirectory(ret);
+         } else {
+             alert(JSON.stringify(err));
+         }
+     });
+   }
+   function fnDirectory(ret){
+    //  console.log(JSON.stringify(ret));
+   var stylelist = $api.byId('directory');
+   var html = '';
+     for (var i = 0; i < ret.data.length; i++) {
+      //  var p_id = ret.data[i].p_id;
+
+         if(ret.data[i].p_id == 0){
+           html += '<div ><div class="guoxueLi p20px" id=""><img src="../image/KM_gxjds.png" alt=""><span>'+ ret.data[i].name +'</span></div>';
+           html += '<div class="guoxueLis" id="DirectoryListsss">';
+        }
+
+
+            // console.log(ret.data[i].id);
+            // console.log('111');
+            // console.log(ret.data[i].id);
+            for(var s = 0; s < ret.data.length; s++) {
+                if(ret.data[s].p_id == 121){
+                  // console.log(ret.data[s].name);
+                }
+               if(ret.data[s].p_id != 0 && ret.data[s].p_id == ret.data[i].id){
+
+                   html += '<div class="boder_r">' + ret.data[s].name + '</div>';
+                  //  console.log(html1);
+
+               }
+            }
+           //  html1 += '<div>中庸</div>';
+           //  $api.html(stylelists, html1);
+
+          html += '</div></div>';
+          $api.html(stylelist, html);
+          console.log(html);
+        // $api.html(stylelists, html1);
+        // if(){
+        //
+        // }
+        // console.log(ret.data[i].p_id.length);
+        // if(ret.data[i].p_id == ret.data[i].p_id){
+        //   // console.log(ret.data[i].p_id);
+        //
+        // }
+
+
+
+
+        // fnDirectoryLiet();
+     }
+
+   }
+   function fnDirectoryLiet(id,ret){
+     var stylelists = $api.byId('DirectoryList');
+     var html1 = '';
+     if(id){
+       console.log(id);
+       for(var s = 0; s < ret.data.length; s++) {
+
+          if(ret.data[s].p_id == id){
+            console.log(s);
+            console.log(ret.data[s].name);
+              html1 += '<div>' + ret.data[s].name + '</div>';
+              $api.html(stylelists, html1);
+          }
+       }
+      //  html1 += '<div>中庸</div>';
+      //  $api.html(stylelists, html1);
+     }
+   }
+    function guoxue_Listframe(id) {
       api.openWin({
           name: 'list',
           url: './list.html',
           pageParam: {
-              name: 'test'
+              id: id
           }
       });
 
