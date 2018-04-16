@@ -31,11 +31,11 @@ section ul li{width:100%;padding: 10px 0;}
 /*section ul li:nth-last-child(1){border-bottom: 1px solid #ccc;}*/
 .user-img{width:50px;height: 50px;line-height: 50px;display: inline-block;}
 .user-img img{width:45px;height: 45px;}
-.user-name{display: inline-block;vertical-align: top;position: relative;width: 80%;border-bottom: 1px solid #ccc;}
-.user-name p{font-size: 16px;color: #89211b;line-height: 30px;}
-.user-name p:nth-child(2){color: #535354;}
+.userName{display: inline-block;vertical-align: top;position: relative;width: 80%;border-bottom: 1px solid #ccc;}
+.userName p{font-size: 16px;color: #89211b;line-height: 30px;}
+.userName p:nth-child(2){color: #535354;}
 .discuss{height: auto;padding: 10px;background-color: #f2f2f3;color: #999;border-radius: 5px;}
-.user-name p:nth-last-child(1){font-size: 12px;position: absolute;top: 0;right: 0;width:92px;color: #999;}
+.userName p:nth-last-child(1){font-size: 12px;position: absolute;top: 0;right: 0;width:92px;color: #999;}
 .reply{display:none;}
 .replyButton{width:100%;height:30px;text-align: right;padding-bottom: 10px;}
 .replySend{width: 50px;height: 30px;line-height: 30px;border-radius: 5px;text-align: center;
@@ -50,7 +50,7 @@ button:focus{outline: none;}
     <ul>
       <li>
         <div class="user-img"><img src="../image/icon-person.png" alt=""></div>
-        <div class="user-name"><p>云儿123</p>
+        <div class="userName"><p>云儿123</p>
           <p class="replyCont" >回复我：时间就是最好的良药。</p>
           <div class="reply" >
             <textarea name="name" class="replyValue"></textarea>
@@ -66,7 +66,7 @@ button:focus{outline: none;}
       </li>
       <li>
         <div class="user-img"><img src="../image/icon-person.png" alt=""></div>
-        <div class="user-name"><p>云儿123</p>
+        <div class="userName"><p>云儿123</p>
           <p class="replyCont" >回复我：时间就是最好的良药。</p>
           <div class="reply" >
             <textarea name="name" class="replyValue"></textarea>
@@ -82,7 +82,7 @@ button:focus{outline: none;}
       </li>
       <li>
         <div class="user-img"><img src="../image/icon-person.png" alt=""></div>
-        <div class="user-name"><p>云儿123</p>
+        <div class="userName"><p>云儿123</p>
           <p class="replyCont" >回复我：时间就是最好的良药。</p>
           <div class="reply" >
             <textarea name="name" rows="6" cols="40" class="replyValue"></textarea>
@@ -97,7 +97,7 @@ button:focus{outline: none;}
       </li>
       <li>
         <div class="user-img"><img src="../image/icon-person.png" alt=""></div>
-        <div class="user-name"><p>云儿123</p>
+        <div class="userName"><p>云儿123</p>
           <p class="replyCont" >回复我：时间就是最好的良药。</p>
           <div class="reply" >
             <textarea name="name" rows="6" cols="40" class="replyValue"></textarea>
@@ -144,7 +144,7 @@ button:focus{outline: none;}
   }
   function fnOpenUserButton() {
     var section = document.getElementById('section');
-    var ul_lis = section.getElementsByClassName('replyCont');
+    var ul_lis = section.getElementsByClassName('userName');
     var reply = section.getElementsByClassName('reply');
     for (var i = 0; i < ul_lis.length; i++) {
         ul_lis[i].index = i;
