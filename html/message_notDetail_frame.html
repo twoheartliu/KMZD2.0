@@ -41,7 +41,8 @@ nav{height:70px;padding:8px;background-color: #fff;}
 .sec-txt{display: inline-block;}
 .sec-txt>p{color:#999;}
 .sec-txt>p:nth-child(2){color:#ccc;}
-.dis-right>span{color:#ccc;}
+.dis-right>span{color:#ccc;font-size: 12px;}
+.dis-right>img{width:22px;vertical-align: middle;}
 .dis-txt{margin-left: 40px;padding-bottom: 10px;border-bottom: 1px solid #e0e0e0;color:#535354;}
 </style>
 </head>
@@ -55,7 +56,7 @@ nav{height:70px;padding:8px;background-color: #fff;}
       <div class="nav-right fr"><img src="../image/cm2_list_icn_arr.png" alt=""></div>
       <div class="clear"></div>
     </nav>
-    <section>
+    <section id="section">
       <div class="sec-tit">当前评论</div>
       <div class="sec-discuss">
         <div class="dis-left fl">
@@ -63,7 +64,7 @@ nav{height:70px;padding:8px;background-color: #fff;}
           <div class="sec-txt"><p>燕赵门</p><p>2017年9月19日</p></div>
         </div>
         <div class="dis-right fr">
-          <span>3</span><img src="../image/KM_zan01.png" alt="">
+          <span>3</span><img src="../image/KM_listdz.png" alt="" class="zan01">
         </div>
         <div class="clear"></div>
         <div class="dis-txt">海中月是天上月，眼前人是心上人。向来心是看客心，奈何人是剧中人</div>
@@ -75,7 +76,7 @@ nav{height:70px;padding:8px;background-color: #fff;}
           <div class="sec-txt"><p>燕赵门</p><p>2017年9月19日</p></div>
         </div>
         <div class="dis-right fr">
-          <span>3</span><img src="../image/KM_zan01.png" alt="">
+          <span>3</span><img src="../image/KM_listdz.png" alt="" class="zan01">
         </div>
         <div class="clear"></div>
         <div class="dis-txt">海中月是天上月，眼前人是心上人。向来心是看客心，奈何人是剧中人</div>
@@ -86,7 +87,7 @@ nav{height:70px;padding:8px;background-color: #fff;}
           <div class="sec-txt"><p>燕赵门</p><p>2017年9月19日</p></div>
         </div>
         <div class="dis-right fr">
-          <span>3</span><img src="../image/KM_zan01.png" alt="">
+          <span>3</span><img src="../image/KM_listdz.png" alt="" class="zan01">
         </div>
         <div class="clear"></div>
         <div class="dis-txt">海中月是天上月，眼前人是心上人。向来心是看客心，奈何人是剧中人</div>
@@ -97,7 +98,7 @@ nav{height:70px;padding:8px;background-color: #fff;}
           <div class="sec-txt"><p>燕赵门</p><p>2017年9月19日</p></div>
         </div>
         <div class="dis-right fr">
-          <span>3</span><img src="../image/KM_zan01.png" alt="">
+          <span>3</span><img src="../image/KM_listdz.png" alt="" class="zan01">
         </div>
         <div class="clear"></div>
         <div class="dis-txt">海中月是天上月，眼前人是心上人。向来心是看客心，奈何人是剧中人</div>
@@ -114,6 +115,21 @@ function goback () {
 apiready = function (){
   var notHeader = $api.byId('notHeader');
   $api.fixStatusBar(notHeader);
+  var section = document.getElementById('section');
+  var ul_lis = section.getElementsByClassName('zan01');
+  for (var i = 0; i < ul_lis.length; i++) {
+      ul_lis[i].index = i;
+
+      ul_lis[i].onclick = function() {
+        // alert(1);
+        var j = this.index;
+        if(ul_lis[j].getAttribute("src",2)=="../image/KM_listdz.png"){
+          ul_lis[j].src="../image/KM_listdzs.png";
+        }else{
+          ul_lis[j].src="../image/KM_listdz.png";
+        }
+      }
+    }
 }
 </script>
 </html>
