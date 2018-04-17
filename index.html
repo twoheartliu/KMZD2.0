@@ -291,6 +291,13 @@
             font-size: 12px;
             color: #fff;
         }
+        .Bullet{
+          width: 100px;
+          height: 50px;
+          background: red;
+          position: absolute;
+          right: 0;
+        }
     </style>
 </head>
 
@@ -333,8 +340,9 @@
                 <li class="">
                     <div class="friend-tit egret-header-box egret-div">
                         朗诵
-                        <div class="header_fr " onclick="fnAlert();">
-                            <img src="./image/aloud/246274041330857389.png" alt=""></div>
+                        <div class="header_fr" onclick="fnOpenPlayButton();" id="Bullet">
+                            <img src="./image/aloud/246274041330857389.png" alt="">
+                        </div>
                     </div>
                     <!-- <div class="header_fr fr" onclick="fnCgxWin();"><img src="./image/aloud/246274041330857389.png" alt=""></div> -->
                     <!-- <div class="egret-header-box egret-img-a egret-div" tapmode onclick="fnCgxWin()">
@@ -354,7 +362,7 @@
             </ul>
         </header>
         <div id="main" class="flex-con">
-
+            <div class="Bullet"></div>
         </div>
         <div id="footer">
             <ul class="flex-wrap">
@@ -379,6 +387,30 @@
 <script type="text/javascript" src="script/api.js"></script>
 <script type="text/javascript" src="script/index.js"></script>
 <script type="text/javascript">
+
+
+function fnOpenPlayButton() {
+    var playCollect = $api.byId('Bullet');
+    if (playCollect.getAttribute("src", 2) == "./image/aloud/246274041330857389.png") {
+        playCollect.src = "../image/aloud/recording.png";
+        alert(1);
+    } else {
+        playCollect.src = "../image/aloud/recordingStart.png";
+        alert(2);
+    }
+};
+
+
+
+
+
+
+
+
+
+
+
+
     var play;
     var timer2;
     var timer1;
