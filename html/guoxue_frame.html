@@ -109,7 +109,6 @@
     var method = 'get';
     var dataType = 'json';
    function fnGetLieBiao(sType){
-
      uri = '/category/hot';
      api.ajax({
          url: host + uri,
@@ -119,10 +118,7 @@
            "source":sType,
            "version":"2.0"
          },
-        //  headers: headers,
      }, function(ret, err) {
-       console.log(JSON.stringify(ret));
-       console.log(ret.data[0].id);
          if (ret) {
             fnRecommendedDirectory(ret);
          } else {
@@ -140,8 +136,6 @@
        if(i>0){
          html += '<div class="" onclick="guoxue_Listframe('+ ret.data[i].id +')">'+ ret.data[i].name +'</div>';
        }
-
-
      }
      $api.html(stylelist, html);
    }
