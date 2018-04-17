@@ -20,7 +20,7 @@ apiready = function () {
     !root && !flag && api.execScript({
         name: 'search',
         frameName: 'history',
-        //script: 'AppendHistory("' + title + '");'
+        script: 'AppendHistory("' + title + '");'
     });
 
     InitNavbar();
@@ -58,7 +58,7 @@ function InitFrameGroup(y, searchText) {
         var engineName = engine.getAttribute('data-engineName');
         var frame = {
             name: engineName,
-            url: '../html/items.html',
+            url: '../html/items1.html',
             pageParam: {
                 index: i,
                 pageNumber: 1,

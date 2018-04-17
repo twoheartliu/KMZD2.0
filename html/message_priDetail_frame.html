@@ -35,103 +35,81 @@ html,body {min-height: 100%;background: #f2f2f2}
     fnOpenchatbox();
   }
   function fnOpenchatbox(){
-    // var UIChatBox = api.require('UIChatBox');
-    // UIChatBox.open({
-    //     placeholder: '',
-    //     maxRows: 4,
-    //     emotionPath: 'widget://image/emotion',
-    //     texts: {
-    //         recordBtn: {
-    //             normalTitle: '按住说话',
-    //             activeTitle: '松开结束'
-    //         },
-    //         sendBtn: {
-    //             title: '发送',
-    //         }
-    //     },
-    //     styles: {
-    //         inputBar: {
-    //             borderColor: '#d9d9d9',
-    //             bgColor: '#f2f2f2'
-    //         },
-    //         inputBox: {
-    //             borderColor: '#B3B3B3',
-    //             bgColor: '#FFFFFF'
-    //         },
-    //         emotionBtn: {
-    //             normalImg: 'widget://image/chatBox_face1.png'
-    //         },
-    //         extrasBtn: {
-    //             normalImg: 'widget://image/chatBox_add1.png'
-    //         },
-    //         keyboardBtn: {
-    //             normalImg: 'widget://image/chatBox_key2.png'
-    //         },
-    //         speechBtn: {
-    //             normalImg: 'widget://image/chatBox_key1.png'
-    //         },
-    //         recordBtn: {
-    //             normalBg: '#c4c4c4',
-    //             activeBg: '#999999',
-    //             color: '#000',
-    //             size: 14
-    //         },
-    //         indicator: {
-    //             target: 'both',
-    //             color: '#c4c4c4',
-    //             activeColor: '#9e9e9e'
-    //         },
-    //         sendBtn: {
-    //             titleColor: '#fff',
-    //             bg: '#89211b',
-    //             activeBg: '#999999',
-    //             titleSize: 14
-    //         }
-    //     },
-    //     extras: {
-    //         titleSize: 10,
-    //         titleColor: '#a3a3a3',
-    //         btns: [{
-    //             title: '图片',
-    //             normalImg: 'widget://image/chatBox_album1.png',
-    //             activeImg: 'widget://image/chatBox_album2.png'
-    //         }, {
-    //             title: '拍照',
-    //             normalImg: 'widget://image/chatBox_cam1.png',
-    //             activeImg: 'widget://image/chatBox_cam2.png'
-    //         }]
-    //     }
-    // }, function(ret, err) {
-    //     if (ret) {
-    //         // alert(JSON.stringify(ret));
-    //     } else {
-    //         // alert(JSON.stringify(err));
-    //     }
-    // });
-
-
-    var hintChatBox = api.require('hintChatBox');
-    hintChatBox.open({
-        switchButton: {
-            faceNormal: 'widget://image/chatBox_face1.png',
-            addNormal: 'widget://image/chatBox_add1.png',
-            keyboardNormal: 'widget://image/chatBox_key1.png'
+    var UIChatBox = api.require('UIChatBox');
+    UIChatBox.open({
+        placeholder: '',
+        maxRows: 4,
+        emotionPath: 'widget://image/emotion',
+        texts: {
+            recordBtn: {
+                normalTitle: '按住说话',
+                activeTitle: '松开结束'
+            },
+            sendBtn: {
+                title: '发送',
+            }
         },
-        sourcePath: 'widget://image/emotion',
-        addButtons: [{
-            normal: 'widget://image/chatBox_album1.png',
-            title: '相册'
-        }, {
-            normal: 'widget://image/chatBox_album1.png',
-            title: '相册'
-        }]
-    }, hintChatBox.getMsg(function(ret, err) {
-      if (ret.status) {
-          alert(JSON.stringify(ret));
-      } else {
-          alert(JSON.stringify(err));
-      }
+        styles: {
+            inputBar: {
+                borderColor: '#d9d9d9',
+                bgColor: '#f2f2f2'
+            },
+            inputBox: {
+                borderColor: '#B3B3B3',
+                bgColor: '#FFFFFF'
+            },
+            emotionBtn: {
+                normalImg: 'widget://image/chatBox_face1.png'
+            },
+            extrasBtn: {
+                normalImg: 'widget://image/chatBox_add1.png'
+            },
+            keyboardBtn: {
+                normalImg: 'widget://image/chatBox_key2.png'
+            },
+            speechBtn: {
+                normalImg: 'widget://image/chatBox_key1.png'
+            },
+            recordBtn: {
+                normalBg: '#c4c4c4',
+                activeBg: '#999999',
+                color: '#000',
+                size: 14
+            },
+            indicator: {
+                target: 'both',
+                color: '#c4c4c4',
+                activeColor: '#9e9e9e'
+            },
+            sendBtn: {
+                titleColor: '#fff',
+                bg: '#89211b',
+                activeBg: '#999999',
+                titleSize: 14
+            }
+        },
+        extras: {
+            titleSize: 10,
+            titleColor: '#a3a3a3',
+            btns: [{
+                title: '图片',
+                normalImg: 'widget://image/chatBox_album1.png',
+                activeImg: 'widget://image/chatBox_album2.png'
+            }, {
+                title: '拍照',
+                normalImg: 'widget://image/chatBox_cam1.png',
+                activeImg: 'widget://image/chatBox_cam2.png'
+            }]
+        }
+    }, function(ret, err) {
+        if (ret) {
+            // alert(JSON.stringify(ret));
+        } else {
+            // alert(JSON.stringify(err));
+        }
     });
+
+
   }
 </script>
 </html>
