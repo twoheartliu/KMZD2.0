@@ -5,7 +5,6 @@ apiready = function () {
     var header = $api.byId('header');
     //适配iOS 7+和Android 4.4+沉浸式状态栏
     $api.fixStatusBar(header);
-
     var headerPos = $api.offset(header);
     var back = $api.byId('back');
     var navbar = $api.byId('navbar');

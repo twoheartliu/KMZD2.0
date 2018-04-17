@@ -368,7 +368,7 @@
             // api.parseTapmode()
             fnTingdanTuijian();
             fnInitSwiper();
-            //fnXiMaLaYaTingDan();
+            // fnXiMaLaYaTingDan();
             var qqziliao = api.pageParam.qqziliao;
             // var navbars = $api.domAll('.navbar');
 
@@ -389,11 +389,13 @@
             appsecret: "8b34f88377b74cdde91e2d10111769d1  "
         };
         ximalaya.initXmly(param, function(ret, err) {
-            if (ret)
+          alert(JSON.stringify(ret));
+            if (ret){
                 alert(JSON.stringify(ret.message));
-            else
+            }else{
             //console.log(JSON.stringify(err));
                 alert(JSON.stringify(err));
+              }
         });
 
         function getSearchedTracks() {
@@ -424,7 +426,7 @@
     }
     //接口  推荐听单
     //var b = 'ret';
-    // var a = 
+    // var a =
     function fnTingdanTuijian() {
         api.ajax({
             url: 'http://47.100.11.38/kongmeng/thirdParty/search_playlist_by_name.php?page=0&size=6',
