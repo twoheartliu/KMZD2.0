@@ -1344,25 +1344,6 @@
                 fnBoFangyinpinxinxiing(ret.value.id)
             }
         });
-        // 草稿箱 列表标号
-        // api.addEventListener({
-        //     name: 'netPlayLieCgx'
-        // }, function(ret, err) {
-        //     if (ret) {
-        //       netPlayLieCgx(ret.value.cgxid,ret.value.title,ret.value.name);
-        //     }
-        // });
-        //监听再次播放
-        // api.addEventListener({
-        //     name: 'zaicibf'
-        // }, function(ret, err) {
-        //     if (ret) {
-        //       console.log('111');
-        //         netAudios();
-        //         addtime();
-        //         jindutiao();
-        //     }
-        // });
         //监听暂停音频
         api.addEventListener({
             name: 'netAudioPause'
@@ -1403,22 +1384,6 @@
                 fnGeDanxiaYi();
             }
         });
-        // //上一首
-        // api.addEventListener({
-        //     name: 'Cgxshangyi'
-        // }, function(ret, err) {
-        //     if (ret) {
-        //         fnCgxShangYi();
-        //     }
-        // });
-        // //下一首
-        // api.addEventListener({
-        //     name: 'Cgxxiayi'
-        // }, function(ret, err) {
-        //     if (ret) {
-        //         fnCgxxiaYi();
-        //     }
-        // });
         // 拦截Android的返回键，在首页点击返回键，提示退出应用
         api.addEventListener({
             name: 'keyback'
@@ -1492,11 +1457,12 @@
     function fnAlert() {
         api.actionSheet({
             // title: '底部弹出框测试',
-            // cancelTitle: '///',
+            cancelTitle:"",
             // destructiveTitle: '红色警告按钮',
-            buttons: ['我的作品','我的草稿', '取消']
+            // buttons: ['我的作品','我的草稿', '取消']
+            buttons: ['我的作品','我的草稿']
         }, function(ret, err) {
-          // alert(JSON.stringify(ret));
+          alert(JSON.stringify(ret));
 
             var index = ret.buttonIndex;
             if (index == 1) {
