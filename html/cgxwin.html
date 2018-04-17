@@ -76,16 +76,16 @@
     <header id="secHeader">
         <div class="header_fl fl" onclick="goback();"><img src="../image/KM_Hfh.png" alt=""></div>
         <div class="header_fr fr"></div>
-        <div class="header_center">我的作品</div>
+        <div class="header_center">草稿箱</div>
     </header>
-    <nav id="nav">
+    <!-- <nav id="nav">
       <div class="nav">
         <div class="row nav_div" id="title">
           <div class="nav_divs"  onclick="fnSelectTab(0,this)">发表的作品</div>
           <div class="" onclick="fnSelectTab(1,this)">我的草稿箱</div>
         </div>
       </div>
-    </nav>
+    </nav> -->
 </body>
 
 </html>
@@ -97,50 +97,24 @@
         });
     }
     apiready = function() {
-        fnframeGroup();
+        // fnframeGroup();
+        var header = $api.byId('secHeader');
+        $api.fixStatusBar(header);
+        var headerPos = $api.offset(header);
+        api.openFrame({
+            name: 'cgxwin_frame1',
+            url: './cgxwin_frame1.html',
+            rect: {
+                x: 0,
+                y: headerPos.h,
+                w: 'auto',
+                h: 'auto'
+            },
+            pageParam: {
+                name: 'test'
+            },
+            bounces: false,
+        });
     }
-    function fnSelectTab(index,ele) {
-      var tabs = $api.domAll('#title>div');
-      $api.addCls(tabs.item(index), 'nav_divs');
-      api.setFrameGroupIndex({
-          name: 'collection',
-          index: index,
-          scroll: true
-      });
-    }
-    function fnframeGroup() {
-      var header = $api.byId('secHeader');
-      $api.fixStatusBar(header);
-      var headerPos = $api.offset(header);
-      var nav = $api.byId('nav');
-      var navOffset = $api.offset(nav);
-      api.openFrameGroup ({
-          name: 'collection',
-          background: '#fff',
-          scrollEnabled: true,
-          rect: {
-               x: 0,
-               y: headerPos.t + headerPos.h + navOffset.h,
-               w: 'auto',
-               h: 'auto'
-          },
-          index: 0,
-          preload:2,
-          frames: [{
-              name: 'cgxwin_frame1',
-              url: './cgxwin_frame1.html'
-          },{
-              name: 'cgxwin_frame2',
-              url: './cgxwin_frame2.html'
-          }]
-      }, function(ret, err){
-          // console.log($api.jsonToStr(ret));
-          var tabs = $api.domAll('#title>div');
-          for (var i = 0; i < 2; i++) {
-            var element = tabs.item(i)
-            $api.removeCls(element, 'nav_divs');
-          }
-          $api.addCls(tabs.item(ret.index), 'nav_divs');
-      });
-    }
+
 </script>
