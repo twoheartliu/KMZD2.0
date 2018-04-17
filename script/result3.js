@@ -17,9 +17,9 @@ apiready = function () {
     $api.addEvt(back, 'click', BackSearchWindow);
 
     !root && !flag && api.execScript({
-        name: 'search3',
-        frameName: 'history3',
-        script: 'AppendHistory("' + title + '");'
+        name: 'search',
+        frameName: 'history',
+        // script: 'AppendHistory("' + title + '");'
     });
     // console.log(navbarPos.h);
     // console.log(title);
@@ -33,7 +33,7 @@ var iscroll;
 function InitNavbar() {
   var scrollerWidth = 0;
   // var navbarheight = 0;
-  var navbar = $api.byId('navbar');
+  // var navbar = $api.byId('navbar');
     var engines = $api.byId('engines');
     var scroller = $api.byId('scroller');
     // var engine = '<li data-engineName="{engineName}" data-engineUrl="{engineUrl}"></li>';
@@ -50,7 +50,7 @@ function InitNavbar() {
         //一行两个
         scrollerWidth += 180;
     }
-    scroller.style.height = scrollerWidth + 'px';
+      scroller.style.width = scrollerWidth + 'px';
     // navbar.style.height = navbarheight + 'px';
     iscroll = new IScroll('#wrapper', {scrollX: false, scrollY: false, mouseWheel: false, click: true});
 
@@ -82,7 +82,7 @@ function InitFrameGroup(y, searchText) {
 
     }
     api.openFrameGroup({
-        name: 'items',
+        name: 'items3',
         preload: 4,
         rect: {
             x: 0,
