@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>孔孟之道--添加关注</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style>
+        html,body{
+          height: 100%;
+          background-color: #fff;
+        }
+        .fr {
+            float: right;
+        }
+
+        .fl {
+            float: left;
+        }
+
+        .p20px {
+            padding: 0px 20px;
+        }
+        .row {
+          height: 100%;
+          display: flex;
+          display: -webkit-flex;
+          display: -webkit-box;
+          background-color: #f2f2f2;
+        }
+        .col {
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+            text-align: center;
+            height: 50px;
+            color:#666;
+        }
+        .col p{
+          font-size: 10px;
+        }
+        .col img{width: 25px;}
+    </style>
+</head>
+<body>
+  <footer class="row" id="footer">
+    <div class="col care"><img src="../image/personal_care.png" alt=""><p>加关注</p></div>
+    <div class="col private"><img src="../image/personal_private_a.png" onclick="fnOpenPersonalPrivate();"><p>私信</p></div>
+  </footer>
+</body>
+
+</html>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+    apiready = function() {
+      var footer = document.getElementById('footer');
+      var care = footer.getElementsByClassName('care');
+      care[0].onclick = function(){
+        care[0].children[0].src="../image/personal_care_a.png";
+        care[0].children[1].innerHTML="已关注";
+        care[0].children[1].style.color="#89211b";
+      }
+    }
+    function fnOpenPersonalPrivate(){
+      api.openWin({
+          name: 'personalPrivate',
+          url: './personal_private.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
+    }
+</script>
