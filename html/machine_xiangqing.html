@@ -17,7 +17,7 @@
     <header id="secHeader">
         <div class="header_fr fr"><img src="../image/cm2_icn_back.png" alt=""></div>
         <div class="header_fl fl"  onclick="goback();"><img src="../image/KM_Hfh.png" alt=""></div>
-        <div class="header_center">F3如意</div>
+        <div class="header_center" id = "2222">F3如意</div>
     </header>
 </body>
 </html>
@@ -32,6 +32,7 @@
       var header = $api.byId('secHeader');
       $api.fixStatusBar(header);
         var headerPos = $api.offset(header);
+        var text = api.pageParam.text;
         api.openFrame({
             name: 'machine_xiangqing_frame',
             url: './machine_xiangqing_frame.html',
@@ -42,10 +43,13 @@
                 h: 'auto'
             },
             pageParam: {
-                name: 'test'
+                text: text
             },
             bounces: false,
         });
+        var stylelist = $api.byId('2222');
+        var html = text;
+        $api.html(stylelist, html);
     }
 
 
