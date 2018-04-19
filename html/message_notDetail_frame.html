@@ -40,7 +40,7 @@ nav{height:70px;padding:8px;background-color: #fff;}
 .sec-img img{width:45px;height: 45px;}
 .sec-txt{display: inline-block;}
 .sec-txt>p{color:#999;}
-.sec-txt>p:nth-child(2){color:#ccc;}
+.sec-txt>p:nth-child(2){color:#ccc;font-size: 13px;}
 .dis-right>span{color:#ccc;font-size: 12px;}
 .dis-right>img{width:22px;vertical-align: middle;}
 .dis-txt{margin-left: 40px;padding-bottom: 10px;border-bottom: 1px solid #e0e0e0;color:#535354;}
@@ -69,7 +69,7 @@ nav{height:70px;padding:8px;background-color: #fff;}
         <div class="clear"></div>
         <div class="dis-txt">海中月是天上月，眼前人是心上人。向来心是看客心，奈何人是剧中人</div>
       </div>
-      <div class="sec-tit">精彩评论</div>
+      <div class="sec-tit">所有评论</div>
       <div class="sec-discuss">
         <div class="dis-left fl">
           <div class="sec-img"><img src="../image/icon-person.png" alt=""></div>
@@ -111,10 +111,12 @@ nav{height:70px;padding:8px;background-color: #fff;}
 <script type="text/javascript">
 function goback () {
   api.closeWin({name:'messageNotDetailFrame'});
+
 }
 apiready = function (){
   var notHeader = $api.byId('notHeader');
   $api.fixStatusBar(notHeader);
+  fnOpenMessageNotDetail1();
   var section = document.getElementById('section');
   var ul_lis = section.getElementsByClassName('zan01');
   for (var i = 0; i < ul_lis.length; i++) {
@@ -130,6 +132,30 @@ apiready = function (){
         }
       }
     }
+}
+function fnOpenMessageNotDetail1(){
+  // var nHeader = $api.byId('secHeader');
+  var container = $api.byId('container');
+  // var headerH = $api.offset(nHeader).h;
+  var containerH = $api.offset(container).h;
+
+  api.openFrame({
+      name: 'replyDetailFrame',
+      url: './reply_detail_frame.html',
+      rect: {
+          x: 0,
+          y: containerH+100,
+          w: api.frameWidth,
+          h: 'auto'
+      },
+      pageParam: {
+          name: 'test'
+      },
+      bounces: false,
+      bgColor: 'rgba(0,0,0,0)',
+      vScrollBarEnabled: true,
+      hScrollBarEnabled: true
+  });
 }
 </script>
 </html>

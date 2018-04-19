@@ -513,7 +513,7 @@
       }, function(ret, err) {
         var id = api.pageParam.cgxid;
           if(id == ret.value.playing){
-            // fnJinRuBofangs(id);
+            fnJinRuBofangs(id);
           }
           return false;
       });
@@ -531,6 +531,55 @@
         fnJinRuBofang();
     }
     var ids;
+    function fnJinRuBofangs(bofang){
+      var eHeader = $api.byId('header');
+      var bofang = 3;
+      var stylelist = $api.byId('openplayer');
+      var html = '';
+      html += '<img src="../image/img/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player"></div>';
+      $api.html(stylelist, html);
+      playid = api.pageParam.playid;
+      dqbfid = api.pageParam.a;
+      a = api.pageParam.a;
+      var id = id;
+      // console.log(ccc);
+      if (id) {
+          api.sendEvent({
+              name: 'netPlayingCgx',
+              extra: {
+                  id: id
+              }
+          });
+      }
+      fnInitSwiper();
+      fnOpenChangeImg();
+      api.parseTapmode();
+
+
+      api.sendEvent({
+          name: 'neizhiliebiaoPlay',
+          extra: {
+              bofang: bofang,
+              a: a
+          }
+      });
+      var zaicibf
+      api.sendEvent({
+          name: 'zaicibf',
+          extra: {
+              zaicibf: zaicibf,
+              a: id
+          }
+      });
+      fnNetAudiosPlayByID(id);
+      fnbofangshijian();
+      fnJiBenXinXi()
+      jindutiao();
+      if (dangqianbofangid) {
+          dqbfid = dangqianbofangid;
+      }
+
+    }
     function fnJinRuBofang(bofang){
       var eHeader = $api.byId('header');
       if(bofang){
@@ -553,36 +602,20 @@
               }
           });
       }
-      // if (playlistid) {
-      //     api.sendEvent({
-      //         name: 'netPlayLieCgx',
-      //         extra: {
-      //             playlistid: playlistid
-      //         }
-      //     });
-      // }
-
       fnInitSwiper();
       fnOpenChangeImg();
       api.parseTapmode();
-      //console.log(bofang);
       if (!bofang) {
           var stylelist = $api.byId('openplayer');
           var html = '';
           html += '<img src="../image/img/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player"></div>';
           $api.html(stylelist, html);
           bofang = 3;
-          // playlistid = api.pageParam.playlistid;
-          // if (!playlistid) {
-          //     playlistid = api.pageParam.playid;
-          //
-          // }
           api.sendEvent({
               name: 'neizhiliebiaoPlay',
               extra: {
                   bofang: bofang,
                   a: id,
-                  // playlistid: playlistid
               }
           });
           fnNetAudiosPlayByID(id);
@@ -596,17 +629,11 @@
           var html = '';
           html += '<img src="../image/img/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player"></div>';
           $api.html(stylelist, html);
-          // playlistid = api.pageParam.playlistid;
-          // if (!playlistid) {
-          //     playlistid = api.pageParam.playid;
-          //
-          // }
           api.sendEvent({
               name: 'neizhiliebiaoPlay',
               extra: {
                   bofang: bofang,
                   a: a,
-                  // playlistid: playlistid
               }
           });
           // var zaicibf
@@ -621,29 +648,7 @@
           fnNetAudiosPlayByID(id);
       }
     // function fnJinRuBofangs(id){
-      var eHeader = $api.byId('header');
-      var bofang = 3;
-      var stylelist = $api.byId('openplayer');
-      var html = '';
-      html += '<img src="../image/img/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player"></div>';
-      $api.html(stylelist, html);
 
-      playid = api.pageParam.playid;
-      dqbfid = api.pageParam.a;
-      a = api.pageParam.a;
-      var id = id;
-      // console.log(ccc);
-      if (id) {
-          api.sendEvent({
-              name: 'netPlayingCgx',
-              extra: {
-                  id: id
-              }
-          });
-      }
-      fnInitSwiper();
-      fnOpenChangeImg();
-      api.parseTapmode();
 
 
       api.sendEvent({
