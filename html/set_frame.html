@@ -101,6 +101,12 @@
             right: 0;
             top: 10px;
         }
+        .Conditions{
+          text-decoration:underline;
+          text-align: center;
+          width: 100%;
+          margin: 20px auto;
+        }
     </style>
 </head>
 
@@ -141,6 +147,7 @@
             </div>
         </div>
     </div>
+    <div class="Conditions" onclick="fnConditionsWin()">孔孟之道服务条款</div>
 </body>
 
 </html>
@@ -219,5 +226,15 @@
             duration: 2000,
             location: 'middle'
         });
+    }
+    function fnConditionsWin() {
+        api.openWin({
+            name: 'Conditions',
+            url: './Conditions.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
+
     }
 </script>
