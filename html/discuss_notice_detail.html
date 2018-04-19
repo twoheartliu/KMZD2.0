@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="copyright" content="www.apicloud.com" />
 <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
-<title>孔孟之道--通知</title>
+<title>孔孟之道--评论</title>
 <link rel="stylesheet" type="text/css" href="../css/api.css" />
 <style>
 html,body {min-height: 100%;background: #ebebeb;}
@@ -57,7 +57,7 @@ nav{height:70px;padding:8px;background-color: #fff;}
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
   function goback () {
-    api.closeWin({name:'messageNoticeDetail'});
+    api.closeWin({name:'discussNoticeDetail'});
   }
   apiready = function (){
     var notHeader = $api.byId('notHeader');
@@ -69,8 +69,8 @@ nav{height:70px;padding:8px;background-color: #fff;}
     var nHeader = $api.byId('notHeader');
     var headerH = $api.offset(nHeader).h;
     api.openFrame({
-        name: 'messagenotDetailFrame',
-        url: './message_notDetail_frame.html',
+        name: 'discussNoticeDetailFrame',
+        url: './discuss_notice_detail_frame.html',
         rect: {
             x: 0,
             y: headerH,
