@@ -111,10 +111,21 @@ html,body {min-height: 100%;background: #f2f2f2}
   .user-name p:nth-last-child(1) img{width: 30px;}
   button:focus{outline: none;}
   .clear{clear: both;}
+
+  .sec-tit{height:40px;line-height: 40px;padding-left:8px;}
+  .sec-discuss{background-color: #fff;padding: 8px;}
+  .sec-img{display: inline-block; vertical-align: top;}
+  .sec-img img{width:45px;height: 45px;}
+  .sec-txt{display: inline-block;}
+  .sec-txt>p{color:#999;}
+  .sec-txt>p:nth-child(2){color:#ccc;font-size: 13px;}
+  .dis-right>span{color:#ccc;font-size: 12px;}
+  .dis-right>img{width:22px;vertical-align: middle;}
+  .dis-txt{margin-left: 40px;padding-bottom: 10px;border-bottom: 1px solid #e0e0e0;color:#535354;}
 </style>
 </head>
 <body>
-  <div class="list_bj">
+  <div class="list_bj" id="container">
       <div class="p13px">
           <div class="single">
               <div class="single_img fl"><img src="../image/pic.jpg" alt=""></div>
@@ -133,7 +144,7 @@ html,body {min-height: 100%;background: #f2f2f2}
           <div class="clear"></div>
       </div>
       <div class="playall" >
-          <div class="p13px">
+          <!-- <div class="p13px">
               <div class="playall_span fl">当前评论</div>
               <div class="clear"></div>
           </div>
@@ -158,7 +169,55 @@ html,body {min-height: 100%;background: #f2f2f2}
               </div>
 
             </li>
-          </ul>
+          </ul> -->
+          <section id="section">
+            <div class="sec-tit">当前评论</div>
+            <div class="sec-discuss">
+              <div class="dis-left fl">
+                <div class="sec-img"><img src="../image/icon-person.png" alt=""></div>
+                <div class="sec-txt"><p>燕赵门</p><p>2017年9月19日</p></div>
+              </div>
+              <div class="dis-right fr">
+                <span>3</span><img src="../image/KM_listdz.png" alt="" class="zan01">
+              </div>
+              <div class="clear"></div>
+              <div class="dis-txt">海中月是天上月，眼前人是心上人。向来心是看客心，奈何人是剧中人</div>
+            </div>
+            <div class="sec-tit">所有评论</div>
+            <div class="sec-discuss">
+              <div class="dis-left fl">
+                <div class="sec-img"><img src="../image/icon-person.png" alt=""></div>
+                <div class="sec-txt"><p>燕赵门</p><p>2017年9月19日</p></div>
+              </div>
+              <div class="dis-right fr">
+                <span>3</span><img src="../image/KM_listdz.png" alt="" class="zan01">
+              </div>
+              <div class="clear"></div>
+              <div class="dis-txt">海中月是天上月，眼前人是心上人。向来心是看客心，奈何人是剧中人</div>
+            </div>
+            <div class="sec-discuss">
+              <div class="dis-left fl">
+                <div class="sec-img"><img src="../image/icon-person.png" alt=""></div>
+                <div class="sec-txt"><p>燕赵门</p><p>2017年9月19日</p></div>
+              </div>
+              <div class="dis-right fr">
+                <span>3</span><img src="../image/KM_listdz.png" alt="" class="zan01">
+              </div>
+              <div class="clear"></div>
+              <div class="dis-txt">海中月是天上月，眼前人是心上人。向来心是看客心，奈何人是剧中人</div>
+            </div>
+            <div class="sec-discuss">
+              <div class="dis-left fl">
+                <div class="sec-img"><img src="../image/icon-person.png" alt=""></div>
+                <div class="sec-txt"><p>燕赵门</p><p>2017年9月19日</p></div>
+              </div>
+              <div class="dis-right fr">
+                <span>3</span><img src="../image/KM_listdz.png" alt="" class="zan01">
+              </div>
+              <div class="clear"></div>
+              <div class="dis-txt">海中月是天上月，眼前人是心上人。向来心是看客心，奈何人是剧中人</div>
+            </div>
+          </section>
       </div>
     </div>
 </body>
@@ -167,8 +226,8 @@ html,body {min-height: 100%;background: #f2f2f2}
   apiready = function (){
     var mHeader = $api.byId('mesHeader');
     var headerPos = $api.offset(mHeader);
-    var playall = document.getElementById('playall');
-    var ul_lis = playall.getElementsByClassName('replyImg');
+    var section = document.getElementById('section');
+    var ul_lis = section.getElementsByClassName('zan01');
     for (var i = 0; i < ul_lis.length; i++) {
         ul_lis[i].index = i;
 
@@ -181,8 +240,33 @@ html,body {min-height: 100%;background: #f2f2f2}
             ul_lis[j].src="../image/KM_listdz.png";
           }
         }
-      }
-  }
+      };
+      fnOpenMessageNotDetail1();
+    }
 
+  function fnOpenMessageNotDetail1(){
+    // var nHeader = $api.byId('secHeader');
+    var container = $api.byId('container');
+    // var headerH = $api.offset(nHeader).h;
+    var containerH = $api.offset(container).h;
+
+    api.openFrame({
+        name: 'replyDetailFrame',
+        url: './reply_detail_frame.html',
+        rect: {
+            x: 0,
+            y: containerH +320,
+            w: api.frameWidth,
+            h: 'auto'
+        },
+        pageParam: {
+            name: 'test'
+        },
+        bounces: false,
+        bgColor: 'rgba(0,0,0,0)',
+        vScrollBarEnabled: true,
+        hScrollBarEnabled: true
+    });
+  }
 </script>
 </html>

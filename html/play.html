@@ -76,21 +76,23 @@
             display: flex;
         }
 
-        #action li {
+        #action>li {
             text-align: center;
             color: #cbcbcb;
             font-size: 12px;
             -webkit-box-flex: 1;
             -webkit-flex: 1;
             flex: 1;
-            padding-top: 30px;
+            /*padding-top: 30px;*/
             background-position: center top;
             background-repeat: no-repeat;
             -webkit-background-size: 25px;
             background-size: 25px;
         }
-
-        #action .collect {
+        #action>li>img{
+          width: 25px;
+        }
+        /*#action .collect {
             text-align: center;
             color: #cbcbcb;
             font-size: 12px;
@@ -102,25 +104,25 @@
             background-repeat: no-repeat;
             -webkit-background-size: 25px;
             background-size: 25px;
-        }
+        }*/
 
-        #action .timer {
+        /*#action .timer {
             background-image: url(../image/play_choice.png);
-        }
+        }*/
         /*#action .timer.focus {
             background-image: url(../image/play_choice.png);
         }*/
 
-        #action .share {
+        /*#action .share {
             background-image: url(../image/img/ic_play_share.png);
-        }
+        }*/
         /*#action .share.focus {
             background-image: url(../image/img/ic_play_share_s.png);
         }*/
 
-        #action .checkin {
+        /*#action .checkin {
             background-image: url(../image/ListingsListGd.png);
-        }
+        }*/
         /*#action .checkin.focus {
             background-image: url(../image/play_discuss.png);
         }*/
@@ -449,9 +451,18 @@
                 <img src="../image/dianzan.png" alt="" id="playDz" onclick="fnOpenPlayDz();">
                 <p>点赞</p>
             </li>
-            <li class="timer" tapmode="focus" onclick="fnOpenChoicePlayer();">切换国学机</li>
-            <li class="share" tapmode="focus" onclick="fnOpenPlayShare();">分享</li>
-            <li class="checkin" tapmode="focus" onclick="fnOpenPlayDiscuss();">评论</li>
+            <li class="timer" tapmode="focus" onclick="fnOpenChoicePlayer();">
+              <img src="../image/play_choice.png" alt=""  >
+              <p>切换国学机</p></li>
+            <li class="share" tapmode="focus" onclick="fnOpenPlayShare();">
+              <img src="../image/ic_play_share.png" alt="" >
+              <p>分享</p>
+            </li>
+            <li class="checkin" tapmode="focus" onclick="fnOpenPlayDiscuss();">
+              <!-- <img src="../image/discuss_detail.png" alt=""  > -->
+              <img src="../image/ListingsListGd.png" alt=""  >
+              <p>评论</p>
+            </li>
         </ul>
         <div id="control" class="qx">
             <div id="slider">
