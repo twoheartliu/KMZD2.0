@@ -53,7 +53,23 @@
         .egret-txt p{
           font-size: 14px;
         }
+        .header_fr {
+            width: 30px;
+            height: 30px;
+            padding: 10px 20px 10px 10px;
+            line-height: 30px;
+            font-size: 15px;
+            color: #fff;
+            position: absolute;
+            right: 5px;
+            bottom: -0px;
+            /*display: inline-block;*/
+            /*display: none;*/
+        }
 
+        .header_fr img {
+            width: 100%;
+        }
       </style>
   </head>
   <body>
@@ -65,7 +81,9 @@
             <h1>失去地心的魔方</h1>
             <p>周晓鑫</p>
           </div>
-
+          <div class="header_fr" onclick="fnOpenPlayDiscuss()" >
+              <img src="../image/KM_more.png" alt="">
+          </div>
       </header>
   </body>
   <script type="text/javascript" src="../script/api.js"></script>
@@ -99,7 +117,6 @@
           vScrollBarEnabled: true,
           hScrollBarEnabled: true
       });
-
     }
     // function fnOpenPlayButton(){
     //   var playButton = $api.byId('playButton');
@@ -112,6 +129,68 @@
     //     $api.removeCls(video, 'Rotation');
     //   }
     // }
-
+    //打开更多页面
+    function fnOpenPlayDiscuss() {
+      var dialogBox = api.require('dialogBox');
+      dialogBox.actionMenu({
+          rect: {
+              h: 150
+          },
+          texts: {
+              cancel: '取消'
+          },
+          items: [{
+              text: '分享',
+              icon: 'widget://image/weixin.png'
+          }, {
+              text: '添加到听单',
+              icon: 'widget://image/qq.png'
+          }],
+          styles: {
+              bg: '#FFF',
+              column: 2,
+              itemText: {
+                  color: '#000',
+                  size: 12,
+                  marginT: 8
+              },
+              itemIcon: {
+                  size: 48
+              },
+              cancel: {
+                  bg: 'fs://icon.png',
+                  color: '#000',
+                  h: 44,
+                  size: 14
+              }
+          },
+          tapClose: true
+      }, function(ret) {
+        if (ret.index == "0") {
+            dialogBox.close({
+                dialogName: 'alert'
+            });
+            api.openWin({
+                // name: 'ListeningList',
+                // url: './ListeningList.html',
+                // pageParam: {
+                //     name: 'test'
+                // }
+            });
+        }else if (ret.index == "1") {
+          dialogBox.close({
+              dialogName: 'alert'
+          });
+          // api.openWin({
+          //   name: 'playDiscuss',
+          //   url: './play_discuss.html',
+          // })
+        }else {
+          dialogBox.close({
+              dialogName: 'alert'
+          });
+        }
+      });
+    }
   </script>
   </html>
