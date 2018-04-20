@@ -85,32 +85,31 @@
 <body>
   <div class="p20px">
       <div class="hot">
-
-          <div class="hotC" onclick="fnMachineXiangqingWin();">
+          <div class="hotC" onclick="fnMachineXiangqingWin0();">
               <img src="../image/frame0101cover/K4_plus.png" alt="" >
               <div class="listtitle">K4plus国学机</div>
           </div>
-          <div class="hotC" onclick="fnMachineXiangqingWin();">
+          <div class="hotC" onclick="fnMachineXiangqingWin1();">
               <img src="../image/frame0101cover/K4_G.png" alt="" >
               <div class="listtitle">K4_G国学机</div>
           </div>
-          <div class="hotC" onclick="fnMachineXiangqingWin();">
+          <div class="hotC" onclick="fnMachineXiangqingWin2();">
               <img src="../image/frame0101cover/K4001.png" alt="" >
               <div class="listtitle">K400白国学机</div>
           </div>
-          <div class="hotC" onclick="fnMachineXiangqingWin();">
+          <div class="hotC" onclick="fnMachineXiangqingWin3();">
               <img src="../image/frame0101cover/K4002.png" alt="" >
               <div class="listtitle">K400红国学机</div>
           </div>
-          <div class="hotC" onclick="fnMachineXiangqingWin();">
+          <div class="hotC" onclick="fnMachineXiangqingWin4();">
               <img src="../image/frame0101cover/M30.png" alt="" >
               <div class="listtitle">M30国学机</div>
           </div>
-          <div class="hotC" onclick="fnMachineXiangqingWin();">
+          <div class="hotC" onclick="fnMachineXiangqingWin5();">
               <img src="../image/frame0101cover/M39.png" alt="" >
               <div class="listtitle">M39国学机</div>
           </div>
-          <div class="hotC" onclick="fnMachineXiangqingWin();">
+          <div class="hotC" onclick="fnMachineXiangqingWin6();">
               <img src="../image/frame0101cover/F3.png" alt="" >
               <div class="listtitle" >如意F3国学机</div>
           </div>
@@ -135,19 +134,123 @@
         //   hotCs.item(j).style.width = (frameWidth -40) /3 + "px";
         //   hotCs.item(j).style.height = (frameWidth) /3 * 1.124 + "px";
         // };
-
     }
-    function fnMachineXiangqingWin() {
-      var  ids = $api.byId('1111');
+    function fnMachineXiangqingWin0() {
+      // var  ids = $api.byId('1111');
       // console.log(ids.value);
         api.openWin({
-            name: 'machine_xiangqing',
-            url: './machine_xiangqing.html',
-            pageParam: {
-                text: ids.value
-            }
+            name: 'machine_xiangqing0',
+            url: './machine_xiangqing0.html',
+            // pageParam: {
+            //     text: ids.value
+            // }
         });
 
     }
+    function fnMachineXiangqingWin1() {
+      // var  ids = $api.byId('1111');
+      // console.log(ids.value);
+        api.openWin({
+            name: 'machine_xiangqing1',
+            url: './machine_xiangqing1.html',
+        });
+
+    }
+    function fnMachineXiangqingWin2() {
+      // var  ids = $api.byId('1111');
+      // console.log(ids.value);
+        api.openWin({
+            name: 'machine_xiangqing2',
+            url: './machine_xiangqing2.html',
+        });
+
+    }
+    function fnMachineXiangqingWin3() {
+      // var  ids = $api.byId('1111');
+      // console.log(ids.value);
+        api.openWin({
+            name: 'machine_xiangqing3',
+            url: './machine_xiangqing3.html',
+        });
+
+    }
+    function fnMachineXiangqingWin4() {
+      // var  ids = $api.byId('1111');
+      // console.log(ids.value);
+        api.openWin({
+            name: 'machine_xiangqing4',
+            url: './machine_xiangqing4.html',
+        });
+
+    }
+    function fnMachineXiangqingWin5() {
+      // var  ids = $api.byId('1111');
+      // console.log(ids.value);
+        api.openWin({
+            name: 'machine_xiangqing5',
+            url: './machine_xiangqing5.html',
+        });
+
+    }
+    function fnMachineXiangqingWin6() {
+      // var  ids = $api.byId('1111');
+      // console.log(ids.value);
+        api.openWin({
+            name: 'machine_xiangqing6',
+            url: './machine_xiangqing6.html',
+        });
+
+    }
+    // function funIniGroup() {
+    //     var eHeaderLis = $api.domAll('.hot .hotC'),
+    //         frames = [];
+    //     for (var i = 0, len = eHeaderLis.length; i < len; i++) {
+    //         frames.push({
+    //             name: 'machine_xiangqing' + i,
+    //             url: './html/machine_xiangqing' + i + '.html',
+    //             bgColor: 'rgba(0,0,0,.2)',
+    //             pageParam: {
+    //                 name: 'test',
+    //             },
+    //             bounces: false
+    //         })
+    //     }
+    //
+    //     api.openFrameGroup({
+    //         name: 'group',
+    //         scrollEnabled: false,
+    //         rect: {
+    //             x: 0,
+    //             y: 0,
+    //             w: api.winWidth,
+    //             h: 'auto'
+    //         },
+    //         index: 0,
+    //         frames: frames
+    //     }, function(ret, err) {
+    //
+    //     });
+    // }
+    // // 随意切换按钮
+    // function randomSwitchBtn(tag) {
+    //     if (tag == $api.dom('#footer li.active')) return;
+    //     var eFootLis = $api.domAll('#footer li'),
+    //         eHeaderLis = $api.domAll('header li'),
+    //         index = 0;
+    //     for (var i = 0, len = eFootLis.length; i < len; i++) {
+    //         if (tag == eFootLis[i]) {
+    //             index = i;
+    //         } else {
+    //             $api.removeCls(eFootLis[i], 'active');
+    //             $api.removeCls(eHeaderLis[i], 'active');
+    //         }
+    //     }
+    //     $api.addCls(eFootLis[index], 'active');
+    //     $api.addCls(eHeaderLis[index], 'active');
+    //     api.setFrameGroupIndex({
+    //         name: 'group',
+    //         index: index
+    //     });
+    // }
 
 </script>

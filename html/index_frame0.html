@@ -104,7 +104,7 @@
             background-clip: content-box;
             text-align: center;
             font-size: 20px;
-            padding-top:10px;
+            padding-top: 10px;
         }
 
         .sectionTitle {
@@ -364,38 +364,61 @@
 </html>
 <script type="text/javascript">
     apiready = function() {
-            // alert(JSON.stringify(qqziliao));
-            // api.parseTapmode()
-            fnTingdanTuijian();
-            fnInitSwiper();
-            // fnXiMaLaYaTingDan();
-            var qqziliao = api.pageParam.qqziliao;
-            // var navbars = $api.domAll('.navbar');
+        // alert(JSON.stringify(qqziliao));
+        // api.parseTapmode()
+        fnTingdanTuijian();
+        fnInitSwiper();
+        // fnXiMaLaYaTingDan();
+        ccg123456();
+        var qqziliao = api.pageParam.qqziliao;
+        // var navbars = $api.domAll('.navbar');
 
-            // for(var i=0; i < 8 ;i++){
-            //   navbars.item(i).style.width = frameWidth /4 + "px";
-            //   navbars.item(i).style.height = frameWidth/4 * 1.1 + "px";
-            // };
+        // for(var i=0; i < 8 ;i++){
+        //   navbars.item(i).style.width = frameWidth /4 + "px";
+        //   navbars.item(i).style.height = frameWidth/4 * 1.1 + "px";
+        // };
 
 
 
-        }
-        //接口  推荐听单
+    }
+
+    function ccg123456() {
+      // alert(132);
+        var ximalaya = api.require('ximalaya');
+
+        var param = {
+            appkey: "85fa4ef92fb9ab9ee237146d59b44530",
+            appsecret: "a537faf18f2ba543fbabe3dad47b3511"
+        };
+        ximalaya.initXmly(param, function(ret, err) {
+
+          console.log(123);
+            if (ret){
+                alert(JSON.stringify(ret));
+                alert(1);
+            }else{
+                console.log(ret);
+                alert(JSON.stringify(err));
+                alert(2);
+              }
+        });
+    }
+    //接口  推荐听单
     function fnXiMaLaYaTingDan() {
         var ximalaya = null;
         var ximalaya = api.require('ximalaya');
         var param = {
-            appkey: "a2bef6e953c529b6ac0b656a32079ecf",
-            appsecret: "8b34f88377b74cdde91e2d10111769d1  "
+            appkey: "85fa4ef92fb9ab9ee237146d59b44530",
+            appsecret: "a537faf18f2ba543fbabe3dad47b3511"
         };
         ximalaya.initXmly(param, function(ret, err) {
-          alert(JSON.stringify(ret));
-            if (ret){
+            // alert(JSON.stringify(ret));
+            if (ret) {
                 alert(JSON.stringify(ret.message));
-            }else{
-            //console.log(JSON.stringify(err));
+            } else {
+                //console.log(JSON.stringify(err));
                 alert(JSON.stringify(err));
-              }
+            }
         });
 
         function getSearchedTracks() {
@@ -434,7 +457,7 @@
         }, function(ret, err) {
             if (ret) {
                 // alert(JSON.stringify(ret));
-              fnTingdanZhanshi(ret);
+                fnTingdanZhanshi(ret);
             } else {
                 alert(JSON.stringify(err));
             }
@@ -535,11 +558,11 @@
     // 打开榜单页面
     function fnBillboard() {
         api.openWin({
-          name: 'billBoard',
-          url: './bill_board.html',
+            name: 'billBoard',
+            url: './bill_board.html',
         });
     }
-// 打开国学机页面
+    // 打开国学机页面
     function fnReadWin() {
         api.openWin({
             name: 'machine',

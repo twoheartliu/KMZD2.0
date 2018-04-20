@@ -10,111 +10,76 @@
     <link rel="stylesheet" href="../css/swiper.min.css">
     <link rel="stylesheet" href="../css/iconfont.css">
     <style>
-        .clr {
-            overflow: hidden;
-        }
-
-        div {
-            width: 100%;
-            overflow: hidden;
-        }
-
-        div img {
-            width: 100%;
-            height: 100%;
-        }
-
-        .row {
-            display: -webkit-box;
-            display: -webkit-flex;
-        }
-
-        .col {
-            -webkit-box-flex: 1;
-            -webkit-flex: 1;
-            flex: 1;
-            text-align: center;
-        }
-
-        .tetou {
-            height: 50px;
-            line-height: 50px;
-        }
-
-        .tetou div {
-            font-size: 12px;
-        }
-        ul{
-          background: #fafafa;
-        }
-        li {
-            height: 80px;
-            line-height: 80px;
-            font-size: 12px;
-            margin: 1px 0;
-            border: 1px solid #eeeeee;
-            background: #fafafa;
-        }
-
-        li .obtain {
-            /*width: 30px;*/
-            width: 65%;
-            height: 30px;
-            border-radius: 20px;
-            border: 1px solid #e7e7e7;
-            line-height: 30px;
-            margin: 24px auto;
-            color: #616161;
-        }
+        table{margin: 5%;width: 90%}
+        table tr{width: 100%;height: 40px;}
+        table tr th{width: 50%;font-weight:100;}
+        .credit{width: 100%;margin: 20px auto;text-decoration:underline;color: #539ff5;text-align: left;margin-left: 5%;}
+        .Grade{width: 100%;height: 30px;line-height: 30px;text-align: center;}
+        .Grade span{color: red;}
+        .distance{width: 100%;height: 30px;line-height: 30px; text-align: center;}
+        .distance span{color: red;}
     </style>
 </head>
 
 <body>
-    <ul>
-        <div class="row tetou">
-            <div class="col">等级</div>
-            <div class="col">学分</div>
-        </div>
-        <li class="row">
-            <div class="col">童生</div>
-            <div class="col">-</div>
-        </li>
-        <li class="row">
-            <div class="col">秀才</div>
-            <div class="col">100学分</div>
-        </li>
-        <li class="row">
-            <div class="col">举人</div>
-            <div class="col">500学分</div>
-        </li>
-        <li class="row">
-            <div class="col">进士</div>
-            <div class="col">2000学分</div>
-        </li>
-        <li class="row">
-            <div class="col">探花</div>
-            <div class="col">5000学分</div>
-        </li>
-        <li class="row">
-            <div class="col">榜眼</div>
-            <div class="col">10000学分</div>
-        </li>
-        <li class="row">
-            <div class="col">状元</div>
-            <div class="col">30000学分</div>
-        </li>
-        <li class="row">
-            <div class="col">国主</div>
-            <div class="col">100000学分</div>
-        </li>
-    </ul>
+    <div class="Grade">当前等级是<span>童生</span></div>
+    <div class="distance">离下个等级还差<span>40</span>学分</div>
+    <div></div>
+    <table border="1">
+      <tr>
+        <th>等级</th>
+        <th>学分</th>
+      </tr>
+      <tr>
+        <th>童生</th>
+        <th>0学分</th>
+      </tr>
+      <tr>
+        <th>秀才</th>
+        <th>100学分</th>
+      </tr>
+      <tr>
+        <th>举人</th>
+        <th>500学分</th>
+      </tr>
+      <tr>
+        <th>进士</th>
+        <th>2000学分</th>
+      </tr>
+      <tr>
+        <th>探花</th>
+        <th>5000学分</th>
+      </tr>
+      <tr>
+        <th>榜眼</th>
+        <th>10000学分</th>
+      </tr>
+      <tr>
+        <th>状元</th>
+        <th>30000学分</th>
+      </tr>
+      <tr>
+        <th>国主</th>
+        <th>100000学分</th>
+      </tr>
+    </table>
+    <div class="credit" onclick="fnCreditWin();">如何获得学分</div>
 </body>
-
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
-<script type="text/javascript" src="../script/swiper.min.js"></script>
 <script type="text/javascript">
     apiready = function() {
+
+    }
+    // 如何获取学分详情页
+    function fnCreditWin() {
+      api.openWin({
+          name: 'credit',
+          url: './credit.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
 
     }
 </script>
