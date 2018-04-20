@@ -149,65 +149,6 @@ button:focus{outline: none;}
     for (var i = 0; i < ul_lis.length; i++) {
         ul_lis[i].index = i;
         ul_lis[i].onclick = function() {
-            // var j = this.index;
-            // reply[j].style.display = (reply[j].style.display =='block'?'none':'block');
-            // var dialogBox = api.require('dialogBox');
-            // dialogBox.confirm({
-            //     tapClose: false,
-            //     msg: {
-            //         // content:'这里是文本内容',
-            //         leftBtnTitle: '回复',
-            //         rightBtnTitle:'查看详情'
-            //     },
-            //     styles: {
-            //         bg: '#fff',
-            //         maskBg:'rgba(0,0,0,0.5)',
-            //         h: 80,
-            //         msg :{
-            //             color : '#000000',
-            //             size  : 20,
-            //             maginLR: 10 ,
-            //             maginT: 15
-            //         },
-            //         // border : {
-            //         //        left : '10 #FF0000',
-            //         //       right : '10 #FF0000',
-            //         //        top : '10 #0000FF',
-            //         //       bottom : '10 #0000FF'
-            //         // },
-            //         leftBtn :{
-            //             borderColor: 'rgba(0,0,0,0)',
-            //             // color: '#007FFF',
-            //             highlightBg : '#ccc',
-            //             color: '#89211b',
-            //             size: 14
-            //         },
-            //         rightBtn :{
-            //             bg: 'rgba(0,0,0,0)',
-            //             selectedBg:'#ccc',
-            //             highlightBg : '#ccc',
-            //             // color: '#007FFF',
-            //             color: '#89211b',
-            //             size: 14
-            //         }
-            //     }
-            // }, function(ret) {
-            //   if (ret.eventType == 'ok') {
-            //       var j = this.index;
-            //       // reply[j].style.display = 'block';
-            //       // $api.css(reply[j],'display:block');
-            //       // $api.addCls(reply[j], 'active');
-            //       var dialogBox = api.require('dialogBox');
-            //       dialogBox.close({
-            //           dialogName: 'alert'
-            //       });
-            //   }else if (ret.eventType == 'cancel') {
-            //     var dialogBox = api.require('dialogBox');
-            //     dialogBox.close({
-            //         dialogName: 'alert'
-            //     });
-            //   }
-            // });
             var dialogBox = api.require('dialogBox');
             dialogBox.actionMenu({
                 rect: {
@@ -252,12 +193,10 @@ button:focus{outline: none;}
                     });
                 } else if (index == 0) {
                   fnOpenMessageNotDetail();
-                    // alert('公开')
                     dialogBox.close({
                         dialogName: 'alert'
                     });
                 } else if (index == 1) {
-                    // alert('删除')
                     fnOpendiscuss();
                     dialogBox.close({
                         dialogName: 'alert'
