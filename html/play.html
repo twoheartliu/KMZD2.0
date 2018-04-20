@@ -227,7 +227,7 @@
             display: inline-block;
             width: 100%;
             height: 100%;
-            background: url(../image/img/ic_play_buffer.png) no-repeat center;
+            background: url(../image/play/ic_play_buffer.png) no-repeat center;
             -webkit-background-size: contain;
             background-size: contain;
             -webkit-animation: rotate 4s linear infinite;
@@ -238,7 +238,7 @@
         }*/
 
         #panel .next {
-            background-image: url(../image/img/ic_play_next.png);
+            background-image: url(../image/play/ic_play_next.png);
         }
         /*#panel .next.focus {
             background-image: url(../image/img/ic_play_next_s.png);
@@ -302,7 +302,7 @@
         #secHeader {
             width: 100%;
             height: 50px;
-            background-image: url(../image/img/header.png);
+            background-image: url(../image/play/header.png);
             background-repeat: no-repeat;
             background-size: 100% 100%;
         }
@@ -479,7 +479,7 @@
                 <li class="prev" tapmode="focus" onclick="fnOpenPlayershangyi()"></li>
                 <li class="play" tapmode="focus" id="openplayer"></li>
                 <li class="next" tapmode="focus" onclick="fnOpenPlayerxiayi()"></li>
-                <li><img src="../image/play_change0.png" alt="" id="img"></li>
+                <li><img src="../image/play/play_change0.png" alt="" id="img"></li>
             </ul>
         </div>
     </div>
@@ -572,7 +572,7 @@
       if (!bofang) {
           var stylelist = $api.byId('openplayer');
           var html = '';
-          html += '<img src="../image/img/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player"></div>';
+          html += '<img src="../image/play/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player"></div>';
           $api.html(stylelist, html);
           bofang = 3;
           playlistid = api.pageParam.playlistid;
@@ -592,12 +592,12 @@
       } else if (bofang == 2) {
           var stylelist = $api.byId('openplayer');
           var html = '';
-          html += '<img src="../image/img/ic_play_play.png" alt="" onclick="fnOpenPlayer();" id="player"></div>';
+          html += '<img src="../image/play/ic_play_play.png" alt="" onclick="fnOpenPlayer();" id="player"></div>';
           $api.html(stylelist, html);
       } else if (bofang == 3) {
           var stylelist = $api.byId('openplayer');
           var html = '';
-          html += '<img src="../image/img/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player"></div>';
+          html += '<img src="../image/play/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player"></div>';
           $api.html(stylelist, html);
           playlistid = api.pageParam.playlistid;
           if (!playlistid) {
@@ -661,7 +661,7 @@
         if (!bofang) {
             var stylelist = $api.byId('openplayer');
             var html = '';
-            html += '<img src="../image/img/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player"></div>';
+            html += '<img src="../image/play/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player"></div>';
             $api.html(stylelist, html);
             bofang = 3;
             api.sendEvent({
@@ -676,12 +676,12 @@
         } else if (bofang == 2) {
             var stylelist = $api.byId('openplayer');
             var html = '';
-            html += '<img src="../image/img/ic_play_play.png" alt="" onclick="fnOpenPlayer();" id="player"></div>';
+            html += '<img src="../image/play/ic_play_play.png" alt="" onclick="fnOpenPlayer();" id="player"></div>';
             $api.html(stylelist, html);
         } else if (bofang == 3) {
             var stylelist = $api.byId('openplayer');
             var html = '';
-            html += '<img src="../image/img/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player"></div>';
+            html += '<img src="../image/play/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player"></div>';
             $api.html(stylelist, html);
             api.sendEvent({
                 name: 'neizhiliebiaoPlay',
@@ -782,8 +782,8 @@
     //播放、暂停
     function fnOpenPlayer() {
         var player = $api.byId('player');
-        if (player.getAttribute("src", 2) == "../image/img/ic_play_play.png") {
-            player.src = "../image/img/ic_play_pause.png";
+        if (player.getAttribute("src", 2) == "../image/play/ic_play_play.png") {
+            player.src = "../image/play/ic_play_pause.png";
 
             var bofang = 3;
             var a = api.pageParam.a;
@@ -819,7 +819,7 @@
             });
             fnOpenChangeImg();
         } else {
-            player.src = "../image/img/ic_play_play.png";
+            player.src = "../image/play/ic_play_play.png";
             var netAudiopausess = '';
             api.sendEvent({
                 name: 'netAudiopause',
@@ -885,7 +885,7 @@
     //上一曲
     function fnOpenPlayershangyi() {
         var player = $api.byId('player');
-        player.src = "../image/img/ic_play_pause.png";
+        player.src = "../image/play/ic_play_pause.png";
         var c = 1;
         api.sendEvent({
             name: 'GeDanshangyi',
@@ -905,7 +905,7 @@
             }
         });
         var player = $api.byId('player');
-        player.src = "../image/img/ic_play_pause.png";
+        player.src = "../image/play/ic_play_pause.png";
         fnOpenChangeImg();
     }
     //播放
@@ -1013,7 +1013,7 @@
     };
     // 切换单曲循环、顺序播放、随机播放
     function fnOpenChangeImg() {
-        var image_urls = ["../image/play_change0.png", "../image/play_change1.png", "../image/play_change2.png"];
+        var image_urls = ["../image/play/play_change0.png", "../image/play/play_change1.png", "../image/play/play_change2.png"];
         // 初始化数组键值 (0 = 第一个图片)
         var idx = 0;
         var bofangmoshi = 0;
