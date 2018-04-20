@@ -103,6 +103,39 @@ nav{height:70px;padding:8px;background-color: #fff;}
         <div class="clear"></div>
         <div class="dis-txt">海中月是天上月，眼前人是心上人。向来心是看客心，奈何人是剧中人</div>
       </div>
+      <div class="sec-discuss">
+        <div class="dis-left fl">
+          <div class="sec-img"><img src="../image/icon-person.png" alt=""></div>
+          <div class="sec-txt"><p>燕赵门</p><p>2017年9月19日</p></div>
+        </div>
+        <div class="dis-right fr">
+          <span>3</span><img src="../image/KM_listdz.png" alt="" class="zan01">
+        </div>
+        <div class="clear"></div>
+        <div class="dis-txt">海中月是天上月，眼前人是心上人。向来心是看客心，奈何人是剧中人</div>
+      </div>
+      <div class="sec-discuss">
+        <div class="dis-left fl">
+          <div class="sec-img"><img src="../image/icon-person.png" alt=""></div>
+          <div class="sec-txt"><p>燕赵门</p><p>2017年9月19日</p></div>
+        </div>
+        <div class="dis-right fr">
+          <span>3</span><img src="../image/KM_listdz.png" alt="" class="zan01">
+        </div>
+        <div class="clear"></div>
+        <div class="dis-txt">海中月是天上月，眼前人是心上人。向来心是看客心，奈何人是剧中人</div>
+      </div>
+      <div class="sec-discuss">
+        <div class="dis-left fl">
+          <div class="sec-img"><img src="../image/icon-person.png" alt=""></div>
+          <div class="sec-txt"><p>燕赵门</p><p>2017年9月19日</p></div>
+        </div>
+        <div class="dis-right fr">
+          <span>3</span><img src="../image/KM_listdz.png" alt="" class="zan01">
+        </div>
+        <div class="clear"></div>
+        <div class="dis-txt">海中月是天上月，眼前人是心上人。向来心是看客心，奈何人是剧中人</div>
+      </div>
     </section>
   </div>
   <!-- <div class="nomessage">暂无消息02</div> -->
@@ -116,7 +149,7 @@ function goback () {
 apiready = function (){
   var notHeader = $api.byId('notHeader');
   $api.fixStatusBar(notHeader);
-  fnOpenMessageNotDetail1();
+  fnOpenMessageNotDetail();
   var section = document.getElementById('section');
   var ul_lis = section.getElementsByClassName('zan01');
   for (var i = 0; i < ul_lis.length; i++) {
@@ -133,8 +166,8 @@ apiready = function (){
       }
     }
 }
-function fnOpenMessageNotDetail1(){
-  // var nHeader = $api.byId('secHeader');
+function fnOpenMessageNotDetail(){
+  // var nHeader = $api.byId('notHeader');
   var container = $api.byId('container');
   // var headerH = $api.offset(nHeader).h;
   var containerH = $api.offset(container).h;
@@ -143,10 +176,10 @@ function fnOpenMessageNotDetail1(){
       name: 'replyDetailFrame',
       url: './reply_detail_frame.html',
       rect: {
-          x: 0,
-          y: containerH+100,
+          x: api.frameWidth,
+          y: api.frameHeight,
           w: api.frameWidth,
-          h: 'auto'
+          h: 50
       },
       pageParam: {
           name: 'test'
