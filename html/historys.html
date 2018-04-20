@@ -7,290 +7,340 @@
     <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
     <title>孔孟之道--历史纪录</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
-    <!-- <link rel="stylesheet" type="text/css" href="../css/style.css" /> -->
-<style>
-    .fr {
-        float: right;
-    }
+    <style>
+        .fr {
+            float: right;
+        }
 
-    .fl {
-        float: left;
-    }
+        .fl {
+            float: left;
+        }
 
-    .row {
-        display: -webkit-box;
-        display: -webkit-flex;
-    }
+        .row {
+            display: -webkit-box;
+            display: -webkit-flex;
+        }
 
-    .col {
-        -webkit-box-flex: 1;
-        -webkit-flex: 1;
-        flex: 1;
-        margin: 0 5px;
-        position: relative;
-    }
+        .col {
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+            margin: 0 5px;
+            position: relative;
+        }
 
-    .message_frame {
-        padding: 0 10px;
-        overflow: auto;
-    }
+        .message_frame {
+            padding: 0 10px;
+            overflow: auto;
+        }
 
-    .message_frame_period {
-        color: #000;
-        height: 50px;
-        line-height: 50px;
-        font-size: 30px;
-    }
+        .message_frame_period {
+            color: #000;
+            height: 50px;
+            line-height: 50px;
+            font-size: 30px;
+        }
 
-    .message_frame_cycle {
-        display: -webkit-box;
-        -webkit-box-align: center;
-        margin: 10px 0;
-        border-bottom: 1px solid #ccc;
-        padding: 5px 0;
-    }
+        .message_frame_cycle {
+            display: -webkit-box;
+            -webkit-box-align: center;
+            margin: 10px 0;
+            border-bottom: 1px solid #ccc;
+            padding: 5px 0;
+        }
 
-    .message_frame_cycle_img {
-        max-width: 60px;
-        min-width: 60px;
-        margin-left: 0.5em;
-        margin-right: 0.2em;
-        -webkit-box-flex: 1;
-        -webkit-box-align: center;
-    }
+        .message_frame_cycle_img {
+            max-width: 60px;
+            min-width: 60px;
+            margin-left: 0.5em;
+            margin-right: 0.2em;
+            -webkit-box-flex: 1;
+            -webkit-box-align: center;
+        }
 
-    .message_frame_cycle_imgs {
-        -webkit-box-flex: 0.1;
-        -webkit-box-align: center;
-        display: none;
-    }
+        .message_frame_cycle_imgs {
+            -webkit-box-flex: 0.1;
+            -webkit-box-align: center;
+            display: none;
+        }
 
-    .message_frame_cycle_imgs input {
-        display: block;
-        margin: 0 auto;
-    }
+        .message_frame_cycle_imgs input {
+            display: block;
+            margin: 0 auto;
+        }
 
-    .message_frame_cycle_img img {
-        height: 60px;
-        width: 60px;
-        -webkit-box-align: center;
-        vertical-align: top;
-        border-radius: 40px;
-    }
+        .message_frame_cycle_img img {
+            height: 60px;
+            width: 60px;
+            -webkit-box-align: center;
+            vertical-align: top;
+            border-radius: 40px;
+        }
 
-    .message_frame_cycle_div {
-        overflow: hidden;
-        -webkit-box-flex: 2;
-        -webkit-box-align: center;
-    }
+        .message_frame_cycle_div {
+            overflow: hidden;
+            -webkit-box-flex: 2;
+            -webkit-box-align: center;
+        }
 
-    .message_frame_cycle_div div {
-        line-height: 20px;
-    }
+        .message_frame_cycle_div div {
+            line-height: 20px;
+        }
 
-    .message_frame_cycle_div_1 {
-        color: #000;
-        font-size: 16px;
-    }
+        .message_frame_cycle_div_1 {
+            color: #000;
+            font-size: 16px;
+        }
 
-    .message_frame_cycle_div_2 {
-        color: #666;
-        font-size: 13px
-    }
+        .message_frame_cycle_div_2 {
+            color: #666;
+            font-size: 13px
+        }
 
-    .message_frame_cycle_div_3 {
-        width: 100%;
-    }
+        .message_frame_cycle_div_3 {
+            width: 100%;
+        }
 
-    .message_frame_cycle_div_3fl {
-        color: #666;
-        position: relative;
-    }
+        .message_frame_cycle_div_3fl {
+            color: #666;
+            position: relative;
+        }
 
-    .message_frame_cycle_div_3fl_span {
-        color: #536;
-    }
+        .message_frame_cycle_div_3fl_span {
+            color: #536;
+        }
 
-    .message_frame_cycle_div_3 span {
-        margin: 0 5px;
-        display: block;
-        color: #666;
-        font-size: 13px;
-    }
+        .message_frame_cycle_div_3 span {
+            margin: 0 5px;
+            display: block;
+            color: #666;
+            font-size: 13px;
+        }
 
-    .icon_bor {
-        border: 1px solid #000;
-        border-radius: 5px;
-        width: 70px;
-        text-align: center;
-    }
+        .icon_bor {
+            border: 1px solid #000;
+            border-radius: 5px;
+            width: 70px;
+            text-align: center;
+        }
 
-    .message_frame_cycle_div_3fl .message_frame_cycle_div_3fl_img {
-        width: 15px;
-        height: 15px;
-        font-size: 30px;
-        text-align: center;
-    }
+        .message_frame_cycle_div_3fl .message_frame_cycle_div_3fl_img {
+            width: 15px;
+            height: 15px;
+            font-size: 30px;
+            text-align: center;
+        }
 
-    .message_frame_cycle_div_3fl_img img {
-        width: 100%;
-    }
+        .message_frame_cycle_div_3fl_img img {
+            width: 100%;
+        }
 
-    .active {
-        display: none;
-    }
+        .active {
+            display: none;
+        }
 
-    header {
-        width: 100%;
-        height: 50px;
-        background: #89211b;
-        overflow: hidden;
-    }
+        header {
+            width: 100%;
+            height: 50px;
+            background: #89211b;
+            overflow: hidden;
+        }
 
-    .header_fl img {
-        width: 15px;
-        height: 20px;
-        padding: 15px;
-    }
+        .header_fl img {
+            width: 15px;
+            height: 20px;
+            padding: 15px;
+        }
 
-    .header_center {
-        margin: 0 auto;
-        width: 100%;
-        height: 50px;
-        line-height: 50px;
-        text-align: center;
-        font-size: 20px;
-        color: #fff;
-    }
+        .header_center {
+            margin: 0 auto;
+            width: 100%;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            font-size: 20px;
+            color: #fff;
+        }
 
-    .header_fr {
-        width: 30px;
-        height: 30px;
-        padding: 10px;
-        line-height: 30px;
-        font-size: 15px;
-        color: #fff;
-    }
+        .header_fr {
+            width: 30px;
+            height: 30px;
+            padding: 10px;
+            line-height: 30px;
+            font-size: 15px;
+            color: #fff;
+        }
 
-    .btnhref {
-        display: none;
-    }
+        .btnhref {
+            display: none;
+        }
 
-    .actives {
-        display: block;
-    }
+        .actives {
+            display: block;
+        }
 
-    .footer {
-        width: 100%;
-        height: 50px;
-        position: absolute;
-        bottom: 0;
-        border-top: 1px solid #ccc;
-        background: #fff;
-    }
+        .footer {
+            width: 100%;
+            height: 50px;
+            position: absolute;
+            bottom: 0;
+            border-top: 1px solid #ccc;
+            background: #fff;
+            z-index: 2;
+        }
 
-    .selectAll {
-        width: 100px;
-        height: 50px;
-        line-height: 50px;
-        text-align: center;
-    }
+        .selectAll {
+            width: 100px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+        }
 
-    .selectAll input {
-        /*display: block;
+        .selectAll input {
+            /*display: block;
             width: 100%;
             height: 50px;*/
-    }
+        }
 
-    .selectAll span {
-        height: 50px;
-        position: absolute;
-        top: 0;
-        left: 100px;
-    }
+        .selectAll span {
+            height: 50px;
+            position: absolute;
+            top: 0;
+            left: 100px;
+        }
 
-    .delete {
-        width: 100px;
-        height: 50px;
-        position: absolute;
-        right: 0;
-        top: 0;
-        text-align: center;
-        line-height: 50px;
-        background-color: #89211b;
-        color: #fff;
-    }
+        .delete {
+            width: 100px;
+            height: 50px;
+            position: absolute;
+            right: 0;
+            top: 0;
+            text-align: center;
+            line-height: 50px;
+            background-color: #89211b;
+            color: #fff;
+        }
 
-    .test-radio {
-        display: none
-    }
-    /* 多选 方框 自定义*/
+        .test-radio {
+            display: none
+        }
+        /* 多选 方框 自定义*/
 
-    .hy-radio {
-        width: 20px;
-        height: 0px;
-        background-color: #000;
-        /*margin-right: 30px;*/
-        border-radius: 50%;
-        position: relative;
-        top: -15px;
-    }
+        .hy-radio {
+            width: 20px;
+            height: 0px;
+            background-color: #000;
+            /*margin-right: 30px;*/
+            border-radius: 50%;
+            position: relative;
+            top: -15px;
+        }
 
-    .hy-radio:before,
-    .hy-radio:after {
-        content: '';
-        display: block;
-        position: absolute;
-        border-radius: 50%;
-        transition: .3s ease;
-    }
+        .hy-radio:before,
+        .hy-radio:after {
+            content: '';
+            display: block;
+            position: absolute;
+            border-radius: 50%;
+            transition: .3s ease;
+        }
 
-    .hy-radio:before {
-        top: 0px;
-        left: 0px;
-        width: 18px;
-        height: 18px;
-        background-color: #fff;
-        border: 1px solid #89211b;
-    }
+        .hy-radio:before {
+            top: 0px;
+            left: 0px;
+            width: 18px;
+            height: 18px;
+            background-color: #fff;
+            border: 1px solid #89211b;
+        }
 
-    .hy-radio:after {
-        top: 6px;
-        left: 6px;
-        width: 8px;
-        height: 8px;
-        background-color: #fff;
-    }
+        .hy-radio:after {
+            top: 6px;
+            left: 6px;
+            width: 8px;
+            height: 8px;
+            background-color: #fff;
+        }
 
-    .hy-radio:checked:after {
-        top: 4px;
-        left: 4px;
-        width: 12px;
-        height: 12px;
-        background-color: #89211b;
-    }
+        .hy-radio:checked:after {
+            top: 4px;
+            left: 4px;
+            width: 12px;
+            height: 12px;
+            background-color: #89211b;
+        }
 
-    .hy-radio:checked:before {
-        border-color: #89211b;
-    }
+        .hy-radio:checked:before {
+            border-color: #89211b;
+        }
 
-    #test {
-        padding-bottom: 50px;
-    }    </style>
+        #test {
+            padding-bottom: 50px;
+        }
+
+        #footer {
+            width: 100%;
+            height: 50px;
+            position: absolute;
+            bottom: 0;
+            border-top: 1px solid #ccc;
+            background: #fff;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .footer_img {
+            width: 50px;
+            height: 50px;
+            float: left;
+            line-height: 50px;
+        }
+
+        .footer_img img {
+            width: 40px;
+            border-radius: 25px;
+            padding: 5px;
+        }
+
+        .footer_name {
+            width: 100px;
+            height: 50px;
+            line-height: 50px;
+            float: left;
+            margin-left: 10px;
+        }
+
+        .footer_play {
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            margin-right: 20px;
+            float: right;
+        }
+
+        .footer_play img {
+            width: 35px;
+            padding: 7.5px;
+        }
+
+        .time {
+            padding: 0 20px;
+        }
+    </style>
 </head>
 
-<body>
+<body id="body">
     <header id="secHeader">
         <div class="header_fl fl" onclick="goback();"><img src="../image/cm2_icn_back.png" alt=""></div>
         <div class="header_fr fr" onclick="fnOpenPlayButton();" id="btnhref">编辑</div>
         <div class="header_center">播放历史</div>
     </header>
+    <div class="message_frame_period time">今天</div>
     <div class="message_frame" id="messageFrameDiv">
-        <div class="message_frame_period">今天</div>
         <ul id="test">
             <li>
                 <div class="message_frame_cycle">
-                    <div class="message_frame_cycle_imgs hy-checkk"><input  class="hy-radio" type="checkbox" ng-model="item.checked1" value="<%=list.get(i).getId()%>" name="chckBox" /></div>
+                    <div class="message_frame_cycle_imgs hy-checkk"><input class="hy-radio" type="checkbox" ng-model="item.checked1" value="" name="chckBox" /></div>
                     <div class="message_frame_cycle_img" onclick="fnPlayWin();"><img src="../image/frame03cover/frame03cover10.jpg" alt=""></div>
                     <div class="message_frame_cycle_div fl">
                         <div class="message_frame_cycle_div_1 col">作品《鹅鹅鹅》</div>
@@ -307,7 +357,7 @@
             </li>
             <li>
                 <div class="message_frame_cycle">
-                    <div class="message_frame_cycle_imgs hy-checkk"><input  class="hy-radio" type="checkbox" ng-model="item.checked1" value="<%=list.get(i).getId()%>" name="chckBox" /></div>
+                    <div class="message_frame_cycle_imgs hy-checkk"><input class="hy-radio" type="checkbox" ng-model="item.checked1" value="<%=list.get(i).getId()%>" name="chckBox" /></div>
                     <div class="message_frame_cycle_img" onclick="fnPlayWin();"><img src="../image/frame03cover/frame03cover10.jpg" alt=""></div>
                     <div class="message_frame_cycle_div fl">
                         <div class="message_frame_cycle_div_1 col">作品《鹅鹅鹅》</div>
@@ -322,10 +372,9 @@
                     </div>
                 </div>
             </li>
-
             <li>
                 <div class="message_frame_cycle">
-                    <div class="message_frame_cycle_imgs hy-checkk"><input  class="hy-radio" type="checkbox" ng-model="item.checked1" value="<%=list.get(i).getId()%>" name="chckBox" /></div>
+                    <div class="message_frame_cycle_imgs hy-checkk"><input class="hy-radio" type="checkbox" ng-model="item.checked1" value="<%=list.get(i).getId()%>" name="chckBox" /></div>
                     <div class="message_frame_cycle_img" onclick="fnPlayWin();"><img src="../image/frame03cover/frame03cover10.jpg" alt=""></div>
                     <div class="message_frame_cycle_div fl">
                         <div class="message_frame_cycle_div_1 col">作品《鹅鹅鹅》</div>
@@ -340,10 +389,9 @@
                     </div>
                 </div>
             </li>
-
             <li>
                 <div class="message_frame_cycle">
-                    <div class="message_frame_cycle_imgs hy-checkk"><input  class="hy-radio" type="checkbox" ng-model="item.checked1" value="<%=list.get(i).getId()%>" name="chckBox" /></div>
+                    <div class="message_frame_cycle_imgs hy-checkk"><input class="hy-radio" type="checkbox" ng-model="item.checked1" value="<%=list.get(i).getId()%>" name="chckBox" /></div>
                     <div class="message_frame_cycle_img" onclick="fnPlayWin();"><img src="../image/frame03cover/frame03cover10.jpg" alt=""></div>
                     <div class="message_frame_cycle_div fl">
                         <div class="message_frame_cycle_div_1 col">作品《鹅鹅鹅》</div>
@@ -358,10 +406,9 @@
                     </div>
                 </div>
             </li>
-
             <li>
                 <div class="message_frame_cycle">
-                    <div class="message_frame_cycle_imgs hy-checkk"><input  class="hy-radio" type="checkbox" ng-model="item.checked1" value="<%=list.get(i).getId()%>" name="chckBox" /></div>
+                    <div class="message_frame_cycle_imgs hy-checkk"><input class="hy-radio" type="checkbox" ng-model="item.checked1" value="<%=list.get(i).getId()%>" name="chckBox" /></div>
                     <div class="message_frame_cycle_img" onclick="fnPlayWin();"><img src="../image/frame03cover/frame03cover10.jpg" alt=""></div>
                     <div class="message_frame_cycle_div fl">
                         <div class="message_frame_cycle_div_1 col">作品《鹅鹅鹅》</div>
@@ -376,10 +423,9 @@
                     </div>
                 </div>
             </li>
-
             <li>
                 <div class="message_frame_cycle">
-                    <div class="message_frame_cycle_imgs hy-checkk"><input  class="hy-radio" type="checkbox" ng-model="item.checked1" value="<%=list.get(i).getId()%>" name="chckBox" /></div>
+                    <div class="message_frame_cycle_imgs hy-checkk"><input class="hy-radio" type="checkbox" ng-model="item.checked1" value="<%=list.get(i).getId()%>" name="chckBox" /></div>
                     <div class="message_frame_cycle_img" onclick="fnPlayWin();"><img src="../image/frame03cover/frame03cover10.jpg" alt=""></div>
                     <div class="message_frame_cycle_div fl">
                         <div class="message_frame_cycle_div_1 col">作品《鹅鹅鹅》</div>
@@ -394,10 +440,9 @@
                     </div>
                 </div>
             </li>
-
             <li>
                 <div class="message_frame_cycle">
-                    <div class="message_frame_cycle_imgs hy-checkk"><input  class="hy-radio" type="checkbox" ng-model="item.checked1" value="<%=list.get(i).getId()%>" name="chckBox" /></div>
+                    <div class="message_frame_cycle_imgs hy-checkk"><input class="hy-radio" type="checkbox" ng-model="item.checked1" value="<%=list.get(i).getId()%>" name="chckBox" /></div>
                     <div class="message_frame_cycle_img" onclick="fnPlayWin();"><img src="../image/frame03cover/frame03cover10.jpg" alt=""></div>
                     <div class="message_frame_cycle_div fl">
                         <div class="message_frame_cycle_div_1 col">作品《鹅鹅鹅》</div>
@@ -412,10 +457,9 @@
                     </div>
                 </div>
             </li>
-
             <li>
                 <div class="message_frame_cycle">
-                    <div class="message_frame_cycle_imgs hy-checkk"><input  class="hy-radio" type="checkbox" ng-model="item.checked1" value="<%=list.get(i).getId()%>" name="chckBox" /></div>
+                    <div class="message_frame_cycle_imgs hy-checkk"><input class="hy-radio" type="checkbox" ng-model="item.checked1" value="<%=list.get(i).getId()%>" name="chckBox" /></div>
                     <div class="message_frame_cycle_img" onclick="fnPlayWin();"><img src="../image/frame03cover/frame03cover10.jpg" alt=""></div>
                     <div class="message_frame_cycle_div fl">
                         <div class="message_frame_cycle_div_1 col">作品《鹅鹅鹅》</div>
@@ -430,10 +474,9 @@
                     </div>
                 </div>
             </li>
-
             <li>
                 <div class="message_frame_cycle">
-                    <div class="message_frame_cycle_imgs hy-checkk"><input  class="hy-radio" type="checkbox" ng-model="item.checked1" value="<%=list.get(i).getId()%>" name="chckBox" /></div>
+                    <div class="message_frame_cycle_imgs hy-checkk"><input class="hy-radio" type="checkbox" ng-model="item.checked1" value="<%=list.get(i).getId()%>" name="chckBox" /></div>
                     <div class="message_frame_cycle_img" onclick="fnPlayWin();"><img src="../image/frame03cover/frame03cover10.jpg" alt=""></div>
                     <div class="message_frame_cycle_div fl">
                         <div class="message_frame_cycle_div_1 col">作品《鹅鹅鹅》</div>
@@ -448,10 +491,9 @@
                     </div>
                 </div>
             </li>
-
             <li>
                 <div class="message_frame_cycle">
-                    <div class="message_frame_cycle_imgs hy-checkk"><input  class="hy-radio" type="checkbox" ng-model="item.checked1" value="<%=list.get(i).getId()%>" name="chckBox" /></div>
+                    <div class="message_frame_cycle_imgs hy-checkk"><input class="hy-radio" type="checkbox" ng-model="item.checked1" value="<%=list.get(i).getId()%>" name="chckBox" /></div>
                     <div class="message_frame_cycle_img" onclick="fnPlayWin();"><img src="../image/frame03cover/frame03cover10.jpg" alt=""></div>
                     <div class="message_frame_cycle_div fl">
                         <div class="message_frame_cycle_div_1 col">作品《鹅鹅鹅》</div>
@@ -466,15 +508,192 @@
                     </div>
                 </div>
             </li>
-
+        </ul>
+        <div class="message_frame_period" id="ccg">昨天</div>
+        <ul id="test">
+            <li>
+                <div class="message_frame_cycle">
+                    <div class="message_frame_cycle_imgs hy-checkk"><input class="hy-radio" type="checkbox" ng-model="item.checked1" value="" name="chckBox" /></div>
+                    <div class="message_frame_cycle_img" onclick="fnPlayWin();"><img src="../image/frame03cover/frame03cover10.jpg" alt=""></div>
+                    <div class="message_frame_cycle_div fl">
+                        <div class="message_frame_cycle_div_1 col">作品《鹅鹅鹅》</div>
+                        <div class="message_frame_cycle_div_2 col">作者：小许</div>
+                        <div class="message_frame_cycle_div_3 fl">
+                            <div class="message_frame_cycle_div_3fl ">
+                                <span class="iconfont icon-shijian2 fl">  36：30</span>
+                                <span class="fl">已播20%</span>
+                                <span class="message_frame_cycle_div_3fl_img fr">×</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="message_frame_cycle">
+                    <div class="message_frame_cycle_imgs hy-checkk"><input class="hy-radio" type="checkbox" ng-model="item.checked1" value="<%=list.get(i).getId()%>" name="chckBox" /></div>
+                    <div class="message_frame_cycle_img" onclick="fnPlayWin();"><img src="../image/frame03cover/frame03cover10.jpg" alt=""></div>
+                    <div class="message_frame_cycle_div fl">
+                        <div class="message_frame_cycle_div_1 col">作品《鹅鹅鹅》</div>
+                        <div class="message_frame_cycle_div_2 col">作者：小许</div>
+                        <div class="message_frame_cycle_div_3 fl">
+                            <div class="message_frame_cycle_div_3fl ">
+                                <span class="iconfont icon-shijian2 fl">  36：30</span>
+                                <span class="fl">已播20%</span>
+                                <span class="message_frame_cycle_div_3fl_img fr">×</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="message_frame_cycle">
+                    <div class="message_frame_cycle_imgs hy-checkk"><input class="hy-radio" type="checkbox" ng-model="item.checked1" value="<%=list.get(i).getId()%>" name="chckBox" /></div>
+                    <div class="message_frame_cycle_img" onclick="fnPlayWin();"><img src="../image/frame03cover/frame03cover10.jpg" alt=""></div>
+                    <div class="message_frame_cycle_div fl">
+                        <div class="message_frame_cycle_div_1 col">作品《鹅鹅鹅》</div>
+                        <div class="message_frame_cycle_div_2 col">作者：小许</div>
+                        <div class="message_frame_cycle_div_3 fl">
+                            <div class="message_frame_cycle_div_3fl ">
+                                <span class="iconfont icon-shijian2 fl">  36：30</span>
+                                <span class="fl">已播20%</span>
+                                <span class="message_frame_cycle_div_3fl_img fr">×</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="message_frame_cycle">
+                    <div class="message_frame_cycle_imgs hy-checkk"><input class="hy-radio" type="checkbox" ng-model="item.checked1" value="<%=list.get(i).getId()%>" name="chckBox" /></div>
+                    <div class="message_frame_cycle_img" onclick="fnPlayWin();"><img src="../image/frame03cover/frame03cover10.jpg" alt=""></div>
+                    <div class="message_frame_cycle_div fl">
+                        <div class="message_frame_cycle_div_1 col">作品《鹅鹅鹅》</div>
+                        <div class="message_frame_cycle_div_2 col">作者：小许</div>
+                        <div class="message_frame_cycle_div_3 fl">
+                            <div class="message_frame_cycle_div_3fl ">
+                                <span class="iconfont icon-shijian2 fl">  36：30</span>
+                                <span class="fl">已播20%</span>
+                                <span class="message_frame_cycle_div_3fl_img fr">×</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="message_frame_cycle">
+                    <div class="message_frame_cycle_imgs hy-checkk"><input class="hy-radio" type="checkbox" ng-model="item.checked1" value="<%=list.get(i).getId()%>" name="chckBox" /></div>
+                    <div class="message_frame_cycle_img" onclick="fnPlayWin();"><img src="../image/frame03cover/frame03cover10.jpg" alt=""></div>
+                    <div class="message_frame_cycle_div fl">
+                        <div class="message_frame_cycle_div_1 col">作品《鹅鹅鹅》</div>
+                        <div class="message_frame_cycle_div_2 col">作者：小许</div>
+                        <div class="message_frame_cycle_div_3 fl">
+                            <div class="message_frame_cycle_div_3fl ">
+                                <span class="iconfont icon-shijian2 fl">  36：30</span>
+                                <span class="fl">已播20%</span>
+                                <span class="message_frame_cycle_div_3fl_img fr">×</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="message_frame_cycle">
+                    <div class="message_frame_cycle_imgs hy-checkk"><input class="hy-radio" type="checkbox" ng-model="item.checked1" value="<%=list.get(i).getId()%>" name="chckBox" /></div>
+                    <div class="message_frame_cycle_img" onclick="fnPlayWin();"><img src="../image/frame03cover/frame03cover10.jpg" alt=""></div>
+                    <div class="message_frame_cycle_div fl">
+                        <div class="message_frame_cycle_div_1 col">作品《鹅鹅鹅》</div>
+                        <div class="message_frame_cycle_div_2 col">作者：小许</div>
+                        <div class="message_frame_cycle_div_3 fl">
+                            <div class="message_frame_cycle_div_3fl ">
+                                <span class="iconfont icon-shijian2 fl">  36：30</span>
+                                <span class="fl">已播20%</span>
+                                <span class="message_frame_cycle_div_3fl_img fr">×</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="message_frame_cycle">
+                    <div class="message_frame_cycle_imgs hy-checkk"><input class="hy-radio" type="checkbox" ng-model="item.checked1" value="<%=list.get(i).getId()%>" name="chckBox" /></div>
+                    <div class="message_frame_cycle_img" onclick="fnPlayWin();"><img src="../image/frame03cover/frame03cover10.jpg" alt=""></div>
+                    <div class="message_frame_cycle_div fl">
+                        <div class="message_frame_cycle_div_1 col">作品《鹅鹅鹅》</div>
+                        <div class="message_frame_cycle_div_2 col">作者：小许</div>
+                        <div class="message_frame_cycle_div_3 fl">
+                            <div class="message_frame_cycle_div_3fl ">
+                                <span class="iconfont icon-shijian2 fl">  36：30</span>
+                                <span class="fl">已播20%</span>
+                                <span class="message_frame_cycle_div_3fl_img fr">×</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="message_frame_cycle">
+                    <div class="message_frame_cycle_imgs hy-checkk"><input class="hy-radio" type="checkbox" ng-model="item.checked1" value="<%=list.get(i).getId()%>" name="chckBox" /></div>
+                    <div class="message_frame_cycle_img" onclick="fnPlayWin();"><img src="../image/frame03cover/frame03cover10.jpg" alt=""></div>
+                    <div class="message_frame_cycle_div fl">
+                        <div class="message_frame_cycle_div_1 col">作品《鹅鹅鹅》</div>
+                        <div class="message_frame_cycle_div_2 col">作者：小许</div>
+                        <div class="message_frame_cycle_div_3 fl">
+                            <div class="message_frame_cycle_div_3fl ">
+                                <span class="iconfont icon-shijian2 fl">  36：30</span>
+                                <span class="fl">已播20%</span>
+                                <span class="message_frame_cycle_div_3fl_img fr">×</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="message_frame_cycle">
+                    <div class="message_frame_cycle_imgs hy-checkk"><input class="hy-radio" type="checkbox" ng-model="item.checked1" value="<%=list.get(i).getId()%>" name="chckBox" /></div>
+                    <div class="message_frame_cycle_img" onclick="fnPlayWin();"><img src="../image/frame03cover/frame03cover10.jpg" alt=""></div>
+                    <div class="message_frame_cycle_div fl">
+                        <div class="message_frame_cycle_div_1 col">作品《鹅鹅鹅》</div>
+                        <div class="message_frame_cycle_div_2 col">作者：小许</div>
+                        <div class="message_frame_cycle_div_3 fl">
+                            <div class="message_frame_cycle_div_3fl ">
+                                <span class="iconfont icon-shijian2 fl">  36：30</span>
+                                <span class="fl">已播20%</span>
+                                <span class="message_frame_cycle_div_3fl_img fr">×</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="message_frame_cycle">
+                    <div class="message_frame_cycle_imgs hy-checkk"><input class="hy-radio" type="checkbox" ng-model="item.checked1" value="<%=list.get(i).getId()%>" name="chckBox" /></div>
+                    <div class="message_frame_cycle_img" onclick="fnPlayWin();"><img src="../image/frame03cover/frame03cover10.jpg" alt=""></div>
+                    <div class="message_frame_cycle_div fl">
+                        <div class="message_frame_cycle_div_1 col">作品《鹅鹅鹅》</div>
+                        <div class="message_frame_cycle_div_2 col">作者：小许</div>
+                        <div class="message_frame_cycle_div_3 fl">
+                            <div class="message_frame_cycle_div_3fl ">
+                                <span class="iconfont icon-shijian2 fl">  36：30</span>
+                                <span class="fl">已播20%</span>
+                                <span class="message_frame_cycle_div_3fl_img fr">×</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
         </ul>
     </div>
     <div class="footer active">
         <div class="selectAll"><input class="hy-radio" type="checkbox" id="ckb" name="selectAll" onclick="selectAll();"><span>全选</span></div>
         <div class="delete">
-          删除
+            删除
         </div>
     </div>
+    <footer id="footer">
+        <div class="footer_img"><img src="../image/frame03cover/frame03cover10.jpg" alt=""></div>
+        <div class="footer_name">孔孟之道</div>
+        <div class="footer_play"><img id="playCollect" onclick="fnOpenPlayCollect();" src="../image/aloud/recordingStart.png" alt=""></div>
+    </footer>
 </body>
 
 </html>
@@ -497,9 +716,8 @@
         else if ((document.body) && (document.body.clientHeight))
             winHeight = document.body.clientHeight;
         var messageFrameDiv = $api.byId('messageFrameDiv');
-        var winHeightHeader = winHeight - headerPosH;
+        var winHeightHeader = winHeight - headerPosH - 101;
         $api.css(messageFrameDiv, 'height:' + winHeightHeader + 'px;');
-        // alert(winHeightHeader);
         // 删除图标并隐藏
         var ul = document.getElementById('test');
         var ul_lis = ul.getElementsByClassName('message_frame_cycle_div_3fl_img');
@@ -511,7 +729,93 @@
                 $api.addCls(ul_lisdiv[j], 'active');
             }
         }
+// ccg();
+
     }
+
+    function ccg() {
+      var theight = getScrollTop();
+        var ccg = $api.byId(ccg);
+        var ccg2 = document.getElementById("ccg").offsetTop;
+        var ccg1 = document.documentElement.scrollTop;
+        var ccg3 = ccg.theight
+        console.log(ccg3);
+    }
+
+    function getScrollTop() {
+        var scrollTop = 0;
+        if (document.documentElement && document.documentElement.scrollTop) {
+            scrollTop = document.documentElement.scrollTop;
+        } else if (document.body) {
+            scrollTop = document.body.scrollTop;
+        }
+        // alert(scrollTop)
+        return scrollTop;
+    }
+
+
+    // 获取高度
+    // function functionName() {
+    //     function getElementViewTop(element) {
+    //         var actualTop = element.offsetTop;
+    //         var current = element.offsetParent;
+    //         while (current !== null) {
+    //             actualTop += current.offsetTop;
+    //             current = current.offsetParent;
+    //         }
+    //         var elementScrollTop = 0;
+    //         if (document.compatMode == "BackCompat") {
+    //             elementScrollTop = document.body.scrollTop;
+    //         } else {
+    //             elementScrollTop = document.documentElement.scrollTop;
+    //         }
+    //         return actualTop;
+    //         //　return actualTop-elementScrollTop;
+    //     }
+    //
+    //     function getScroll() {
+    //         var top, left, width, height;
+    //
+    //         if (document.documentElement && document.documentElement.scrollTop) {
+    //             top = document.documentElement.scrollTop;
+    //             left = document.documentElement.scrollLeft;
+    //             width = document.documentElement.scrollWidth;
+    //             height = document.documentElement.scrollHeight;
+    //         } else if (document.body) {
+    //             top = document.body.scrollTop;
+    //             left = document.body.scrollLeft;
+    //             width = document.body.scrollWidth;
+    //             height = document.body.scrollHeight;
+    //         }
+    //         // alert(top);
+    //         // console.log(top);
+    //         return {
+    //             'top': top,
+    //             'left': left,
+    //             'width': width,
+    //             'height': height
+    //         };
+    //     }
+    //     var nav = document.getElementById('nav');
+    //     var posTop = getElementViewTop(nav);
+    //     window.addEventListener('scroll', function(event) {
+    //         var scrollTop = getScroll().top;
+    //         var output = document.getElementById('output');
+    //         // output.innerHTML = posTop +' '+scrollTop+' '+(posTop-scrollTop);
+    //         if (posTop >= 30 && posTop - scrollTop <= 30)
+    //             nav.className = 'nav fixed';
+    //         else nav.className = 'nav';
+    //     }, false);
+    // }
+    // 播放切换按钮
+    function fnOpenPlayCollect() {
+        var playCollect = $api.byId('playCollect');
+        if (playCollect.getAttribute("src", 2) == "../image/aloud/recordingStart.png") {
+            playCollect.src = "../image/aloud/recording.png";
+        } else {
+            playCollect.src = "../image/aloud/recordingStart.png";
+        }
+    };
     // 全选按钮
     function selectAll() {
         var chckBoxSign = document.getElementById("ckb"); //ckb 全选/反选的选择框id
@@ -529,6 +833,8 @@
     function fnOpenPlayButton() {
         var playButton = document.getElementById('btnhref');
         var playButtons = playButton.innerHTML;
+        var chckBox = document.getElementsByName("chckBox");
+        var num = chckBox.length;
         if (playButtons === "编辑") {
             var html = playButton.value = '取消';
             var playButton = document.getElementById('btnhref');
@@ -541,7 +847,6 @@
             $api.html(playButton, html);
             fnCancel();
             fnFooterActives();
-
         }
     }
     // 隐藏复选框 显示
@@ -552,7 +857,7 @@
             $api.addCls(testInput[i], 'actives');
         }
     }
-        // 隐藏复选框 隐藏
+    // 隐藏复选框 隐藏
     function fnCancel() {
         var testInput = document.getElementsByClassName("message_frame_cycle_imgs");
         for (var i = 0; i < testInput.length; i++) {
