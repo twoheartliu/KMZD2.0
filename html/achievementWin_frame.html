@@ -10,14 +10,21 @@
     <link rel="stylesheet" href="../css/swiper.min.css">
     <link rel="stylesheet" href="../css/iconfont.css">
     <style>
-        table{width: 100%;}
+        table{margin: 5%;width: 90%}
         table tr{width: 100%;height: 40px;}
-        table tr th{width: 50%;}
-        .credit{width: 100%;text-align: center;margin: 20px auto;}
+        table tr th{width: 50%;font-weight:100;}
+        .credit{width: 100%;margin: 20px auto;text-decoration:underline;color: #539ff5;text-align: left;margin-left: 5%;}
+        .Grade{width: 100%;height: 30px;line-height: 30px;text-align: center;}
+        .Grade span{color: red;}
+        .distance{width: 100%;height: 30px;line-height: 30px; text-align: center;}
+        .distance span{color: red;}
     </style>
 </head>
 
 <body>
+    <div class="Grade">当前等级是<span>童生</span></div>
+    <div class="distance">离下个等级还差<span>40</span>学分</div>
+    <div></div>
     <table border="1">
       <tr>
         <th>等级</th>
@@ -56,16 +63,15 @@
         <th>100000学分</th>
       </tr>
     </table>
-
-    <div class="credit" onclick="fnCreditWin();">学分怎样获得</div>
+    <div class="credit" onclick="fnCreditWin();">如何获得学分</div>
 </body>
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
-<script type="text/javascript" src="../script/swiper.min.js"></script>
 <script type="text/javascript">
     apiready = function() {
 
     }
+    // 如何获取学分详情页
     function fnCreditWin() {
       api.openWin({
           name: 'credit',
