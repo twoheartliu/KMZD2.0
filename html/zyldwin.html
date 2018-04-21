@@ -132,7 +132,7 @@
             /*height: 490px;*/
             height: 100%;
             overflow: hidden;
-            background-image: url(../image/aloud/333074849337770206.png);
+            background-image: url(../image/play/333074849337770206.png);
             background-size: 100% 100%;
         }
 
@@ -183,7 +183,7 @@
             top: 5px;
             width: 20px;
             height: 20px;
-            background-image: url(../image/aloud_py.png);
+            background-image: url(../image/play/aloud_py.png);
             background-size: 100% 100%;
             background-repeat: no-repeat;
         }
@@ -223,7 +223,7 @@
         }
 
         .name_bt_s{
-          background-image: url(../image/aloud/673516943132436237.png);
+          background-image: url(../image/play/673516943132436237.png);
           background-repeat: no-repeat;
           /*background-size: ;*/
           background-position: center;
@@ -295,7 +295,7 @@
 
 <body>
     <header id="secHeader">
-        <div class="header_fls fl" onclick="goback();"><img src="../image/KM_Hfh.png" alt=""></div>
+        <div class="header_fls fl" onclick="goback();"><img src="../image/icon_back.png" alt=""></div>
         <div class="header_fl fr"><span>保存</span></div>
         <div class="header_center">朗诵</div>
     </header>
@@ -333,8 +333,8 @@
     </div>
     <footer id="footer">
         <div class="name_bt">
-            <div class="name_bt_c"><img src="../image/aloud/335551519577750673.png" alt="" id="playCollects" onclick="fnAletr();"></div>
-            <div class="name_bt_b"><img src="../image/aloud/recording.png" alt="" id="playCollect" onclick="fnOpenPlayCollect();"></div>
+            <div class="name_bt_c"><img src="../image/play/335551519577750673.png" alt="" id="playCollects" onclick="fnAletr();"></div>
+            <div class="name_bt_b"><img src="../image/play/recording.png" alt="" id="playCollect" onclick="fnOpenPlayCollect();"></div>
             <div class="name_bt_s" onclick="fnCtWin();"></div>
         </div>
         <!-- <div class="p20px"> -->
@@ -375,10 +375,10 @@
         //     }
         // });
         var playCollect = $api.byId('playCollects');
-        if (playCollect.getAttribute("src", 2) == "../image/aloud/738958635261814309.png") {
-            playCollect.src = "../image/aloud/335551519577750673.png";
+        if (playCollect.getAttribute("src", 2) == "../image/play/738958635261814309.png") {
+            playCollect.src = "../image/play/335551519577750673.png";
         } else {
-            playCollect.src = "../image/aloud/738958635261814309.png";
+            playCollect.src = "../image/play/738958635261814309.png";
         }
 
     }
@@ -403,10 +403,10 @@
 
     function fnOpenPlayCollect() {
         var playCollect = $api.byId('playCollect');
-        if (playCollect.getAttribute("src", 2) == "../image/aloud/recordingStart.png") {
-            playCollect.src = "../image/aloud/recording.png";
+        if (playCollect.getAttribute("src", 2) == "../image/play/recordingStart.png") {
+            playCollect.src = "../image/play/recording.png";
         } else {
-            playCollect.src = "../image/aloud/recordingStart.png";
+            playCollect.src = "../image/play/recordingStart.png";
         }
     };
 
