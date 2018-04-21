@@ -13,7 +13,7 @@
           background-repeat: no-repeat;*/
         }
         .wrap{
-          background-image: url(../image/KM_listen_bg.png);
+          background-image: url(../image/play/KM_listen_bg.png);
           background-size: cover;
           background-repeat: no-repeat;
           height: 100%;
@@ -36,7 +36,7 @@
           height:auto;
         }
         .bottom-img{
-          background-image : url(../image/bottom.png);
+          background-image : url(../image/play/bottom.png);
           background-repeat: no-repeat;
           background-size: contain;
           width:260px;
@@ -173,11 +173,11 @@
         <div class="video-play" >
           <div class="bottom-img">
             <div class="video" >
-              <img src="../image/pan.png" alt="" class=" " id="video">
+              <img src="../image/play/pan.png" alt="" class=" " id="video">
             </div>
           </div>
           <div class="table-img">
-            <img src="../image/table.png" alt="">
+            <img src="../image/play/table.png" alt="">
           </div>
         </div>
         <div id="control" class="qx">
@@ -207,7 +207,7 @@
           <img src="../image/collect.png" alt=""  onclick="fnOpenCollect();" id="collect">
         </div>
         <div class="item-sort">
-          <img src="../image/footer_bf0.png" alt="" onclick="fnOpenPlayButton();" id="playButton">
+          <img src="../image/index/footer_bf0.png" alt="" onclick="fnOpenPlayButton();" id="playButton">
         </div>
         <div class="item-sort">
           <img src="../image/next.png" alt="">
@@ -243,13 +243,13 @@
     function fnOpenPlayButton(){
       var playButton = $api.byId('playButton');
       var video = $api.byId('video');
-      if(playButton.getAttribute("src",2)=="../image/footer_bf0.png"){
-        playButton.src="../image/footer_bf1.png";
+      if(playButton.getAttribute("src",2)=="../image/index/footer_bf0.png"){
+        playButton.src="../image/index/footer_bf1.png";
         $api.addCls(video, 'Rotation');
         // a();
 
       }else{
-        playButton.src="../image/footer_bf0.png";
+        playButton.src="../image/index/footer_bf0.png";
         $api.removeCls(video, 'Rotation');
         // b();
       }
