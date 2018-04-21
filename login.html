@@ -145,7 +145,7 @@
                     //api.alert({ msg: ret.status });
                     //api.alert({ msg: ret.token });
                     if (ret.status) {
-                        //alert(JSON.stringify(ret.status));
+                        // alert(JSON.stringify(ret.status));
                         //alert(JSON.stringify(ret.code));
 
                         wx.getUserInfo(function(ret, err) {
@@ -208,13 +208,16 @@
             qq.login(function(ret, err) {
                 var openId = ret.openId;
                 var accessToken = ret.accessToken;
+                    console.log(JSON.stringify( ret ));
                 if (ret.status) {
+
                     api.alert({
                         title: '授权成功',
                         msg: '正在打开孔孟知道...',
                     }, function(ret, err) {
                         if (ret) {
                             //alert( JSON.stringify( ret ) );
+
                             qq.getUserInfo(function(ret, err) {
                                 if (ret.status) {
                                     //console.log(JSON.stringify(ret.info));
