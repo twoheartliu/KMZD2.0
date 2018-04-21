@@ -165,7 +165,7 @@ var timestamps;
   		var stylelist = $api.byId('on');
   		var html = '';
   		 for (var i = 0; i < data_.data.length; i++) {
-  		 	html +='<li onclick="setBeiYue(' + data_.data[i].id + ')"><div class="on_li_divImg fl" ><img src="../image/soundtrackList.png" alt="" class="userDeleteA" id = "userDeleteA" ></div><div class="fl"><span>  ' + data_.data[i].title + '  </span>   <span> ' + data_.data[i].name + ' </span>  </div></li>';
+  		 	html +='<li onclick="setBeiYue(' + data_.data[i].id + ')"><div class="on_li_divImg fl" ><img src="../image/play/soundtrackList.png" alt="" class="userDeleteA" id = "userDeleteA" ></div><div class="fl"><span>  ' + data_.data[i].title + '  </span>   <span> ' + data_.data[i].name + ' </span>  </div></li>';
   		}
       //onclick="fnDeleteUser(' + data_.data[i].id + ');"
   		$api.html(stylelist, html);
@@ -207,12 +207,12 @@ var timestamps;
         //     }
         // }
         var player = $api.byId('userDeleteA');
-        if (player.getAttribute("src", 2) == "../image/soundtrackList.png") {
-            player.src = "../image/soundtrackList1.png";
+        if (player.getAttribute("src", 2) == "../image/play/soundtrackList.png") {
+            player.src = "../image/play/soundtrackList1.png";
             fnNetAudiosPlayByID(id);
 
         } else {
-            player.src = "../image/soundtrackList.png";
+            player.src = "../image/play/soundtrackList.png";
             api.stopPlay();
         }
       }
