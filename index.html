@@ -324,11 +324,11 @@
                 <li class="">
                     <div class="activebar_p20px">
                         <div class="topbar normalHeader">
-                            <div class="egret-header-box egret-img-x egret-div " tapmode onclick="openMessage()"><img src="./image/KM_xiaoxi.png" alt=""></div>
+                            <div class="egret-header-box egret-img-x egret-div " tapmode onclick="openMessage()"></div>
                             <div class="egret-header-box egret-div faxian">
                                 发现
                             </div>
-                            <div class="egret-header-box egret-img-s egret-div" tapmode onclick="OpenSearch();"><img src="./image/ss.png" alt=""></div>
+                            <div class="egret-header-box egret-img-s egret-div" tapmode ></div>
                         </div>
                     </div>
                 </li>
@@ -337,7 +337,7 @@
                     <div class="friend-tit egret-header-box egret-div">
                         朗诵
                         <div class="header_fr" onclick="fnAlert();" id="Bullet">
-                            <img src="./image/aloud/246274041330857389.png" alt="">
+                            <img src="./image/index/246274041330857389.png" alt="">
                         </div>
                     </div>
                     <!-- <div class="header_fr fr" onclick="fnCgxWin();"><img src="./image/aloud/246274041330857389.png" alt=""></div> -->
@@ -349,7 +349,7 @@
                     <div class="activebar_p20px">
                         <div class="topbars normalHeader">
 
-                            <div class="egret-img-a egret-img-a-my" tapmode onclick="fnDenglu()"><img class="right_img" src="./image/qiandao.png" alt=""><span>已连续签到12天</span></div>
+                            <div class="egret-img-a egret-img-a-my" tapmode onclick="fnDenglu()"><img class="right_img" src="./image/index/KM_qiandao.png" alt=""><span>已连续签到12天</span></div>
 
                         </div>
                     </div>
@@ -580,7 +580,7 @@
     //播放歌单音频
     function fnBoFangyinpinxinxiing(play) {
         // console.log(play);
-        console.log(JSON.stringify(ret));
+        // console.log(JSON.stringify(ret));
         var playgedan = rets.data[play].id;
         api.sendEvent({
             name: 'netPlaying',
@@ -625,7 +625,7 @@
     }
     //再次播放歌单音频
     function fnBoFangyinpinxinxi() {
-        console.log(play);
+        // console.log(play);
 
         var playgedan = rets.data[play].id;
         api.sendEvent({
@@ -721,7 +721,7 @@
             }
         });
         initEventListennerBoFangMoshi();
-        console.log(bofangmoshiid);
+        // console.log(bofangmoshiid);
         fnBoFangmoshiid();
     }
 
@@ -730,7 +730,7 @@
         var audioPlayer = api.require('audioPlayer');
         audioPlayer.play();
         initEventListennerBoFangMoshi();
-        console.log(bofangmoshiid);
+        // console.log(bofangmoshiid);
         fnBoFangmoshiid();
     }
     //播放时间
@@ -1065,7 +1065,7 @@
             var audioPlayer = api.require('audioPlayer');
             audioPlayer.getState(function(ret) {
                 // api.alert({ msg: ret.state });
-                console.log(ret.state);
+                // console.log(ret.state);
                 var finished = "finished";
                 if(ret.state == finished){
 
@@ -1087,7 +1087,7 @@
     //单曲循环播放更新
     function fndanqubofangmoshi() {
         // netAudiopause();
-        console.log('111');
+        // console.log('111');
         clearInterval(timer1);
 
         fnBoFangyinpinxinxi();
@@ -1101,8 +1101,8 @@
 
     //判断播放模式
     function fnBoFangmoshiid() {
-      console.log(bofangmoshiid);
-      console.log();
+      // console.log(bofangmoshiid);
+      // console.log();
         if (!bofangmoshiid) {
             shunxu();
         } else {
@@ -1111,7 +1111,7 @@
             } else if (bofangmoshiid == '1') {
                 suiji();
             } else if (bofangmoshiid == '2'){
-              console.log('333333');
+              // console.log('333333');
                 bfdanqu();
             }
         }
