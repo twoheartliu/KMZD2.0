@@ -126,11 +126,11 @@
         wx = api.require('weiXin');
         var code;
         wx.registerApp(function(ret, err) {
-            console.log('111');
+            // console.log('111');
             //api.alert({ msg: '' + ret.status });
             if (ret.status) {
                 //alert(JSON.stringify(ret.status));
-                console.log('222');
+                // console.log('222');
 
                 // weiXin.refreshToken(function(ret, err) {
                 //     if (ret.status) {
@@ -140,7 +140,7 @@
                 //     }
                 // });
                 wx.auth(function(ret, err) {
-                  console.log('333');
+                  // console.log('333');
                     //console.log(JSON.stringify(ret));
                     //api.alert({ msg: ret.status });
                     //api.alert({ msg: ret.token });
@@ -175,7 +175,7 @@
                                     }
                                 };
                                 $api.setStorage("userInfo", data);
-                                console.log(JSON.stringify($api.getStorage("userInfo")));
+                                // console.log(JSON.stringify($api.getStorage("userInfo")));
 
                                 //alert(JSON.stringify(ret));
                                 //alert(JSON.stringify(nickname));
