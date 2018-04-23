@@ -220,6 +220,14 @@
     }
 
     function dialogBox_alert2() {
+        api.openWin({
+            name: 'page1',
+            url: './page1.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
+
         var systemVersion = api.systemVersion;
         api.toast({
             msg: systemVersion,

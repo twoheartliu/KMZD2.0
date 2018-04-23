@@ -359,7 +359,6 @@
         fnTingdanTuijian();
         fnInitSwiper();
         // fnXiMaLaYaTingDan();
-        ccg123456();
         var qqziliao = api.pageParam.qqziliao;
         // var navbars = $api.domAll('.navbar');
 
@@ -372,27 +371,7 @@
 
     }
 
-    function ccg123456() {
-      // alert(132);
-        var ximalaya = api.require('ximalaya');
 
-        var param = {
-            appkey: "85fa4ef92fb9ab9ee237146d59b44530",
-            appsecret: "a537faf18f2ba543fbabe3dad47b3511"
-        };
-        ximalaya.initXmly(param, function(ret, err) {
-
-          // console.log(123);
-            if (ret){
-                alert(JSON.stringify(ret));
-                // alert(1);
-            }else{
-                // console.log(ret);
-                alert(JSON.stringify(err));
-                // alert(2);
-              }
-        });
-    }
     //接口  推荐听单
     function fnXiMaLaYaTingDan() {
         var ximalaya = null;

@@ -10,13 +10,12 @@
     <style>
         html,
         body {
-            height: 100%;
+            overflow: hidden;
+            background: url(../image/play/play_bg_tra.jpg) no-repeat;
+            background-size: 100% 100%;
         }
 
         #wrap {
-            height: 100%;
-            background: url(../image/play/play_bg_tra.jpg) no-repeat;
-            background-size: 100% 100%;
             -webkit-background-size: cover;
             background-size: cover;
             display: -webkit-box;
@@ -94,40 +93,6 @@
         #action>li>img{
           width: 25px;
         }
-        /*#action .collect {
-            text-align: center;
-            color: #cbcbcb;
-            font-size: 12px;
-            -webkit-box-flex: 1;
-            -webkit-flex: 1;
-            flex: 1;
-            padding-top: 0px;
-            background-position: center top;
-            background-repeat: no-repeat;
-            -webkit-background-size: 25px;
-            background-size: 25px;
-        }*/
-
-        /*#action .timer {
-            background-image: url(../image/play_choice.png);
-        }*/
-        /*#action .timer.focus {
-            background-image: url(../image/play_choice.png);
-        }*/
-
-        /*#action .share {
-            background-image: url(../image/img/ic_play_share.png);
-        }*/
-        /*#action .share.focus {
-            background-image: url(../image/img/ic_play_share_s.png);
-        }*/
-
-        /*#action .checkin {
-            background-image: url(../image/ListingsListGd.png);
-        }*/
-        /*#action .checkin.focus {
-            background-image: url(../image/play_discuss.png);
-        }*/
 
         #control {
             /*background-color: #672d32;*/
@@ -304,9 +269,11 @@
         #secHeader {
             width: 100%;
             height: 50px;
-            background-image: url(../image/play/header.png);
+            background: rgba(0,0,0,0.3);
             background-repeat: no-repeat;
             background-size: 100% 100%;
+            overflow: hidden;
+
         }
 
         .swiper-slide .play-txt p {
@@ -414,15 +381,15 @@
 </head>
 
 <body id="body">
+  <header class="qx" id="secHeader">
+      <i class="back" tapmode onclick="api.closeWin();"></i>
+      <div id="title">
+          <!-- 三字经 -->
+      </div>
+      <i class="more"></i>
+  </header>
     <div id="wrap" class="mh">
         <!-- <img src="" alt=""> -->
-        <header class="qx" id="secHeader">
-            <i class="back" tapmode onclick="api.closeWin();"></i>
-            <div id="title">
-                <!-- 三字经 -->
-            </div>
-            <i class="more"></i>
-        </header>
         <div id="main" class="qx">
 
             <div class="swiper-container">
@@ -504,6 +471,7 @@
       var secHeader = $api.byId('secHeader');
       $api.fixStatusBar(secHeader);
       var headerH = $api.offset(secHeader).h;
+      var headerPosH = $api.offset(secHeader).h;
         api.addEventListener({
             name: 'neizhiliebiaoPlaysss'
         }, function(ret, err) {
@@ -514,7 +482,14 @@
             fnAAaa(aa, bofangs, listid);
             return;
         });
-
+        // 获取浏览器高度
+        if (window.innerHeight)
+            winHeight = window.innerHeight;
+        else if ((document.body) && (document.body.clientHeight))
+            winHeight = document.body.clientHeight;
+        var messageFrameDiv = $api.byId('wrap');
+        var winHeightHeader = winHeight - headerPosH;
+        $api.css(messageFrameDiv, 'height:' + winHeightHeader + 'px;');
         // api.addEventListener({
         //     name: 'netbofangsssssss'
         // }, function(ret, err) {
