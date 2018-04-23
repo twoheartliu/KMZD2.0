@@ -237,7 +237,7 @@
                                 <div>关注</div>
                                 <div><span>9999</span>个</div>
                             </div>
-                            <div class="index_header_sans">
+                            <div class="index_header_sans" onclick="fnFans();">
                                 <div>粉丝</div>
                                 <div><span>9999</span>个</div>
                             </div>
@@ -392,6 +392,16 @@
             }
         });
 
+    }
+    // 粉丝
+    function fnFans() {
+      api.openWin({
+          name: 'fans',
+          url: './fans.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
     }
     //打开消息页面
     function openMessage() {

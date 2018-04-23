@@ -128,17 +128,21 @@
 			height: 45px;
 			line-height: 45px;
 		}
+
+		#babyAdd {
+			height: 50px;
+			line-height: 50px;
+			text-align: center;
+			margin: 10px;
+			font-weight: bold;
+			border: 2px dashed #ddd;
+			border-radius: 10px;
+			color: #999;
+		}
 	</style>
 </head>
 
 <body>
-	<!-- <header class="aui-bar aui-bar-nav aui-bar-light" >
-		<div class="aui-pull-left aui-btn" onclick="goback();"> <span class=""> < </span> </div>
-		<div class="aui-title">
-			基本资料
-		</div>
-		<a class="aui-pull-right aui-btn" onclick="upimg()"> <span class="aui-iconfont aui-icon-camera"></span> </a>
-	</header> -->
 	<!-- 进度条-->
 	<div class="aui-progress aui-progress-xxs" style="margin-bottom: 1rem;">
 		<div class="aui-progress-bar" id="jd"></div>
@@ -171,44 +175,27 @@
 				<div class="fr"> > </div>
 				<div class="fr">未填写</div>
 			</li>
-
-			<div class="upimg_div">宝宝信息</div>
+		</ul>
+		<div class="upimg_div">
+			<div class="fl">宝宝信息</div>
+		</div>
+		<div class="upimg_div">
+			<div class="fl">宝宝1</div>
+		</div>
+		<ul id="baby">
 			<li onclick="fnSetGender();">
 				<div class="fl">性别</div>
 				<div class="fr"> > </div>
 				<div class="fr">未填写</div>
 			</li>
 			<li onclick="fnAlter();">
-				<div class="fl">年龄</div>
+				<div class="fl">生日</div>
 				<div class="fr"> > </div>
 				<div class="fr">未填写</div>
 			</li>
-			<li onclick="fnAlter();">
-				<div class="fl">几年级</div>
-				<div class="fr"> > </div>
-				<div class="fr">未填写</div>
-			</li>
-			<li onclick="fnAlter();">
-				<div class="fl">几年级</div>
-				<div class="fr"> > </div>
-				<div class="fr">未填写</div>
-			</li>
-			<li onclick="fnAlter();">
-				<div class="fl">几年级</div>
-				<div class="fr"> > </div>
-				<div class="fr">未填写</div>
-			</li>
-			<li onclick="fnAlter();">
-				<div class="fl">几年级</div>
-				<div class="fr"> > </div>
-				<div class="fr">未填写</div>
-			</li>
-			<li onclick="fnAlter();">
-				<div class="fl">几年级</div>
-				<div class="fr"> > </div>
-				<div class="fr">未填写</div>
-			</li>
+
 		</ul>
+		<div id="babyAdd" onclick="fnBabyAdd()">添加宝宝</div>
 	</div>
 	<!-- 操作按钮-->
 	<div id="box">
@@ -237,23 +224,7 @@
 		api.addEventListener({
 			name: 'keyback'
 		}, function(ret, err) {
-			// api.toast({
-			// 	msg: '再点一次退出应用',
-			// 	duration: 2000,
-			// 	location: 'bottom'
-			// });
 			goback();
-			// api.addEventListener({
-			// 	name: 'keyback'
-			// }, function(ret, err) {
-			// 	api.closeWidget({
-			// 		silent: true
-			// 	});
-			// });
-			// setTimeout(function() {
-			// exitApp();
-
-			// }, 2000)
 		});
 	};
 
@@ -461,25 +432,43 @@
 	}
 
 	function fnAlter() {
-		api.prompt({
-			buttons: ['确定', '取消']
+		var periodSelector = api.require('periodSelector');
+		periodSelector.open({
+			x: 30,
+			y: api.frameHeight / 2 - 170,
+			w: api.frameWidth - 60,
+			h: 340,
+			fixedOn: api.frameName
 		}, function(ret, err) {
-			var index = ret.buttonIndex;
-			var text = ret.text;
+			if (ret) {
+				alert(JSON.stringify(ret));
+			} else {
+				alert(JSON.stringify(err));
+			}
 		});
 	}
-	function fnSetGender(){
-			api.actionSheet({
-					title: '选择性别',
-					cancelTitle: '取消',
-					buttons: ['男','女']
-			}, function(ret, err){
-					if( ret.buttonIndex >= 3){
-							return;
-					}
-					var gender = ret.buttonIndex === 1?'男':'女';
-					// fnUpdateUserInfo('gender',gender)
-			});
+
+	function fnSetGender() {
+		api.actionSheet({
+			title: '选择性别',
+			cancelTitle: '取消',
+			buttons: ['男', '女', '无']
+		}, function(ret, err) {
+			if (ret.buttonIndex >= 3) {
+				return;
+			}
+			var gender = ret.buttonIndex === 1 ? '男' : '女';
+			// fnUpdateUserInfo('gender',gender)
+		});
+	}
+	var x = 1;
+
+	function fnBabyAdd() {
+		var id = $api.byId('baby');
+		x += 1;
+		$api.append(id, '<div class="upimg_div">宝宝' + x + '</div>');
+		$api.append(id, '<li onclick="fnSetGender();"><div class="fl">性别</div><div class="fr"> > </div><div class="fr">未填写</div></li>');
+		$api.append(id, '<li onclick="fnAlter();"><div class="fl">年龄</div><div class="fr"> > </div><div class="fr">未填写</div></li>');
 	}
 </script>
 
