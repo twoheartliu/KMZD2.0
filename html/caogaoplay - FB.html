@@ -12,7 +12,9 @@
         body {
             height: 100%;
         }
-
+        .clear{
+          clear: both;
+        }
         #wrap {
             height: 100%;
             background: url(../image/play/play_bg_tra.jpg) no-repeat;
@@ -34,7 +36,7 @@
             flex: 1;
         }
 
-        header {
+        /*header {
             display: -webkit-box;
             display: -webkit-flex;
             display: flex;
@@ -67,8 +69,65 @@
             background: url() no-repeat;
             -webkit-background-size: contain;
             background-size: contain;
+        }*/
+        header{
+          height: 50px;
+          line-height: 50px;
+          background-color: transparent;
+          /*overflow: hidden;*/
+        }
+        .egret-img {
+          display: block;
+          float: left;
+          /*padding-left: 18px;*/
+          width: 45px;
+          height: 50px;
+        }
+        .egret-imgs {
+          display: block;
+          float: right;
+          width: 45px;
+          height: 50px;
+          /*padding-left: 18px;*/
+        }
+        .egret-img img {
+          width: 15px;
+          height: 20px;
+          padding: 15px;
+        }
+        .egret-txt{
+          display: block;
+          margin: 0 auto;
+          width: 75%;
+          color: #fff;
+          text-align: center;
+          line-height: 25px;
+          height:50px;
+          /*vertical-align: top;*/
+        }
+        .egret-txt h1{
+          font-size: 16px;
+        }
+        .egret-txt p{
+          font-size: 14px;
+        }
+        .header_fr {
+            width: 30px;
+            height: 30px;
+            padding: 10px 20px 10px 10px;
+            line-height: 30px;
+            font-size: 15px;
+            color: #fff;
+            position: absolute;
+            right: 5px;
+            bottom: -0px;
+            /*display: inline-block;*/
+            /*display: none;*/
         }
 
+        .header_fr img {
+            width: 100%;
+        }
         #action {
             margin-bottom: 10px;
             display: -webkit-box;
@@ -408,12 +467,19 @@
 <body id="body">
     <div id="wrap" class="mh">
         <!-- <img src="" alt=""> -->
-        <header class="qx" id="secHeader">
+        <!-- <header class="qx" id="secHeader">
             <i class="back" tapmode onclick="api.closeWin();"></i>
             <div id="title">
-                <!-- 三字经 -->
             </div>
             <i class="more"></i>
+        </header> -->
+        <header id="header" class="clear">
+            <div  class="egret-img"><img src="../image/icon_back.png" alt="" onclick="api.closeWin();" ></div>
+            <div class="egret-txt" id="title" >
+            </div>
+            <div class="header_fr" onclick=" " >
+                <img src="../image/KM_more.png" alt="">
+            </div>
         </header>
         <div id="main" class="qx">
 
