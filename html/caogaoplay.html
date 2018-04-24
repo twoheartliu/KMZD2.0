@@ -10,21 +10,22 @@
     <style>
         html,
         body {
-            height: 100%;
-        }
-
-        #wrap {
-            height: 100%;
+            overflow: hidden;
             background: url(../image/play/play_bg_tra.jpg) no-repeat;
             background-size: 100% 100%;
-            -webkit-background-size: cover;
-            background-size: cover;
-            display: -webkit-box;
-            display: -webkit-flex;
-            display: flex;
-            -webkit-box-orient: vertical;
-            -webkit-flex-flow: column;
-            flex-flow: column;
+        }
+        .clear{
+          clear: both;
+        }
+        #wrap {
+          -webkit-background-size: cover;
+          background-size: cover;
+          display: -webkit-box;
+          display: -webkit-flex;
+          display: flex;
+          -webkit-box-orient: vertical;
+          -webkit-flex-flow: column;
+          flex-flow: column;
         }
 
         #main {
@@ -34,7 +35,7 @@
             flex: 1;
         }
 
-        header {
+        /*header {
             display: -webkit-box;
             display: -webkit-flex;
             display: flex;
@@ -67,8 +68,61 @@
             background: url() no-repeat;
             -webkit-background-size: contain;
             background-size: contain;
+        }*/
+        header{
+          height: 50px;
+          line-height: 50px;
+          background-color: transparent;
+          overflow: hidden;
+          /*overflow: hidden;*/
+        }
+        .egret-img {
+          display: block;
+          float: left;
+          /*padding-left: 18px;*/
+          width: 45px;
+          height: 50px;
+        }
+        .egret-imgs {
+          display: block;
+          float: right;
+          width: 45px;
+          height: 50px;
+          /*padding-left: 18px;*/
+        }
+        .egret-img img {
+          width: 15px;
+          height: 20px;
+          padding: 15px;
+        }
+        .egret-txt{
+          display: block;
+          margin: 0 auto;
+          width: 75%;
+          color: #fff;
+          text-align: center;
+          line-height: 50px;
+          height:50px;
+          font-size: 16px;
+          /*vertical-align: top;*/
+        }
+        .header_fr {
+            width: 30px;
+            height: 30px;
+            padding: 10px 20px 10px 10px;
+            line-height: 30px;
+            font-size: 15px;
+            color: #fff;
+            position: absolute;
+            right: 5px;
+            bottom: -0px;
+            /*display: inline-block;*/
+            /*display: none;*/
         }
 
+        .header_fr img {
+            width: 100%;
+        }
         #action {
             margin-bottom: 10px;
             display: -webkit-box;
@@ -83,14 +137,28 @@
             -webkit-box-flex: 1;
             -webkit-flex: 1;
             flex: 1;
-            padding-top: 30px;
+            /*padding-top: 30px;*/
             background-position: center top;
             background-repeat: no-repeat;
             -webkit-background-size: 25px;
             background-size: 25px;
+            position: relative;
         }
-
-        #action .collect {
+        #action li>i{
+          position: absolute;
+          top:-2px;
+          right: 30%;
+          width:10px;
+          height:10px;
+          display: inline-block;
+          font-style: normal;
+          font-size: 12px;
+          color:#fff;
+        }
+        #action li>img{
+          width:25px;
+        }
+        /*#action .collect {
             text-align: center;
             color: #cbcbcb;
             font-size: 12px;
@@ -102,25 +170,25 @@
             background-repeat: no-repeat;
             -webkit-background-size: 25px;
             background-size: 25px;
-        }
+        }*/
 
-        #action .timer {
+        /*#action .timer {
             background-image: url(../image/play_choice.png);
-        }
+        }*/
         /*#action .timer.focus {
             background-image: url(../image/play_choice.png);
         }*/
 
-        #action .share {
+        /*#action .share {
             background-image: url(../image/play/ic_play_share.png);
-        }
+        }*/
         /*#action .share.focus {
             background-image: url(../image/img/ic_play_share_s.png);
         }*/
 
-        #action .checkin {
+        /*#action .checkin {
             background-image: url(../image/discuss.png);
-        }
+        }*/
         /*#action .checkin.focus {
             background-image: url(../image/play_discuss.png);
         }*/
@@ -297,13 +365,13 @@
             /*margin-top: 50px;*/
         }
 
-        #secHeader {
+        /*#secHeader {
             width: 100%;
             height: 50px;
             background-image: url(../image/play/header.png);
             background-repeat: no-repeat;
             background-size: 100% 100%;
-        }
+        }*/
 
         .swiper-slide .play-txt p {
             color: #fff;
@@ -328,11 +396,15 @@
         }
 
         input[type=range] {
-            -webkit-appearance: none;
-            width: 80%;
-            border-radius: 10px;
-            display: block;
-            margin: 0 auto;
+          -webkit-appearance: none;
+          width: 63%;
+          border-radius: 10px;
+          display: block;
+          margin: 0 auto;
+          position: absolute;
+          bottom: 4px;
+          left: 18%;
+          height: 5px;
             /*这个属性设置使填充进度条时的图形为圆角*/
             /*background: -webkit-linear-gradient(#059CFA, #059CFA) no-repeat;*/
             /*background: -webkit-linear-gradient(#059CFA, #059CFA) no-repeat;*/
@@ -340,18 +412,18 @@
         }
 
         input[type=range]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            height: 20px;
-            width: 20px;
-            margin-top: -5px;
-            /*使滑块超出轨道部分的偏移量相等*/
-            background: #ffffff;
-            border-radius: 50%;
-            /*外观设置为圆形*/
-            border: solid 0.025em rgba(205, 224, 230, 0.5);
-            /*设置边框*/
-            box-shadow: 0 .025em .025em #3b4547;
-            /*添加底部阴影*/
+          -webkit-appearance: none;
+          height: 15px;
+          width: 15px;
+          margin-top: -5px;
+          /*使滑块超出轨道部分的偏移量相等*/
+          background: #ffffff;
+          border-radius: 50%;
+          /*外观设置为圆形*/
+          border: solid 0.025em rgba(205, 224, 230, 0.5);
+          /*设置边框*/
+          box-shadow: 0 .025em .025em #3b4547;
+          /*添加底部阴影*/
         }
 
         input[type=range]:focus {
@@ -359,25 +431,25 @@
         }
 
         input[type=range]::-webkit-slider-runnable-track {
-            height: 10px;
-            border-radius: 10px;
+            height: 5px;
+            border-radius: 2.5px;
             /*将轨道设为圆角的*/
-            box-shadow: 0 1px 1px #def3f8, inset 0 .125em .125em #0d1112;
+            /*box-shadow: 0 1px 1px #def3f8, inset 0 .125em .125em #0d1112;*/
             /*轨道内置阴影效果*/
         }
 
         input[type=range]::-ms-fill-lower {
             /*进度条已填充的部分*/
-            height: 22px;
-            border-radius: 10px;
-            background: linear-gradient(to right, #ff0000, #1abc9c 100%, #123);
+            height: 15px;
+            border-radius: 5px;
+            /*background: linear-gradient(to right, #ff0000, #1abc9c 100%, #123);*/
             /*background: red !important;*/
         }
 
         input[type=range]::-ms-fill-upper {
             /*进度条未填充的部分*/
-            height: 22px;
-            border-radius: 10px;
+            height: 15px;
+            /*border-radius: 10px;*/
             background: #ffffff;
         }
 
@@ -390,13 +462,13 @@
         }
 
         input[type=range]::-moz-range-progress {
-            background: linear-gradient(to right, #059CFA, white 100%, white);
-            height: 13px;
-            border-radius: 10px;
+            /*background: linear-gradient(to right, #059CFA, white 100%, white);*/
+            height: 5px;
+            /*border-radius: 10px;*/
         }
 
         .red {
-            background: #000;
+            background: #89211b;
         }
         #player{
           display: block;
@@ -406,17 +478,24 @@
 </head>
 
 <body id="body">
-    <div id="wrap" class="mh">
+    <!-- <div id="wrap" class="mh"> -->
         <!-- <img src="" alt=""> -->
-        <header class="qx" id="secHeader">
+        <!-- <header class="qx" id="secHeader">
             <i class="back" tapmode onclick="api.closeWin();"></i>
             <div id="title">
-                <!-- 三字经 -->
             </div>
             <i class="more"></i>
+        </header> -->
+        <header id="secHeader" class="clear">
+            <div  class="egret-img"><img src="../image/icon_back.png" alt="" onclick="api.closeWin();" ></div>
+            <div class="egret-txt" id="title" >
+            </div>
+            <div class="header_fr" onclick=" " >
+                <img src="../image/KM__play_share.png" alt="">
+            </div>
         </header>
-        <div id="main" class="qx">
-
+        <div id="wrap" class="mh">
+          <div id="main" class="qx">
             <div class="swiper-container">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
@@ -437,26 +516,36 @@
             </div>
         </div>
         <ul id="action" class="qx">
-            <li class="collect">
-                <img src="../image/play_collect.png" alt="" id="playCollect" onclick="fnOpenPlayCollect();">
-                <p>收藏</p>
-            </li>
-            <li class="collect">
-                <img src="../image/dianzan.png" alt="" id="playDz" onclick="fnOpenPlayDz();">
-                <p>点赞</p>
-            </li>
-            <li class="timer" tapmode="focus" onclick="fnOpenChoicePlayer();">切换国学机</li>
-            <li class="share" tapmode="focus" onclick="fnOpenPlayShare();">分享</li>
-            <li class="checkin" tapmode="focus" onclick="fnOpenPlayDiscuss();">评论</li>
+          <li class="collect">
+              <img src="../image/KM_play_collect.png" alt="" id="playCollect" onclick="fnOpenPlayCollect();">
+              <p>收藏</p>
+          </li>
+          <li class="share" tapmode="focus" onclick="fnOpenPlayAdd();">
+            <img src="../image/KM__play_add.png" alt="" >
+            <p>添加到听单</p>
+          </li>
+          <li class="collect">
+              <img src="../image/KM_play_dianzan.png" alt="" id="playDz" onclick="fnOpenPlayDz();">
+              <p>点赞</p>
+          </li>
+          <li class="checkin" tapmode="focus" onclick="fnOpenPlayDiscuss();">
+            <!-- <img src="../image/discuss_detail.png" alt=""  > -->
+            <img src="../image/KM_play_discuss.png" alt=""  >
+            <!-- <i>20</i> -->
+            <p>评论</p>
+          </li>
+          <li class="timer" tapmode="focus" onclick="fnOpenChoicePlayer();">
+            <img src="../image/KM_play_choice.png" alt=""  >
+            <p>切换国学机</p></li>
         </ul>
         <div id="control" class="qx">
             <div id="slider">
                 <span class="s" id="kaishijishi">
-                  0:00
+                  00:00:00
                 </span>
                 <input type="range" id="range" name="range" min="0" max="100" step="1" value="0.01" class="red" />
                 <span class="e" id="zongshichang">
-                  0:00
+                  00:00:00
                 </span>
             </div>
             <ul id="panel">
