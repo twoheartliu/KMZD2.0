@@ -7,138 +7,130 @@
 	<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
 	<title>孔孟之道--个人信息</title>
 	<link rel="stylesheet" type="text/css" href="../css/aui.2.0.css" />
+  <link rel="stylesheet" type="text/css"  href="../css/Mdate.css">
 	<style>
-		#box {
-			background: #ffffff;
-			height: 106px;
-			width: 100%;
-			position: fixed;
-			left: 0;
-			bottom: -106px;
-			-webkit-transform: translate3d(0px, -106px, 0px);
-			-moz-transform: translate3d(0px, -106px, 0px);
-			transform: translate3d(0px, -106px, 0px);
-			transition: all 0.3s;
-			visibility: hidden;
-		}
+	#box {
+		background: #ffffff;
+		height: 106px;
+		width: 100%;
+		position: fixed;
+		left: 0;
+		bottom: -106px;
+		-webkit-transform: translate3d(0px, -106px, 0px);
+		-moz-transform: translate3d(0px, -106px, 0px);
+		transform: translate3d(0px, -106px, 0px);
+		transition: all 0.3s;
+		visibility: hidden;
+	}
 
-		#box a {
-			display: block;
-			width: 100%;
-			text-align: center;
-			height: 40px;
-			background: #fff;
-			color: #333;
-			line-height: 40px;
-			border-bottom: 1px solid #ebebeb;
-			font-size: 16px;
-			position: relative;
-			margin-bottom: 6px;
-		}
+	#box a {
+		display: block;
+		width: 100%;
+		text-align: center;
+		height: 40px;
+		background: #fff;
+		color: #333;
+		line-height: 40px;
+		border-bottom: 1px solid #ebebeb;
+		font-size: 16px;
+		position: relative;
+		margin-bottom: 6px;
+	}
 
-		.btn {
-			margin-top: 0.1rem;
-			margin-bottom: 2rem;
-			text-align: center
-		}
+	.btn {
+		margin-top: 0.1rem;
+		margin-bottom: 2rem;
+		text-align: center
+	}
 
-		.btn button {
-			width: 90%;
-			outline: none;
-			border: none;
-			background: #009bdb;
-			color: #fff;
-			height: 40px;
-			display: inline-block;
-			border-radius: 0.4rem;
-			font-size: 16px;
-		}
+	.btn button {
+		width: 90%;
+		outline: none;
+		border: none;
+		background: #009bdb;
+		color: #fff;
+		height: 40px;
+		display: inline-block;
+		border-radius: 0.4rem;
+		font-size: 16px;
+	}
 
-		body {
-			background: #ffffff;
-			position: relative;
-		}
+	body {
+		background: #ffffff;
+		position: relative;
+	}
 
-		.aui-pull-left span {
-			font-size: 18px;
-		}
+	.aui-pull-left span {
+		font-size: 18px;
+	}
 
-		.aui-card-list-content {
-			width: 175px;
-			margin: 0 auto;
-			border-radius: 87.5px;
-		}
+	.aui-card-list-content {
+		width: 130px;
+		margin: 0 auto;
+		border-radius: 65px;
+	}
 
-		.aui-card-list-content img {
-			border-radius: 87.5px;
-		}
+	.aui-card-list-content img {
+		border-radius: 65px;
+	}
 
-		.fl {
-			float: left;
-		}
+	.fl {
+		float: left;
+	}
 
-		.fr {
-			float: right;
-		}
+	.fr {
+		float: right;
+	}
 
-		.clr {
-			clear: both;
-		}
+	.clr {
+		clear: both;
+	}
 
-		.upimg ul li {
-			overflow: hidden;
-			padding: 0 10px;
-			height: 45px;
-			line-height: 45px;
-		}
+	.upimg ul li {
+		overflow: hidden;
+		padding: 0 10px;
+		height: 45px;
+		line-height: 45px;
+	}
 
-		.upimg ul li div {
-			margin: 0 5px;
-			font-size: 12px;
-		}
+	.upimg ul li div {
+		margin: 0 5px;
+		font-size: 12px;
+	}
 
-		.upimg ul li div:nth-child(1) {
-			/*color: #03a9f4;*/
-			font-size: 12px;
-		}
+	.upimg ul li div:nth-child(1) {
+		/*color: #03a9f4;*/
+		font-size: 12px;
+	}
 
-		.upimg ul li div:nth-child(2) {
-			color: #ccc;
-		}
+	.upimg ul li div:nth-child(2) {
+		color: #ccc;
+	}
 
-		.upimg ul li div:nth-child(3) {
-			color: #ccc;
-		}
+	.upimg ul li div:nth-child(3) {
+		color: #ccc;
+	}
 
-		.upimg_div {
-			width: 100%;
-			height: 50px;
-			line-height: 50px;
-			padding: 0 10px;
-			font-size: 18px;
-			font-weight: 800;
-			/*color: #03a9f4;*/
-		}
+	.upimg_div {
+		width: 100%;
+		height: 50px;
+		line-height: 50px;
+		padding: 0 10px;
+		font-size: 18px;
+		font-weight: 800;
+		/*color: #03a9f4;*/
+	}
 
-		#header {
-			position: fixed;
-			left: 0px;
-			top: 0px;
-			width: 100%;
-			height: 45px;
-			line-height: 45px;
-		}
-
-		#babyAdd {
-			height: 50px;
-			line-height: 50px;
-			text-align: center;
-			margin: 10px;
-			font-weight: bold;
-			border: 2px dashed #ddd;
-			border-radius: 10px;
-			color: #999;
-		}
+	#header {
+		position: fixed;
+		left: 0px;
+		top: 0px;
+		width: 100%;
+		height: 45px;
+		line-height: 45px;
+	}
+	#baby .dateSelectorOne{text-align: right;font-size: 12px;line-height: 45px;}
+	#babyAdd{border: 2px dashed #ccc; margin: 20px; text-align: center;height: 50px;line-height: 50px;color: #999;font-weight:900;}
 	</style>
 </head>
 
@@ -188,10 +180,10 @@
 				<div class="fr"> > </div>
 				<div class="fr">未填写</div>
 			</li>
-			<li onclick="fnAlter();">
+			<li onclick="">
 				<div class="fl">生日</div>
 				<div class="fr"> > </div>
-				<div class="fr">未填写</div>
+				<div class="fr"><input type="text" id="dateSelectorOne"	class="dateSelectorOne" placeholder="选择日期"></div>
 			</li>
 
 		</ul>
@@ -208,7 +200,10 @@
 	</div>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
+<script src="../script/select/iScroll.js"></script>
+<script src="../script/select/Mdate.js"></script>
 <script type="text/javascript">
+	var x = 1;
 	function goback() {
 		api.closeWin({
 			name: 'upimg'
@@ -226,6 +221,7 @@
 		}, function(ret, err) {
 			goback();
 		});
+				var periodSelector = api.require('periodSelector');
 	};
 
 	function upimg() {
@@ -431,28 +427,11 @@
 
 	}
 
-	function fnAlter() {
-		var periodSelector = api.require('periodSelector');
-		periodSelector.open({
-			x: 30,
-			y: api.frameHeight / 2 - 170,
-			w: api.frameWidth - 60,
-			h: 340,
-			fixedOn: api.frameName
-		}, function(ret, err) {
-			if (ret) {
-				alert(JSON.stringify(ret));
-			} else {
-				alert(JSON.stringify(err));
-			}
-		});
-	}
-
 	function fnSetGender() {
 		api.actionSheet({
 			title: '选择性别',
 			cancelTitle: '取消',
-			buttons: ['男', '女', '无']
+			buttons: ['男', '女']
 		}, function(ret, err) {
 			if (ret.buttonIndex >= 3) {
 				return;
@@ -461,15 +440,43 @@
 			// fnUpdateUserInfo('gender',gender)
 		});
 	}
-	var x = 1;
+
 
 	function fnBabyAdd() {
 		var id = $api.byId('baby');
 		x += 1;
 		$api.append(id, '<div class="upimg_div">宝宝' + x + '</div>');
 		$api.append(id, '<li onclick="fnSetGender();"><div class="fl">性别</div><div class="fr"> > </div><div class="fr">未填写</div></li>');
-		$api.append(id, '<li onclick="fnAlter();"><div class="fl">年龄</div><div class="fr"> > </div><div class="fr">未填写</div></li>');
-	}
-</script>
+		$api.append(id, '<li><div class="fl">年龄</div><div class="fr"> > </div><div class="fr"><input type="text" id="dateSelectorOne'+ x +'"	class="dateSelectorOne"  placeholder="选择日期"></div></li>');
+		var dateSelectorOnes = 'dateSelectorOne' + x;
+				new Mdate(dateSelectorOnes);
 
+				new Mdate("dateShowBtn", {
+				    acceptId: "dateSelectorTwo",
+				    beginYear: "2000",
+				    beginMonth: "10",
+				    beginDay: "24",
+				    endYear: "2025",
+				    endMonth: "1",
+				    endDay: "1",
+				    format: "-"
+				})
+			}
+</script>
+<script type="text/javascript">
+		// var dateSelectorOne = dateSelectorOne + x;
+		var dateSelectorOnes = 'dateSelectorOne';
+		new Mdate(dateSelectorOnes);
+
+		new Mdate("dateShowBtn", {
+		    acceptId: "dateSelectorTwo",
+		    beginYear: "2002",
+		    beginMonth: "10",
+		    beginDay: "24",
+		    endYear: "2017",
+		    endMonth: "1",
+		    endDay: "1",
+		    format: "-"
+		})
+</script>
 </html>
