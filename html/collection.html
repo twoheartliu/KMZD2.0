@@ -78,8 +78,9 @@
     <nav id="nav">
       <div class="nav">
         <div class="row nav_div" id="title">
-          <div class="nav_divs"  onclick="fnSelectTab(0,this)">单曲收藏</div>
-          <div class="" onclick="fnSelectTab(1,this)">听单收藏</div>
+          <div class="nav_divs"  onclick="fnSelectTab(0,this)">听单收藏</div>
+          <div class="" onclick="fnSelectTab(1,this)">单曲收藏</div>
+          <div class="" onclick="fnSelectTab(2,this)">专辑收藏</div>
         </div>
       </div>
     </nav>
@@ -122,13 +123,16 @@
                h: 'auto'
           },
           index: 0,
-          preload:2,
+          preload:3,
           frames: [{
               name: 'collection_frame1',
               url: './collection_frame1.html'
           },{
               name: 'collection_frame2',
               url: './collection_frame2.html'
+          },{
+              name: 'collection_frame3',
+              url: './collection_frame3.html'
           }]
       }, function(ret, err){
           // console.log($api.jsonToStr(ret));
