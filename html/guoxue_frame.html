@@ -97,26 +97,24 @@
 
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript" src="../script/swiper.min.js"></script>
 <script type="text/javascript">
     apiready = function() {
-        var sType = api.systemType;
-        fnGetLieBiao(sType);
-        fnGetDirectory(sType);
+
+        fnGetLieBiao();
+        fnGetDirectory();
     }
-    var host = 'http://47.100.11.38/kmzd/2.0';
-    var uri = '/category/hot';
-    var method = 'get';
-    var dataType = 'json';
-   function fnGetLieBiao(sType){
+
+   function fnGetLieBiao(){
      uri = '/category/hot';
      api.ajax({
-         url: host + uri,
-         method: method,
-         dataType: dataType,
+         url: host + apiUri + '/category/hot',
+         method: 'get',
+         dataType: 'json',
          headers: {
-           "source":sType,
-           "version":"2.0"
+           "source":api.systemType,
+           "version":version
          },
      }, function(ret, err) {
          if (ret) {
@@ -139,17 +137,15 @@
      }
      $api.html(stylelist, html);
    }
-   function fnGetDirectory(sType){
-    uri = '/category';
+   function fnGetDirectory(){
      api.ajax({
-         url: host + uri,
-         method: method,
-         dataType: dataType,
-         headers: {
-           "source":sType,
-           "version":"2.0"
-         }
-        //  headers: headers,
+       url: host + apiUri + '/category',
+       method: 'get',
+       dataType: 'json',
+       headers: {
+         "source": api.systemType,
+         "version":version
+       },
      }, function(ret, err) {
          if (ret) {
             fnDirectory(ret);

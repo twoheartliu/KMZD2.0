@@ -483,6 +483,7 @@
             return;
         }
         var strDM = api.systemType;
+
         if (strDM == 'ios') {
             var strSV = api.systemVersion;
             var numSV = parseInt(strSV,10);
