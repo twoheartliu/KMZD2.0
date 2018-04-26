@@ -247,9 +247,6 @@ var wait = 60;
           }else{
             captcha = $api.byId('verificationCode').value;
             if(captcha == getCode){
-              console.log(captcha);
-              console.log(password);
-              console.log(phone);
               api.ajax({
                   url: host + apiUri + '/register/phone',
                   method: 'post',
@@ -267,9 +264,6 @@ var wait = 60;
                     "version":version
                   },
               }, function(ret, err) {
-                console.log(JSON.stringify(ret));
-                console.log(ret.message);
-                console.log(ret.status);
                   if (ret.status == 200) {
                      alert(ret.data);
                      api.openWin({
@@ -360,7 +354,6 @@ var wait = 60;
             "version":version
           },
       }, function(ret, err) {
-        console.log(ret.status);
           if (ret.status == 10209) {
 
              alert(ret.message);
