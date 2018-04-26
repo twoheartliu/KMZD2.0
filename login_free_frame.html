@@ -196,6 +196,7 @@ var wait = 60;
         //获取短信注册验证码；
 
     }
+    //验证正则并注册；
     function fnRegistered(){
       var phones = $api.byId('phone');
       phone = $api.byId('phone').value;
@@ -247,9 +248,6 @@ var wait = 60;
           }else{
             captcha = $api.byId('verificationCode').value;
             if(captcha == getCode){
-              console.log(captcha);
-              console.log(password);
-              console.log(phone);
               api.ajax({
                   url: host + apiUri + '/register/phone',
                   method: 'post',
@@ -258,8 +256,7 @@ var wait = 60;
                     values:{
                       "mobile":	phone,
                       "password":	password,
-                      "captcha":	captcha,
-                      // "password":	passwdValue
+                      "captcha":	captcha
                     },
                   },
                   headers: {
@@ -267,11 +264,7 @@ var wait = 60;
                     "version":version
                   },
               }, function(ret, err) {
-                console.log(JSON.stringify(ret));
-                console.log(ret.message);
-                console.log(ret.status);
                   if (ret.status == 200) {
-                     alert(ret.data);
                      api.openWin({
                          name: 'index',
                          url: 'index.html',
@@ -279,6 +272,8 @@ var wait = 60;
                              name: 'test'
                          }
                      });
+                  }else{
+                    alert(ret.status);
                   }
               });
             }else{
@@ -294,6 +289,7 @@ var wait = 60;
 
       }
     }
+    //正则验证；
     function fnButton(){
       var phones = $api.byId('phone');
       phone = $api.byId('phone').value;
@@ -350,6 +346,7 @@ var wait = 60;
       }
 
     }
+    //判断是否注册；
     function fnExists(phone){
       api.ajax({
           url: host + apiUri + '/register/is_phone_exist?mobile=' + phone,
@@ -360,7 +357,6 @@ var wait = 60;
             "version":version
           },
       }, function(ret, err) {
-        console.log(ret.status);
           if (ret.status == 10209) {
 
              alert(ret.message);
@@ -378,16 +374,27 @@ var wait = 60;
     var createDateTime;
     var phone;
     var password;
-
+    //获取验证码；
     function fnGetSmsVerificationCode(phone){
         api.ajax({
-            url: 'http://47.100.11.38/kongmeng/sms/getCode.php?type=reg&phone=' + phone,
-            method: 'post',
+            url: host + apiUri + '/sms/get_code',
+            method: 'get',
             dataType: 'json',
+            headers: {
+              "source":api.systemType,
+              "version":version
+            },
+            data :{
+              values:{
+                mobile :phone,
+                type : 'reg',
+              }
+            }
         }, function(ret, err) {
-            if (ret.message == 'ok') {
-              getCode = ret.v_code;
+            if (ret.status == 200) {
+              getCode = ret.data.v_code;
               createDateTime = ret.create_date;
+            }else{
             }
         });
     }
@@ -410,6 +417,7 @@ var wait = 60;
             }, 1000)
         }
     }
+    //手机正则验证；
     function fnSjyanzheng() {
       var phones = $api.byId('phone');
       phone = $api.byId('phone').value;
@@ -431,6 +439,7 @@ var wait = 60;
           return;
       }
     }
+    //密码正则验证；
     function fnPswordYanZheng() {
       var passwords = $api.byId('password');
       password = $api.byId('password').value;

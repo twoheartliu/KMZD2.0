@@ -51,7 +51,12 @@
             -webkit-box-align: center;
             height: 100px;
         }
-
+        .egret-flex-items {
+            display: -webkit-box;
+            -webkit-box-align: center;
+            height: 100px;
+            width:80%;
+        }
         .egret-flex-item-logo {
             max-width: 80px;
             min-width: 80px;
@@ -78,11 +83,13 @@
             text-overflow: ellipsis;
             white-space: nowrap;
             overflow: hidden;
-            margin-top: 5px;
+            height: 22px;
+            line-height: 22px;
+            /*margin-top: 5px;*/
         }
 
         .egret-flex-item-shelf .egret-flex-item-shelf01 .span1 {
-            font-size: 13px;
+            font-size: 15px;
             color: #000;
         }
 
@@ -95,22 +102,33 @@
         .egret-flex-item-shelf .egret-flex-item-shelf01 .span3 {
             font-size: 12px;
             color: #ccc;
+            vertical-align: top;
         }
-
+        .egret-flex-item-shelf04{
+          width:18%;
+          text-align: right;
+          -webkit-box-flex: 1;
+          -webkit-box-align: center;
+          height: 80px;
+        }
+        .egret-flex-item-shelf04 img{
+          width: 30px;
+          height:30px;
+        }
         .egret-flex-item-shelf .egret-flex-item-shelf02 {
             font-size: 12px;
-            color: #666;
+            color: #ccc;
         }
 
         .egret-flex-item-shelf .egret-flex-item-shelf02 span {
-            font-size: 15px;
+            font-size: 13px;
             color: #000;
         }
 
         .egret-flex-item-shelf03 div {
             float: left;
-            line-height: 20px;
-            margin: 5px 3px;
+            /*line-height: 20px;*/
+            /*margin: 5px 3px;*/
         }
 
         .egret-flex-item-shelf03 div img {
@@ -121,7 +139,7 @@
         }
 
         .egret-flex-item-shelf03 div span {
-            line-height: 18px;
+            line-height: 22px;
             vertical-align: top;
             font-size: 11px;
             color: #b2b2b2;
@@ -141,7 +159,8 @@
 
 <body>
   <div class="p20px">
-    <div class="egret-flex-item" tapmode="fmbtnhover" onclick="fnOpenPlay()">
+    <div class="egret-flex-item" >
+      <div class="egret-flex-items" tapmode="fmbtnhover" onclick="fnOpenPlay()">
         <div class="egret-flex-item-logo">
             <img src="../image/KM_album.png" alt="" class="">
         </div>
@@ -150,9 +169,9 @@
                 <span class="span1 fl">作品：<span>《沁园春·雪》</span></span>
                 <!-- <span class="span2 iconfont icon-nv fl"></span> -->
                 <!-- <img src="../image/js.png" alt="" class="fl"> -->
-                <span class="span3 fr">昨天21.30</span>
+                <!-- <span class="span3 fr">昨天21.30</span> -->
             </div>
-            <div class="egret-flex-item-shelf02">唐嫣<span class="span2 iconfont icon-nv "></span>
+            <div class="egret-flex-item-shelf02"><span>唐嫣</span><span class="span2 iconfont icon-nv "></span>
               <!-- <span><img src="../image/js.png" alt="" class="fl"></span> -->
             </div>
             <div class="egret-flex-item-shelf03">
@@ -162,9 +181,14 @@
                 <div><img src="../image/KM_dz.png" alt=""><span>100</span></div>
             </div>
         </div>
-    </div>
+      </div>
+      <div class="egret-flex-item-shelf04" onclick="fnOpenPlayShare()">
+        <img src="../image/KM_list_more.png" alt="">
+      </div>
+  </div>
     <div class="hdivider"></div>
-    <div class="egret-flex-item" tapmode="fmbtnhover" onclick="fnOpenPlay()">
+    <div class="egret-flex-item" >
+      <div class="egret-flex-items" tapmode="fmbtnhover" onclick="fnOpenPlay()">
         <div class="egret-flex-item-logo">
             <img src="../image/KM_album.png" alt="" class="">
         </div>
@@ -173,9 +197,9 @@
                 <span class="span1 fl">作品：<span>《沁园春·雪》</span></span>
                 <!-- <span class="span2 iconfont icon-nv fl"></span> -->
                 <!-- <img src="../image/js.png" alt="" class="fl"> -->
-                <span class="span3 fr">昨天21.30</span>
+                <!-- <span class="span3 fr">昨天21.30</span> -->
             </div>
-            <div class="egret-flex-item-shelf02">唐嫣<span class="span2 iconfont icon-nv "></span>
+            <div class="egret-flex-item-shelf02"><span>唐嫣</span><span class="span2 iconfont icon-nv "></span>
               <!-- <span><img src="../image/js.png" alt="" class="fl"></span> -->
             </div>
             <div class="egret-flex-item-shelf03">
@@ -185,9 +209,14 @@
                 <div><img src="../image/KM_dz.png" alt=""><span>100</span></div>
             </div>
         </div>
-    </div>
+      </div>
+      <div class="egret-flex-item-shelf04" onclick="fnOpenPlayShare()">
+        <img src="../image/KM_list_more.png" alt="">
+      </div>
+  </div>
     <div class="hdivider"></div>
-    <div class="egret-flex-item" tapmode="fmbtnhover" onclick="fnOpenPlay()">
+    <div class="egret-flex-item" >
+      <div class="egret-flex-items" tapmode="fmbtnhover" onclick="fnOpenPlay()">
         <div class="egret-flex-item-logo">
             <img src="../image/KM_album.png" alt="" class="">
         </div>
@@ -196,9 +225,9 @@
                 <span class="span1 fl">作品：<span>《沁园春·雪》</span></span>
                 <!-- <span class="span2 iconfont icon-nv fl"></span> -->
                 <!-- <img src="../image/js.png" alt="" class="fl"> -->
-                <span class="span3 fr">昨天21.30</span>
+                <!-- <span class="span3 fr">昨天21.30</span> -->
             </div>
-            <div class="egret-flex-item-shelf02">唐嫣<span class="span2 iconfont icon-nv "></span>
+            <div class="egret-flex-item-shelf02"><span>唐嫣</span><span class="span2 iconfont icon-nv "></span>
               <!-- <span><img src="../image/js.png" alt="" class="fl"></span> -->
             </div>
             <div class="egret-flex-item-shelf03">
@@ -208,9 +237,14 @@
                 <div><img src="../image/KM_dz.png" alt=""><span>100</span></div>
             </div>
         </div>
-    </div>
+      </div>
+      <div class="egret-flex-item-shelf04" onclick="fnOpenPlayShare()">
+        <img src="../image/KM_list_more.png" alt="">
+      </div>
+  </div>
     <div class="hdivider"></div>
-    <div class="egret-flex-item" tapmode="fmbtnhover" onclick="fnOpenPlay()">
+    <div class="egret-flex-item" >
+      <div class="egret-flex-items" tapmode="fmbtnhover" onclick="fnOpenPlay()">
         <div class="egret-flex-item-logo">
             <img src="../image/KM_album.png" alt="" class="">
         </div>
@@ -219,9 +253,9 @@
                 <span class="span1 fl">作品：<span>《沁园春·雪》</span></span>
                 <!-- <span class="span2 iconfont icon-nv fl"></span> -->
                 <!-- <img src="../image/js.png" alt="" class="fl"> -->
-                <span class="span3 fr">昨天21.30</span>
+                <!-- <span class="span3 fr">昨天21.30</span> -->
             </div>
-            <div class="egret-flex-item-shelf02">唐嫣<span class="span2 iconfont icon-nv "></span>
+            <div class="egret-flex-item-shelf02"><span>唐嫣</span><span class="span2 iconfont icon-nv "></span>
               <!-- <span><img src="../image/js.png" alt="" class="fl"></span> -->
             </div>
             <div class="egret-flex-item-shelf03">
@@ -231,9 +265,14 @@
                 <div><img src="../image/KM_dz.png" alt=""><span>100</span></div>
             </div>
         </div>
-    </div>
+      </div>
+      <div class="egret-flex-item-shelf04" onclick="fnOpenPlayShare()">
+        <img src="../image/KM_list_more.png" alt="">
+      </div>
+  </div>
     <div class="hdivider"></div>
-    <div class="egret-flex-item" tapmode="fmbtnhover" onclick="fnOpenPlay()">
+    <div class="egret-flex-item" >
+      <div class="egret-flex-items" tapmode="fmbtnhover" onclick="fnOpenPlay()">
         <div class="egret-flex-item-logo">
             <img src="../image/KM_album.png" alt="" class="">
         </div>
@@ -242,9 +281,9 @@
                 <span class="span1 fl">作品：<span>《沁园春·雪》</span></span>
                 <!-- <span class="span2 iconfont icon-nv fl"></span> -->
                 <!-- <img src="../image/js.png" alt="" class="fl"> -->
-                <span class="span3 fr">昨天21.30</span>
+                <!-- <span class="span3 fr">昨天21.30</span> -->
             </div>
-            <div class="egret-flex-item-shelf02">唐嫣<span class="span2 iconfont icon-nv "></span>
+            <div class="egret-flex-item-shelf02"><span>唐嫣</span><span class="span2 iconfont icon-nv "></span>
               <!-- <span><img src="../image/js.png" alt="" class="fl"></span> -->
             </div>
             <div class="egret-flex-item-shelf03">
@@ -254,9 +293,14 @@
                 <div><img src="../image/KM_dz.png" alt=""><span>100</span></div>
             </div>
         </div>
-    </div>
+      </div>
+      <div class="egret-flex-item-shelf04" onclick="fnOpenPlayShare()">
+        <img src="../image/KM_list_more.png" alt="">
+      </div>
+  </div>
     <div class="hdivider"></div>
-    <div class="egret-flex-item" tapmode="fmbtnhover" onclick="fnOpenPlay()">
+    <div class="egret-flex-item" >
+      <div class="egret-flex-items" tapmode="fmbtnhover" onclick="fnOpenPlay()">
         <div class="egret-flex-item-logo">
             <img src="../image/KM_album.png" alt="" class="">
         </div>
@@ -265,9 +309,9 @@
                 <span class="span1 fl">作品：<span>《沁园春·雪》</span></span>
                 <!-- <span class="span2 iconfont icon-nv fl"></span> -->
                 <!-- <img src="../image/js.png" alt="" class="fl"> -->
-                <span class="span3 fr">昨天21.30</span>
+                <!-- <span class="span3 fr">昨天21.30</span> -->
             </div>
-            <div class="egret-flex-item-shelf02">唐嫣<span class="span2 iconfont icon-nv "></span>
+            <div class="egret-flex-item-shelf02"><span>唐嫣</span><span class="span2 iconfont icon-nv "></span>
               <!-- <span><img src="../image/js.png" alt="" class="fl"></span> -->
             </div>
             <div class="egret-flex-item-shelf03">
@@ -277,9 +321,14 @@
                 <div><img src="../image/KM_dz.png" alt=""><span>100</span></div>
             </div>
         </div>
-    </div>
+      </div>
+      <div class="egret-flex-item-shelf04" onclick="fnOpenPlayShare()">
+        <img src="../image/KM_list_more.png" alt="">
+      </div>
+  </div>
     <div class="hdivider"></div>
-    <div class="egret-flex-item" tapmode="fmbtnhover" onclick="fnOpenPlay()">
+    <div class="egret-flex-item" >
+      <div class="egret-flex-items" tapmode="fmbtnhover" onclick="fnOpenPlay()">
         <div class="egret-flex-item-logo">
             <img src="../image/KM_album.png" alt="" class="">
         </div>
@@ -288,9 +337,9 @@
                 <span class="span1 fl">作品：<span>《沁园春·雪》</span></span>
                 <!-- <span class="span2 iconfont icon-nv fl"></span> -->
                 <!-- <img src="../image/js.png" alt="" class="fl"> -->
-                <span class="span3 fr">昨天21.30</span>
+                <!-- <span class="span3 fr">昨天21.30</span> -->
             </div>
-            <div class="egret-flex-item-shelf02">唐嫣<span class="span2 iconfont icon-nv "></span>
+            <div class="egret-flex-item-shelf02"><span>唐嫣</span><span class="span2 iconfont icon-nv "></span>
               <!-- <span><img src="../image/js.png" alt="" class="fl"></span> -->
             </div>
             <div class="egret-flex-item-shelf03">
@@ -300,9 +349,14 @@
                 <div><img src="../image/KM_dz.png" alt=""><span>100</span></div>
             </div>
         </div>
-    </div>
+      </div>
+      <div class="egret-flex-item-shelf04" onclick="fnOpenPlayShare()">
+        <img src="../image/KM_list_more.png" alt="">
+      </div>
+  </div>
     <div class="hdivider"></div>
-    <div class="egret-flex-item" tapmode="fmbtnhover" onclick="fnOpenPlay()">
+    <div class="egret-flex-item" >
+      <div class="egret-flex-items" tapmode="fmbtnhover" onclick="fnOpenPlay()">
         <div class="egret-flex-item-logo">
             <img src="../image/KM_album.png" alt="" class="">
         </div>
@@ -311,9 +365,9 @@
                 <span class="span1 fl">作品：<span>《沁园春·雪》</span></span>
                 <!-- <span class="span2 iconfont icon-nv fl"></span> -->
                 <!-- <img src="../image/js.png" alt="" class="fl"> -->
-                <span class="span3 fr">昨天21.30</span>
+                <!-- <span class="span3 fr">昨天21.30</span> -->
             </div>
-            <div class="egret-flex-item-shelf02">唐嫣<span class="span2 iconfont icon-nv "></span>
+            <div class="egret-flex-item-shelf02"><span>唐嫣</span><span class="span2 iconfont icon-nv "></span>
               <!-- <span><img src="../image/js.png" alt="" class="fl"></span> -->
             </div>
             <div class="egret-flex-item-shelf03">
@@ -323,9 +377,14 @@
                 <div><img src="../image/KM_dz.png" alt=""><span>100</span></div>
             </div>
         </div>
-    </div>
+      </div>
+      <div class="egret-flex-item-shelf04" onclick="fnOpenPlayShare()">
+        <img src="../image/KM_list_more.png" alt="">
+      </div>
+  </div>
     <div class="hdivider"></div>
-    <div class="egret-flex-item" tapmode="fmbtnhover" onclick="fnOpenPlay()">
+    <div class="egret-flex-item" >
+      <div class="egret-flex-items" tapmode="fmbtnhover" onclick="fnOpenPlay()">
         <div class="egret-flex-item-logo">
             <img src="../image/KM_album.png" alt="" class="">
         </div>
@@ -334,9 +393,9 @@
                 <span class="span1 fl">作品：<span>《沁园春·雪》</span></span>
                 <!-- <span class="span2 iconfont icon-nv fl"></span> -->
                 <!-- <img src="../image/js.png" alt="" class="fl"> -->
-                <span class="span3 fr">昨天21.30</span>
+                <!-- <span class="span3 fr">昨天21.30</span> -->
             </div>
-            <div class="egret-flex-item-shelf02">唐嫣<span class="span2 iconfont icon-nv "></span>
+            <div class="egret-flex-item-shelf02"><span>唐嫣</span><span class="span2 iconfont icon-nv "></span>
               <!-- <span><img src="../image/js.png" alt="" class="fl"></span> -->
             </div>
             <div class="egret-flex-item-shelf03">
@@ -346,7 +405,11 @@
                 <div><img src="../image/KM_dz.png" alt=""><span>100</span></div>
             </div>
         </div>
-    </div>
+      </div>
+      <div class="egret-flex-item-shelf04" onclick="fnOpenPlayShare()">
+        <img src="../image/KM_list_more.png" alt="">
+      </div>
+  </div>
     <div class="hdivider"></div>
   <div>
 </body>
@@ -365,5 +428,67 @@
       });
 
   }
-
+  //打开更多页面
+  function fnOpenPlayShare() {
+    var dialogBox = api.require('dialogBox');
+    dialogBox.actionMenu({
+        rect: {
+            h: 150
+        },
+        texts: {
+            cancel: '取消'
+        },
+        items: [{
+            text: '分享',
+            icon: 'widget://image/KM_ListingsListGd.png'
+        }, {
+            text: '添加到听单',
+            icon: 'widget://image/KM_play_add_gray.png'
+        }],
+        styles: {
+            bg: '#FFF',
+            column: 2,
+            itemText: {
+                color: '#000',
+                size: 12,
+                marginT: 8
+            },
+            itemIcon: {
+                size: 30
+            },
+            cancel: {
+                bg: 'fs://icon.png',
+                color: '#000',
+                h: 44,
+                size: 14
+            }
+        },
+        tapClose: true
+    }, function(ret) {
+      if (ret.index == "0") {
+          dialogBox.close({
+              dialogName: 'alert'
+          });
+          api.openWin({
+              // name: 'ListeningList',
+              // url: './ListeningList.html',
+              // pageParam: {
+              //     name: 'test'
+              // }
+          });
+      }else if (ret.index == "1") {
+        dialogBox.close({
+            dialogName: 'alert'
+        });
+        // api.openWin({
+        //   name: 'playDiscuss',
+        //   url: './play_discuss.html',
+        // })
+      }else {
+        dialogBox.close({
+            dialogName: 'alert'
+        });
+      }
+    });
+  }
 </script>
