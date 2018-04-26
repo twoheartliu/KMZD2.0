@@ -253,7 +253,7 @@
         }*/
 
         /*#panel .play {
-            background-image: url(../image/img/ic_play_play.png);
+            background-image: url(../image/play/ic_play_play.png);
         }*/
         /*#panel .play.focus {
             background-image: url(../image/img/ic_play_play_s.png);
@@ -520,7 +520,7 @@
               <img src="../image/KM_play_collect.png" alt="" id="playCollect" onclick="fnOpenPlayCollect();">
               <p>收藏</p>
           </li>
-          <li class="share" tapmode="focus" onclick="fnOpenPlayAdd();">
+          <li class="share" tapmode="focus" onclick=" ">
             <img src="../image/KM__play_add.png" alt="" >
             <p>添加到听单</p>
           </li>
@@ -531,7 +531,7 @@
           <li class="checkin" tapmode="focus" onclick="fnOpenPlayDiscuss();">
             <!-- <img src="../image/discuss_detail.png" alt=""  > -->
             <img src="../image/KM_play_discuss.png" alt=""  >
-            <!-- <i>20</i> -->
+            <i>20</i>
             <p>评论</p>
           </li>
           <li class="timer" tapmode="focus" onclick="fnOpenChoicePlayer();">
@@ -591,6 +591,16 @@
       $api.fixStatusBar(secHeader);
       var headerH = $api.offset(secHeader).h;
       var audioPlayer = api.require('audioPlayer');
+      var headerPosH = $api.offset(secHeader).h;
+      var header = document.querySelector('header');
+      $api.fixIos7Bar(header);
+      if (window.innerHeight)
+          winHeight = window.innerHeight;
+      else if ((document.body) && (document.body.clientHeight))
+          winHeight = document.body.clientHeight;
+      var messageFrameDiv = $api.byId('wrap');
+      var winHeightHeader = winHeight - headerPosH;
+      $api.css(messageFrameDiv, 'height:' + winHeightHeader + 'px;');
       // audioPlayer.getState(function(ret) {
       //     api.alert({ msg: ret.state });
       //     if(ret.state == 'playing'){
@@ -1181,27 +1191,30 @@
     // 收藏
     function fnOpenPlayCollect() {
         var playCollect = $api.byId('playCollect');
-        if (playCollect.getAttribute("src", 2) == "../image/play_collect.png") {
-            playCollect.src = "../image/play_collect0.png";
+        if (playCollect.getAttribute("src", 2) == "../image/KM_play_collect.png") {
+            playCollect.src = "../image/KM_play_collect_red.png";
         } else {
-            playCollect.src = "../image/play_collect.png";
+            playCollect.src = "../image/KM_play_collect.png";
         }
     };
     // 点赞
     function fnOpenPlayDz() {
         var playDz = $api.byId('playDz');
-        if (playDz.getAttribute("src", 2) == "../image/dianzan1.png") {
-            playDz.src = "../image/dianzan.png";
+        if (playDz.getAttribute("src", 2) == "../image/KM_play_dianzan.png") {
+            playDz.src = "../image/KM_play_dianzan_red.png";
         } else {
-            playDz.src = "../image/dianzan1.png";
+            playDz.src = "../image/KM_play_dianzan.png";
         }
     };
     // 打开评论页面
     function fnOpenPlayDiscuss() {
-        api.openWin({
-            name: 'playDiscuss',
-            url: './play_discuss.html',
-        })
+      api.openWin({
+          name: 'discussNoticeDetail',
+          url: './discuss_notice_detail.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
     }
     //打开分享
     function fnOpenPlayShare() {
@@ -1267,7 +1280,7 @@
         // dialogBox.close({
         //     dialogName: 'alert'
         // })
-        alert(JSON.stringify(ret))
+        // alert(JSON.stringify(ret))
 
       });
     }
