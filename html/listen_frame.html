@@ -85,6 +85,22 @@
           text-align: center;
           /*line-height: 95px;*/
           line-height: 70px;
+          position: relative;
+        }
+        .item-sorts img{
+          width: 30px;
+          height: 30px;
+        }
+        .item-sorts>i {
+            position: absolute;
+            top: -18px;
+            right: 30%;
+            width: 10px;
+            height: 10px;
+            display: inline-block;
+            font-style: normal;
+            font-size: 12px;
+            color: #fff;
         }
         @-webkit-keyframes rotation{
           from {-webkit-transform: rotate(0deg);}
@@ -105,6 +121,7 @@
           line-height: 20px;
           text-align: center;
           font-size: 12px;
+
         }
         input[type=range] {
              -webkit-appearance: none;
@@ -114,37 +131,41 @@
              /*background: -webkit-linear-gradient(#059CFA, #059CFA) no-repeat;*/
              /*background: -webkit-linear-gradient(#059CFA, #059CFA) no-repeat;*/
              /*background-size: 0% 100%;*/
+             height: 5px;
        }
        input[type=range]::-webkit-slider-thumb {
-           -webkit-appearance: none;
-           height: 20px;
-           width: 20px;
-           margin-top: -5px; /*使滑块超出轨道部分的偏移量相等*/
-           background: #ffffff;
-           border-radius: 50%; /*外观设置为圆形*/
-           border: solid 0.025em rgba(205, 224, 230, 0.5); /*设置边框*/
-           box-shadow: 0 .025em .025em #3b4547; /*添加底部阴影*/
+         -webkit-appearance: none;
+         height: 15px;
+         width: 15px;
+         margin-top: -5px;
+         /*使滑块超出轨道部分的偏移量相等*/
+         background: #ffffff;
+         border-radius: 50%;
+         /*外观设置为圆形*/
+         border: solid 0.025em rgba(205, 224, 230, 0.5);
+         /*设置边框*/
+         box-shadow: 0 .025em .025em #3b4547;
+         /*添加底部阴影*/
        }
        input[type=range]:focus {
            outline: none;
        }
        input[type=range]::-webkit-slider-runnable-track {
-           height: 10px;
-           border-radius: 10px; /*将轨道设为圆角的*/
-           box-shadow: 0 1px 1px #def3f8, inset 0 .125em .125em #0d1112; /*轨道内置阴影效果*/
+         height: 5px;
+         border-radius: 2.5px;
        }
 
        input[type=range]::-ms-fill-lower {
            /*进度条已填充的部分*/
-           height: 22px;
-           border-radius: 10px;
-           background: linear-gradient(to right, #ff0000, #1abc9c 100%, #123);
+           height: 15px;
+           border-radius: 5px;
+           /*background: linear-gradient(to right, #ff0000, #1abc9c 100%, #123);*/
            /*background: red !important;*/
        }
        input[type=range]::-ms-fill-upper {
            /*进度条未填充的部分*/
-           height: 22px;
-           border-radius: 10px;
+           height: 15px;
+           /*border-radius: 10px;*/
            background: #ffffff;
        }
        input[type=range]:focus::-ms-fill-lower {
@@ -155,20 +176,37 @@
        }
 
        input[type=range]::-moz-range-progress {
-           background: linear-gradient(to right, #059CFA, white 100%, white);
-           height: 13px;
-           border-radius: 10px;
+           /*background: linear-gradient(to right, #059CFA, white 100%, white);*/
+           height: 5px;
+           /*border-radius: 10px;*/
        }
        .red{
-         background: #000;
+         background: #89211b;
        }
        .qx{
          /*padding-top: 10px;*/
        }
+       .title{
+         width: 100%;
+         height:50px;
+         line-height: 25px;
+         text-align: center;
+         color:#fff;
+         font-size: 16px;
+         padding: 5px 0;
+       }
+       .title h2{
+         font-style: normal;
+         font-size: 16px;
+
+       }
+       .title p{
+         font-size: 14px;
+       }
       </style>
   </head>
   <body>
-    <div class="wrap">
+    <div class="wrap" id="wrap">
       <nav id="nav">
         <div class="video-play" >
           <div class="bottom-img">
@@ -179,6 +217,10 @@
           <div class="table-img">
             <img src="../image/play/table.png" alt="">
           </div>
+        </div>
+        <div class="title">
+          <h2>失去地心的魔方</h2>
+          <p>周晓鑫</p>
         </div>
         <div id="control" class="qx">
 
@@ -200,20 +242,21 @@
     	</div> -->
       </nav>
       <section>
-        <div class="item-sort">
-          <img src="../image/delete.png" alt="">
+        <div class="item-sort item-sorts">
+          <img src="../image/play/delete.png" alt="">
         </div>
-        <div class="item-sort">
-          <img src="../image/collect.png" alt=""  onclick="fnOpenCollect();" id="collect">
+        <div class="item-sort item-sorts">
+          <img src="../image/KM_play_collect.png" alt=""  onclick="fnOpenCollect();" id="collect">
         </div>
         <div class="item-sort">
           <img src="../image/footer_bf0.png" alt="" onclick="fnOpenPlayButton();" id="playButton">
         </div>
-        <div class="item-sort">
-          <img src="../image/next.png" alt="">
+        <div class="item-sort item-sorts">
+          <img src="../image/play/ic_play_next.png" alt="">
         </div>
-        <div class="item-sort">
-          <img src="../image/discuss.png" alt="" onclick="fnOpenPlayDiscuss();">
+        <div class="item-sort item-sorts">
+          <img src="../image/KM_play_discuss.png" alt="" onclick="fnOpenPlayDiscuss();">
+          <i>20</i>
         </div>
       </section>
     </div>
@@ -224,6 +267,20 @@
   <script type="text/javascript" src="../script/audio2.js"></script>
   <script type="text/javascript">
     apiready = function(){
+      // var eHeader = $api.byId('header')
+      // $api.fixStatusBar(eHeader);
+      // var headerH = $api.offset(eHeader).h;
+      // console.log(headerH);
+      // var header = document.querySelector('header');
+      // $api.fixIos7Bar(header);
+      // 获取浏览器高度
+      if (window.innerHeight)
+          winHeight = window.innerHeight;
+      else if ((document.body) && (document.body.clientHeight))
+          winHeight = document.body.clientHeight;
+      var messageFrameDiv = $api.byId('wrap');
+      var winHeightHeader = winHeight;
+      $api.css(messageFrameDiv, 'height:' + winHeightHeader + 'px;');
 
 
 
@@ -240,93 +297,62 @@
     // function b(){
     //   clearInterval(time1);
     // }
+    var timeout, rotate = 0;
     function fnOpenPlayButton(){
       var playButton = $api.byId('playButton');
       var video = $api.byId('video');
+      var timeout, rotate = 0;
       if(playButton.getAttribute("src",2)=="../image/index/footer_bf0.png"){
         playButton.src="../image/index/footer_bf1.png";
-        $api.addCls(video, 'Rotation');
+        // $api.addCls(video, 'Rotation');
+        startAnim();
         // a();
 
       }else{
         playButton.src="../image/index/footer_bf0.png";
-        $api.removeCls(video, 'Rotation');
+        // $api.removeCls(video, 'Rotation');
+        stopAnim();
         // b();
       }
+    }
+    function startAnim() {
+        timeout = setInterval(function () {
+            var img = document.getElementById("video");
+            var rotateStyle = "rotate(" + rotate + "deg)";
+            img.style.transform = rotateStyle;
+            img.style["-moz-transform"] = rotateStyle;
+            img.style["-webkit-transform"] = rotateStyle;
+            img.style["-o-transform"] = rotateStyle;
+            img.style["-ms-transform"] = rotateStyle;
+
+            rotate += 6;
+            if (rotate > 360) {
+                rotate = 0;
+            }
+        }, 30);
+    }
+    function stopAnim() {
+      clearInterval(timeout);
+      timeout = null;
     }
     // 收藏
     function fnOpenCollect(){
       var collect = $api.byId('collect');
-      if(collect.getAttribute("src",2)=="../image/collect.png"){
-        collect.src="../image/collect1.png";
+      if(collect.getAttribute("src",2)=="../image/KM_play_collect.png"){
+        collect.src="../image/KM_play_collect_red.png";
       }else{
-        collect.src="../image/collect.png";
+        collect.src="../image/KM_play_collect.png";
       }
     };
     // 打开评论页面
     function fnOpenPlayDiscuss(){
-        var dialogBox = api.require('dialogBox');
-        dialogBox.actionMenu({
-            rect: {
-                h: 150
-            },
-            texts: {
-                cancel: '取消'
-            },
-            items: [{
-                text: '添加到听单',
-                icon: 'widget://image/weixin.png'
-            }, {
-                text: '评论',
-                icon: 'widget://image/qq.png'
-            }],
-            styles: {
-                bg: '#FFF',
-                column: 2,
-                itemText: {
-                    color: '#000',
-                    size: 12,
-                    marginT: 8
-                },
-                itemIcon: {
-                    size: 48
-                },
-                cancel: {
-                    bg: 'fs://icon.png',
-                    color: '#000',
-                    h: 44,
-                    size: 14
-                }
-            },
-            tapClose: true
-        }, function(ret) {
-
-          if (ret.index == "0") {
-              dialogBox.close({
-                  dialogName: 'alert'
-              });
-              api.openWin({
-                  name: 'ListeningList',
-                  url: './ListeningList.html',
-                  pageParam: {
-                      name: 'test'
-                  }
-              });
-              // alert(1);
-          }else if (ret.index == "1") {
-            dialogBox.close({
-                dialogName: 'alert'
-            });
-            api.openWin({
-              name: 'playDiscuss',
-              url: './play_discuss.html',
-            })              // alert(2);
-          }else {
-            dialogBox.close({
-                dialogName: 'alert'
-            });
+      api.openWin({
+          name: 'discussNoticeDetail',
+          url: './discuss_notice_detail.html',
+          pageParam: {
+              name: 'test'
           }
-        });
+      });
     }
   </script>
   <script>
