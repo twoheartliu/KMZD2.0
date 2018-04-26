@@ -253,7 +253,7 @@
     <!-- 2 热门推荐 -->
     <div class="p20px">
         <div class="sectionTitle">
-            <span class="TD_div fl">听单推荐</span>
+            <span class="TD_div fl">专辑推荐</span>
             <span class="fr more" onclick="fnRecommendWin();">更多</span>
             <div class="clear"></div>
         </div>
@@ -349,27 +349,23 @@
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/index.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript" src="../script/swiper.min.js"></script>
 
 </html>
 <script type="text/javascript">
-    apiready = function() {
-        // alert(JSON.stringify(qqziliao));
-        // api.parseTapmode()
-        fnTingdanTuijian();
-        fnInitSwiper();
-        // fnXiMaLaYaTingDan();
-        var qqziliao = api.pageParam.qqziliao;
-        // var navbars = $api.domAll('.navbar');
-
-        // for(var i=0; i < 8 ;i++){
-        //   navbars.item(i).style.width = frameWidth /4 + "px";
-        //   navbars.item(i).style.height = frameWidth/4 * 1.1 + "px";
-        // };
-
-
-
-    }
+// var  tokens;
+//     apiready = function() {
+//       tokens = getToken();
+//       fnInitSwiper();
+//       var qqziliao = api.pageParam.qqziliao;
+//       console.log(tokens);
+//       console.log(token);
+//       if(tokens){
+//         fnTingdanTuijian();
+//       }
+//
+//     }
 
 
     //接口  推荐听单
@@ -420,6 +416,7 @@
     //var b = 'ret';
     // var a =
     function fnTingdanTuijian() {
+      console.log(tokens);
         api.ajax({
             url: 'http://47.100.11.38/kongmeng/thirdParty/search_playlist_by_name.php?page=0&size=6',
             method: 'get',

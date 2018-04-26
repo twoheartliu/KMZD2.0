@@ -147,11 +147,11 @@
         </div>
         <div class="phonenum">
             <img src="image/login/login_phone.png" alt="">
-            <input type="text" placeholder="请输入手机号" onblur="fnSjyanzheng();" id="fnSjyanzheng">
+            <input type="text" placeholder="请输入手机号" onblur="fnSjyanzheng();" id="phone">
         </div>
         <div class="code">
-            <img src="./image/login/login_password.png" alt="" state="off" id="img">
-            <input type="password" placeholder="请输入密码" id="input">
+            <img src="./image/login/login_password.png" onblur="fnSjyanzheng();" state="off" id="img">
+            <input type="password" placeholder="请输入密码" id="password">
             <div class="clear"></div>
         </div>
 
@@ -168,12 +168,13 @@
 
 </html>
 <script type="text/javascript" src="script/api.js"></script>
+<script type="text/javascript" src="script/common.js"></script>
 <script type="text/javascript">
     apiready = function() {
 
         // var ele_pass_box = document.getElementsByTagName("div")[0];
         // var ele_pass = ele_pass_box.getElementsByTagName("input")[0];
-        var input = $api.byId('input');
+        var input = $api.byId('password');
         var img = $api.byId('img');
 
         // var ele_eye = ele_pass_box.getElementsByTagName("i")[0];
@@ -198,13 +199,158 @@
     }
 
     function fnIndexOpenWin() {
-        api.openWin({
-            name: 'index',
-            url: 'index.html',
-            pageParam: {
-                name: 'test'
+      var phones = $api.byId('phone');
+      phone = $api.byId('phone').value;
+      var phoneRegular = /^(13[0-9]|15[012356789]|17[0135678]|18[0-9]|14[579])[0-9]{8}$/;
+      if (phone == '') {
+          api.toast({
+              msg: '手机不能为空',
+              duration: 2000,
+              location: 'bottom'
+          });
+          return;
+      } else if (!phoneRegular.test(phone)) {
+          api.toast({
+              msg: '手机格式不正确',
+              duration: 2000,
+              location: 'bottom'
+          });
+          phones.value = '';
+          return;
+      }else{
+        var passwords = $api.byId('password');
+        password = $api.byId('password').value;
+        var passwordRegular = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
+        if (password == '') {
+            api.toast({
+                msg: '密码不能为空',
+                duration: 2000,
+                location: 'bottom'
+            });
+            return;
+        } else {
+          var str = password;
+          if (str == null || str.length < 6) {
+            api.toast({
+                msg: '密码必须大于等于六位',
+                duration: 2000,
+                location: 'bottom'
+            });
+              return;
+          }
+          var reg = new RegExp(/^(?![^a-zA-Z]+$)(?!\D+$)/);
+          if (!reg.test(str)){
+            api.toast({
+                msg: '密码必须包含字母和数字',
+                duration: 2000,
+                location: 'bottom'
+            });
+            return;
+          }else{
+            if(phone){
+              if(password){
+                api.ajax({
+                    url: host + apiUri + '/login/phone',
+                    method: 'post',
+                    dataType: 'json',
+                    data: {
+                      values:{
+                        "mobile":	phone,
+                        "password":	password
+                      },
+                    },
+                    headers: {
+                      "source":api.systemType,
+                      "version":version
+                    },
+                }, function(ret, err) {
+                    if (ret.status == 200) {
+                      var tokens = ret.data.token;
+                      var fs = api.require('fs');
+                      fs.exist({
+                          path: 'fs://token/token.txt'
+                      }, function(ret, err) {;
+                          if (ret.exist) {
+                              if (ret.directory) {
+                                  alert('文件夹');
+                              } else {
+                                var fs = api.require('fs');
+                                fs.open({
+                                    path: 'fs://token/token.txt',
+                                    flags: 'read_write'
+                                }, function(ret, err) {
+                                    if (ret.status) {
+                                        fs.write({
+                                            fd: ret.fd,
+                                            data: tokens,
+                                            offset: 0
+                                        }, function(ret, err) {
+                                            if (ret.status) {
+                                                alert('yiwancheng');
+                                            } else {
+                                                alert(JSON.stringify(err));
+                                            }
+                                        });
+                                    } else {
+                                        alert(JSON.stringify(err));
+                                    }
+                                });
+                              }
+                          } else {
+                            var fs = api.require('fs');
+                             fs.createFile({
+                                 path: 'fs://token/token.txt'
+                             }, function(ret, err) {
+                                 if (ret.status) {
+                                   fs.open({
+                                       path: 'fs://token/token.txt',
+                                       flags: 'read_write'
+                                   }, function(ret, err) {
+                                       if (ret.status) {
+                                           fs.write({
+                                               fd: ret.fd,
+                                               data: tokens,
+                                               offset: 0
+                                           }, function(ret, err) {
+                                               if (ret.status) {
+                                                   alert('yiwancheng');
+                                               } else {
+                                                   alert(JSON.stringify(err));
+                                               }
+                                           });
+                                       } else {
+                                           alert(JSON.stringify(err));
+                                       }
+                                   });
+
+                                 } else {
+                                    alert(JSON.stringify(err));
+                                 }
+                             });
+                          }
+                      });
+
+                       api.openWin({
+                           name: 'index',
+                           url: 'index.html',
+                           pageParam: {
+                               name: 'test'
+                           }
+                       });
+                    }
+                });
+              }else{
+                api.toast({
+                    msg: '请输入正确的验证码',
+                    duration: 2000,
+                    location: 'bottom'
+                });
+              }
+              }
             }
-        });
+          }
+
+      }
 
     }
 		function fnLoginFreeText() {
@@ -228,30 +374,56 @@
 
 		}
     function fnSjyanzheng() {
-        var byid = $api.byId('fnSjyanzheng')
-        var sjyanzheng = $api.byId('fnSjyanzheng').value;
-        var sjyanzhengs = /^(13[0-9]|15[012356789]|17[0135678]|18[0-9]|14[579])[0-9]{8}$/;
-        if (sjyanzheng == '') {
-            api.toast({
-                msg: '手机不能为空',
-                duration: 2000,
-                location: 'bottom'
-            });
+      var phones = $api.byId('phone');
+      phone = $api.byId('phone').value;
+      var phoneRegular = /^(13[0-9]|15[012356789]|17[0135678]|18[0-9]|14[579])[0-9]{8}$/;
+      if (phone == '') {
+          api.toast({
+              msg: '手机不能为空',
+              duration: 2000,
+              location: 'bottom'
+          });
+          return;
+      } else if (!phoneRegular.test(phone)) {
+          api.toast({
+              msg: '手机格式不正确',
+              duration: 2000,
+              location: 'bottom'
+          });
+          phones.value = '';
+          return;
+      }
+    }
+    function fnPswordYanZheng() {
+      var passwords = $api.byId('password');
+      password = $api.byId('password').value;
+      var passwordRegular = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
+      if (password == '') {
+          api.toast({
+              msg: '密码不能为空',
+              duration: 2000,
+              location: 'bottom'
+          });
+          return;
+      } else {
+        var str = password;
+        if (str == null || str.length < 6) {
+          api.toast({
+              msg: '密码必须大于等于六位',
+              duration: 2000,
+              location: 'bottom'
+          });
             return;
-        } else if (!sjyanzhengs.test(sjyanzheng)) {
-            api.toast({
-                msg: '手机格式不正确',
-                duration: 2000,
-                location: 'bottom'
-            });
-            byid.value = '';
-            return;
-        } else {
-            api.toast({
-                msg: '手机格式正确',
-                duration: 2000,
-                location: 'bottom'
-            });
+        }
+        var reg = new RegExp(/^(?![^a-zA-Z]+$)(?!\D+$)/);
+        if (!reg.test(str)){
+          api.toast({
+              msg: '密码必须包含字母和数字',
+              duration: 2000,
+              location: 'bottom'
+          });
+          return;
         }
     }
+  }
 </script>
