@@ -1,15 +1,13 @@
-
 var host = 'http://47.100.11.38';
 var version = '2.0';
 var apiUri = '/kmzd/2.0';
-var tokens;
+
 apiready = function() {
 
   getToken();
 
 }
 // console.log(token);
-getToken();
 function getToken(){
   // console.log(1111);
   var fs = api.require('fs');
@@ -17,10 +15,8 @@ function getToken(){
       path: 'fs://token/token.txt',
       flags: 'read_write'
   }, function(ret, err) {
-    alert(JSON.stringify(ret));
     // console.log(3333);
       if (ret.status) {
-          alert(JSON.stringify(ret));
           fs.read({
               fd: ret.fd,
               offset: 0
@@ -42,5 +38,5 @@ function getToken(){
 }
 function fnFuZhi(data_){
      tokens = data_;
+     return tokens;
 }
-console.log(tokens);
