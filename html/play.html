@@ -14,7 +14,6 @@
             background: url(../image/play/play_bg_tra.jpg) no-repeat;
             background-size: 100% 100%;
         }
-
         .clear {
             clear: both;
         }
@@ -222,7 +221,7 @@
         }
 
         #panel .list.focus {
-            background-image: url(../image/img/ic_play_schedule_s.png);
+            background-image: url(../image/play/ic_play_schedule_s.png);
         }
 
         #panel .prev {
@@ -230,23 +229,23 @@
         }
 
         #panel .prev.focus {
-            background-image: url(../image/img/ic_play_pre_s.png);
+            background-image: url(../image/play/ic_play_pre_s.png);
         }
 
-        #panel .play {
-            background-image: url(../image/img/ic_play_play.png);
+        /*#panel .play {
+            background-image: url(../image/play/ic_play_play.png);
         }
 
         #panel .play.focus {
-            background-image: url(../image/img/ic_play_play_s.png);
-        }
+            background-image: url(../image/play/ic_play_play_s.png);
+        }*/
 
         #panel .pause {
             background-image: url(../image/play/ic_play_pause.png);
         }
 
         #panel .pause.focus {
-            background-image: url(../image/img/ic_play_pause_s.png);
+            background-image: url(../image/play/ic_play_pause_s.png);
         }
 
         #panel .buffer {
@@ -507,7 +506,7 @@
                 <img src="../image/KM_play_collect.png" alt="" id="playCollect" onclick="fnOpenPlayCollect();">
                 <p>收藏</p>
             </li>
-            <li class="share" tapmode="focus" onclick="fnOpenPlayAdd();">
+            <li class="share" tapmode="focus" onclick="">
                 <img src="../image/KM__play_add.png" alt="">
                 <p>添加到听单</p>
             </li>
@@ -1159,68 +1158,13 @@
     };
     // 打开评论页面
     function fnOpenPlayDiscuss() {
-        var dialogBox = api.require('dialogBox');
-        dialogBox.actionMenu({
-            rect: {
-                h: 150
-            },
-            texts: {
-                cancel: '取消'
-            },
-            items: [{
-                text: '添加到听单',
-                icon: 'widget://image/weixin.png'
-            }, {
-                text: '评论',
-                icon: 'widget://image/qq.png'
-            }],
-            styles: {
-                bg: '#FFF',
-                column: 2,
-                itemText: {
-                    color: '#000',
-                    size: 12,
-                    marginT: 8
-                },
-                itemIcon: {
-                    size: 48
-                },
-                cancel: {
-                    bg: 'fs://icon.png',
-                    color: '#000',
-                    h: 44,
-                    size: 14
-                }
-            },
-            tapClose: true
-        }, function(ret) {
-
-            if (ret.index == "0") {
-                dialogBox.close({
-                    dialogName: 'alert'
-                });
-                api.openWin({
-                    name: 'ListeningList',
-                    url: './ListeningList.html',
-                    pageParam: {
-                        name: 'test'
-                    }
-                });
-                // alert(1);
-            } else if (ret.index == "1") {
-                dialogBox.close({
-                    dialogName: 'alert'
-                });
-                api.openWin({
-                        name: 'playDiscuss',
-                        url: './play_discuss.html',
-                    }) // alert(2);
-            } else {
-                dialogBox.close({
-                    dialogName: 'alert'
-                });
-            }
-        });
+      api.openWin({
+          name: 'discussNoticeDetail',
+          url: './discuss_notice_detail.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
     }
     //打开添加到听单
     function fnOpenPlayShare() {

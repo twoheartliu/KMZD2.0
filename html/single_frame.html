@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
     <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
-    <title>听单列表</title>
+    <title>听单</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
     <style>
         body {}
@@ -151,14 +151,14 @@
         }
 
         #con ul {
-            padding: 10px;
+            padding: 0 10px;
         }
 
         #con ul li {
             border-bottom: 1px solid #e6e6e6;
             text-indent: 10px;
             overflow: hidden;
-            margin: 10px 0;
+            margin: 0px 0;
         }
 
         #con ul li div span {
@@ -245,14 +245,17 @@
 
         .playall {
             width: 100%;
-            height: 47.5px;
+            /*height: 47.5px;*/
+            height: 40px;
         }
 
         .playall_img {
             width: 16px;
             height: 16px;
-            line-height: 47.5px;
-            height: 47.5px;
+            /*line-height: 47.5px;*/
+            line-height: 40px;
+            /*height: 47.5px;*/
+            height: 40px;
             position: relative;
             margin-right: 5px;
         }
@@ -264,17 +267,28 @@
         }
 
         .playall_span {
-            line-height: 47.5px;
-            height: 47.5px;
+            /*line-height: 47.5px;*/
+            line-height: 40px;
+            /*height: 47.5px;*/
+            height: 40px;
             font-size: 14px;
         }
-
+        .on_play{
+          width:80%;
+          /*position: relative;*/
+        }
         .on_playall {
             overflow: hidden;
-        }
+            width:100%;
 
+        }
+       .on_playall img{
+         width: 20px;
+         padding-top: 5px;
+       }
         .on_playall_img {
             overflow: hidden;
+            width: 100%;
         }
 
         .on_playall_img img,
@@ -283,7 +297,7 @@
         }
 
         .on_playall_img img {
-            padding: 4px;
+            padding: 6px;
         }
 
         .on_playall_div {
@@ -291,6 +305,7 @@
             margin-right: 5px;
             overflow: hidden;
             font-size: 10px;
+            /*width:25%;*/
         }
 
         .on_playall_div_img {
@@ -302,28 +317,36 @@
             padding: 7.5px;
         }
 
-        .on_playall_div_img1 {
+        /*.on_playall_div_img1 {
             width: 11px;
         }
 
         .on_playall_div_img1 img {
             width: 100%;
             padding: 9px 0px;
+        }*/
+
+        .on_playall_name {
+            font-size: 13px;
         }
-        .on_playall_name{font-size: 13px;}
-        .on_playall_names{font-size: 13px;}
+
+        .on_playall_names {
+            font-size: 13px;
+        }
+
         .list_bjDiv_img {
             height: 70px;
             overflow: hidden;
         }
+
         .userinfo {
             display: -webkit-box;
             /*padding: 10px 0;*/
-            background: src(0,0,0,0.5);
+            background: src(0, 0, 0, 0.5);
         }
 
         .userinfo .userinfocol {
-            -webkit-box-flex:1;
+            -webkit-box-flex: 1;
             padding: 10px 0;
             text-align: center;
             /*width: 50%;*/
@@ -333,18 +356,60 @@
 
         .userinfo .userinfocol .info {
             font-size: 0.8em;
-            color: #999;
-            line-height: 60px;
-            height: 60px;
+            color: #ccc;
+            /*line-height: 60px;*/
+            height: 35px;
+            position: relative;
         }
 
         .userinfo .userinfocol .info img {
-            width: 3em;
-            padding: 10px 0;
+            /*width: 3em;*/
+            width: 25px;
+            padding: 5px 0;
         }
-
+        .userinfo .userinfocol p{
+          color: #706c6c;
+          font-size: 12px;
+        }
+        .userinfo .userinfocol .info>i {
+            position: absolute;
+            top: -20px;
+            right: 32%;
+            width: 10px;
+            height: 10px;
+            display: inline-block;
+            font-style: normal;
+            font-size: 12px;
+            color: #706c6c;
+        }
         .userinfo .userinfocol .num {
             padding-top: 5px;
+        }
+        /*.single_time .single_time_img{
+          padding-right: 20px;
+        }*/
+        .single_time .single_time_img img{
+          width: 15px;
+
+        }
+        .single_img_num{
+            font-size:14px;
+            color: #ccc;
+            padding-left: 3px;
+            padding-right: 10px;
+        }
+        .on_playall_more_imgs{
+          width:15%;
+          position: absolute;
+          top:0;
+          right:10px;
+          overflow: hidden;
+        }
+        .on_playall_more_imgs img{
+          width:20px;
+        }
+        .items{
+          position: relative;
         }
     </style>
 </head>
@@ -357,11 +422,26 @@
                 <div class="single_l fl">
                     <div class="single_h1" id="tingdanliebiaobiaoti"></div>
                     <div class="single_img_p_span">
-                        <div class="single_div_img fl"><img src="../image/KM_tx.png" alt=""></div>
+                        <div class="single_div_img fl">
+                          <img src="../image/KM_tx.png" alt="">
+                        </div>
                         <div class="single_img_name fl">小许</div>
                         <!-- <div class="single_LIVE fl"><img src="../image/vip/KM_live.png" alt=""></div> -->
                     </div>
-                    <div class="single_time">2017-1-12更新</div>
+                    <div class="single_time">
+                      <div class="single_time_img fl">
+                        <img src="../image/KM_dz.png" alt="">
+                      </div>
+                      <div class="single_img_num fl">10</div>
+                      <div class="single_time_img fl">
+                        <img src="../image/KM_play.png" alt="">
+                      </div>
+                      <div class="single_img_num fl">20</div>
+                      <div class="single_time_img fl">
+                        <img src="../image/KM_product.png" alt="">
+                      </div>
+                      <div class="single_img_num fl">30</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -378,19 +458,35 @@
         <div class="list_bjDiv_img">
             <div class="userinfo">
                 <div class="userinfocol" tapmode="toolhover" onclick="collectmusic(this)" data-click="0">
-                    <div class="info"><img src="../image/KM_hxs.png" alt="" class="collectmusic"></div>
+                    <div class="info">
+                      <img src="../image/KM_hxs.png" alt="" class="collectmusic">
+                    </div>
+                    <p>收藏</p>
                 </div>
                 <div class="userinfocol" tapmode="toolhover" onclick="collectmusicFx(this)">
-                    <div class="info"><img src="../image/KM_ListingsListDzs.png" alt="" class="collectmusicFx"></div>
+                    <div class="info">
+                      <img src="../image/KM_ListingsListDzs.png" alt="" class="collectmusicFx">
+                    </div>
+                    <p>点赞</p>
                 </div>
                 <div class="userinfocol" tapmode="toolhover" onclick="">
-                    <div class="info"><img src="../image/KM_ListingsListYzpd.png" alt=""></div>
+                    <div class="info">
+                      <img src="../image/KM_ListingsListYzpd.png" alt="">
+                    </div>
+                    <p>预置频道</p>
                 </div>
-                <div class="userinfocol" tapmode="toolhover" onclick="openMessage();">
-                    <div class="info"><img src="../image/ListingsListSx.png" alt=""></div>
+                <div class="userinfocol" tapmode="toolhover" onclick="fnOpenDiscussDetail(); ">
+                    <div class="info">
+                      <img src="../image/KM_ListingsListSx.png" alt="">
+                      <i>20</i>
+                    </div>
+                    <p>评论</p>
                 </div>
-                <div class="userinfocol" tapmode="toolhover" onclick="ListingsListGd();">
-                    <div class="info"><img src="../image/ListingsListGd.png" alt=""></div>
+                <div class="userinfocol" tapmode="toolhover" onclick="fnOpenPlayShare();">
+                    <div class="info">
+                      <img src="../image/KM_ListingsListGd.png" alt="">
+                    </div>
+                    <p>分享</p>
                 </div>
 
             </div>
@@ -406,22 +502,67 @@
         <ul class="on" id="tuijianliebiaogequ">
             <!-- <li onclick="fnOpenPlay();" >
                 <div class="on_playall">
-                    <span class="fl on_playall_name">昏昏欲睡：</span>
-                    <span class="fl">010 十年前</span>
+                    <span class=" on_playall_name">昏昏欲睡：</span>
+                    <span class="">010 十年前</span>
                     <span class="fr">2018-01</span>
                 </div>
                 <div class="on_playall_img">
-                    <div class="on_playall_div fl">
-                        <div class="on_playall_div_img fl"><img src="../image/icn_ply.png" alt=""></div>
-                        <div class="on_playall_div_span fl"><span>2.3万</span></div>
+                    <div class="on_playall_div ">
+                        <div class="on_playall_div_img "><img src="../image/icn_ply.png" alt=""></div>
+                        <div class="on_playall_div_span "><span>2.3万</span></div>
                     </div>
-                    <div class="on_playall_div fl">
-                        <div class="on_playall_div_img1 fl"><img src="../image/KM_tmis.png" alt=""></div>
-                        <div class="on_playall_div_span fl"><span>06:08</span></div>
+                    <div class="on_playall_div ">
+                        <div class="on_playall_div_img1 "><img src="../image/KM_tmis.png" alt=""></div>
+                        <div class="on_playall_div_span "><span>06:08</span></div>
                     </div>
 
                 </div>
             </li> -->
+            <!-- <li  class="items">
+              <div class="on_play" onclick="fnOpenPlay();">
+                <div class="on_playall">
+                  <span class="fl on_playall_name">123</span>
+                  <span class="fl on_playall_names"> 123</span>
+                </div>
+               <div class="on_playall_img">
+                   <div class="on_playall_div fl">
+                     <div class="on_playall_div_img fl">
+                       <img src="../image/KM_play.png" alt="">
+                     </div>
+                     <div class="on_playall_div_span fl">
+                       <span>2.3万</span>
+                     </div>
+                  </div>
+                  <div class="on_playall_div fl">
+                    <div class="on_playall_div_img fl">
+                      <img src="../image/KM_dx.png" alt="">
+                    </div>
+                    <div class="on_playall_div_span fl">
+                      <span>2.3万</span>
+                    </div>
+                 </div>
+                 <div class="on_playall_div fl">
+                   <div class="on_playall_div_img fl">
+                     <img src="../image/KM_zf.png" alt="">
+                   </div>
+                   <div class="on_playall_div_span fl">
+                     <span>2.3万</span>
+                   </div>
+                </div>
+                <div class="on_playall_div fl">
+                  <div class="on_playall_div_img fl">
+                    <img src="../image/KM_dz.png" alt="">
+                  </div>
+                  <div class="on_playall_div_span fl">
+                    <span>2.3万</span>
+                  </div>
+               </div>
+              </div>
+            </div>
+             <div class="on_playall_more_imgs fr">
+               <img src="../image/KM_list_more.png" alt="">
+             </div>
+          </li> -->
         </ul>
     </div>
 </body>
@@ -429,26 +570,26 @@
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
-
     apiready = function() {
 
-            fnTingdanTuijian()
+        fnTingdanTuijian()
             //fnTingdanTuijianliebiao()
-        }
+    }
 
-        //接口  推荐听单
+    //接口  推荐听单
     var tingdanliebiaobiaoti;
+
     function fnTingdanTuijian() {
-      var playlistid = api.pageParam.tuijiantingdanid;
-      //alert(playlistid);
+        var playlistid = api.pageParam.tuijiantingdanid;
+        //alert(playlistid);
         api.ajax({
             url: 'http://47.100.11.38/kongmeng/thirdParty/get_songs_by_playlist.php?playlistid= ' + playlistid,
             // url: 'http://47.100.11.38/kongmeng/thirdParty/get_songs_by_playlist.php?page=0&size=10&playlistid= ' + playlistid,
             method: 'get',
         }, function(ret, err) {
             if (ret) {
-              //alert(JSON.stringify(ret));
-              tingdanliebiaobiaoti=ret.data[0].albumName;
+                //alert(JSON.stringify(ret));
+                tingdanliebiaobiaoti = ret.data[0].albumName;
 
                 fnTingdanZhanshibiaoti(tingdanliebiaobiaoti);
                 fnTingdanZhanshi(ret);
@@ -462,9 +603,9 @@
         var stylelist = $api.byId('tuijianliebiaogequ');
         var html = '';
         for (var i = 0; i < data_.data.length; i++) {
-            html +=
-                '<li onclick="fnOpenPlay(' + data_.data[i].id + ');" ><div class="on_playall"><span class="fl on_playall_name">' + data_.data[i].name + ' </span><span class="fl on_playall_names"> ' + data_.data[i].singerName + '</span></div><div class="on_playall_img">  <div class="on_playall_div fl"><div class="on_playall_div_img fl"><img src="../image/icn_ply.png" alt=""></div><div class="on_playall_div_span fl"><span>2.3万</span></div></div><div class="on_playall_div fl"><div class="on_playall_div_img1 fl"><img src="../image/KM_tmis.png" alt=""></div><div class="on_playall_div_span fl"><span>' + data_.data[i].play_time + '</span></div></div><div class="on_playall_img">  <div class="on_playall_div fl"><div class="on_playall_div_img fl"><img src="../image/icn_ply1.png" alt=""></div><div class="on_playall_div_span fl"><span>2.3万</span></div></div><div class="on_playall_img">  <div class="on_playall_div fl"><div class="on_playall_div_img fl"><img src="../image/icn_ply2.png" alt=""></div><div class="on_playall_div_span fl"><span>2.3万</span></div></div></div></li>';
-
+            html +='<li  class="items"><div class="on_play" onclick="fnOpenPlay(' + data_.data[i].id + ' );"><div class="on_playall"><span class="fl on_playall_name">' + data_.data[i].name + '</span><span class="fl on_playall_names"> ' + data_.data[i].singerName + '</span>  </div><div class="on_playall_img"><div class="on_playall_div fl"><div class="on_playall_div_img fl"> <img src="../image/KM_play.png" alt=""></div> <div class="on_playall_div_span fl"><span>2.3万</span> </div></div> <div class="on_playall_div fl"> <div class="on_playall_div_img fl"> <img src="../image/KM_zf.png" alt=""> </div><div class="on_playall_div_span fl"> <span>2.3万</span> </div>  </div><div class="on_playall_div fl">  <div class="on_playall_div_img fl"><img src="../image/KM_dz.png" alt="">  </div><div class="on_playall_div_span fl"><span>2.3万</span></div></div></div></div><div class="on_playall_more_imgs fr" onclick="fnOpenPlayMore();"><img src="../image/KM_list_more.png" alt=""></div></li>'
+                // '<li onclick="fnOpenPlay(' + data_.data[i].id + ' );" ><div class="on_playall"><span class="fl on_playall_name">' + data_.data[i].name + ' </span><span class="fl on_playall_names"> ' + data_.data[i].singerName +
+                // '</span><span class="fr"><img src="../image/KM_list_more.png" alt=""></span></div><div class="on_playall_img">  <div class="on_playall_div fl"><div class="on_playall_div_img fl"><img src="../image/KM_play.png" alt=""></div><div class="on_playall_div_span fl"><span>2.3万</span></div></div><div class="on_playall_div fl"><div class="on_playall_div_img1 fl"><img src="../image/KM_dx.png" alt=""></div><div class="on_playall_div_span fl"><span>222</span></div></div><div class="on_playall_img">  <div class="on_playall_div fl"><div class="on_playall_div_img fl"><img src="../image/KM_zf.png" alt=""></div><div class="on_playall_div_span fl"><span>2.3万</span></div></div><div class="on_playall_img">  <div class="on_playall_div fl"><div class="on_playall_div_img fl"><img src="../image/KM_dz.png" alt=""></div><div class="on_playall_div_span fl"><span>2.3万</span></div></div></div></li>';
         }
         $api.html(stylelist, html);
 
@@ -484,7 +625,7 @@
         if (click == 0) {
             // 点开
             clicktoolitem.setAttribute("data-click", 1);
-            toolbarlist.src = "../image/KM_hx.png";
+            toolbarlist.src = "../image/KM_play_collect_red.png";
         } else {
             // 关闭
             clicktoolitem.setAttribute("data-click", 0);
@@ -493,7 +634,7 @@
     }
 
     function fnOpenPlay(a) {
-      var playlistid = api.pageParam.tuijiantingdanid;
+        var playlistid = api.pageParam.tuijiantingdanid;
         api.openWin({
             name: 'play',
             url: './play.html',
@@ -504,7 +645,75 @@
 
             }
         });
-    //console.log(playlistid);
+        //console.log(playlistid);
+    }
+    //打开更多
+    function fnOpenPlayMore() {
+        var dialogBox = api.require('dialogBox');
+        dialogBox.actionMenu({
+            rect: {
+                h: 150
+            },
+            texts: {
+                cancel: '取消'
+            },
+            items: [{
+                text: '收藏',
+                icon: 'widget://image/KM_hxs.png'
+            }, {
+                text: '添加到听单',
+                icon: 'widget://image/KM_play_add_gray.png'
+            }, {
+                text: '分享',
+                icon: 'widget://image/KM_ListingsListGd.png'
+            }],
+            styles: {
+                bg: '#FFF',
+                column: 3,
+                itemText: {
+                    color: '#000',
+                    size: 12,
+                    marginT: 8
+                },
+                itemIcon: {
+                    size: 30
+                },
+                cancel: {
+                    bg: 'fs://icon.png',
+                    color: '#000',
+                    h: 44,
+                    size: 14
+                }
+            },
+            tapClose: true
+        }, function(ret) {
+
+            if (ret.index == "0") {
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+                // alert(1);
+            } else if (ret.index == "1") {
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+                // alert(2);
+            } else if (ret.index == "2") {
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+                // alert(3);
+            } else {
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+            }
+            // dialogBox.close({
+            //     dialogName: 'alert'
+            // })
+            // alert(JSON.stringify(ret))
+
+        });
     }
     //打开分享
     function fnOpenPlayShare() {
@@ -547,130 +756,141 @@
             tapClose: true
         }, function(ret) {
 
-          if (ret.index == "0") {
-              dialogBox.close({
-                  dialogName: 'alert'
-              });
-              // alert(1);
-          }else if (ret.index == "1") {
-            dialogBox.close({
-                dialogName: 'alert'
-            });
-                          // alert(2);
-          }else if (ret.index == "2") {
-            dialogBox.close({
-                dialogName: 'alert'
-            });
-                          // alert(3);
-          }else {
-            dialogBox.close({
-                dialogName: 'alert'
-            });
-          }
-          // dialogBox.close({
-          //     dialogName: 'alert'
-          // })
-          alert(JSON.stringify(ret))
+            if (ret.index == "0") {
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+                // alert(1);
+            } else if (ret.index == "1") {
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+                // alert(2);
+            } else if (ret.index == "2") {
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+                // alert(3);
+            } else {
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+            }
+            // dialogBox.close({
+            //     dialogName: 'alert'
+            // })
+            alert(JSON.stringify(ret))
 
         });
     }
     function collectmusic(clicktoolitem) {
-            var toolbarlist = document.getElementsByClassName('collectmusic')[0];
-            var click = clicktoolitem.getAttribute("data-click");
+        var toolbarlist = document.getElementsByClassName('collectmusic')[0];
+        var click = clicktoolitem.getAttribute("data-click");
 
-            if (click == 0) {
-                // 点开
-                clicktoolitem.setAttribute("data-click", 1);
-                toolbarlist.src = "../image/KM_hx.png";
-            } else {
-                // 关闭
-                clicktoolitem.setAttribute("data-click", 0);
-                toolbarlist.src = "../image/KM_hxs.png";
-            }
+        if (click == 0) {
+            // 点开
+            clicktoolitem.setAttribute("data-click", 1);
+            toolbarlist.src = "../image/KM_play_collect_red.png";
+        } else {
+            // 关闭
+            clicktoolitem.setAttribute("data-click", 0);
+            toolbarlist.src = "../image/KM_hxs.png";
         }
-        function collectmusicFx(clicktoolitem) {
-                var toolbarlist = document.getElementsByClassName('collectmusicFx')[0];
-                var click = clicktoolitem.getAttribute("data-click");
-
-                if (click == 0) {
-                    // 点开
-                    clicktoolitem.setAttribute("data-click", 1);
-                    toolbarlist.src = "../image/KM_ListingsLisDz.png";
-                } else {
-                    // 关闭
-                    clicktoolitem.setAttribute("data-click", 0);
-                    toolbarlist.src = "../image/KM_ListingsListDzs.png";
-                }
-            }
-
-    function ListingsListGd() {
-      var dialogBox = api.require('dialogBox');
-      dialogBox.actionMenu({
-          rect: {
-              h: 150
-          },
-          texts: {
-              cancel: '取消'
-          },
-          items: [{
-              text: '分享',
-              icon: 'widget://image/ListingsListFenXiang.png'
-          }, {
-              text: '添加到听单',
-              icon: 'widget://image/AddToListenlist.png'
-          }, {
-              text: '删除',
-              icon: 'widget://image/shanchus.png'
-          }],
-          styles: {
-              bg: '#FFF',
-              column: 3,
-              itemText: {
-                  color: '#000',
-                  size: 12,
-                  marginT: 8
-              },
-              itemIcon: {
-                  size: 48
-              },
-              cancel: {
-                  bg: 'fs://icon.png',
-                  color: '#000',
-                  h: 44,
-                  size: 14
-              }
-          },
-          tapClose: true
-      }, function(ret) {
-
-        if (ret.index == "0") {
-            dialogBox.close({
-                dialogName: 'alert'
-            });
-            fnOpenPlayShare();
-            // alert(1);
-        }else if (ret.index == "1") {
-          dialogBox.close({
-              dialogName: 'alert'
-          });
-                        // alert(2);
-        }else if (ret.index == "2") {
-          dialogBox.close({
-              dialogName: 'alert'
-          });
-                        // alert(3);
-        }else {
-          dialogBox.close({
-              dialogName: 'alert'
-          });
-        }
-        // dialogBox.close({
-        //     dialogName: 'alert'
-        // })
-        // alert(JSON.stringify(ret))
-
-      });
     }
+
+    function collectmusicFx(clicktoolitem) {
+        var toolbarlist = document.getElementsByClassName('collectmusicFx')[0];
+        var click = clicktoolitem.getAttribute("data-click");
+
+        if (click == 0) {
+            // 点开
+            clicktoolitem.setAttribute("data-click", 1);
+            toolbarlist.src = "../image/KM_play_dianzan_red.png";
+        } else {
+            // 关闭
+            clicktoolitem.setAttribute("data-click", 0);
+            toolbarlist.src = "../image/KM_ListingsListDzs.png";
+        }
+    }
+    //打开评论详情
+    function fnOpenDiscussDetail(){
+      api.openWin({
+          name: 'discussDetail',
+          url: './discuss_detail.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
+
+    }
+    // function ListingsListGd() {
+    //     var dialogBox = api.require('dialogBox');
+    //     dialogBox.actionMenu({
+    //         rect: {
+    //             h: 150
+    //         },
+    //         texts: {
+    //             cancel: '取消'
+    //         },
+    //         items: [{
+    //             text: '分享',
+    //             icon: 'widget://image/ListingsListFenXiang.png'
+    //         }, {
+    //             text: '添加到听单',
+    //             icon: 'widget://image/AddToListenlist.png'
+    //         }, {
+    //             text: '删除',
+    //             icon: 'widget://image/shanchus.png'
+    //         }],
+    //         styles: {
+    //             bg: '#FFF',
+    //             column: 3,
+    //             itemText: {
+    //                 color: '#000',
+    //                 size: 12,
+    //                 marginT: 8
+    //             },
+    //             itemIcon: {
+    //                 size: 48
+    //             },
+    //             cancel: {
+    //                 bg: 'fs://icon.png',
+    //                 color: '#000',
+    //                 h: 44,
+    //                 size: 14
+    //             }
+    //         },
+    //         tapClose: true
+    //     }, function(ret) {
+    //
+    //         if (ret.index == "0") {
+    //             dialogBox.close({
+    //                 dialogName: 'alert'
+    //             });
+    //             fnOpenPlayShare();
+    //             // alert(1);
+    //         } else if (ret.index == "1") {
+    //             dialogBox.close({
+    //                 dialogName: 'alert'
+    //             });
+    //             // alert(2);
+    //         } else if (ret.index == "2") {
+    //             dialogBox.close({
+    //                 dialogName: 'alert'
+    //             });
+    //             // alert(3);
+    //         } else {
+    //             dialogBox.close({
+    //                 dialogName: 'alert'
+    //             });
+    //         }
+    //         // dialogBox.close({
+    //         //     dialogName: 'alert'
+    //         // })
+    //         // alert(JSON.stringify(ret))
+    //
+    //     });
+    // }
     //打开分享
     function fnOpenPlayShare() {
         var dialogBox = api.require('dialogBox');
@@ -700,7 +920,7 @@
                     marginT: 8
                 },
                 itemIcon: {
-                    size: 48
+                    size: 30
                 },
                 cancel: {
                     bg: 'fs://icon.png',
@@ -712,30 +932,30 @@
             tapClose: true
         }, function(ret) {
 
-          if (ret.index == "0") {
-              dialogBox.close({
-                  dialogName: 'alert'
-              });
-              // alert(1);
-          }else if (ret.index == "1") {
-            dialogBox.close({
-                dialogName: 'alert'
-            });
-                          // alert(2);
-          }else if (ret.index == "2") {
-            dialogBox.close({
-                dialogName: 'alert'
-            });
-                          // alert(3);
-          }else {
-            dialogBox.close({
-                dialogName: 'alert'
-            });
-          }
-          // dialogBox.close({
-          //     dialogName: 'alert'
-          // })
-          alert(JSON.stringify(ret))
+            if (ret.index == "0") {
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+                // alert(1);
+            } else if (ret.index == "1") {
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+                // alert(2);
+            } else if (ret.index == "2") {
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+                // alert(3);
+            } else {
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+            }
+            // dialogBox.close({
+            //     dialogName: 'alert'
+            // })
+            // alert(JSON.stringify(ret))
 
         });
     }
