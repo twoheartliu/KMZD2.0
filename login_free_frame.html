@@ -256,8 +256,7 @@ var wait = 60;
                     values:{
                       "mobile":	phone,
                       "password":	password,
-                      "captcha":	captcha,
-                      // "password":	passwdValue
+                      "captcha":	captcha
                     },
                   },
                   headers: {
@@ -265,7 +264,6 @@ var wait = 60;
                     "version":version
                   },
               }, function(ret, err) {
-
                   if (ret.status == 200) {
                      api.openWin({
                          name: 'index',
