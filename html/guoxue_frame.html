@@ -47,6 +47,39 @@
     .guoxueLi img{width: 19px;height: 18px;margin-right: 5px;}
     .guoxueLis {width: 100%;  overflow: hidden;}
     .guoxueLis div{width: 32.5%;height: 45px;text-align: center;float: left;font-size: 12px;background: #fff;margin: 1px;height: 15px;padding: 15px 0;}
+
+    table {
+        width: 100%;
+        text-align: center;
+        /*文本居中*/
+        border-collapse: collapse;
+        /*表格的边框合并，如果相邻，则共用一个边框*/
+        border-spacing: 0;
+        /*设置行与单元格边框的间距。当表格边框独立（即border-collapse:separate;）此属性才起作用*/
+    }
+    table tr{background: #fff;width: 100%;}
+    table td {
+        word-break: break-all;
+        /*允许在字内换行,即单词可分*/
+        word-wrap: break-word;
+        /*允许长单词或URL地址换行*/
+        /*border-right: 1px solid #939598;
+        border-bottom: 1px solid #939598;*/
+        font: 500 14px Arial;
+        height: 45px;
+    }
+
+    table tr td {
+        width: 25%;
+        height: 45px;
+    }
+    .img{width: 100%;}
+    .img img{width: 100%;}
+    .div{width: 100%;}
+    .w25{width: 25%;}
+    .colspan_img{width: 30px;height: 30px;}
+    .colspan_img img{width: 100%;}
+    .colspan_div{line-height: 30px;}
     </style>
 </head>
 
@@ -61,7 +94,10 @@
           </div>
       </div>
     </div>
-    <div class="guoxue" id = "RecommendedDirectory">
+
+
+    <table id="RecommendedDirectory"></table>
+    <!-- <div class="guoxue" id = "RecommendedDirectory"> -->
         <!-- <div class="boder_r div_img" onclick="guoxue_Listframe()"><img src="../image/KM_MX.png" alt="">蒙学蒙学</div>
         <div class="boder_r boder_b" onclick="guoxue_Listframe()">蒙学蒙学</div>
         <div class="boder_r boder_b">蒙学蒙学</div>
@@ -69,7 +105,7 @@
         <div class="boder_r ">蒙学蒙学</div>
         <div class="boder_r">蒙学蒙学</div>
         <div class="">蒙学蒙学</div> -->
-    </div>
+    <!-- </div> -->
     <!-- <div class="bg"></div>
     <div class="guoxueYi">
       <div class="boder_r">诗品</div>
@@ -112,6 +148,7 @@
     }
 
    function fnGetLieBiao(){
+     uri = '/category/hot';
      api.ajax({
          url: host + apiUri + '/category/hot',
          method: 'get',
@@ -130,16 +167,33 @@
    }
    function fnRecommendedDirectory(ret){
      var stylelist = $api.byId('RecommendedDirectory');
-     var html = '';
+     var html = '<tr>';
+    //  c 列 r行
+     var c = 1;
+     var r = 1;
+
      for (var i = 0; i < ret.data.length; i++) {
-       if(i == 0){
-         html += '<div class="div_img" onclick="guoxue_Listframe('+ ret.data[i].id +')"><img src="../image/guoxueguan/KM_MX.png" alt=""><span class="">'+ ret.data[i].name +'</span></div>';
-       }
-       if(i>0){
-         html += '<div class="" onclick="guoxue_Listframe('+ ret.data[i].id +')">'+ ret.data[i].name +'</div>';
-       }
+        if( c == 1){
+          html +='<td rowspan="2"  onclick="guoxue_Listframe('+ ret.data[i].id +')">' + ret.data[i].name + '</td>';
+        } else {
+          html +='<td data="'+r+'" c="'+c+'" onclick="guoxue_Listframe('+ ret.data[i].id +')">' + ret.data[i].name + '</td>';
+        }
+        if(r == 2 && c == 7){
+          html += '</tr><tr>';
+        }
+        if(c%4 == 0 && c != 8 && r == 1){
+          r++;
+          html += '</tr><tr>';
+        } else if ((c-3)%4 == 0 && c != 8 && r != 1) {
+          r++;
+          html += '</tr><tr>';
+          // console.log(c);
+        }
+        c++;
      }
+     html += '</tr>';
      $api.html(stylelist, html);
+    // console.log(html);
    }
    function fnGetDirectory(){
      api.ajax({
