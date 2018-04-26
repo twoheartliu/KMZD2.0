@@ -249,8 +249,6 @@
           }else{
             if(phone){
               if(password){
-                console.log(password);
-                console.log(phone);
                 api.ajax({
                     url: host + apiUri + '/login/phone',
                     method: 'post',
@@ -258,8 +256,7 @@
                     data: {
                       values:{
                         "mobile":	phone,
-                        "password":	password,
-                        // "password":	passwdValue
+                        "password":	password
                       },
                     },
                     headers: {
@@ -267,11 +264,72 @@
                       "version":version
                     },
                 }, function(ret, err) {
-                  console.log(JSON.stringify(ret));
-                  console.log(ret.message);
-                  console.log(ret.status);
                     if (ret.status == 200) {
-                       alert(ret.data);
+                      var tokens = ret.data.token;
+                      var fs = api.require('fs');
+                      fs.exist({
+                          path: 'fs://token/token.txt'
+                      }, function(ret, err) {;
+                          if (ret.exist) {
+                              if (ret.directory) {
+                                  alert('文件夹');
+                              } else {
+                                var fs = api.require('fs');
+                                fs.open({
+                                    path: 'fs://token/token.txt',
+                                    flags: 'read_write'
+                                }, function(ret, err) {
+                                    if (ret.status) {
+                                        fs.write({
+                                            fd: ret.fd,
+                                            data: tokens,
+                                            offset: 0
+                                        }, function(ret, err) {
+                                            if (ret.status) {
+                                                alert('yiwancheng');
+                                            } else {
+                                                alert(JSON.stringify(err));
+                                            }
+                                        });
+                                    } else {
+                                        alert(JSON.stringify(err));
+                                    }
+                                });
+                              }
+                          } else {
+                            var fs = api.require('fs');
+                             fs.createFile({
+                                 path: 'fs://token/token.txt'
+                             }, function(ret, err) {
+                                 if (ret.status) {
+                                   fs.open({
+                                       path: 'fs://token/token.txt',
+                                       flags: 'read_write'
+                                   }, function(ret, err) {
+                                       if (ret.status) {
+                                           fs.write({
+                                               fd: ret.fd,
+                                               data: tokens,
+                                               offset: 0
+                                           }, function(ret, err) {
+                                               if (ret.status) {
+                                                   alert('yiwancheng');
+                                               } else {
+                                                   alert(JSON.stringify(err));
+                                               }
+                                           });
+                                       } else {
+                                           alert(JSON.stringify(err));
+                                       }
+                                   });
+
+                                 } else {
+                                    alert(JSON.stringify(err));
+                                 }
+                             });
+                          }
+                      });
+
                        api.openWin({
                            name: 'index',
                            url: 'index.html',
