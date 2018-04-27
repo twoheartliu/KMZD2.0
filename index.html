@@ -384,21 +384,38 @@
 <script type="text/javascript" src="script/indexCommon.js"></script>
 <script type="text/javascript" src="script/index.js"></script>
 <script type="text/javascript">
-
+var token;
 
     apiready = function() {
-            var secHeader = $api.byId('secHeader');
-            $api.fixStatusBar(secHeader);
-            var footer = $api.byId('footer');
-            var headerH = $api.offset(secHeader).h;
-            var footerH = $api.offset(footer).h;
-            funIniGroup();
-            fnOpenCenterFrame();
-            api.parseTapmode();
-            initEventListenner();
-            initEventListennerBofang()
-            adjust();
-        }
+      console.log(111);
+      var token = $api.getStorage('token');
+      console.log(token);
+      if(token){
+        var secHeader = $api.byId('secHeader');
+        $api.fixStatusBar(secHeader);
+        var footer = $api.byId('footer');
+        var headerH = $api.offset(secHeader).h;
+        var footerH = $api.offset(footer).h;
+        funIniGroup();
+        fnOpenCenterFrame();
+        api.parseTapmode();
+        initEventListenner();
+        initEventListennerBofang()
+        adjust();
+      }else{
+        api.openWin({
+            name: 'login',
+            url: './login.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
+      }
+
+
+  }
+
+
     var a;
 
         // 底部导航播放按钮；
