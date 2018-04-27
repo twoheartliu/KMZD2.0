@@ -258,11 +258,6 @@
                             accessToken:accessToken,
                             openId: openId
                         }, function(ret, err) {
-                        alert(JSON.stringify(ret));
-                        alert(ret.openid);
-                        console.log(ret.openid);
-                        alert(ret.unionid);
-                        console.log(ret.unionid);
                             if (ret.status) {
                               api.ajax({
                                   url: host + apiUri + '//login/wechat',
@@ -283,11 +278,9 @@
                                   },
 
                               }, function(ret, err) {
-                                alert(JSON.stringify(ret));
                                   if (ret.status == 200) {
                                     var tokens = ret.data.token;
                                     $api.setStorage('token',tokens);
-                                    console.log(tokens);
                                      api.openWin({
                                          name: 'index',
                                          url: 'index.html',
@@ -351,7 +344,6 @@
                                           "version":version
                                         },
                                     }, function(ret, err) {
-                                      alert(JSON.stringify(ret));
                                         if (ret.status == 200) {
                                           var tokens = ret.data.token;
                                           $api.setStorage('token',tokens);
