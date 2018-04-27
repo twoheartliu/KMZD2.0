@@ -124,27 +124,32 @@
             color: #999;
         }
         /*个性化推荐 */
+        .egret-flex-item{
+          display: -webkit-box;
+          -webkit-box-align: center;
+          height: 100px;
+          background: #fff;
+        }
 
-        .egret-flex-item {
+        .egret-flex-items {
             display: -webkit-box;
             -webkit-box-align: center;
             height: 100px;
-            border-bottom: 1px solid #f2f2f2;
-            position: relative;
+            width:80%;
         }
 
         .egret-flex-item-logo {
             max-width: 80px;
             min-width: 80px;
-            margin-left: 0.5em;
-            margin-right: 0.2em;
+            /*margin-left: 0.5em; margin-right: 0.2em;*/
             -webkit-box-flex: 1;
             -webkit-box-align: center;
         }
 
         .egret-flex-item-logo img {
-            height: 80px;
-            width: 80px;
+            height: 60px;
+            width: 60px;
+            border-radius: 5px;
             -webkit-box-align: center;
             vertical-align: top;
         }
@@ -159,52 +164,68 @@
             text-overflow: ellipsis;
             white-space: nowrap;
             overflow: hidden;
-            margin-top: 5px;
+            /*margin-top: 5px;*/
+            height: 22px;
+            line-height: 22px;
         }
 
-        .egret-flex-item-shelf01 span {
-            text-align: center;
-            font-size: 12px;
-            color: #000;
-            display: block;
-        }
-
-        .egret-flex-item-shelf .egret-flex-item-shelf01 .span4 {
-            width: 20px;
-            text-align: center;
-            position: absolute;
-            top: 25px;
-            right: 0;
-        }
-        .egret-flex-item-shelf .egret-flex-item-shelf01 .span4 img{width: 100%;}
-        .egret-flex-item-shelf .egret-flex-item-shelf02 {
+        .egret-flex-item-shelf .egret-flex-item-shelf01 .span1 {
+            /*font-size: 13px;*/
             font-size: 15px;
+            color: #000;
+        }
+
+        .egret-flex-item-shelf .egret-flex-item-shelf02 .span2 {
+            font-size: 12px;
+            color: #ff3db8;
+            margin: 0 5px;
+        }
+
+        .egret-flex-item-shelf .egret-flex-item-shelf01 .span3 {
+            font-size: 12px;
+            color: #ccc;
+        }
+        .egret-flex-item-shelf04{
+          width:18%;
+          text-align: right;
+          -webkit-box-flex: 1;
+          -webkit-box-align: center;
+          height: 80px;
+        }
+        .egret-flex-item-shelf04 img{
+          width: 30px;
+          height:30px;
+        }
+        .egret-flex-item-shelf .egret-flex-item-shelf02 {
+            font-size: 12px;
             color: #666;
         }
 
         .egret-flex-item-shelf .egret-flex-item-shelf02 span {
-            font-size: 15px;
-            color: #000;
+            font-size: 13px;
+            color: #ccc;
         }
-
+        .egret-flex-item-shelf03{
+          line-height: 20px;
+        }
         .egret-flex-item-shelf03 div {
             float: left;
-            /*line-height: 20px;*/
-            margin: 5px 0px;
+            /*line-height: 20px;
+            margin: 5px 0px;*/
         }
 
         .egret-flex-item-shelf03 div img {
-            width: 10px;
-            /*height: 15px;*/
-            line-height: 20px;
-            margin: 0 3px;
+            width: 12px;
+            height: 12px;
+            line-height: 12px;
+            margin: 0 2px;
         }
 
         .egret-flex-item-shelf03 div span {
-          line-height: 20px;
-          vertical-align: top;
-          font-size: 11px;
-          color: #b2b2b2;
+            line-height: 22px;
+            vertical-align: top;
+            font-size: 11px;
+            color: #b2b2b2;
         }
 
         .egret-flex-item-shelf .egret-flex-item-redclassify {
@@ -216,142 +237,47 @@
             margin-right: 5px;
             box-sizing: border-box;
         }
-
-        .fmbtnhover {
-            background: #D8D9DA;
-        }
-
-        .active {
-            display: none;
-        }
-        .egret-flex-item-time{
-          width: 100%;
-        }
-        .egret-flex-item-time span{font-size: 10px;color: #ccc;margin: 0 5px;}
     </style>
 </head>
 
 <body>
-    <!-- <div class="index_header">
-        <div class="index_header_div">
-            <div class="index_header_bor">
-                <div class="index_header_img"><img src="../image/KM_tx.png" alt=""></div>
-                <div class="index_header_mvp"><img src="../image/vip/vip_icon5.png" alt=""></div>
-            </div>
-            <div class="wode_bg">
-                <div class="index_header_mvp_p">嘿！我不是朝天椒</div>
-                <div class="index_header_mvp_span"><b>个性签名：</b>我是一个狠辣狠辣的辣椒，哈哈哈哈</div>
-            </div>
-        </div>
-    </div> -->
-    <div class="index_main">
-        <div class="p20px">
-            <div class="egret-flex-item" tapmode="fmbtnhover">
-                <div class="egret-flex-item-logo" onclick="openFM()">
-                    <img src="../image/KM_album.png" alt="" class="">
-                </div>
-                <div class="egret-flex-item-shelf">
-                    <div class="egret-flex-item-shelf01">
-                        <span class="span1 col fl">《沁园春·雪》</span>
-                        <span class="span4 col fr" onclick="dialogBox_actionMenu();"><img src="../image/under.png" alt=""></span>
-                    </div>
-                    <div class="egret-flex-item-shelf03">
-                        <div><img src="../image/KM_play.png" alt=""><span>100</span></div>
-                        <div><img src="../image/KM_dx.png" alt=""><span>100</span></div>
-                        <div><img src="../image/KM_zf.png" alt=""><span>100</span></div>
-                        <div><img src="../image/KM_dz.png" alt=""><span>100</span></div>
-                    </div>
-                    <div class="egret-flex-item-time"><span class="span2 col fr">17:04:56</span><span class="span2 col fr">2018-01-20</span></div>
-                </div>
 
-            </div>
-            <div class="egret-flex-item" tapmode="fmbtnhover">
-                <div class="egret-flex-item-logo" onclick="openFM()">
-                    <img src="../image/KM_album.png" alt="" class="">
-                </div>
-                <div class="egret-flex-item-shelf">
-                    <div class="egret-flex-item-shelf01">
-                        <span class="span1 col fl">《沁园春·雪》</span>
-                        <span class="span4 col fr" onclick="dialogBox_actionMenu();"><img src="../image/under.png" alt=""></span>
-                    </div>
-                    <div class="egret-flex-item-shelf03">
-                        <div><img src="../image/KM_play.png" alt=""><span>100</span></div>
-                        <div><img src="../image/KM_dx.png" alt=""><span>100</span></div>
-                        <div><img src="../image/KM_zf.png" alt=""><span>100</span></div>
-                        <div><img src="../image/KM_dz.png" alt=""><span>100</span></div>
-                    </div>
-                    <div class="egret-flex-item-time"><span class="span2 col fr">17:04:56</span><span class="span2 col fr">2018-01-20</span></div>
-                </div>
-
-            </div>
-            <div class="egret-flex-item" tapmode="fmbtnhover">
-                <div class="egret-flex-item-logo" onclick="openFM()">
-                    <img src="../image/KM_album.png" alt="" class="">
-                </div>
-                <div class="egret-flex-item-shelf">
-                    <div class="egret-flex-item-shelf01">
-                        <span class="span1 col fl">《沁园春·雪》</span>
-                        <span class="span4 col fr" onclick="dialogBox_actionMenu();"><img src="../image/under.png" alt=""></span>
-                    </div>
-                    <div class="egret-flex-item-shelf03">
-                        <div><img src="../image/KM_play.png" alt=""><span>100</span></div>
-                        <div><img src="../image/KM_dx.png" alt=""><span>100</span></div>
-                        <div><img src="../image/KM_zf.png" alt=""><span>100</span></div>
-                        <div><img src="../image/KM_dz.png" alt=""><span>100</span></div>
-                    </div>
-                    <div class="egret-flex-item-time"><span class="span2 col fr">17:04:56</span><span class="span2 col fr">2018-01-20</span></div>
-                </div>
-
-            </div>
-            <div class="egret-flex-item" tapmode="fmbtnhover">
-                <div class="egret-flex-item-logo" onclick="openFM()">
-                    <img src="../image/KM_album.png" alt="" class="">
-                </div>
-                <div class="egret-flex-item-shelf">
-                    <div class="egret-flex-item-shelf01">
-                        <span class="span1 col fl">《沁园春·雪》</span>
-                        <span class="span4 col fr" onclick="dialogBox_actionMenu();"><img src="../image/under.png" alt=""></span>
-                    </div>
-                    <div class="egret-flex-item-shelf03">
-                        <div><img src="../image/KM_play.png" alt=""><span>100</span></div>
-                        <div><img src="../image/KM_dx.png" alt=""><span>100</span></div>
-                        <div><img src="../image/KM_zf.png" alt=""><span>100</span></div>
-                        <div><img src="../image/KM_dz.png" alt=""><span>100</span></div>
-                    </div>
-                    <div class="egret-flex-item-time"><span class="span2 col fr">17:04:56</span><span class="span2 col fr">2018-01-20</span></div>
-                </div>
-
-            </div>
-            <div class="egret-flex-item" tapmode="fmbtnhover">
-                <div class="egret-flex-item-logo" onclick="openFM()">
-                    <img src="../image/KM_album.png" alt="" class="">
-                </div>
-                <div class="egret-flex-item-shelf">
-                    <div class="egret-flex-item-shelf01">
-                        <span class="span1 col fl">《沁园春·雪》</span>
-                        <span class="span4 col fr" onclick="dialogBox_actionMenu();"><img src="../image/under.png" alt=""></span>
-                    </div>
-                    <div class="egret-flex-item-shelf03">
-                        <div><img src="../image/KM_play.png" alt=""><span>100</span></div>
-                        <div><img src="../image/KM_dx.png" alt=""><span>100</span></div>
-                        <div><img src="../image/KM_zf.png" alt=""><span>100</span></div>
-                        <div><img src="../image/KM_dz.png" alt=""><span>100</span></div>
-                    </div>
-                    <div class="egret-flex-item-time"><span class="span2 col fr">17:04:56</span><span class="span2 col fr">2018-01-20</span></div>
-                </div>
-
-            </div>
-
-        </div>
+  <div class="egret-flex-item" >
+    <div class="egret-flex-items" tapmode="fmbtnhover" onclick="openFM()">
+      <div class="egret-flex-item-logo">
+          <img src="../image/KM_album.png" alt="" class="">
+      </div>
+      <div class="egret-flex-item-shelf">
+          <div class="egret-flex-item-shelf01">
+              <span class="span1 fl">作品：<span>《沁园春·雪》</span></span>
+              <!-- <span class="span2 iconfont icon-nv fl"></span> -->
+              <!-- <img src="../image/js.png" alt="" class="fl"> -->
+              <!-- <span class="span3 fr">昨天21.30</span> -->
+          </div>
+          <div class="egret-flex-item-shelf02"><span>唐嫣</span><span class="span2 iconfont icon-nv "></span>
+            <!-- <span><img src="../image/js.png" alt="" class="fl"></span> -->
+          </div>
+          <div class="egret-flex-item-shelf03">
+              <div><img src="../image/KM_play.png" alt=""><span>100</span></div>
+              <!-- <div><img src="../image/KM_dx.png" alt=""><span>100</span></div> -->
+              <div><img src="../image/KM_zf.png" alt=""><span>100</span></div>
+              <div><img src="../image/KM_dz.png" alt=""><span>100</span></div>
+          </div>
+      </div>
     </div>
+    <div class="egret-flex-item-shelf04" onclick="fnOpenPlayShare()">
+      <img src="../image/KM_list_more.png" alt="">
+    </div>
+  </div>
+  <div class="hdivider"></div>
 </body>
 
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
     apiready = function() {}
-
-    function dialogBox_actionMenu() {
+    //打开更多页面
+    function fnOpenPlayShare() {
       var dialogBox = api.require('dialogBox');
       dialogBox.actionMenu({
           rect: {
@@ -362,24 +288,21 @@
           },
           items: [{
               text: '分享',
-              icon: 'widget://image/ListingsListFenXiang.png'
+              icon: 'widget://image/KM_ListingsListGd.png'
           }, {
               text: '添加到听单',
-              icon: 'widget://image/AddToListenlist.png'
-          }, {
-              text: '删除',
-              icon: 'widget://image/shanchus.png'
+              icon: 'widget://image/KM_play_add_gray.png'
           }],
           styles: {
               bg: '#FFF',
-              column: 3,
+              column: 2,
               itemText: {
                   color: '#000',
                   size: 12,
                   marginT: 8
               },
               itemIcon: {
-                  size: 48
+                  size: 30
               },
               cancel: {
                   bg: 'fs://icon.png',
@@ -390,35 +313,33 @@
           },
           tapClose: true
       }, function(ret) {
-
         if (ret.index == "0") {
             dialogBox.close({
                 dialogName: 'alert'
             });
-            fnOpenPlayShare();
-            // alert(1);
+            api.openWin({
+                // name: 'ListeningList',
+                // url: './ListeningList.html',
+                // pageParam: {
+                //     name: 'test'
+                // }
+            });
         }else if (ret.index == "1") {
           dialogBox.close({
               dialogName: 'alert'
           });
-                        // alert(2);
-        }else if (ret.index == "2") {
-          dialogBox.close({
-              dialogName: 'alert'
-          });
-                        // alert(3);
+          // api.openWin({
+          //   name: 'playDiscuss',
+          //   url: './play_discuss.html',
+          // })
         }else {
           dialogBox.close({
               dialogName: 'alert'
           });
         }
-        // dialogBox.close({
-        //     dialogName: 'alert'
-        // })
-        // alert(JSON.stringify(ret))
-
       });
     }
+
     function openFM() {
       api.openWin({
           name: 'play',

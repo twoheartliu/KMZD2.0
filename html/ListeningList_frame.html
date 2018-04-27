@@ -127,7 +127,11 @@
         li {
             border-bottom: 1px solid #ccc;
         }
-
+        .egret-flex-item-under {
+            position: absolute;
+            right: 10px;
+            top: 15px;
+        }
         .egret-flex-item-under img {
             width: 20px;
         }
@@ -147,14 +151,14 @@
                         <span class="span3 fr"></span>
                     </div>
                     <div class="egret-flex-item-shelf03" onclick="fnOpenPlay()">
-                        <div><img src="../image/play_icon.png" alt=""><span>100</span></div>
-                        <div><img src="../image/KM_dx.png" alt=""><span>100</span></div>
+                        <div><img src="../image/KM_play.png" alt=""><span>100</span></div>
+                        <!-- <div><img src="../image/KM_dx.png" alt=""><span>100</span></div> -->
                         <div><img src="../image/KM_zf.png" alt=""><span>100</span></div>
                         <div><img src="../image/KM_dz.png" alt=""><span>100</span></div>
                     </div>
                 </div>
                 <div class="egret-flex-item-under" onclick="fnSettings();">
-                    <img src="../image/under.png" alt="" class="">
+                    <img src="../image/KM_list_more.png" alt="" class="">
                 </div>
             </div>
         </li>
@@ -227,13 +231,13 @@
                 dialogBox.close({
                     dialogName: 'alert'
                 });
-                  api.openWin({
-                      name: 'New',
-                      url: './New.html',
-                      pageParam: {
-                          name: 'test'
-                      }
-                  });
+                api.openWin({
+                    name: 'New',
+                    url: './New.html',
+                    pageParam: {
+                        name: 'test'
+                    }
+                });
 
             } else if (index == 1) {
                 alert('删除')
