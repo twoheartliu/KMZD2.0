@@ -224,26 +224,25 @@
 
     function fnQQLogin() {
         qq = api.require('qq');
-
         var login = function() {
             qq.login(function(ret, err) {
                 var openId = ret.openId;
                 var accessToken = ret.accessToken;
-                // console.log(JSON.stringify(ret.openId));
+                console.log(JSON.stringify(ret));
                 if (ret.status) {
 
                     api.alert({
                         title: '授权成功',
                         msg: '正在打开孔孟知道...',
                     }, function(ret, err) {
-                        // console.log(JSON.stringify(ret.openId));
-                        alert(api.accessToken);
+                        console.log(JSON.stringify(ret));
+                        // alert(api.accessToken);
                         if (ret) {
                             // alert( JSON.stringify( ret ) );
 
                             qq.getUserInfo(function(ret, err) {
                                 if (ret.status) {
-                                    console.log(JSON.stringify(ret.info));
+                                    // console.log(JSON.stringify(ret.info));
                                     //alert(JSON.stringify(ret));
                                     var qqziliao = ret.info;
                                     api.openWin({
