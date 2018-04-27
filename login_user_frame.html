@@ -266,70 +266,7 @@
                 }, function(ret, err) {
                     if (ret.status == 200) {
                       var tokens = ret.data.token;
-                      var fs = api.require('fs');
-                      fs.exist({
-                          path: 'fs://token/token.txt'
-                      }, function(ret, err) {;
-                          if (ret.exist) {
-                              if (ret.directory) {
-                                  alert('文件夹');
-                              } else {
-                                var fs = api.require('fs');
-                                fs.open({
-                                    path: 'fs://token/token.txt',
-                                    flags: 'read_write'
-                                }, function(ret, err) {
-                                    if (ret.status) {
-                                        fs.write({
-                                            fd: ret.fd,
-                                            data: tokens,
-                                            offset: 0
-                                        }, function(ret, err) {
-                                            if (ret.status) {
-                                                alert('yiwancheng');
-                                            } else {
-                                                alert(JSON.stringify(err));
-                                            }
-                                        });
-                                    } else {
-                                        alert(JSON.stringify(err));
-                                    }
-                                });
-                              }
-                          } else {
-                            var fs = api.require('fs');
-                             fs.createFile({
-                                 path: 'fs://token/token.txt'
-                             }, function(ret, err) {
-                                 if (ret.status) {
-                                   fs.open({
-                                       path: 'fs://token/token.txt',
-                                       flags: 'read_write'
-                                   }, function(ret, err) {
-                                       if (ret.status) {
-                                           fs.write({
-                                               fd: ret.fd,
-                                               data: tokens,
-                                               offset: 0
-                                           }, function(ret, err) {
-                                               if (ret.status) {
-                                                   alert('yiwancheng');
-                                               } else {
-                                                   alert(JSON.stringify(err));
-                                               }
-                                           });
-                                       } else {
-                                           alert(JSON.stringify(err));
-                                       }
-                                   });
-
-                                 } else {
-                                    alert(JSON.stringify(err));
-                                 }
-                             });
-                          }
-                      });
-
+                      $api.setStorage('token',tokens);
                        api.openWin({
                            name: 'index',
                            url: 'index.html',

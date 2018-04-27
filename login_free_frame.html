@@ -265,6 +265,8 @@ var wait = 60;
                   },
               }, function(ret, err) {
                   if (ret.status == 200) {
+                    var tokens = ret.data.token;
+                    $api.setStorage('token',tokens);
                      api.openWin({
                          name: 'index',
                          url: 'index.html',
