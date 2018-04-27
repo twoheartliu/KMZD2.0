@@ -332,7 +332,7 @@
                         if (ret) {
                             qq.getUserInfo(function(ret, err) {
                                 if (ret.status) {
-                                  var openid = ret.info.openid;
+                                    var openid = openId;
                                     var nickname = ret.info.nickname;
                                     var gender = ret.info.gender;
                                     var figureurl_qq_1 = ret.info.figureurl_qq_1;
@@ -354,13 +354,9 @@
                                         },
                                     }, function(ret, err) {
                                       alert(JSON.stringify(ret));
-                                      // console.log(JSON.stringify(err));
-                                      console.log(openId);
-                                      console.log(ret.status);
                                         if (ret.status == 200) {
                                           var tokens = ret.data.token;
                                           $api.setStorage('token',tokens);
-                                          console.log(tokens);
                                            api.openWin({
                                                name: 'index',
                                                url: 'index.html',
