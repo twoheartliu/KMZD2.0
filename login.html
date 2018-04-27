@@ -121,97 +121,201 @@
     var openId;
 
     function fnWXLogin() {
-      var wx = api.require('wx');
-      wx.isInstalled(function(ret, err) {
-          if (ret.installed) {
-            console.log(111);
-            wx.auth({
-              apiKey: ''
-            }, function(ret, err) {
-              console.log(2222);
-              if (ret.status) {
-                  alert(JSON.stringify(ret));
-                  // console.log(JSON.stringify(ret));
-                  wx.getToken({
-                      code: ret.code
-                  }, function(ret, err) {
-                      if (ret.status) {
-                        // openId 字符串类型；授权用户唯一标识
-                        //accessToken 字符串类型；接口调用凭证，传给 getUserInfo 接口 获取用户信息；有效期2小时
-                        //dynamicToken 当 accessToken过期时该值传给refreshToken接口刷新accessToken的有效期dynamicToken的有效期为30天
-                        //expires 数字类型；accessToken 有效期，单位（秒）
-                        var accessToken = ret.accessToken;
-                        var openId = ret.openId;
-                        if(ret.expires < 100){
-                          wx.refreshToken({
-                              dynamicToken: ret.dynamicToken
-                          }, function(ret, err) {
-                              if (ret.status) {
-                                // $api.setStorage('dynamicToken',ret.dynamicToken);
-                                // $api.setStorage('expires',ret.expires);
-                                // $api.setStorage('accessToken',ret.accessToken);
-                                // $api.setStorage('openId',ret.openId);
-                                accessToken = ret.accessToken;
-                                openId = ret.openId;
-                              } else {
-                                  alert(err.code);
-                              }
-                          });
-                        }
-                        wx.getUserInfo({
-                            accessToken:accessToken,
-                            openId: openId
-                        }, function(ret, err) {
-                            if (ret.status) {
-                              api.ajax({
-                                  url: host + apiUri + '//login/wechat',
-                                  method: 'post',
-                                  dataType: 'json',
-                                  data: {
-                                    values:{
-                                      "openid":	ret.openid,
-                                      "nickname":	ret.nickname,
-                                      "sex":ret.sex,
-                                      "headimgurl":	ret.headimgurl,
-                                      "unionid":	ret.unionid,
-                                    },
-                                  },
-                                  headers: {
-                                    "source":api.systemType,
-                                    "version":version
-                                  },
+      wx = api.require('weiXin');
+              var code;
+              wx.registerApp(function(ret, err) {
+                  // console.log('111');
+                  //api.alert({ msg: '' + ret.status });
+                  if (ret.status) {
+                      //alert(JSON.stringify(ret.status));
+                      // console.log('222');
 
-                              }, function(ret, err) {
-                                  if (ret.status == 200) {
-                                    var tokens = ret.data.token;
-                                    $api.setStorage('token',tokens);
-                                    console.log(tokens);
-                                     api.openWin({
-                                         name: 'index',
-                                         url: 'index.html',
-                                         pageParam: {
-                                             name: 'test'
-                                         }
-                                     });
+                      // weiXin.refreshToken(function(ret, err) {
+                      //     if (ret.status) {
+                      //         api.alert({ msg: '刷新成功' });
+                      //     } else {
+                      //         api.alert({ msg: err.msg });
+                      //     }
+                      // });
+                      wx.auth(function(ret, err) {
+                        // console.log('333');
+                          //console.log(JSON.stringify(ret));
+                          //api.alert({ msg: ret.status });
+                          //api.alert({ msg: ret.token });
+                          if (ret.status) {
+                              // alert(JSON.stringify(ret.status));
+                              //alert(JSON.stringify(ret.code));
+
+                              wx.getUserInfo(function(ret, err) {
+                                  var wxjibenziliao = ret;
+                                  if (ret.status) {
+                                      //alert('222');
+                                      console.log(JSON.stringify(ret));
+                                      alert(JSON.stringify(ret));
+                                      api.ajax({
+                                          url: host + apiUri + '//login/wechat',
+                                          method: 'post',
+                                          dataType: 'json',
+                                          data: {
+                                            values:{
+                                              "openid":	ret.openid,
+                                              "nickname":	ret.nickname,
+                                              "sex":ret.sex,
+                                              "headimgurl":	ret.headimgurl,
+                                              "unionid":	ret.unionid,
+                                            },
+                                          },
+                                          headers: {
+                                            "source":api.systemType,
+                                            "version":version
+                                          },
+
+                                      }, function(ret, err) {
+                                        alert(JSON.stringify(ret));
+                                          if (ret.status == 200) {
+                                            var tokens = ret.data.token;
+                                            $api.setStorage('token',tokens);
+                                            console.log(tokens);
+                                             api.openWin({
+                                                 name: 'index',
+                                                 url: 'index.html',
+                                                 pageParam: {
+                                                     name: 'test'
+                                                 }
+                                             });
+                                          }
+                                      });
+                                      // api.openWin({
+                                      //     name: 'index',
+                                      //     url: './index.html',
+                                      //     pageParam: {
+                                      //         name: 'test',
+                                      //         wxjibenziliao: wxjibenziliao
+                                      //     }
+                                      // });
+
+                                  } else {
+                                      api.alert({
+                                          msg: err.msg
+                                      });
+                                      //alert(err.code);
                                   }
                               });
-                            } else {
-                                alert(err.code);
-                            }
-                        });
-                          alert(JSON.stringify(ret));
-                      } else {
-                          alert(err.code);
-                      }
-                  });
-              } else {
-                  alert(err.code);
-              }
-            });
-          } else {
-              alert('当前设备未安装微信客户端');
-          }
-      });
+                          } else {
+                              api.alert({
+                                  msg: err.msg
+                              });
+                              //alert(err.code);
+                          }
+                      });
+                  } else {
+                      api.alert({
+                          msg: err.msg
+                      });
+                      alert('当前设备未安装微信客户端');
+                  }
+              });
+
+
+
+
+
+
+      // var wx = api.require('wx');
+      // wx.isInstalled(function(ret, err) {
+      //     if (ret.installed) {
+      //       wx.auth({
+      //       }, function(ret, err) {
+      //         if (ret.status) {
+      //
+      //
+      //             wx.getToken({
+      //                 code: ret.code
+      //             }, function(ret, err) {
+      //
+      //                 if (ret.status) {
+      //                   // openId 字符串类型；授权用户唯一标识
+      //                   //accessToken 字符串类型；接口调用凭证，传给 getUserInfo 接口 获取用户信息；有效期2小时
+      //                   //dynamicToken 当 accessToken过期时该值传给refreshToken接口刷新accessToken的有效期dynamicToken的有效期为30天
+      //                   //expires 数字类型；accessToken 有效期，单位（秒）
+      //                   var accessToken = ret.accessToken;
+      //                   var openId = ret.openId;
+      //                   if(ret.expires < 100){
+      //                     wx.refreshToken({
+      //                         dynamicToken: ret.dynamicToken
+      //                     }, function(ret, err) {
+      //                         if (ret.status) {
+      //                           // $api.setStorage('dynamicToken',ret.dynamicToken);
+      //                           // $api.setStorage('expires',ret.expires);
+      //                           // $api.setStorage('accessToken',ret.accessToken);
+      //                           // $api.setStorage('openId',ret.openId);
+      //                           accessToken = ret.accessToken;
+      //                           openId = ret.openId;
+      //                         } else {
+      //                             alert(err.code);
+      //                         }
+      //                     });
+      //                   }
+      //                   wx.getUserInfo({
+      //                       accessToken:accessToken,
+      //                       openId: openId
+      //                   }, function(ret, err) {
+      //                   alert(JSON.stringify(ret));
+      //                   alert(ret.openid);
+      //                   console.log(ret.openid);
+      //                   alert(ret.unionid);
+      //                   console.log(ret.unionid);
+      //                       if (ret.status) {
+      //                         api.ajax({
+      //                             url: host + apiUri + '//login/wechat',
+      //                             method: 'post',
+      //                             dataType: 'json',
+      //                             data: {
+      //                               values:{
+      //                                 "openid":	ret.openid,
+      //                                 "nickname":	ret.nickname,
+      //                                 "sex":ret.sex,
+      //                                 "headimgurl":	ret.headimgurl,
+      //                                 "unionid":	ret.unionid,
+      //                               },
+      //                             },
+      //                             headers: {
+      //                               "source":api.systemType,
+      //                               "version":version
+      //                             },
+      //
+      //                         }, function(ret, err) {
+      //                           alert(JSON.stringify(ret));
+      //                             if (ret.status == 200) {
+      //                               var tokens = ret.data.token;
+      //                               $api.setStorage('token',tokens);
+      //                               console.log(tokens);
+      //                                api.openWin({
+      //                                    name: 'index',
+      //                                    url: 'index.html',
+      //                                    pageParam: {
+      //                                        name: 'test'
+      //                                    }
+      //                                });
+      //                             }
+      //                         });
+      //                       } else {
+      //                           alert(err.code);
+      //                       }
+      //                   });
+      //                     // alert(JSON.stringify(ret));
+      //                 } else {
+      //                     alert(err.code);
+      //                 }
+      //             });
+      //         } else {
+      //             alert(err.code);
+      //         }
+      //       });
+      //     } else {
+      //         alert('当前设备未安装微信客户端');
+      //     }
+      // });
     }
 
     function fnQQLogin() {
@@ -248,6 +352,7 @@
                                           "version":version
                                         },
                                     }, function(ret, err) {
+                                      alert(JSON.stringify(ret));
                                       console.log(openId);
                                       console.log(ret.status);
                                         if (ret.status == 200) {
@@ -264,6 +369,7 @@
                                         }
                                     });
                                 } else {
+
                                     alert(JSON.stringify(err));
                                 }
                             });
