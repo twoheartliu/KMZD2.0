@@ -33,6 +33,7 @@
     table {
         width: 100%;
         text-align: center;
+         overflow-x: hidden;
         /*文本居中*/
         border-collapse: collapse;
         /*表格的边框合并，如果相邻，则共用一个边框*/
@@ -91,7 +92,6 @@
 <script type="text/javascript" src="../script/swiper.min.js"></script>
 <script type="text/javascript">
     apiready = function() {
-      console.log(111);
         var token = $api.getStorage('token');
         if(token){
           fnGetLieBiao();
@@ -127,102 +127,103 @@
      });
    }
    function fnRecommendedDirectory(ret){
-     var stylelist = $api.byId('RecommendedDirectory');
-     var html = '<tr>';
-    //  c 列 r行
-     var c = 1;
-     var r = 1;
+    var stylelist = $api.byId('RecommendedDirectory');
+    var html = '<tr>';
+   //  c 列 r行
+    var c = 1;
+    var r = 1;
 
-     for (var i = 0; i < ret.data.length; i++) {
-        if( c == 1){
-          html +='<td rowspan="2" onclick="guoxue_Listframe('+ ret.data[i].id +')"><div class="div_img"><img src="../image/guoxueguan/KM_MX.png" alt=""></div>' + ret.data[i].name + '</td>';
+    for (var i = 0; i < ret.data.length; i++) {
+       if( c == 1){
+         html +='<td rowspan="2" onclick="guoxue_Listframe('+ ret.data[i].id +')"><div class="div_img"><img src="../image/guoxueguan/KM_MX.png" alt=""></div>' + ret.data[i].name + '</td>';
+       } else {
+         html +='<td data="'+r+'" c="'+c+'" onclick="guoxue_Listframe('+ ret.data[i].id +')">' + ret.data[i].name + '</td>';
+       }
+       if(r == 2 && c == 7){
+         html += '</tr><tr>';
+       }
+       if(c%4 == 0 && c != 8 && r == 1){
+         r++;
+         html += '</tr><tr>';
+       } else if ((c-3)%4 == 0 && c != 8 && r != 1) {
+         r++;
+         html += '</tr><tr>';
+         // console.log(c);
+       }
+       c++;
+    }
+    html += '</tr>';
+    $api.html(stylelist, html);
+   // console.log(html);
+  }
+  function fnGetDirectory(){
+    api.ajax({
+      url: host + apiUri + '/category',
+      method: 'get',
+      dataType: 'json',
+      headers: {
+        "source": api.systemType,
+        "version":version
+      },
+    }, function(ret, err) {
+        if (ret) {
+           fnDirectory(ret);
         } else {
-          html +='<td data="'+r+'" c="'+c+'" onclick="guoxue_Listframe('+ ret.data[i].id +')">' + ret.data[i].name + '</td>';
+            alert(JSON.stringify(err));
         }
-        if(r == 2 && c == 7){
-          html += '</tr><tr>';
-        }
-        if(c%4 == 0 && c != 8 && r == 1){
-          r++;
-          html += '</tr><tr>';
-        } else if ((c-3)%4 == 0 && c != 8 && r != 1) {
-          r++;
-          html += '</tr><tr>';
-          // console.log(c);
-        }
-        c++;
-     }
-     html += '</tr>';
-     $api.html(stylelist, html);
-    // console.log(html);
-   }
-   function fnGetDirectory(){
-     api.ajax({
-       url: host + apiUri + '/category',
-       method: 'get',
-       dataType: 'json',
-       headers: {
-         "source": api.systemType,
-         "version":version
-       },
-     }, function(ret, err) {
-         if (ret) {
-            fnDirectory(ret);
-         } else {
-             alert(JSON.stringify(err));
-         }
-     });
-   }
-   function fnDirectory(ret){
-    //  console.log(JSON.stringify(ret));
-   var stylelist = $api.byId('directory');
-      var html = '';
-      // var y = 0;
-     for (var i = 0; i < ret.data.length; i++) {
-       if(ret.data[i].p_id == 0){
-          html += '<tr class="bg"></tr><tr class="td_bg"><td colspan="4"><div class="fl colspan_img"><img src="../image/guoxueguan/KM_gxjds.png" alt=""></div><div class="fl colspan_div">'+ ret.data[i].name +'</div></td></tr><tr>'
-        }
-        var y = 0;
-        for(var s = 0; s < ret.data.length; s++) {
-           if(ret.data[s].p_id != 0 && ret.data[s].p_id == ret.data[i].id){
-             html += '<td>'+ ret.data[s].name + '</td>';
-              y++;
-             if (y>3 && y%4 == 0) {
-               html += '</tr><tr>';
-             }
-           }
-        }
-     }
-     html += '</tr>';
-     $api.html(stylelist, html);
-    //  console.log(html);
-   }
-   function fnDirectoryLiet(id,ret){
-     var stylelists = $api.byId('DirectoryList');
-     var html1 = '';
-     if(id){
-       console.log(id);
+    });
+  }
+  function fnDirectory(ret){
+   //  console.log(JSON.stringify(ret));
+  var stylelist = $api.byId('directory');
+     var html = '';
+     // var y = 0;
+    for (var i = 0; i < ret.data.length; i++) {
+      if(ret.data[i].p_id == 0){
+         html += '<tr class="bg"></tr><tr class="td_bg"><td colspan="4"><div class="fl colspan_img"><img src="../image/guoxueguan/KM_gxjds.png" alt=""></div><div class="fl colspan_div">'+ ret.data[i].name +'</div></td></tr><tr>'
+       }
+       var y = 0;
        for(var s = 0; s < ret.data.length; s++) {
-
-          if(ret.data[s].p_id == id){
-            console.log(s);
-            console.log(ret.data[s].name);
-              html1 += '<div>' + ret.data[s].name + '</div>';
-              $api.html(stylelists, html1);
+        //  alert(s);
+          if(ret.data[s].p_id != 0 && ret.data[s].p_id == ret.data[i].id){
+            html += '<td  onclick="guoxue_Listframe('+ ret.data[s].p_id +')">'+ ret.data[s].name + '</td>';
+             y++;
+            if (y>3 && y%4 == 0) {
+              html += '</tr><tr>';
+            }
           }
        }
-      //  html1 += '<div>中庸</div>';
-      //  $api.html(stylelists, html1);
-     }
-   }
-    function guoxue_Listframe(id) {
-      api.openWin({
-          name: 'list',
-          url: './list.html',
-          pageParam: {
-              id: id
-          }
-      });
-
     }
+    html += '</tr>';
+    $api.html(stylelist, html);
+   //  console.log(html);
+  }
+  function fnDirectoryLiet(id,ret){
+    var stylelists = $api.byId('DirectoryList');
+    var html1 = '';
+    if(id){
+      console.log(id);
+      for(var s = 0; s < ret.data.length; s++) {
+
+         if(ret.data[s].p_id == id){
+           console.log(s);
+           console.log(ret.data[s].name);
+             html1 += '<td>' + ret.data[s].name + '</td>';
+             $api.html(stylelists, html1);
+         }
+      }
+      html1 += '<div>中庸</div>';
+      $api.html(stylelists, html1);
+    }
+  }
+   function guoxue_Listframe(id) {
+     api.openWin({
+         name: 'single',
+         url: './single.html',
+         pageParam: {
+             id: id
+         }
+     });
+
+   }
 </script>
