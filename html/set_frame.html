@@ -168,12 +168,20 @@
 
     function dialogBox_alert4() {
         // $api.rmStorage('login');
+        $api.rmStorage('token');
         api.toast({
-            msg: '清除缓存成功！',
+            msg: '已退出！',
             duration: 2000,
             location: 'middle'
         });
-        $api.clearStorage();
+        // $api.clearStorage();
+        api.openWin({
+            name: 'login',
+            url: '../login.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
     }
 
     function dialogBox_alert3() {
