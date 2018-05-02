@@ -70,20 +70,39 @@
         var header = $api.byId('secHeader');
         $api.fixStatusBar(header);
         var headerPos = $api.offset(header);
-        api.openFrame({
-            name: 'recommend_frame',
-            url: './recommend_frame.html',
-            rect: {
-                x: 0,
-                y: headerPos.h,
-                w: 'auto',
-                h: 'auto'
-            },
-            pageParam: {
-                name: 'test'
-            },
-            bounces: false,
-        });
+        var DangQianbofangid = api.pageParam.DangQianbofangid;
+        if(DangQianbofangid){
+          api.openFrame({
+              name: 'recommend_frame',
+              url: './recommend_frame.html',
+              rect: {
+                  x: 0,
+                  y: headerPos.h,
+                  w: 'auto',
+                  h: 'auto'
+              },
+              pageParam: {
+                  DangQianbofangid: DangQianbofangid
+              },
+              bounces: false,
+          });
+        }else{
+          api.openFrame({
+              name: 'recommend_frame',
+              url: './recommend_frame.html',
+              rect: {
+                  x: 0,
+                  y: headerPos.h,
+                  w: 'auto',
+                  h: 'auto'
+              },
+              pageParam: {
+                  name: 'test'
+              },
+              bounces: false,
+          });
+        }
+
 
     }
 </script>

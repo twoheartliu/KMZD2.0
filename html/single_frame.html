@@ -574,12 +574,17 @@
     apiready = function() {
 
         fnTingdanTuijian()
+
             //fnTingdanTuijianliebiao()
     }
 
     //接口  推荐听单
     var tingdanliebiaobiaoti;
-
+    var Dqbofangid;
+    function fnDangQianbofangid(id){
+      Dqbofangid = id;
+      console.log(Dqbofangid);
+    }
     function fnTingdanTuijian() {
         var playlistid = api.pageParam.tuijiantingdanid;
         //alert(playlistid);
@@ -635,25 +640,45 @@
     }
 
     function fnOpenPlay(a) {
+      api.addEventListener({
+          name: 'netPlaying'
+      }, function(ret, err) {
+        console.log(ret.value.playing);
+          if(a == ret.value.playing){
+            fnDangQianbofangid(ret.value.playing);
+          }
+
+      });
         var playlistid = api.pageParam.tuijiantingdanid;
         // var connectionType = api.connectionType;
         //  alert(connectionType);
         //  if(connectionType == 'wifi'){
-           api.openWin({
-               name: 'play',
-               url: './play.html',
-               pageParam: {
-                   name: 'test',
-                   a: a,
-                   playlistid: playlistid
+        console.log(a);
+        console.log(Dqbofangid);
+        if(Dqbofangid){
+          api.openWin({
+              name: 'play',
+              url: './play.html',
+              pageParam: {
+                  playlistid: playlistid,
+                  a: a,
+                  DangQianbofangid: Dqbofangid
 
-               }
-           });
-        //  }else{
-        //
-        //  }
+              }
+          });
+        }else{
+          api.openWin({
+              name: 'play',
+              url: './play.html',
+              pageParam: {
+                  a: a,
+                  playlistid: playlistid
 
-        //console.log(playlistid);
+              }
+          });
+        }
+
+
     }
     //打开更多
     function fnOpenPlayMore() {

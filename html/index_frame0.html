@@ -395,7 +395,7 @@
 
       fnInitSwiper();
       var qqziliao = api.pageParam.qqziliao;
-      fnTingdanTuijian();
+      fnZhuanJiTuijian();
     }
 
 
@@ -446,7 +446,7 @@
     //接口  推荐听单
     //var b = 'ret';
     // var a =
-    function fnTingdanTuijian() {
+    function fnZhuanJiTuijian() {
 
         api.ajax({
             url: 'http://47.100.11.38/kongmeng/thirdParty/search_playlist_by_name.php?page=0&size=6',
@@ -454,7 +454,7 @@
         }, function(ret, err) {
             if (ret) {
                 // alert(JSON.stringify(ret));
-                fnTingdanZhanshi(ret);
+                fnZhuanJiZhanShi(ret);
             } else {
                 alert(JSON.stringify(err));
             }
@@ -476,11 +476,11 @@
     //
     // }
     //接口  听单展示
-    function fnTingdanZhanshi(data_) {
+    function fnZhuanJiZhanShi(data_) {
         var stylelist = $api.byId('hot');
         var html = '';
         for (var i = 0; i < 6; i++) {
-            html += '<div class="hotC" onclick="fnSingleWin(' + data_.data[i].id + ');"><img src="' + data_.data[i].logoMiddle + '" alt=""><div class="listtitle"> ' + data_.data[i].name + '</div></div>';
+            html += '<div class="hotC" onclick="fnSingLeWin(' + data_.data[i].id + ');"><img src="' + data_.data[i].logoMiddle + '" alt=""><div class="listtitle"> ' + data_.data[i].name + '</div></div>';
 
         }
         $api.html(stylelist, html);
@@ -494,24 +494,55 @@
 
     }
 
-    function fnSingleWin(tuijiantingdanid) {
+    function fnSingLeWin(id) {
+      var DangQianbofangid = api.pageParam.DangQianbofangid;
+      if(DangQianbofangid){
         api.openWin({
             name: 'single',
             url: './single.html',
             pageParam: {
-                name: 'test',
-                tuijiantingdanid: tuijiantingdanid
+                tuijiantingdanid: id,
+                DangQianbofangid: api.pageParam.DangQianbofangid
             }
         });
+      }else{
+        api.openWin({
+            name: 'single',
+            url: './single.html',
+            pageParam: {
+                tuijiantingdanid: id
+            }
+        });
+      }
+
 
     }
 
     function fnRecommendWin() {
+      var DangQianbofangid = api.pageParam.DangQianbofangid;
+      if(DangQianbofangid){
         api.openWin({
             name: 'recommend',
             url: './recommend.html',
             pageParam: {
-                name: 'test'
+                DangQianbofangid: DangQianbofangid
+            }
+        });
+
+      }else{
+        api.openWin({
+            name: 'recommend',
+            url: './recommend.html',
+            pageParam: {
+                name : 'texe'
+            }
+        });
+      }
+        api.openWin({
+            name: 'recommend',
+            url: './recommend.html',
+            pageParam: {
+                DangQianbofangid: api.pageParam.DangQianbofangid
             }
         });
 

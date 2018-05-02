@@ -530,7 +530,7 @@
                 <span class="s" id="kaishijishi">
                   00:00
                 </span>
-                <input type="range" id="range" name="range" min="0" max="100" step="1" value="0.01" class="red" />
+                <input type="range" id="range" name="range" min="0" max="100" step="1" value="0.1" class="red" />
                 <span class="e" id="zongshichang">
                   00:00
                 </span>
@@ -573,26 +573,36 @@
         var messageFrameDiv = $api.byId('wrap');
         var winHeightHeader = winHeight - headerPosH;
         $api.css(messageFrameDiv, 'height:' + winHeightHeader + 'px;');
-        api.addEventListener({
-            name: 'netPlaying'
-        }, function(ret, err) {
-          var id = api.pageParam.cgxid;
-            if(id == ret.value.playing){
-              fnJinRuBofangs(id);
-            }
-            return;
-        });
+        // api.addEventListener({
+        //     name: 'netPlaying'
+        // }, function(ret, err) {
+        //   var id = api.pageParam.cgxid;
+        //     if(id == ret.value.playing){
+        //       console.log(ret.value.playing);
+        //       fnJinRuBofangs(id);
+        //     }
+        //     return;
+        // });
         $api.fixIos7Bar(header);
-        api.addEventListener({
-            name: 'neizhiliebiaoPlaysss'
-        }, function(ret, err) {
-            listid = ret.value.playlistid;
-            aa = ret.value.a;
-            bofangs = ret.value.bofang;
-            fnA(aa, bofangs, listid);
-            fnAAaa(aa, bofangs, listid);
-            return;
-        });
+        var DangQianbofangid = api.pageParam.DangQianbofangid;
+        console.log(DangQianbofangid);
+        if(DangQianbofangid){
+          fnJinRuBofangs(DangQianbofangid);
+        }else{
+          api.addEventListener({
+              name: 'neizhiliebiaoPlaysss'
+          }, function(ret, err) {
+            console.log(1111111111111);
+              listid = ret.value.playlistid;
+              aa = ret.value.a;
+              bofangs = ret.value.bofang;
+              fnA(aa, bofangs, listid);
+              fnAAaa(aa, bofangs, listid);
+              return;
+          });
+          fnJinRuBofang();
+        }
+
         // api.addEventListener({
         //     name: 'netbofangsssssss'
         // }, function(ret, err) {
@@ -615,9 +625,66 @@
         //
         // });
         // console.log('222');
-        fnJinRuBofang();
-    }
 
+    }
+    function fnJinRuBofangs(id) {
+        var eHeader = $api.byId('header')
+        var bofang = 3;
+        var stylelist = $api.byId('openplayer');
+        var html = '<img src="../image/play/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player"></div>';
+        $api.html(stylelist, html);
+        //var bofang = api.pageParam.bofang;
+        playlistid = api.pageParam.playlistid;
+        playid = api.pageParam.playid;
+        dqbfid = api.pageParam.a;
+        if (id) {
+            api.sendEvent({
+                name: 'netPlayingUrl',
+                extra: {
+                    id: id
+                }
+            });
+        }
+        if (playlistid) {
+            api.sendEvent({
+                name: 'netPlayLieIdUrl',
+                extra: {
+                    playlistid: playlistid
+                }
+            });
+        }
+        fnInitSwiper();
+        fnOpenChangeImg();
+        api.parseTapmode();
+        //console.log(bofang);
+
+        api.sendEvent({
+            name: 'neizhiliebiaoPlay',
+            extra: {
+                bofang: bofang,
+                a: id,
+                playlistid: playlistid
+            }
+        });
+            // var zaicibf
+            // api.sendEvent({
+            //     name: 'zaicibf',
+            //     extra: {
+            //         zaicibf: zaicibf,
+            //         a: id,
+            //         playlistid: playlistid
+            //     }
+            // });
+            fnNetAudiosPlayByID(id);
+
+        AddHistory(id);
+        fnbofangshijian();
+        fnJiBenXinXi()
+        jindutiao();
+        if (dangqianbofangid) {
+            dqbfid = dangqianbofangid;
+        }
+    }
     function fnJinRuBofang(bofang) {
         var eHeader = $api.byId('header')
         if (bofang) {
@@ -810,26 +877,14 @@
                 var html = ret.value.bofangshijian;
                 $api.html(stylelist, html);
             }
-            //总时长
-            if (ret.value.lenth) {
+        });
+        //总时长
+        api.addEventListener({
+            name: 'zongJinDusss'
+        }, function(ret, err) {
+            if (ret.value.html) {
                 var stylelist = $api.byId('zongshichang');
-                //var html = ret.value.lenth;
-                cur = parseInt(ret.value.lenth);
-                temp = cur;
-                minute = parseInt(temp / 60);
-                if (cur % 60 < 10) {
-                  if(minute<10){
-                     html = "0" + minute + ":0" + cur % 60 + "";
-                  }else{
-                     html = "" + minute + ":0" + cur % 60 + "";
-                  }
-                } else {
-                  if(minute<10){
-                     html = "0" + minute + ":" + cur % 60 + "";
-                  }else{
-                     html = "" + minute + ":" + cur % 60 + "";
-                  }
-                }
+                var html = ret.value.html;
                 $api.html(stylelist, html);
             }
         });
@@ -943,7 +998,10 @@
                 var lenth = ret.value.lenth;
                 var cur = ret.value.cur;
                 var a = cur / lenth;
-                range.value = JSON.stringify(cur / lenth * 100);
+                var ccc = JSON.stringify(cur / lenth * 100);
+                if(ccc >0 ){
+                  range.value = ccc;
+                }
                 var sssss = 100 - range.value;
                 //不渐变
                 range.style.background = 'linear-gradient(to left, #89211b ' + sssss + '%, #f2f2f2 0,#f2f2f2  )';
