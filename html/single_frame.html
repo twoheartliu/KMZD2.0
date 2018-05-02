@@ -636,16 +636,23 @@
 
     function fnOpenPlay(a) {
         var playlistid = api.pageParam.tuijiantingdanid;
-        api.openWin({
-            name: 'play',
-            url: './play.html',
-            pageParam: {
-                name: 'test',
-                a: a,
-                playlistid: playlistid
+        // var connectionType = api.connectionType;
+        //  alert(connectionType);
+        //  if(connectionType == 'wifi'){
+           api.openWin({
+               name: 'play',
+               url: './play.html',
+               pageParam: {
+                   name: 'test',
+                   a: a,
+                   playlistid: playlistid
 
-            }
-        });
+               }
+           });
+        //  }else{
+        //
+        //  }
+
         //console.log(playlistid);
     }
     //打开更多

@@ -528,11 +528,11 @@
         <div id="control" class="qx">
             <div id="slider">
                 <span class="s" id="kaishijishi">
-                  00:00:00
+                  00:00
                 </span>
                 <input type="range" id="range" name="range" min="0" max="100" step="1" value="0.01" class="red" />
                 <span class="e" id="zongshichang">
-                  00:00:00
+                  00:00
                 </span>
             </div>
             <ul id="panel">
@@ -565,6 +565,23 @@
         var headerH = $api.offset(secHeader).h;
         var headerPosH = $api.offset(secHeader).h;
         var header = document.querySelector('header');
+        // 获取浏览器高度
+        if (window.innerHeight)
+            winHeight = window.innerHeight;
+        else if ((document.body) && (document.body.clientHeight))
+            winHeight = document.body.clientHeight;
+        var messageFrameDiv = $api.byId('wrap');
+        var winHeightHeader = winHeight - headerPosH;
+        $api.css(messageFrameDiv, 'height:' + winHeightHeader + 'px;');
+        api.addEventListener({
+            name: 'netPlaying'
+        }, function(ret, err) {
+          var id = api.pageParam.cgxid;
+            if(id == ret.value.playing){
+              fnJinRuBofangs(id);
+            }
+            return;
+        });
         $api.fixIos7Bar(header);
         api.addEventListener({
             name: 'neizhiliebiaoPlaysss'
@@ -576,14 +593,6 @@
             fnAAaa(aa, bofangs, listid);
             return;
         });
-        // 获取浏览器高度
-        if (window.innerHeight)
-            winHeight = window.innerHeight;
-        else if ((document.body) && (document.body.clientHeight))
-            winHeight = document.body.clientHeight;
-        var messageFrameDiv = $api.byId('wrap');
-        var winHeightHeader = winHeight - headerPosH;
-        $api.css(messageFrameDiv, 'height:' + winHeightHeader + 'px;');
         // api.addEventListener({
         //     name: 'netbofangsssssss'
         // }, function(ret, err) {
@@ -809,11 +818,17 @@
                 temp = cur;
                 minute = parseInt(temp / 60);
                 if (cur % 60 < 10) {
-                    var html = "" + minute + ":0" + cur % 60 + "";
-
+                  if(minute<10){
+                     html = "0" + minute + ":0" + cur % 60 + "";
+                  }else{
+                     html = "" + minute + ":0" + cur % 60 + "";
+                  }
                 } else {
-                    var html = "" + minute + ":" + cur % 60 + "";
-
+                  if(minute<10){
+                     html = "0" + minute + ":" + cur % 60 + "";
+                  }else{
+                     html = "" + minute + ":" + cur % 60 + "";
+                  }
                 }
                 $api.html(stylelist, html);
             }

@@ -601,12 +601,6 @@
       var messageFrameDiv = $api.byId('wrap');
       var winHeightHeader = winHeight - headerPosH;
       $api.css(messageFrameDiv, 'height:' + winHeightHeader + 'px;');
-      // audioPlayer.getState(function(ret) {
-      //     api.alert({ msg: ret.state });
-      //     if(ret.state == 'playing'){
-      //
-      //     }
-      // });
       api.addEventListener({
           name: 'netPlaying'
       }, function(ret, err) {
@@ -614,20 +608,20 @@
           if(id == ret.value.playing){
             fnJinRuBofangs(id);
           }
-          return false;
+          return;
       });
-        api.addEventListener({
-            name: 'neizhiliebiaoPlaysss'
-        }, function(ret, err) {
-            // listid = ret.value.cgxid;
-            aa = ret.value.a;
-            bofangs = ret.value.bofang;
+      api.addEventListener({
+          name: 'neizhiliebiaoPlaysss'
+      }, function(ret, err) {
+          // listid = ret.value.cgxid;
+          aa = ret.value.a;
+          bofangs = ret.value.bofang;
 
-            fnA(aa, bofangs);
-            fnAAaa(aa, bofangs);
-            return false;
-        });
-        fnJinRuBofang();
+          fnA(aa, bofangs);
+          fnAAaa(aa, bofangs);
+          return;
+      });
+      fnJinRuBofang();
     }
     var ids;
     function fnJinRuBofangs(bofang){
