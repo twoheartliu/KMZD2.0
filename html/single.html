@@ -73,21 +73,40 @@
         var header = $api.byId('secHeader');
         $api.fixStatusBar(header);
         var headerPos = $api.offset(header);
-        api.openFrame({
-            name: 'single_frame',
-            url: './single_frame.html',
-            rect: {
-                x: 0,
-                y: headerPos.h,
-                w: 'auto',
-                h: 'auto'
-            },
-            pageParam: {
-                name: 'test',
-                tuijiantingdanid:tuijiantingdanid
-            },
-            bounces: false,
-        });
+        var DangQianbofangid = api.pageParam.DangQianbofangid;
+        if(DangQianbofangid){
+          api.openFrame({
+              name: 'single_frame',
+              url: './single_frame.html',
+              rect: {
+                  x: 0,
+                  y: headerPos.h,
+                  w: 'auto',
+                  h: 'auto'
+              },
+              pageParam: {
+                  DangQianbofangid: DangQianbofangid,
+                  tuijiantingdanid:tuijiantingdanid
+              },
+              bounces: false,
+          });
+        }else{
+          api.openFrame({
+              name: 'single_frame',
+              url: './single_frame.html',
+              rect: {
+                  x: 0,
+                  y: headerPos.h,
+                  w: 'auto',
+                  h: 'auto'
+              },
+              pageParam: {
+                  tuijiantingdanid:tuijiantingdanid
+              },
+              bounces: false,
+          });
+        }
+
 
     }
 

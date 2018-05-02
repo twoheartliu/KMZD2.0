@@ -431,7 +431,7 @@
                     </div>
                     <div class="single_time">
                       <div class="single_time_img fl">
-                        <img src="../image/KM_dz.png" alt="">
+                        <img src="../image/KM_sc.png" alt="">
                       </div>
                       <div class="single_img_num fl">10</div>
                       <div class="single_time_img fl">
@@ -439,7 +439,7 @@
                       </div>
                       <div class="single_img_num fl">20</div>
                       <div class="single_time_img fl">
-                        <img src="../image/KM_product.png" alt="">
+                        <img src="../image/read/aloud_py.png" alt="">
                       </div>
                       <div class="single_img_num fl">30</div>
                     </div>
@@ -574,12 +574,17 @@
     apiready = function() {
 
         fnTingdanTuijian()
+
             //fnTingdanTuijianliebiao()
     }
 
     //接口  推荐听单
     var tingdanliebiaobiaoti;
-
+    var Dqbofangid;
+    function fnDangQianbofangid(id){
+      Dqbofangid = id;
+      console.log(Dqbofangid);
+    }
     function fnTingdanTuijian() {
         var playlistid = api.pageParam.tuijiantingdanid;
         //alert(playlistid);
@@ -635,25 +640,45 @@
     }
 
     function fnOpenPlay(a) {
+      api.addEventListener({
+          name: 'netPlaying'
+      }, function(ret, err) {
+        console.log(ret.value.playing);
+          if(a == ret.value.playing){
+            fnDangQianbofangid(ret.value.playing);
+          }
+
+      });
         var playlistid = api.pageParam.tuijiantingdanid;
         // var connectionType = api.connectionType;
         //  alert(connectionType);
         //  if(connectionType == 'wifi'){
-           api.openWin({
-               name: 'play',
-               url: './play.html',
-               pageParam: {
-                   name: 'test',
-                   a: a,
-                   playlistid: playlistid
+        console.log(a);
+        console.log(Dqbofangid);
+        if(Dqbofangid){
+          api.openWin({
+              name: 'play',
+              url: './play.html',
+              pageParam: {
+                  playlistid: playlistid,
+                  a: a,
+                  DangQianbofangid: Dqbofangid
 
-               }
-           });
-        //  }else{
-        //
-        //  }
+              }
+          });
+        }else{
+          api.openWin({
+              name: 'play',
+              url: './play.html',
+              pageParam: {
+                  a: a,
+                  playlistid: playlistid
 
-        //console.log(playlistid);
+              }
+          });
+        }
+
+
     }
     //打开更多
     function fnOpenPlayMore() {
@@ -695,27 +720,30 @@
             },
             tapClose: true
         }, function(ret) {
-
             if (ret.index == "0") {
+                alert('收藏成功');
                 dialogBox.close({
                     dialogName: 'alert'
                 });
                 // alert(1);
             } else if (ret.index == "1") {
+                alert('添加成功');
                 dialogBox.close({
                     dialogName: 'alert'
                 });
                 // alert(2);
             } else if (ret.index == "2") {
-                dialogBox.close({
-                    dialogName: 'alert'
-                });
+                fnOpenPlayShare();
+                // dialogBox.close({
+                //     dialogName: 'alert'
+                // });
                 // alert(3);
-            } else {
-                dialogBox.close({
-                    dialogName: 'alert'
-                });
             }
+            // else {
+            //     dialogBox.close({
+            //         dialogName: 'alert'
+            //     });
+            // }
             // dialogBox.close({
             //     dialogName: 'alert'
             // })
@@ -763,7 +791,11 @@
             },
             tapClose: true
         }, function(ret) {
-
+            if (ret.eventType == 'cancel') {
+                dialogBox.close({
+                    dialogName: 'discount'
+                });
+            }
             if (ret.index == "0") {
                 dialogBox.close({
                     dialogName: 'alert'
@@ -787,7 +819,7 @@
             // dialogBox.close({
             //     dialogName: 'alert'
             // })
-            alert(JSON.stringify(ret))
+            // alert(JSON.stringify(ret))
 
         });
     }
@@ -823,8 +855,8 @@
     //打开评论详情
     function fnOpenDiscussDetail(){
       api.openWin({
-          name: 'discussDetail',
-          url: './discuss_detail.html',
+          name: 'discussDetail0',
+          url: './discuss_detail0.html',
           pageParam: {
               name: 'test'
           }
