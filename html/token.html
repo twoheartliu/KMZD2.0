@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>孔孟之道--token</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
+    <style>
+      .token_img{width: 100%;margin-top: 150px;text-align: center;}
+      .token{width: 100%;text-align: center;}
+    </style>
+</head>
+<body onclick="fnToken();">
+    <div class="token_img"><img src="../image/token.png" alt=""></div>
+    <div class="token">您还未登录，请点击后登陆</div>
+</body>
+
+</html>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+    apiready = function() {
+
+    }
+    function fnToken() {
+      api.openWin({
+          name: 'login',
+          url: '../login.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
+
+    }
+</script>
