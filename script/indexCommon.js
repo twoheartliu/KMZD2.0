@@ -135,10 +135,11 @@ function fnBoFangyinpinxinxi() {
 
 
 function netRecordingModule(playgedan) {
-    url = 'fs://caogaoxiang/' + playgedan + '';
-    // console.log(url);
+  var appId = api.appId;
+  var uelr = '/storage/emulated/0/UZMap/';
+  var appid= appId;
+    url = '' + uelr + '' + appid + '/caogaoxiang/' + playgedan + '';
     fnFuZhiAudio(url);
-    // netAudioPlay(url);
 
     api.sendEvent({
         name: 'jibenxinxi',
@@ -151,7 +152,13 @@ function netRecordingModule(playgedan) {
 }
 
 function netRecordingModuleing(playgedan) {
-    url = 'fs://caogaoxiang/' + playgedan + '';
+  var appId = api.appId;
+  var uelr = '/storage/emulated/0/UZMap/';
+  var appid= appId;
+  alert(appid);
+  console.log(appid);
+
+    url = '' + uelr + '' + appid + '/caogaoxiang/' + playgedan + '';
     // netAudioPlaying(url);
     fnFuZhiAudio(url);
     api.sendEvent({
@@ -168,9 +175,7 @@ function netRecordingModuleing(playgedan) {
 var urls;
 function fnFuZhiAudio(url) {
     var stylelist = $api.byId('yinpin');
-    var html = '<audio id="myAudio" ><source src=" ' + url + '" type="audio/mpeg"></audio>';
-    // var html = '<audio id="myAudio" ><source src=" ' + path + '" type="audio/mpeg"></audio>';
-    console.log(html);
+    var html = '<audio id="myAudio" ><source src=  "' + url + '" type="audio/mpeg"></audio>';
     $api.html(stylelist, html);
     if (html) {
         kaishibofang()
@@ -191,7 +196,6 @@ function netAudioPlay() {
     var myAudio = document.getElementById("myAudio");
     myAudio.play();
     initEventListennerBoFangMoshi();
-    // console.log(bofangmoshiid);
     fnBoFangmoshiid();
 }
 //音频播放模块
@@ -254,8 +258,6 @@ function jindutiao() {
       cur = parseInt(myAudio.currentTime);
         lenth = myAudio.duration;
         lenths = parseInt(myAudio.duration);
-        console.log(lenths);
-        console.log(cur);
         temps = lenths;
 
         minutes = parseInt(temps / 60);
@@ -781,7 +783,6 @@ function initEventListennerBofang(){
       name: 'netPlayingUrl'
   }, function(ret, err) {
       if (ret.value.id) {
-          console.log(ret.value.id);
           fnBoFangyinpinxinxiing(ret.value.id)
       }
   });

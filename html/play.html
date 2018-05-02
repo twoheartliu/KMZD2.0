@@ -573,6 +573,115 @@
         var messageFrameDiv = $api.byId('wrap');
         var winHeightHeader = winHeight - headerPosH;
         $api.css(messageFrameDiv, 'height:' + winHeightHeader + 'px;');
+        $api.fixIos7Bar(header);
+        var connectionType = api.connectionType;
+        if(connectionType == "wifi"){
+          var DangQianbofangid = api.pageParam.DangQianbofangid;
+          if(DangQianbofangid){
+            fnJinRuBofangs(DangQianbofangid);
+          }else{
+            api.addEventListener({
+                name: 'neizhiliebiaoPlaysss'
+            }, function(ret, err) {
+                listid = ret.value.playlistid;
+                aa = ret.value.a;
+                bofangs = ret.value.bofang;
+                fnA(aa, bofangs, listid);
+                fnAAaa(aa, bofangs, listid);
+                return;
+            });
+            fnJinRuBofang();
+          }
+        }else{
+          var dialogBox = api.require('dialogBox');
+
+          dialogBox.alert({
+              texts: {
+                  title: '现在未使用wifi',
+                  content: '是否继续观看',
+                  leftBtnTitle: '取消',
+                  rightBtnTitle: '确认'
+              },
+              styles: {
+                  bg: '#fff',
+                  w: 300,
+                  title: {
+                      marginT: 20,
+                      icon: 'widget://res/gou.png',
+                      iconSize: 40,
+                      titleSize: 14,
+                      titleColor: '#666'
+                  },
+                  content: {
+                      color: '#ccc',
+                      size: 14
+                  },
+                  left: {
+                      marginB: 7,
+                      marginL: 20,
+                      w: 130,
+                      h: 35,
+                      corner: 2,
+                      bg: '#ccc',
+                      color: '#FFF',
+                      size: 12
+                  },
+                  right: {
+                      marginB: 7,
+                      marginL: 10,
+                      w: 130,
+                      h: 35,
+                      corner: 2,
+                      bg: '#89211b',
+                      color: '#fff',
+                      size: 12
+                  }
+              }
+          }, function(ret) {
+              console.log(JSON.stringify(ret));
+              if (ret.eventType == 'right') {
+                var DangQianbofangid = api.pageParam.DangQianbofangid;
+                console.log(DangQianbofangid);
+                if(DangQianbofangid){
+                  fnJinRuBofangs(DangQianbofangid);
+                }else{
+                  api.addEventListener({
+                      name: 'neizhiliebiaoPlaysss'
+                  }, function(ret, err) {
+                    console.log(1111111111111);
+                      listid = ret.value.playlistid;
+                      aa = ret.value.a;
+                      bofangs = ret.value.bofang;
+                      fnA(aa, bofangs, listid);
+                      fnAAaa(aa, bofangs, listid);
+                      return;
+                  });
+                  fnJinRuBofang();
+                }
+                  var dialogBox = api.require('dialogBox');
+                  dialogBox.close({
+                      dialogName: 'alert'
+                  });
+              }else if (ret.eventType == 'left') {
+                var stylelist = $api.byId('openplayer');
+                var html = '<img src="../image/play/ic_play_pause.png" alt=""  id="player"></div>';
+                $api.html(stylelist, html);
+                  var dialogBox = api.require('dialogBox');
+                  dialogBox.close({
+                      dialogName: 'alert'
+                  });
+              }else {
+                var stylelist = $api.byId('openplayer');
+                var html = '<img src="../image/play/ic_play_pause.png" alt=""  id="player"></div>';
+                $api.html(stylelist, html);
+                var dialogBox = api.require('dialogBox');
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+              }
+          });
+        }
+
         // api.addEventListener({
         //     name: 'netPlaying'
         // }, function(ret, err) {
@@ -583,25 +692,7 @@
         //     }
         //     return;
         // });
-        $api.fixIos7Bar(header);
-        var DangQianbofangid = api.pageParam.DangQianbofangid;
-        console.log(DangQianbofangid);
-        if(DangQianbofangid){
-          fnJinRuBofangs(DangQianbofangid);
-        }else{
-          api.addEventListener({
-              name: 'neizhiliebiaoPlaysss'
-          }, function(ret, err) {
-            console.log(1111111111111);
-              listid = ret.value.playlistid;
-              aa = ret.value.a;
-              bofangs = ret.value.bofang;
-              fnA(aa, bofangs, listid);
-              fnAAaa(aa, bofangs, listid);
-              return;
-          });
-          fnJinRuBofang();
-        }
+
 
         // api.addEventListener({
         //     name: 'netbofangsssssss'
@@ -627,7 +718,7 @@
         // console.log('222');
 
     }
-    function fnJinRuBofangs(id) {
+    function fnJinRuBofangs(DangQianbofangid) {
         var eHeader = $api.byId('header')
         var bofang = 3;
         var stylelist = $api.byId('openplayer');
@@ -637,47 +728,17 @@
         playlistid = api.pageParam.playlistid;
         playid = api.pageParam.playid;
         dqbfid = api.pageParam.a;
-        if (id) {
+        if (DangQianbofangid) {
             api.sendEvent({
                 name: 'netPlayingUrl',
                 extra: {
-                    id: id
-                }
-            });
-        }
-        if (playlistid) {
-            api.sendEvent({
-                name: 'netPlayLieIdUrl',
-                extra: {
-                    playlistid: playlistid
+                    id: DangQianbofangid
                 }
             });
         }
         fnInitSwiper();
         fnOpenChangeImg();
         api.parseTapmode();
-        //console.log(bofang);
-
-        api.sendEvent({
-            name: 'neizhiliebiaoPlay',
-            extra: {
-                bofang: bofang,
-                a: id,
-                playlistid: playlistid
-            }
-        });
-            // var zaicibf
-            // api.sendEvent({
-            //     name: 'zaicibf',
-            //     extra: {
-            //         zaicibf: zaicibf,
-            //         a: id,
-            //         playlistid: playlistid
-            //     }
-            // });
-            fnNetAudiosPlayByID(id);
-
-        AddHistory(id);
         fnbofangshijian();
         fnJiBenXinXi()
         jindutiao();
