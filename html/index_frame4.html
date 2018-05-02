@@ -146,7 +146,6 @@
 
         .index_name_li {
             width: 100%;
-            height: 91px;
             border-radius: 5px;
             background: #fff;
         }
@@ -294,9 +293,9 @@
     <div class="index_name">
         <div class="p20pxs">
             <div class="index_name_li">
-                <div class="index_name_div border_b" onclick="fnFeedbackWin()">
+                <div class="index_name_div border_b" onclick="fnSecurityCenterWin()">
                     <div class="index_name_div_img fl"><img src="../image/my/index_bzyfk.png" alt=""></div>
-                    <span class="index_name_div_span fl">帮助与反馈</span>
+                    <span class="index_name_div_span fl">安全中心</span>
                     <div class="index_name_div_imgr fr"><img src="../image/my/index_y.png" alt=""></div>
                 </div>
                 <div class="index_name_div" onclick="fnSetWin();">
@@ -304,6 +303,12 @@
                     <span class="index_name_div_span fl">设置</span>
                     <div class="index_name_div_imgr fr"><img src="../image/my/index_y.png" alt=""></div>
                 </div>
+                <div class="index_name_div border_b" onclick="fnFeedbackWin()">
+                    <div class="index_name_div_img fl"><img src="../image/my/index_bzyfk.png" alt=""></div>
+                    <span class="index_name_div_span fl">帮助与反馈</span>
+                    <div class="index_name_div_imgr fr"><img src="../image/my/index_y.png" alt=""></div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -319,6 +324,17 @@
         // fnUserName(qqziliao);
         //alert(JSON.stringify(qqziliao));
         api.parseTapmode();
+    }
+    // 安全中心
+    function fnSecurityCenterWin() {
+      api.openWin({
+          name: 'securitycente',
+          url: './securitycente.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
+
     }
     function fnListeningListWin() {
       api.openWin({

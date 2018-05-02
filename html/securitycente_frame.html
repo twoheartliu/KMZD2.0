@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>孔孟之道--安全中心</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style>
+         body { padding: 10px; }
+        .fl{float: left;}
+        .fr{float: right;}
+         .code { width: 100%; height: 40px; line-height: 40px; margin-top: 15px; border-radius: 5px; border: 1px solid #ccc; }
+         input:focus, button:focus { outline: none; }
+         .securitycente_BangDin { padding: 10px 0; }
+         .securitycente_div { width: 100%; height: 50px; border-bottom: 1px solid #ccc; }
+        .securitycente_MiMa{width: 100%;height: 30px;color: #ccc;line-height: 30px;}
+        .securitycente_Img{width: 50px;height: 50px;}
+        .securitycente_Name{line-height: 25px;margin-left: 10px;}
+        .securitycente_header{width: 100%;height: 50px;line-height: 50px;font-size: 12px;color: #ccc;}
+        .securitycente_name1{font-size: 12px;color: #999;}
+        .securitycente_name2{font-size: 10px;color: #ccc;}
+    </style>
+</head>
+
+<body>
+    <div class="securitycente_MiMa"> 修改密码
+    </div>
+    <div class="code">
+        <img src="../image/login/login_password.png" onblur="fnPswordYanZheng();" state="off" id="img">
+        <input type="password" placeholder="请输入密码" id="password">
+        <div class="clear"></div>
+    </div>
+    <div class="securitycente_BangDin">
+        <div class="securitycente_header" onclick="ccg1231();">其他登录方式</div>
+        <div class="securitycente_div">
+            <div class="securitycente_Img fl"><img src="" alt="">手机图片</div>
+            <div class="securitycente_Name fl">
+              <div class="securitycente_name1">手机号</div>
+              <div class="securitycente_name2">15131245665</div>
+            </div>
+            <div class="securitycente_Img fr" onclick="collectmusicFx(this)"><img src="" alt=""></div>
+          </div>
+          <div class="securitycente_div">
+              <div class="securitycente_Img fl"><img src="../image/QQ.png" alt=""></div>
+              <div class="securitycente_Name fl">
+                  <div class="securitycente_name1">QQ</div>
+                  <div class="securitycente_name2">用户名</div>
+              </div>
+              <div class="securitycente_Img fr"><img src="" alt="">解除绑定</div>
+            </div>
+            <div class="securitycente_div">
+                <div class="securitycente_Img fl"><img src="../image/weixin.png" alt=""></div>
+                <div class="securitycente_Name fl">
+                  <div class="securitycente_name1">微信</div>
+                  <div class="securitycente_name2">用户名</div>
+                </div>
+                <div class="securitycente_Img fr"><img src="" alt="">解除绑定</div>
+            </div>
+    </div>
+</body>
+
+</html>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+    apiready = function() {
+            var input = $api.byId('password');
+            var img = $api.byId('img');
+
+            // var ele_eye = ele_pass_box.getElementsByTagName("i")[0];
+            img.onclick = function() {
+                var state = this.getAttribute("state");
+                if (state === "off") {
+                    input.setAttribute("type", "text");
+                    img.setAttribute("state", "on");
+                    img.style.opacity = 1;
+                } else {
+                    input.setAttribute("type", "password");
+                    img.setAttribute("state", "off");
+                    img.style.opacity = 1;
+                }
+                // var playCollect = $api.byId('playCollect');
+                if (img.getAttribute("src", 2) == "../image/login/login_password.png") {
+                    img.src = "../image/login/login_password2.png";
+                } else {
+                    img.src = "../image/login/login_password.png";
+                }
+            }
+        }
+        //密码正则验证；
+    function fnPswordYanZheng() {
+        var passwords = $api.byId('password');
+        password = $api.byId('password').value;
+        var passwordRegular = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
+        if (password == '') {
+            api.toast({
+                msg: '密码不能为空',
+                duration: 2000,
+                location: 'bottom'
+            });
+            return;
+        } else {
+            var str = password;
+            if (str == null || str.length < 6) {
+                api.toast({
+                    msg: '密码必须大于等于六位',
+                    duration: 2000,
+                    location: 'bottom'
+                });
+                return;
+            }
+            var reg = new RegExp(/^(?![^a-zA-Z]+$)(?!\D+$)/);
+            if (!reg.test(str)) {
+                api.toast({
+                    msg: '密码必须包含字母和数字',
+                    duration: 2000,
+                    location: 'bottom'
+                });
+                return;
+            }
+        }
+    }
+
+    function fnSjyanzheng() {
+        var phones = $api.byId('phone');
+        phone = $api.byId('phone').value;
+        var phoneRegular = /^(13[0-9]|15[012356789]|17[0135678]|18[0-9]|14[579])[0-9]{8}$/;
+        if (phone == '') {
+            api.toast({
+                msg: '手机不能为空',
+                duration: 2000,
+                location: 'bottom'
+            });
+            return;
+        } else if (!phoneRegular.test(phone)) {
+            api.toast({
+                msg: '手机格式不正确',
+                duration: 2000,
+                location: 'bottom'
+            });
+            phones.value = '';
+            return;
+        }
+    }
+</script>
