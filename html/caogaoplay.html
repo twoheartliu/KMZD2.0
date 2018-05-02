@@ -601,15 +601,15 @@
       var messageFrameDiv = $api.byId('wrap');
       var winHeightHeader = winHeight - headerPosH;
       $api.css(messageFrameDiv, 'height:' + winHeightHeader + 'px;');
-      api.addEventListener({
-          name: 'netPlaying'
-      }, function(ret, err) {
-        var id = api.pageParam.cgxid;
-          if(id == ret.value.playing){
-            fnJinRuBofangs(id);
-          }
-          return;
-      });
+      // api.addEventListener({
+      //     name: 'netPlaying'
+      // }, function(ret, err) {
+      //   var id = api.pageParam.cgxid;
+      //     if(id == ret.value.playing){
+      //       fnJinRuBofangs(id);
+      //     }
+      //     return;
+      // });
       api.addEventListener({
           name: 'neizhiliebiaoPlaysss'
       }, function(ret, err) {
@@ -628,8 +628,7 @@
       var eHeader = $api.byId('header');
       var bofang = 3;
       var stylelist = $api.byId('openplayer');
-      var html = '';
-      html += '<img src="../image/play/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player"></div>';
+      var html = '<img src="../image/play/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player"></div>';
       $api.html(stylelist, html);
       playid = api.pageParam.playid;
       dqbfid = api.pageParam.a;
@@ -656,14 +655,14 @@
               a: a
           }
       });
-      var zaicibf
-      api.sendEvent({
-          name: 'zaicibf',
-          extra: {
-              zaicibf: zaicibf,
-              a: id
-          }
-      });
+      // var zaicibf
+      // api.sendEvent({
+      //     name: 'zaicibf',
+      //     extra: {
+      //         zaicibf: zaicibf,
+      //         a: id
+      //     }
+      // });
       fnNetAudiosPlayByID(id);
       fnbofangshijian();
       fnJiBenXinXi()
@@ -875,20 +874,14 @@
                 var html = ret.value.bofangshijian;
                 $api.html(stylelist, html);
             }
-            //总时长
-            if (ret.value.lenth) {
+        });
+        //总时长
+        api.addEventListener({
+            name: 'zongJinDusss'
+        }, function(ret, err) {
+            if (ret.value.html) {
                 var stylelist = $api.byId('zongshichang');
-                //var html = ret.value.lenth;
-                cur = parseInt(ret.value.lenth);
-                temp = cur;
-                minute = parseInt(temp / 60);
-                if (cur % 60 < 10) {
-                    var html = "" + minute + ":0" + cur % 60 + "";
-
-                } else {
-                    var html = "" + minute + ":" + cur % 60 + "";
-
-                }
+                var html = ret.value.html;
                 $api.html(stylelist, html);
             }
         });
@@ -1015,7 +1008,10 @@
                 var lenth = ret.value.lenth;
                 var cur = ret.value.cur;
                 var a = cur / lenth;
-                range.value = JSON.stringify(cur / lenth * 100);
+                var ccc = JSON.stringify(cur / lenth * 100);
+                if(ccc >0 ){
+                  range.value = ccc;
+                }
                 var sssss = 100 - range.value;
                 //不渐变
                 // range.style.background = 'linear-gradient(to left, #89211b ' + sssss + '%, #000 0,#000  )';
@@ -1027,19 +1023,19 @@
         });
     }
 
-    function netTotalTime(){
-      api.addEventListener({
-          name: 'jibenxinxi'
-      }, function(ret, err) {
-          if (ret) {
-            var stylelist = $api.byId('zongshichang');
-            var html1 = ret.value.lenth;
-            var html = html1.slice(3);
-            $api.html(stylelist, html);
-            fnZongJinDu(ret.value.lenth);
-          }
-      });
-    }
+    // function netTotalTime(){
+    //   api.addEventListener({
+    //       name: 'jibenxinxi'
+    //   }, function(ret, err) {
+    //       if (ret) {
+    //         var stylelist = $api.byId('zongshichang');
+    //         var html1 = ret.value.lenth;
+    //         var html = html1.slice(3);
+    //         $api.html(stylelist, html);
+    //         fnZongJinDu(ret.value.lenth);
+    //       }
+    //   });
+    // }
     function fnZongJinDu(lenth) {
         zongJindu = lenth;
     }

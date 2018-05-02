@@ -394,12 +394,13 @@ var token;
         var footer = $api.byId('footer');
         var headerH = $api.offset(secHeader).h;
         var footerH = $api.offset(footer).h;
-        funIniGroup();
+
         fnOpenCenterFrame();
         api.parseTapmode();
         initEventListenner();
         initEventListennerBofang();
-        adjust();
+        adjust()
+        funIniGroup();
       }else{
         api.openWin({
             name: 'login',

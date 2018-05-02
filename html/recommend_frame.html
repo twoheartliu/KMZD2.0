@@ -122,15 +122,27 @@ function fnTingdanZhanshi(data_) {
     };
 
 }
-function fnSingleWin(tuijiantingdanid) {
-  api.openWin({
-      name: 'single',
-      url: './single.html',
-      pageParam: {
-          name: 'test',
-          tuijiantingdanid: tuijiantingdanid
-      }
-  });
+function fnSingleWin(id) {
+  var DangQianbofangid = api.pageParam.DangQianbofangid;
+  if(DangQianbofangid){
+    api.openWin({
+        name: 'single',
+        url: './single.html',
+        pageParam: {
+            tuijiantingdanid: id,
+            DangQianbofangid: api.pageParam.DangQianbofangid
+        }
+    });
+  }else{
+    api.openWin({
+        name: 'single',
+        url: './single.html',
+        pageParam: {
+            tuijiantingdanid: id
+        }
+    });
+  }
+  
 
 }
 </script>
