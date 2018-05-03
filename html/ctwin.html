@@ -481,23 +481,53 @@
         fnFuZhiAudio();
     }
     function fnFuZhiAudio() {
-      // console.log(path);
         var stylelist = $api.byId('yinpin');
-        var html = '<audio id="myAudio" ><source src="fs://caogaoxiang/15252490644492020" type="audio/mpeg"></audio>';
-        // console.log(html);
+        var html = '<audio id="myAudio" ><source src="' + path + '" type="audio/mpeg"></audio>';
         $api.html(stylelist, html);
-
     }
     //赋值播放时间
-  	function fnGetAddTime(html) {
+  	function fnGetAddTime(cur) {
   		var stylelist = $api.byId('addTime');
+      var html= '00:00';
+      var cur = parseInt(cur);
+      var temp = cur;
+      var minute = parseInt(temp / 60);
+      if (cur % 60 < 10) {
+          if(minute<10){
+             html = "0" + minute + ":0" + cur % 60 + "";
+          }else{
+             html = "" + minute + ":0" + cur % 60 + "";
+          }
+      } else {
+          if(minute<10){
+             html = "0" + minute + ":" + cur % 60 + "";
+          }else{
+             html = "" + minute + ":" + cur % 60 + "";
+          }
+      }
 
   		$api.html(stylelist, html);
   	}
     //赋值总时长
-  	function fnGetTotalTime(html) {
+  	function fnGetTotalTime(lenth) {
   		var stylelist = $api.byId('totalTime');
-
+      var html= '00:00';
+      var lenths = parseInt(lenth);
+      var temps = lenths;
+      var minutes = parseInt(temps / 60);
+      if (lenths % 60 < 10) {
+          if(minutes<10){
+             html = "0" + minutes + ":0" + lenths % 60 + "";
+          }else{
+             html = "" + minutes + ":0" + lenths % 60 + "";
+          }
+      } else {
+          if(minutes<10){
+             html = "0" + minutes + ":" + lenths % 60 + "";
+          }else{
+             html = "" + minutes + ":" + lenths % 60 + "";
+          }
+      }
   		$api.html(stylelist, html);
   	}
     //赋值剧本标题
@@ -569,65 +599,23 @@
     function fnLuYinshiting(){
   		if(path){
         var myAudio = document.getElementById("myAudio");
-
         myAudio.play();
         myAudio.loop=true;
-        addtime();
+
         jindutiao();
   		}
-
   	}
-    //播放时间
-    function addtime() {
-        var myAudio = document.getElementById("myAudio");
-        timer2 = setInterval(function() {
-            cur = parseInt(myAudio.currentTime);
-            temp = cur;
-            minute = parseInt(temp / 60);
-            if (cur % 60 < 10) {
-                var html = "0" + minute + ":0" + cur % 60 + "";
-            } else {
-              if(minute < 10){
-                var html = "0" + minute + ":" + cur % 60 + "";
-              }else{
-
-                  var html = "" + minute + ":" + cur % 60 + "";
-
-
-              }
-
-            }
-            fnGetAddTime(html);
-        }, 1000);
-
-    }
     //获取当前歌曲的歌长
     function jindutiao() {
         var myAudio = document.getElementById("myAudio");
         timer1 = setInterval(function() {
             lenth = myAudio.duration;
-            cur = myAudio.currentTime; //获取当前的播放时间
-
+            cur = myAudio.currentTime;
             jindutiaos(lenth,cur);
+            fnGetAddTime(cur);
+            fnGetTotalTime(lenth);
         }, 1000)
-        var lenth = parseInt(myAudio.duration);
-        var temp = lenth;
-        var minute = parseInt(temp / 60);
 
-        if (lenth % 60 < 10) {
-            var html = "0" + minute + ":0" + lenth % 60 + "";
-        } else {
-          if(minute < 10){
-            var html = "0" + minute + ":" + lenth % 60 + "";
-          }else{
-
-              var html = "" + minute + ":" + lenth % 60 + "";
-
-
-          }
-
-        }
-        fnGetTotalTime(html);
     }
     //保存
   	function fnLuYinBaoCun(){

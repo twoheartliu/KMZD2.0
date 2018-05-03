@@ -718,7 +718,11 @@
                 });
             }
             if (ret.index == "0") {
-                alert('收藏成功');
+                api.toast({
+                    msg: '收藏成功',
+                    duration: 2000,
+                    location: 'middle'
+                });
                 dialogBox.close({
                     dialogName: 'alert'
                 });
@@ -837,6 +841,11 @@
             // 点开
             clicktoolitem.setAttribute("data-click", 1);
             toolbarlist.src = "../image/KM_play_collect_red.png";
+              api.toast({
+                msg: '收藏成功',
+                duration: 2000,
+                location: 'middle'
+            });
         } else {
             // 关闭
             clicktoolitem.setAttribute("data-click", 0);
@@ -852,6 +861,11 @@
             // 点开
             clicktoolitem.setAttribute("data-click", 1);
             toolbarlist.src = "../image/KM_play_dianzan_red.png";
+            api.toast({
+              msg: '点赞成功',
+              duration: 2000,
+              location: 'middle'
+          });
         } else {
             // 关闭
             clicktoolitem.setAttribute("data-click", 0);

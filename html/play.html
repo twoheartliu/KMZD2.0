@@ -1233,6 +1233,11 @@
         var playCollect = $api.byId('playCollect');
         if (playCollect.getAttribute("src", 2) == "../image/KM_play_collect.png") {
             playCollect.src = "../image/KM_play_collect_red.png";
+            api.toast({
+              msg: '收藏成功',
+              duration: 2000,
+              location: 'middle'
+          });
         } else {
             playCollect.src = "../image/KM_play_collect.png";
         }
@@ -1242,6 +1247,11 @@
         var playDz = $api.byId('playDz');
         if (playDz.getAttribute("src", 2) == "../image/KM_play_dianzan.png") {
             playDz.src = "../image/KM_play_dianzan_red.png";
+            api.toast({
+              msg: '点赞成功',
+              duration: 2000,
+              location: 'middle'
+          });
         } else {
             playDz.src = "../image/KM_play_dianzan.png";
         }
