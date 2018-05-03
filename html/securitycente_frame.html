@@ -8,56 +8,126 @@
     <title>孔孟之道--安全中心</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
     <style>
-         body { padding: 10px; }
-        .fl{float: left;}
-        .fr{float: right;}
-         .code { width: 100%; height: 40px; line-height: 40px; margin-top: 15px; border-radius: 5px; border: 1px solid #ccc; }
-         input:focus, button:focus { outline: none; }
-         .securitycente_BangDin { padding: 10px 0; }
-         .securitycente_div { width: 100%; height: 50px; border-bottom: 1px solid #ccc; }
-        .securitycente_MiMa{width: 100%;height: 30px;color: #ccc;line-height: 30px;}
-        .securitycente_Img{width: 50px;height: 50px;}
-        .securitycente_Name{line-height: 25px;margin-left: 10px;}
-        .securitycente_header{width: 100%;height: 50px;line-height: 50px;font-size: 12px;color: #ccc;}
-        .securitycente_name1{font-size: 12px;color: #999;}
-        .securitycente_name2{font-size: 10px;color: #ccc;}
+        body {
+            padding: 10px;
+        }
+
+        .fl {
+            float: left;
+        }
+
+        .fr {
+            float: right;
+        }
+
+        .code {
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+            margin-top: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        input:focus,
+        button:focus {
+            outline: none;
+        }
+
+        .securitycente_BangDin {
+            padding: 10px 0;
+        }
+
+        .securitycente_div {
+            width: 100%;
+            height: 50px;
+            border-bottom: 1px solid #ccc;
+            overflow: hidden;
+        }
+
+        .securitycente_MiMa {
+            width: 100%;
+            height: 30px;
+            color: #ccc;
+            line-height: 30px;
+        }
+
+        .securitycente_Img1 {
+            width: 50px;
+            height: 50px;
+            text-align: center;
+        }
+
+        .securitycente_Img1 img {
+            width: 35px;
+            margin: 7.5px auto;
+        }
+
+        .securitycente_Img {
+            width: 50px;
+            height: 50px;
+        }
+
+        .securitycente_Img img {
+            width: 100%;
+            margin-top: 12px;
+        }
+
+        .securitycente_Name {
+            line-height: 25px;
+            margin-left: 10px;
+        }
+
+        .securitycente_header {
+            width: 100%;
+            height: 50px;
+            line-height: 50px;
+            font-size: 12px;
+            color: #ccc;
+        }
+
+        .securitycente_name1 {
+            line-height: 50px;
+            color: #999;
+        }
+
+        .securitycente_name2 {
+            font-size: 10px;
+            color: #ccc;
+        }
     </style>
 </head>
 
 <body>
-    <div class="securitycente_MiMa"> 修改密码
-    </div>
-    <div class="code">
+    <div class="securitycente_MiMa" onclick="changePassword();">修改密码</div>
+    <!-- <div class="code">
         <img src="../image/login/login_password.png" onblur="fnPswordYanZheng();" state="off" id="img">
         <input type="password" placeholder="请输入密码" id="password">
         <div class="clear"></div>
-    </div>
+    </div> -->
     <div class="securitycente_BangDin">
-        <div class="securitycente_header" onclick="ccg1231();">其他登录方式</div>
+        <div class="securitycente_header" onclick="">其他登录方式</div>
         <div class="securitycente_div">
-            <div class="securitycente_Img fl"><img src="" alt="">手机图片</div>
+            <div class="securitycente_Img1 fl"><img src="../image/phoneNumber.png" alt=""></div>
             <div class="securitycente_Name fl">
-              <div class="securitycente_name1">手机号</div>
-              <div class="securitycente_name2">15131245665</div>
+                <div class="securitycente_name1">手机号</div>
             </div>
-            <div class="securitycente_Img fr" onclick="collectmusicFx(this)"><img src="" alt=""></div>
-          </div>
-          <div class="securitycente_div">
-              <div class="securitycente_Img fl"><img src="../image/QQ.png" alt=""></div>
-              <div class="securitycente_Name fl">
-                  <div class="securitycente_name1">QQ</div>
-                  <div class="securitycente_name2">用户名</div>
-              </div>
-              <div class="securitycente_Img fr"><img src="" alt="">解除绑定</div>
+            <div class="securitycente_Img fr" onclick="collectmusicSj(this)" data-click="0"><img src="../image/my/Binding.png" alt="" class="collectmusicSj"></div>
+        </div>
+        <div class="securitycente_div">
+            <div class="securitycente_Img1 fl"><img src="../image/QQ.png" alt=""></div>
+            <div class="securitycente_Name fl">
+                <div class="securitycente_name1">QQ</div>
             </div>
-            <div class="securitycente_div">
-                <div class="securitycente_Img fl"><img src="../image/weixin.png" alt=""></div>
-                <div class="securitycente_Name fl">
-                  <div class="securitycente_name1">微信</div>
-                  <div class="securitycente_name2">用户名</div>
-                </div>
-                <div class="securitycente_Img fr"><img src="" alt="">解除绑定</div>
+            <div class="securitycente_Img fr" onclick="collectmusicQQ(this)" data-click="0"><img src="../image/my/Binding.png" alt="" class="collectmusicQQ"></div>
+        </div>
+        <div class="securitycente_div">
+            <div class="securitycente_Img1 fl"><img src="../image/weixin.png" alt=""></div>
+            <div class="securitycente_Name fl">
+                <div class="securitycente_name1">微信</div>
             </div>
+            <div class="securitycente_Img fr" onclick="collectmusicWX(this)" data-click="0"><img src="../image/my/Binding.png" alt="" class="collectmusicWX"></div>
+        </div>
     </div>
 </body>
 
@@ -65,28 +135,28 @@
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
     apiready = function() {
-            var input = $api.byId('password');
-            var img = $api.byId('img');
+            // var input = $api.byId('password');
+            // var img = $api.byId('img');
 
             // var ele_eye = ele_pass_box.getElementsByTagName("i")[0];
-            img.onclick = function() {
-                var state = this.getAttribute("state");
-                if (state === "off") {
-                    input.setAttribute("type", "text");
-                    img.setAttribute("state", "on");
-                    img.style.opacity = 1;
-                } else {
-                    input.setAttribute("type", "password");
-                    img.setAttribute("state", "off");
-                    img.style.opacity = 1;
-                }
-                // var playCollect = $api.byId('playCollect');
-                if (img.getAttribute("src", 2) == "../image/login/login_password.png") {
-                    img.src = "../image/login/login_password2.png";
-                } else {
-                    img.src = "../image/login/login_password.png";
-                }
-            }
+            // img.onclick = function() {
+            //     var state = this.getAttribute("state");
+            //     if (state === "off") {
+            //         input.setAttribute("type", "text");
+            //         img.setAttribute("state", "on");
+            //         img.style.opacity = 1;
+            //     } else {
+            //         input.setAttribute("type", "password");
+            //         img.setAttribute("state", "off");
+            //         img.style.opacity = 1;
+            //     }
+            //     // var playCollect = $api.byId('playCollect');
+            //     if (img.getAttribute("src", 2) == "../image/login/login_password.png") {
+            //         img.src = "../image/login/login_password2.png";
+            //     } else {
+            //         img.src = "../image/login/login_password.png";
+            //     }
+            // }
         }
         //密码正则验证；
     function fnPswordYanZheng() {
@@ -142,5 +212,201 @@
             phones.value = '';
             return;
         }
+    }
+
+    function collectmusicSj(clicktoolitem) {
+        var toolbarlist = document.getElementsByClassName('collectmusicSj')[0];
+        var click = clicktoolitem.getAttribute("data-click");
+        if (click == 0) {
+            api.openWin({
+                name: 'Binding',
+                url: './Binding.html',
+                pageParam: {
+                    name: 'test'
+                }
+            });
+            // 点开
+            clicktoolitem.setAttribute("data-click", 1);
+            toolbarlist.src = "../image/my/Bindings.png";
+        } else {
+            var dialogBox = api.require('dialogBox');
+            dialogBox.alert({
+                texts: {
+                    // title: '现在未使用wifi',
+                    content: '是否取消关注',
+                    leftBtnTitle: '取消',
+                    rightBtnTitle: '确认'
+                },
+                styles: {
+                    bg: '#fff',
+                    w: 300,
+                    title: {
+                        marginT: 20,
+                        icon: 'widget://res/gou.png',
+                        iconSize: 40,
+                        titleSize: 14,
+                        titleColor: '#666'
+                    },
+                    content: {
+                        color: '#ccc',
+                        size: 14
+                    },
+                    left: {
+                        marginB: 7,
+                        marginL: 20,
+                        w: 130,
+                        h: 35,
+                        corner: 2,
+                        bg: '#ccc',
+                        color: '#FFF',
+                        size: 12
+                    },
+                    right: {
+                        marginB: 7,
+                        marginL: 10,
+                        w: 130,
+                        h: 35,
+                        corner: 2,
+                        bg: '#89211b',
+                        color: '#fff',
+                        size: 12
+                    }
+                }
+            }, function(ret) {
+                if (ret.eventType == 'left') {
+                    var dialogBox = api.require('dialogBox');
+                    dialogBox.close({
+                        dialogName: 'alert'
+                    });
+                } else {
+                    clicktoolitem.setAttribute("data-click", 0);
+                    toolbarlist.src = "../image/my/Binding.png";
+                    var dialogBox = api.require('dialogBox');
+                    dialogBox.close({
+                        dialogName: 'alert'
+                    });
+                }
+            });
+
+
+        }
+    }
+
+    function collectmusicQQ(clicktoolitem) {
+        var toolbarlist = document.getElementsByClassName('collectmusicQQ')[0];
+        var click = clicktoolitem.getAttribute("data-click");
+        if (click == 0) {
+            var qq = api.require('qq');
+            qq.installed(function(ret, err) {
+                if (ret.status) {
+                    qq.login(function(ret, err) {
+                        api.toast({
+                            msg: '绑定成功',
+                            duration: 2000,
+                            location: 'middle'
+                        });
+                        clicktoolitem.setAttribute("data-click", 1);
+                        toolbarlist.src = "../image/my/Bindings.png";
+                    });
+                } else {
+                  api.toast({
+                      msg: '没有安装',
+                      duration: 2000,
+                      location: 'middle'
+                  });
+
+                }
+            });
+            // 点开
+
+        } else {
+            var qq = api.require('qq');
+            qq.logout(function(ret, err) {
+                if (ret.status) {
+                  api.toast({
+                      msg: '解除绑定',
+                      duration: 2000,
+                      location: 'middle'
+                  });
+                    clicktoolitem.setAttribute("data-click", 0);
+                    toolbarlist.src = "../image/my/Binding.png";
+                } else {
+                  api.toast({
+                      msg: err.msg,
+                      duration: 2000,
+                      location: 'middle'
+                  });
+                    
+                }
+            });
+            // 关闭
+
+        }
+    }
+
+    function collectmusicWX(clicktoolitem) {
+        var toolbarlist = document.getElementsByClassName('collectmusicWX')[0];
+        var click = clicktoolitem.getAttribute("data-click");
+        if (click == 0) {
+            var wx = api.require('wx');
+            wx.isInstalled(function(ret, err) {
+                if (ret.installed) {
+                    wx.auth({}, function(ret, err) {
+                        if (ret.status) {
+                            var wx = api.require('wx');
+                            wx.getToken({
+                                code: ret.code
+                            }, function(ret, err) {
+                                if (ret.status) {
+                                    wx.getUserInfo({
+                                        accessToken: ret.accessToken,
+                                        openId: ret.openId
+                                    }, function(ret, err) {
+                                        if (ret.status) {
+                                            // console.log(JSON.stringify(ret));
+                                            // var WXName = $api.byId('WXName');
+                                            // var html = ret.nickname;
+                                            // // console.log(html);
+                                            // $api.html(WXName, html);
+                                            // 点开
+                                            clicktoolitem.setAttribute("data-click", 1);
+                                            toolbarlist.src = "../image/my/Bindings.png";
+                                        } else {
+                                            alert(err.code);
+                                        }
+                                    });
+
+                                } else {
+                                    alert(err.code);
+                                }
+                            });
+                        } else {
+                            alert(err.code);
+                        }
+                    });
+                } else {
+                    alert('当前设备未安装微信客户端');
+                }
+            });
+        } else {
+            // var WXName = $api.byId('WXName');
+            // var html = '未绑定';
+            // // console.log(html);
+            // $api.html(WXName, html);
+            // 关闭
+            clicktoolitem.setAttribute("data-click", 0);
+            toolbarlist.src = "../image/my/Binding.png";
+        }
+    }
+
+    function changePassword() {
+        api.openWin({
+            name: 'changePassword',
+            url: './changePassword.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
+
     }
 </script>
