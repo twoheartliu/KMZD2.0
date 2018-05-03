@@ -237,10 +237,10 @@
       <div class="name_bt">
           <div class="name_bt_c"><img src="../image/read/335551519577750673.png" alt="" id="playCollects" onclick="fnAletr();"></div>
           <div class="name_bt_b"><img src="../image/read/recording.png" alt="" id="playCollect" onclick="fnOpenPlayCollect();"></div>
-          <div class="name_bt_s" onclick="fnLuYinshiting();"></div>
+          <div class="name_bt_s" id="playCollectssss" onclick="fnLuYinshiting();"></div>
       </div>
         <!-- <div class="p20px"> -->
-            <div class="aloud_frame_bg_bottom" onclick="fnSoundtrackWin()">
+            <div class="aloud_frame_bg_bottom" onclick="fnReadListWin()">
               更换剧本
             </div>
             <div class="aloud_py">
@@ -277,6 +277,7 @@ var timestamp=new Date().getTime();
 var timestamps;
 var Guid = new Array();
     apiready = function() {
+      path = '';
       var CompanyInfobeiyue;
       var secHeader = $api.byId('secHeader');
       $api.fixStatusBar(secHeader);
@@ -383,6 +384,15 @@ var Guid = new Array();
             name: 'aloud'
         });
     }
+    function fnReadListWin() {
+        api.openWin({
+            name: 'readlist',
+            url: './readlist.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
+    }
     //进入背景音乐列表
     function fnSoundtrackWin() {
         api.openWin({
@@ -396,89 +406,68 @@ var Guid = new Array();
     }
     //保存
   	function fnLuYinBaoCun(){
-  		//fs 文件管理 删除  拷贝  移除等
-  		//拷贝文件
-  		var fs = api.require('fs');
-  		fs.copyTo({
-  		    oldPath: path,
-  		    newPath: 'fs://caogaoxiang'
-  		}, function(ret, err) {
-  				var paths = 'fs://caogaoxiang/' + timestamps +'';
-  		    if (ret.status) {
-  					var fs = api.require('fs');
-  					fs.rename({
-  						oldPath: paths,
-  						newPath: 'fs://caogaoxiang/' + timestamp +'' + jubenid + ''
-  					}, function(ret, err) {
-  						if (ret.status) {
-  								alert('已保存');
-  						} else {
-  								alert(JSON.stringify(err));
-  						}
-  					});
-  		    } else {
-  		        alert(JSON.stringify(err));
-  		    }
-  		});
-        cgxid = ''+ timestamp + '' + jubenid + '';
-      api.getPrefs({
-          key: 'cgxlist'
-      }, function(ret, err) {
-          if (ret) {
-              var flag = false; //是否增加历史记录
-              var historyUrlText = ret.value;
-              var historyUrlArray = historyUrlText.split(',');
-              for (var i = 0; i < historyUrlArray.length; i++) {
-                  historyUrlArray[i] == cgxid && (flag = true);
-              }!flag && historyUrlArray.splice(1, 0, cgxid,title,name,desc);
-              !flag && api.setPrefs({
-                  key: 'cgxlist',
-                  value: historyUrlArray.join(',')
-              });
-              // fnHistoryUrl(id);
-          } else {
-              alert(JSON.stringify(err));
-          }
-      });
-      // api.sendEvent({
-      //     name: 'netPlayLieCgx',
-      //     extra: {
-      //         cgxid: cgxid,
-      //         title: title,
-      //         name: name,
-      //         body: body
-      //     }
-      // });
-      // var fs = api.require('fs');
-      // fs.exist({
-      //     path: 'fs://luyintxtss',
-      // }, function(ret, err) {
-      //     if (ret.exist) {
-      //
-      //         if (ret.directory) {
-      //           newLuyinWenjian();
-      //         } else {
-      //             alert('文件');
-      //         }
-      //     } else {
-      //       // console.log(JSON.stringify(ret));
-      //
-      //       newluyintxt();
-      //       //  alert(JSON.stringify(err));
-      //     }
-      // });
+      if(a == 2){
+        //fs 文件管理 删除  拷贝  移除等
+    		//拷贝文件
+        if(path){
+          var fs = api.require('fs');
+      		fs.copyTo({
+      		    oldPath: path,
+      		    newPath: 'fs://caogaoxiang'
+      		}, function(ret, err) {
+      				var paths = 'fs://caogaoxiang/' + timestamps +'';
+      		    if (ret.status) {
+      					var fs = api.require('fs');
+      					fs.rename({
+      						oldPath: paths,
+      						newPath: 'fs://caogaoxiang/' + timestamp +'' + jubenid + ''
+      					}, function(ret, err) {
+      						if (ret.status) {
+      								alert('已保存');
+      						} else {
+      								alert(JSON.stringify(err));
+      						}
+      					});
+      		    } else {
+      		        alert(JSON.stringify(err));
+      		    }
+      		});
+            cgxid = ''+ timestamp + '' + jubenid + '';
+          api.getPrefs({
+              key: 'cgxlist'
+          }, function(ret, err) {
+              if (ret) {
+                  var flag = false; //是否增加历史记录
+                  var historyUrlText = ret.value;
+                  var historyUrlArray = historyUrlText.split(',');
+                  for (var i = 0; i < historyUrlArray.length; i++) {
+                      historyUrlArray[i] == cgxid && (flag = true);
+                  }!flag && historyUrlArray.splice(1, 0, cgxid,title,name,desc);
+                  !flag && api.setPrefs({
+                      key: 'cgxlist',
+                      value: historyUrlArray.join(',')
+                  });
+              } else {
+                  alert(JSON.stringify(err));
+              }
+          });
+        }else{
+          alert("请先录音");
+        }
+
+      }else{
+        fnAletrssss();
+      }
+
   	}
     function newluyintxt(){
       var fs = api.require('fs');
       fs.createDir({
           path: 'fs://luyintxtss',
       }, function(ret, err) {
-        // console.log(JSON.stringify(ret));
           if (ret.status) {
-            // console.log('44444');
             newLuyinWenjian();
           } else {
-            // console.log(JSON.stringify(err));
               alert(JSON.stringify(err));
           }
       });
@@ -486,7 +475,6 @@ var Guid = new Array();
     //创建录音文件；
     function newLuyinWenjian(){
       var fs = api.require('fs');
-      // console.log('33');
       fs.createFile({
           path: 'fs://luyintxtss/' + timestamp +'' + jubenid + '.txt'
       }, function(ret, err) {
@@ -511,48 +499,61 @@ var Guid = new Array();
           }
       });
     }
+    //是否重新录制
+    function fnAletr() {
+      if(a == 2){
+        if(path){
+          api.confirm({
+              title: '是否重新录制',
+              msg: '是否重新录制',
+              buttons: ['确定', '取消']
+          }, function(ret, err) {
+              var index = ret.buttonIndex;
+              if (index == 1) {
+                var c = 0;
+                var t = '';
+                var playCollect = $api.byId('playCollect');
+                playCollect.src = "../image/read/recordingStart.png";
+                fnNetAudiosLuYinByID();
+                a = 1;
+              }
+          });
+        }else{
+          alert('请先录音');
+        }
+      }else{
+        fnAletrssss();
+      }
+    }
   	//试听
   	function fnLuYinshiting(){
       // console.log(path);
-  		if(path){
-        api.openWin({
-            name: 'ctwin',
-            url: './ctwin.html',
-            pageParam: {
-                path : path,
-                desc : desc,
-                title : title,
-                name : name,
-                jubenid : jubenid,
-                cgxid : cgxid,
-                timestamp : timestamp,
-                timestamps : timestamps
-            }
-        });
-  		}else{
-  			alert('请先录音');
-  		}
+      if(a == 2){
+        if(path){
+          api.openWin({
+              name: 'ctwin',
+              url: './ctwin.html',
+              pageParam: {
+                  path : path,
+                  desc : desc,
+                  title : title,
+                  name : name,
+                  jubenid : jubenid,
+                  cgxid : cgxid,
+                  timestamp : timestamp,
+                  timestamps : timestamps
+              }
+          });
+    		}else{
+    			alert('请先录音');
+    		}
+      }else{
+        fnAletrssss();
+      }
+  	}
 
-  	}
-  	//试听
-  	function fnLuYinshitings(){
-  		if(path){
-  			var netAudio = api.require('netAudio');
-  			netAudio.play({
-  					path: path
-  			}, function(ret, err) {
-  					if (ret) {
-  							//alert(JSON.stringify(ret));
-  					} else {
-  							alert(JSON.stringify(err));
-  					}
-  			});
-  		}else{
-  			alert('请先录音');
-  		}
-  	}
     var c = 0;
-    var t
+    var t = '';
     function timedCount(){
       var stylelist = $api.byId('appTime');
               c=c+1;
@@ -634,30 +635,30 @@ var Guid = new Array();
     }
     //点击播放并录音
   	function fnNetAudiosLuYinByID(){
-
-
   			if(input){
   				fnBeiYueplay();
   			}
-
   			api.startRecord({
   			    path: 'fs://luyin/' + timestamp + ''
   			});
   			timestamps = timestamp;
         timedCount();
-
   	}
+    var a = 2;
+    function fnAletrssss(){
+      alert("请先暂停播放");
+    }
     //开始暂停
     function fnOpenPlayCollect(){
         var playCollect = $api.byId('playCollect');
         if (playCollect.getAttribute("src", 2) == "../image/read/recording.png") {
             playCollect.src = "../image/read/recordingStart.png";
             fnNetAudiosLuYinByID();
+            a = 1;
         } else {
             playCollect.src = "../image/read/recording.png";
-
+            a = 2;
       			//暂停播放
-
             var netAudio = api.require('netAudio');
       			netAudio.stop();
             stopCount();
@@ -669,27 +670,6 @@ var Guid = new Array();
       			        duration = ret.duration;
       			    }
       			});
-        }
-    };
-    function fnAletr() {
-        // api.confirm({
-        //     title: '是否重新录制',
-        //     msg: 'testmsg',
-        //     buttons: ['确定', '取消']
-        // }, function(ret, err) {
-        //     var index = ret.buttonIndex;
-        //     alert(JSON.stringify( ret ));
-        //     if (index == 1) {
-        //       alert(1)
-        //     }else {
-        //       alert(2)
-        //     }
-        // });
-        var playCollect = $api.byId('playCollects');
-        if (playCollect.getAttribute("src", 2) == "../image/play/738958635261814309.png") {
-            playCollect.src = "../image/play/335551519577750673.png";
-        } else {
-            playCollect.src = "../image/play/738958635261814309.png";
         }
 
     }

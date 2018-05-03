@@ -144,7 +144,8 @@
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
     apiready = function() {
-      fnDeleteUser();
+      // fnDeleteUser();
+      fnOpenUserButton();
     };
     function fnOpenmyPersonal(){
       api.openWin({
@@ -156,109 +157,73 @@
       });
 
     };
-    function fnDeleteUser() {
-      // var userDeleteA = document.getElementById('userDeleteA');
+
+
+    //加关注
+    function fnOpenUserButton() {
       var nav = document.getElementById('nav');
-      var userDeleteA = nav.getElementsByClassName('userDeleteA');
-      for (var i = 0; i < userDeleteA.length; i++) {
-        userDeleteA[i].index = i;
-        userDeleteA[i].onclick = function() {
-          var j = this.index;
-          var dialogBox = api.require('dialogBox');
-              dialogBox.alert({
-                  texts:{
-                      content:'确定要添加关注吗？',
-                      leftBtnTitle: '取消',
-                      rightBtnTitle: '确认'
-                  },
-                  styles: {
-                      bg: '#fff',
-                      w: 300,
-                      content: {
-                          color: '#000',
-                          size: 14
+      var userDeleteA_lis = nav.getElementsByClassName('userDeleteA');
+        for (var i = 0; i < userDeleteA_lis.length; i++) {
+          userDeleteA_lis[i].index = i;
+            userDeleteA_lis[i].onclick = function() {
+              var j = this.index;
+                var dialogBox = api.require('dialogBox');
+                  dialogBox.alert({
+                      texts:{
+                          content:'确定要添加关注吗？',
+                          leftBtnTitle: '取消',
+                          rightBtnTitle: '确认'
                       },
-                      left: {
-                          marginB: 15,
-                          marginL: 20,
-                          w: 100,
-                          h: 35,
-                          corner: 2,
-                          bg: '#ccc',
-                          color: '#fff',
-                          size: 12
-                      },
-                      right: {
-                          marginB: 15,
-                          marginL: 60,
-                          w: 100,
-                          h: 35,
-                          corner: 2,
-                          bg: '#ccc',
-                          color: '#fff',
-                          size: 12
+                      styles: {
+                          bg: '#fff',
+                          w: 300,
+                          content: {
+                              color: '#000',
+                              size: 14
+                          },
+                          left: {
+                              marginB: 15,
+                              marginL: 20,
+                              w: 100,
+                              h: 35,
+                              corner: 2,
+                              bg: '#ccc',
+                              color: '#fff',
+                              size: 12
+                          },
+                          right: {
+                              marginB: 15,
+                              marginL: 60,
+                              w: 100,
+                              h: 35,
+                              corner: 2,
+                              bg: '#ccc',
+                              color: '#fff',
+                              size: 12
+                          }
                       }
-                  }
-                },function(ret) {
-                  if (ret.eventType == 'right') {
-                    var item = nav.getElementsByClassName('item');
-                    // $api.css(item[j],'display:none;');
-                    var img = '<img src="../image/my/personal_care_a.png" alt="" class="userDeleteA">';
-                    var imgs = '<img src="../image/my/attention.png" alt="" class="userDeleteA">';
-                    $api.removeCls(el, 'newclass');
+                    },function(ret) {
+                      if (ret.eventType == 'right') {
+                          if(userDeleteA_lis[j].getAttribute("src",2)=="../image/my/attention.png"){
+                            userDeleteA_lis[j].src="../image/my/personal_care_a.png";
+                          }else {
+                            userDeleteA_lis[j].src="../image/my/attention.png";
+                          }
+                          var dialogBox = api.require('dialogBox');
+                          dialogBox.close({
+                              dialogName: 'alert'
+                          });
+                      }else if (ret.eventType == 'left') {
+                        var dialogBox = api.require('dialogBox');
+                        dialogBox.close({
+                            dialogName: 'alert'
+                        });
+                    }
+                });
 
-                    $api.toggleCls(item[j], img);
-                      var dialogBox = api.require('dialogBox');
-                      dialogBox.close({
-                          dialogName: 'alert'
-                      });
-                  }else if (ret.eventType == 'left') {
-                    var dialogBox = api.require('dialogBox');
-                    dialogBox.close({
-                        dialogName: 'alert'
-                    });
-                }
-            });
+        }
       }
-    }
 
-      // var ul_li = nav.getElementsByClassName('item');
-      // for (var i = 0; i < user_delete.length; i++) {
-      //     user_delete[i].index = i;
-      //     user_delete[i].onclick = function() {
-      //         var j = this.index;
-      //       $api.addCls(ul_li[j], 'active');
-      //       user_delete[j].src="../image/user-delete-a.png";
-      //       if(user_delete[j].getAttribute("src",2)=="../image/play_collect.png"){
-      //         user_delete[j].src="../image/user-delete-a.png";
-      //       }else{
-      //         user_delete[j].src="../image/user-delete.png";
-      //       }
-      //     }
-      // }
-
-
-
-
-
-    };
-
-    // function confire(){
-    //   //   var friend = document.getElementById('friend');
-    //   //   var friend_lis = friend.getElementsByClassName('userButton');
-    //   //   for (var i = 0; i < friend_lis.length; i++) {
-    //   //     friend_lis[i].index = i;
-    //   //     friend_lis[i].onclick = function() {
-    //   //       var j = this.index;
-    //   //     if(friend_lis[j].getAttribute("src",2)=="../image/care.png"){
-    //   //       friend_lis[j].src="../image/care1.png";
-    //   //     }
-    //   //   }
-    //   // }
-    //   var nav = document.getElementById('nav');
-    //
-    //
-    //
-    // };
+      }
 
 </script>
