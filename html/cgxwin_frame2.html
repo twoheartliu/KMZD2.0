@@ -272,6 +272,7 @@
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
 var caogao;
+var Dqbofangid;
 var Guid = new Array();
     apiready = function() {
       fnGetBeiJingYinYueTypelist()
@@ -306,15 +307,39 @@ var Guid = new Array();
       });
 
   	}
+    function fnDangQianbofangid(id){
+      Dqbofangid = id;
+    }
     function opencaogaoyinyue(cgxid) {
-  		api.openWin({
-  			name: 'caogaoplay',
-  			url: './caogaoplay.html',
-  			pageParam: {
-  				cgxid : cgxid
-  			},
-  			delay: 200
-  		});
+      api.addEventListener({
+          name: 'netPlaying'
+      }, function(ret, err) {
+          if(cgxid == ret.value.playing){
+            fnDangQianbofangid(ret.value.playing);
+          }
+
+      });
+      if(Dqbofangid == cgxid){
+        api.openWin({
+    			name: 'caogaoplay',
+    			url: './caogaoplay.html',
+    			pageParam: {
+    				cgxid : cgxid,
+            DangQianbofangid: Dqbofangid
+    			},
+    			delay: 200
+    		});
+      }else{
+        api.openWin({
+    			name: 'caogaoplay',
+    			url: './caogaoplay.html',
+    			pageParam: {
+    				cgxid : cgxid
+    			},
+    			delay: 200
+    		});
+      }
+
   	}
     function dialogBox_actionMenu() {
         var dialogBox = api.require('dialogBox');

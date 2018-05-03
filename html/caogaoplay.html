@@ -601,40 +601,29 @@
       var messageFrameDiv = $api.byId('wrap');
       var winHeightHeader = winHeight - headerPosH;
       $api.css(messageFrameDiv, 'height:' + winHeightHeader + 'px;');
-      // api.addEventListener({
-      //     name: 'netPlaying'
-      // }, function(ret, err) {
-      //   var id = api.pageParam.cgxid;
-      //     if(id == ret.value.playing){
-      //       fnJinRuBofangs(id);
-      //     }
-      //     return;
-      // });
-      api.addEventListener({
-          name: 'neizhiliebiaoPlaysss'
-      }, function(ret, err) {
-          // listid = ret.value.cgxid;
-          aa = ret.value.a;
-          bofangs = ret.value.bofang;
-
-          fnA(aa, bofangs);
-          fnAAaa(aa, bofangs);
-          return;
-      });
-      fnJinRuBofang();
+      var DangQianbofangid = api.pageParam.DangQianbofangid;
+      if(DangQianbofangid){
+        fnJinRuBofangs(DangQianbofangid);
+      }else{
+        api.addEventListener({
+            name: 'neizhiliebiaoPlaysss'
+        }, function(ret, err) {
+            aa = ret.value.a;
+            bofangs = ret.value.bofang;
+            fnA(aa, bofangs);
+            fnAAaa(aa, bofangs);
+            return;
+        });
+        fnJinRuBofang();
+      }
     }
     var ids;
-    function fnJinRuBofangs(bofang){
+    function fnJinRuBofangs(id){
       var eHeader = $api.byId('header');
-      var bofang = 3;
+      api.parseTapmode();
       var stylelist = $api.byId('openplayer');
       var html = '<img src="../image/play/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player"></div>';
       $api.html(stylelist, html);
-      playid = api.pageParam.playid;
-      dqbfid = api.pageParam.a;
-      a = api.pageParam.a;
-      var id = id;
-      // console.log(ccc);
       if (id) {
           api.sendEvent({
               name: 'netPlayingCgx',
@@ -645,32 +634,9 @@
       }
       fnInitSwiper();
       fnOpenChangeImg();
-      api.parseTapmode();
-
-
-      api.sendEvent({
-          name: 'neizhiliebiaoPlay',
-          extra: {
-              bofang: bofang,
-              a: a
-          }
-      });
-      // var zaicibf
-      // api.sendEvent({
-      //     name: 'zaicibf',
-      //     extra: {
-      //         zaicibf: zaicibf,
-      //         a: id
-      //     }
-      // });
-      fnNetAudiosPlayByID(id);
       fnbofangshijian();
       fnJiBenXinXi()
       jindutiao();
-      if (dangqianbofangid) {
-          dqbfid = dangqianbofangid;
-      }
-
     }
     function fnJinRuBofang(bofang){
       var eHeader = $api.byId('header');
@@ -679,13 +645,10 @@
       }else{
         var bofang = api.pageParam.bofang;
       }
-      //var bofang = api.pageParam.bofang;
-      // playlistid = api.pageParam.playlistid;
       playid = api.pageParam.playid;
       dqbfid = api.pageParam.a;
       a = api.pageParam.a;
       var id = api.pageParam.cgxid;
-      // console.log(ccc);
       if (id) {
           api.sendEvent({
               name: 'netPlayCgx',
@@ -728,21 +691,8 @@
                   a: a,
               }
           });
-          // var zaicibf
-          // api.sendEvent({
-          //     name: 'zaicibf',
-          //     extra: {
-          //         zaicibf: zaicibf,
-          //         a: id,
-          //         playlistid: playlistid
-          //     }
-          // });
           fnNetAudiosPlayByID(id);
       }
-    // function fnJinRuBofangs(id){
-
-
-
       api.sendEvent({
           name: 'neizhiliebiaoPlay',
           extra: {
@@ -1023,19 +973,6 @@
         });
     }
 
-    // function netTotalTime(){
-    //   api.addEventListener({
-    //       name: 'jibenxinxi'
-    //   }, function(ret, err) {
-    //       if (ret) {
-    //         var stylelist = $api.byId('zongshichang');
-    //         var html1 = ret.value.lenth;
-    //         var html = html1.slice(3);
-    //         $api.html(stylelist, html);
-    //         fnZongJinDu(ret.value.lenth);
-    //       }
-    //   });
-    // }
     function fnZongJinDu(lenth) {
         zongJindu = lenth;
     }

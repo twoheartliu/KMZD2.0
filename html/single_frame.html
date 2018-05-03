@@ -643,19 +643,13 @@
       api.addEventListener({
           name: 'netPlaying'
       }, function(ret, err) {
-        console.log(ret.value.playing);
           if(a == ret.value.playing){
             fnDangQianbofangid(ret.value.playing);
           }
 
       });
         var playlistid = api.pageParam.tuijiantingdanid;
-        // var connectionType = api.connectionType;
-        //  alert(connectionType);
-        //  if(connectionType == 'wifi'){
-        console.log(a);
-        console.log(Dqbofangid);
-        if(Dqbofangid){
+        if(Dqbofangid == a){
           api.openWin({
               name: 'play',
               url: './play.html',
@@ -663,7 +657,6 @@
                   playlistid: playlistid,
                   a: a,
                   DangQianbofangid: Dqbofangid
-
               }
           });
         }else{
@@ -673,7 +666,6 @@
               pageParam: {
                   a: a,
                   playlistid: playlistid
-
               }
           });
         }
