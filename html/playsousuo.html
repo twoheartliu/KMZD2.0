@@ -476,7 +476,7 @@
         <div class="egret-img"><img src="../image/icon_back.png" alt="" onclick="api.closeWin();"></div>
         <div class="egret-txt" id="title">
         </div>
-        <div class="header_fr" onclick=" ">
+        <div class="header_fr" onclick="fnOpenPlayShare(); ">
             <img src="../image/KM__play_share.png" alt="">
         </div>
     </header>
@@ -504,7 +504,7 @@
                 <img src="../image/KM_play_collect.png" alt="" id="playCollect" onclick="fnOpenPlayCollect();">
                 <p>收藏</p>
             </li>
-            <li class="share" tapmode="focus" onclick="">
+            <li class="share" tapmode="focus" onclick="fnOpenAddListening(); ">
                 <img src="../image/KM__play_add.png" alt="">
                 <p>添加到听单</p>
             </li>
@@ -1131,7 +1131,7 @@
                     marginT: 8
                 },
                 itemIcon: {
-                    size: 48
+                    size: 30
                 },
                 cancel: {
                     bg: 'fs://icon.png',
@@ -1142,7 +1142,11 @@
             },
             tapClose: true
         }, function(ret) {
-
+            if (ret.eventType == 'cancel') {
+                dialogBox.close({
+                    dialogName: 'discount'
+                });
+            }
             if (ret.index == "0") {
                 dialogBox.close({
                     dialogName: 'alert'
@@ -1170,6 +1174,17 @@
 
         });
     }
+    //添加到听单
+    function fnOpenAddListening(){
+      api.openWin({
+          name: 'addListening',
+          url: './add_listening.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
+    }
+
 
     //打开播放列表
     function openRadioList() {
