@@ -37,7 +37,7 @@
 
 <body>
   <nav id="nav" >
-    <div class="total">共关注了<span>12</span>人</div>
+    <div class="total">已互相关注了<span>12</span>人</div>
     <ul>
       <li class="item" id="item">
         <div class="user-detail" onclick="fnOpenmyPersonal();">
@@ -68,7 +68,7 @@
             </div>
           </div>
           <div class="userDelete" >
-            <img src="../image/my/personal_care.png" alt="" class="userDeleteA">
+            <img src="../image/my/attention.png" alt="" class="userDeleteA">
           </div>
       </li>
       <li class="item">
@@ -84,7 +84,7 @@
             </div>
           </div>
           <div class="userDelete" >
-            <img src="../image/my/personal_care.png" alt="" class="userDeleteA">
+            <img src="../image/my/attention.png" alt="" class="userDeleteA">
           </div>
       </li>
       <li class="item">
@@ -167,7 +167,7 @@
           var dialogBox = api.require('dialogBox');
               dialogBox.alert({
                   texts:{
-                      content:'确定要取消关注吗？',
+                      content:'确定要添加关注吗？',
                       leftBtnTitle: '取消',
                       rightBtnTitle: '确认'
                   },
@@ -202,7 +202,12 @@
                 },function(ret) {
                   if (ret.eventType == 'right') {
                     var item = nav.getElementsByClassName('item');
-                    $api.css(item[j],'display:none;');
+                    // $api.css(item[j],'display:none;');
+                    var img = '<img src="../image/my/personal_care_a.png" alt="" class="userDeleteA">';
+                    var imgs = '<img src="../image/my/attention.png" alt="" class="userDeleteA">';
+                    $api.removeCls(el, 'newclass');
+
+                    $api.toggleCls(item[j], img);
                       var dialogBox = api.require('dialogBox');
                       dialogBox.close({
                           dialogName: 'alert'
@@ -238,22 +243,22 @@
 
     };
 
-    function confire(){
-      //   var friend = document.getElementById('friend');
-      //   var friend_lis = friend.getElementsByClassName('userButton');
-      //   for (var i = 0; i < friend_lis.length; i++) {
-      //     friend_lis[i].index = i;
-      //     friend_lis[i].onclick = function() {
-      //       var j = this.index;
-      //     if(friend_lis[j].getAttribute("src",2)=="../image/care.png"){
-      //       friend_lis[j].src="../image/care1.png";
-      //     }
-      //   }
-      // }
-      var nav = document.getElementById('nav');
-
-
-
-    };
+    // function confire(){
+    //   //   var friend = document.getElementById('friend');
+    //   //   var friend_lis = friend.getElementsByClassName('userButton');
+    //   //   for (var i = 0; i < friend_lis.length; i++) {
+    //   //     friend_lis[i].index = i;
+    //   //     friend_lis[i].onclick = function() {
+    //   //       var j = this.index;
+    //   //     if(friend_lis[j].getAttribute("src",2)=="../image/care.png"){
+    //   //       friend_lis[j].src="../image/care1.png";
+    //   //     }
+    //   //   }
+    //   // }
+    //   var nav = document.getElementById('nav');
+    //
+    //
+    //
+    // };
 
 </script>

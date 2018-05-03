@@ -512,7 +512,6 @@
 <script type="text/javascript">
 
     apiready = function() {
-
             //fnTingdanTuijianliebiao()
     }
     function collectmusic(clicktoolitem) {
@@ -520,6 +519,11 @@
         var click = clicktoolitem.getAttribute("data-click");
 
         if (click == 0) {
+          api.toast({
+              msg: '收藏成功',
+              duration: 2000,
+              location: 'middle'
+          });
             // 点开
             clicktoolitem.setAttribute("data-click", 1);
             toolbarlist.src = "../image/KM_play_collect_red.png";
@@ -535,6 +539,11 @@
         var click = clicktoolitem.getAttribute("data-click");
 
         if (click == 0) {
+          api.toast({
+              msg: '点赞成功',
+              duration: 2000,
+              location: 'middle'
+          });
             // 点开
             clicktoolitem.setAttribute("data-click", 1);
             toolbarlist.src = "../image/KM_play_dianzan_red.png";

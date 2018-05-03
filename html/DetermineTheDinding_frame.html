@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>孔孟之道--修改密码</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style>
+        body {
+            background: #fbfcfe;
+        }
+
+        .fr {
+            float: right;
+        }
+
+        .fl {
+            float: left;
+        }
+
+        .p20px {
+            padding: 0px 20px;
+        }
+
+        .clr {
+            overflow: hidden;
+        }
+        .Binding_bg{width: 100%;}
+        .Binding_bg img{width: 100%;}
+        .Binding_name{margin: 10px 0;text-align: center;}
+        .Binding_name1{height: 50px;line-height: 50px;text-align: center;margin: 10px;border: 1px solid #ccc;border-radius: 5px;}
+        .Binding_name2{width: 100%;text-align: center;text-decoration:underline;}
+    </style>
+</head>
+
+<body>
+
+    <div class="Binding_bg"><img src="../image/my/Binding_bg.png" alt=""></div>
+    <div class="Binding_name">15132369635</div>
+    <div class="Binding_name1" onclick="changePassword();">设置密码后，可使用手机号登陆</div>
+    <div class="Binding_name2" onclick="Unbinding();">解除绑定</div>
+
+</body>
+
+</html>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+    apiready = function() {
+
+    }
+
+    function changePassword() {
+        api.openWin({
+            name: 'changePassword',
+            url: './changePassword.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
+
+    }
+    function Unbinding() {
+        api.openWin({
+            name: 'Unbinding',
+            url: './Unbinding.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
+
+    }
+</script>
