@@ -490,7 +490,7 @@
             <div  class="egret-img"><img src="../image/icon_back.png" alt="" onclick="api.closeWin();" ></div>
             <div class="egret-txt" id="title" >
             </div>
-            <div class="header_fr" onclick=" " >
+            <div class="header_fr" onclick="fnOpenPlayShare; " >
                 <img src="../image/KM__play_share.png" alt="">
             </div>
         </header>
@@ -520,7 +520,7 @@
               <img src="../image/KM_play_collect.png" alt="" id="playCollect" onclick="fnOpenPlayCollect();">
               <p>收藏</p>
           </li>
-          <li class="share" tapmode="focus" onclick=" ">
+          <li class="share" tapmode="focus" onclick="fnOpenAddListening(); ">
             <img src="../image/KM__play_add.png" alt="" >
             <p>添加到听单</p>
           </li>
@@ -601,40 +601,29 @@
       var messageFrameDiv = $api.byId('wrap');
       var winHeightHeader = winHeight - headerPosH;
       $api.css(messageFrameDiv, 'height:' + winHeightHeader + 'px;');
-      // api.addEventListener({
-      //     name: 'netPlaying'
-      // }, function(ret, err) {
-      //   var id = api.pageParam.cgxid;
-      //     if(id == ret.value.playing){
-      //       fnJinRuBofangs(id);
-      //     }
-      //     return;
-      // });
-      api.addEventListener({
-          name: 'neizhiliebiaoPlaysss'
-      }, function(ret, err) {
-          // listid = ret.value.cgxid;
-          aa = ret.value.a;
-          bofangs = ret.value.bofang;
-
-          fnA(aa, bofangs);
-          fnAAaa(aa, bofangs);
-          return;
-      });
-      fnJinRuBofang();
+      var DangQianbofangid = api.pageParam.DangQianbofangid;
+      if(DangQianbofangid){
+        fnJinRuBofangs(DangQianbofangid);
+      }else{
+        api.addEventListener({
+            name: 'neizhiliebiaoPlaysss'
+        }, function(ret, err) {
+            aa = ret.value.a;
+            bofangs = ret.value.bofang;
+            fnA(aa, bofangs);
+            fnAAaa(aa, bofangs);
+            return;
+        });
+        fnJinRuBofang();
+      }
     }
     var ids;
-    function fnJinRuBofangs(bofang){
+    function fnJinRuBofangs(id){
       var eHeader = $api.byId('header');
-      var bofang = 3;
+      api.parseTapmode();
       var stylelist = $api.byId('openplayer');
       var html = '<img src="../image/play/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player"></div>';
       $api.html(stylelist, html);
-      playid = api.pageParam.playid;
-      dqbfid = api.pageParam.a;
-      a = api.pageParam.a;
-      var id = id;
-      // console.log(ccc);
       if (id) {
           api.sendEvent({
               name: 'netPlayingCgx',
@@ -645,32 +634,9 @@
       }
       fnInitSwiper();
       fnOpenChangeImg();
-      api.parseTapmode();
-
-
-      api.sendEvent({
-          name: 'neizhiliebiaoPlay',
-          extra: {
-              bofang: bofang,
-              a: a
-          }
-      });
-      // var zaicibf
-      // api.sendEvent({
-      //     name: 'zaicibf',
-      //     extra: {
-      //         zaicibf: zaicibf,
-      //         a: id
-      //     }
-      // });
-      fnNetAudiosPlayByID(id);
       fnbofangshijian();
       fnJiBenXinXi()
       jindutiao();
-      if (dangqianbofangid) {
-          dqbfid = dangqianbofangid;
-      }
-
     }
     function fnJinRuBofang(bofang){
       var eHeader = $api.byId('header');
@@ -679,13 +645,10 @@
       }else{
         var bofang = api.pageParam.bofang;
       }
-      //var bofang = api.pageParam.bofang;
-      // playlistid = api.pageParam.playlistid;
       playid = api.pageParam.playid;
       dqbfid = api.pageParam.a;
       a = api.pageParam.a;
       var id = api.pageParam.cgxid;
-      // console.log(ccc);
       if (id) {
           api.sendEvent({
               name: 'netPlayCgx',
@@ -728,21 +691,8 @@
                   a: a,
               }
           });
-          // var zaicibf
-          // api.sendEvent({
-          //     name: 'zaicibf',
-          //     extra: {
-          //         zaicibf: zaicibf,
-          //         a: id,
-          //         playlistid: playlistid
-          //     }
-          // });
           fnNetAudiosPlayByID(id);
       }
-    // function fnJinRuBofangs(id){
-
-
-
       api.sendEvent({
           name: 'neizhiliebiaoPlay',
           extra: {
@@ -1023,19 +973,6 @@
         });
     }
 
-    // function netTotalTime(){
-    //   api.addEventListener({
-    //       name: 'jibenxinxi'
-    //   }, function(ret, err) {
-    //       if (ret) {
-    //         var stylelist = $api.byId('zongshichang');
-    //         var html1 = ret.value.lenth;
-    //         var html = html1.slice(3);
-    //         $api.html(stylelist, html);
-    //         fnZongJinDu(ret.value.lenth);
-    //       }
-    //   });
-    // }
     function fnZongJinDu(lenth) {
         zongJindu = lenth;
     }
@@ -1208,72 +1145,87 @@
     }
     //打开分享
     function fnOpenPlayShare() {
-      var dialogBox = api.require('dialogBox');
-      dialogBox.actionMenu({
-          rect: {
-              h: 150
-          },
-          texts: {
-              cancel: '取消'
-          },
-          items: [{
-              text: '微信',
-              icon: 'widget://image/weixin.png'
-          }, {
-              text: 'QQ',
-              icon: 'widget://image/qq.png'
-          }, {
-              text: '朋友圈',
-              icon: 'widget://image/friends.png'
-          }],
-          styles: {
-              bg: '#FFF',
-              column: 3,
-              itemText: {
-                  color: '#000',
-                  size: 12,
-                  marginT: 8
-              },
-              itemIcon: {
-                  size: 48
-              },
-              cancel: {
-                  bg: 'fs://icon.png',
-                  color: '#000',
-                  h: 44,
-                  size: 14
-              }
-          },
-          tapClose: true
-      }, function(ret) {
+        var dialogBox = api.require('dialogBox');
+        dialogBox.actionMenu({
+            rect: {
+                h: 150
+            },
+            texts: {
+                cancel: '取消'
+            },
+            items: [{
+                text: '微信',
+                icon: 'widget://image/weixin.png'
+            }, {
+                text: 'QQ',
+                icon: 'widget://image/qq.png'
+            }, {
+                text: '朋友圈',
+                icon: 'widget://image/friends.png'
+            }],
+            styles: {
+                bg: '#FFF',
+                column: 3,
+                itemText: {
+                    color: '#000',
+                    size: 12,
+                    marginT: 8
+                },
+                itemIcon: {
+                    size: 30
+                },
+                cancel: {
+                    bg: 'fs://icon.png',
+                    color: '#000',
+                    h: 44,
+                    size: 14
+                }
+            },
+            tapClose: true
+        }, function(ret) {
+            if (ret.eventType == 'cancel') {
+                dialogBox.close({
+                    dialogName: 'discount'
+                });
+            }
+            if (ret.index == "0") {
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+                // alert(1);
+            } else if (ret.index == "1") {
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+                // alert(2);
+            } else if (ret.index == "2") {
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+                // alert(3);
+            } else {
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+            }
+            // dialogBox.close({
+            //     dialogName: 'alert'
+            // })
+            // alert(JSON.stringify(ret))
 
-        if (ret.index == "0") {
-            dialogBox.close({
-                dialogName: 'alert'
-            });
-            // alert(1);
-        }else if (ret.index == "1") {
-          dialogBox.close({
-              dialogName: 'alert'
-          });
-                        // alert(2);
-        }else if (ret.index == "2") {
-          dialogBox.close({
-              dialogName: 'alert'
-          });
-                        // alert(3);
-        }else {
-          dialogBox.close({
-              dialogName: 'alert'
-          });
-        }
-        // dialogBox.close({
-        //     dialogName: 'alert'
-        // })
-        // alert(JSON.stringify(ret))
-
+        });
+    }
+    //添加到听单
+    function fnOpenAddListening(){
+      api.openWin({
+          name: 'addListening',
+          url: './add_listening.html',
+          pageParam: {
+              name: 'test'
+          }
       });
     }
+
     //打开播放列表
     function openRadioList() {
         // playlistid = api.pageParam.playlistid;

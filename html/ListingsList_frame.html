@@ -596,7 +596,7 @@
                 });
                 // alert(1);
             } else if (ret.index == "1") {
-                alert('添加成功');
+                fnOpenAddListening();
                 dialogBox.close({
                     dialogName: 'alert'
                 });
@@ -607,18 +607,27 @@
                 //     dialogName: 'alert'
                 // });
                 // alert(3);
+            }else {
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
             }
-            // else {
-            //     dialogBox.close({
-            //         dialogName: 'alert'
-            //     });
-            // }
             // dialogBox.close({
             //     dialogName: 'alert'
             // })
             // alert(JSON.stringify(ret))
 
         });
+    }
+    //添加到听单
+    function fnOpenAddListening(){
+      api.openWin({
+          name: 'addListening',
+          url: './add_listening.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
     }
     //打开评论列表页面
     function openMessage() {
@@ -666,7 +675,7 @@
                     marginT: 8
                 },
                 itemIcon: {
-                    size: 48
+                    size: 30
                 },
                 cancel: {
                     bg: 'fs://icon.png',

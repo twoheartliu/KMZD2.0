@@ -643,19 +643,13 @@
       api.addEventListener({
           name: 'netPlaying'
       }, function(ret, err) {
-        console.log(ret.value.playing);
           if(a == ret.value.playing){
             fnDangQianbofangid(ret.value.playing);
           }
 
       });
         var playlistid = api.pageParam.tuijiantingdanid;
-        // var connectionType = api.connectionType;
-        //  alert(connectionType);
-        //  if(connectionType == 'wifi'){
-        console.log(a);
-        console.log(Dqbofangid);
-        if(Dqbofangid){
+        if(Dqbofangid == a){
           api.openWin({
               name: 'play',
               url: './play.html',
@@ -663,7 +657,6 @@
                   playlistid: playlistid,
                   a: a,
                   DangQianbofangid: Dqbofangid
-
               }
           });
         }else{
@@ -673,7 +666,6 @@
               pageParam: {
                   a: a,
                   playlistid: playlistid
-
               }
           });
         }
@@ -732,7 +724,7 @@
                 });
                 // alert(1);
             } else if (ret.index == "1") {
-                alert('添加成功');
+              fnOpenAddListening();
                 dialogBox.close({
                     dialogName: 'alert'
                 });
@@ -743,12 +735,11 @@
                 //     dialogName: 'alert'
                 // });
                 // alert(3);
+            }else {
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
             }
-            // else {
-            //     dialogBox.close({
-            //         dialogName: 'alert'
-            //     });
-            // }
             // dialogBox.close({
             //     dialogName: 'alert'
             // })
@@ -785,7 +776,7 @@
                     marginT: 8
                 },
                 itemIcon: {
-                    size: 48
+                    size: 30
                 },
                 cancel: {
                     bg: 'fs://icon.png',
@@ -827,6 +818,16 @@
             // alert(JSON.stringify(ret))
 
         });
+    }
+    //添加到听单
+    function fnOpenAddListening(){
+      api.openWin({
+          name: 'addListening',
+          url: './add_listening.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
     }
     function collectmusic(clicktoolitem) {
         var toolbarlist = document.getElementsByClassName('collectmusic')[0];

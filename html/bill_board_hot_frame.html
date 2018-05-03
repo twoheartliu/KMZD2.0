@@ -380,7 +380,7 @@
                 });
                 // alert(1);
             } else if (ret.index == "1") {
-                alert('添加成功');
+                fnOpenAddListening();
                 dialogBox.close({
                     dialogName: 'alert'
                 });
@@ -391,12 +391,11 @@
                 //     dialogName: 'alert'
                 // });
                 // alert(3);
+            }else {
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
             }
-            // else {
-            //     dialogBox.close({
-            //         dialogName: 'alert'
-            //     });
-            // }
             // dialogBox.close({
             //     dialogName: 'alert'
             // })
@@ -404,6 +403,7 @@
 
         });
     }
+
     //打开分享
     function fnOpenPlayShare() {
         var dialogBox = api.require('dialogBox');
@@ -433,7 +433,7 @@
                     marginT: 8
                 },
                 itemIcon: {
-                    size: 48
+                    size: 30
                 },
                 cancel: {
                     bg: 'fs://icon.png',
@@ -445,9 +445,9 @@
             tapClose: true
         }, function(ret) {
             if (ret.eventType == 'cancel') {
-              dialogBox.close({
-                  dialogName: 'discount'
-              });
+                dialogBox.close({
+                    dialogName: 'discount'
+                });
             }
             if (ret.index == "0") {
                 dialogBox.close({
@@ -476,5 +476,16 @@
 
         });
     }
+    //添加到听单
+    function fnOpenAddListening(){
+      api.openWin({
+          name: 'addListening',
+          url: './add_listening.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
+    }
+
   </script>
   </html>
