@@ -107,6 +107,17 @@
           margin: 0 auto;
           position: relative;
         }
+        .fumigate-img{
+          position: absolute;
+          bottom: -10px;
+          right: -30%;
+          width: 150px;
+          height: 150px;
+        }
+        .fumigate-img img{
+          width: 150px;
+          height: 150px;
+        }
         .video{
           width:190px;
           height:190px;
@@ -269,6 +280,7 @@
        .title p{
          font-size: 13px;
        }
+
       </style>
   </head>
   <body>
@@ -292,7 +304,11 @@
               <div class="video" >
                 <img src="../image/play/pan.png" alt="" class=" " id="video">
               </div>
+              <div class="fumigate-img">
+                <img src="../image/play/fumigate.png" alt="">
+              </div>
             </div>
+
             <div class="table-img">
               <img src="../image/play/table.png" alt="">
             </div>
@@ -586,6 +602,11 @@
       var collect = $api.byId('collect');
       if(collect.getAttribute("src",2)=="../image/KM_play_collect.png"){
         collect.src="../image/KM_play_collect_red.png";
+        api.toast({
+              msg: '收藏成功',
+              duration: 2000,
+              location: 'middle'
+          });
       }else{
         collect.src="../image/KM_play_collect.png";
       }

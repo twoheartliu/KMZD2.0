@@ -129,6 +129,7 @@
           -webkit-box-align: center;
           height: 100px;
           background: #fff;
+          padding: 0 10px;
         }
 
         .egret-flex-items {
@@ -293,10 +294,13 @@
           },{
               text: '分享',
               icon: 'widget://image/KM_ListingsListGd.png'
+          },{
+              text: '删除',
+              icon: 'widget://image/shanchus.png'
           }],
           styles: {
               bg: '#FFF',
-              column: 2,
+              column: 3,
               itemText: {
                   color: '#000',
                   size: 12,
@@ -333,6 +337,10 @@
           //   name: 'playDiscuss',
           //   url: './play_discuss.html',
           // })
+        }else if(ret.index == "2"){
+          dialogBox.close({
+              dialogName: 'alert'
+          });
         }else {
           dialogBox.close({
               dialogName: 'alert'
