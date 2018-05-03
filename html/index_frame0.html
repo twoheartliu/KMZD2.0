@@ -385,7 +385,6 @@
 <script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/index.js"></script>
-
 <script type="text/javascript" src="../script/swiper.min.js"></script>
 
 </html>
@@ -607,7 +606,6 @@
             name: 'play',
             url: './play.html',
         });
-
     }
 
     function fnMachineXiangqingWin() {
@@ -672,9 +670,10 @@
                 });
             } else if (ret.index == "1") {
                 fnOpenAddListening();
-                // dialogBox.close({
-                //     dialogName: 'alert'
-                // });
+
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
                 // alert(2);
             } else if (ret.index == "2") {
                 fnOpenPlayShare();
@@ -724,7 +723,7 @@
                     marginT: 8
                 },
                 itemIcon: {
-                    size: 48
+                    size: 30
                 },
                 cancel: {
                     bg: 'fs://icon.png',
