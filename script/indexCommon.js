@@ -212,13 +212,13 @@ function jindutiao() {
         temps = lenths;
         minutes = parseInt(temps / 60);
         if (lenths % 60 < 10) {
-            if(minute<10){
+            if(minutes<10){
                html = "0" + minutes + ":0" + lenths % 60 + "";
             }else{
                html = "" + minutes + ":0" + lenths % 60 + "";
             }
         } else {
-            if(minute<10){
+            if(minutes<10){
                html = "0" + minutes + ":" + lenths % 60 + "";
             }else{
                html = "" + minutes + ":" + lenths % 60 + "";
@@ -364,7 +364,6 @@ function fnGeDanShangYi() {
     var myAudio = document.getElementById("myAudio");
     netAudioPause();
     myAudio.currentTime = 0;
-    myAudio.load();
     clearInterval(timer2);
     clearInterval(timer1);
     play--;
