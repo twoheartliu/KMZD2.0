@@ -671,10 +671,10 @@
                     dialogName: 'alert'
                 });
             } else if (ret.index == "1") {
-                alert('添加成功');
-                dialogBox.close({
-                    dialogName: 'alert'
-                });
+                fnOpenAddListening();
+                // dialogBox.close({
+                //     dialogName: 'alert'
+                // });
                 // alert(2);
             } else if (ret.index == "2") {
                 fnOpenPlayShare();
@@ -735,7 +735,11 @@
             },
             tapClose: true
         }, function(ret) {
-
+            if (ret.eventType == 'cancel') {
+                dialogBox.close({
+                    dialogName: 'discount'
+                });
+            }
             if (ret.index == "0") {
                 dialogBox.close({
                     dialogName: 'alert'
@@ -763,4 +767,15 @@
 
         });
     }
+    //添加到听单
+    function fnOpenAddListening(){
+      api.openWin({
+          name: 'addListening',
+          url: './add_listening.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
+    }
+
 </script>

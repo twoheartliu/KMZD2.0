@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>孔孟之道--添加听单</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style>
+        .fr {
+            float: right;
+        }
+
+        .fl {
+            float: left;
+        }
+
+        .p20px {
+            padding: 0px 20px;
+        }
+
+        .clr {
+            overflow: hidden;
+        }
+
+        .m20px {
+            margin: 0 20px;
+        }
+        /*个性化推荐 */
+        .p20pxs {
+            padding: 0 20px;
+        }
+
+        li {
+            border-bottom: 1px solid #ccc;
+        }
+        .egret-flex-item {
+            display: -webkit-box;
+            -webkit-box-align: center;
+            height: 80px;
+        }
+        .egret-flex-items {
+            display: -webkit-box;
+            -webkit-box-align: center;
+            height: 80px;
+            width:80%;
+        }
+        .egret-flex-item-logo {
+            max-width: 80px;
+            min-width: 80px;
+            -webkit-box-flex: 1;
+            -webkit-box-align: center;
+        }
+
+        .egret-flex-item-logo img {
+            height: 60px;
+            width: 60px;
+            border-radius: 5px;
+            -webkit-box-align: center;
+            vertical-align: top;
+        }
+
+        .egret-flex-item-shelf {
+            overflow: hidden;
+            -webkit-box-flex: 2;
+            -webkit-box-align: center;
+            /*padding-left: 5px;*/
+        }
+
+        .egret-flex-item-shelf div {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            /*margin-top: 5px;*/
+            height: 30px;
+            line-height: 30px;
+        }
+
+        .egret-flex-item-shelf .egret-flex-item-shelf01 .span1 {
+            font-size: 15px;
+            color: #000;
+        }
+
+        .egret-flex-item-shelf .egret-flex-item-shelf02 .span2 {
+            font-size: 13px;
+            /*color: #ff3db8;*/
+            color: #666;
+            /*margin: 0 5px;*/
+        }
+
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li class="p20pxs">
+            <div class="egret-flex-item" >
+              <div class="egret-flex-items" tapmode="fmbtnhover" onclick="fnOpenPlay()">
+                <div class="egret-flex-item-logo">
+                    <img src="../image/KM_album.png" alt="" class="">
+                </div>
+                <div class="egret-flex-item-shelf">
+                    <div class="egret-flex-item-shelf01">
+                        <span class="span1 fl">作品：<span>《沁园春·雪》</span></span>
+                    </div>
+                    <div class="egret-flex-item-shelf02">
+                        <p class="span2">100首</p>
+                    </div>
+                </div>
+              </div>
+            </div>
+            <div class="hdivider"></div>
+        </li>
+    </ul>
+</body>
+
+</html>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+    apiready = function() {
+
+    }
+
+    function fnOpenPlay() {
+      api.closeWin({
+          name: 'AddListening'
+      });
+
+    }
+</script>

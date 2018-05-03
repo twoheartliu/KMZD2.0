@@ -391,6 +391,11 @@
             },
             tapClose: true
         }, function(ret) {
+            if (ret.eventType == 'cancel') {
+                dialogBox.close({
+                    dialogName: 'discount'
+                });
+            }
             if (ret.index == "0") {
                 alert('收藏成功');
                 dialogBox.close({

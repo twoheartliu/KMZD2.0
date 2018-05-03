@@ -423,7 +423,7 @@
                   </div>
                   <div class="single_time">
                     <div class="single_time_img fl">
-                      <img src="../image/KM_dz.png" alt="">
+                      <img src="../image/KM_sc.png" alt="">
                     </div>
                     <div class="single_img_num fl">10</div>
                     <div class="single_time_img fl">
@@ -431,7 +431,7 @@
                     </div>
                     <div class="single_img_num fl">20</div>
                     <div class="single_time_img fl">
-                      <img src="../image/KM_product.png" alt="">
+                      <img src="../image/read/aloud_py.png" alt="">
                     </div>
                     <div class="single_img_num fl">30</div>
                   </div>
@@ -501,7 +501,7 @@
                 <div class="author">
                     作者：小许
                 </div>
-                <div class="fr on_playall_img" onclick="fnOpenPlayShares();"><img src="../image/KM_list_more.png" alt=""></div>
+                <div class="fr on_playall_img" onclick="fnOpenPlayMore();"><img src="../image/KM_list_more.png" alt=""></div>
             </li>
         </ul>
     </div>
@@ -545,7 +545,7 @@
         }
     }
     //打开分享
-    function fnOpenPlayShares() {
+    function fnOpenPlayMore() {
         var dialogBox = api.require('dialogBox');
         dialogBox.actionMenu({
             rect: {
@@ -559,7 +559,7 @@
                 icon: 'widget://image/KM_hxs.png'
             }, {
                 text: '添加到听单',
-                icon: 'widget://image/KM__play_add_gray.png'
+                icon: 'widget://image/KM_play_add_gray.png'
             }, {
                 text: '分享',
                 icon: 'widget://image/KM_ListingsListGd.png'
@@ -584,33 +584,39 @@
             },
             tapClose: true
         }, function(ret) {
-
-          if (ret.index == "0") {
-              dialogBox.close({
-                  dialogName: 'alert'
-              });
-              // alert(1);
-          }else if (ret.index == "1") {
-            dialogBox.close({
-                dialogName: 'alert'
-            });
-                          // alert(2);
-          }else if (ret.index == "2") {
-            alert(2);
-
-            dialogBox.close({
-                dialogName: 'alert'
-            });
-                        fnOpenPlayShare();
-          }else {
-            dialogBox.close({
-                dialogName: 'alert'
-            })
-          }
-          // dialogBox.close({
-          //     dialogName: 'alert'
-          // })
-          // alert(JSON.stringify(ret))
+            if (ret.eventType == 'cancel') {
+                dialogBox.close({
+                    dialogName: 'discount'
+                });
+            }
+            if (ret.index == "0") {
+                alert('收藏成功');
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+                // alert(1);
+            } else if (ret.index == "1") {
+                alert('添加成功');
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+                // alert(2);
+            } else if (ret.index == "2") {
+                fnOpenPlayShare();
+                // dialogBox.close({
+                //     dialogName: 'alert'
+                // });
+                // alert(3);
+            }
+            // else {
+            //     dialogBox.close({
+            //         dialogName: 'alert'
+            //     });
+            // }
+            // dialogBox.close({
+            //     dialogName: 'alert'
+            // })
+            // alert(JSON.stringify(ret))
 
         });
     }
@@ -671,7 +677,11 @@
             },
             tapClose: true
         }, function(ret) {
-
+            if (ret.eventType == 'cancel') {
+                dialogBox.close({
+                    dialogName: 'discount'
+                });
+            }
             if (ret.index == "0") {
                 dialogBox.close({
                     dialogName: 'alert'
