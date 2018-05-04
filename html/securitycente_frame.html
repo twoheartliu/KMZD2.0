@@ -106,11 +106,13 @@
         }
         .collectmusicSj{width: 50px;text-align: center;height: 50px;line-height: 50px;}
         .collectmusicSj img{margin-top: 12px;width: 9px;}
+        .securitycente_MiMa_div{margin: 0 10px;}
+        .securitycente_MiMa_div img{position: relative;top: 2px;}
     </style>
 </head>
 
 <body>
-    <div class="securitycente_MiMa" onclick="changePassword();"><div class="fl">修改密码</div><div class="fr securitycente_MiMaImg"><img src="../image/my/index_y.png" alt=""></div></div>
+    <div class="securitycente_MiMa" onclick="changePassword();"><div class="fl securitycente_MiMa_div"><img src="../image/login/login_password.png" alt=""></div><div class="fl">修改密码</div><div class="fr securitycente_MiMaImg"><img src="../image/my/index_y.png" alt=""></div></div>
     <div class="securitycente_BangDin">
         <div class="securitycente_header" onclick="">其他登录方式</div>
         <div class="securitycente_div" onclick="collectmusicSj();">
@@ -145,9 +147,7 @@
         }
 
     function collectmusicSj() {
-        // var toolbarlist = document.getElementsByClassName('collectmusicSj')[0];
-        // var click = clicktoolitem.getAttribute("data-click");
-        // if (click == 0) {
+
             api.openWin({
                 name: 'Binding',
                 url: './Binding.html',
@@ -155,71 +155,6 @@
                     name: 'test'
                 }
             });
-            // 点开
-            // clicktoolitem.setAttribute("data-click", 1);
-            // toolbarlist.src = "../image/my/Bindings.png";
-        // } else {
-        //     var dialogBox = api.require('dialogBox');
-        //     dialogBox.alert({
-        //         texts: {
-        //             // title: '现在未使用wifi',
-        //             content: '是否取消关注',
-        //             leftBtnTitle: '取消',
-        //             rightBtnTitle: '确认'
-        //         },
-        //         styles: {
-        //             bg: '#fff',
-        //             w: 300,
-        //             title: {
-        //                 marginT: 20,
-        //                 icon: 'widget://res/gou.png',
-        //                 iconSize: 40,
-        //                 titleSize: 14,
-        //                 titleColor: '#666'
-        //             },
-        //             content: {
-        //                 color: '#ccc',
-        //                 size: 14
-        //             },
-        //             left: {
-        //                 marginB: 7,
-        //                 marginL: 20,
-        //                 w: 130,
-        //                 h: 35,
-        //                 corner: 2,
-        //                 bg: '#ccc',
-        //                 color: '#FFF',
-        //                 size: 12
-        //             },
-        //             right: {
-        //                 marginB: 7,
-        //                 marginL: 10,
-        //                 w: 130,
-        //                 h: 35,
-        //                 corner: 2,
-        //                 bg: '#89211b',
-        //                 color: '#fff',
-        //                 size: 12
-        //             }
-        //         }
-        //     }, function(ret) {
-        //         if (ret.eventType == 'left') {
-        //             var dialogBox = api.require('dialogBox');
-        //             dialogBox.close({
-        //                 dialogName: 'alert'
-        //             });
-        //         } else {
-        //             clicktoolitem.setAttribute("data-click", 0);
-        //             toolbarlist.src = "../image/my/Binding.png";
-        //             var dialogBox = api.require('dialogBox');
-        //             dialogBox.close({
-        //                 dialogName: 'alert'
-        //             });
-        //         }
-        //     });
-        //
-        //
-        // }
     }
 
     function collectmusicQQ(clicktoolitem) {

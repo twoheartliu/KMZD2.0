@@ -129,11 +129,8 @@
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
-    // var playlistid;
-
+    var historyUrlArray;
     apiready = function() {
-        // fnSetGender();
-        // playlistid = api.pageParam.tuijiantingdanid;
         var list = $api.byId('radio-list');
         $api.addCls(list, 'in');
         var bodyW = document.getElementsByTagName("body")[0];
@@ -148,53 +145,34 @@
         fnGetBeiJingYinYueTypelist();
     };
     //接口  推荐听单
-    var historyUrlArray;
+
     function fnGetBeiJingYinYueTypelist() {
-      // console.log('111');
-      api.getPrefs({
-          key: 'cgxlist'
-      }, function(ret, err) {
-          var historyUrlText = '' || ret.value;
-          historyUrlArray = historyUrlText.split(',');
-          // console.log(historyUrlArray);
-          var length = historyUrlArray.length-1;
-          var stylelist = $api.byId('liebiao');
-          var html = '';
-          for (var i = 0; i < length/4+1; i++) {
-
-              if (historyUrlArray[i].length == 0)
-                  continue;
-              var cgxid = historyUrlArray[i*4-3];
-              // console.log(cgxid);
-              var title = historyUrlArray[i*4-2];
-              var name = historyUrlArray[i*4-1];
-              var desc = historyUrlArray[i*4];
-              if (historyUrlArray[i*4-1]) {
-                  html += '<li class="active" tapmode="focus" onclick="fnPlayGeQu(' + i + ');"><div><p>' + historyUrlArray[i*4-2] + '</p><label>作者:' + historyUrlArray[i*4-1] + '</label></div></li>';
-              } else {
-                  html += '<li class="active" tapmode="focus" onclick="fnPlayGeQu(' + i + ');"><div><p>' + historyUrlArray[i*4-2] + '</p><label>作者:未知</label></div></li>';
-              }
-              $api.html(stylelist, html);
-              fnGeDanMingCheng();
-          }
-      });
-
-  	}
-    function fnTingdanTuijian() {
-        // playlistid = api.pageParam.playlistid;
-        // api.ajax({
-        //     url: 'http://47.100.11.38/kongmeng/thirdParty/get_songs_by_playlist.php?page=0&size=10&playlistid= ' + playlistid,
-        //     method: 'get',
-        // }, function(ret, err) {
-        //     if (ret) {
-        //         gedanmingcheng = ret.data[0].albumName;
-        //         fnGeDanMingCheng(gedanmingcheng);
-        //         fnGeDanLieBiao(ret);
-        //     } else {
-        //         alert(JSON.stringify(err));
-        //     }
-        // });
+        api.getPrefs({
+            key: 'cgxlist'
+        }, function(ret, err) {
+            var historyUrlText = '' || ret.value;
+            historyUrlArray = historyUrlText.split(',');
+            var length = historyUrlArray.length - 1;
+            var stylelist = $api.byId('liebiao');
+            var html = '';
+            for (var i = 0; i < length / 4 + 1; i++) {
+                if (historyUrlArray[i].length == 0)
+                    continue;
+                var cgxid = historyUrlArray[i * 4 - 3];
+                var title = historyUrlArray[i * 4 - 2];
+                var name = historyUrlArray[i * 4 - 1];
+                var desc = historyUrlArray[i * 4];
+                if (historyUrlArray[i * 4 - 1]) {
+                    html += '<li class="active" tapmode="focus" onclick="fnPlayGeQu(' + i + ');"><div><p>' + historyUrlArray[i * 4 - 2] + '</p><label>作者:' + historyUrlArray[i * 4 - 1] + '</label></div></li>';
+                } else {
+                    html += '<li class="active" tapmode="focus" onclick="fnPlayGeQu(' + i + ');"><div><p>' + historyUrlArray[i * 4 - 2] + '</p><label>作者:未知</label></div></li>';
+                }
+                $api.html(stylelist, html);
+                fnGeDanMingCheng();
+            }
+        });
     }
+
     //接口  听单展示
     function fnGeDanLieBiao(data_) {
         var stylelist = $api.byId('liebiao');
@@ -211,31 +189,46 @@
     }
 
     function fnGeDanMingCheng(data_) {
-      var stylelist = $api.byId('gedanmingcheng');
-      var html = '草稿箱';
-      $api.html(stylelist, html);
+        var stylelist = $api.byId('gedanmingcheng');
+        var html = '草稿箱';
+        $api.html(stylelist, html);
     }
 
     function fnPlayGeQu(a) {
-      // console.log(a);
-        // playlistid = api.pageParam.playlistid;
         var bofang = 3;
-        api.sendEvent({
-            name: 'neizhiliebiaoPlay',
-            extra: {
-                a: a,
-                // playlistid: playlistid,
-                bofang: bofang
-            }
-        });
-        api.sendEvent({
-            name: 'neizhiliebiaoPlaysss',
-            extra: {
-                a: a,
-                // playlistid: playlistid,
-                bofang: bofang
-            }
-        });
+        if (a == api.pageParam.Dqbofangid) {
+            api.openWin({
+                name: 'caogaoplay',
+                url: './caogaoplay.html',
+                pageParam: {
+                    DangQianbofangid: a
+                }
+            });
+            return false;
+        } else {
+            api.openWin({
+                name: 'caogaoplay',
+                url: './caogaoplay.html',
+                pageParam: {
+                    a: a,
+                    bofang: bofang
+                }
+            });
+            api.sendEvent({
+                name: 'neizhiliebiaoPlay',
+                extra: {
+                    a: a,
+                    bofang: bofang
+                }
+            });
+            api.sendEvent({
+                name: 'neizhiliebiaoPlaysss',
+                extra: {
+                    a: a,
+                    bofang: bofang
+                }
+            });
+        }
     }
 
     // function fnSetGender(){

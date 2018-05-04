@@ -89,6 +89,16 @@
             var html = '';
             html += '<div onclick="fnOpenPlay( ' + bofang + ',' + a + ',' + playlistid + ');"><img src="../image/footer_bf' + bofang + '.png" alt=""></div>';
             $api.html(stylelist, html);
+        } else if (bofang == 4) {
+            var stylelist = $api.byId('centerVedeo');
+            var html = '';
+            html += '<div onclick="fnOpenPlay( ' + bofang + ',' + a + ',' + playlistid + ');"><img src="../image/footer_bf' + bofang + '.png" alt=""></div>';
+            $api.html(stylelist, html);
+        } else if (bofang == 5) {
+            var stylelist = $api.byId('centerVedeo');
+            var html = '';
+            html += '<div onclick="fnOpenPlay( ' + bofang + ',' + a + ',' + playlistid + ');"><img src="../image/footer_bf' + bofang + '.png" alt=""></div>';
+            $api.html(stylelist, html);
         }
         if (playlistid) {
             api.sendEvent({
@@ -147,6 +157,28 @@
             api.openWin({
                 name: 'play',
                 url: './play.html',
+                pageParam: {
+                    name: 'test',
+                    bofang: bofang,
+                    a: a,
+                    playid: playlistid
+                },
+            });
+        } else if (bofang == 4) {
+            api.openWin({
+                name: 'caogaoplay',
+                url: './caogaoplay.html',
+                pageParam: {
+                    name: 'test',
+                    bofang: bofang,
+                    a: a,
+                    playid: playlistid
+                },
+            });
+        } else if (bofang == 5) {
+            api.openWin({
+                name: 'caogaoplay',
+                url: './caogaoplay.html',
                 pageParam: {
                     name: 'test',
                     bofang: bofang,

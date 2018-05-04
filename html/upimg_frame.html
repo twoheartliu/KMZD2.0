@@ -145,6 +145,12 @@
             color: #999;
             font-weight: 900;
         }
+
+        #fnBirthday .dateSelectorOneBirthday {
+            text-align: right;
+            font-size: 12px;
+            line-height: 45px;
+        }
     </style>
 </head>
 
@@ -161,12 +167,12 @@
     </div>
     <div class="upimg">
         <ul>
-            <li onclick="fnAlter();">
+            <li onclick="fnNickname();">
                 <div class="fl">昵称</div>
                 <div class="fr"> > </div>
                 <div class="fr">最初呢</div>
             </li>
-            <li onclick="fnAlter();">
+            <li onclick="fnSignature();">
                 <div class="fl">签名</div>
                 <div class="fr"> > </div>
                 <div class="fr">最初呢</div>
@@ -176,16 +182,16 @@
                 <div class="fr"> > </div>
                 <div class="fr">未填写</div>
             </li>
-            <li onclick="fnAlter();">
+            <li id="fnBirthday">
                 <div class="fl">生日</div>
                 <div class="fr"> > </div>
-                <div class="fr">未填写</div>
+                <div class="fr"><input type="text" id="dateSelectorOneBirthday" class="dateSelectorOneBirthday" placeholder="选择日期" readonly="readonly"> </div>
             </li>
-            <li onclick="fnAlter();">
+            <!-- <li onclick="fnArea();">
                 <div class="fl">地区</div>
                 <div class="fr"> > </div>
                 <div class="fr">未填写</div>
-            </li>
+            </li> -->
         </ul>
         <div class="upimg_div">
             <div class="fl">我的宝宝</div>
@@ -202,7 +208,7 @@
             <li id="dateShowBtn">
                 <div class="fl">生日</div>
                 <div class="fr"> > </div>
-                <div class="fr"><input type="text" id="dateSelectorTwo" class="dateSelectorOne" placeholder="选择日期"readonly="readonly"></div>
+                <div class="fr"><input type="text" id="dateSelectorTwo" class="dateSelectorOne" placeholder="选择日期" readonly="readonly"></div>
             </li>
 
         </ul>
@@ -223,6 +229,7 @@
 <script src="../script/select/Mdate.js"></script>
 <script type="text/javascript">
     var x = 1;
+
     function goback() {
         api.closeWin({
             name: 'upimg'
@@ -240,8 +247,9 @@
         }, function(ret, err) {
             goback();
         });
-        var periodSelector = api.require('periodSelector');
+        // var periodSelector = api.require('periodSelector');
     };
+
     function upimg() {
         api.actionSheet({
             title: '上传照片',
@@ -253,6 +261,7 @@
             }
         });
     }
+
     function getPicture(sourceType) {
         //相机拍照
         if (sourceType == 1) {
@@ -427,6 +436,7 @@
             });
         });
     }
+
     function nub(minNum, maxNum) {
         switch (arguments.length) {
             case 1:
@@ -441,6 +451,7 @@
         }
 
     }
+
     function fnSetGender() {
         api.actionSheet({
             title: '选择性别',
@@ -454,31 +465,219 @@
             // fnUpdateUserInfo('gender',gender)
         });
     }
+
     function fnBabyAdd() {
         var id = $api.byId('baby');
         x += 1;
         $api.append(id, '<div class="upimg_div">宝宝' + x + '</div>');
         $api.append(id, '<li onclick="fnSetGender();"><div class="fl">性别</div><div class="fr"> > </div><div class="fr">未填写</div></li>');
-        $api.append(id, '<li><div class="fl" id="dateShowBtn">年龄</div><div class="fr"> > </div><div class="fr"><input type="text" readonly="readonly" id="dateSelectorOne' + x + '"	class="dateSelectorOne"  placeholder="选择日期"></div></li>');
+        $api.append(id, '<li><div class="fl" id="">年龄</div><div class="fr"> > </div><div class="fr"><input type="text" readonly="readonly" id="dateSelectorOne' + x + '"	class="dateSelectorOne"  placeholder="选择日期"></div></li>');
         var dateSelectorOnes = 'dateSelectorOne' + x;
         new Mdate(dateSelectorOnes);
     }
+    // 昵称
+    function fnNickname() {
+        var dialogBox = api.require('dialogBox');
+        dialogBox.input({
+            keyboardType: 'default',
+            texts: {
+                title: '你的昵称',
+                placeholder: '输入昵称',
+                leftBtnTitle: '取消',
+                rightBtnTitle: '确定'
+            },
+            styles: {
+                bg: '#fff',
+                corner: 10,
+                w: 300,
+                h: 200,
+                title: {
+                    h: 40,
+                    alignment: 'center',
+                    size: 14,
+                    color: '#000',
+                    marginT: 30,
+                },
+                input: {
+                    h: 30,
+                    y: 30,
+                    marginT: 10,
+                    marginLeft: 10,
+                    marginRight: 10,
+                    textSize: 14,
+                    borderColor: '#ccc',
+                    verticalCenter: true,
+                    borderWidth: 1,
+                    textColor: '#333',
+                },
+                dividingLine: {
+                    width: 1,
+                    color: '#ffffff'
+                },
+                left: {
+                    // bg: 'rgba(0,0,0,0)',
+                    bg: 'rgba(0,0,0,0)',
+                    color: '#000',
+                    size: 12,
+                    h: 60
+                },
+                right: {
+                    bg: 'rgba(0,0,0,0)',
+                    color: '#000',
+                    size: 12,
+                    h: 60
+                },
+                horizontalLine: {
+                    color: '#eeeeee', //（可选项）字符串类型；左右按钮上边横线的颜色，支持rgb、rgba、#；默认：'rgba(245,245,245,0)'
+                    height: 1 //（可选项）数字类型；左右边按钮横线的高度；默认：0
+                },
+                verticalLine: {
+                    color: '#eeeeee', //（可选项）字符串类型；左右按钮中间竖线的颜色，支持rgb、rgba、#；默认：'rgba(245,245,245,0)'
+                    width: 1 //（可选项）数字类型；左右边按钮竖线的高度；默认：0
+                },
+            },
+            tapClose: true
+        }, function(ret) {
+            api.alert({
+                msg: JSON.stringify(ret)
+            });
+            if (ret.eventType == 'left') {
+                var dialogBox = api.require('dialogBox');
+                dialogBox.close({
+                    dialogName: 'input'
+                });
+            } else if (ret.eventType == 'right') {
+                var dialogBox = api.require('dialogBox');
+                dialogBox.close({
+                    dialogName: 'input'
+                });
+            } else {
+                var dialogBox = api.require('dialogBox');
+                dialogBox.close({
+                    dialogName: 'input'
+                });
+            }
+        });
+    }
+    // 签名
+    function fnSignature() {
+        var dialogBox = api.require('dialogBox');
+        dialogBox.input({
+            keyboardType: 'default',
+            texts: {
+                title: '签名',
+                placeholder: '签名',
+                leftBtnTitle: '取消',
+                rightBtnTitle: '确定'
+            },
+            styles: {
+                bg: '#fff',
+                corner: 10,
+                w: 300,
+                h: 200,
+                title: {
+                    h: 40,
+                    alignment: 'center',
+                    size: 14,
+                    color: '#000',
+                    marginT: 30,
+                },
+                input: {
+                    h: 30,
+                    y: 30,
+                    marginT: 10,
+                    marginLeft: 10,
+                    marginRight: 10,
+                    textSize: 14,
+                    borderColor: '#ccc',
+                    verticalCenter: true,
+                    borderWidth: 1,
+                    textColor: '#333',
+                },
+                dividingLine: {
+                    width: 1,
+                    color: '#ffffff'
+                },
+                left: {
+                    // bg: 'rgba(0,0,0,0)',
+                    bg: 'rgba(0,0,0,0)',
+                    color: '#000',
+                    size: 12,
+                    h: 60
+                },
+                right: {
+                    bg: 'rgba(0,0,0,0)',
+                    color: '#000',
+                    size: 12,
+                    h: 60
+                },
+                horizontalLine: {
+                    color: '#eeeeee', //（可选项）字符串类型；左右按钮上边横线的颜色，支持rgb、rgba、#；默认：'rgba(245,245,245,0)'
+                    height: 1 //（可选项）数字类型；左右边按钮横线的高度；默认：0
+                },
+                verticalLine: {
+                    color: '#eeeeee', //（可选项）字符串类型；左右按钮中间竖线的颜色，支持rgb、rgba、#；默认：'rgba(245,245,245,0)'
+                    width: 1 //（可选项）数字类型；左右边按钮竖线的高度；默认：0
+                },
+            },
+            tapClose: true
+        }, function(ret) {
+            api.alert({
+                msg: JSON.stringify(ret)
+            });
+            if (ret.eventType == 'left') {
+                var dialogBox = api.require('dialogBox');
+                dialogBox.close({
+                    dialogName: 'input'
+                });
+            } else if (ret.eventType == 'right') {
+                var dialogBox = api.require('dialogBox');
+                dialogBox.close({
+                    dialogName: 'input'
+                });
+            } else {
+                var dialogBox = api.require('dialogBox');
+                dialogBox.close({
+                    dialogName: 'input'
+                });
+            }
+        });
+    }
+    // 地区
+    // function fnArea() {
+    //     var citySelector = api.require('citySelector');
+    //     citySelector.open({
+    //         y: api.frameHeight / 1.6,
+    //         fixedOn: api.frameName,
+    //     }, function(ret) {
+    //         if (ret) {
+    //             alert(JSON.stringify(ret));
+    //         }
+    //     });
+    // }
+
     function fnAlter() {
-      api.prompt({
-          buttons: ['确定', '取消']
-      }, function(ret, err) {
-          var index = ret.buttonIndex;
-          var text = ret.text;
-      });
+        api.prompt({
+            buttons: ['确定', '取消']
+        }, function(ret, err) {
+            var index = ret.buttonIndex;
+            var text = ret.text;
+        });
     }
 </script>
 <script type="text/javascript">
-    // var dateSelectorOne = dateSelectorOne + x;
-    // var dateSelectorOnes = 'dateSelectorOne';
-    // new Mdate(dateSelectorOnes);
-
     new Mdate("dateShowBtn", {
         acceptId: "dateSelectorTwo",
+        beginYear: "2010",
+        beginMonth: "10",
+        beginDay: "24",
+        endYear: "2025",
+        endMonth: "1",
+        endDay: "1",
+        format: "-"
+    })
+    new Mdate("fnBirthday", {
+        acceptId: "dateSelectorOneBirthday",
         beginYear: "2010",
         beginMonth: "10",
         beginDay: "24",
