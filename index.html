@@ -385,7 +385,7 @@
 <script type="text/javascript" src="script/index.js"></script>
 <script type="text/javascript">
 var token;
-
+var a;
     apiready = function() {
       var token = $api.getStorage('token');
       if(token){
@@ -394,11 +394,11 @@ var token;
         var footer = $api.byId('footer');
         var headerH = $api.offset(secHeader).h;
         var footerH = $api.offset(footer).h;
-
         fnOpenCenterFrame();
         api.parseTapmode();
         initEventListenner();
         initEventListennerBofang();
+        initEventListennerBoFangMoshi();
         adjust()
         funIniGroup();
       }else{
@@ -411,8 +411,6 @@ var token;
         });
       }
   }
-
-    var a;
     // 底部导航播放按钮；
     function fnOpenCenterFrame() {
         if (a) {
@@ -566,11 +564,9 @@ var token;
                 }
             });
         });
-
     }
 
-    function fnAlert() {
-        api.actionSheet({
+ function fnAlert() {        api.actionSheet({
             // title: '底部弹出框测试',
             cancelTitle:"",
             // destructiveTitle: '红色警告按钮',
@@ -578,7 +574,6 @@ var token;
             buttons: ['我的作品','我的草稿']
         }, function(ret, err) {
           // alert(JSON.stringify(ret));
-
             var index = ret.buttonIndex;
             if (index == 1) {
               // alert(1);
