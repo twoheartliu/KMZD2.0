@@ -572,10 +572,13 @@
             }, {
                 text: '分享',
                 icon: 'widget://image/KM_ListingsListGd.png'
+            }, {
+                text: '删除',
+                icon: 'widget://image/shanchus.png'
             }],
             styles: {
                 bg: '#FFF',
-                column: 3,
+                column: 4,
                 itemText: {
                     color: '#000',
                     size: 12,
@@ -616,6 +619,13 @@
                 //     dialogName: 'alert'
                 // });
                 // alert(3);
+            }else if (ret.index == "3") {
+                // fnOpenPlayShare();
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+                // alert(3);
+
             }else {
                 dialogBox.close({
                     dialogName: 'alert'

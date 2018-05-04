@@ -47,11 +47,19 @@
 
         .securitycente_MiMa {
             width: 100%;
-            height: 30px;
+            height: 50px;
             color: #ccc;
-            line-height: 30px;
+            line-height: 50px;
         }
-
+        .securitycente_MiMaImg{
+          width: 50px;
+          height: 50px;
+          text-align: center;
+        }
+        .securitycente_MiMaImg img{
+          margin-top: 12px;
+          width: 9px;
+        }
         .securitycente_Img1 {
             width: 50px;
             height: 50px;
@@ -59,8 +67,8 @@
         }
 
         .securitycente_Img1 img {
-            width: 35px;
-            margin: 7.5px auto;
+            width: 25px;
+            margin: 12.5px auto;
         }
 
         .securitycente_Img {
@@ -72,6 +80,7 @@
             width: 100%;
             margin-top: 12px;
         }
+
 
         .securitycente_Name {
             line-height: 25px;
@@ -95,24 +104,21 @@
             font-size: 10px;
             color: #ccc;
         }
+        .collectmusicSj{width: 50px;text-align: center;height: 50px;line-height: 50px;}
+        .collectmusicSj img{margin-top: 12px;width: 9px;}
     </style>
 </head>
 
 <body>
-    <div class="securitycente_MiMa" onclick="changePassword();">修改密码</div>
-    <!-- <div class="code">
-        <img src="../image/login/login_password.png" onblur="fnPswordYanZheng();" state="off" id="img">
-        <input type="password" placeholder="请输入密码" id="password">
-        <div class="clear"></div>
-    </div> -->
+    <div class="securitycente_MiMa" onclick="changePassword();"><div class="fl">修改密码</div><div class="fr securitycente_MiMaImg"><img src="../image/my/index_y.png" alt=""></div></div>
     <div class="securitycente_BangDin">
         <div class="securitycente_header" onclick="">其他登录方式</div>
-        <div class="securitycente_div">
+        <div class="securitycente_div" onclick="collectmusicSj();">
             <div class="securitycente_Img1 fl"><img src="../image/phoneNumber.png" alt=""></div>
             <div class="securitycente_Name fl">
                 <div class="securitycente_name1">手机号</div>
             </div>
-            <div class="securitycente_Img fr" onclick="collectmusicSj(this)" data-click="0"><img src="../image/my/Binding.png" alt="" class="collectmusicSj"></div>
+            <div class="fr collectmusicSj"><img src="../image/my/index_y.png" alt=""></div>
         </div>
         <div class="securitycente_div">
             <div class="securitycente_Img1 fl"><img src="../image/QQ.png" alt=""></div>
@@ -135,89 +141,13 @@
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
     apiready = function() {
-            // var input = $api.byId('password');
-            // var img = $api.byId('img');
 
-            // var ele_eye = ele_pass_box.getElementsByTagName("i")[0];
-            // img.onclick = function() {
-            //     var state = this.getAttribute("state");
-            //     if (state === "off") {
-            //         input.setAttribute("type", "text");
-            //         img.setAttribute("state", "on");
-            //         img.style.opacity = 1;
-            //     } else {
-            //         input.setAttribute("type", "password");
-            //         img.setAttribute("state", "off");
-            //         img.style.opacity = 1;
-            //     }
-            //     // var playCollect = $api.byId('playCollect');
-            //     if (img.getAttribute("src", 2) == "../image/login/login_password.png") {
-            //         img.src = "../image/login/login_password2.png";
-            //     } else {
-            //         img.src = "../image/login/login_password.png";
-            //     }
-            // }
         }
-        //密码正则验证；
-    function fnPswordYanZheng() {
-        var passwords = $api.byId('password');
-        password = $api.byId('password').value;
-        var passwordRegular = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
-        if (password == '') {
-            api.toast({
-                msg: '密码不能为空',
-                duration: 2000,
-                location: 'bottom'
-            });
-            return;
-        } else {
-            var str = password;
-            if (str == null || str.length < 6) {
-                api.toast({
-                    msg: '密码必须大于等于六位',
-                    duration: 2000,
-                    location: 'bottom'
-                });
-                return;
-            }
-            var reg = new RegExp(/^(?![^a-zA-Z]+$)(?!\D+$)/);
-            if (!reg.test(str)) {
-                api.toast({
-                    msg: '密码必须包含字母和数字',
-                    duration: 2000,
-                    location: 'bottom'
-                });
-                return;
-            }
-        }
-    }
 
-    function fnSjyanzheng() {
-        var phones = $api.byId('phone');
-        phone = $api.byId('phone').value;
-        var phoneRegular = /^(13[0-9]|15[012356789]|17[0135678]|18[0-9]|14[579])[0-9]{8}$/;
-        if (phone == '') {
-            api.toast({
-                msg: '手机不能为空',
-                duration: 2000,
-                location: 'bottom'
-            });
-            return;
-        } else if (!phoneRegular.test(phone)) {
-            api.toast({
-                msg: '手机格式不正确',
-                duration: 2000,
-                location: 'bottom'
-            });
-            phones.value = '';
-            return;
-        }
-    }
-
-    function collectmusicSj(clicktoolitem) {
-        var toolbarlist = document.getElementsByClassName('collectmusicSj')[0];
-        var click = clicktoolitem.getAttribute("data-click");
-        if (click == 0) {
+    function collectmusicSj() {
+        // var toolbarlist = document.getElementsByClassName('collectmusicSj')[0];
+        // var click = clicktoolitem.getAttribute("data-click");
+        // if (click == 0) {
             api.openWin({
                 name: 'Binding',
                 url: './Binding.html',
@@ -226,70 +156,70 @@
                 }
             });
             // 点开
-            clicktoolitem.setAttribute("data-click", 1);
-            toolbarlist.src = "../image/my/Bindings.png";
-        } else {
-            var dialogBox = api.require('dialogBox');
-            dialogBox.alert({
-                texts: {
-                    // title: '现在未使用wifi',
-                    content: '是否取消关注',
-                    leftBtnTitle: '取消',
-                    rightBtnTitle: '确认'
-                },
-                styles: {
-                    bg: '#fff',
-                    w: 300,
-                    title: {
-                        marginT: 20,
-                        icon: 'widget://res/gou.png',
-                        iconSize: 40,
-                        titleSize: 14,
-                        titleColor: '#666'
-                    },
-                    content: {
-                        color: '#ccc',
-                        size: 14
-                    },
-                    left: {
-                        marginB: 7,
-                        marginL: 20,
-                        w: 130,
-                        h: 35,
-                        corner: 2,
-                        bg: '#ccc',
-                        color: '#FFF',
-                        size: 12
-                    },
-                    right: {
-                        marginB: 7,
-                        marginL: 10,
-                        w: 130,
-                        h: 35,
-                        corner: 2,
-                        bg: '#89211b',
-                        color: '#fff',
-                        size: 12
-                    }
-                }
-            }, function(ret) {
-                if (ret.eventType == 'left') {
-                    var dialogBox = api.require('dialogBox');
-                    dialogBox.close({
-                        dialogName: 'alert'
-                    });
-                } else {
-                    clicktoolitem.setAttribute("data-click", 0);
-                    toolbarlist.src = "../image/my/Binding.png";
-                    var dialogBox = api.require('dialogBox');
-                    dialogBox.close({
-                        dialogName: 'alert'
-                    });
-                }
-            });
-
-
-        }
+            // clicktoolitem.setAttribute("data-click", 1);
+            // toolbarlist.src = "../image/my/Bindings.png";
+        // } else {
+        //     var dialogBox = api.require('dialogBox');
+        //     dialogBox.alert({
+        //         texts: {
+        //             // title: '现在未使用wifi',
+        //             content: '是否取消关注',
+        //             leftBtnTitle: '取消',
+        //             rightBtnTitle: '确认'
+        //         },
+        //         styles: {
+        //             bg: '#fff',
+        //             w: 300,
+        //             title: {
+        //                 marginT: 20,
+        //                 icon: 'widget://res/gou.png',
+        //                 iconSize: 40,
+        //                 titleSize: 14,
+        //                 titleColor: '#666'
+        //             },
+        //             content: {
+        //                 color: '#ccc',
+        //                 size: 14
+        //             },
+        //             left: {
+        //                 marginB: 7,
+        //                 marginL: 20,
+        //                 w: 130,
+        //                 h: 35,
+        //                 corner: 2,
+        //                 bg: '#ccc',
+        //                 color: '#FFF',
+        //                 size: 12
+        //             },
+        //             right: {
+        //                 marginB: 7,
+        //                 marginL: 10,
+        //                 w: 130,
+        //                 h: 35,
+        //                 corner: 2,
+        //                 bg: '#89211b',
+        //                 color: '#fff',
+        //                 size: 12
+        //             }
+        //         }
+        //     }, function(ret) {
+        //         if (ret.eventType == 'left') {
+        //             var dialogBox = api.require('dialogBox');
+        //             dialogBox.close({
+        //                 dialogName: 'alert'
+        //             });
+        //         } else {
+        //             clicktoolitem.setAttribute("data-click", 0);
+        //             toolbarlist.src = "../image/my/Binding.png";
+        //             var dialogBox = api.require('dialogBox');
+        //             dialogBox.close({
+        //                 dialogName: 'alert'
+        //             });
+        //         }
+        //     });
+        //
+        //
+        // }
     }
 
     function collectmusicQQ(clicktoolitem) {
@@ -336,7 +266,7 @@
                       duration: 2000,
                       location: 'middle'
                   });
-                    
+
                 }
             });
             // 关闭
