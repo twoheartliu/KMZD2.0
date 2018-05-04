@@ -130,9 +130,8 @@
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
     var playlistid;
-
+    var tingdanliebiaobiaoti;
     apiready = function() {
-        // fnSetGender();
         playlistid = api.pageParam.tuijiantingdanid;
         var list = $api.byId('radio-list');
         $api.addCls(list, 'in');
@@ -145,11 +144,9 @@
                 }, 350);
             }
         }
-        fnTingdanTuijian()
+        fnTingdanTuijian();
     };
     //接口  推荐听单
-    var tingdanliebiaobiaoti;
-
     function fnTingdanTuijian() {
         playlistid = api.pageParam.playlistid;
         api.ajax({
@@ -185,26 +182,47 @@
         var html = data_;
         $api.html(stylelist, html);
     }
+    var Dqbofangid;
 
     function fnPlayGeQu(a) {
         playlistid = api.pageParam.playlistid;
         var bofang = 3;
-        api.sendEvent({
-            name: 'neizhiliebiaoPlay',
-            extra: {
-                a: a,
-                playlistid: playlistid,
-                bofang: bofang
-            }
-        });
-        api.sendEvent({
-            name: 'neizhiliebiaoPlaysss',
-            extra: {
-                a: a,
-                playlistid: playlistid,
-                bofang: bofang
-            }
-        });
+        if (a == api.pageParam.Dqbofangid) {
+            api.openWin({
+                name: 'play',
+                url: './play.html',
+                pageParam: {
+                    DangQianbofangid: a
+                }
+            });
+            return false;
+        } else {
+            api.openWin({
+                name: 'play',
+                url: './play.html',
+                pageParam: {
+                    playlistid: playlistid,
+                    a: a,
+                    bofang: bofang
+                }
+            });
+            api.sendEvent({
+                name: 'neizhiliebiaoPlay',
+                extra: {
+                    a: a,
+                    playlistid: playlistid,
+                    bofang: bofang
+                }
+            });
+            api.sendEvent({
+                name: 'neizhiliebiaoPlaysss',
+                extra: {
+                    a: a,
+                    playlistid: playlistid,
+                    bofang: bofang
+                }
+            });
+        }
     }
 
     // function fnSetGender(){
