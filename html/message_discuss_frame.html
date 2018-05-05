@@ -25,7 +25,7 @@ html,body {min-height: 100%;background: #ebebeb}
 .swiper-container img {width: 100%;}
 /* 头部 */
 .nomessage {margin-top: 20px;font-size: 0.8em;text-align: center;color: #999;}
-section{border-top: 1px solid #ccc;margin-bottom: 40px;height:100%;}
+section{border-top: 1px solid #ccc;margin-bottom: 40px;height:100%;width: 100%;  }
 section>ul{margin: 0 10px;}
 section ul li{width:100%;padding: 10px 0;}
 /*section ul li:nth-last-child(1){border-bottom: 1px solid #ccc;}*/
@@ -36,7 +36,7 @@ section ul li{width:100%;padding: 10px 0;}
 .userName p:nth-child(2){color: #535354;}
 .discuss{height: auto;padding: 10px;background-color: #f2f2f3;color: #999;border-radius: 5px;}
 .userName p:nth-last-child(1){font-size: 12px;position: absolute;top: 0;right: 0;width:92px;color: #999;}
-.reply{display:none;margin: 8px 2%;width:100%;}
+.reply{display:block;margin: 8px 2%;width:100%; position: fixed;left:0;bottom:0;}
 .replyButton{width:50px;height:33px;text-align: right;padding-bottom: 10px;display: inline-block;vertical-align: bottom;}
 .replySend{width: 50px;height: 33px;line-height: 33px;border-radius: 5px;text-align: center;
   background-color: #89211b;color:#FFF;font-size: 14px;}
@@ -158,12 +158,12 @@ button:focus{outline: none;}
     </ul>
     <!-- <div class="nomessage">暂无消息01</div> -->
   </section>
-  <div class="reply" >
-    <textarea name="name" class="replyValue"></textarea>
-    <!-- <input type="text" class="replyValue"> -->
+  <!-- <div class="reply" >
+    <textarea name="name" class="replyValue" id="input"></textarea>
+    <input type="text" class="replyValue">
     <div class="replyButton" >
       <button class="replySend" >提交</button></div>
-  </div>
+  </div> -->
   <!-- <div id="popup">
     <ul style="margin: 0 10px;">
       <li style="width:100%;padding: 10px 0;border-top: 1px solid #ccc;">
@@ -268,23 +268,35 @@ button:focus{outline: none;}
         }
     });
   }
+  // function fnOpenMessageNotDetail(){
+  //   var section = $api.byId('section');
+  //   var sectionH = $api.offset(section).h;
+  //   api.openFrame({
+  //       name: 'replyDetailFrame',
+  //       url: './reply_detail_frame.html',
+  //       rect: {
+  //           x: 0,
+  //           y: sectionH + 100,
+  //           w: api.frameWidth,
+  //           h: 'auto'
+  //       },
+  //       pageParam: {
+  //           name: 'test'
+  //       },
+  //       bounces: false,
+  //       bgColor: 'rgba(0,0,0,0)',
+  //       vScrollBarEnabled: true,
+  //       hScrollBarEnabled: true
+  //   });
+  // }
   function fnOpenMessageNotDetail(){
-    var section = $api.byId('section');
-    var sectionH = $api.offset(section).h;
-    api.openFrame({
-        name: 'replyDetailFrame',
-        url: './reply_detail_frame.html',
-        rect: {
-            x: 0,
-            y: sectionH + 100,
-            w: api.frameWidth,
-            h: 'auto'
-        },
+    api.openWin({
+        name: 'replyDetail',
+        url: './reply_detail.html',
         pageParam: {
             name: 'test'
         },
         bounces: false,
-        bgColor: 'rgba(0,0,0,0)',
         vScrollBarEnabled: true,
         hScrollBarEnabled: true
     });
