@@ -533,18 +533,46 @@ var a;
             index: index
         });
     }
-    var isFirst = true;
+
     //签到
     function fnDenglu() {
-        if (isFirst) {
+
+      // if (isFirst) {
+      //     api.toast({
+      //         msg: '签到成功',
+      //         duration: 2000,
+      //         location: 'bottom'
+      //     });
+      // }
+      // isFirst = false;
+console.log(token);
+      var  uri = '/user/sign';
+        api.ajax({
+          url: host + apiUri + uri ,
+          method: 'post',
+          dataType: 'json',
+          headers: {
+            "source": api.systemType,
+            "version": version,
+            "session": token,
+          },
+        }, function(ret, err) {
+            if (ret.status == 200 ) {
+              api.toast({
+                  msg: '签到成功',
+                  duration: 2000,
+                  location: 'bottom'
+              });
+          }else {
             api.toast({
-                msg: '签到成功',
+                msg: ret.message,
                 duration: 2000,
                 location: 'bottom'
             });
-        }
-        isFirst = false;
-    }
+          }
+      });
+      }
+
 
     // 初始化事件监听
     function initEventListenner() {
