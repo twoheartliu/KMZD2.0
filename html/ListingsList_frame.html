@@ -509,6 +509,7 @@
 
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript">
 
     apiready = function() {
@@ -517,8 +518,29 @@
     function collectmusic(clicktoolitem) {
         var toolbarlist = document.getElementsByClassName('collectmusic')[0];
         var click = clicktoolitem.getAttribute("data-click");
-
         if (click == 0) {
+          var token = $api.getStorage('token');
+          // console.log(token);
+          api.ajax({
+              url: host + apiUri + '/extra/collection',
+              method: 'post',
+              headers: {
+                    "source": api.systemType,
+                    "version": version,
+                    "session": token
+                }
+              data: {
+
+              }
+          },function(ret, err){
+              if (ret) {
+
+                  alert( JSON.stringify( ret ) );
+              } else {
+                  alert( JSON.stringify( err ) );
+              }
+          });
+
           api.toast({
               msg: '收藏成功',
               duration: 2000,
@@ -527,6 +549,7 @@
             // 点开
             clicktoolitem.setAttribute("data-click", 1);
             toolbarlist.src = "../image/KM_play_collect_red.png";
+
         } else {
             // 关闭
             clicktoolitem.setAttribute("data-click", 0);

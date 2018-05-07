@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
@@ -26,6 +25,7 @@
 
         .Cover_img img {
             width: 100%;
+            height: 100%;
         }
 
         .Cover_title {
@@ -85,10 +85,9 @@
         }
     </style>
 </head>
-
 <body>
     <div class="Cover" onclick="fnSettings();">
-        <div class="Cover_img"><img src="../image/my/fnShareImg.jpg" alt="CoverDivInput"></div>
+        <div class="Cover_img" id="Cover_img"><img  src="../image/my/fnShareImg.jpg" alt="CoverDivInput"></div>
         <div class="Cover_title">封面</div>
     </div>
     <div class="bg"></div>
@@ -112,6 +111,9 @@
 <script type="text/javascript" src="../script/swiper.min.js"></script>
 <script type="text/javascript">
     apiready = function() {
+      // var CoverDivInput = $api.byId('CoverDivInput').value;
+      // console.log(CoverDivInput);
+      var CoverDivInput = $api.byId('CoverDivInput').value;
 
     }
     function CoverDivInput() {
@@ -190,7 +192,11 @@
                     saveToPhotoAlbum: false
                 }, function(ret, err) {
                     if (ret) {
-                        alert(JSON.stringify(ret));
+                        // alert(JSON.stringify(ret));
+                        console.log(JSON.stringify(ret.data));
+                        var CoverImg = $api.byId('Cover_img');
+                        CoverImg.innerHTML = '<img src="' + ret.data + '">';
+                        // console.log(CoverImg.innerHTML = '<img src="http://nfyx.cn/app/img/' + ret.data + '">');
                     } else {
                         alert(JSON.stringify(err));
                     }
@@ -227,7 +233,6 @@
             }
         });
     }
-
     function fnShare() {
         var dialogBox = api.require('dialogBox');
         dialogBox.share({
