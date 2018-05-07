@@ -316,6 +316,7 @@
 
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript">
     apiready = function() {
         // 优化点击事件
@@ -323,8 +324,47 @@
         // fnYongHuTouXiang(qqziliao);
         // fnUserName(qqziliao);
         //alert(JSON.stringify(qqziliao));
+
         api.parseTapmode();
+        // fnAjaxMy();
     }
+
+    function fnAjaxMy() {
+    var token = $api.getStorage('token');
+      api.ajax({
+          url: host + apiUri + '/user/info',
+          method: 'get',
+          dataType: 'json',
+          headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token
+            }
+      },function(ret, err){
+          if (ret) {
+              // alert( JSON.stringify( ret ) );
+              // console.log(JSON.stringify( ret ));
+              // function () {
+              //
+              // }
+          } else {
+            alert(1);
+            $api.rmStorage('token');
+             api.openWin({
+                 name: 'login',
+                 url: '../login.html',
+                 pageParam: {
+                     name: 'test'
+                 }
+
+            });
+        }
+
+          });
+    }
+
+
+
     // 安全中心
     function fnSecurityCenterWin() {
       api.openWin({
@@ -448,7 +488,7 @@
     function fnSetWin() {
         api.openWin({
             name: 'set',
-            url: './set.html',
+            url: '../html/set.html',
             pageParam: {
                 name: 'test'
             }
