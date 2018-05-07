@@ -92,14 +92,39 @@
             bounces: false,
             allowEdit:true
         });
-
     }
 
     function fnOkWin() {
-      api.toast({
-          msg: '确定',
-          duration: 2000,
-          location: 'bottom'
+      api.addEventListener({
+          name: 'New'
+      }, function(ret, err) {
+            console.log(JSON.stringify(ret));
+            console.log(ret);
+            fnCcccc(ret);
+            if (ret == '' ) {
+              api.toast({
+                  msg: '用户名不能为空',
+                  duration: 2000,
+                  location: 'bottom'
+              });
+            }else {
+              api.toast({
+                  msg: '46546465',
+                  duration: 2000,
+                  location: 'bottom'
+              });
+            }
+
       });
+
+      // api.toast({
+      //     msg: '确定',
+      //     duration: 2000,
+      //     location: 'bottom'
+      // });
+    }
+    var touxiang;
+    function fnCcccc(ret){
+      touxiang = ret
     }
 </script>
