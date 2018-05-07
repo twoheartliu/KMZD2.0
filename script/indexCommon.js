@@ -24,6 +24,7 @@ var DangQianbofangid;
 var titlename;
 var desc;
 var singerName;
+var token = $api.getStorage('token');
 //播放音频信息
 function fnBoFangSouSuoyinpinxinxi() {
     var id = historyUrlArray[play];

@@ -592,8 +592,9 @@
     //接口  推荐听单
     var tingdanliebiaobiaoti;
     var page = 1;
-
+    var token = $api.getStorage('token');
     function fnTingdanZhuanJi() {
+
         var albumId = api.pageParam.albumId;
         uri = '/album/song_list';
         api.ajax({
@@ -602,7 +603,8 @@
             dataType: 'json',
             headers: {
                 "source": api.systemType,
-                "version": version
+                "version": version,
+                "session": token
             }
         }, function(ret, err) {
             if (ret.code == 200) {
@@ -610,6 +612,11 @@
                 fnAlbumIdLift(ret);
             } else {
                 alert(ret.message);
+                $api.rmStorage('token');
+                api.openWin({
+                    name: 'login',
+                    url: '../login.html',
+                });
             }
         });
 

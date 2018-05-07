@@ -1093,6 +1093,11 @@
                 AddHistoryTitle(title, author_name);
             } else {
                 alert(ret.message);
+                $api.rmStorage('token');
+                api.openWin({
+                    name: 'login',
+                    url: '../login.html'
+                });
             }
           });
         } else {
@@ -1136,6 +1141,11 @@
               AddHistoryTitle(title, author_name);
             } else {
                 alert(ret.message);
+                $api.rmStorage('token');
+                api.openWin({
+                    name: 'login',
+                    url: '../login.html'
+                });
             }
           });
         }
