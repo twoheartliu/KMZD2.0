@@ -468,16 +468,16 @@
         </div> -->
         <div class="list_bjDiv_img">
             <div class="userinfo">
-                <div class="userinfocol" tapmode="toolhover" onclick="collectmusicFx(this)">
-                    <div class="info">
-                        <img src="../image/KM_ListingsListDzs.png" alt="" class="collectmusicFx">
+                <div class="userinfocol" tapmode="toolhover" >
+                    <div class="info" onclick="fnExtraGood()" id="extraGood" >
+                        <!-- <img src="../image/KM_ListingsListDzs.png" alt="" class="collectmusicFxs"> -->
                     </div>
                     <p>20</p>
                 </div>
-                <div class="userinfocol" tapmode="toolhover" onclick="collectmusic(this)" data-click="0">
-                    <div class="info">
+                <div class="userinfocol" tapmode="toolhover" >
+                    <div class="info" id="extraCollectionHtml">
 
-                        <img src="../image/KM_hxs.png" alt="" class="collectmusic">
+                        <!-- <img src="../image/KM_hxs.png" alt="" class="collectmusic" onclick="collectmusic(this)" data-click="0"> -->
 
                         <!-- <img src="../image/KM_hxs.png" alt="" class="collectmusic"> -->
 
@@ -587,16 +587,48 @@
 <script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript">
     var token;
+    var albumGoodHtml;
+    var albumCollectionHtml;
+    var albumId;
     apiready = function() {
         token = $api.getStorage('token');
         fnAlbumAetails();
         fnAlbumTrack();
-
+        // fnExtraGoodssssss();
+        // $api.rmStorage('albumExtraGoodHtml');
+        // $api.rmStorage('albumExtraGood');
     }
+    function fnExtraGoodssssss(){
+      var albumss = $api.getStorage("albumExtraGood");
+      var album = albumId + 'albuminc';
+      if(albumss){
+        if(albumss != album){
+          albumGoodHtml = '<img src="../image/KM_ListingsListDzs.png" alt="" class="collectmusicFxs" onclick="collectmusicFx(this)" data-click="0">';
+        }else{
+          albumGoodHtml = '<img src="../image/KM_play_dianzan_red.png" alt="" class="collectmusicFxs" onclick="collectmusicFx(this)" data-click="1">';
+        }
+      }else{
+        albumGoodHtml = '<img src="../image/KM_ListingsListDzs.png" alt="" class="collectmusicFxs" onclick="collectmusicFx(this)" data-click="0">';
+      }
+      var stylelist = $api.byId('extraGood');
+      $api.html(stylelist, albumGoodHtml);
 
+      var albumCollectionss = $api.getStorage("albumExtraCollection");
+      var album = albumId + 'albumcollectionncinc';
+      if(albumCollectionss){
+        if(albumCollectionss != album){
+          albumCollectionHtml = '<img src="../image/KM_hxs.png" alt="" class="collectmusic" onclick="collectmusic(this)" data-click="0">';
+        }else{
+          albumCollectionHtml = '<img src="../image/KM_play_collect_red.png" alt="" class="collectmusic" onclick="collectmusic(this)" data-click="1">';
+        }
+      }else{
+        albumCollectionHtml = '<img src="../image/KM_hxs.png" alt="" class="collectmusic" onclick="collectmusic(this)" data-click="0">';
+      }
+      var stylelists = $api.byId('extraCollectionHtml');
+      $api.html(stylelists, albumCollectionHtml);
+    }
     function fnAlbumAetails() {
-        console.log(token);
-        var albumId = api.pageParam.albumId;
+        albumId = api.pageParam.albumId;
         uri = '/album';
         api.ajax({
             url: host + apiUri + uri + '/' + albumId,
@@ -625,16 +657,11 @@
     //接口  听单展示
     function fnAlbumAetailsList(data_) {
         var stylelist = $api.byId('aetails');
-        var html = '';
-        for (var i = 0; i < data_.data.length; i++) {
-
-            html += '<div class="single_h1" id="tingdanliebiaobiaoti"></div><div class="single_img_p_span"><div class="single_div_img fl"><img src="../image/KM_tx.png" alt=""></div><div class="single_img_name fl">' + data_.data[i].title +
-                '</div>  </div><div class="single_time"><div class="single_time_img fl"><img src="../image/KM_sc.png" alt=""></div><div class="single_img_num fl">' + data_.data[i].collection_total +
-                '</div><div class="single_time_img fl"><img src="../image/KM_play.png" alt=""></div><div class="single_img_num fl">' + data_.data[i].play_count +
-                '</div><div class="single_time_img fl"><img src="../image/read/aloud_py.png" alt=""></div><div class="single_img_num fl">' + data_.data[i].total + '</div></div>'
-
-
-        }
+        var html = '<div class="single_h1" id="tingdanliebiaobiaoti"></div><div class="single_img_p_span"><div class="single_div_img fl"><img src="../image/KM_tx.png" alt=""></div><div class="single_img_name fl">' + data_.data.title +
+                '</div>  </div><div class="single_time"><div class="single_time_img fl"><img src="../image/KM_sc.png" alt=""></div><div class="single_img_num fl">' + data_.data.collection_total +
+                '</div><div class="single_time_img fl"><img src="../image/KM_play.png" alt=""></div><div class="single_img_num fl">' + data_.data.play_count +
+                '</div><div class="single_time_img fl"><img src="../image/read/aloud_py.png" alt=""></div><div class="single_img_num fl">' + data_.data.total + '</div></div>'
+                fnExtraGoodssssss();
         $api.html(stylelist, html);
     }
 
@@ -656,6 +683,7 @@
                 "session": token
             }
         }, function(ret, err) {
+
             if (ret.code == 200) {
                 // fnRecommendedDirectory(ret);
                 fnAlbumIdLift(ret);
@@ -876,16 +904,15 @@
     function collectmusic(clicktoolitem) {
         var toolbarlist = document.getElementsByClassName('collectmusic')[0];
         var click = clicktoolitem.getAttribute("data-click");
-
         if (click == 0) {
             // 点开
             clicktoolitem.setAttribute("data-click", 1);
             toolbarlist.src = "../image/KM_play_collect_red.png";
             var albumId = api.pageParam.albumId;
-            uri = '/extra/good';
+            uri = '/extra/collection';
             api.ajax({
                 url: host + apiUri + uri + '/' + albumId,
-                method: 'post ',
+                method: 'post',
                 dataType: 'json',
                 headers: {
                     "source": api.systemType,
@@ -902,20 +929,15 @@
                     // fnRecommendedDirectory(ret);
                     if(ret.data == "inc"){
                       api.toast({              
-                          msg:   '已取消收藏',
-                          duration:  2000,
-                          location:   'middle'          
-                      });
-                      fnAlbumAetails();
-                    }else{
-                      api.toast({              
-                          msg:   '已取消收藏',
+                          msg:   '已收藏',
                           duration:  2000,
                           location:   'middle'          
                       });
                       fnAlbumAetails();
                     }
                     fnExtraGood();
+                    var album = albumId + 'albumcollectionncinc';
+                    $api.setStorage('albumExtraCollection',album);
                 } else {
                     alert(ret.message);
                     $api.rmStorage('token');
@@ -930,10 +952,10 @@
             clicktoolitem.setAttribute("data-click", 0);
             toolbarlist.src = "../image/KM_hxs.png";
             var albumId = api.pageParam.albumId;
-            uri = '/extra/good';
+            uri = '/extra/collection';
             api.ajax({
                 url: host + apiUri + uri + '/' + albumId,
-                method: 'post ',
+                method: 'post',
                 dataType: 'json',
                 headers: {
                     "source": api.systemType,
@@ -942,21 +964,13 @@
                 },
                 data:{
                   values:{
-                    "type":'inc',
                     "model":'album',
                   }
                 }
             }, function(ret, err) {
                 if (ret.status == 200) {
                     // fnRecommendedDirectory(ret);
-                    if(ret.data == "inc"){
-                      api.toast({              
-                          msg:   '已取消收藏',
-                          duration:  2000,
-                          location:   'middle'          
-                      });
-                      fnAlbumAetails();
-                    }else{
+                    if(ret.data == "dec"){
                       api.toast({              
                           msg:   '已取消收藏',
                           duration:  2000,
@@ -964,7 +978,8 @@
                       });
                       fnAlbumAetails();
                     }
-
+                    var album = albumId + 'albumcollectionncdec';
+                    $api.setStorage('albumExtraCollection',album);
                 } else {
                     alert(ret.message);
                     $api.rmStorage('token');
@@ -978,92 +993,98 @@
     }
 
     function collectmusicFx(clicktoolitem) {
-        var toolbarlist = document.getElementsByClassName('collectmusicFx')[0];
+        var toolbarlist = document.getElementsByClassName('collectmusicFxs')[0];
         var click = clicktoolitem.getAttribute("data-click");
         if (click == 0) {
-            // 点开
-            clicktoolitem.setAttribute("data-click", 1);
-            toolbarlist.src = "../image/KM_play_dianzan_red.png";
-            var albumId = api.pageParam.albumId;
-            uri = '/extra/good';
-            api.ajax({
-                url: host + apiUri + uri + '/' + albumId,
-                method: 'post ',
-                dataType: 'json',
-                headers: {
-                    "source": api.systemType,
-                    "version": version,
-                    "session": token
+          // 点开
+          clicktoolitem.setAttribute("data-click", 1);
+          toolbarlist.src = "../image/KM_play_dianzan_red.png";
+          var albumId = api.pageParam.albumId;
+          uri = '/extra/good';
+          var url = host + apiUri + uri + '/' + albumId;
+          api.ajax({
+              url: host + apiUri + uri + '/' + albumId,
+              method: 'post',
+              dataType: 'json',
+              headers: {
+                  "source": api.systemType,
+                  "version": version,
+                  "session": token
+              },
+              data:{
+                values:{
+                  "type":'inc',
+                  "model":'album',
                 },
-                data:{
-                  values:{
-                    "type":'inc',
-                    "model":'album',
-                  }
-                }
-            }, function(ret, err) {
-                if (ret.status == 200) {
-                    // fnRecommendedDirectory(ret);
-                    api.toast({              
-                        msg:   '已点赞',
-                        duration:  2000,
-                        location:   'middle'          
-                    });
-                    fnExtraGood();
-                } else {
-                    alert(ret.message);
-                    $api.rmStorage('token');
-                    api.openWin({
-                        name: 'login',
-                        url: '../login.html',
-                    });
-                }
-            });
-
-
+              },
+          }, function(ret, err) {
+              if (ret.status == 200) {
+                  // fnRecommendedDirectory(ret);
+                  api.toast({              
+                      msg:   '已点赞',
+                      duration:  2000,
+                      location:   'middle'          
+                  });
+                  var album = albumId + 'albuminc';
+                  $api.setStorage('albumExtraGood',album);
+                  fnExtraGood();
+              } else {
+                  alert(ret.message);
+                  $api.rmStorage('token');
+                  api.openWin({
+                      name: 'login',
+                      url: '../login.html',
+                  });
+              }
+          });
         } else {
-            // 关闭
-            clicktoolitem.setAttribute("data-click", 0);
-            toolbarlist.src = "../image/KM_ListingsListDzs.png";
-            var albumId = api.pageParam.albumId;
-            uri = '/extra/good';
-            api.ajax({
-                url: host + apiUri + uri + '/' + albumId,
-                method: 'post ',
-                dataType: 'json',
-                headers: {
-                    "source": api.systemType,
-                    "version": version,
-                    "session": token
-                },
-                data:{
-                  values:{
-                    "model":'album',
-                  }
+          // 关闭
+          clicktoolitem.setAttribute("data-click", 0);
+          toolbarlist.src = "../image/KM_ListingsListDzs.png";
+          var albumId = api.pageParam.albumId;
+          uri = '/extra/good';
+          api.ajax({
+              url: host + apiUri + uri + '/' + albumId,
+              method: 'post',
+              dataType: 'json',
+              headers: {
+                  "source": api.systemType,
+                  "version": version,
+                  "session": token
+              },
+              data:{
+                values:{
+                  "type":'dec',
+                  "model":'album',
                 }
-            }, function(ret, err) {
-                if (ret.status == 200) {
-                    // fnRecommendedDirectory(ret);
-                    if(ret.status == 200){
+              }
+          }, function(ret, err) {
+              if (ret.status == 200) {
+                  // fnRecommendedDirectory(ret);
+                  if(ret.status == 200){
 
-                    }
-                    api.toast({              
-                        msg:   '已取消点赞',
-                        duration:  2000,
-                        location:   'middle'          
-                    });
-                    fnExtraGood();
-                } else {
-                    alert(ret.message);
-                    $api.rmStorage('token');
-                    api.openWin({
-                        name: 'login',
-                        url: '../login.html',
-                    });
-                }
-            });
+                  }
+                  api.toast({              
+                      msg:   '已取消点赞',
+                      duration:  2000,
+                      location:   'middle'          
+                  });
+                  var album = albumId + 'albumdec';
+                  $api.setStorage('albumExtraGood',album);
+              } else {
+                console.log(222);
+                console.log(ret.message);
+                  alert(ret.message);
+                  $api.rmStorage('token');
+                  api.openWin({
+                      name: 'login',
+                      url: '../login.html',
+                  });
+              }
+          });
         }
     }
+
     function fnExtraGood(){
 
     }
