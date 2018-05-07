@@ -346,7 +346,8 @@
           dataType: 'json',
           headers: {
               "source": api.systemType,
-              "version": version
+              "version": version,
+              "session": token
           },
       }, function(ret, err) {
           if (ret.status == 200) {
@@ -354,6 +355,14 @@
               fnPageLayoutAssignment(ret);
           } else {
               alert(ret.message);
+              $api.rmStorage('token');
+              api.openWin({
+                  name: 'login',
+                  url: '../login.html',
+                  pageParam: {
+                      name: 'test'
+                  }
+              });
           }
       });
     }
@@ -371,7 +380,6 @@
           }
           for (var s = 0; s < column * row; s++) {
               if(data_.data[i].floor_type == "block"){
-
                 var cccc = column;
                 var ssss = frameWidth - 50
                 var xxxx = ssss / cccc;
@@ -440,8 +448,6 @@
               albumId: id
           }
       });
-
-
     }
 
     function fnRecommendWin() {
