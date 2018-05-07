@@ -114,7 +114,13 @@
       // var CoverDivInput = $api.byId('CoverDivInput').value;
       // console.log(CoverDivInput);
       var CoverDivInput = $api.byId('CoverDivInput').value;
-
+      api.sendEvent({
+          name: 'New',
+          extra: {
+              CoverDivInput: CoverDivInput,
+              key2: 'value2'
+          }
+      });
     }
     function CoverDivInput() {
       var CoverDivInput = document.getElementById('CoverDivInput');
