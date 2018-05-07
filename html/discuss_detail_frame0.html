@@ -113,7 +113,7 @@ html,body {min-height: 100%;background: #f2f2f2}
   .clear{clear: both;}
 
   .sec-tit{height:40px;line-height: 40px;padding-left:8px;}
-  .sec-discuss{background-color: #fff;padding: 8px;}
+  .sec-discuss{background-color: #fff;padding: 8px;border-bottom: 1px solid #e0e0e0;}
   .sec-img{display: inline-block; vertical-align: top;}
   .sec-img img{width:45px;height: 45px;}
   .sec-txt{display: inline-block;}
@@ -121,7 +121,8 @@ html,body {min-height: 100%;background: #f2f2f2}
   .sec-txt>p:nth-child(2){color:#ccc;font-size: 13px;}
   .dis-right>span{color:#ccc;font-size: 12px;}
   .dis-right>img{width:18px;height:18px;vertical-align: middle;}
-  .dis-txt{margin-left: 40px;padding-bottom: 10px;border-bottom: 1px solid #e0e0e0;color:#535354;}
+  .dis-txt{margin-left: 40px;padding-bottom: 10px;color:#535354;}
+  .discuss{margin-left: 40px;height: auto;padding: 10px;background-color: #f2f2f3;color: #999;border-radius: 5px;}
 </style>
 </head>
 <body>
@@ -194,6 +195,7 @@ html,body {min-height: 100%;background: #f2f2f2}
               </div>
               <div class="clear"></div>
               <div class="dis-txt">海中月是天上月，眼前人是心上人。向来心是看客心，奈何人是剧中人</div>
+              <div class="reply" onclick="fnOpenMessageNotDetail()">回复</div>
             </div>
             <div class="sec-discuss">
               <div class="dis-left fl">
@@ -205,6 +207,7 @@ html,body {min-height: 100%;background: #f2f2f2}
               </div>
               <div class="clear"></div>
               <div class="dis-txt">海中月是天上月，眼前人是心上人。向来心是看客心，奈何人是剧中人</div>
+              <div class="reply" onclick="fnOpenMessageNotDetail()">回复</div>
             </div>
             <div class="sec-discuss">
               <div class="dis-left fl">
@@ -216,6 +219,10 @@ html,body {min-height: 100%;background: #f2f2f2}
               </div>
               <div class="clear"></div>
               <div class="dis-txt">海中月是天上月，眼前人是心上人。向来心是看客心，奈何人是剧中人</div>
+              <div class="reply" onclick="fnOpenMessageNotDetail()">回复</div>
+              <div class="discuss">
+                <span>我的评论：不知道为什么分开，很多喜欢以为永远会喜欢，到最后才发现任何事情都抵不过时过境迁。</span>
+              </div>
             </div>
           </section>
       </div>
@@ -249,29 +256,17 @@ html,body {min-height: 100%;background: #f2f2f2}
       fnOpenMessageNotDetail1();
     }
 
-  function fnOpenMessageNotDetail1(){
-    // var nHeader = $api.byId('secHeader');
-    var container = $api.byId('container');
-    // var headerH = $api.offset(nHeader).h;
-    var containerH = $api.offset(container).h;
-
-    api.openFrame({
-        name: 'replyDetailFrame',
-        url: './reply_detail_frame.html',
-        rect: {
-          x: api.frameWidth,
-          y: api.frameHeight,
-          w: api.frameWidth,
-          h: 50
-        },
-        pageParam: {
-            name: 'test'
-        },
-        bounces: false,
-        bgColor: 'rgba(0,0,0,0)',
-        vScrollBarEnabled: true,
-        hScrollBarEnabled: true
-    });
-  }
+    function fnOpenMessageNotDetail(){
+      api.openWin({
+          name: 'replyDetail',
+          url: './reply_detail.html',
+          pageParam: {
+              name: 'test'
+          },
+          bounces: false,
+          vScrollBarEnabled: true,
+          hScrollBarEnabled: true
+      });
+    }
 </script>
 </html>
