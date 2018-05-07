@@ -429,29 +429,30 @@
         <div class="p13px">
             <div class="single">
                 <div class="single_img fl"><img src="../image/index/pic.jpg" alt=""></div>
-                <div class="single_l fl">
-                    <div class="single_h1" id="tingdanliebiaobiaoti"></div>
+                <!-- <div class="single_LIVE fl"><img src="../image/vip/KM_live.png" alt=""></div> -->
+                <div class="single_l fl" id="aetails">
+                    <!-- <div class="single_h1" id="tingdanliebiaobiaoti"></div>
                     <div class="single_img_p_span">
                         <div class="single_div_img fl">
                             <img src="../image/KM_tx.png" alt="">
                         </div>
-                        <div class="single_img_name fl">小许</div>
-                        <!-- <div class="single_LIVE fl"><img src="../image/vip/KM_live.png" alt=""></div> -->
+                        <div class="single_img_name fl">' + data_.data[i].title +'</div>
+
                     </div>
                     <div class="single_time">
                         <div class="single_time_img fl">
                             <img src="../image/KM_sc.png" alt="">
                         </div>
-                        <div class="single_img_num fl">10</div>
+                        <div class="single_img_num fl">' + data_.data[i].author_name +'</div>
                         <div class="single_time_img fl">
                             <img src="../image/KM_play.png" alt="">
                         </div>
-                        <div class="single_img_num fl">20</div>
+                        <div class="single_img_num fl">' + data_.data[i].play_count +'</div>
                         <div class="single_time_img fl">
                             <img src="../image/read/aloud_py.png" alt="">
                         </div>
-                        <div class="single_img_num fl">30</div>
-                    </div>
+                        <div class="single_img_num fl">' + data_.data[i].total +'</div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -476,7 +477,7 @@
                 <div class="userinfocol" tapmode="toolhover" onclick="collectmusic(this)" data-click="0">
                     <div class="info">
 
-                      <img src="../image/KM_hxs.png" alt="" class="collectmusic" >
+                        <img src="../image/KM_hxs.png" alt="" class="collectmusic">
 
                         <!-- <img src="../image/KM_hxs.png" alt="" class="collectmusic"> -->
 
@@ -585,15 +586,63 @@
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript">
+    var token;
     apiready = function() {
-        fnTingdanZhuanJi();
+        token = $api.getStorage('token');
+        fnAlbumAetails();
+        fnAlbumTrack();
+
+    }
+
+    function fnAlbumAetails() {
+        console.log(token);
+        var albumId = api.pageParam.albumId;
+        uri = '/album';
+        api.ajax({
+            url: host + apiUri + uri + '/' + albumId,
+            method: 'get',
+            dataType: 'json',
+            headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token
+            }
+        }, function(ret, err) {
+            if (ret.code == 200) {
+                // fnRecommendedDirectory(ret);
+                fnAlbumAetailsList(ret);
+            } else {
+                alert(ret.message);
+                $api.rmStorage('token');
+                api.openWin({
+                    name: 'login',
+                    url: '../login.html',
+                });
+            }
+        });
+
+    }
+    //接口  听单展示
+    function fnAlbumAetailsList(data_) {
+        var stylelist = $api.byId('aetails');
+        var html = '';
+        for (var i = 0; i < data_.data.length; i++) {
+
+            html += '<div class="single_h1" id="tingdanliebiaobiaoti"></div><div class="single_img_p_span"><div class="single_div_img fl"><img src="../image/KM_tx.png" alt=""></div><div class="single_img_name fl">' + data_.data[i].title +
+                '</div>  </div><div class="single_time"><div class="single_time_img fl"><img src="../image/KM_sc.png" alt=""></div><div class="single_img_num fl">' + data_.data[i].collection_total +
+                '</div><div class="single_time_img fl"><img src="../image/KM_play.png" alt=""></div><div class="single_img_num fl">' + data_.data[i].play_count +
+                '</div><div class="single_time_img fl"><img src="../image/read/aloud_py.png" alt=""></div><div class="single_img_num fl">' + data_.data[i].total + '</div></div>'
+
+
+        }
+        $api.html(stylelist, html);
     }
 
     //接口  推荐听单
     var tingdanliebiaobiaoti;
     var page = 1;
-    var token = $api.getStorage('token');
-    function fnTingdanZhuanJi() {
+
+    function fnAlbumTrack() {
 
         var albumId = api.pageParam.albumId;
         uri = '/album/song_list';
@@ -630,10 +679,16 @@
                 html += '<li  class="items"><div class="on_play" onclick="fnOpenPlay(' + data_.data[i].id + ' );"><div class="on_playall"><span class="fl on_playall_name">' + data_.data[i].title + '</span><span class="fl on_playall_names"> ' + data_
                     .data[
                         i].author_name +
-                    '</span>  </div><div class="on_playall_img"><div class="on_playall_div fl"><div class="on_playall_div_img fl"> <img src="../image/KM_play.png" alt=""></div> <div class="on_playall_div_span fl"><span>' + data_.data[i].play_total + '</span> </div></div> <div class="on_playall_div fl"> <div class="on_playall_div_img fl"> <img src="../image/KM_zf.png" alt=""> </div><div class="on_playall_div_span fl"> <span>' + data_.data[i].share_total + '</span> </div>  </div><div class="on_playall_div fl">  <div class="on_playall_div_img fl"><img src="../image/KM_dz.png" alt="">  </div><div class="on_playall_div_span fl"><span>' + data_.data[i].good_total + '</span></div></div></div></div><div class="on_playall_more_imgs fr" onclick="fnOpenPlayMore();"><img src="../image/KM_list_more.png" alt=""></div></li>'
+                    '</span>  </div><div class="on_playall_img"><div class="on_playall_div fl"><div class="on_playall_div_img fl"> <img src="../image/KM_play.png" alt=""></div> <div class="on_playall_div_span fl"><span>' + data_.data[i].play_total +
+                    '</span> </div></div> <div class="on_playall_div fl"> <div class="on_playall_div_img fl"> <img src="../image/KM_zf.png" alt=""> </div><div class="on_playall_div_span fl"> <span>' + data_.data[i].share_total +
+                    '</span> </div>  </div><div class="on_playall_div fl">  <div class="on_playall_div_img fl"><img src="../image/KM_dz.png" alt="">  </div><div class="on_playall_div_span fl"><span>' + data_.data[i].good_total +
+                    '</span></div></div></div></div><div class="on_playall_more_imgs fr" onclick="fnOpenPlayMore();"><img src="../image/KM_list_more.png" alt=""></div></li>'
             } else {
                 html += '<li  class="items"><div class="on_play" onclick="fnOpenPlay(' + data_.data[i].id + ' );"><div class="on_playall"><span class="fl on_playall_name">' + data_.data[i].title +
-                    '</span></div><div class="on_playall_img"><div class="on_playall_div fl"><div class="on_playall_div_img fl"> <img src="../image/KM_play.png" alt=""></div> <div class="on_playall_div_span fl"><span>' + data_.data[i].play_total + '</span> </div></div> <div class="on_playall_div fl"> <div class="on_playall_div_img fl"> <img src="../image/KM_zf.png" alt=""> </div><div class="on_playall_div_span fl"> <span>' + data_.data[i].share_total + '</span> </div>  </div><div class="on_playall_div fl">  <div class="on_playall_div_img fl"><img src="../image/KM_dz.png" alt="">  </div><div class="on_playall_div_span fl"><span>' + data_.data[i].good_total + '</span></div></div></div></div><div class="on_playall_more_imgs fr" onclick="fnOpenPlayMore();"><img src="../image/KM_list_more.png" alt=""></div></li>'
+                    '</span></div><div class="on_playall_img"><div class="on_playall_div fl"><div class="on_playall_div_img fl"> <img src="../image/KM_play.png" alt=""></div> <div class="on_playall_div_span fl"><span>' + data_.data[i].play_total +
+                    '</span> </div></div> <div class="on_playall_div fl"> <div class="on_playall_div_img fl"> <img src="../image/KM_zf.png" alt=""> </div><div class="on_playall_div_span fl"> <span>' + data_.data[i].share_total +
+                    '</span> </div>  </div><div class="on_playall_div fl">  <div class="on_playall_div_img fl"><img src="../image/KM_dz.png" alt="">  </div><div class="on_playall_div_span fl"><span>' + data_.data[i].good_total +
+                    '</span></div></div></div></div><div class="on_playall_more_imgs fr" onclick="fnOpenPlayMore();"><img src="../image/KM_list_more.png" alt=""></div></li>'
             }
 
         }
@@ -826,15 +881,99 @@
             // 点开
             clicktoolitem.setAttribute("data-click", 1);
             toolbarlist.src = "../image/KM_play_collect_red.png";
-            api.toast({              
-                msg:   '收藏成功',
-                duration:  2000,
-                location:   'middle'          
+            var albumId = api.pageParam.albumId;
+            uri = '/extra/good';
+            api.ajax({
+                url: host + apiUri + uri + '/' + albumId,
+                method: 'post ',
+                dataType: 'json',
+                headers: {
+                    "source": api.systemType,
+                    "version": version,
+                    "session": token
+                },
+                data:{
+                  values:{
+                    "model":'album',
+                  }
+                }
+            }, function(ret, err) {
+                if (ret.status == 200) {
+                    // fnRecommendedDirectory(ret);
+                    if(ret.data == "inc"){
+                      api.toast({              
+                          msg:   '已取消收藏',
+                          duration:  2000,
+                          location:   'middle'          
+                      });
+                      fnAlbumAetails();
+                    }else{
+                      api.toast({              
+                          msg:   '已取消收藏',
+                          duration:  2000,
+                          location:   'middle'          
+                      });
+                      fnAlbumAetails();
+                    }
+                    fnExtraGood();
+                } else {
+                    alert(ret.message);
+                    $api.rmStorage('token');
+                    api.openWin({
+                        name: 'login',
+                        url: '../login.html',
+                    });
+                }
             });
         } else {
             // 关闭
             clicktoolitem.setAttribute("data-click", 0);
             toolbarlist.src = "../image/KM_hxs.png";
+            var albumId = api.pageParam.albumId;
+            uri = '/extra/good';
+            api.ajax({
+                url: host + apiUri + uri + '/' + albumId,
+                method: 'post ',
+                dataType: 'json',
+                headers: {
+                    "source": api.systemType,
+                    "version": version,
+                    "session": token
+                },
+                data:{
+                  values:{
+                    "type":'inc',
+                    "model":'album',
+                  }
+                }
+            }, function(ret, err) {
+                if (ret.status == 200) {
+                    // fnRecommendedDirectory(ret);
+                    if(ret.data == "inc"){
+                      api.toast({              
+                          msg:   '已取消收藏',
+                          duration:  2000,
+                          location:   'middle'          
+                      });
+                      fnAlbumAetails();
+                    }else{
+                      api.toast({              
+                          msg:   '已取消收藏',
+                          duration:  2000,
+                          location:   'middle'          
+                      });
+                      fnAlbumAetails();
+                    }
+
+                } else {
+                    alert(ret.message);
+                    $api.rmStorage('token');
+                    api.openWin({
+                        name: 'login',
+                        url: '../login.html',
+                    });
+                }
+            });
         }
     }
 
@@ -845,16 +984,88 @@
             // 点开
             clicktoolitem.setAttribute("data-click", 1);
             toolbarlist.src = "../image/KM_play_dianzan_red.png";
-            api.toast({              
-                msg:   '点赞成功',
-                duration:  2000,
-                location:   'middle'          
+            var albumId = api.pageParam.albumId;
+            uri = '/extra/good';
+            api.ajax({
+                url: host + apiUri + uri + '/' + albumId,
+                method: 'post ',
+                dataType: 'json',
+                headers: {
+                    "source": api.systemType,
+                    "version": version,
+                    "session": token
+                },
+                data:{
+                  values:{
+                    "type":'inc',
+                    "model":'album',
+                  }
+                }
+            }, function(ret, err) {
+                if (ret.status == 200) {
+                    // fnRecommendedDirectory(ret);
+                    api.toast({              
+                        msg:   '已点赞',
+                        duration:  2000,
+                        location:   'middle'          
+                    });
+                    fnExtraGood();
+                } else {
+                    alert(ret.message);
+                    $api.rmStorage('token');
+                    api.openWin({
+                        name: 'login',
+                        url: '../login.html',
+                    });
+                }
             });
+
+
         } else {
             // 关闭
             clicktoolitem.setAttribute("data-click", 0);
             toolbarlist.src = "../image/KM_ListingsListDzs.png";
+            var albumId = api.pageParam.albumId;
+            uri = '/extra/good';
+            api.ajax({
+                url: host + apiUri + uri + '/' + albumId,
+                method: 'post ',
+                dataType: 'json',
+                headers: {
+                    "source": api.systemType,
+                    "version": version,
+                    "session": token
+                },
+                data:{
+                  values:{
+                    "model":'album',
+                  }
+                }
+            }, function(ret, err) {
+                if (ret.status == 200) {
+                    // fnRecommendedDirectory(ret);
+                    if(ret.status == 200){
+
+                    }
+                    api.toast({              
+                        msg:   '已取消点赞',
+                        duration:  2000,
+                        location:   'middle'          
+                    });
+                    fnExtraGood();
+                } else {
+                    alert(ret.message);
+                    $api.rmStorage('token');
+                    api.openWin({
+                        name: 'login',
+                        url: '../login.html',
+                    });
+                }
+            });
         }
+    }
+    function fnExtraGood(){
+
     }
     //打开评论详情
     function fnOpenDiscussDetail() {
