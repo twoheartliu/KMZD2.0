@@ -187,8 +187,9 @@
         }
 
     }
-
+var token = $api.getStorage('token');
     function fnGetLieBiao() {
+
         uri = '/category/hot';
         api.ajax({
             url: host + apiUri + '/category/hot',
@@ -196,13 +197,19 @@
             dataType: 'json',
             headers: {
                 "source": api.systemType,
-                "version": version
+                "version": version,
+                "session": token
             },
         }, function(ret, err) {
-            if (ret) {
+            if (ret.code == 200) {
                 fnRecommendedDirectory(ret);
             } else {
                 alert(ret.message);
+                $api.rmStorage('token');
+                api.openWin({
+                    name: 'login',
+                    url: '../login.html'
+                });
             }
         });
     }

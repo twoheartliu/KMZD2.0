@@ -24,7 +24,7 @@ var DangQianbofangid;
 var titlename;
 var desc;
 var singerName;
-var token = $api.getStorage('token');
+var reciter;
 //播放音频信息
 function fnBoFangSouSuoyinpinxinxi() {
     var id = historyUrlArray[play];
@@ -45,7 +45,7 @@ function fnBoFangSouSuoyinpinxinxi() {
 function fnBoFangyinpinxinxiing(play) {
     var playgedan = rets.data[play].id;
     api.ajax({
-      url: host + apiUri + uri + '/' + playgedan,
+      url: host + apiUri + '/sound/' + playgedan,
       method: 'get',
       dataType: 'json',
       headers: {
@@ -54,6 +54,7 @@ function fnBoFangyinpinxinxiing(play) {
           "session": token
       }
     }, function(ret, err) {
+      if(ret.code == 200){
         if (JSON.stringify(ret.data) == '[]') {
             netRecordingModuleing(playgedan);
         } else {
@@ -69,6 +70,7 @@ function fnBoFangyinpinxinxiing(play) {
             }
             netAudioPlay(host+'/'+ret.data.url);
             titlename = ret.data.title;
+            reciter = ret.data.reciter;
             desc = ret.data.body;
             singerName = ret.data.author_name;
             api.sendEvent({
@@ -76,20 +78,36 @@ function fnBoFangyinpinxinxiing(play) {
                 extra: {
                     titlename: titlename,
                     desc: desc,
+                    reciter: reciter,
                     singerName: singerName
                 }
             });
         }
+      }else{
+        alert(ret.message);
+        $api.rmStorage('token');
+        api.openWin({
+            name: 'login',
+            url: '../login.html'
+        });
+      }
+
     });
 }
 //播放歌单音频
 function fnBoFangyinpinxinxi() {
     var playgedan = rets.data[play].id;
     api.ajax({
-        url: 'http://47.100.11.38/kongmeng/thirdParty/search_songs_by_id.php?id= ' + playgedan,
-        method: 'get',
-        dataType: 'json',
+      url: host + apiUri + '/sound/' + playgedan,
+      method: 'get',
+      dataType: 'json',
+      headers: {
+          "source": api.systemType,
+          "version": version,
+          "session": token
+      }
     }, function(ret, err) {
+      if(ret.code == 200){
         if (JSON.stringify(ret.data) == '[]') {
             netRecordingModule(playgedan);
         } else {
@@ -103,19 +121,30 @@ function fnBoFangyinpinxinxi() {
                     }
                 });
             }
-            fnFuZhiAudio(ret.data[0].url);
-            titlename = ret.data[0].name;
-            desc = ret.data[0].desc;
-            singerName = ret.data[0].singerName;
+            fnFuZhiAudio(host+'/'+ret.data.url);
+            titlename = ret.data.title;
+            reciter = ret.data.reciter;
+            desc = ret.data.body;
+            singerName = ret.data.author_name;
             api.sendEvent({
                 name: 'jibenxinxi',
                 extra: {
                     titlename: titlename,
                     desc: desc,
+                    reciter: reciter,
                     singerName: singerName
                 }
             });
         }
+      }else{
+        alert(ret.message);
+        $api.rmStorage('token');
+        api.openWin({
+            name: 'login',
+            url: '../login.html'
+        });
+      }
+
     });
 }
 
@@ -390,14 +419,20 @@ function netPlayLieIdUrl(playlistid) {
           dataType: 'json',
           headers: {
               "source": api.systemType,
-              "version": version
+              "version": version,
+              "session": token
           }
       }, function(ret, err) {
 
         if (ret.code == 200) {
             fnZhuanJiZhanshi(ret);
         } else {
-            // alert(ret.message);
+          alert(ret.message);
+          $api.rmStorage('token');
+          api.openWin({
+              name: 'login',
+              url: '../login.html'
+          });
         }
       });
     }
