@@ -90,23 +90,31 @@
 <script type="text/javascript">
 apiready = function() {
 
-    fnTingdanTuijian();
+    fnTingdanZhuanJi();
 }
-function fnTingdanTuijian() {
-    api.ajax({
-        url: 'http://47.100.11.38/kongmeng/thirdParty/search_playlist_by_name.php',
-        method: 'get',
-    }, function(ret, err) {
-        if (ret) {
-            //alert(JSON.stringify(ret));
-            fnTingdanZhanshi(ret);
-        } else {
-            alert(JSON.stringify(err));
-        }
-    });
+function fnTingdanZhuanJi() {
+  uri = '/album';
+  api.ajax({
+      url: host + apiUri + uri ,
+      method: 'get',
+      dataType: 'json',
+      headers: {
+          "source": api.systemType,
+          "version": version
+      },
+
+  }, function(ret, err) {
+      alert(JSON.stringify(ret));
+      if (ret.code ==200) {
+          // fnRecommendedDirectory(ret);
+          fnAlbumIdLift(ret);
+      } else {
+          alert(ret.message);
+      }
+  });
 }
 //接口  听单展示
-function fnTingdanZhanshi(data_) {
+function fnAlbumIdLift(data_) {
     var stylelist = $api.byId('hot');
     var html = '';
     for (var i = 0; i < data_.data.length; i++) {
@@ -142,7 +150,7 @@ function fnSingleWin(id) {
         }
     });
   }
-  
+
 
 }
 </script>

@@ -44,9 +44,14 @@ function fnBoFangSouSuoyinpinxinxi() {
 function fnBoFangyinpinxinxiing(play) {
     var playgedan = rets.data[play].id;
     api.ajax({
-        url: 'http://47.100.11.38/kongmeng/thirdParty/search_songs_by_id.php?id= ' + playgedan,
-        method: 'get',
-        dataType: 'json',
+      url: host + apiUri + uri + '/' + playgedan,
+      method: 'get',
+      dataType: 'json',
+      headers: {
+          "source": api.systemType,
+          "version": version,
+          "session": token
+      }
     }, function(ret, err) {
         if (JSON.stringify(ret.data) == '[]') {
             netRecordingModuleing(playgedan);
@@ -61,10 +66,10 @@ function fnBoFangyinpinxinxiing(play) {
                     }
                 });
             }
-            netAudioPlay(ret.data[0].url);
-            titlename = ret.data[0].name;
-            desc = ret.data[0].desc;
-            singerName = ret.data[0].singerName;
+            netAudioPlay(host+'/'+ret.data.url);
+            titlename = ret.data.title;
+            desc = ret.data.body;
+            singerName = ret.data.author_name;
             api.sendEvent({
                 name: 'jibenxinxi',
                 extra: {
@@ -376,16 +381,25 @@ function fnGeDanxiaYi() {
 }
 //获取歌单歌曲id
 function netPlayLieIdUrl(playlistid) {
-    api.ajax({
-        url: 'http://47.100.11.38/kongmeng/thirdParty/get_songs_by_playlist.php?playlistid= ' + playlistid,
-        method: 'get',
-    }, function(ret, err) {
-        if (ret) {
-            fnTingdanZhanshi(ret);
+    if(playlistid){
+      uri = '/album/song_list';
+      api.ajax({
+          url: host + apiUri + uri + '/' + playlistid,
+          method: 'get',
+          dataType: 'json',
+          headers: {
+              "source": api.systemType,
+              "version": version
+          }
+      }, function(ret, err) {
+
+        if (ret.code == 200) {
+            fnZhuanJiZhanshi(ret);
         } else {
-            alert(JSON.stringify(err));
+            // alert(ret.message);
         }
-    });
+      });
+    }
 }
 //当前播放id
 function fnBFid(id) {
@@ -454,7 +468,7 @@ function fnDQBF(y) {
     fnBoFangyinpinxinxi(play);
 }
 
-function fnTingdanZhanshi(data_) {
+function fnZhuanJiZhanshi(data_) {
     rets = data_;
     for (y = 0; y < rets.data.length; y++) {
         var id1 = rets.data[y].id;

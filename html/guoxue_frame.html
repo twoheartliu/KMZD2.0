@@ -10,75 +10,155 @@
     <link rel="stylesheet" href="../css/swiper.min.css">
     <!-- <link rel="stylesheet" href="../css/iconfont.css"> -->
     <style>
-    body{ background-color: #f2f2f2; overflow-x: hidden;}
-     .fr { float: right; } .fl { float: left; }
-     .p20px { padding: 0px 20px; }
-     .m20px{ margin: 0 20px; }
-    .row {
-        display: -webkit-box;
-        display: -webkit-flex; }
-    .col {
-        -webkit-box-flex: 1;
-        -webkit-flex: 1;
-        flex: 1;
-        margin: 0 5px;
-        position: relative;
-    }
-    .bg{width: 100%;height: 5px;}
-    .lishi{height: 70px;line-height: 70px;overflow: hidden;}
-    .lishi .div{float: left;}
-    .lishi_Div{overflow: auto;}
-    .lishi_DivW{overflow: hidden;}
-    .lishi_d{font-size: 13px;height: 35px;line-height: 35px;border: 1px solid #e9e9e9;text-align: center;background-color: #fff;color: #000;border-radius: 20px;margin: 17px 2px 0 2px; overflow: hidden;}
-    table {
-        width: 100%;
-        text-align: center;
-         overflow-x: hidden;
-        /*文本居中*/
-        border-collapse: collapse;
-        /*表格的边框合并，如果相邻，则共用一个边框*/
-        border-spacing: 0;
-        /*设置行与单元格边框的间距。当表格边框独立（即border-collapse:separate;）此属性才起作用*/
-    }
-    table tr{background: #fff;width: 100%;}
-    table td {
-        word-break: break-all;
-        /*允许在字内换行,即单词可分*/
-        word-wrap: break-word;
-        /*允许长单词或URL地址换行*/
-        /*border-right: 1px solid #939598;
-        border-bottom: 1px solid #939598;*/
-        font: 500 14px Arial;
-        height: 45px;
-        font-size: 12px;
-    }
+        body {
+            background-color: #f2f2f2;
+            overflow-x: hidden;
+        }
 
-    table tr td {
-        width: 25%;
-        height: 45px;
-        border: 1px solid #f2f2f2;
-    }
-    .img{width: 100%;}
-    .img img{width: 100%;}
-    .div{width: 100%;}
-    .w25{width: 25%;}
-    .colspan_img{width: 20px;padding: 12.5px;}
-    .colspan_img img{width: 100%;}
-    .colspan_div{line-height: 45px;}
-    .td_bg{background: none;}
+        .fr {
+            float: right;
+        }
+
+        .fl {
+            float: left;
+        }
+
+        .p20px {
+            padding: 0px 20px;
+        }
+
+        .m20px {
+            margin: 0 20px;
+        }
+
+        .row {
+            display: -webkit-box;
+            display: -webkit-flex;
+        }
+
+        .col {
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+            margin: 0 5px;
+            position: relative;
+        }
+
+        .bg {
+            width: 100%;
+            height: 5px;
+        }
+
+        .lishi {
+            height: 70px;
+            line-height: 70px;
+            overflow: hidden;
+        }
+
+        .lishi .div {
+            float: left;
+        }
+
+        .lishi_Div {
+            overflow: auto;
+        }
+
+        .lishi_DivW {
+            overflow: hidden;
+        }
+
+        .lishi_d {
+            font-size: 13px;
+            height: 35px;
+            line-height: 35px;
+            border: 1px solid #e9e9e9;
+            text-align: center;
+            background-color: #fff;
+            color: #000;
+            border-radius: 20px;
+            margin: 17px 2px 0 2px;
+            overflow: hidden;
+        }
+
+        table {
+            width: 100%;
+            text-align: center;
+            overflow-x: hidden;
+            /*文本居中*/
+            border-collapse: collapse;
+            /*表格的边框合并，如果相邻，则共用一个边框*/
+            border-spacing: 0;
+            /*设置行与单元格边框的间距。当表格边框独立（即border-collapse:separate;）此属性才起作用*/
+        }
+
+        table tr {
+            background: #fff;
+            width: 100%;
+        }
+
+        table td {
+            word-break: break-all;
+            /*允许在字内换行,即单词可分*/
+            word-wrap: break-word;
+            /*允许长单词或URL地址换行*/
+            /*border-right: 1px solid #939598;
+        border-bottom: 1px solid #939598;*/
+            font: 500 14px Arial;
+            height: 45px;
+            font-size: 12px;
+        }
+
+        table tr td {
+            width: 25%;
+            height: 45px;
+            border: 1px solid #f2f2f2;
+        }
+
+        .img {
+            width: 100%;
+        }
+
+        .img img {
+            width: 100%;
+        }
+
+        .div {
+            width: 100%;
+        }
+
+        .w25 {
+            width: 25%;
+        }
+
+        .colspan_img {
+            width: 20px;
+            padding: 12.5px;
+        }
+
+        .colspan_img img {
+            width: 100%;
+        }
+
+        .colspan_div {
+            line-height: 45px;
+        }
+
+        .td_bg {
+            background: none;
+        }
     </style>
 </head>
 
 <body>
     <div class="lishi p20px">
-      <div class="div">最近浏览：</div>
-      <div class="lishi_Div">
-          <div class="lishi_DivW row">
-            <div class="lishi_d col">蒙学</div>
-            <div class="lishi_d col">蒙学</div>
-            <div class="lishi_d col">蒙学</div>
-          </div>
-      </div>
+        <div class="div">最近浏览：</div>
+        <div class="lishi_Div">
+            <div class="lishi_DivW row">
+                <div class="lishi_d col">蒙学</div>
+                <div class="lishi_d col">蒙学</div>
+                <div class="lishi_d col">蒙学</div>
+            </div>
+        </div>
     </div>
 
 
@@ -93,137 +173,142 @@
 <script type="text/javascript">
     apiready = function() {
         var token = $api.getStorage('token');
-        if(token){
-          fnGetLieBiao();
-          fnGetDirectory();
-        }else{
-          api.openWin({
-              name: 'login',
-              url: '../login.html',
-              pageParam: {
-                  name: 'test'
-              }
-          });
-        }
-
-    }
-
-   function fnGetLieBiao(){
-     uri = '/category/hot';
-     api.ajax({
-         url: host + apiUri + '/category/hot',
-         method: 'get',
-         dataType: 'json',
-         headers: {
-           "source":api.systemType,
-           "version":version
-         },
-     }, function(ret, err) {
-         if (ret) {
-            fnRecommendedDirectory(ret);
-         } else {
-             alert(JSON.stringify(err));
-         }
-     });
-   }
-   function fnRecommendedDirectory(ret){
-    var stylelist = $api.byId('RecommendedDirectory');
-    var html = '<tr>';
-   //  c 列 r行
-    var c = 1;
-    var r = 1;
-
-    for (var i = 0; i < ret.data.length; i++) {
-       if( c == 1){
-         html +='<td rowspan="2" onclick="guoxue_Listframe('+ ret.data[i].id +')"><div class="div_img"><img src="../image/guoxueguan/KM_MX.png" alt=""></div>' + ret.data[i].name + '</td>';
-       } else {
-         html +='<td data="'+r+'" c="'+c+'" onclick="guoxue_Listframe('+ ret.data[i].id +')">' + ret.data[i].name + '</td>';
-       }
-       if(r == 2 && c == 7){
-         html += '</tr><tr>';
-       }
-       if(c%4 == 0 && c != 8 && r == 1){
-         r++;
-         html += '</tr><tr>';
-       } else if ((c-3)%4 == 0 && c != 8 && r != 1) {
-         r++;
-         html += '</tr><tr>';
-         // console.log(c);
-       }
-       c++;
-    }
-    html += '</tr>';
-    $api.html(stylelist, html);
-   // console.log(html);
-  }
-  function fnGetDirectory(){
-    api.ajax({
-      url: host + apiUri + '/category',
-      method: 'get',
-      dataType: 'json',
-      headers: {
-        "source": api.systemType,
-        "version":version
-      },
-    }, function(ret, err) {
-        if (ret) {
-           fnDirectory(ret);
+        if (token) {
+            fnGetLieBiao();
+            fnGetDirectory();
         } else {
-            alert(JSON.stringify(err));
+            api.openWin({
+                name: 'login',
+                url: '../login.html',
+                pageParam: {
+                    name: 'test'
+                }
+            });
         }
-    });
-  }
-  function fnDirectory(ret){
-   //  console.log(JSON.stringify(ret));
-  var stylelist = $api.byId('directory');
-     var html = '';
-     // var y = 0;
-    for (var i = 0; i < ret.data.length; i++) {
-      if(ret.data[i].p_id == 0){
-         html += '<tr class="bg"></tr><tr class="td_bg"><td colspan="4"><div class="fl colspan_img"><img src="../image/guoxueguan/KM_gxjds.png" alt=""></div><div class="fl colspan_div">'+ ret.data[i].name +'</div></td></tr><tr>'
-       }
-       var y = 0;
-       for(var s = 0; s < ret.data.length; s++) {
-        //  alert(s);
-          if(ret.data[s].p_id != 0 && ret.data[s].p_id == ret.data[i].id){
-            html += '<td  onclick="guoxue_Listframe('+ ret.data[s].p_id +')">'+ ret.data[s].name + '</td>';
-             y++;
-            if (y>3 && y%4 == 0) {
-              html += '</tr><tr>';
+
+    }
+
+    function fnGetLieBiao() {
+        uri = '/category/hot';
+        api.ajax({
+            url: host + apiUri + '/category/hot',
+            method: 'get',
+            dataType: 'json',
+            headers: {
+                "source": api.systemType,
+                "version": version
+            },
+        }, function(ret, err) {
+            if (ret) {
+                fnRecommendedDirectory(ret);
+            } else {
+                alert(ret.message);
             }
-          }
-       }
+        });
     }
-    html += '</tr>';
-    $api.html(stylelist, html);
-   //  console.log(html);
-  }
-  function fnDirectoryLiet(id,ret){
-    var stylelists = $api.byId('DirectoryList');
-    var html1 = '';
-    if(id){
-      console.log(id);
-      for(var s = 0; s < ret.data.length; s++) {
 
-         if(ret.data[s].p_id == id){
-           console.log(s);
-           console.log(ret.data[s].name);
-             html1 += '<td>' + ret.data[s].name + '</td>';
-             $api.html(stylelists, html1);
-         }
-      }
-      html1 += '<div>中庸</div>';
-      $api.html(stylelists, html1);
+    function fnRecommendedDirectory(ret) {
+        var stylelist = $api.byId('RecommendedDirectory');
+        var html = '<tr>';
+        //  c 列 r行
+        var c = 1;
+        var r = 1;
+
+        for (var i = 0; i < ret.data.length; i++) {
+            if (c == 1) {
+                html += '<td rowspan="2" onclick="guoxue_Listframe(' + ret.data[i].id + ')"><div class="div_img"><img src="../image/guoxueguan/KM_MX.png" alt=""></div>' + ret.data[i].name + '</td>';
+            } else {
+                html += '<td data="' + r + '" c="' + c + '" onclick="guoxue_Listframe(' + ret.data[i].id + ')">' + ret.data[i].name + '</td>';
+            }
+            if (r == 2 && c == 7) {
+                html += '</tr><tr>';
+            }
+            if (c % 4 == 0 && c != 8 && r == 1) {
+                r++;
+                html += '</tr><tr>';
+            } else if ((c - 3) % 4 == 0 && c != 8 && r != 1) {
+                r++;
+                html += '</tr><tr>';
+                // console.log(c);
+            }
+            c++;
+        }
+        html += '</tr>';
+        $api.html(stylelist, html);
+        // console.log(html);
     }
-  }
-   function guoxue_Listframe(id) {
-     api.openWin({
-         name: 'single',
-         url: './single.html',
-         pageParam: {
-             id: id
-         }
-     });
 
-   }
+    function fnGetDirectory() {
+        api.ajax({
+            url: host + apiUri + '/category',
+            method: 'get',
+            dataType: 'json',
+            headers: {
+                "source": api.systemType,
+                "version": version
+            },
+        }, function(ret, err) {
+            if (ret) {
+                fnDirectory(ret);
+            } else {
+                alert(ret.message);
+            }
+        });
+    }
+
+    function fnDirectory(ret) {
+        //  console.log(JSON.stringify(ret));
+        var stylelist = $api.byId('directory');
+        var html = '';
+        // var y = 0;
+        for (var i = 0; i < ret.data.length; i++) {
+            if (ret.data[i].p_id == 0) {
+                html += '<tr class="bg"></tr><tr class="td_bg"><td colspan="4"><div class="fl colspan_img"><img src="../image/guoxueguan/KM_gxjds.png" alt=""></div><div class="fl colspan_div">' + ret.data[i].name + '</div></td></tr><tr>'
+            }
+            var y = 0;
+            for (var s = 0; s < ret.data.length; s++) {
+                //  alert(s);
+                if (ret.data[s].p_id != 0 && ret.data[s].p_id == ret.data[i].id) {
+                    html += '<td  onclick="guoxue_Listframe(' + ret.data[s].p_id + ')">' + ret.data[s].name + '</td>';
+                    y++;
+                    if (y > 3 && y % 4 == 0) {
+                        html += '</tr><tr>';
+                    }
+                }
+            }
+        }
+        html += '</tr>';
+        $api.html(stylelist, html);
+        //  console.log(html);
+    }
+
+    function fnDirectoryLiet(id, ret) {
+        var stylelists = $api.byId('DirectoryList');
+        var html1 = '';
+        if (id) {
+            console.log(id);
+            for (var s = 0; s < ret.data.length; s++) {
+
+                if (ret.data[s].p_id == id) {
+                    console.log(s);
+                    console.log(ret.data[s].name);
+                    html1 += '<td>' + ret.data[s].name + '</td>';
+                    $api.html(stylelists, html1);
+                }
+            }
+            html1 += '<div>中庸</div>';
+            $api.html(stylelists, html1);
+        }
+    }
+
+    function guoxue_Listframe(id) {
+        api.openWin({
+            name: 'single',
+            url: './single.html',
+            pageParam: {
+                id: id
+            }
+        });
+
+    }
 </script>

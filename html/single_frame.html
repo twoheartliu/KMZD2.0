@@ -579,42 +579,52 @@
 
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript">
     apiready = function() {
-        fnTingdanTuijian();
+        fnTingdanZhuanJi();
     }
 
     //接口  推荐听单
     var tingdanliebiaobiaoti;
-    var Dqbofangid;
+    var page = 1;
 
-    function fnDangQianbofangid(id) {
-        Dqbofangid = id;
-    }
-
-    function fnTingdanTuijian() {
-        var playlistid = api.pageParam.tuijiantingdanid;
+    function fnTingdanZhuanJi() {
+        var albumId = api.pageParam.albumId;
+        uri = '/album/song_list';
         api.ajax({
-            url: 'http://47.100.11.38/kongmeng/thirdParty/get_songs_by_playlist.php?playlistid= ' + playlistid,
+            url: host + apiUri + uri + '/' + albumId + '?p=' + page,
             method: 'get',
+            dataType: 'json',
+            headers: {
+                "source": api.systemType,
+                "version": version
+            }
         }, function(ret, err) {
-            if (ret) {
-                tingdanliebiaobiaoti = ret.data[0].albumName;
-                fnTingdanZhanshibiaoti(tingdanliebiaobiaoti);
-                fnTingdanZhanshi(ret);
+            if (ret.code == 200) {
+                // fnRecommendedDirectory(ret);
+                fnAlbumIdLift(ret);
             } else {
-                alert(JSON.stringify(err));
+                alert(ret.message);
             }
         });
+
     }
     //接口  听单展示
-    function fnTingdanZhanshi(data_) {
+    function fnAlbumIdLift(data_) {
         var stylelist = $api.byId('tuijianliebiaogequ');
         var html = '';
         for (var i = 0; i < data_.data.length; i++) {
-            html += '<li  class="items"><div class="on_play" onclick="fnOpenPlay(' + data_.data[i].id + ' );"><div class="on_playall"><span class="fl on_playall_name">' + data_.data[i].name + '</span><span class="fl on_playall_names"> ' + data_.data[
-                    i].singerName +
-                '</span>  </div><div class="on_playall_img"><div class="on_playall_div fl"><div class="on_playall_div_img fl"> <img src="../image/KM_play.png" alt=""></div> <div class="on_playall_div_span fl"><span>2.3万</span> </div></div> <div class="on_playall_div fl"> <div class="on_playall_div_img fl"> <img src="../image/KM_zf.png" alt=""> </div><div class="on_playall_div_span fl"> <span>2.3万</span> </div>  </div><div class="on_playall_div fl">  <div class="on_playall_div_img fl"><img src="../image/KM_dz.png" alt="">  </div><div class="on_playall_div_span fl"><span>2.3万</span></div></div></div></div><div class="on_playall_more_imgs fr" onclick="fnOpenPlayMore();"><img src="../image/KM_list_more.png" alt=""></div></li>'
+            if (data_.data[i].author_name) {
+                html += '<li  class="items"><div class="on_play" onclick="fnOpenPlay(' + data_.data[i].id + ' );"><div class="on_playall"><span class="fl on_playall_name">' + data_.data[i].title + '</span><span class="fl on_playall_names"> ' + data_
+                    .data[
+                        i].author_name +
+                    '</span>  </div><div class="on_playall_img"><div class="on_playall_div fl"><div class="on_playall_div_img fl"> <img src="../image/KM_play.png" alt=""></div> <div class="on_playall_div_span fl"><span>' + data_.data[i].play_total + '</span> </div></div> <div class="on_playall_div fl"> <div class="on_playall_div_img fl"> <img src="../image/KM_zf.png" alt=""> </div><div class="on_playall_div_span fl"> <span>' + data_.data[i].share_total + '</span> </div>  </div><div class="on_playall_div fl">  <div class="on_playall_div_img fl"><img src="../image/KM_dz.png" alt="">  </div><div class="on_playall_div_span fl"><span>' + data_.data[i].good_total + '</span></div></div></div></div><div class="on_playall_more_imgs fr" onclick="fnOpenPlayMore();"><img src="../image/KM_list_more.png" alt=""></div></li>'
+            } else {
+                html += '<li  class="items"><div class="on_play" onclick="fnOpenPlay(' + data_.data[i].id + ' );"><div class="on_playall"><span class="fl on_playall_name">' + data_.data[i].title +
+                    '</span></div><div class="on_playall_img"><div class="on_playall_div fl"><div class="on_playall_div_img fl"> <img src="../image/KM_play.png" alt=""></div> <div class="on_playall_div_span fl"><span>' + data_.data[i].play_total + '</span> </div></div> <div class="on_playall_div fl"> <div class="on_playall_div_img fl"> <img src="../image/KM_zf.png" alt=""> </div><div class="on_playall_div_span fl"> <span>' + data_.data[i].share_total + '</span> </div>  </div><div class="on_playall_div fl">  <div class="on_playall_div_img fl"><img src="../image/KM_dz.png" alt="">  </div><div class="on_playall_div_span fl"><span>' + data_.data[i].good_total + '</span></div></div></div></div><div class="on_playall_more_imgs fr" onclick="fnOpenPlayMore();"><img src="../image/KM_list_more.png" alt=""></div></li>'
+            }
+
         }
         $api.html(stylelist, html);
     }
@@ -640,34 +650,15 @@
     }
 
     function fnOpenPlay(a) {
-        api.addEventListener({
-            name: 'netPlaying'
-        }, function(ret, err) {
-            if (a == ret.value.playing) {
-                fnDangQianbofangid(ret.value.playing);
+        var playlistid = api.pageParam.albumId;
+        api.openWin({
+            name: 'play',
+            url: './play.html',
+            pageParam: {
+                a: a,
+                playlistid: playlistid
             }
         });
-        var playlistid = api.pageParam.tuijiantingdanid;
-        if (Dqbofangid == a) {
-            api.openWin({
-                name: 'play',
-                url: './play.html',
-                pageParam: {
-                    playlistid: playlistid,
-                    a: a,
-                    DangQianbofangid: Dqbofangid
-                }
-            });
-        } else {
-            api.openWin({
-                name: 'play',
-                url: './play.html',
-                pageParam: {
-                    a: a,
-                    playlistid: playlistid
-                }
-            });
-        }
     }
     //打开更多
     function fnOpenPlayMore() {

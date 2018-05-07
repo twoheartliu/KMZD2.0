@@ -547,6 +547,7 @@
     </div>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript" src="../script/swiper.min.js"></script>
 <script type="text/javascript" src="../script/zepto.js"></script>
 <script type="text/javascript" src="../script/audio2.js"></script>
@@ -560,7 +561,10 @@
     var bofangs;
     var bofangmoshi;
     var Dqbofangid;
+    var token;
+
     apiready = function() {
+      token = $api.getStorage('token');
         var secHeader = $api.byId('secHeader');
         $api.fixStatusBar(secHeader);
         var headerH = $api.offset(secHeader).h;
@@ -1049,81 +1053,91 @@
     //播放
     function fnNetAudiosPlayByID(id) {
         if (id) {
-            api.ajax({
-                url: 'http://47.100.11.38/kongmeng/thirdParty/search_songs_by_id.php?id= ' + id,
-                method: 'get',
-                dataType: 'json',
-            }, function(ret, err) {
-                if (ret) {
-                    var dangqianbofangurl = ret.data[0].url;
-                    netAudioss = ret;
-                    api.sendEvent({
-                        name: 'netAudioplay',
-                        extra: {
-                            netAudios: netAudioss
-                        }
-                    });
-                    var bofang = 3;
-                    var a = id;
-                    playlistid = api.pageParam.playlistid;
-                    if (!playlistid) {
-                        playlistid = api.pageParam.playid;
+          uri = '/sound';
+          api.ajax({
+              url: host + apiUri + uri + '/' + id,
+              method: 'get',
+              dataType: 'json',
+              headers: {
+                  "source": api.systemType,
+                  "version": version,
+                  "session": token
+              }
+          }, function(ret, err) {
+            if (ret.code == 200) {
+                netAudioss = ret;
+                api.sendEvent({
+                    name: 'netAudioplay',
+                    extra: {
+                        netAudios: netAudioss
                     }
-                    api.sendEvent({
-                        name: 'neizhiliebiaoPlay',
-                        extra: {
-                            bofang: bofang,
-                            a: a,
-                            playlistid: playlistid
-                        }
-                    });
-                    fnJiBenXinXi();
-                    fnbofangshijian();
-                    var title = ret.data[0].name;
-                    var singerName = ret.data[0].singerName;
-                    AddHistoryTitle(title, singerName);
-                } else {
-                    alert(JSON.stringify(err));
+                });
+                var bofang = 3;
+                var a = id;
+                playlistid = api.pageParam.playlistid;
+                if (!playlistid) {
+                    playlistid = api.pageParam.playid;
                 }
-            });
+                api.sendEvent({
+                    name: 'neizhiliebiaoPlay',
+                    extra: {
+                        bofang: bofang,
+                        a: a,
+                        playlistid: playlistid
+                    }
+                });
+                fnJiBenXinXi();
+                fnbofangshijian();
+                var title = ret.data.title;
+                var author_name = ret.data.author_name;
+                AddHistoryTitle(title, author_name);
+            } else {
+                alert(ret.message);
+            }
+          });
         } else {
+            uri = '/sound';
             api.ajax({
-                url: 'http://47.100.11.38/kongmeng/thirdParty/search_songs_by_id.php?id= ' + dqbfid,
+                url: host + apiUri + uri + '/' + dqbfid,
                 method: 'get',
                 dataType: 'json',
-            }, function(ret, err) {
-                if (ret) {
-                    var dangqianbofangurl = ret.data[0].url;
-                    netAudioss = ret;
-                    api.sendEvent({
-                        name: 'netAudioplay',
-                        extra: {
-                            netAudios: netAudioss
-                        }
-                    });
-                    var bofang = 3;
-                    var a = api.pageParam.a;
-                    playlistid = api.pageParam.playlistid;
-                    if (!playlistid) {
-                        playlistid = api.pageParam.playid;
-                    }
-                    api.sendEvent({
-                        name: 'neizhiliebiaoPlay',
-                        extra: {
-                            bofang: bofang,
-                            a: a,
-                            playlistid: playlistid
-                        }
-                    });
-                    fnJiBenXinXi();
-                    fnbofangshijian();
-                    var title = ret.data[0].name;
-                    var singerName = ret.data[0].singerName;
-                    AddHistoryTitle(title, singerName);
-                } else {
-                    alert(JSON.stringify(err));
+                headers: {
+                    "source": api.systemType,
+                    "version": version,
+                    "session": token
                 }
-            });
+            }, function(ret, err) {
+            if (ret.code == 200) {
+              netAudioss = ret;
+              api.sendEvent({
+                  name: 'netAudioplay',
+                  extra: {
+                      netAudios: netAudioss
+                  }
+              });
+              var bofang = 3;
+              var a = api.pageParam.a;
+              playlistid = api.pageParam.playlistid;
+              if (!playlistid) {
+                  playlistid = api.pageParam.playid;
+              }
+              api.sendEvent({
+                  name: 'neizhiliebiaoPlay',
+                  extra: {
+                      bofang: bofang,
+                      a: a,
+                      playlistid: playlistid
+                  }
+              });
+              fnJiBenXinXi();
+              fnbofangshijian();
+              var title = ret.data.title;
+              var author_name = ret.data.author_name;
+              AddHistoryTitle(title, author_name);
+            } else {
+                alert(ret.message);
+            }
+          });
         }
     }
 

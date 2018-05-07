@@ -133,17 +133,18 @@
             color: #000;
         }
         /*个性化推荐 */
-        .egret-flex-item{
-          display: -webkit-box;
-          -webkit-box-align: center;
-          height: 100px;
+
+        .egret-flex-item {
+            display: -webkit-box;
+            -webkit-box-align: center;
+            height: 100px;
         }
 
         .egret-flex-items {
             display: -webkit-box;
             -webkit-box-align: center;
             height: 100px;
-            width:80%;
+            width: 80%;
         }
 
         .egret-flex-item-logo {
@@ -193,17 +194,20 @@
             font-size: 12px;
             color: #ccc;
         }
-        .egret-flex-item-shelf04{
-          width:18%;
-          text-align: right;
-          -webkit-box-flex: 1;
-          -webkit-box-align: center;
-          height: 65px;
+
+        .egret-flex-item-shelf04 {
+            width: 18%;
+            text-align: right;
+            -webkit-box-flex: 1;
+            -webkit-box-align: center;
+            height: 65px;
         }
-        .egret-flex-item-shelf04 img{
-          width: 20px;
-          height: 20px;
+
+        .egret-flex-item-shelf04 img {
+            width: 20px;
+            height: 20px;
         }
+
         .egret-flex-item-shelf .egret-flex-item-shelf02 {
             font-size: 12px;
             color: #666;
@@ -213,9 +217,11 @@
             font-size: 13px;
             color: #ccc;
         }
-        .egret-flex-item-shelf03{
-          line-height: 20px;
+
+        .egret-flex-item-shelf03 {
+            line-height: 20px;
         }
+
         .egret-flex-item-shelf03 div {
             float: left;
             /*line-height: 20px;
@@ -272,132 +278,114 @@
         <!-- <div class="clear"></div> -->
     </div>
     <!-- 2 热门推荐 -->
-    <div class="p20px">
-        <div class="sectionTitle">
-            <span class="TD_div fl">专辑推荐</span>
-            <span class="fr more" onclick="fnRecommendWin();">更多</span>
-            <div class="clear"></div>
-        </div>
-        <div class="hot" id="hot">
+    <div id="floorId">
+        <!-- <div class="p20px">
+            <div class="sectionTitle">
+                <span class="TD_div fl">专辑推荐</span>
+                <span class="fr more" onclick="fnRecommendWin();">更多</span>
+                <div class="clear"></div>
+            </div>
+            <div class="hot" id="hot">
 
-            <!-- <div class="hotC" onclick="fnSingleWin();">
-                <img src="../image/frame0101cover/frame0101cover06.png" alt="" >
-                <div class="listtitle">经典诗歌</div>
-            </div> -->
 
-            <div class="clear"></div>
+            </div>
+        </div>
 
-        </div>
-    </div>
-
-    <!-- 3 个性化推荐 -->
-    <div class="p20px">
-        <div class="sectionTitle mt20" onclick="">
-            <span class="TD_div fl">优秀作品</span>
-            <span class="fr more" onclick="fnOpenExcellentWorks();">更多</span>
-            <div class="clear"></div>
-        </div>
-        <div class="egret-flex-item" >
-          <div class="egret-flex-items" tapmode="fmbtnhover" onclick="fnOpenPlay()">
-            <div class="egret-flex-item-logo">
-                <img src="../image/KM_album.png" alt="" class="">
+        <div class="p20px">
+            <div class="sectionTitle mt20" onclick="">
+                <span class="TD_div fl">优秀作品</span>
+                <span class="fr more" onclick="fnOpenExcellentWorks();">更多</span>
+                <div class="clear"></div>
             </div>
-            <div class="egret-flex-item-shelf">
-                <div class="egret-flex-item-shelf01">
-                    <span class="span1 fl">作品：<span>《沁园春·雪》</span></span>
-                    <!-- <span class="span2 iconfont icon-nv fl"></span> -->
-                    <!-- <img src="../image/js.png" alt="" class="fl"> -->
-                    <!-- <span class="span3 fr">昨天21.30</span> -->
+            <div class="egret-flex-item">
+                <div class="egret-flex-items" tapmode="fmbtnhover" onclick="fnOpenPlay()">
+                    <div class="egret-flex-item-logo">
+                        <img src="../image/KM_album.png" alt="" class="">
+                    </div>
+                    <div class="egret-flex-item-shelf">
+                        <div class="egret-flex-item-shelf01">
+                            <span class="span1 fl">作品：<span>《沁园春·雪》</span></span>
+                        </div>
+                        <div class="egret-flex-item-shelf02"><span>唐嫣</span>
+                        </div>
+                        <div class="egret-flex-item-shelf03">
+                            <div><img src="../image/KM_play.png" alt=""><span>100</span></div>
+                            <div><img src="../image/KM_zf.png" alt=""><span>100</span></div>
+                            <div><img src="../image/KM_dz.png" alt=""><span>100</span></div>
+                        </div>
+                    </div>
                 </div>
-                <div class="egret-flex-item-shelf02"><span>唐嫣</span>
-                  <!-- <span><img src="../image/js.png" alt="" class="fl"></span> -->
-                </div>
-                <div class="egret-flex-item-shelf03">
-                    <div><img src="../image/KM_play.png" alt=""><span>100</span></div>
-                    <!-- <div><img src="../image/KM_dx.png" alt=""><span>100</span></div> -->
-                    <div><img src="../image/KM_zf.png" alt=""><span>100</span></div>
-                    <div><img src="../image/KM_dz.png" alt=""><span>100</span></div>
+                <div class="egret-flex-item-shelf04" onclick="fnOpenPlayMore()">
+                    <img src="../image/KM_list_more.png" alt="">
                 </div>
             </div>
-          </div>
-          <div class="egret-flex-item-shelf04" onclick="fnOpenPlayMore()">
-            <img src="../image/KM_list_more.png" alt="">
-          </div></div>
-        <div class="hdivider"></div>
-        <div class="egret-flex-item" >
-          <div class="egret-flex-items" tapmode="fmbtnhover" onclick="fnOpenPlay()">
-            <div class="egret-flex-item-logo">
-                <img src="../image/KM_album.png" alt="" class="">
-            </div>
-            <div class="egret-flex-item-shelf">
-                <div class="egret-flex-item-shelf01">
-                    <span class="span1 fl">作品：<span>《沁园春·雪》</span></span>
-                    <!-- <span class="span2 iconfont icon-nv fl"></span> -->
-                    <!-- <img src="../image/js.png" alt="" class="fl"> -->
-                    <!-- <span class="span3 fr">昨天21.30</span> -->
-                </div>
-                <div class="egret-flex-item-shelf02"><span>唐嫣</span>
-                  <!-- <span><img src="../image/js.png" alt="" class="fl"></span> -->
-                </div>
-                <div class="egret-flex-item-shelf03">
-                    <div><img src="../image/KM_play.png" alt=""><span>100</span></div>
-                    <!-- <div><img src="../image/KM_dx.png" alt=""><span>100</span></div> -->
-                    <div><img src="../image/KM_zf.png" alt=""><span>100</span></div>
-                    <div><img src="../image/KM_dz.png" alt=""><span>100</span></div>
-                </div>
-            </div>
-          </div>
-          <div class="egret-flex-item-shelf04" onclick="fnOpenPlayMore()">
-            <img src="../image/KM_list_more.png" alt="">
-          </div>
-        </div>
-        <div class="hdivider"></div>
-        <div class="egret-flex-item" >
-          <div class="egret-flex-items" tapmode="fmbtnhover" onclick="fnOpenPlay()">
-            <div class="egret-flex-item-logo">
-                <img src="../image/KM_album.png" alt="" class="">
-            </div>
-            <div class="egret-flex-item-shelf">
-                <div class="egret-flex-item-shelf01">
-                    <span class="span1 fl">作品：<span>《沁园春·雪》</span></span>
-                    <!-- <span class="span2 iconfont icon-nv fl"></span> -->
-                    <!-- <img src="../image/js.png" alt="" class="fl"> -->
-                    <!-- <span class="span3 fr">昨天21.30</span> -->
-                </div>
-                <div class="egret-flex-item-shelf02"><span>唐嫣</span>
-                  <!-- <span><img src="../image/js.png" alt="" class="fl"></span> -->
-                </div>
-                <div class="egret-flex-item-shelf03">
-                    <div><img src="../image/KM_play.png" alt=""><span>100</span></div>
-                    <!-- <div><img src="../image/KM_dx.png" alt=""><span>100</span></div> -->
-                    <div><img src="../image/KM_zf.png" alt=""><span>100</span></div>
-                    <div><img src="../image/KM_dz.png" alt=""><span>100</span></div>
-                </div>
-            </div>
-          </div>
-          <div class="egret-flex-item-shelf04" onclick="fnOpenPlayMore()">
-            <img src="../image/KM_list_more.png" alt="">
-          </div>
-        </div>
-        <div class="hdivider"></div>
+            <div class="hdivider"></div>
+        </div> -->
     </div>
 </body>
-<script type="text/javascript" src="../script/common.js"></script>
+
 <script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript" src="../script/index.js"></script>
 <script type="text/javascript" src="../script/swiper.min.js"></script>
 
 </html>
 <script type="text/javascript">
-
     apiready = function() {
-
-      fnInitSwiper();
-      var qqziliao = api.pageParam.qqziliao;
-      fnZhuanJiTuijian();
+        fnInitSwiper();
+        var qqziliao = api.pageParam.qqziliao;
+        // fnZhuanJiTuijian();
+        fnHomePageLayout();
     }
 
+    function fnHomePageLayout(){
+      uri = '/index/floor';
+      api.ajax({
+          url: host + apiUri + uri,
+          method: 'get',
+          dataType: 'json',
+          headers: {
+              "source": api.systemType,
+              "version": version
+          },
+      }, function(ret, err) {
+          if (ret.status == 200) {
+              // fnRecommendedDirectory(ret);
+              fnPageLayoutAssignment(ret);
+          } else {
+              alert(ret.message);
+          }
+      });
+    }
+    function fnPageLayoutAssignment(data_){
+      var stylelist = $api.byId('floorId');
+        var frameWidth = api.frameWidth;
+      var html = '';
+      for (var i = 0; i < data_.data.length; i++) {
+          if (data_.data[i].floor_id) {
+              html += '<div class="p20px"  id="ret.data[i].floor_id"><div class="sectionTitle"><span class="TD_div fl">' + data_.data[i].floor_name + '</span><span class="fr more" onclick="fnRecommendWin(' + data_.data[i].floor_id + ');">更多</span><div class="clear"></div><div class="clear"></div></div><div class="hot" id="hot">';
+          var column = data_.data[i].floor_column;
+          var row = data_.data[i].floor_row;
+          if(column == 0){
+            column = 1;
+          }
+          for (var s = 0; s < column * row; s++) {
+              if(data_.data[i].floor_type == "block"){
 
+                var cccc = column;
+                var ssss = frameWidth - 50
+                var xxxx = ssss / cccc;
+                html += '<div class="hotC" style="width:'  + xxxx + 'px;" onclick="fnSingLeWin(' + data_.data[i].content[s].id + ');"><img src=" ' + host + '/' + data_.data[i].content[s].sma + '" alt=""><div class="listtitle"> ' + data_.data[i].content[s].title + '</div></div>';
+              }else if(data_.data[i].floor_type == "list"){
+                  html += '<div class="egret-flex-item"><div class="egret-flex-items" tapmode="fmbtnhover" onclick="fnOpenPlay(' + data_.data[i].content[s].id + ')"><div class="egret-flex-item-logo"><img src="' + host + '/' + data_.data[i].content[s].mid + '" alt="" class=""></div><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 fl">作品：<span>' + data_.data[i].content[s].title + '</span></span><!-- <span class="span2 iconfont icon-nv fl"></span> --><!-- <img src="../image/js.png" alt="" class="fl"> --><!-- <span class="span3 fr">昨天21.30</span> --></div><div class="egret-flex-item-shelf02"><span>' + data_.data[i].content[s].author_name + '</span><!-- <span><img src="../image/js.png" alt="" class="fl"></span> --></div><div class="egret-flex-item-shelf03"><div><img src="../image/KM_play.png" alt=""><span>' + data_.data[i].content[s].play_total + '</span></div><!-- <div><img src="../image/KM_dx.png" alt=""><span>100</span></div> --><div><img src="../image/KM_zf.png" alt=""><span>' + data_.data[i].content[s].share_total + '</span></div><div><img src="../image/KM_dz.png" alt=""><span>' + data_.data[i].content[s].good_total + '</span></div></div></div>  </div><div class="egret-flex-item-shelf04" onclick="fnOpenPlayMore()"><img src="../image/KM_list_more.png" alt=""></div></div><div class="hdivider"></div>';
+              }
+          }
+          html += '</div></div>';
+          }
+      }
+      // console.log(html);
+      $api.html(stylelist, html);
+    }
     //接口  推荐听单
     function fnXiMaLaYaTingDan() {
         var ximalaya = null;
@@ -442,108 +430,28 @@
         // });
 
     }
-    //接口  推荐听单
-    //var b = 'ret';
-    // var a =
-    function fnZhuanJiTuijian() {
-
-        api.ajax({
-            url: 'http://47.100.11.38/kongmeng/thirdParty/search_playlist_by_name.php?page=0&size=6',
-            method: 'get',
-        }, function(ret, err) {
-            if (ret) {
-                // alert(JSON.stringify(ret));
-                fnZhuanJiZhanShi(ret);
-            } else {
-                alert(JSON.stringify(err));
-            }
-        });
-    }
-    //接口  推荐听单
-    // function fnTingdanTuijian() {
-    //     api.ajax({
-    //         url: 'http://47.100.11.38/kongmeng/thirdParty/search_playlist_by_name.php?page=0&size=6',
-    //         method: 'get',
-    //     }, function(ret, err) {
-    //         if (ret) {
-    //             //alert(JSON.stringify(ret));
-    //             fnTingdanZhanshi(ret);
-    //         } else {
-    //             alert(JSON.stringify(err));
-    //         }
-    //     });
-    //
-    // }
-    //接口  听单展示
-    function fnZhuanJiZhanShi(data_) {
-        var stylelist = $api.byId('hot');
-        var html = '';
-        for (var i = 0; i < 6; i++) {
-            html += '<div class="hotC" onclick="fnSingLeWin(' + data_.data[i].id + ');"><img src="' + data_.data[i].logoMiddle + '" alt=""><div class="listtitle"> ' + data_.data[i].name + '</div></div>';
-
-        }
-        $api.html(stylelist, html);
-        var frameWidth = api.frameWidth;
-        var frameHeight = api.frameHeight;
-        var hotCs = $api.domAll('.hotC');
-        for (var j = 0; j < 6; j++) {
-            hotCs.item(j).style.width = (frameWidth - 40) / 3 + "px";
-            hotCs.item(j).style.height = (frameWidth - 40) / 3 * 1.35 + "px";
-        };
-
-    }
 
     function fnSingLeWin(id) {
-      var DangQianbofangid = api.pageParam.DangQianbofangid;
-      if(DangQianbofangid){
-        api.openWin({
-            name: 'single',
-            url: './single.html',
-            pageParam: {
-                tuijiantingdanid: id,
-                DangQianbofangid: api.pageParam.DangQianbofangid
-            }
-        });
-      }else{
-        api.openWin({
-            name: 'single',
-            url: './single.html',
-            pageParam: {
-                tuijiantingdanid: id
-            }
-        });
-      }
+
+      api.openWin({
+          name: 'single',
+          url: './single.html',
+          pageParam: {
+              albumId: id
+          }
+      });
 
 
     }
 
     function fnRecommendWin() {
-      var DangQianbofangid = api.pageParam.DangQianbofangid;
-      if(DangQianbofangid){
-        api.openWin({
-            name: 'recommend',
-            url: './recommend.html',
-            pageParam: {
-                DangQianbofangid: DangQianbofangid
-            }
-        });
-
-      }else{
-        api.openWin({
-            name: 'recommend',
-            url: './recommend.html',
-            pageParam: {
-                name : 'texe'
-            }
-        });
-      }
-        api.openWin({
-            name: 'recommend',
-            url: './recommend.html',
-            pageParam: {
-                DangQianbofangid: api.pageParam.DangQianbofangid
-            }
-        });
+      api.openWin({
+          name: 'recommend',
+          url: './recommend.html',
+          pageParam: {
+              name: 'texe'
+          }
+      });
 
     }
 
@@ -664,11 +572,11 @@
                 });
             }
             if (ret.index == "0") {
-                api.toast({
-                    msg: '收藏成功',
-                    duration: 2000,
-                    location: 'middle'
-                });
+                api.toast({              
+                    msg:   '收藏成功',
+                                  duration:  2000,
+                                  location:   'middle'          
+                });
                 dialogBox.close({
                     dialogName: 'alert'
                 });
@@ -685,7 +593,7 @@
                 //     dialogName: 'alert'
                 // });
                 // alert(3);
-            }else {
+            } else {
                 dialogBox.close({
                     dialogName: 'alert'
                 });
@@ -770,14 +678,13 @@
         });
     }
     //添加到听单
-    function fnOpenAddListening(){
-      api.openWin({
-          name: 'addListening',
-          url: './add_listening.html',
-          pageParam: {
-              name: 'test'
-          }
-      });
+    function fnOpenAddListening() {
+        api.openWin({
+            name: 'addListening',
+            url: './add_listening.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
     }
-
 </script>
