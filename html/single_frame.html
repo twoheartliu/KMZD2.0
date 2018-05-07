@@ -709,6 +709,7 @@
             clicktoolitem.setAttribute("data-click", 1);
             toolbarlist.src = "../image/KM_play_collect_red.png";
             // $api.addCls(toolbarlist, 'collectimg');
+
         } else {
             // 关闭
             clicktoolitem.setAttribute("data-click", 0);
@@ -729,9 +730,7 @@
     }
     //打开更多
     function fnOpenPlayMore() {
-
         var dialogBox = api.require('dialogBox');
-        var ccc = 'widget://image/KM_hxs.png'
         dialogBox.actionMenu({
             rect: {
                 h: 150
@@ -741,7 +740,7 @@
             },
             items: [{
                 text: '收藏',
-                icon: ccc
+                icon: 'widget://image/KM_hxs.png'
             }, {
                 text: '添加到听单',
                 icon: 'widget://image/KM_play_add_gray.png'
