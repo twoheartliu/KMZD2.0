@@ -115,7 +115,40 @@
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
-    
+    function goback() {
+        api.closeWin({
+            name: 'messagePrivateDetail'
+        });
+    }
+    apiready = function() {
+        var mHeader = $api.byId('mesHeader');
+        $api.fixStatusBar(mHeader); //状态栏
+        var headerPos = $api.offset(mHeader);
+        fnOpenPrivateDetailFrame();
+    };
+
+    function fnOpenPrivateDetailFrame() {
+        var mHeader = $api.byId('mesHeader');
+        var headerH = $api.offset(mHeader).h;
+        api.openFrame({
+            name: 'messagePriDetailFrame',
+            url: './message_priDetail_frame.html',
+            rect: {
+                x: 0,
+                y: headerH,
+                w: api.frameWidth,
+                h: api.frameHeight - 50
+            },
+            pageParam: {
+                name: 'test'
+            },
+            bounces: false,
+            bgColor: 'rgba(0,0,0,0)',
+            vScrollBarEnabled: true,
+            hScrollBarEnabled: true,
+            softInputMode: 'pan'
+        });
+    };
 </script>
 
 </html>
