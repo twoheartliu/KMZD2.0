@@ -33,12 +33,14 @@
     var playlistid;
     var bofang;
     var a;
+
     apiready = function() {
         if (!bofang) {
             var stylelist = $api.byId('centerVedeo');
             var html = '';
             html += '<div onclick="fnOpenPlay( ' + bofang + ');"><img src="../image/footer_bf0.png" alt=""></div>';
             $api.html(stylelist, html);
+
         }
         api.addEventListener({
             name: 'netbofangsssssss'
@@ -62,13 +64,29 @@
             var playlistid = ret.value.playlistid;
             if (playlistid) {
                 fnBOFangJian(bofang, a, playlistid);
+                return;
             } else {
                 fnBOFangJian(bofang, a);
+                return;
             }
         });
-    };
+        // if(!bofang){
+        //   bofang = 2;
+        //   if(!a){
+        //     a = 1;
+        //     if(!playlistid){
+        //       playlistid = 1;
+        //       fnBOFangJian(bofang, a, playlistid);
+        //     }
+        //   }
+        // }
+
+
+
+    }
 
     function fnBOFangJian(bofang, a, playlistid) {
+      console.log(bofang);
         if (bofang == 0) {
             var stylelist = $api.byId('centerVedeo');
             var html = '';
@@ -127,7 +145,6 @@
                 name: 'playsousuo',
                 url: './playsousuo.html',
                 pageParam: {
-                    name: 'test',
                     bofang: bofang,
                     a: a
                 },
@@ -137,7 +154,6 @@
                 name: 'playsousuo',
                 url: './playsousuo.html',
                 pageParam: {
-                    name: 'test',
                     bofang: bofang,
                     a: a
                 },
@@ -147,7 +163,6 @@
                 name: 'play',
                 url: './play.html',
                 pageParam: {
-                    name: 'test',
                     bofang: bofang,
                     a: a,
                     playid: playlistid
@@ -158,7 +173,6 @@
                 name: 'play',
                 url: './play.html',
                 pageParam: {
-                    name: 'test',
                     bofang: bofang,
                     a: a,
                     playid: playlistid
@@ -169,7 +183,6 @@
                 name: 'caogaoplay',
                 url: './caogaoplay.html',
                 pageParam: {
-                    name: 'test',
                     bofang: bofang,
                     a: a,
                     playid: playlistid
@@ -180,7 +193,6 @@
                 name: 'caogaoplay',
                 url: './caogaoplay.html',
                 pageParam: {
-                    name: 'test',
                     bofang: bofang,
                     a: a,
                     playid: playlistid
@@ -190,10 +202,11 @@
             api.openWin({
                 name: 'play',
                 url: './play.html',
-                pageParam: {
-                    name: 'test',
-                    bofang: bofang
-                },
+                // pageParam: {
+                //   bofang: 2,
+                //   a: 1,
+                //   playid: 1
+                // },
             });
         }
     }

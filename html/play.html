@@ -589,16 +589,16 @@
         }, function(ret, err) {
             fnDangQianbofangid(ret.value.playing);
         });
-
         if (connectionType == "wifi") {
-
             var DangQianbofangid = api.pageParam.DangQianbofangid;
-
             if (DangQianbofangid) {
                 fnJinRuBofangs(DangQianbofangid);
                 bookId == DangQianbofangid;
             } else {
                bookId = api.pageParam.a;
+               if(!bookId){
+                 bookId = 1;
+               }
                 api.addEventListener({
                     name: 'neizhiliebiaoPlaysss'
                 }, function(ret, err) {
@@ -761,8 +761,17 @@
             var bofang = api.pageParam.bofang;
         }
         playlistid = api.pageParam.playlistid;
+        if(!playlistid){
+          playlistid = api.pageParam.playid;
+        }
         dqbfid = api.pageParam.a;
-        id = api.pageParam.a;
+        var id = api.pageParam.a;
+        if (!id){
+          id == 1;
+        }
+        if(!playlistid){
+          playlistid = 1;
+        }
         if (id) {
             api.sendEvent({
                 name: 'netPlayUrl',
@@ -788,11 +797,6 @@
             html += '<img src="../image/play/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player"></div>';
             $api.html(stylelist, html);
             bofang = 3;
-            playlistid = api.pageParam.playlistid;
-            if (!playlistid) {
-                playlistid = api.pageParam.playid;
-
-            }
             api.sendEvent({
                 name: 'neizhiliebiaoPlay',
                 extra: {
@@ -812,10 +816,6 @@
             var html = '';
             html += '<img src="../image/play/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player"></div>';
             $api.html(stylelist, html);
-            playlistid = api.pageParam.playlistid;
-            if (!playlistid) {
-                playlistid = api.pageParam.playid;
-            }
             api.sendEvent({
                 name: 'neizhiliebiaoPlay',
                 extra: {
@@ -1104,7 +1104,6 @@
                   "session": token
               }
           }, function(ret, err) {
-            console.log(JSON.stringify(ret));
             if (ret.status == 200) {
                 netAudioss = ret;
                 api.sendEvent({
@@ -1115,10 +1114,6 @@
                 });
                 var bofang = 3;
                 var a = id;
-                playlistid = api.pageParam.playlistid;
-                if (!playlistid) {
-                    playlistid = api.pageParam.playid;
-                }
                 api.sendEvent({
                     name: 'neizhiliebiaoPlay',
                     extra: {
@@ -1134,11 +1129,12 @@
                 AddHistoryTitle(title, author_name);
             } else {
                 alert(ret.message);
-                $api.rmStorage('token');
-                api.openWin({
-                    name: 'login',
-                    url: '../login.html'
-                });
+                console.log(ret.message);
+                // $api.rmStorage('token');
+                // api.openWin({
+                //     name: 'login',
+                //     url: '../login.html'
+                // });
             }
           });
         } else {
@@ -1163,10 +1159,6 @@
               });
               var bofang = 3;
               var a = api.pageParam.a;
-              playlistid = api.pageParam.playlistid;
-              if (!playlistid) {
-                  playlistid = api.pageParam.playid;
-              }
               api.sendEvent({
                   name: 'neizhiliebiaoPlay',
                   extra: {
@@ -1180,13 +1172,16 @@
               var title = ret.data.title;
               var author_name = ret.data.author_name;
               AddHistoryTitle(title, author_name);
+
             } else {
+              console.log(111);
                 alert(ret.message);
-                $api.rmStorage('token');
-                api.openWin({
-                    name: 'login',
-                    url: '../login.html'
-                });
+                console.log(ret.message);
+                // $api.rmStorage('token');
+                // api.openWin({
+                //     name: 'login',
+                //     url: '../login.html'
+                // });
             }
           });
         }
