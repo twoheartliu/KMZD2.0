@@ -92,8 +92,8 @@
     </div>
     <div class="bg"></div>
     <div class="Cover_input row">
-        <div class="Cover_div_input"><input type="text" placeholder="请输入歌单名" id="CoverDivInput"></div>
-        <div class="Cover_x" onclick="CoverDivInput();">×</div>
+        <div class="Cover_div_input"><input type="text" placeholder="请输入歌单名" id="CoverDivInput" onblur="fnCoverDivInput();"></div>
+        <div class="Cover_x" onclick="CoverDivInputs();">×</div>
         <div class="Cover_name">名称</div>
     </div>
     <div class="bg"></div>
@@ -102,7 +102,7 @@
     </div>
 
     <div class="textarea">
-      <textarea placeholder="长按粘贴文本" class="replyValue" type="text" id="bar" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
+      <textarea placeholder="长按粘贴文本" onblur="fnBar();" class="replyValue" type="text" id="bar" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
 
     </div>
 </body>
@@ -112,34 +112,74 @@
 <script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript">
     apiready = function() {
-      // var CoverDivInput = $api.byId('CoverDivInput').value;
-      // console.log(CoverDivInput);
+
+    }
+    function fnCoverDivInput() {
+         CoverDivInput = $api.byId('CoverDivInput').value;
+        if (CoverDivInput == '') {
+          api.toast({
+              msg: '用户名不能为空',
+              duration: 2000,
+              location: 'bottom'
+          });
+        }else {
+          api.sendEvent({
+              name: 'NewCoverDivInput',
+              extra: {
+                  CoverDivInput: CoverDivInput
+              }
+          });
+        }
+    }
+    function fnBar() {
+         bar = $api.byId('bar').value;
+        if (bar == '') {
+
+        }else {
+          api.sendEvent({
+              name: 'Newbar',
+              extra: {
+                  bar: bar
+              }
+          });
+        }
     }
     function fnUploadImage(ret) {
-      var CoverDivInput = $api.byId('CoverDivInput').value;
-      var bar = $api.byId('bar').value;
+      // var bar = $api.byId('bar').value;
       var CoverImg = ret.data;
-      // alert(CoverImg);
-      api.sendEvent({
-          name: 'New',
-          extra: {
-              CoverDivInput: CoverDivInput,
-              CoverImg: CoverImg,
-              bar:bar
-          }
-      });
+      if (CoverImg == '') {
+        var CoverImg = $api.byId('Cover_img');
+        CoverImg.innerHTML = '<img src="../image/my/fnShareImg.jpg">'
+      }else {
+        api.sendEvent({
+            name: 'NewCoverImg',
+            extra: {
+                CoverImg: CoverImg,
+            }
+        });
+      }
     }
-    function CoverDivInput() {
-      var CoverDivInput = document.getElementById('CoverDivInput');
-      var CoverDivInputValue = CoverDivInput.value;
-      if (!CoverDivInputValue == '') {
-          CoverDivInput.value = '';
+    function CoverDivInputs() {
+      var CoverDivInputss = document.getElementById('CoverDivInput');
+      // var CoverDivInputValue = CoverDivInput.value;
+
+      CoverDivInput = CoverDivInputss.value;
+      if (!CoverDivInput == '') {
+
+          CoverDivInputss.value = '';
+
+          var CoverDivInputs = CoverDivInputss.value;
           api.toast({
               msg: '已清空',
               duration: 2000,
               location: 'bottom'
           });
-          return;
+          api.sendEvent({
+              name: 'NewCoverDivInput',
+              extra: {
+                  CoverDivInput: CoverDivInputs
+              }
+          });
       }
     }
     function fnSettings() {
@@ -209,7 +249,7 @@
                         // console.log(JSON.stringify(ret.data));
                         var CoverImg = $api.byId('Cover_img');
                         CoverImg.innerHTML = '<img src="' + ret.data + '">';
-                        console.log(ret.data);
+                        // console.log(ret.data);
                         var token = $api.getStorage('token');
                         api.ajax({
                             url: host + apiUri + '/upload/listening_cover',
