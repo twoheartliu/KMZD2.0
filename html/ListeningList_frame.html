@@ -33,6 +33,7 @@
             display: -webkit-box;
             -webkit-box-align: center;
             height: 80px;
+            position: relative;
         }
 
         .egret-flex-item-logo {
@@ -141,30 +142,7 @@
 </head>
 
 <body>
-    <ul>
-        <li class="p20pxs">
-            <div class="egret-flex-item" tapmode="fmbtnhover">
-                <div class="egret-flex-item-logo" onclick="fnOpenPlay()">
-                    <img src="../image/KM_album.png" alt="" class="">
-                </div>
-                <div class="egret-flex-item-shelf">
-                    <div class="egret-flex-item-shelf01" onclick="fnOpenPlay()">
-                        <span class="span1 fl">作品：<span>《沁园春·雪》</span></span>
-                        <span class="span3 fr"></span>
-                    </div>
-                    <div class="egret-flex-item-shelf03" onclick="fnOpenPlay()">
-                        <div><img src="../image/KM_play.png" alt=""><span>100</span></div>
-                        <!-- <div><img src="../image/KM_dx.png" alt=""><span>100</span></div> -->
-                        <div><img src="../image/KM_zf.png" alt=""><span>100</span></div>
-                        <div><img src="../image/KM_dz.png" alt=""><span>100</span></div>
-                    </div>
-                </div>
-                <div class="egret-flex-item-under" onclick="fnSettings();">
-                    <img src="../image/KM_list_more.png" alt="" class="">
-                </div>
-            </div>
-        </li>
-    </ul>
+    <ul id="ListeningListFrame"></ul>
 </body>
 
 </html>
@@ -172,7 +150,8 @@
 <script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript">
     apiready = function() {
-      // ListenList();
+      ListenList();
+
     }
     function ListenList() {
       var token = $api.getStorage('token');
@@ -187,14 +166,38 @@
             }
       },function(ret, err){
           if (ret) {
-              // alert( JSON.stringify( ret ) );
-              console.log(JSON.stringify( ret ));
+            var id = $api.byId('ListeningListFrame');
+              for (var i = 0; i < ret.data.length; i++) {
+                var listening_cover = ret.data[i].listening_cover;
+                var sandBox = listening_cover.substring(0,8);
+                if (sandBox == 'sand_box') {
+                  var sandBoxs = listening_cover.replace(/sand_box/,'..');
+                   $api.append(id, '<li id="listen_' + ret.data[i].l_id + '" class="p20pxs"><div class="egret-flex-item" tapmode="fmbtnhover"><div class="egret-flex-item-logo" onclick="fnOpenPlay()"><img src="'+ sandBoxs +'" alt="" class=""></div><div class="egret-flex-item-shelf"> <div class="egret-flex-item-shelf01" onclick="fnOpenPlay()"><span class="span1 fl">作品：<span>《'+ ret.data[i].listening_name +'》</span></span><span class="span3 fr"></span></div><div class="egret-flex-item-shelf03" onclick="fnOpenPlay()"><div><img src="../image/KM_play.png" alt=""><span>' + ret.data[i].play_total + '</span></div><div><img src="../image/KM_zf.png" alt=""><span>'+ ret.data[i].share_total +'</span></div><div><img src="../image/KM_dz.png" alt=""><span>'+ ret.data[i].good_total +'</span></div></div></div><div class="egret-flex-item-under" onclick="fnSettings('+ ret.data[i].l_id +');"><img src="../image/KM_list_more.png" alt=""></div></div></li>');
+                }else if (listening_cover == '') {
+                   $api.append(id, '<li id="listen_' + ret.data[i].l_id + '" class="p20pxs"><div class="egret-flex-item" tapmode="fmbtnhover"><div class="egret-flex-item-logo" onclick="fnOpenPlay()"><img src="../image/my/fnShareImg.jpg" alt="" class=""></div><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01" onclick="fnOpenPlay()"><span class="span1 fl">作品：<span>《'+ ret.data[i].listening_name +'》</span></span><span class="span3 fr"></span></div><div class="egret-flex-item-shelf03" onclick="fnOpenPlay()"><div><img src="../image/KM_play.png" alt=""><span>'+ ret.data[i].play_total +  '</span></div><div><img src="../image/KM_zf.png" alt=""><span>'+ ret.data[i].share_total +'</span></div><div><img src="../image/KM_dz.png" alt=""><span>'+ ret.data[i].good_total +'</span></div></div></div><div class="egret-flex-item-under" onclick="fnSettings('+ ret.data[i].l_id +');"><img src="../image/KM_list_more.png" alt=""></div></div></li>');
+                }else {
+                  var listening = 'listening/';
+                  var listening_covers = http + listening + listening_cover;
+                   $api.append(id, '<li id="listen_' + ret.data[i].l_id + '" class="p20pxs"><div class="egret-flex-item" tapmode="fmbtnhover"><div class="egret-flex-item-logo" onclick="fnOpenPlay()"><img src="'+ listening_covers +'" alt="" class=""></div><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01" onclick="fnOpenPlay()"><span class="span1 fl">作品：<span>《'+ ret.data[i].listening_name +'》</span></span><span class="span3 fr"></span></div><div class="egret-flex-item-shelf03" onclick="fnOpenPlay()"><div><img src="../image/KM_play.png" alt=""><span>'+ ret.data[i].play_total +  '</span></div><div><img src="../image/KM_zf.png" alt=""><span>'+ ret.data[i].share_total +'</span></div><div><img src="../image/KM_dz.png" alt=""><span>'+ ret.data[i].good_total +'</span></div></div></div><div class="egret-flex-item-under" onclick="fnSettings('+ ret.data[i].l_id +');"><img src="../image/KM_list_more.png" alt=""></div></div></li>');
+                }
+
+
+
+
+                // function Delete(id) {
+                //   if (id == ret.data[i].l_id) {
+                //     $api.remove('<li class="p20pxs"><div class="egret-flex-item" tapmode="fmbtnhover"><div class="egret-flex-item-logo" onclick="fnOpenPlay()"><img src="'+ listening_covers +'" alt="" class=""></div><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01" onclick="fnOpenPlay()"><span class="span1 fl">作品：<span>《'+ ret.data[i].listening_name +'》</span></span><span class="span3 fr"></span></div><div class="egret-flex-item-shelf03" onclick="fnOpenPlay()"><div><img src="../image/KM_play.png" alt=""><span>'+ ret.data[i].play_total +  '</span></div><div><img src="../image/KM_zf.png" alt=""><span>'+ ret.data[i].share_total +'</span></div><div><img src="../image/KM_dz.png" alt=""><span>'+ ret.data[i].good_total +'</span></div></div></div><div class="egret-flex-item-under" onclick="fnSettings('+ ret.data[i].l_id +');"><img src="../image/KM_list_more.png" alt=""></div></div></li>');
+                //   }
+                // }
+              }
+                              Delete(id , ret);
           } else {
               alert( JSON.stringify( err ) );
           }
       });
 
     }
+
     function fnOpenPlay() {
         api.openWin({
             name: 'ListingsList',
@@ -205,9 +208,35 @@
         });
 
     }
+    function DeleteList(id) {
+      var token = $api.getStorage('token');
+      api.ajax({
+          url: host + apiUri +'/listening/del/' + id,
+          method: 'post',
+          headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token
+            }
+      },function(ret, err){
+          if (ret) {
+            var listen_id = $api.byId('listen_') + id;
+            
+            if () {
 
-    function fnSettings() {
+            }
+            // if (id == ret.data[i].l_id) {
+            //   $api.remove('<li class="p20pxs"><div class="egret-flex-item" tapmode="fmbtnhover"><div class="egret-flex-item-logo" onclick="fnOpenPlay()"><img src="'+ listening_covers +'" alt="" class=""></div><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01" onclick="fnOpenPlay()"><span class="span1 fl">作品：<span>《'+ ret.data[i].listening_name +'》</span></span><span class="span3 fr"></span></div><div class="egret-flex-item-shelf03" onclick="fnOpenPlay()"><div><img src="../image/KM_play.png" alt=""><span>'+ ret.data[i].play_total +  '</span></div><div><img src="../image/KM_zf.png" alt=""><span>'+ ret.data[i].share_total +'</span></div><div><img src="../image/KM_dz.png" alt=""><span>'+ ret.data[i].good_total +'</span></div></div></div><div class="egret-flex-item-under" onclick="fnSettings('+ ret.data[i].l_id +');"><img src="../image/KM_list_more.png" alt=""></div></div></li>');
+            // }
+              // alert( JSON.stringify( ret ) );
+          } else {
+              alert( JSON.stringify( err ) );
+          }
+      });
 
+    }
+    function fnSettings(id) {
+        // console.log(id);
         var dialogBox = api.require('dialogBox');
         dialogBox.actionMenu({
             rect: {
@@ -261,15 +290,15 @@
                         name: 'test'
                     }
                 });
-
             } else if (index == 1) {
-                alert('删除')
                 dialogBox.close({
                     dialogName: 'alert'
                 });
-
+                DeleteList(id);
+                // console.log(id);
             }
         });
 
     }
+
 </script>

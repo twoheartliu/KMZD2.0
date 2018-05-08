@@ -111,6 +111,7 @@
 <script type="text/javascript" src="../script/swiper.min.js"></script>
 <script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript">
+    var widget
     apiready = function() {
 
     }
@@ -133,9 +134,7 @@
     }
     function fnBar() {
          bar = $api.byId('bar').value;
-        if (bar == '') {
-
-        }else {
+        if (bar != '') {
           api.sendEvent({
               name: 'Newbar',
               extra: {
@@ -158,6 +157,17 @@
             }
         });
       }
+    }
+    function fnUploadImages(index) {
+
+      var CoverImg = $api.byId('Cover_img');
+      CoverImg.innerHTML = '<img src="..' + widget[index] + '">';
+        api.sendEvent({
+            name: 'NewCoverImg',
+            extra: {
+                CoverImg: 'sand_box' + widget[index],
+            }
+        });
     }
     function CoverDivInputs() {
       var CoverDivInputss = document.getElementById('CoverDivInput');
@@ -282,7 +292,7 @@
                     }
                 });
             } else if (index == 1) {
-                alert('相册')
+                // alert('相册')
                 dialogBox.close({
                     dialogName: 'alert'
                 });
@@ -298,7 +308,33 @@
                     saveToPhotoAlbum: false
                 }, function(ret, err) {
                     if (ret) {
-                        alert(JSON.stringify(ret));
+                      var CoverImg = $api.byId('Cover_img');
+                      CoverImg.innerHTML = '<img src="' + ret.data + '">';
+                      // console.log(ret.data);
+                      var token = $api.getStorage('token');
+                      api.ajax({
+                          url: host + apiUri + '/upload/listening_cover',
+                          method: 'post',
+                          headers: {
+                                "source": api.systemType,
+                                "version": version,
+                                "session": token
+                            },
+                          data: {
+                              files: {
+                                  cover: ret.data
+                              }
+                          }
+                      },function(ret, err){
+                          if (ret) {
+                              // alert( JSON.stringify( ret ) );
+                              // console.log(JSON.stringify( ret ));
+                              fnUploadImage(ret);
+                          } else {
+                              alert( JSON.stringify( err ) );
+
+                          }
+                      });
                     } else {
                         alert(JSON.stringify(err));
                     }
@@ -315,6 +351,7 @@
     }
     function fnShare() {
         var dialogBox = api.require('dialogBox');
+        widget = ['/image/my/fnShareImg/01.jpg','/image/my/fnShareImg/02.jpg','/image/my/fnShareImg/03.jpg','/image/my/fnShareImg/04.jpg','/image/my/fnShareImg/05.jpg','/image/my/fnShareImg/06.jpg','/image/my/fnShareImg/07.jpg','/image/my/fnShareImg/08.jpg',]
         dialogBox.share({
             rect: {
                 w: 300,
@@ -322,28 +359,28 @@
             },
             items: [{
                 // text: '微信',
-                icon: 'widget://image/my/fnShareImg/01.jpg'
+                icon: 'widget:/' + widget[0]
             }, {
                 // text: 'QQ',
-                icon: 'widget://image/my/fnShareImg/02.jpg'
+                icon:'widget:/' + widget[1]
             }, {
                 // text: 'QQZone',
-                icon: 'widget://image/my/fnShareImg/03.jpg'
+                icon:'widget:/' +widget[2]
             }, {
                 // text: 'apiCloud',
-                icon: 'widget://image/my/fnShareImg/04.jpg'
+                icon:'widget:/' + widget[3]
             }, {
                 // text: '微博',
-                icon: 'widget://image/my/fnShareImg/05.jpg'
+                icon:'widget:/' + widget[4]
             }, {
                 // text: '短信',
-                icon: 'widget://image/my/fnShareImg/06.jpg'
+                icon: 'widget:/' + widget[5]
             }, {
                 // text: '短信',
-                icon: 'widget://image/my/fnShareImg/07.jpg'
+                icon: 'widget:/' + widget[6]
             }, {
                 // text: '短信',
-                icon: 'widget://image/my/fnShareImg/08.jpg'
+                icon: 'widget:/' + widget[7]
             }],
             styles: {
                 bg: '#FFF',
@@ -362,41 +399,49 @@
             // 点击灰色部分弹框消失
             tapClose: true
         }, function(ret) {
-          // alert(JSON.stringify(ret));
           var index = ret.index;
           // alert(JSON.stringify(ret));
           if (index == 0) {
             dialogBox.close({
                 dialogName: 'alert'
             });
+
+
           }else if (index == 1) {
             dialogBox.close({
                 dialogName: 'alert'
             });
+            fnUploadImages(index);
           }else if (index == 2) {
             dialogBox.close({
                 dialogName: 'alert'
             });
+            fnUploadImages(index);
           }else if (index == 3) {
             dialogBox.close({
                 dialogName: 'alert'
             });
+            fnUploadImages(index);
           }else if (index == 4) {
             dialogBox.close({
                 dialogName: 'alert'
             });
+            fnUploadImages(index);
           }else if (index == 5) {
             dialogBox.close({
                 dialogName: 'alert'
             });
+            fnUploadImages(index);
           }else if (index == 6) {
             dialogBox.close({
                 dialogName: 'alert'
             });
+            fnUploadImages(index);
           }else if (index == 7) {
             dialogBox.close({
                 dialogName: 'alert'
             });
+            fnUploadImages(index);
           }else if (styles == "itemText") {
             dialogBox.close({
                 dialogName: 'alert'
