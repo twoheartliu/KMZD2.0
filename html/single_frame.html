@@ -425,11 +425,10 @@
 </head>
 
 <body>
-    <div class="list_bj">
+    <div class="list_bj" >
         <div class="p13px">
             <div class="single">
                 <div class="single_img fl"><img src="../image/index/pic.jpg" alt=""></div>
-                <!-- <div class="single_LIVE fl"><img src="../image/vip/KM_live.png" alt=""></div> -->
                 <div class="single_l fl" id="aetails">
                     <!-- <div class="single_h1" id="tingdanliebiaobiaoti"></div>
                     <div class="single_img_p_span">
@@ -940,7 +939,11 @@
                     var album = albumId + 'albumcollectionncinc';
                     $api.setStorage('albumExtraCollection',album);
                 } else {
-                    alert(ret.message);
+                  api.toast({              
+                      msg:  ret.message,
+                      duration:  2000,
+                      location:   'middle'          
+                  });
                     $api.rmStorage('token');
                     api.openWin({
                         name: 'login',
@@ -982,7 +985,11 @@
                     var album = albumId + 'albumcollectionncdec';
                     $api.setStorage('albumExtraCollection',album);
                 } else {
-                    alert(ret.message);
+                  api.toast({              
+                      msg:  ret.message,
+                      duration:  2000,
+                      location:   'middle'          
+                  });
                     $api.rmStorage('token');
                     api.openWin({
                         name: 'login',
@@ -1030,7 +1037,11 @@
                   $api.setStorage('albumExtraGood',album);
                   fnExtraGood();
               } else {
-                  alert(ret.message);
+                api.toast({              
+                    msg:  ret.message,
+                    duration:  2000,
+                    location:   'middle'          
+                });
                   $api.rmStorage('token');
                   api.openWin({
                       name: 'login',
@@ -1061,10 +1072,6 @@
               }
           }, function(ret, err) {
               if (ret.status == 200) {
-                  // fnRecommendedDirectory(ret);
-                  if(ret.status == 200){
-
-                  }
                   api.toast({              
                       msg:   '已取消点赞',
                       duration:  2000,
@@ -1073,9 +1080,11 @@
                   var album = albumId + 'albumdec';
                   $api.setStorage('albumExtraGood',album);
               } else {
-                console.log(222);
-                console.log(ret.message);
-                  alert(ret.message);
+                api.toast({              
+                    msg:  ret.message,
+                    duration:  2000,
+                    location:   'middle'          
+                });
                   $api.rmStorage('token');
                   api.openWin({
                       name: 'login',
