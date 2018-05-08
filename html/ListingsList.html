@@ -72,6 +72,7 @@
         });
     }
     apiready = function() {
+        var ids = api.pageParam.ids;
         var header = $api.byId('secHeader');
         $api.fixStatusBar(header);
         var headerPos = $api.offset(header);
@@ -85,7 +86,7 @@
                 h: 'auto'
             },
             pageParam: {
-                name: 'test'
+                ids: ids
             },
             bounces: false,
         });
