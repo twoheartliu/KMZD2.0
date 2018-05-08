@@ -171,8 +171,9 @@
 <script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript" src="../script/swiper.min.js"></script>
 <script type="text/javascript">
+var token;
     apiready = function() {
-        var token = $api.getStorage('token');
+        token = $api.getStorage('token');
         if (token) {
             fnGetLieBiao();
             fnGetDirectory();
@@ -187,7 +188,6 @@
         }
 
     }
-var token = $api.getStorage('token');
     function fnGetLieBiao() {
 
         uri = '/category/hot';
@@ -201,7 +201,8 @@ var token = $api.getStorage('token');
                 "session": token
             },
         }, function(ret, err) {
-            if (ret.code == 200) {
+
+            if (ret.status == 200) {
                 fnRecommendedDirectory(ret);
             } else {
                 alert(ret.message);
@@ -252,10 +253,12 @@ var token = $api.getStorage('token');
             dataType: 'json',
             headers: {
                 "source": api.systemType,
-                "version": version
+                "version": version,
+                "session": token
             },
         }, function(ret, err) {
-            if (ret) {
+          // console.log(JSON.stringify(ret));
+            if (ret.status == 200) {
                 fnDirectory(ret);
             } else {
                 alert(ret.message);
@@ -276,7 +279,7 @@ var token = $api.getStorage('token');
             for (var s = 0; s < ret.data.length; s++) {
                 //  alert(s);
                 if (ret.data[s].p_id != 0 && ret.data[s].p_id == ret.data[i].id) {
-                    html += '<td  onclick="guoxue_Listframe(' + ret.data[s].p_id + ')">' + ret.data[s].name + '</td>';
+                    html += '<td  onclick="guoxue_frame(' + ret.data[s].id + ')">' + ret.data[s].name + '</td>';
                     y++;
                     if (y > 3 && y % 4 == 0) {
                         html += '</tr><tr>';
@@ -293,12 +296,8 @@ var token = $api.getStorage('token');
         var stylelists = $api.byId('DirectoryList');
         var html1 = '';
         if (id) {
-            console.log(id);
             for (var s = 0; s < ret.data.length; s++) {
-
                 if (ret.data[s].p_id == id) {
-                    console.log(s);
-                    console.log(ret.data[s].name);
                     html1 += '<td>' + ret.data[s].name + '</td>';
                     $api.html(stylelists, html1);
                 }
@@ -308,12 +307,12 @@ var token = $api.getStorage('token');
         }
     }
 
-    function guoxue_Listframe(id) {
+    function guoxue_frame(id) {
         api.openWin({
             name: 'single',
             url: './single.html',
             pageParam: {
-                id: id
+                albumId: id
             }
         });
 
