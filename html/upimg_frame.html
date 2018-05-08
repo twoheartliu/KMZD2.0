@@ -278,7 +278,7 @@
                 $api.html(stylelist, html);
                 //签名
                 var stylelist1 = $api.byId('signature');
-                if(ret.data.signature == " "){
+                if(ret.data.signature == null){
                   var html1 = '未填写';
                   $api.html(stylelist1, html1);
                 }else{
@@ -314,7 +314,7 @@
                 var title1 = $api.byId("tx");
                 var html4 = '';
                 if(ret.data.photo == null){
-                  html4 = '<img src="../res/01.jpg" alt="" />';
+                  html4 = '<img src="../image/KM_tx.png" alt="" />';
                   $api.html(title1, html4);
                 }else{
                   html4 = '<img src="http://thirdqq.qlogo.cn/qqapp/101475744/B52E5BE1C0A3BBEFC16F587FF172F542/40" alt="" />';
