@@ -425,11 +425,10 @@
 </head>
 
 <body>
-    <div class="list_bj">
+    <div class="list_bj" >
         <div class="p13px">
             <div class="single">
                 <div class="single_img fl"><img src="../image/index/pic.jpg" alt=""></div>
-                <!-- <div class="single_LIVE fl"><img src="../image/vip/KM_live.png" alt=""></div> -->
                 <div class="single_l fl" id="aetails">
                     <!-- <div class="single_h1" id="tingdanliebiaobiaoti"></div>
                     <div class="single_img_p_span">
@@ -472,7 +471,7 @@
                     <div class="info" onclick="fnExtraGood()" id="extraGood" >
                         <!-- <img src="../image/KM_ListingsListDzs.png" alt="" class="collectmusicFxs"> -->
                     </div>
-                    <p>20</p>
+                    <p id="goods">20</p>
                 </div>
                 <div class="userinfocol" tapmode="toolhover" >
                     <div class="info" id="extraCollectionHtml">
@@ -495,7 +494,7 @@
                         <img src="../image/KM_ListingsListSx.png" alt="">
                         <!-- <i>20</i> -->
                     </div>
-                    <p>22</p>
+                    <p id="comments">22</p>
                 </div>
                 <div class="userinfocol" tapmode="toolhover" onclick="fnOpenPlayShare();">
                     <div class="info">
@@ -590,6 +589,8 @@
     var albumGoodHtml;
     var albumCollectionHtml;
     var albumId;
+    var collections;
+    var goods;
     apiready = function() {
         token = $api.getStorage('token');
         fnAlbumAetails();
@@ -629,6 +630,7 @@
     }
     function fnAlbumAetails() {
         albumId = api.pageParam.albumId;
+        // console.log(albumId);
         uri = '/album';
         api.ajax({
             url: host + apiUri + uri + '/' + albumId,
@@ -640,7 +642,7 @@
                 "session": token
             }
         }, function(ret, err) {
-            if (ret.code == 200) {
+            if (ret.status == 200) {
                 // fnRecommendedDirectory(ret);
                 fnAlbumAetailsList(ret);
             } else {
@@ -658,19 +660,22 @@
     function fnAlbumAetailsList(data_) {
         var stylelist = $api.byId('aetails');
         var html = '<div class="single_h1" id="tingdanliebiaobiaoti"></div><div class="single_img_p_span"><div class="single_div_img fl"><img src="../image/KM_tx.png" alt=""></div><div class="single_img_name fl">' + data_.data.title +
-                '</div>  </div><div class="single_time"><div class="single_time_img fl"><img src="../image/KM_sc.png" alt=""></div><div class="single_img_num fl">' + data_.data.collection_total +
+                '</div>  </div><div class="single_time"><div class="single_time_img fl"><img src="../image/KM_sc.png" alt=""></div><div class="single_img_num fl" id="collections">' + data_.data.collection_total +
                 '</div><div class="single_time_img fl"><img src="../image/KM_play.png" alt=""></div><div class="single_img_num fl">' + data_.data.play_count +
                 '</div><div class="single_time_img fl"><img src="../image/read/aloud_py.png" alt=""></div><div class="single_img_num fl">' + data_.data.total + '</div></div>'
                 fnExtraGoodssssss();
+                goods = data_.data.good_total;
+                var stylelistss = $api.byId('goods');
+                var htmlss = goods;
+                $api.html(stylelistss, htmlss);
+                collections = data_.data.collection_total;
         $api.html(stylelist, html);
     }
 
     //接口  推荐听单
     var tingdanliebiaobiaoti;
     var page = 1;
-
     function fnAlbumTrack() {
-
         var albumId = api.pageParam.albumId;
         uri = '/album/song_list';
         api.ajax({
@@ -683,17 +688,16 @@
                 "session": token
             }
         }, function(ret, err) {
-
-            if (ret.code == 200) {
+            if (ret.status == 200) {
                 // fnRecommendedDirectory(ret);
                 fnAlbumIdLift(ret);
             } else {
                 alert(ret.message);
-                $api.rmStorage('token');
-                api.openWin({
-                    name: 'login',
-                    url: '../login.html',
-                });
+                // $api.rmStorage('token');
+                // api.openWin({
+                //     name: 'login',
+                //     url: '../login.html',
+                // });
             }
         });
 
@@ -729,21 +733,6 @@
         $api.html(stylelist, html);
     }
 
-    function collectmusic(clicktoolitem) {
-        var toolbarlist = document.getElementsByClassName('collectmusic')[0];
-        var click = clicktoolitem.getAttribute("data-click");
-        if (click == 0) {
-            // 点开
-            clicktoolitem.setAttribute("data-click", 1);
-            toolbarlist.src = "../image/KM_play_collect_red.png";
-            // $api.addCls(toolbarlist, 'collectimg');
-
-        } else {
-            // 关闭
-            clicktoolitem.setAttribute("data-click", 0);
-            toolbarlist.src = "../image/KM_hxs.png";
-        }
-    }
 
     function fnOpenPlay(a) {
         var playlistid = api.pageParam.albumId;
@@ -901,6 +890,7 @@
         });
     }
 
+
     function collectmusic(clicktoolitem) {
         var toolbarlist = document.getElementsByClassName('collectmusic')[0];
         var click = clicktoolitem.getAttribute("data-click");
@@ -933,13 +923,20 @@
                           duration:  2000,
                           location:   'middle'          
                       });
-                      fnAlbumAetails();
+                      // fnAlbumAetails();
                     }
-                    fnExtraGood();
+                    collections++;
+                    var stylelist = $api.byId('collections');
+                    var html = collections;
+                    $api.html(stylelist, html);
                     var album = albumId + 'albumcollectionncinc';
                     $api.setStorage('albumExtraCollection',album);
                 } else {
-                    alert(ret.message);
+                  api.toast({              
+                      msg:  ret.message,
+                      duration:  2000,
+                      location:   'middle'          
+                  });
                     $api.rmStorage('token');
                     api.openWin({
                         name: 'login',
@@ -976,12 +973,22 @@
                           duration:  2000,
                           location:   'middle'          
                       });
-                      fnAlbumAetails();
                     }
+                    collections--;
+                    if(collections<0){
+                      collections = 0;
+                    }
+                    var stylelist = $api.byId('collections');
+                    var html = collections;
+                    $api.html(stylelist, html);
                     var album = albumId + 'albumcollectionncdec';
                     $api.setStorage('albumExtraCollection',album);
                 } else {
-                    alert(ret.message);
+                  api.toast({              
+                      msg:  ret.message,
+                      duration:  2000,
+                      location:   'middle'          
+                  });
                     $api.rmStorage('token');
                     api.openWin({
                         name: 'login',
@@ -1019,17 +1026,23 @@
               },
           }, function(ret, err) {
               if (ret.status == 200) {
-                  // fnRecommendedDirectory(ret);
                   api.toast({              
                       msg:   '已点赞',
                       duration:  2000,
                       location:   'middle'          
                   });
+                  goods++;
+                  var stylelist = $api.byId('goods');
+                  var html = goods;
+                  $api.html(stylelist, html);
                   var album = albumId + 'albuminc';
                   $api.setStorage('albumExtraGood',album);
-                  fnExtraGood();
               } else {
-                  alert(ret.message);
+                api.toast({              
+                    msg:  ret.message,
+                    duration:  2000,
+                    location:   'middle'          
+                });
                   $api.rmStorage('token');
                   api.openWin({
                       name: 'login',
@@ -1060,21 +1073,26 @@
               }
           }, function(ret, err) {
               if (ret.status == 200) {
-                  // fnRecommendedDirectory(ret);
-                  if(ret.status == 200){
-
-                  }
                   api.toast({              
                       msg:   '已取消点赞',
                       duration:  2000,
                       location:   'middle'          
                   });
+                  goods--;
+                  if(goods<0){
+                    goods = 0;
+                  }
+                  var stylelist = $api.byId('goods');
+                  var html = goods;
+                  $api.html(stylelist, html);
                   var album = albumId + 'albumdec';
                   $api.setStorage('albumExtraGood',album);
               } else {
-                console.log(222);
-                console.log(ret.message);
-                  alert(ret.message);
+                api.toast({              
+                    msg:  ret.message,
+                    duration:  2000,
+                    location:  'middle'          
+                });
                   $api.rmStorage('token');
                   api.openWin({
                       name: 'login',
