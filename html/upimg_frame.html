@@ -95,12 +95,12 @@
 
         .upimg ul li div {
             margin: 0 5px;
-            font-size: 12px;
+            font-size: 14px;
         }
 
         .upimg ul li div:nth-child(1) {
             /*color: #03a9f4;*/
-            font-size: 12px;
+            font-size: 14px;
         }
 
         .upimg ul li div:nth-child(2) {
@@ -132,7 +132,7 @@
 
         #baby .dateSelectorOne {
             text-align: right;
-            font-size: 12px;
+            font-size: 14px;
             line-height: 45px;
         }
 
@@ -148,8 +148,9 @@
 
         #fnBirthday .dateSelectorOneBirthday {
             text-align: right;
-            font-size: 12px;
+            font-size: 14px;
             line-height: 45px;
+            color: #ccc;
         }
     </style>
 </head>
@@ -162,7 +163,7 @@
     <!-- 头像显示区域-->
     <div class="aui-card-list" onclick="upimg()">
         <div class="aui-card-list-content" id="tx" style="">
-            <img src="../res/01.jpg" />
+            <!-- <img src="../res/01.jpg" /> -->
         </div>
     </div>
     <div class="upimg">
@@ -170,22 +171,22 @@
             <li onclick="fnNickname();">
                 <div class="fl">昵称</div>
                 <div class="fr"> > </div>
-                <div class="fr">最初呢</div>
+                <div class="fr" id='nickName'></div>
             </li>
             <li onclick="fnSignature();">
                 <div class="fl">签名</div>
                 <div class="fr"> > </div>
-                <div class="fr">最初呢</div>
+                <div class="fr" id="signature"></div>
             </li>
             <li onclick="fnSetGender();">
                 <div class="fl">性别</div>
                 <div class="fr"> > </div>
-                <div class="fr">未填写</div>
+                <div class="fr" id="sex"></div>
             </li>
             <li id="fnBirthday">
                 <div class="fl">生日</div>
                 <div class="fr"> > </div>
-                <div class="fr"><input type="text" id="dateSelectorOneBirthday" class="dateSelectorOneBirthday" placeholder="选择日期" readonly="readonly"> </div>
+                <div class="fr"><input type="text" id="dateSelectorOneBirthday" class="dateSelectorOneBirthday"  value="" readonly="readonly"> </div>
             </li>
             <!-- <li onclick="fnArea();">
                 <div class="fl">地区</div>
@@ -196,7 +197,8 @@
         <div class="upimg_div">
             <div class="fl">我的宝宝</div>
         </div>
-        <div class="upimg_div">
+        <div id="111">
+            <!-- <div class="upimg_div">
             <div class="fl">宝宝1</div>
         </div>
         <ul id="baby">
@@ -211,7 +213,8 @@
                 <div class="fr"><input type="text" id="dateSelectorTwo" class="dateSelectorOne" placeholder="选择日期" readonly="readonly"></div>
             </li>
 
-        </ul>
+        </ul> -->
+        </div>
         <div id="babyAdd" onclick="fnBabyAdd()">添加宝宝</div>
     </div>
     <!-- 操作按钮-->
@@ -225,10 +228,12 @@
     </div>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
 <script src="../script/select/iScroll.js"></script>
 <script src="../script/select/Mdate.js"></script>
 <script type="text/javascript">
     var x = 1;
+    var token;
 
     function goback() {
         api.closeWin({
@@ -236,6 +241,8 @@
         });
     }
     apiready = function() {
+        token = $api.getStorage('token');
+        // console.log(token);
         api.setStatusBarStyle({
             style: 'light',
             color: '#000'
@@ -248,8 +255,113 @@
             goback();
         });
         // var periodSelector = api.require('periodSelector');
+        fninfo();
+
     };
 
+    function fninfo() {
+        var uri = '/user/info';
+        api.ajax({
+            url: host + apiUri + uri,
+            method: 'get',
+            dataType: 'json',
+            headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token,
+            },
+        }, function(ret, err) {
+            if (ret.status == 200) {
+                //昵称
+                var stylelist = $api.byId('nickName');
+                var html = ret.data.nick_name;
+                $api.html(stylelist, html);
+                //签名
+                var stylelist1 = $api.byId('signature');
+                if(ret.data.signature == " "){
+                  var html1 = '未填写';
+                  $api.html(stylelist1, html1);
+                }else{
+                  var html1 = ret.data.signature;
+                  $api.html(stylelist1, html1);
+                }
+                //性别
+                var stylelist2 = $api.byId('sex');
+                if(ret.data.sex == 0){
+                  var html2 = '未填写';
+                  $api.html(stylelist2, html2);
+                }else if(ret.data.sex == 1){
+                  var html2 = '男';
+                  $api.html(stylelist2, html2);
+                }if(ret.data.sex == 2){
+                  var html2 = '女';
+                  $api.html(stylelist2, html2);
+                }
+                //年龄
+                // var stylelist3 = $api.byId('date');
+                var html3;
+                if(ret.data.birth == null){
+                   html3 = '选择日期';
+                   var inputsssss = $api.byId('dateSelectorOneBirthday');
+                   inputsssss.value = html3;
+                  // $api.html(stylelist3, html3);
+                }else{
+                   html3 = timestampToTime(ret.data.birth);
+                   var inputsssss = $api.byId('dateSelectorOneBirthday');
+                   inputsssss.value = html3;
+                }
+                //头像
+                var title1 = $api.byId("tx");
+                var html4 = '';
+                if(ret.data.photo == null){
+                  html4 = '<img src="../res/01.jpg" alt="" />';
+                  $api.html(title1, html4);
+                }else{
+                  html4 = '<img src="http://thirdqq.qlogo.cn/qqapp/101475744/B52E5BE1C0A3BBEFC16F587FF172F542/40" alt="" />';
+                  $api.html(title1, html4);
+                }
+                fn222222(ret.data);
+            }
+
+        });
+    }
+
+    function fn222222(data){
+      var aaaa = data.baby.length;
+      var baby = data.baby;
+      if(aaaa){
+        var stylelists = $api.byId('111');
+        var htmls = '';
+        for (var i = 0; i < aaaa; i++) {
+          var sex;
+          if(baby[i].sex == 0) {
+            sex = '未填写';
+          }
+          if(baby[i].sex == 1) {
+            sex = '男';
+          }
+          if(baby[i].sex == 2) {
+            sex = '女';
+          }
+          var j = i + 1;
+          var mydate = timestampToTime(baby[i].birthday);
+          htmls += '<div class="upimg_div"><div class="fl">宝宝' + j + '</div></div><ul id="baby"><li onclick="fnSetGender();"><div class="fl">性别</div><div class="fr"> > </div><div class="fr" id="sex">' +sex + '</div></li><li id="dateShowBtn"><div class="fl">生日</div><div class="fr"> > </div><div class="fr" id="date"><input type="text" id="dateSelectorTwo" class="dateSelectorOne" placeholder="' + mydate + '" readonly="readonly"></div></li></ul>';
+        }
+       $api.html(stylelists, htmls);
+      }
+    }
+    // 时间戳转换成年月日
+    function timestampToTime(timestamp) {
+      var date = new Date(timestamp * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+      Y = date.getFullYear()+ '-';
+      M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1)+ '-' ;
+      D = (date.getDate() < 10 ? '0'+(date.getDate()) : date.getDate()) ;
+      // h = date.getHours() + ':';
+      // m = date.getMinutes() + ':';
+      // s = date.getSeconds();
+      // return Y+M+D+h+m+s;
+      return Y+M+D;
+  }
     function upimg() {
         api.actionSheet({
             title: '上传照片',
