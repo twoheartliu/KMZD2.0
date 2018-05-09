@@ -62,9 +62,11 @@ nav{height:70px;padding:8px;background-color: #fff;}
   apiready = function (){
     var notHeader = $api.byId('notHeader');
     $api.fixStatusBar(notHeader);
-    fnOpenMessageNotDetail();
+    var liLid = api.pageParam.liLid;
+    fnOpenMessageNotDetail(liLid);
+
   }
-  function fnOpenMessageNotDetail(){
+  function fnOpenMessageNotDetail(liLid){
     var nHeader = $api.byId('notHeader');
     var headerH = $api.offset(nHeader).h;
     api.openFrame({
@@ -77,7 +79,7 @@ nav{height:70px;padding:8px;background-color: #fff;}
             h: 'auto'
         },
         pageParam: {
-            name: 'test'
+            liLid: liLid
         },
         bounces: false,
         bgColor: 'rgba(0,0,0,0)',
