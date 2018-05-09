@@ -303,6 +303,7 @@
             color: #999;
             border-radius: 5px;
         }
+        .reply{text-align: right;}
     </style>
 </head>
 
@@ -419,10 +420,11 @@
     </div>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript">
     apiready = function() {
-        var mHeader = $api.byId('mesHeader');
-        var headerPos = $api.offset(mHeader);
+        // var mHeader = $api.byId('mesHeader');
+        // var headerPos = $api.offset(mHeader);
         var section = document.getElementById('section');
         var ul_lis = section.getElementsByClassName('zan01');
         var liLid = api.pageParam.liLid;
@@ -444,7 +446,44 @@
                 }
             }
         };
+        ListenToTheListOfComments(liLid);
+        console.log(liLid);
     }
+
+    function ListenToTheListOfComments(liLid) {
+        var token = $api.getStorage('token');
+        console.log(token);
+        api.ajax({
+            url: host + apiUri + '/listening/detail/'+ liLid,
+            method: 'get',
+            dataType: 'json',
+            headers: {
+                  "source": api.systemType,
+                  "version": version,
+                  "session": token
+              }
+
+        },function(ret, err){
+            if (ret) {
+              // console.log(JSON.stringify(ret));
+                // alert( JSON.stringify( ret ) );
+            } else {
+                alert( JSON.stringify( err ) );
+                alert(ret.message);
+                $api.rmStorage('token');
+                api.openWin({
+                    name: 'login',
+                    url: '../login.html',
+                    pageParam: {
+                        name: 'test'
+                    }
+                });
+            }
+        });
+
+    }
+
+
 
     function fnOpenMessageNotDetail() {
         api.openWin({
@@ -458,7 +497,7 @@
             hScrollBarEnabled: true
         });
     }
-    }
+
 </script>
 
 </html>
