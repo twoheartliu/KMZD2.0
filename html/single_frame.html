@@ -494,7 +494,7 @@
                         <img src="../image/KM_ListingsListSx.png" alt="">
                         <!-- <i>20</i> -->
                     </div>
-                    <p id="comments">22</p>
+                    <p id="comments">0</p>
                 </div>
                 <div class="userinfocol" tapmode="toolhover" onclick="fnOpenPlayShare();">
                     <div class="info">
@@ -593,7 +593,6 @@
     var goods;
     apiready = function() {
         token = $api.getStorage('token');
-        console.log(token);
         fnAlbumAetails();
         fnAlbumTrack();
         // fnExtraGoodssssss();
@@ -615,19 +614,19 @@
       var stylelist = $api.byId('extraGood');
       $api.html(stylelist, albumGoodHtml);
 
-      var albumCollectionss = $api.getStorage("albumExtraCollection");
-      var album = albumId + 'albumcollectionncinc';
-      if(albumCollectionss){
-        if(albumCollectionss != album){
-          albumCollectionHtml = '<img src="../image/KM_hxs.png" alt="" class="collectmusic" onclick="collectmusic(this)" data-click="0">';
-        }else{
-          albumCollectionHtml = '<img src="../image/KM_play_collect_red.png" alt="" class="collectmusic" onclick="collectmusic(this)" data-click="1">';
-        }
-      }else{
-        albumCollectionHtml = '<img src="../image/KM_hxs.png" alt="" class="collectmusic" onclick="collectmusic(this)" data-click="0">';
-      }
-      var stylelists = $api.byId('extraCollectionHtml');
-      $api.html(stylelists, albumCollectionHtml);
+      // var albumCollectionss = $api.getStorage("albumExtraCollection");
+      // var album = albumId + 'albumcollectionncinc';
+      // if(albumCollectionss){
+      //   if(albumCollectionss != album){
+      //     albumCollectionHtml = '<img src="../image/KM_hxs.png" alt="" class="collectmusic" onclick="collectmusic(this)" data-click="0">';
+      //   }else{
+      //     albumCollectionHtml = '<img src="../image/KM_play_collect_red.png" alt="" class="collectmusic" onclick="collectmusic(this)" data-click="1">';
+      //   }
+      // }else{
+      //   albumCollectionHtml = '<img src="../image/KM_hxs.png" alt="" class="collectmusic" onclick="collectmusic(this)" data-click="0">';
+      // }
+      // var stylelists = $api.byId('extraCollectionHtml');
+      // $api.html(stylelists, albumCollectionHtml);
     }
     function fnAlbumAetails() {
         albumId = api.pageParam.albumId;
@@ -648,11 +647,11 @@
                 fnAlbumAetailsList(ret);
             } else {
                 alert(ret.message);
-                $api.rmStorage('token');
-                api.openWin({
-                    name: 'login',
-                    url: '../login.html',
-                });
+                // $api.rmStorage('token');
+                // api.openWin({
+                //     name: 'login',
+                //     url: '../login.html',
+                // });
             }
         });
 
@@ -665,14 +664,26 @@
                 '</div><div class="single_time_img fl"><img src="../image/KM_play.png" alt=""></div><div class="single_img_num fl">' + data_.data.play_count +
                 '</div><div class="single_time_img fl"><img src="../image/read/aloud_py.png" alt=""></div><div class="single_img_num fl">' + data_.data.total + '</div></div>'
                 fnExtraGoodssssss();
+                fnComment(data_.data.comment_total);
                 goods = data_.data.good_total;
                 var stylelistss = $api.byId('goods');
                 var htmlss = goods;
                 $api.html(stylelistss, htmlss);
                 collections = data_.data.collection_total;
         $api.html(stylelist, html);
-    }
+        var stylelistCollectionHtml = $api.byId('extraCollectionHtml');
+          if(data_.data.is_collection == 0){
+            albumCollectionHtml = '<img src="../image/KM_hxs.png" alt="" class="collectmusic" onclick="collectmusic(this)" data-click="0">';
+          }else{
+            albumCollectionHtml = '<img src="../image/KM_play_collect_red.png" alt="" class="collectmusic" onclick="collectmusic(this)" data-click="1">';
+          }
 
+        $api.html(stylelistCollectionHtml, albumCollectionHtml);
+    }
+    function fnComment(html){
+      var stylelist = $api.byId('comments');
+      $api.html(stylelist, html);
+    }
     //接口  推荐听单
     var tingdanliebiaobiaoti;
     var page = 1;
@@ -739,6 +750,7 @@
     }
 
     function fnOpenPlay(a) {
+
       api.addEventListener({
             name: 'netPlaying'
         }, function(ret, err) {
@@ -754,7 +766,7 @@
                 pageParam: {
                     playlistid: playlistid,
                     a: a,
-                    DangQianbofangid: Dqbofangid
+                    dangqianbofangid: Dqbofangid
                 }
             });
         } else {
