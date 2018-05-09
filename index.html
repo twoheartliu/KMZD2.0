@@ -328,7 +328,7 @@
                             <div class="egret-header-box egret-div faxian">
                                 发现
                             </div>
-                            <div class="egret-header-box egret-img-s egret-div" tapmode ></div>
+                            <div class="egret-header-box egret-img-s egret-div" tapmode></div>
                         </div>
                     </div>
                 </li>
@@ -349,7 +349,11 @@
                     <div class="activebar_p20px">
                         <div class="topbars normalHeader">
 
-                            <div class="egret-img-a egret-img-a-my" tapmode onclick="fnDenglu();"><img class="right_img" src="./image/index/KM_qiandao.png" alt=""><span>已连续签到12天</span></div>
+                            <div class="egret-img-a egret-img-a-my" tapmode onclick="fnDenglu();"><img class="right_img" src="./image/index/KM_qiandao.png" alt="">
+                                <span id="lianxuqiandao">
+                              已连续签到0天
+                            </span>
+                            </div>
 
                         </div>
                     </div>
@@ -384,35 +388,41 @@
 <script type="text/javascript" src="script/indexCommon.js"></script>
 <script type="text/javascript" src="script/index.js"></script>
 <script type="text/javascript">
-var token;
-var a;
+    var token;
+    var a;
     apiready = function() {
-      token = $api.getStorage('token');
-      if(token){
-        var secHeader = $api.byId('secHeader');
-        $api.fixStatusBar(secHeader);
-        var footer = $api.byId('footer');
-        var headerH = $api.offset(secHeader).h;
-        var footerH = $api.offset(footer).h;
-        fnOpenCenterFrame();
-        api.parseTapmode();
-        initEventListenner();
-        initEventListennerBofang();
-        initEventListennerBoFangMoshi();
-        adjust()
-        funIniGroup();
-      }else{
-        $api.rmStorage('token');
-        api.openWin({
-            name: 'login',
-            url: './login.html',
-            pageParam: {
-                name: 'test'
+            token = $api.getStorage('token');
+            if (token) {
+                var secHeader = $api.byId('secHeader');
+                $api.fixStatusBar(secHeader);
+                var footer = $api.byId('footer');
+                var headerH = $api.offset(secHeader).h;
+                var footerH = $api.offset(footer).h;
+                fnOpenCenterFrame();
+                api.parseTapmode();
+                initEventListenner();
+                initEventListennerBofang();
+                initEventListennerBoFangMoshi();
+                adjust()
+                funIniGroup();
+            } else {
+                $api.rmStorage('token');
+                api.openWin({
+                    name: 'login',
+                    url: './login.html',
+                    pageParam: {
+                        name: 'test'
+                    }
+                });
             }
-        });
-      }
-  }
-    // 底部导航播放按钮；
+            var dqian = $api.getStorage('qiandaoshu');
+            if(dqian){
+              var stylelist = $api.byId('lianxuqiandao');
+              var html ='已连续签到 '+ dqian +' 天';
+              $api.html(stylelist, html);
+            }
+        }
+        // 底部导航播放按钮；
     function fnOpenCenterFrame() {
         if (a) {
             api.openFrame({
@@ -536,41 +546,36 @@ var a;
 
     //签到
     function fnDenglu() {
-
-      // if (isFirst) {
-      //     api.toast({
-      //         msg: '签到成功',
-      //         duration: 2000,
-      //         location: 'bottom'
-      //     });
-      // }
-      // isFirst = false;
       var  uri = '/user/sign';
         api.ajax({
-          url: host + apiUri + uri ,
-          method: 'post',
-          dataType: 'json',
-          headers: {
-            "source": api.systemType,
-            "version": version,
-            "session": token,
-          },
+            url: host + apiUri + uri,
+            method: 'post',
+            dataType: 'json',
+            headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token,
+            },
         }, function(ret, err) {
-            if (ret.status == 200 ) {
-              api.toast({
-                  msg: '签到成功',
-                  duration: 2000,
-                  location: 'bottom'
-              });
-          }else {
-            api.toast({
-                msg: ret.message,
-                duration: 2000,
-                location: 'bottom'
-            });
-          }
-      });
-      }
+            if (ret.status == 200) {
+                api.toast({
+                    msg: '签到成功',
+                    duration: 2000,
+                    location: 'middle'
+                });
+                $api.setStorage('qiandaoshu',ret.data.sign_count);
+                var stylelist = $api.byId('lianxuqiandao');
+                var html ='已连续签到 '+ ret.data.sign_count +' 天';
+                $api.html(stylelist, html);
+            } else {
+                api.toast({
+                    msg: ret.message,
+                    duration: 2000,
+                    location: 'middle'
+                });
+            }
+        });
+    }
 
 
     // 初始化事件监听
@@ -594,36 +599,37 @@ var a;
         });
     }
 
- function fnAlert() {        api.actionSheet({
+    function fnAlert() {
+        api.actionSheet({
             // title: '底部弹出框测试',
-            cancelTitle:"",
+            cancelTitle: "",
             // destructiveTitle: '红色警告按钮',
             // buttons: ['我的作品','我的草稿', '取消']
-            buttons: ['我的作品','我的草稿']
+            buttons: ['我的作品', '我的草稿']
         }, function(ret, err) {
-          // alert(JSON.stringify(ret));
+            // alert(JSON.stringify(ret));
             var index = ret.buttonIndex;
             if (index == 1) {
-              // alert(1);
-              api.openWin({
-                  name: 'personal',
-                  url: './html/personal.html',
-                  pageParam: {
-                      name: 'test'
-                  }
-              });
-              return;
-            }else if (index == 2) {
-              api.openWin({
-                  name: 'cgxwin',
-                  url: './html/cgxwin.html',
-                  pageParam: {
-                      name: 'test'
-                  }
-              });
-            }else {
-              // alert(3);
-              return;
+                // alert(1);
+                api.openWin({
+                    name: 'personal',
+                    url: './html/personal.html',
+                    pageParam: {
+                        name: 'test'
+                    }
+                });
+                return;
+            } else if (index == 2) {
+                api.openWin({
+                    name: 'cgxwin',
+                    url: './html/cgxwin.html',
+                    pageParam: {
+                        name: 'test'
+                    }
+                });
+            } else {
+                // alert(3);
+                return;
             }
             // alert(JSON.stringify(index));
 

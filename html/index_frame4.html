@@ -211,11 +211,11 @@
     <div class="index_header">
         <div class="index_header_div">
             <div id="imgs" class="index_header_img" onclick="fnUpimg();">
-              <img src="../image/KM_tx.png" alt="">
+              <!-- <img src="../image/KM_tx.png" alt=""> -->
             </div>
             <div class="wode_bg">
-              <div class="index_header_mvp_p" onclick="" id="username">嘿！我不是朝天椒</div>
-              <div class="index_header_mvp_p" onclick="">好白菜都被^(*￣(oo)￣)^拱了</div>
+              <div class="index_header_mvp_p"  id="username"></div>
+              <div class="index_header_mvp_p"  id='signature'></div>
                 <div class="index_header_mvp_span">
                   <div class="bar">
                     <div id="scoreBar">&nbsp;</div>
@@ -230,15 +230,15 @@
                         <div class="p20px">
                             <div class="index_header_sans border_r" onclick="fnPersonalWin();">
                                 <div>作品</div>
-                                <div><span>123456</span>个</div>
+                                <div><span id="product"></span>个</div>
                             </div>
                             <div class="index_header_sans border_r" onclick="fnOpenMyCare();">
                                 <div>关注</div>
-                                <div><span>9999</span>个</div>
+                                <div><span id='care'></span>个</div>
                             </div>
                             <div class="index_header_sans" onclick="fnFans();">
                                 <div>粉丝</div>
-                                <div><span>9999</span>个</div>
+                                <div><span id="fans"></span>个</div>
                             </div>
                         </div>
                     </div>
@@ -318,7 +318,11 @@
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript">
+    var token;
     apiready = function() {
+
+      token = $api.getStorage('token');
+      // console.log(token);
         // 优化点击事件
         // var qqziliao = api.pageParam.qqziliao;
         // fnYongHuTouXiang(qqziliao);
@@ -326,9 +330,74 @@
         //alert(JSON.stringify(qqziliao));
 
         api.parseTapmode();
+        fnpersonalInfo();
         // fnAjaxMy();
     }
+    function fnpersonalInfo(){
+      var uri = '/user';
+      api.ajax({
+          url: host + apiUri + uri,
+          method: 'get',
+          dataType: 'json',
+          headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token
+            }
+      },function(ret, err){
+          if (ret.status == 200 ) {
+              // alert( JSON.stringify(ret.data.level ) );
+              //头像
+              var title1 = $api.byId("imgs");
+              var html4 = '';
+              if(ret.data.photo == null){
+                html4 = '<img src="../image/KM_tx.png" alt="" />';
+                $api.html(title1, html4);
+              }else{
+                html4 = '<img src="http://thirdqq.qlogo.cn/qqapp/101475744/B52E5BE1C0A3BBEFC16F587FF172F542/40" alt="" />';
+                $api.html(title1, html4);
+              }
+              //用户名
+              var stylelist = $api.byId('username');
+              var html = ret.data.nick_name;
+              $api.html(stylelist, html);
+              //签名
+              var stylelist1 = $api.byId('signature');
+              if(ret.data.signature == null){
+                var html1 = '您还没有填写签名';
+                $api.html(stylelist1, html1);
+              }else{
+                var html1 = ret.data.signature;
+                $api.html(stylelist1, html1);
+              }
+              //作品数
+              var stylelist5 = $api.byId('product');
+              var html5 = ret.data.record_total;
+              $api.html(stylelist5, html5);
+              //关注数
+              var stylelist6 = $api.byId('care');
+              var html6 = ret.data.follow_total;
+              $api.html(stylelist6, html6);
+              //粉丝数
+              var stylelist7 = $api.byId('fans');
+              var html7 = ret.data.fans_total;
+              $api.html(stylelist7, html7);
+              //等级
+              var stylelist2 = $api.byId('scoreBar');
+              var stylelist3 = $api.byId('scoreDisplay');
+              var html2 = ret.data.level +"%";
+              // console.log(html2);
+              $api.css(stylelist2,'width:'+html2+'');
 
+
+
+
+        } else {
+
+        }
+
+      });
+  }
     function fnAjaxMy() {
     var token = $api.getStorage('token');
       api.ajax({
@@ -498,7 +567,7 @@
 <script type="text/javascript">
   // 经验条
   // 数组内的数据是根据那个等级升级
-  var IknowLevel=[0,100,500,1000,2500,5000,8000,12000,16000,20000,25000,35000,50000,80000,120000,180000,250000,400000];
+  var IknowLevel=[0,100,500,2000,5000,10000,30000,100000,180000,250000,400000];
   function scoreRake(score){
       var len=IknowLevel.length;
       var i=getUserLevel(score);
@@ -523,7 +592,7 @@
 
       document.write("<style>.bar{width:150px;height:15px;border:1px solid #f1e900;margin: 5px auto;border-radius: 5px;}#scoreBar{background:#f1e900;height:100%;width:0;font-size:0px;}</style>");
       var rake=scoreRake(score);
-      G(scoreBarId).style.width=rake+"%";
+      // G(scoreBarId).style.width=rake+"%";
       var level=getUserLevel(score);
       if(level>=18){level=17;needscore="";}else{needscore = "/"+IknowLevel[level];}
       if(score<0){needscore="";}

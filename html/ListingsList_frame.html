@@ -410,16 +410,15 @@
 <body>
   <div class="list_bj">
       <div class="p13px">
-          <div class="single">
-              <div class="single_img fl"><img src="../image/index/pic.jpg" alt=""></div>
-              <div class="single_l fl">
+          <div class="single" id="single">
+              <!-- <div class="single_img fl"><img src="../image/my/fnShareImg.jpg" alt=""></div> -->
+              <!-- <div class="single_l fl">
                   <div class="single_h1" id="tingdanliebiaobiaoti">我是听单名字</div>
                   <div class="single_img_p_span">
                       <div class="single_div_img fl">
                         <img src="../image/KM_tx.png" alt="">
                       </div>
                       <div class="single_img_name fl">小许</div>
-                      <!-- <div class="single_LIVE fl"><img src="../image/vip/KM_live.png" alt=""></div> -->
                   </div>
                   <div class="single_time">
                     <div class="single_time_img fl">
@@ -435,22 +434,12 @@
                     </div>
                     <div class="single_img_num fl">30</div>
                   </div>
-              </div>
+              </div> -->
           </div>
       </div>
-      <!-- <div class="list_bjDiv_img">
-          <div class="userinfo">
-              <div class="userinfocol" tapmode="toolhover" onclick="collectmusic(this)" data-click="0">
-                  <div class="info border_r"><img src="../image/KM_hxs.png" alt="" class="collectmusic"></div>
-              </div>
-              <div class="userinfocol" tapmode="toolhover" onclick="fnOpenPlayShare();">
-                  <div class="info"><img src="../image/fx.png" alt=""></div>
-              </div>
-          </div>
-      </div> -->
       <div class="list_bjDiv_img">
-          <div class="userinfo">
-              <div class="userinfocol" tapmode="toolhover" onclick="collectmusicFx(this)">
+          <div class="userinfo" id="userinfo">
+              <!-- <div class="userinfocol" tapmode="toolhover" onclick="collectmusicFx(this)">
                   <div class="info">
                     <img src="../image/KM_ListingsListDzs.png" alt="" class="collectmusicFx">
                   </div>
@@ -471,7 +460,6 @@
               <div class="userinfocol" tapmode="toolhover" onclick="fnOpenDiscussDetail(); ">
                   <div class="info">
                     <img src="../image/KM_ListingsListSx.png" alt="">
-                    <!-- <i>20</i> -->
                   </div>
                   <p>22</p>
               </div>
@@ -480,8 +468,7 @@
                     <img src="../image/KM_ListingsListGd.png" alt="">
                   </div>
                   <p>分享</p>
-              </div>
-
+              </div> -->
           </div>
       </div>
   </div>
@@ -493,16 +480,16 @@
             </div>
         </div>
         <ul class="on" id="tuijianliebiaogequ">
-            <li>
+            <!-- <li>
                 <div class="on_playall">
                     <span class="fl on_playall_name">昏昏欲睡：</span>
-                    <span</span>
+                    <span></span>
                 </div>
                 <div class="author">
                     作者：小许
                 </div>
                 <div class="fr on_playall_img" onclick="fnOpenPlayMore();"><img src="../image/KM_list_more.png" alt=""></div>
-            </li>
+            </li> -->
         </ul>
     </div>
 </body>
@@ -514,32 +501,56 @@
 
     apiready = function() {
             //fnTingdanTuijianliebiao()
+            var ids = api.pageParam.ids;
+            ListenToTheDetails(ids);
     }
+    function ListenToTheDetails(ids) {
+        var token = $api.getStorage('token');
+        api.ajax({
+            url: host + apiUri +'/listening/detail/' + ids,
+            method: 'get',
+            headers: {
+                  "source": api.systemType,
+                  "version": version,
+                  "session": token
+              }
+        },function(ret, err){
+            if (ret) {
+              var single = $api.byId('single');
+              $api.append(single, '<div class="single_img fl"><img src="../image/index/pic.jpg" alt=""></div><div class="single_l fl"><div class="single_h1" id="tingdanliebiaobiaoti">'+ret.data.linstening_info.listening_name+'</div><div class="single_img_p_span"><div class="single_div_img fl"><img src="../image/KM_tx.png" alt=""></div><div class="single_img_name fl">'+ret.data.linstening_info.nick_name+'</div></div><div class="single_time"><div class="single_time_img fl"><img src="../image/KM_sc.png" alt=""></div><div class="single_img_num fl">'+ret.data.linstening_info.collection_total+'</div><div class="single_time_img fl"><img src="../image/KM_play.png" alt=""></div><div class="single_img_num fl">'+ret.data.linstening_info.song_total+'</div><div class="single_time_img fl"><img src="../image/read/aloud_py.png" alt=""></div><div class="single_img_num fl">'+ret.data.linstening_info.play_total+'</div></div></div>')
+              var userinfo = $api.byId('userinfo');
+              $api.append(userinfo, '<div class="userinfocol" tapmode="toolhover" onclick="collectmusicFx(this)"><div class="info"><img src="../image/KM_ListingsListDzs.png" alt="" class="collectmusicFx"></div><p>'+ret.data.linstening_info.good_total+'</p></div><div class="userinfocol" tapmode="toolhover" onclick="collectmusic(this)" data-click="0"><div class="info"><img src="../image/KM_hxs.png" alt="" class="collectmusic"></div><p>收藏</p></div><div class="userinfocol" tapmode="toolhover" onclick=""><div class="info"><img src="../image/KM_ListingsListYzpd.png" alt=""></div><p>预置频道</p></div><div class="userinfocol" tapmode="toolhover" onclick="fnOpenDiscussDetail(); "><div class="info"><img src="../image/KM_ListingsListSx.png" alt=""></div><p>'+ret.data.linstening_info.comment_total+'</p></div><div class="userinfocol" tapmode="toolhover" onclick="fnOpenPlayShare();"><div class="info"><img src="../image/KM_ListingsListGd.png" alt=""></div><p>分享</p></div>');
+              songList(ret);
+            } else {
+                alert( JSON.stringify( err ) );
+            }
+        });
+
+    }
+    function songList(ret) {
+      var tuijianliebiaogequ = $api.byId('tuijianliebiaogequ');
+      var author_name;
+      var reciter;
+      for (var i = 0; i < ret.data.song_list.length; i++) {
+        // if (ret.data.song_list[i].author_name != null) {
+        //   $api.append(tuijianliebiaogequ, '<li><div class="on_playall"><span class="fl on_playall_name">'+ret.data.song_list[i].title +'</span><span></span></div><div class="author fl">作者：'+ret.data.song_list[i].author_name +'</div><div class="author fl">朗读者：'+ret.data.song_list[i].reciter +'</div><div class="fr on_playall_img" onclick="fnOpenPlayMore();"><img src="../image/KM_list_more.png" alt=""></div></li>');
+        // }else if (ret.data.song_list[i].reciter != null) {
+        //   $api.append(tuijianliebiaogequ, '<li><div class="on_playall"><span class="fl on_playall_name">'+ret.data.song_list[i].title +'</span><span></span></div><div class="author fl">作者：'+ret.data.song_list[i].author_name +'</div><div class="author fl">朗读者：'+ret.data.song_list[i].reciter +'</div><div class="fr on_playall_img" onclick="fnOpenPlayMore();"><img src="../image/KM_list_more.png" alt=""></div></li>');
+        // }else {
+        //
+        // }
+        author_name = ((ret.data.song_list[i].author_name == null) ? "" : ret.data.song_list[i].author_name);
+        reciter = ((ret.data.song_list[i].reciter == null) ? "" : ret.data.song_list[i].reciter);
+        $api.append(tuijianliebiaogequ, '<li><div class="on_playall"><span class="fl on_playall_name">'+ret.data.song_list[i].title +'</span><span></span></div><div class="author fl">作者：'+ author_name +'</div><div class="author fl">朗读者：'+ reciter +'</div><div class="fr on_playall_img" onclick="fnOpenPlayMore();"><img src="../image/KM_list_more.png" alt=""></div></li>');
+
+      }
+
+    }
+
     function collectmusic(clicktoolitem) {
         var toolbarlist = document.getElementsByClassName('collectmusic')[0];
         var click = clicktoolitem.getAttribute("data-click");
         if (click == 0) {
-          var token = $api.getStorage('token');
-          // console.log(token);
-          api.ajax({
-              url: host + apiUri + '/extra/collection',
-              method: 'post',
-              headers: {
-                    "source": api.systemType,
-                    "version": version,
-                    "session": token
-                }
-              data: {
-
-              }
-          },function(ret, err){
-              if (ret) {
-
-                  alert( JSON.stringify( ret ) );
-              } else {
-                  alert( JSON.stringify( err ) );
-              }
-          });
 
           api.toast({
               msg: '收藏成功',
