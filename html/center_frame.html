@@ -56,6 +56,11 @@
             }
         });
         api.addEventListener({
+            name: 'netPlaying'
+        }, function(ret, err) {
+            fnDangQianbofangid(ret.value.playing);
+        });
+        api.addEventListener({
             name: 'neizhiliebiaoPlay'
         }, function(ret, err) {
             var a;
@@ -84,9 +89,12 @@
 
 
     }
+    var Dqbofangid;
+    function fnDangQianbofangid(id) {
+        Dqbofangid = id;
+    }
 
     function fnBOFangJian(bofang, a, playlistid) {
-      console.log(bofang);
         if (bofang == 0) {
             var stylelist = $api.byId('centerVedeo');
             var html = '';
@@ -159,6 +167,18 @@
                 },
             });
         } else if (bofang == 2) {
+          if (Dqbofangid == a) {
+              api.openWin({
+                  name: 'play',
+                  url: './play.html',
+                  pageParam: {
+                      bofang: bofang,
+                      playid: playlistid,
+                      a: a,
+                      DangQianbofangid: Dqbofangid
+                  }
+              });
+          } else {
             api.openWin({
                 name: 'play',
                 url: './play.html',
@@ -168,7 +188,21 @@
                     playid: playlistid
                 },
             });
+          }
+
         } else if (bofang == 3) {
+          if (Dqbofangid == a) {
+              api.openWin({
+                  name: 'play',
+                  url: './play.html',
+                  pageParam: {
+                      bofang: bofang,
+                      playid: playlistid,
+                      a: a,
+                      DangQianbofangid: Dqbofangid
+                  }
+              });
+          } else {
             api.openWin({
                 name: 'play',
                 url: './play.html',
@@ -178,6 +212,7 @@
                     playid: playlistid
                 },
             });
+          }
         } else if (bofang == 4) {
             api.openWin({
                 name: 'caogaoplay',

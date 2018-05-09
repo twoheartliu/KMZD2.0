@@ -23,6 +23,7 @@
         .clr {
             overflow: hidden;
         }
+
         .row {
             display: -webkit-box;
             display: -webkit-flex;
@@ -36,121 +37,254 @@
             position: relative;
         }
         /* 听单推荐 */
-        .hot>.hotC{
-          position: relative;
-          float: left;
-          padding: 4px;
-          box-sizing: border-box;
-          background-clip: content-box;
-          text-align: center;
-          font-size: 20px;
-          /*padding-top:10px;*/
+
+        .hot>.hotC {
+            position: relative;
+            float: left;
+            padding: 4px;
+            box-sizing: border-box;
+            background-clip: content-box;
+            text-align: center;
+            font-size: 20px;
+            /*padding-top:10px;*/
         }
+
         .sectionTitle {
-          margin-bottom: 10px;
+            margin-bottom: 10px;
         }
+
         .sectionTitle .TD_div {
             font-size: 18px;
-            color:#1a1a1a;
+            color: #1a1a1a;
         }
+
         .sectionTitle .more {
-            color:#666;
+            color: #666;
             font-size: 14px;
         }
+
         .hotC>img {
-            width:100%;
-            height:auto;
+            width: 100%;
+            height: auto;
         }
-        .listtitle{
-          font-size: 10px;
-          color:#000;
+
+        .listtitle {
+            font-size: 10px;
+            color: #000;
         }
-        .recommend{width: 100%;margin-bottom: 10px;}
-        .recommend_frame_img img{width: 100%;}
+
+        .recommend {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .recommend_frame_img img {
+            width: 100%;
+        }
+
+        .hdivider {
+            width: 100%;
+            height: 1px;
+            background-color: #b2b2b2;
+        }
+
+        .egret-flex-item {
+            display: -webkit-box;
+            -webkit-box-align: center;
+            height: 100px;
+        }
+
+        .egret-flex-items {
+            display: -webkit-box;
+            -webkit-box-align: center;
+            height: 100px;
+            width: 80%;
+        }
+
+        .egret-flex-item-logo {
+            max-width: 80px;
+            min-width: 80px;
+            /*margin-left: 0.5em; margin-right: 0.2em;*/
+            -webkit-box-flex: 1;
+            -webkit-box-align: center;
+        }
+
+        .egret-flex-item-logo img {
+            height: 60px;
+            width: 60px;
+            border-radius: 5px;
+            -webkit-box-align: center;
+            vertical-align: top;
+        }
+
+        .egret-flex-item-shelf {
+            overflow: hidden;
+            -webkit-box-flex: 2;
+            -webkit-box-align: center;
+        }
+
+        .egret-flex-item-shelf div {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            height: 22px;
+            line-height: 22px;
+            /*margin-top: 5px;*/
+        }
+
+        .egret-flex-item-shelf .egret-flex-item-shelf01 .span1 {
+            font-size: 15px;
+            color: #000;
+        }
+
+        .egret-flex-item-shelf .egret-flex-item-shelf02 .span2 {
+            font-size: 12px;
+            color: #ff3db8;
+            margin: 0 5px;
+        }
+
+        .egret-flex-item-shelf .egret-flex-item-shelf01 .span3 {
+            font-size: 12px;
+            color: #ccc;
+            vertical-align: top;
+        }
+
+        .egret-flex-item-shelf04 {
+            width: 18%;
+            text-align: right;
+            -webkit-box-flex: 1;
+            -webkit-box-align: center;
+            height: 65px;
+        }
+
+        .egret-flex-item-shelf04 img {
+            width: 20px;
+            height: 20px;
+        }
+
+        .egret-flex-item-shelf .egret-flex-item-shelf02 {
+            font-size: 12px;
+            color: #ccc;
+        }
+
+        .egret-flex-item-shelf .egret-flex-item-shelf02 span {
+            font-size: 13px;
+            color: #000;
+        }
+
+        .egret-flex-item-shelf03 div {
+            float: left;
+            /*line-height: 20px;*/
+            /*margin: 5px 3px;*/
+        }
+
+        .egret-flex-item-shelf03 div img {
+            width: 12px;
+            height: 12px;
+            line-height: 12px;
+            margin: 0 2px;
+        }
+
+        .egret-flex-item-shelf03 div span {
+            line-height: 22px;
+            vertical-align: top;
+            font-size: 11px;
+            color: #b2b2b2;
+        }
+
+        .egret-flex-item-shelf .egret-flex-item-redclassify {
+            color: #E03F40;
+            border: 1px solid #E03F40;
+            font-size: inherit;
+            padding: 0 0.1em;
+            border-radius: 1px;
+            margin-right: 5px;
+            box-sizing: border-box;
+        }
     </style>
 </head>
 
 <body>
-  <!-- <div class="recommend">
+    <!-- <div class="recommend">
       <div class="recommend_frame_img"><img src="../image/index/KM_tp.jpg" alt=""></div>
   </div> -->
-  <div class="p20px">
-      <div class="hot" id="hot">
-          <!-- <div class="hotC" onclick="fnSingleWin();">
+    <div class="p20px">
+        <div class="hot" id="hot">
+            <!-- <div class="hotC" onclick="fnSingleWin();">
               <img src="../image/frame0101cover/frame0101cover06.png" alt="" >
               <div class="listtitle">F3如意国学机</div>
           </div> -->
-      </div>
-  </div>
+        </div>
+        <div id="ListOfExcellentWorks">
+
+        </div>
+    </div>
 </body>
 
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript" src="../script/swiper.min.js"></script>
 <script type="text/javascript">
-apiready = function() {
+    apiready = function() {
 
-    fnTingdanZhuanJi();
-}
-function fnTingdanZhuanJi() {
-  uri = '/album';
-  api.ajax({
-      url: host + apiUri + uri ,
-      method: 'get',
-      dataType: 'json',
-      headers: {
-          "source": api.systemType,
-          "version": version
-      },
-
-  }, function(ret, err) {
-      alert(JSON.stringify(ret));
-      if (ret.code ==200) {
-          // fnRecommendedDirectory(ret);
-          fnAlbumIdLift(ret);
-      } else {
-          alert(ret.message);
-      }
-  });
-}
-//接口  听单展示
-function fnAlbumIdLift(data_) {
-    var stylelist = $api.byId('hot');
-    var html = '';
-    for (var i = 0; i < data_.data.length; i++) {
-        html += '<div class="hotC" onclick="fnSingleWin(' + data_.data[i].id + ');"><img src="' + data_.data[i].logoMiddle + '" alt=""><div class="listtitle"> ' + data_.data[i].name + '</div></div>';
+        fnTingdanZhuanJi();
     }
-    $api.html(stylelist, html);
-    var frameWidth = api.frameWidth;
-    var frameHeight = api.frameHeight;
-    var hotCs = $api.domAll('.hotC');
-    for (var j = 0; j < data_.data.length; j++) {
-        hotCs.item(j).style.width = (frameWidth - 40) / 3 + "px";
-        hotCs.item(j).style.height = (frameWidth - 40) / 3 * 1.224 + "px";
-    };
 
-}
-function fnSingleWin(id) {
-  var DangQianbofangid = api.pageParam.DangQianbofangid;
-  if(DangQianbofangid){
-    api.openWin({
-        name: 'single',
-        url: './single.html',
-        pageParam: {
-            tuijiantingdanid: id,
-            DangQianbofangid: api.pageParam.DangQianbofangid
+    function fnTingdanZhuanJi() {
+        var id = api.pageParam.id;
+        if (id == 1) {
+            uri = '/album';
+            api.ajax({
+                url: host + apiUri + uri,
+                method: 'get',
+                dataType: 'json',
+                headers: {
+                    "source": api.systemType,
+                    "version": version
+                },
+
+            }, function(ret, err) {
+                // alert(JSON.stringify(ret));
+                if (ret.status == 200) {
+                    // fnRecommendedDirectory(ret);
+                    fnAlbumIdLift(ret);
+                } else {
+                    alert(ret.message);
+                }
+            });
+        } else if (id == 2) {
+            var stylelist = $api.byId('ListOfExcellentWorks');
+            var html = '<div class="egret-flex-item"><div class="egret-flex-items" tapmode="fmbtnhover" onclick="fnOpenPlay()"><div class="egret-flex-item-logo"><img src="../image/KM_album.png" alt="" class=""></div><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 fl">作品：<span>《沁园春·雪》</span></span><!-- <span class="span2 iconfont icon-nv fl"></span> --><!-- <img src="../image/js.png" alt="" class="fl"> --><!-- <span class="span3 fr">昨天21.30</span> --></div><div class="egret-flex-item-shelf02"><span>唐嫣</span><!-- <span><img src="../image/js.png" alt="" class="fl"></span> --></div><div class="egret-flex-item-shelf03"><div><img src="../image/KM_play.png" alt=""><span>100</span></div><!-- <div><img src="../image/KM_dx.png" alt=""><span>100</span></div> --><div><img src="../image/KM_zf.png" alt=""><span>100</span></div><div><img src="../image/KM_dz.png" alt=""><span>100</span></div></div></div></div><div class="egret-flex-item-shelf04" onclick="fnOpenPlayMore()"><img src="../image/KM_list_more.png" alt=""></div></div><div class="hdivider"></div>';
+            $api.html(stylelist, html);
         }
-    });
-  }else{
-    api.openWin({
-        name: 'single',
-        url: './single.html',
-        pageParam: {
-            tuijiantingdanid: id
+
+    }
+    //接口  听单展示
+    function fnAlbumIdLift(data_) {
+        var stylelist = $api.byId('hot');
+        var html = '';
+        for (var i = 0; i < data_.data.length; i++) {
+            html += '<div class="hotC" onclick="fnSingleWin(' + data_.data[i].id + ');"><img src=" ' + host + '/' + data_.data[i].big + '" alt=""><div class="listtitle"> ' + data_.data[i].title + '</div></div>';
         }
-    });
-  }
+        $api.html(stylelist, html);
+        var frameWidth = api.frameWidth;
+        var frameHeight = api.frameHeight;
+        var hotCs = $api.domAll('.hotC');
+        for (var j = 0; j < data_.data.length; j++) {
+            hotCs.item(j).style.width = (frameWidth - 40) / 3 + "px";
+            hotCs.item(j).style.height = (frameWidth - 40) / 3 * 1.224 + "px";
+        };
 
+    }
 
-}
+    function fnSingleWin(id) {
+        api.openWin({
+            name: 'single',
+            url: './single.html',
+            pageParam: {
+                albumId: id
+            }
+        });
+    }
 </script>
