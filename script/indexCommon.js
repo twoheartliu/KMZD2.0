@@ -55,9 +55,7 @@ function fnBoFangyinpinxinxiing(play) {
       }
     }, function(ret, err) {
       if(ret.status == 200){
-        if (JSON.stringify(ret.data) == '[]') {
-            netRecordingModuleing(playgedan);
-        } else {
+
             if (playlistid) {
                 api.sendEvent({
                     name: 'netbofangsssssss',
@@ -82,20 +80,23 @@ function fnBoFangyinpinxinxiing(play) {
                     singerName: singerName
                 }
             });
-        }
+
       }else{
-        alert(ret.message);
-        $api.rmStorage('token');
-        api.openWin({
-            name: 'login',
-            url: '../html/login.html'
-        });
+        netRecordingModuleing(playgedan);
+        // alert(ret.message);
+        // $api.rmStorage('token');
+        // api.openWin({
+        //     name: 'login',
+        //     url: '../login.html'
+        // });
       }
     });
 }
 //播放歌单音频
 function fnBoFangyinpinxinxi() {
+
     var playgedan = rets.data[play].id;
+
     api.ajax({
       url: host + apiUri + '/sound/' + playgedan,
       method: 'get',
@@ -107,9 +108,6 @@ function fnBoFangyinpinxinxi() {
       }
     }, function(ret, err) {
       if(ret.status == 200){
-        if (JSON.stringify(ret.data) == '[]') {
-            netRecordingModule(playgedan);
-        } else {
             if (playlistid) {
                 api.sendEvent({
                     name: 'netbofangsssssss',
@@ -134,14 +132,15 @@ function fnBoFangyinpinxinxi() {
                     singerName: singerName
                 }
             });
-        }
+
       }else{
-        alert(ret.message);
-        $api.rmStorage('token');
-        api.openWin({
-            name: 'login',
-            url: '../html/login.html'
-        });
+        netRecordingModule(playgedan);
+        // alert(ret.message);
+        // $api.rmStorage('token');
+        // api.openWin({
+        //     name: 'login',
+        //     url: '../login.html'
+        // });
       }
 
     });
@@ -430,7 +429,7 @@ function netPlayLieIdUrl(playlistid) {
           $api.rmStorage('token');
           api.openWin({
               name: 'login',
-              url: '../html/login.html'
+              url: '../login.html'
           });
         }
       });
