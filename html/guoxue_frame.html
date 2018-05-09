@@ -216,7 +216,7 @@ var token;
     function fnView_history(data_){
       var stylelist = $api.byId('view_history');
       var html = '';
-      for (var i = 0; i < 3; i++) {
+      for (var i = 0; i < data_.data.length; i++) {
         html += '<div class="lishi_d col" onclick="guoxue_frame(' + data_.data[i].item_id + ');">' + data_.data[i].item_name + '</div>';
       }
       $api.html(stylelist, html);
