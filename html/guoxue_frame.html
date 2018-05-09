@@ -59,25 +59,20 @@
             float: left;
         }
 
-        .lishi_Div {
-            overflow: auto;
-        }
-
-        .lishi_DivW {
-            overflow: hidden;
-        }
-
-        .lishi_d {
-            font-size: 13px;
-            height: 35px;
-            line-height: 35px;
-            border: 1px solid #e9e9e9;
-            text-align: center;
-            background-color: #fff;
-            color: #000;
-            border-radius: 20px;
-            margin: 17px 2px 0 2px;
-            overflow: hidden;
+        .lishi_Div{overflow: auto;width: 80%;}
+        .lishi_DivW{overflow: auto;width: 900%;}
+        .lishi_d{ font-size: 13px;
+        height: 35px;
+        line-height: 35px;
+        border: 1px solid #e9e9e9;
+        text-align: center;
+        background-color: #fff;
+        color: #000;
+        border-radius: 20px;
+        margin: 17px 2px 0 2px;
+        width: 100px;
+        display: block;
+        float: left;
         }
 
         table {
@@ -217,7 +212,7 @@ var token;
       var stylelist = $api.byId('view_history');
       var html = '';
       for (var i = 0; i < data_.data.length; i++) {
-        html += '<div class="lishi_d col" onclick="guoxue_frame(' + data_.data[i].item_id + ');">' + data_.data[i].item_name + '</div>';
+        html += '<div class="lishi_d" onclick="guoxue_frame(' + data_.data[i].item_id + ');">' + data_.data[i].item_name + '</div>';
       }
       $api.html(stylelist, html);
     }
