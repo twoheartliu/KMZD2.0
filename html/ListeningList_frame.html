@@ -189,7 +189,15 @@
                 }
               }
           } else {
-              alert( JSON.stringify( err ) );
+            alert(ret.message);
+            $api.rmStorage('token');
+            api.openWin({
+                name: 'login',
+                url: '../login.html',
+                pageParam: {
+                    name: 'test'
+                }
+            });
           }
       });
 

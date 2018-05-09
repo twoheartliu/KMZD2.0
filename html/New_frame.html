@@ -280,7 +280,15 @@
                                 // console.log(JSON.stringify( ret ));
                                 fnUploadImage(ret);
                             } else {
-                                alert( JSON.stringify( err ) );
+                              alert(ret.message);
+                              $api.rmStorage('token');
+                              api.openWin({
+                                  name: 'login',
+                                  url: '../login.html',
+                                  pageParam: {
+                                      name: 'test'
+                                  }
+                              });
 
                             }
                         });
@@ -288,7 +296,15 @@
 
                         // console.log(CoverImg.innerHTML = '<img src="http://nfyx.cn/app/img/' + ret.data + '">');
                     } else {
-                        alert(JSON.stringify(err));
+                      alert(ret.message);
+                      $api.rmStorage('token');
+                      api.openWin({
+                          name: 'login',
+                          url: '../login.html',
+                          pageParam: {
+                              name: 'test'
+                          }
+                      });
                     }
                 });
             } else if (index == 1) {
@@ -331,12 +347,28 @@
                               // console.log(JSON.stringify( ret ));
                               fnUploadImage(ret);
                           } else {
-                              alert( JSON.stringify( err ) );
+                            alert(ret.message);
+                            $api.rmStorage('token');
+                            api.openWin({
+                                name: 'login',
+                                url: '../login.html',
+                                pageParam: {
+                                    name: 'test'
+                                }
+                            });
 
                           }
                       });
                     } else {
-                        alert(JSON.stringify(err));
+                      alert(ret.message);
+                      $api.rmStorage('token');
+                      api.openWin({
+                          name: 'login',
+                          url: '../login.html',
+                          pageParam: {
+                              name: 'test'
+                          }
+                      });
                     }
                 });
 
