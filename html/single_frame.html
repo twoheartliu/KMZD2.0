@@ -1227,8 +1227,16 @@
     //
     //     });
     // }
-    //打开分享
-    function fnOpenPlayShare() {
+
+    //打开评论列表页面
+    function openMessage() {
+        api.openWin({
+            name: 'discussDetail',
+            url: './discuss_detail.html',
+        });
+    };
+    //打开更多页面
+    function fnOpenPlayMore() {
         var dialogBox = api.require('dialogBox');
         dialogBox.actionMenu({
             rect: {
@@ -1238,14 +1246,14 @@
                 cancel: '取消'
             },
             items: [{
-                text: '微信',
-                icon: 'widget://image/weixin.png'
+                text: '收藏',
+                icon: 'widget://image/KM_hxs.png'
             }, {
-                text: 'QQ',
-                icon: 'widget://image/qq.png'
+                text: '添加到听单',
+                icon: 'widget://image/KM_play_add_gray.png'
             }, {
-                text: '朋友圈',
-                icon: 'widget://image/friends.png'
+                text: '分享',
+                icon: 'widget://image/KM_ListingsListGd.png'
             }],
             styles: {
                 bg: '#FFF',
@@ -1267,31 +1275,43 @@
             },
             tapClose: true
         }, function(ret) {
+            if (ret.eventType == 'cancel') {
+                dialogBox.close({
+                    dialogName: 'discount'
+                });
+            }
             if (ret.index == "0") {
+                api.toast({
+                    msg: '收藏成功',
+                    duration: 2000,
+                    location: 'middle'
+                });
                 dialogBox.close({
                     dialogName: 'alert'
                 });
             } else if (ret.index == "1") {
+                fnOpenAddListening();
+
                 dialogBox.close({
                     dialogName: 'alert'
                 });
                 // alert(2);
             } else if (ret.index == "2") {
-                dialogBox.close({
-                    dialogName: 'alert'
-                });
-            } else {
+                fnOpenPlayShare();
+                // dialogBox.close({
+                //     dialogName: 'alert'
+                // });
+                // alert(3);
+            }else {
                 dialogBox.close({
                     dialogName: 'alert'
                 });
             }
+            // dialogBox.close({
+            //     dialogName: 'alert'
+            // })
+            // alert(JSON.stringify(ret))
+
         });
     }
-    //打开评论列表页面
-    function openMessage() {
-        api.openWin({
-            name: 'discussDetail',
-            url: './discuss_detail.html',
-        });
-    };
 </script>
