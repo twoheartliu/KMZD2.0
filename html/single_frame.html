@@ -489,12 +489,8 @@
                     </div>
                     <p>预置频道</p>
                 </div>
-                <div class="userinfocol" tapmode="toolhover" onclick="fnOpenDiscussDetail(); ">
-                    <div class="info">
-                        <img src="../image/KM_ListingsListSx.png" alt="">
-                        <!-- <i>20</i> -->
-                    </div>
-                    <p id="comments">0</p>
+                <div class="userinfocol" tapmode="toolhover"   id="comments">
+
                 </div>
                 <div class="userinfocol" tapmode="toolhover" onclick="fnOpenPlayShare();">
                     <div class="info">
@@ -630,7 +626,6 @@
     }
     function fnAlbumAetails() {
         albumId = api.pageParam.albumId;
-        // console.log(albumId);
         uri = '/album';
         api.ajax({
             url: host + apiUri + uri + '/' + albumId,
@@ -664,7 +659,7 @@
                 '</div><div class="single_time_img fl"><img src="../image/KM_play.png" alt=""></div><div class="single_img_num fl">' + data_.data.play_count +
                 '</div><div class="single_time_img fl"><img src="../image/read/aloud_py.png" alt=""></div><div class="single_img_num fl">' + data_.data.total + '</div></div>'
                 fnExtraGoodssssss();
-                fnComment(data_.data.comment_total);
+                fnComment(data_.data.comment_total, data_.data.id);
                 goods = data_.data.good_total;
                 var stylelistss = $api.byId('goods');
                 var htmlss = goods;
@@ -680,8 +675,10 @@
 
         $api.html(stylelistCollectionHtml, albumCollectionHtml);
     }
-    function fnComment(html){
+    function fnComment(comment_total,id){
       var stylelist = $api.byId('comments');
+      var html = '<div  onclick="fnOpenDiscussDetail(' + id + ');"><div class="info" ><img src="../image/KM_ListingsListSx.png" alt=""><!-- <i>20</i> --></div><p >' + comment_total + '</p></div>';
+
       $api.html(stylelist, html);
     }
     //接口  推荐听单
@@ -1150,12 +1147,15 @@
 
     }
     //打开评论详情
-    function fnOpenDiscussDetail() {
+    function fnOpenDiscussDetail(id) {
+      var albumId = id;
+      var uris = '/sound/comment/';
         api.openWin({
             name: 'discussDetail0',
             url: './discuss_detail0.html',
             pageParam: {
-                name: 'test'
+                albumId: albumId,
+                uris: uris
             }
         });
     }
