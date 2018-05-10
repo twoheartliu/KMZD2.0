@@ -201,9 +201,43 @@
           width: 70px;
           position: relative;
           bottom: 22px;
-          left: 100px;
+          left: 5px;
         }
-        .index_header_mvp_span{width: 100%;margin: 5px 0;}
+        .index_header_mvp_span{width: 100%;margin: 5px 0;left:25%;}
+        /*.bar{
+         width:450px;
+         border:1px solid #6C9C2C;
+         height:25px;
+       }
+        #scoreBar{
+           background:#95CA0D;
+           float:left;
+           height:100%;
+           text-align:center;
+           line-height:150%;
+         }*/
+         .processcontainer{
+           /*border:1px solid #6C9C2C;  */
+           width:180px;
+           background: #ccc;
+           height:25px;
+           /*text-align: center;*/
+           overflow: hidden;
+           border-radius: 5px;
+
+         }
+        #processbar{
+           background:#f1e900;
+           float:left;
+           height:100%;
+           /*text-align:center;*/
+           line-height:150%;
+           border-radius: 5px;
+         }
+         #scoreDisplay1{
+          height:25px;
+          line-height: 25px;
+         }
     </style>
 </head>
 
@@ -217,11 +251,15 @@
               <div class="index_header_mvp_p"  id="username"></div>
               <div class="index_header_mvp_p"  id='signature'></div>
                 <div class="index_header_mvp_span">
-                  <div class="bar">
+                  <!-- <div class="bar">
                     <div id="scoreBar">&nbsp;</div>
                   </div>
-                  <span id="scoreDisplay"></span>
-                  <span class="dengJi">童生</span>
+                  <span id="scoreDisplay"></span> -->
+                  <div class="processcontainer" id="processcontainer">
+                   <div id="processbar" ></div>
+                   <span id="scoreDisplay1"></span>
+                  </div>
+                  <span class="dengJi" id="dengJi"></span>
                 </div>
             </div>
             <div class="index_header_san">
@@ -319,6 +357,10 @@
 <script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript">
     var token;
+    // var IknowLevel=[0,100,500,2000,5000,10000,30000,100000];
+    //
+    // function G(id){return document.getElementById(id);}
+
     apiready = function() {
 
       token = $api.getStorage('token');
@@ -328,11 +370,52 @@
         // fnYongHuTouXiang(qqziliao);
         // fnUserName(qqziliao);
         //alert(JSON.stringify(qqziliao));
-
+          // fnpersonalInfo();
         api.parseTapmode();
-        fnpersonalInfo();
+        // fnpersonalInfo();
         // fnAjaxMy();
+        fnpersonalInfo();
     }
+    //进度条
+
+  //   window.onload=function (){
+  //     fnpersonalInfo();
+  //     alert(111);
+  //     var IknowLevel=[0,100,500,2000,5000,10000,30000,100000];
+  //     function scoreRake(score){
+  //         var len=IknowLevel.length;
+  //         var i=getUserLevel(score);
+  //         var min,max,rake;
+  //
+  //         if(i==0)return 0;
+  //         if(i>=len){return 100;}
+  //         min=IknowLevel[i-1];
+  //
+  //         max=IknowLevel[i];
+  //         if(score>min&&score<=max)
+  //             return (score-min)*100/(max-min);
+  //         return 0;
+  //     }
+  //     function getUserLevel(score){
+  //         for(i=0,l=IknowLevel.length;i<l;i++){
+  //             if(score<=IknowLevel[i])break;
+  //         }
+  //         return i;
+  //     }
+  //     function scoreBar (score,scoreBarId,scoreDisplayId){
+  //
+  //         document.write("<style>.bar{width:150px;height:15px;border:1px solid #f1e900;margin: 5px auto;border-radius: 5px;}#scoreBar{background:#f1e900;height:100%;width:0;font-size:0px;}</style>");
+  //         var rake=scoreRake(score);
+  //         G(scoreBarId).style.width=rake+"%";
+  //         var level=getUserLevel(score);
+  //         if(level>=18){level=17;needscore="";}else{needscore = "/"+IknowLevel[level];}
+  //         if(score<0){needscore="";}
+  //
+  //         G(scoreDisplayId).innerHTML=score+needscore;
+  //     }
+  //     function G(id){return document.getElementById(id);}
+  // }
+
     function fnpersonalInfo(){
       var uri = '/user';
       api.ajax({
@@ -347,6 +430,7 @@
       },function(ret, err){
           if (ret.status == 200 ) {
               // alert( JSON.stringify(ret.data.level ) );
+              // alert( JSON.stringify(ret.data.user_exp ) );
               //头像
               var title1 = $api.byId("imgs");
               var html4 = '';
@@ -383,17 +467,137 @@
               var html7 = ret.data.fans_total;
               $api.html(stylelist7, html7);
               //等级
-              var stylelist2 = $api.byId('scoreBar');
-              var stylelist3 = $api.byId('scoreDisplay');
-              var html2 = ret.data.level +"%";
-              // console.log(html2);
-              $api.css(stylelist2,'width:'+html2+'');
+              // var stylelist2 = $api.byId('scoreBar');
+              // var stylelist3 = $api.byId('scoreDisplay');
+              // var html2 = ret.data.level +"%";
+              // $api.css(stylelist2,'width:'+html2+'');
 
+              var objTmp =["童生","秀才","举人","进士","探花","榜眼","状元","国主"];
+              var level = ret.data.level;
+              var scores = ret.data.user_exp;
 
+              // console.log(scores);
+              var totalNum =[0,100,500,2000,5000,10000,30000,100000];
+              var processbar = document.getElementById("processbar");
+              var processcontainer = document.getElementById("processcontainer");
+              var scoreDisplay1 = document.getElementById("scoreDisplay1");
+                // scoreRake(score);
+              for(var z in objTmp){
+                // console.log(z+": "+objTmp[z]);
+                if(level == 1){
+                    var dengJi = $api.byId('dengJi');
+                    var html11 = objTmp[0];
 
+                    $api.html(dengJi, html11);
+                    var sss = totalNum[1];
+                    var aaa = scores/sss;
+                    var ccc = aaa * 100+"%";
+                    if(ccc== "100%"){
+                        level = 2;
+                    }else{
+                      processbar.style.width = ccc;
+                      scoreDisplay1.innerHTML = scores + "/" + sss;
+                    }
+                }
+                if(level == 2){
+                    var dengJi = $api.byId('dengJi');
+                    var html11 = objTmp[1];
+                    $api.html(dengJi, html11);
+                    var sss = totalNum[2];
+                    var aaa = scores/sss;
+                    var ccc = aaa * 100+"%";
+                    if(ccc== "100%"){
+                        level = 2;
+                    }else{
+                      processbar.style.width = ccc;
+                      scoreDisplay1.innerHTML = scores + "/" + sss;
+                    }
+                }
+                 if(level == 3){
+                    var dengJi = $api.byId('dengJi');
+                    var html11 = objTmp[2];
+                    $api.html(dengJi, html11);
+                    var sss = totalNum[3];
+                    var aaa = scores/sss;
+                    var ccc = aaa * 100+"%";
+                    if(ccc=="100%"){
+                        level =4;
+                    }else{
+                      processbar.style.width = ccc;
+                      scoreDisplay1.innerHTML = scores + "/" + sss;
+                    }
+                }
+                 if(level ==4){
+                    var dengJi = $api.byId('dengJi');
+                    var html11 = objTmp[3];
+                    $api.html(dengJi, html11);
+
+                    var sss = totalNum[4];
+                    var aaa = scores/sss;
+                    var ccc = aaa * 100+"%";
+                    if(ccc=="100%"){
+                        level =5;
+                    }else{
+                      processbar.style.width = ccc;
+                      scoreDisplay1.innerHTML = scores + "/" + sss;
+                    }
+                }
+                 if(level ==5){
+                    var dengJi = $api.byId('dengJi');
+                    var html11 = objTmp[4];
+                    $api.html(dengJi, html11);
+                    var sss = totalNum[5];
+                    var aaa = scores/sss;
+                    var ccc = aaa * 100+"%";
+                    if(ccc=="100%"){
+                        level =6;
+                    }else{
+                      processbar.style.width = ccc;
+                      scoreDisplay1.innerHTML = scores + "/" + sss;
+                    }
+                }
+                  if(level ==6){
+                    var dengJi = $api.byId('dengJi');
+                    var html11 = objTmp[5];
+                    $api.html(dengJi, html11);
+                    var sss = totalNum[6];
+                    var aaa = scores/sss;
+                    var ccc = aaa * 100+"%";
+                    if(ccc=="100%"){
+                        level =7;
+                    }else{
+                      processbar.style.width = ccc;
+                      scoreDisplay1.innerHTML = scores + "/" + sss;
+                    }
+                }
+                   if(level ==7){
+                    var dengJi = $api.byId('dengJi');
+                    var html11 = objTmp[6];
+                    $api.html(dengJi, html11);
+                    var sss = totalNum[7];
+                    var aaa = scores/sss;
+                    var ccc = aaa * 100+"%";
+                    if(ccc=="100%"){
+                        level =8;
+                    }else{
+                      processbar.style.width = ccc;
+                      scoreDisplay1.innerHTML = scores + "/" + sss;
+                    }
+                }
+                 if( level == 8){
+                    var dengJi = $api.byId('dengJi');
+                    var html11 = objTmp[7];
+                    $api.html(dengJi, html11);
+                    var sss = totalNum[7];
+                    var aaa = scores/sss;
+                    var ccc = aaa * 100+"%";
+                    processbar.style.width = ccc;
+                    scoreDisplay1.innerHTML = scores + "/" + sss;
+              }
+            }
 
         } else {
-
+            alert( JSON.stringify(err) );
         }
 
       });
@@ -563,45 +767,17 @@
             }
         });
     }
+
 </script>
 <script type="text/javascript">
   // 经验条
   // 数组内的数据是根据那个等级升级
-  var IknowLevel=[0,100,500,2000,5000,10000,30000,100000,180000,250000,400000];
-  function scoreRake(score){
-      var len=IknowLevel.length;
-      var i=getUserLevel(score);
-      var min,max,rake;
 
-      if(i==0)return 0;
-      if(i>=len){return 100;}
-      min=IknowLevel[i-1];
-
-      max=IknowLevel[i];
-      if(score>min&&score<=max)
-          return (score-min)*100/(max-min);
-      return 0;
-  }
-  function getUserLevel(score){
-      for(i=0,l=IknowLevel.length;i<l;i++){
-          if(score<=IknowLevel[i])break;
-      }
-      return i;
-  }
-  function scoreBar(score,scoreBarId,scoreDisplayId){
-
-      document.write("<style>.bar{width:150px;height:15px;border:1px solid #f1e900;margin: 5px auto;border-radius: 5px;}#scoreBar{background:#f1e900;height:100%;width:0;font-size:0px;}</style>");
-      var rake=scoreRake(score);
-      // G(scoreBarId).style.width=rake+"%";
-      var level=getUserLevel(score);
-      if(level>=18){level=17;needscore="";}else{needscore = "/"+IknowLevel[level];}
-      if(score<0){needscore="";}
-
-      G(scoreDisplayId).innerHTML=score+needscore;
-  }
-  function G(id){return document.getElementById(id);}
+  //  scoreBar(60,"scoreBar","scoreDisplay");
 </script>
 <script type="text/javascript">
     // 根据当前分值进度来升级
-    scoreBar(60,"scoreBar","scoreDisplay");
+    // scoreBar(60,"scoreBar","scoreDisplay");
+
+
 </script>
