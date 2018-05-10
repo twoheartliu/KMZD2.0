@@ -202,6 +202,9 @@
 <script type="text/javascript">
     var songListID;
     function goback() {
+//       api.closeToWin({
+//     name: 'root'
+// });
         api.closeWin({
             name: 'addListening'
         });
@@ -263,14 +266,14 @@
               }
           } else {
             alert(ret.message);
-            $api.rmStorage('token');
-            api.openWin({
-                name: 'login',
-                url: '../login.html',
-                pageParam: {
-                    name: 'test'
-                }
-            });
+            // $api.rmStorage('token');
+            // api.openWin({
+            //     name: 'login',
+            //     url: '../login.html',
+            //     pageParam: {
+            //         name: 'test'
+            //     }
+            // });
           }
       });
 
@@ -295,13 +298,14 @@
         },function(ret, err){
             if (ret) {
                 if (ret.status == 200) {
-                    api.openWin({
-                        name: 'ListingsList',
-                        url: './ListingsList.html',
-                        pageParam: {
-                            name: 'test'
-                        }
-                    });
+                  api.closeWin();
+                    // api.openWin({
+                    //     name: 'ListingsList',
+                    //     url: './ListingsList.html',
+                    //     pageParam: {
+                    //         name: 'test'
+                    //     }
+                    // });
                 }else {
                   var retr = ret.message;
                   console.log(retr);
