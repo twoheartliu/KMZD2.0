@@ -498,14 +498,15 @@
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript">
-
+    var ids;
+    var token;
     apiready = function() {
             //fnTingdanTuijianliebiao()
-            var ids = api.pageParam.ids;
+            ids = api.pageParam.ids;
             ListenToTheDetails(ids);
     }
     function ListenToTheDetails(ids) {
-        var token = $api.getStorage('token');
+        token = $api.getStorage('token');
         api.ajax({
             url: host + apiUri +'/listening/detail/' + ids,
             method: 'get',
@@ -600,6 +601,7 @@
     }
     //打开分享
     function fnOpenPlayMore(songListID) {
+
         var dialogBox = api.require('dialogBox');
         dialogBox.actionMenu({
             rect: {
@@ -669,12 +671,9 @@
                 dialogBox.close({
                     dialogName: 'alert'
                 });
-                // alert(3);
+                DeleteSingle(songListID);
 
-            }else {
-                dialogBox.close({
-                    dialogName: 'alert'
-                });
+
             }
             // dialogBox.close({
             //     dialogName: 'alert'
@@ -682,6 +681,37 @@
             // alert(JSON.stringify(ret))
 
         });
+    }
+    // 删除单曲
+    function DeleteSingle(songListID) {
+      // console.log(ids);
+      //   console.log(songListID);
+        api.ajax({
+          url: host + apiUri +'/listening/del_song/' + songListID,
+          method: 'post',
+          headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token
+            },
+            data : {
+              values: {
+                  'id' : songListID,
+                  'l_id' : ids
+              }
+            },
+        },function(ret, err){
+            if (ret) {
+              // ret.
+              // if () {
+              //
+              // }
+                console.log( JSON.stringify( ret ) );
+            } else {
+                alert( JSON.stringify( err ) );
+            }
+        });
+
     }
     //添加到听单
     function fnOpenAddListening(songListID){

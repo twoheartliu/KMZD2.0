@@ -280,14 +280,10 @@
                                 // console.log(JSON.stringify( ret ));
                                 fnUploadImage(ret);
                             } else {
-                              alert(ret.message);
-                              $api.rmStorage('token');
-                              api.openWin({
-                                  name: 'login',
-                                  url: '../login.html',
-                                  pageParam: {
-                                      name: 'test'
-                                  }
+                              api.toast({
+                                  msg: '上传失败',
+                                  duration: 2000,
+                                  location: 'bottom'
                               });
 
                             }
@@ -347,14 +343,10 @@
                               // console.log(JSON.stringify( ret ));
                               fnUploadImage(ret);
                           } else {
-                            alert(ret.message);
-                            $api.rmStorage('token');
-                            api.openWin({
-                                name: 'login',
-                                url: '../login.html',
-                                pageParam: {
-                                    name: 'test'
-                                }
+                            api.toast({
+                                msg: '上传失败',
+                                duration: 2000,
+                                location: 'bottom'
                             });
 
                           }
