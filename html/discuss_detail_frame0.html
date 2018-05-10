@@ -387,13 +387,13 @@
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript">
-    var liLid
+    var token;
     apiready = function() {
+        token = $api.getStorage('token');
         // var mHeader = $api.byId('mesHeader');
         // var headerPos = $api.offset(mHeader);
         var section = document.getElementById('section');
         var ul_lis = section.getElementsByClassName('zan01');
-         liLid = api.pageParam.liLid;
         for (var i = 0; i < ul_lis.length; i++) {
             ul_lis[i].index = i;
 
@@ -417,9 +417,13 @@
     }
 
     function ListenToTheListOfComments() {
-        var token = $api.getStorage('token');
+
+        var albumId = api.pageParam.albumId;
+        var uris = api.pageParam.uris;
+        console.log(albumId);
+        console.log(uris);
         api.ajax({
-            url: host + apiUri + '/listening/detail/'+ liLid,
+            url: host + apiUri + uris + albumId,
             method: 'get',
             dataType: 'json',
             headers: {
@@ -427,7 +431,6 @@
                   "version": version,
                   "session": token
               }
-
         },function(ret, err){
             if (ret) {
               console.log(JSON.stringify(ret));
@@ -436,14 +439,14 @@
             } else {
                 alert( JSON.stringify( err ) );
                 alert(ret.message);
-                $api.rmStorage('token');
-                api.openWin({
-                    name: 'login',
-                    url: '../login.html',
-                    pageParam: {
-                        name: 'test'
-                    }
-                });
+                // $api.rmStorage('token');
+                // api.openWin({
+                //     name: 'login',
+                //     url: '../login.html',
+                //     pageParam: {
+                //         name: 'test'
+                //     }
+                // });
             }
         });
 
