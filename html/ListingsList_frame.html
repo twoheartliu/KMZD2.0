@@ -535,14 +535,10 @@
               $api.append(userinfo, '<div class="userinfocol" tapmode="toolhover" onclick="collectmusicFx(this)" data-click="0"><div class="info"><img src="../image/KM_ListingsListDzs.png" alt="" class="collectmusicFx"></div><p>'+ret.data.linstening_info.good_total+'</p></div><div class="userinfocol" tapmode="toolhover" onclick="collectmusic(this)" data-click="0"><div class="info"><img src="../image/KM_hxs.png" alt="" class="collectmusic"></div><p>收藏</p></div><div class="userinfocol" tapmode="toolhover" onclick=""><div class="info"><img src="../image/KM_ListingsListYzpd.png" alt=""></div><p>预置频道</p></div><div class="userinfocol" tapmode="toolhover" onclick="fnOpenDiscussDetail('+ ret.data.linstening_info.l_id +'); "><div class="info"><img src="../image/KM_ListingsListSx.png" alt=""></div><p>'+ret.data.linstening_info.comment_total+'</p></div><div class="userinfocol" tapmode="toolhover" onclick="fnOpenPlayShare();"><div class="info"><img src="../image/KM_ListingsListGd.png" alt=""></div><p>分享</p></div>');
               songList(ret);
             } else {
-              alert(ret.message);
-              $api.rmStorage('token');
-              api.openWin({
-                  name: 'login',
-                  url: '../login.html',
-                  pageParam: {
-                      name: 'test'
-                  }
+              api.toast({
+                  msg: '失败',
+                  duration: 2000,
+                  location: 'middle'
               });
             }
         });
@@ -736,7 +732,8 @@
           name: 'discussDetail0',
           url: './discuss_detail0.html',
           pageParam: {
-              liLid: liLid
+              albumId: liLid,
+              uris: '/listening/comment/'
           }
       });
     }
