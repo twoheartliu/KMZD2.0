@@ -186,7 +186,7 @@
             <li id="fnBirthday">
                 <div class="fl">生日</div>
                 <div class="fr"> > </div>
-                <div class="fr"><input type="text" id="dateSelectorOneBirthday" class="dateSelectorOneBirthday"  value="" readonly="readonly"> </div>
+                <div class="fr"><input type="text" id="dateSelectorOneBirthday" class="dateSelectorOneBirthday" placeholder='' value="" readonly="readonly"> </div>
             </li>
             <!-- <li onclick="fnArea();">
                 <div class="fl">地区</div>
@@ -198,22 +198,22 @@
             <div class="fl">我的宝宝</div>
         </div>
         <div id="111">
-            <!-- <div class="upimg_div">
-            <div class="fl">宝宝1</div>
-        </div>
-        <ul id="baby">
-            <li onclick="fnSetGender();">
-                <div class="fl">性别</div>
-                <div class="fr"> > </div>
-                <div class="fr">未填写</div>
-            </li>
-            <li id="dateShowBtn">
-                <div class="fl">生日</div>
-                <div class="fr"> > </div>
-                <div class="fr"><input type="text" id="dateSelectorTwo" class="dateSelectorOne" placeholder="选择日期" readonly="readonly"></div>
-            </li>
+            <div class="upimg_div">
+                <div class="fl">宝宝1</div>
+            </div>
+            <ul id="baby">
+                <li onclick="fnSetGender();">
+                    <div class="fl">性别</div>
+                    <div class="fr"> > </div>
+                    <div class="fr">未填写</div>
+                </li>
+                <li id="dateShowBtn">
+                    <div class="fl">生日</div>
+                    <div class="fr"> > </div>
+                    <div class="fr"><input type="text" id="dateSelectorTwo" class="dateSelectorOne" placeholder="选择日期" readonly="readonly"></div>
+                </li>
 
-        </ul> -->
+            </ul>
         </div>
         <div id="babyAdd" onclick="fnBabyAdd()">添加宝宝</div>
     </div>
@@ -242,7 +242,6 @@
     }
     apiready = function() {
         token = $api.getStorage('token');
-        // console.log(token);
         api.setStatusBarStyle({
             style: 'light',
             color: '#000'
@@ -278,47 +277,51 @@
                 $api.html(stylelist, html);
                 //签名
                 var stylelist1 = $api.byId('signature');
-                if(ret.data.signature == null){
-                  var html1 = '未填写';
-                  $api.html(stylelist1, html1);
-                }else{
-                  var html1 = ret.data.signature;
-                  $api.html(stylelist1, html1);
+                if (ret.data.signature == null) {
+                    var html1 = '未填写';
+                    $api.html(stylelist1, html1);
+                } else {
+                    var html1 = ret.data.signature;
+                    $api.html(stylelist1, html1);
                 }
                 //性别
                 var stylelist2 = $api.byId('sex');
-                if(ret.data.sex == 0){
-                  var html2 = '未填写';
-                  $api.html(stylelist2, html2);
-                }else if(ret.data.sex == 1){
-                  var html2 = '男';
-                  $api.html(stylelist2, html2);
-                }if(ret.data.sex == 2){
-                  var html2 = '女';
-                  $api.html(stylelist2, html2);
+                if (ret.data.sex == 0) {
+                    var html2 = '未填写';
+                    $api.html(stylelist2, html2);
+                } else if (ret.data.sex == 1) {
+                    var html2 = '男';
+                    $api.html(stylelist2, html2);
+                }
+                if (ret.data.sex == 2) {
+                    var html2 = '女';
+                    $api.html(stylelist2, html2);
                 }
                 //年龄
                 // var stylelist3 = $api.byId('date');
                 var html3;
-                if(ret.data.birth == null){
-                   html3 = '选择日期';
-                   var inputsssss = $api.byId('dateSelectorOneBirthday');
-                   inputsssss.value = html3;
-                  // $api.html(stylelist3, html3);
-                }else{
-                   html3 = timestampToTime(ret.data.birth);
-                   var inputsssss = $api.byId('dateSelectorOneBirthday');
-                   inputsssss.value = html3;
+                if (ret.data.birth == null) {
+                    html3 = '选择日期';
+                    var inputsssss = $api.byId('dateSelectorOneBirthday');
+                    inputsssss.value = html3;
+                    // $api.html(stylelist3, html3);
+                } else {
+                    html3 = timestampToTime(ret.data.birth);
+                    var inputsssss = $api.byId('dateSelectorOneBirthday');
+                    inputsssss.value = html3;
                 }
                 //头像
                 var title1 = $api.byId("tx");
                 var html4 = '';
-                if(ret.data.photo == null){
-                  html4 = '<img src="../image/KM_tx.png" alt="" />';
-                  $api.html(title1, html4);
-                }else{
-                  html4 = '<img src="http://thirdqq.qlogo.cn/qqapp/101475744/B52E5BE1C0A3BBEFC16F587FF172F542/40" alt="" />';
-                  $api.html(title1, html4);
+                alert(11111);
+                alert(ret.data.photo);
+                console.log(ret.data.photo);
+                if (ret.data.photo == null) {
+                    html4 = '<img src="../image/KM_tx.png" alt="" />';
+                    $api.html(title1, html4);
+                } else {
+                    html4 = '<img src="' + updatePhotoUrl + ret.data.photo + '" alt="" />';
+                    $api.html(title1, html4);
                 }
                 fn222222(ret.data);
             }
@@ -326,42 +329,59 @@
         });
     }
 
-    function fn222222(data){
-      var aaaa = data.baby.length;
-      var baby = data.baby;
-      if(aaaa){
-        var stylelists = $api.byId('111');
-        var htmls = '';
-        for (var i = 0; i < aaaa; i++) {
-          var sex;
-          if(baby[i].sex == 0) {
-            sex = '未填写';
-          }
-          if(baby[i].sex == 1) {
-            sex = '男';
-          }
-          if(baby[i].sex == 2) {
-            sex = '女';
-          }
-          var j = i + 1;
-          var mydate = timestampToTime(baby[i].birthday);
-          htmls += '<div class="upimg_div"><div class="fl">宝宝' + j + '</div></div><ul id="baby"><li onclick="fnSetGender();"><div class="fl">性别</div><div class="fr"> > </div><div class="fr" id="sex">' +sex + '</div></li><li id="dateShowBtn"><div class="fl">生日</div><div class="fr"> > </div><div class="fr" id="date"><input type="text" id="dateSelectorTwo" class="dateSelectorOne" placeholder="' + mydate + '" readonly="readonly"></div></li></ul>';
+    function fn222222(data) {
+        var aaaa = data.baby.length;
+        var baby = data.baby;
+        if (aaaa) {
+            var stylelists = $api.byId('111');
+            var htmls = '';
+            for (var i = 0; i < aaaa; i++) {
+                var sex;
+                if (baby[i].sex == 0) {
+                    sex = '未填写';
+                }
+                if (baby[i].sex == 1) {
+                    sex = '男';
+                }
+                if (baby[i].sex == 2) {
+                    sex = '女';
+                }
+                var j = i + 1;
+                var mydate = timestampToTime(baby[i].birthday);
+                htmls += '<div class="upimg_div"><div class="fl">宝宝' + j + '</div></div><ul id="baby"><li onclick="fnSetGender();"><div class="fl">性别</div><div class="fr"> > </div><div class="fr" id="sex">' + sex +
+                    '</div></li><li id="dateShowBtn"><div class="fl">生日</div><div class="fr"> > </div><div class="fr" id="date"><input type="text" id="dateSelectorTwo" class="dateSelectorOne" placeholder="' + mydate +
+                    '" readonly="readonly"></div></li></ul>';
+            }
+            $api.html(stylelists, htmls);
         }
-       $api.html(stylelists, htmls);
-      }
+    }
+    //添加宝宝信息
+    function fnBabyAdd() {
+        var htmls = '';
+        htmls += '<div class="upimg_div"><div class="fl">宝宝' + j + '</div></div><ul id="baby"><li onclick="fnSetGender();"><div class="fl">性别</div><div class="fr"> > </div><div class="fr" id="sex">' + sex +
+            '</div></li><li id="dateShowBtn"><div class="fl">生日</div><div class="fr"> > </div><div class="fr" id="date"><input type="text" id="dateSelectorTwo" class="dateSelectorOne" placeholder="' + mydate +
+            '" readonly="readonly"></div></li></ul>';
+        // var id = $api.byId('baby');
+        // x += 1;
+        // $api.append(id, '<div class="upimg_div">宝宝' + x + '</div>');
+        // $api.append(id, '<li onclick="fnSetGender();"><div class="fl">性别</div><div class="fr"> > </div><div class="fr">未填写</div></li>');
+        // $api.append(id, '<li><div class="fl" id="">年龄</div><div class="fr"> > </div><div class="fr"><input type="text" readonly="readonly" id="dateSelectorOne' + x + '"	class="dateSelectorOne"  placeholder="选择日期"></div></li>');
+        var dateSelectorOnes = 'dateSelectorOne' + x;
+        new Mdate(dateSelectorOnes);
     }
     // 时间戳转换成年月日
     function timestampToTime(timestamp) {
-      var date = new Date(timestamp * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
-      Y = date.getFullYear()+ '-';
-      M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1)+ '-' ;
-      D = (date.getDate() < 10 ? '0'+(date.getDate()) : date.getDate()) ;
-      // h = date.getHours() + ':';
-      // m = date.getMinutes() + ':';
-      // s = date.getSeconds();
-      // return Y+M+D+h+m+s;
-      return Y+M+D;
-  }
+        var date = new Date(timestamp * 1000); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
+        Y = date.getFullYear() + '-';
+        M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+        D = (date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate());
+        // h = date.getHours() + ':';
+        // m = date.getMinutes() + ':';
+        // s = date.getSeconds();
+        // return Y+M+D+h+m+s;
+        return Y + M + D;
+    }
+
     function upimg() {
         api.actionSheet({
             title: '上传照片',
@@ -369,9 +389,17 @@
             buttons: ['拍照', '手机相册']
         }, function(ret, err) {
             if (ret) {
-                getPicture(ret.buttonIndex);
+                var index = ret.buttonIndex;
+                // alert(index);
+                if (index == 1) {
+                    getPicture(index);
+                }
+                if (index == 2) {
+                    getPicture(index);
+                }
             }
         });
+
     }
 
     function getPicture(sourceType) {
@@ -385,11 +413,7 @@
                 quality: 96,
                 saveToPhotoAlbum: false
             }, function(ret, err) {
-                // alert( JSON.stringify( ret ) );
-                // alert('1');
-                // 获取拍照图像并剪辑
-                // if (!ret == '') {
-                var data = ret.data
+                var data = ret.data;
                 if (!data == '') {
                     $api.byId('box').style.visibility = 'visible';
                     var FNImageClip = api.require('FNImageClip');
@@ -418,10 +442,6 @@
 
                     });
                 } else {
-                    // dialogBox.close({
-                    // 		dialogName: 'alert'
-                    // });
-                    // alert('123');
                     return;
                 }
             });
@@ -487,8 +507,6 @@
                             }
                         },
                     }, function(ret, err) {
-                        alert(JSON.stringify('ret'));
-                        alert('2')
                     });
                 }
 
@@ -504,43 +522,34 @@
             copyToAlbum: false,
             quality: 1
         }, function(ret, err) {
-
             $api.byId('box').style.visibility = 'hidden';
             var tx = ret.destPath;
             FNImageClip.close();
             //上传剪辑后的图像到服务器
             api.ajax({
-                report: true,
-                url: 'http://nfyx.cn/app/up_img.php',
+                url: host + apiUri + '/upload/user_photo',
                 method: 'post',
-                cache: 'false',
-                timeout: 30,
-                dataTpye: 'json',
+                headers: {
+                    "source": api.systemType,
+                    "version": version,
+                    "session": token
+                },
                 data: {
                     files: {
-                        file: tx
+                        photo: tx
                     }
                 }
             }, function(ret, err) {
-                var b0 = ret.progress;
-                $api.byId('jd').style.width = b0 + '%';
-                //上传进度
-                if (ret.body.ok == 0) {
-                    api.toast({
-                        msg: '上传错误',
-                        duration: 3000,
-                        location: 'bottom'
-                    });
-                } else if (ret.body.ok == 1) {
-                    $api.byId('tx').innerHTML = '<img src="http://nfyx.cn/app/img/' + ret.body.name + '">';
+                if (ret.status == 200) {
+                    $api.byId('tx').innerHTML = '<img src=" ' + updatePhotoUrl + ret.data + ' ">';
                     api.toast({
                         msg: '上传成功',
                         duration: 3000,
                         location: 'bottom'
                     });
-                } else if (ret.body.ok == 2) {
+                } else {
                     api.toast({
-                        msg: '图像无效',
+                        msg: '上传失败，请重试',
                         duration: 3000,
                         location: 'bottom'
                     });
@@ -563,6 +572,7 @@
         }
 
     }
+    var gender;
 
     function fnSetGender() {
         api.actionSheet({
@@ -573,22 +583,48 @@
             if (ret.buttonIndex >= 3) {
                 return;
             }
-            var gender = ret.buttonIndex === 1 ? '男' : '女';
+            gender = ret.buttonIndex === 1 ? 1 : 2;
+            // console.log(gender);
+            var index = ret.buttonIndex;
+            var uri = '/user/edit';
+            api.ajax({
+                url: host + apiUri + uri,
+                method: 'post',
+                dataType: 'json',
+                headers: {
+                    "source": api.systemType,
+                    "version": version,
+                    "session": token,
+                },
+                data: {
+                    values: {
+                        "name": "sex",
+                        "value": gender
+                    }
+                }
+            }, function(ret, err) {
+                // console.log(ret.status);
+                if (ret.status == 200) {
+                    var stylelist12 = $api.byId('sex');
+                    if (gender == 1) {
+                        var html12 = "男";
+                        $api.html(stylelist12, html12);
+                    } else if (gender == 2) {
+                        var html12 = "女";
+                        $api.html(stylelist12, html12);
+                    }
+                }
+            });
+
+
             // fnUpdateUserInfo('gender',gender)
         });
     }
 
-    function fnBabyAdd() {
-        var id = $api.byId('baby');
-        x += 1;
-        $api.append(id, '<div class="upimg_div">宝宝' + x + '</div>');
-        $api.append(id, '<li onclick="fnSetGender();"><div class="fl">性别</div><div class="fr"> > </div><div class="fr">未填写</div></li>');
-        $api.append(id, '<li><div class="fl" id="">年龄</div><div class="fr"> > </div><div class="fr"><input type="text" readonly="readonly" id="dateSelectorOne' + x + '"	class="dateSelectorOne"  placeholder="选择日期"></div></li>');
-        var dateSelectorOnes = 'dateSelectorOne' + x;
-        new Mdate(dateSelectorOnes);
-    }
+
     // 昵称
     function fnNickname() {
+
         var dialogBox = api.require('dialogBox');
         dialogBox.input({
             keyboardType: 'default',
@@ -650,15 +686,36 @@
             },
             tapClose: true
         }, function(ret) {
-            api.alert({
-                msg: JSON.stringify(ret)
-            });
+            // api.alert({
+            //     msg: JSON.stringify(ret)
+            // });
             if (ret.eventType == 'left') {
                 var dialogBox = api.require('dialogBox');
                 dialogBox.close({
                     dialogName: 'input'
                 });
             } else if (ret.eventType == 'right') {
+                var uri = '/user/edit';
+                var text = ret.text;
+                api.ajax({
+                    url: host + apiUri + uri,
+                    method: 'post',
+                    dataType: 'json',
+                    headers: {
+                        "source": api.systemType,
+                        "version": version,
+                        "session": token,
+                    },
+                    data: {
+                        values: {
+                            "name": 'nick_name',
+                            "value": text,
+                        }
+                    }
+                }, function(ret, err) {
+                    fninfo();
+
+                });
                 var dialogBox = api.require('dialogBox');
                 dialogBox.close({
                     dialogName: 'input'
@@ -734,15 +791,36 @@
             },
             tapClose: true
         }, function(ret) {
-            api.alert({
-                msg: JSON.stringify(ret)
-            });
+            // api.alert({
+            //     msg: JSON.stringify(ret)
+            // });
             if (ret.eventType == 'left') {
                 var dialogBox = api.require('dialogBox');
                 dialogBox.close({
                     dialogName: 'input'
                 });
             } else if (ret.eventType == 'right') {
+                var uri = '/user/edit';
+                var text = ret.text;
+                api.ajax({
+                    url: host + apiUri + uri,
+                    method: 'post',
+                    dataType: 'json',
+                    headers: {
+                        "source": api.systemType,
+                        "version": version,
+                        "session": token,
+                    },
+                    data: {
+                        values: {
+                            "name": 'signature',
+                            "value": text,
+                        }
+                    }
+                }, function(ret, err) {
+                    fninfo();
+
+                });
                 var dialogBox = api.require('dialogBox');
                 dialogBox.close({
                     dialogName: 'input'

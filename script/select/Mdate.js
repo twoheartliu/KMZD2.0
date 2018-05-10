@@ -212,10 +212,53 @@
                 that.acceptId.setAttribute("data-year", yearTag);
                 that.acceptId.setAttribute("data-month", monthTag);
                 that.acceptId.setAttribute("data-day", dayTag);
-                that.dateCancel()
+                var dates = yearTag + "-" + monthTag + "-" + dayTag;
+                // alert(dates);
+                // console.log(dates);
+                // var datesd = 1524777769;
+                // alert(datesd);
+                // console.log(datesd);
+                // alert(token);
+                // console.log(token);
+                // alert(token);
+                // console.log(token);
+                // alert(version);
+                // console.log(version);
+                // 1524895669
+                var uri = '/user/edit';
+                api.ajax({
+                    url: host + apiUri + uri,
+                    method: 'post',
+                    dataType: 'json',
+                    headers: {
+                        "source": api.systemType,
+                        "version": version,
+                        "session": token,
+                    },
+                    data:{
+                      values:{
+                        "name": "birth",
+                        "value": dates
+                      }
+                    }
+                }, function(ret, err) {
+                  alert(1111);
+                  alert(ret.status);
+                    // if(ret.status ==200){
+                    //   var stylelist12 = $api.byId('sex');
+                    //   if(gender == 1){
+                    //      var html12 ="男";
+                    //      $api.html(stylelist12, html12);
+                    //   }else if(gender == 2){
+                    //      var html12 ="女";
+                    //      $api.html(stylelist12, html12);
+                    //   }
+                    // }
+                });
+                that.dateCancel();
             };
             cancelBtn.onclick = function() {
-                that.dateCancel()
+                that.dateCancel();
             }
         },
         dateForTen: function(n) {
