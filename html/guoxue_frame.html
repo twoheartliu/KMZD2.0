@@ -179,10 +179,9 @@ var token;
                 }
             });
         }
-
     }
+    //获取最近浏览
     function fnGetView_history(){
-      // uri = '/category/hot';
       api.ajax({
           url: host + apiUri + '/user/view_history',
           method: 'get',
@@ -193,21 +192,19 @@ var token;
               "session": token
           },
       }, function(ret, err) {
-
           if (ret.status == 200) {
-            console.log();
             fnView_history(ret);
-              // fnRecommendedDirectory(ret);
           } else {
               alert(ret.message);
-              $api.rmStorage('token');
-              api.openWin({
-                  name: 'login',
-                  url: '../login.html'
-              });
+              // $api.rmStorage('token');
+              // api.openWin({
+              //     name: 'login',
+              //     url: '../login.html'
+              // });
           }
       });
     }
+    //赋值最近浏览
     function fnView_history(data_){
       var stylelist = $api.byId('view_history');
       var html = '';
@@ -216,9 +213,8 @@ var token;
       }
       $api.html(stylelist, html);
     }
+    //获取推荐目录
     function fnGetLieBiao() {
-
-        // uri = '/category/hot';
         api.ajax({
             url: host + apiUri + '/category/hot',
             method: 'get',
@@ -229,7 +225,6 @@ var token;
                 "session": token
             },
         }, function(ret, err) {
-
             if (ret.status == 200) {
                 fnRecommendedDirectory(ret);
             } else {
@@ -242,14 +237,12 @@ var token;
             }
         });
     }
-
+    //赋值推荐目录
     function fnRecommendedDirectory(ret) {
         var stylelist = $api.byId('RecommendedDirectory');
         var html = '<tr>';
-        //  c 列 r行
         var c = 1;
         var r = 1;
-
         for (var i = 0; i < ret.data.length; i++) {
             if (c == 1) {
                 html += '<td rowspan="2" onclick="guoxue_frame(' + ret.data[i].id + ')"><div class="div_img"><img src="../image/guoxueguan/KM_MX.png" alt=""></div>' + ret.data[i].name + '</td>';
@@ -265,15 +258,13 @@ var token;
             } else if ((c - 3) % 4 == 0 && c != 8 && r != 1) {
                 r++;
                 html += '</tr><tr>';
-                // console.log(c);
             }
             c++;
         }
         html += '</tr>';
         $api.html(stylelist, html);
-        // console.log(html);
     }
-
+    //获取目录
     function fnGetDirectory() {
         api.ajax({
             url: host + apiUri + '/category',
@@ -285,7 +276,6 @@ var token;
                 "session": token
             },
         }, function(ret, err) {
-          // console.log(JSON.stringify(ret));
             if (ret.status == 200) {
                 fnDirectory(ret);
             } else {
@@ -293,19 +283,16 @@ var token;
             }
         });
     }
-
+    //赋值目录
     function fnDirectory(ret) {
-        //  console.log(JSON.stringify(ret));
         var stylelist = $api.byId('directory');
         var html = '';
-        // var y = 0;
         for (var i = 0; i < ret.data.length; i++) {
             if (ret.data[i].p_id == 0) {
                 html += '<tr class="bg"></tr><tr class="td_bg"><td colspan="4"><div class="fl colspan_img"><img src="../image/guoxueguan/KM_gxjds.png" alt=""></div><div class="fl colspan_div">' + ret.data[i].name + '</div></td></tr><tr>'
             }
             var y = 0;
             for (var s = 0; s < ret.data.length; s++) {
-                //  alert(s);
                 if (ret.data[s].p_id != 0 && ret.data[s].p_id == ret.data[i].id) {
                     html += '<td  onclick="guoxue_frame(' + ret.data[s].id + ')">' + ret.data[s].name + '</td>';
                     y++;
@@ -317,7 +304,6 @@ var token;
         }
         html += '</tr>';
         $api.html(stylelist, html);
-        //  console.log(html);
     }
 
     function fnDirectoryLiet(id, ret) {
