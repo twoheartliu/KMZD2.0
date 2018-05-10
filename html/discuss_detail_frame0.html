@@ -150,8 +150,6 @@
 
         .playall {
             width: 100%;
-            height: 40px;
-            line-height: 40px;
             background-color: #eee;
             margin-top: 20px;
         }
@@ -303,7 +301,12 @@
             color: #999;
             border-radius: 5px;
         }
-        .reply{text-align: right;}
+        .reply{width: 100%;overflow: hidden;}
+        .reply div{float: right;}
+
+        #section{
+          margin-bottom: 50px;
+        }
     </style>
 </head>
 
@@ -342,7 +345,7 @@
                     </div>
                     <div class="clear"></div>
                     <div class="dis-txt">海中月是天上月，眼前人是心上人。向来心是看客心，奈何人是剧中人</div>
-                    <div class="reply" onclick="fnOpenMessageNotDetail()">回复</div>
+                    <div class="reply"><div  onclick="fnOpenMessageNotDetail()">回复</div></div>
                 </div>
                 <div class="sec-discuss">
                     <div class="dis-left fl">
@@ -357,7 +360,7 @@
                     </div>
                     <div class="clear"></div>
                     <div class="dis-txt">海中月是天上月，眼前人是心上人。向来心是看客心，奈何人是剧中人</div>
-                    <div class="reply" onclick="fnOpenMessageNotDetail()">回复</div>
+                    <div class="reply"><div  onclick="fnOpenMessageNotDetail()">回复</div></div>
                 </div>
                 <div class="sec-discuss">
                     <div class="dis-left fl">
@@ -372,7 +375,7 @@
                     </div>
                     <div class="clear"></div>
                     <div class="dis-txt">海中月是天上月，眼前人是心上人。向来心是看客心，奈何人是剧中人</div>
-                    <div class="reply" onclick="fnOpenMessageNotDetail()">回复</div>
+                    <div class="reply"><div  onclick="fnOpenMessageNotDetail()">回复</div></div>
                     <div class="discuss">
                         <span>我的评论：不知道为什么分开，很多喜欢以为永远会喜欢，到最后才发现任何事情都抵不过时过境迁。</span>
                     </div>
@@ -384,12 +387,13 @@
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript">
+    var liLid
     apiready = function() {
         // var mHeader = $api.byId('mesHeader');
         // var headerPos = $api.offset(mHeader);
         var section = document.getElementById('section');
         var ul_lis = section.getElementsByClassName('zan01');
-        var liLid = api.pageParam.liLid;
+         liLid = api.pageParam.liLid;
         for (var i = 0; i < ul_lis.length; i++) {
             ul_lis[i].index = i;
 
@@ -408,13 +412,12 @@
                 }
             }
         };
-        ListenToTheListOfComments(liLid);
-        console.log(liLid);
+        ListenToTheListOfComments();
+        // console.log(liLid);
     }
 
-    function ListenToTheListOfComments(liLid) {
+    function ListenToTheListOfComments() {
         var token = $api.getStorage('token');
-        console.log(token);
         api.ajax({
             url: host + apiUri + '/listening/detail/'+ liLid,
             method: 'get',
@@ -427,7 +430,8 @@
 
         },function(ret, err){
             if (ret) {
-              // console.log(JSON.stringify(ret));
+              console.log(JSON.stringify(ret));
+
                 // alert( JSON.stringify( ret ) );
             } else {
                 alert( JSON.stringify( err ) );

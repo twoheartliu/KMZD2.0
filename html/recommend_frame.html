@@ -209,13 +209,13 @@
       <div class="recommend_frame_img"><img src="../image/index/KM_tp.jpg" alt=""></div>
   </div> -->
     <div class="p20px">
-        <div class="hot" id="hot">
-            <!-- <div class="hotC" onclick="fnSingleWin();">
-              <img src="../image/frame0101cover/frame0101cover06.png" alt="" >
-              <div class="listtitle">F3如意国学机</div>
-          </div> -->
-        </div>
+
         <div id="ListOfExcellentWorks">
+
+            <!-- <div class="hotC" onclick="fnSingleWin();">
+                <img src="../image/frame0101cover/frame0101cover06.png" alt="" >
+                <div class="listtitle">F3如意国学机</div>
+            </div> -->
 
         </div>
     </div>
@@ -226,57 +226,118 @@
 <script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript" src="../script/swiper.min.js"></script>
 <script type="text/javascript">
+    var token;
     apiready = function() {
-
-        fnTingdanZhuanJi();
+        token = $api.getStorage('token');
+        // fnTingdanZhuanJi();
+        fnGengDuo();
     }
 
-    function fnTingdanZhuanJi() {
+    function fnGengDuo() {
         var id = api.pageParam.id;
-        if (id == 1) {
-            uri = '/album';
-            api.ajax({
-                url: host + apiUri + uri,
-                method: 'get',
-                dataType: 'json',
-                headers: {
-                    "source": api.systemType,
-                    "version": version
-                },
+        uri = '/index/floor_more/' + id;
+        api.ajax({
+            url: host + apiUri + uri,
+            method: 'get',
+            dataType: 'json',
+            headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token
+            },
 
-            }, function(ret, err) {
-                // alert(JSON.stringify(ret));
-                if (ret.status == 200) {
-                    // fnRecommendedDirectory(ret);
-                    fnAlbumIdLift(ret);
-                } else {
-                    alert(ret.message);
+        }, function(ret, err) {
+            // alert(JSON.stringify(ret));
+            if (ret.status == 200) {
+                if (ret.data.fllor_info.floor_type == "block") {
+                    var stylelist = $api.byId('ListOfExcellentWorks');
+                    var html = '';
+                    html += '<div class="hot" id="hot">';
+                    for (var i = 0; i < ret.data.list.length; i++) {
+                        html += '<div class="hotC" onclick="fnSingleWin(' + ret.data.list[i].id + ');"><img src=" ' + host + '/' + ret.data.list[i].big + '" alt=""><div class="listtitle"> ' + ret.data.list[i].title + '</div></div>';
+
+                    }
+                    html += '</div>';
+                    $api.html(stylelist, html);
+                    var frameWidth = api.frameWidth;
+                    var frameHeight = api.frameHeight;
+                    var hotCs = $api.domAll('.hotC');
+                    for (var j = 0; j < ret.data.list.length; j++) {
+                        hotCs.item(j).style.width = (frameWidth - 40) / 3 + "px";
+                        hotCs.item(j).style.height = (frameWidth - 40) / 3 * 1.224 + "px";
+                    };
+                } else if (ret.data.fllor_info.floor_type == "list") {
+                    var stylelist = $api.byId('ListOfExcellentWorks');
+                    var html = '';
+                    for (var i = 0; i < ret.data.list.length; i++) {
+                        html += '<div class="egret-flex-item"><div class="egret-flex-items" tapmode="fmbtnhover" onclick="fnOpenPlay(' + ret.data.list[i].id + ')"><div class="egret-flex-item-logo"><img src="' + host + '/' + ret.data.list[
+                                i].mid + '" alt="" class=""></div><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 fl">作品：<span>' + ret.data.list[i].title +
+                            '</span></span><!-- <span class="span2 iconfont icon-nv fl"></span> --><!-- <img src="../image/js.png" alt="" class="fl"> --><!-- <span class="span3 fr">昨天21.30</span> --></div><div class="egret-flex-item-shelf02"><span>' +
+                            ret.data.list[i].author_name +
+                            '</span><!-- <span><img src="../image/js.png" alt="" class="fl"></span> --></div><div class="egret-flex-item-shelf03"><div><img src="../image/KM_play.png" alt=""><span>100</span></div><!-- <div><img src="../image/KM_dx.png" alt=""><span>' +
+                            ret.data.list[i].play_total + '</span></div> --><div><img src="../image/KM_zf.png" alt=""><span>' + ret.data.list[i].share_total + '</span></div><div><img src="../image/KM_dz.png" alt=""><span>' + ret.data.list[i].good_total +
+                            '</span></div></div></div></div><div class="egret-flex-item-shelf04" onclick="fnOpenPlayMore()"><img src="../image/KM_list_more.png" alt=""></div></div><div class="hdivider"></div>';
+
+                    }
+
+                    $api.html(stylelist, html);
                 }
-            });
-        } else if (id == 2) {
-            var stylelist = $api.byId('ListOfExcellentWorks');
-            var html = '<div class="egret-flex-item"><div class="egret-flex-items" tapmode="fmbtnhover" onclick="fnOpenPlay()"><div class="egret-flex-item-logo"><img src="../image/KM_album.png" alt="" class=""></div><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 fl">作品：<span>《沁园春·雪》</span></span><!-- <span class="span2 iconfont icon-nv fl"></span> --><!-- <img src="../image/js.png" alt="" class="fl"> --><!-- <span class="span3 fr">昨天21.30</span> --></div><div class="egret-flex-item-shelf02"><span>唐嫣</span><!-- <span><img src="../image/js.png" alt="" class="fl"></span> --></div><div class="egret-flex-item-shelf03"><div><img src="../image/KM_play.png" alt=""><span>100</span></div><!-- <div><img src="../image/KM_dx.png" alt=""><span>100</span></div> --><div><img src="../image/KM_zf.png" alt=""><span>100</span></div><div><img src="../image/KM_dz.png" alt=""><span>100</span></div></div></div></div><div class="egret-flex-item-shelf04" onclick="fnOpenPlayMore()"><img src="../image/KM_list_more.png" alt=""></div></div><div class="hdivider"></div>';
-            $api.html(stylelist, html);
-        }
-
+                // fnRecommendedDirectory(ret);
+                // fnAlbumIdLift(ret);
+            } else {
+                alert(ret.message);
+            }
+        });
     }
-    //接口  听单展示
-    function fnAlbumIdLift(data_) {
-        var stylelist = $api.byId('hot');
-        var html = '';
-        for (var i = 0; i < data_.data.length; i++) {
-            html += '<div class="hotC" onclick="fnSingleWin(' + data_.data[i].id + ');"><img src=" ' + host + '/' + data_.data[i].big + '" alt=""><div class="listtitle"> ' + data_.data[i].title + '</div></div>';
-        }
-        $api.html(stylelist, html);
-        var frameWidth = api.frameWidth;
-        var frameHeight = api.frameHeight;
-        var hotCs = $api.domAll('.hotC');
-        for (var j = 0; j < data_.data.length; j++) {
-            hotCs.item(j).style.width = (frameWidth - 40) / 3 + "px";
-            hotCs.item(j).style.height = (frameWidth - 40) / 3 * 1.224 + "px";
-        };
 
-    }
+    // function fnTingdanZhuanJi() {
+    //     var id = api.pageParam.id;
+    //     if (id == 1) {
+    //         uri = '/album';
+    //         api.ajax({
+    //             url: host + apiUri + uri,
+    //             method: 'get',
+    //             dataType: 'json',
+    //             headers: {
+    //                 "source": api.systemType,
+    //                 "version": version,
+    //                 "session": token
+    //             },
+    //
+    //         }, function(ret, err) {
+    //             // alert(JSON.stringify(ret));
+    //             if (ret.status == 200) {
+    //                 // fnRecommendedDirectory(ret);
+    //                 fnAlbumIdLift(ret);
+    //             } else {
+    //                 alert(ret.message);
+    //             }
+    //         });
+    //     } else if (id == 2) {
+    //         var stylelist = $api.byId('ListOfExcellentWorks');
+    //         var html =
+    //             '<div class="egret-flex-item"><div class="egret-flex-items" tapmode="fmbtnhover" onclick="fnOpenPlay()"><div class="egret-flex-item-logo"><img src="../image/KM_album.png" alt="" class=""></div><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 fl">作品：<span>《沁园春·雪》</span></span><!-- <span class="span2 iconfont icon-nv fl"></span> --><!-- <img src="../image/js.png" alt="" class="fl"> --><!-- <span class="span3 fr">昨天21.30</span> --></div><div class="egret-flex-item-shelf02"><span>唐嫣</span><!-- <span><img src="../image/js.png" alt="" class="fl"></span> --></div><div class="egret-flex-item-shelf03"><div><img src="../image/KM_play.png" alt=""><span>100</span></div><!-- <div><img src="../image/KM_dx.png" alt=""><span>100</span></div> --><div><img src="../image/KM_zf.png" alt=""><span>100</span></div><div><img src="../image/KM_dz.png" alt=""><span>100</span></div></div></div></div><div class="egret-flex-item-shelf04" onclick="fnOpenPlayMore()"><img src="../image/KM_list_more.png" alt=""></div></div><div class="hdivider"></div>';
+    //         $api.html(stylelist, html);
+    //     }
+    //
+    // }
+    // //接口  听单展示
+    // function fnAlbumIdLift(data_) {
+    //     var stylelist = $api.byId('hot');
+    //     var html = '';
+    //     for (var i = 0; i < data_.data.length; i++) {
+    //         html += '<div class="hotC" onclick="fnSingleWin(' + data_.data[i].id + ');"><img src=" ' + host + '/' + data_.data[i].big + '" alt=""><div class="listtitle"> ' + data_.data[i].title + '</div></div>';
+    //     }
+    //     $api.html(stylelist, html);
+    //     var frameWidth = api.frameWidth;
+    //     var frameHeight = api.frameHeight;
+    //     var hotCs = $api.domAll('.hotC');
+    //     for (var j = 0; j < data_.data.length; j++) {
+    //         hotCs.item(j).style.width = (frameWidth - 40) / 3 + "px";
+    //         hotCs.item(j).style.height = (frameWidth - 40) / 3 * 1.224 + "px";
+    //     };
+    //
+    // }
 
     function fnSingleWin(id) {
         api.openWin({
@@ -333,11 +394,11 @@
                 });
             }
             if (ret.index == "0") {
-                api.toast({
-                    msg: '收藏成功',
-                    duration: 2000,
-                    location: 'middle'
-                });
+                api.toast({              
+                    msg:   '收藏成功',
+                                  duration:  2000,
+                                  location:   'middle'          
+                });
                 dialogBox.close({
                     dialogName: 'alert'
                 });
@@ -354,7 +415,7 @@
                 //     dialogName: 'alert'
                 // });
                 // alert(3);
-            }else {
+            } else {
                 dialogBox.close({
                     dialogName: 'alert'
                 });
