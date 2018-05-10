@@ -138,20 +138,6 @@
                 url: host + apiUri + '/listening/create',
                 method: 'post',
                 headers: {
-                    "source": api.systemType,
-                    "version": version,
-                    "session": token
-                },
-                data: {
-                    name: CoverDivInput,
-                    cover: CoverImg,
-                    description: bar
-                }
-            })
-            api.ajax({
-                url: host + apiUri + '/listening/create',
-                method: 'post',
-                headers: {
                         "source": api.systemType,
                         "version": version,
                         "session": token
@@ -165,19 +151,27 @@
                     }
             },function(ret, err){
                 if (ret) {
+                  if (ret.status == 200) {
+                    api.openWin({
+                        name: 'ListeningList',
+                        url: './ListeningList.html',
+                        pageParam: {
+                            name: 'test'
+                        },
+                        reload:true
+
+                    });
+                  }
+                } else {
+                  alert(ret.message);
+                  $api.rmStorage('token');
                   api.openWin({
-                      name: 'ListeningList',
-                      url: './ListeningList.html',
+                      name: 'login',
+                      url: '../login.html',
                       pageParam: {
                           name: 'test'
-                      },
-                      reload:true
-
+                      }
                   });
-
-                    // alert( JSON.stringify( ret ) );
-                } else {
-                    alert( JSON.stringify( err ) );
                 }
             });
 
