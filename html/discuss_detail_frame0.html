@@ -387,12 +387,13 @@
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript">
+    var liLid
     apiready = function() {
         // var mHeader = $api.byId('mesHeader');
         // var headerPos = $api.offset(mHeader);
         var section = document.getElementById('section');
         var ul_lis = section.getElementsByClassName('zan01');
-        var liLid = api.pageParam.liLid;
+         liLid = api.pageParam.liLid;
         for (var i = 0; i < ul_lis.length; i++) {
             ul_lis[i].index = i;
 
@@ -411,13 +412,12 @@
                 }
             }
         };
-        ListenToTheListOfComments(liLid);
-        console.log(liLid);
+        ListenToTheListOfComments();
+        // console.log(liLid);
     }
 
-    function ListenToTheListOfComments(liLid) {
+    function ListenToTheListOfComments() {
         var token = $api.getStorage('token');
-        console.log(token);
         api.ajax({
             url: host + apiUri + '/listening/detail/'+ liLid,
             method: 'get',
@@ -430,7 +430,8 @@
 
         },function(ret, err){
             if (ret) {
-              // console.log(JSON.stringify(ret));
+              console.log(JSON.stringify(ret));
+
                 // alert( JSON.stringify( ret ) );
             } else {
                 alert( JSON.stringify( err ) );
