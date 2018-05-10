@@ -313,10 +313,8 @@
                 //头像
                 var title1 = $api.byId("tx");
                 var html4 = '';
-                alert(11111);
-                alert(ret.data.photo);
-                console.log(ret.data.photo);
                 if (ret.data.photo == null) {
+                  console.log(ret.data.photo);
                     html4 = '<img src="../image/KM_tx.png" alt="" />';
                     $api.html(title1, html4);
                 } else {
@@ -541,12 +539,59 @@
                 }
             }, function(ret, err) {
                 if (ret.status == 200) {
-                    $api.byId('tx').innerHTML = '<img src=" ' + updatePhotoUrl + ret.data + ' ">';
-                    api.toast({
-                        msg: '上传成功',
-                        duration: 3000,
-                        location: 'bottom'
-                    });
+
+                  api.ajax({
+                      url: host + apiUri + '/user/edit',
+                      method: 'post',
+                      headers: {
+                          "source": api.systemType,
+                          "version": version,
+                          "session": token
+                      },
+                      data: {
+                          values: {
+                              "name": 'photo',
+                              "value": ret.data,
+                          }
+                      }
+                  }, function(ret, err) {
+                      if (ret.status == 200) {
+
+                          // $api.byId('tx').innerHTML = '<img src=" ' + updatePhotoUrl + ret.data. + ' ">';
+
+                          api.ajax({
+                              url: host + apiUri + '/user/info',
+                              method: 'post',
+                              headers: {
+                                  "source": api.systemType,
+                                  "version": version,
+                                  "session": token
+                              },
+
+                          }, function(ret, err) {
+                              if (ret.status == 200) {
+                                  $api.byId('tx').innerHTML = '<img src=" ' + updatePhotoUrl + ret.data.photo + ' ">';
+                                  api.toast({
+                                      msg: '上传成功',
+                                      duration: 3000,
+                                      location: 'bottom'
+                                  });
+                              } else {
+                                  // api.toast({
+                                  //     msg: '上传失败，请重试',
+                                  //     duration: 3000,
+                                  //     location: 'bottom'
+                                  // });
+                              }
+                          });
+                      } else {
+                          api.toast({
+                              msg: '上传失败，请重试',
+                              duration: 3000,
+                              location: 'bottom'
+                          });
+                      }
+                  });
                 } else {
                     api.toast({
                         msg: '上传失败，请重试',
