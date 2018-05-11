@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="copyright" content="www.apicloud.com" />
     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
-    <title>孔孟之道--听单评论详情</title>
+    <title>孔孟之道--回复评论</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
     <style>
         html,
@@ -196,64 +196,41 @@
             border-bottom: 1px solid #e0e0e0;
             color: #535354;
         }
-
-        footer {
-            width: 100%;
-            height: 50px;
-            line-height: 50px;
-        }
     </style>
 </head>
 
 <body>
     <header class="egret-header topbar" id="notHeader">
-        <div class="egret-header-title">评论</div>
+        <div class="egret-header-title">回复评论</div>
         <div class="egret-img"><img src="../image/icon_back.png" alt="" onclick="goback()"></div>
     </header>
-
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
     function goback() {
         api.closeWin({
-            name: 'discussDetail0'
+            name: 'replyDetail'
         });
     }
-    var albumId;
+    var comment_id;
+    var soundId;
     var uris;
     apiready = function() {
+      comment_id = api.pageParam.comment_id;
+      soundId = api.pageParam.soundId;
+      uris = api.pageParam.uris;
+
         var notHeader = $api.byId('notHeader');
         $api.fixStatusBar(notHeader);
-        albumId = api.pageParam.albumId;
-        uris = api.pageParam.uris;
-        fnOpenMessageNotDetail(albumId);
-        api.openFrame({
-            name: 'ReplyToComments',
-            url: './ReplyToComments.html',
-            rect: {
-                x: 0,
-                y: api.frameHeight - 55,
-                w: 'auto',
-                h: 'auto'
-            },
-            pageParam: {
-                albumId: albumId,
-                uris: uris
-            },
-            bounces: false,
-            bgColor: 'rgba(0,0,0,0)',
-            vScrollBarEnabled: false,
-            hScrollBarEnabled: false
-        });
+        fnOpenMessageNotDetail();
     }
 
-    function fnOpenMessageNotDetail(albumId) {
+    function fnOpenMessageNotDetail() {
         var nHeader = $api.byId('notHeader');
         var headerH = $api.offset(nHeader).h;
-        uris = api.pageParam.uris;
         api.openFrame({
-            name: 'discussDetailFrame0',
-            url: './discuss_detail_frame0.html',
+            name: 'replyDetailSingleFrame',
+            url: './reply_detail_single_frame.html',
             rect: {
                 x: 0,
                 y: headerH,
@@ -261,8 +238,9 @@
                 h: 'auto'
             },
             pageParam: {
-                albumId: albumId,
-                uris: uris
+                comment_id: comment_id,
+                soundId:soundId,
+                uris:uris
             },
             bounces: false,
             bgColor: 'rgba(0,0,0,0)',

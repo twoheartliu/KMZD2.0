@@ -567,6 +567,8 @@
     var bookCollectionHtml;
     var collections;
     var goods;
+    var soundId;
+
     apiready = function() {
       token = $api.getStorage('token');
         var secHeader = $api.byId('secHeader');
@@ -583,10 +585,12 @@
         var winHeightHeader = winHeight - headerPosH;
         $api.css(messageFrameDiv, 'height:' + winHeightHeader + 'px;');
         $api.fixIos7Bar(header);
+        fnBookExtraGoodssssss()
         var connectionType = api.connectionType;
         dangqianbofangid = api.pageParam.dangqianbofangid;
         if(dangqianbofangid){
           bookId = dangqianbofangid;
+          soundId = dangqianbofangid;
           fnBookExtraGoodssssss();
 
         }
@@ -600,10 +604,12 @@
 
                 fnJinRuBofangs(dangqianbofangid);
                 bookId == dangqianbofangid;
+                soundId = dangqianbofangid;
             } else {
                bookId = api.pageParam.a;
                if(!bookId){
                  bookId = 1;
+                 soundId = 1;
                }
                 api.addEventListener({
                     name: 'neizhiliebiaoPlaysss'
@@ -665,6 +671,7 @@
                 if (ret.eventType == 'right') {
                     dangqianbofangid = api.pageParam.dangqianbofangid;
                     if (dangqianbofangid) {
+                      soundId = dangqianbofangid;
                         fnJinRuBofangs(dangqianbofangid);
                     } else {
                         api.addEventListener({
@@ -745,6 +752,7 @@
         var html = '<img src="../image/play/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player"></div>';
         $api.html(stylelist, html);
         if (id) {
+          soundId = id;
             api.sendEvent({
                 name: 'netPlayingUrl',
                 extra: {
@@ -774,13 +782,16 @@
         }
         dqbfid = api.pageParam.a;
         id = api.pageParam.a;
+
         if (!id){
+          soundId = 1;
           id = 1;
         }
         if(!playlistid){
           playlistid = 1;
         }
         if (id) {
+          soundId = id;
             api.sendEvent({
                 name: 'netPlayUrl',
                 extra: {
@@ -852,6 +863,7 @@
         dqbfid = aa;
         id = aa;
         if (id) {
+          soundId = id;
             api.sendEvent({
                 name: 'netPlayUrl',
                 extra: {
@@ -919,6 +931,7 @@
         playlistid = listid;
         dqbfid = aa;
         id = aa;
+        soundId = aa;
     }
     //播放时间,总时长
     function fnbofangshijian() {
@@ -1322,6 +1335,18 @@
             url: './choice_player.html',
         });
     };
+    // 打开评论页面
+    function fnOpenPlayDiscuss() {
+      var uris = '/sound/comment/';
+        api.openWin({
+            name: 'discussNoticeDetail0',
+            url: './discuss_notice_detail0.html',
+            pageParam: {
+                soundId: soundId,
+                uris: uris
+            }
+        });
+    }
     // 收藏
     function fnOpenPlayCollect(clicktoolitem) {
       var toolbarlist = document.getElementsByClassName('collectmusicssss')[0];
@@ -1331,7 +1356,6 @@
           clicktoolitem.setAttribute("data-click", 1);
           toolbarlist.src = "../image/KM_play_collect_red.png";
           uri = '/extra/collection';
-          console.log(bookId);
           api.ajax({
               url: host + apiUri + uri + '/' + bookId,
               method: 'post',
@@ -1347,7 +1371,6 @@
                 }
               }
           }, function(ret, err) {
-            console.log(ret.data);
               if (ret.status == 200) {
                   if(ret.data == "inc"){
                     api.toast({              
@@ -1391,7 +1414,6 @@
                 }
               }
           }, function(ret, err) {
-            console.log(ret.data);
               if (ret.status == 200) {
                   if(ret.data == "dec"){
                     api.toast({              

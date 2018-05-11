@@ -206,7 +206,7 @@
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript">
-var albumId;
+var soundId;
 var uris;
 var token;
 
@@ -221,7 +221,7 @@ var token;
         var headerH = $api.offset(nHeader).h;
         // var notHeader = $api.byId('notHeader');
         var headerHs = $api.fixStatusBar(nHeader);
-        albumId = api.pageParam.albumId;
+        soundId = api.pageParam.soundId;
         uris = api.pageParam.uris;
         token = $api.getStorage('token');
         // fnOpenMessageNotDetail(liLid);
@@ -237,8 +237,6 @@ var token;
 
     function replySend() {
         var replyValue = $api.byId('replyValue').value;
-        console.log(albumId);
-        console.log(uris);
         api.ajax({
             url: host + apiUri + uris,
             method: 'post',
@@ -250,18 +248,17 @@ var token;
             },
             data: {
                 values: {
-                    'id': albumId,
+                    'id': soundId,
                     'comment': replyValue
                 }
             }
         }, function(ret, err) {
             if (ret) {
-              console.log(JSON.stringify(ret));
                 if (ret.status == 200) {
                   api.sendEvent({
-                      name: 'gengXin',
+                      name: 'gengXinSingle',
                       extra: {
-                          albumId: albumId
+                          soundId: soundId
                       }
                   });
                   api.closeWin();
