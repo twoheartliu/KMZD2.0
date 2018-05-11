@@ -314,7 +314,7 @@
                 var title1 = $api.byId("tx");
                 var html4 = '';
                 if (ret.data.photo == null) {
-                  console.log(ret.data.photo);
+                  // console.log(ret.data.photo);
                     html4 = '<img src="../image/KM_tx.png" alt="" />';
                     $api.html(title1, html4);
                 } else {
@@ -555,7 +555,7 @@
                           }
                       }
                   }, function(ret, err) {
-                    console.log(ret.status);
+                    // console.log(ret.status);
                       if (ret.status == 200) {
 
                           // $api.byId('tx').innerHTML = '<img src=" ' + updatePhotoUrl + ret.data. + ' ">';
@@ -663,6 +663,7 @@
                     if (gender == 1) {
                         var html12 = "男";
                         $api.html(stylelist12, html12);
+
                     } else if (gender == 2) {
                         var html12 = "女";
                         $api.html(stylelist12, html12);
@@ -768,6 +769,12 @@
                     }
                 }, function(ret, err) {
                     fninfo();
+                    api.sendEvent({
+                        name: 'netNickName',
+                        extra: {
+                            nickName: text
+                        }
+                    });
 
                 });
                 var dialogBox = api.require('dialogBox');
@@ -873,6 +880,12 @@
                     }
                 }, function(ret, err) {
                     fninfo();
+                    api.sendEvent({
+                        name: 'netsignature',
+                        extra: {
+                            netsignature: text
+                        }
+                    });
 
                 });
                 var dialogBox = api.require('dialogBox');
