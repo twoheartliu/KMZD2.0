@@ -166,6 +166,7 @@
             }
       },function(ret, err){
           if (ret) {
+            if (ret.status == 200) {
               var id = $api.byId('ListeningListFrame');
                 for (var i = 0; i < ret.data.length; i++) {
                   var listening_cover = ret.data[i].listening_cover;
@@ -188,12 +189,22 @@
                      + ret.data[i].good_total +'</span></div></div></div><div class="egret-flex-item-under" onclick="fnSettings('+ ret.data[i].l_id +');"><img src="../image/KM_list_more.png" alt=""></div></div></li>');
                   }
                 }
-
+            }else {
+              api.toast({
+                  msg: '失败',
+                  duration: 2000,
+                  location: 'middle'
+              });
+            }
           } else {
-            api.toast({
-                msg: '失败',
-                duration: 2000,
-                location: 'middle'
+            alert(ret.message);
+            $api.rmStorage('token');
+            api.openWin({
+                name: 'login',
+                url: '../login.html',
+                pageParam: {
+                    name: 'test'
+                }
             });
           }
       });

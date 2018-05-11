@@ -276,16 +276,29 @@
                             }
                         },function(ret, err){
                             if (ret) {
+                              if (ret.status == 200) {
+                                fnUploadImage(ret);
+                              }else {
+                                api.toast({
+                                    msg: '上传失败',
+                                    duration: 2000,
+                                    location: 'bottom'
+                                });
+                              }
                                 // alert( JSON.stringify( ret ) );
                                 // console.log(JSON.stringify( ret ));
-                                fnUploadImage(ret);
-                            } else {
-                              api.toast({
-                                  msg: '上传失败',
-                                  duration: 2000,
-                                  location: 'bottom'
-                              });
 
+                            } else {
+
+                              alert(ret.message);
+                              $api.rmStorage('token');
+                              api.openWin({
+                                  name: 'login',
+                                  url: '../login.html',
+                                  pageParam: {
+                                      name: 'test'
+                                  }
+                              });
                             }
                         });
 
@@ -339,9 +352,12 @@
                           }
                       },function(ret, err){
                           if (ret) {
+                            if (ret.status == 200) {
+                              fnUploadImage(ret);
+                            }
                               // alert( JSON.stringify( ret ) );
                               // console.log(JSON.stringify( ret ));
-                              fnUploadImage(ret);
+
                           } else {
                             api.toast({
                                 msg: '上传失败',
