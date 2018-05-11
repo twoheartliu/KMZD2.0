@@ -555,22 +555,31 @@
                           }
                       }
                   }, function(ret, err) {
+                    console.log(ret.status);
                       if (ret.status == 200) {
 
                           // $api.byId('tx').innerHTML = '<img src=" ' + updatePhotoUrl + ret.data. + ' ">';
 
                           api.ajax({
                               url: host + apiUri + '/user/info',
-                              method: 'post',
+                              method: 'get',
                               headers: {
                                   "source": api.systemType,
                                   "version": version,
                                   "session": token
                               },
-
                           }, function(ret, err) {
                               if (ret.status == 200) {
-                                  $api.byId('tx').innerHTML = '<img src=" ' + updatePhotoUrl + ret.data.photo + ' ">';
+                                  // $api.byId('tx').innerHTML = '<img src=" ' + updatePhotoUrl + ret.data.photo + ' ">';
+                                  var stylelist = $api.byId('tx');
+                                  var html = '<img src=" ' + updatePhotoUrl + ret.data.photo + '">';
+                                  $api.html(stylelist, html);
+                                  api.sendEvent({
+                                      name: 'netTitlePhoto',
+                                      extra: {
+                                          titlePhoto: '<img src=" ' + updatePhotoUrl + ret.data.photo + '">'
+                                      }
+                                  });
                                   api.toast({
                                       msg: '上传成功',
                                       duration: 3000,

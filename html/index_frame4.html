@@ -200,9 +200,9 @@
           font-size: 15px;
           width: 70px;
           position: absolute;;
-          bottom: 3px;
+          bottom: 2px;
           /*left: 5px;*/
-          right: -30%;
+          right:-30%;
         }
         .index_header_mvp_span{margin: 5px 0;left:25%;position: absolute;}
         /*.bar{
@@ -363,60 +363,21 @@
     // function G(id){return document.getElementById(id);}
 
     apiready = function() {
-
       token = $api.getStorage('token');
-      // console.log(token);
-        // 优化点击事件
-        // var qqziliao = api.pageParam.qqziliao;
-        // fnYongHuTouXiang(qqziliao);
-        // fnUserName(qqziliao);
-        //alert(JSON.stringify(qqziliao));
-          // fnpersonalInfo();
         api.parseTapmode();
-        // fnpersonalInfo();
-        // fnAjaxMy();
         fnpersonalInfo();
+
+        api.addEventListener({
+            name: 'netTitlePhoto'
+        }, function(ret, err) {
+          if(ret){
+            var stylelist = $api.byId('imgs');
+            var html4 = ret.value.titlePhoto;
+            $api.html(stylelist, html4);
+          }
+
+        });
     }
-    //进度条
-
-  //   window.onload=function (){
-  //     fnpersonalInfo();
-  //     alert(111);
-  //     var IknowLevel=[0,100,500,2000,5000,10000,30000,100000];
-  //     function scoreRake(score){
-  //         var len=IknowLevel.length;
-  //         var i=getUserLevel(score);
-  //         var min,max,rake;
-  //
-  //         if(i==0)return 0;
-  //         if(i>=len){return 100;}
-  //         min=IknowLevel[i-1];
-  //
-  //         max=IknowLevel[i];
-  //         if(score>min&&score<=max)
-  //             return (score-min)*100/(max-min);
-  //         return 0;
-  //     }
-  //     function getUserLevel(score){
-  //         for(i=0,l=IknowLevel.length;i<l;i++){
-  //             if(score<=IknowLevel[i])break;
-  //         }
-  //         return i;
-  //     }
-  //     function scoreBar (score,scoreBarId,scoreDisplayId){
-  //
-  //         document.write("<style>.bar{width:150px;height:15px;border:1px solid #f1e900;margin: 5px auto;border-radius: 5px;}#scoreBar{background:#f1e900;height:100%;width:0;font-size:0px;}</style>");
-  //         var rake=scoreRake(score);
-  //         G(scoreBarId).style.width=rake+"%";
-  //         var level=getUserLevel(score);
-  //         if(level>=18){level=17;needscore="";}else{needscore = "/"+IknowLevel[level];}
-  //         if(score<0){needscore="";}
-  //
-  //         G(scoreDisplayId).innerHTML=score+needscore;
-  //     }
-  //     function G(id){return document.getElementById(id);}
-  // }
-
     function fnpersonalInfo(){
       var uri = '/user';
       api.ajax({
@@ -430,16 +391,15 @@
             }
       },function(ret, err){
           if (ret.status == 200 ) {
-              // alert( JSON.stringify(ret.data.level ) );
-              // alert( JSON.stringify(ret.data.user_exp ) );
               //头像
               var title1 = $api.byId("imgs");
               var html4 = '';
+              console.log(ret.data.photo);
               if(ret.data.photo == null){
                 html4 = '<img src="../image/KM_tx.png" alt="" />';
                 $api.html(title1, html4);
               }else{
-                html4 = '<img src="http://thirdqq.qlogo.cn/qqapp/101475744/B52E5BE1C0A3BBEFC16F587FF172F542/40" alt="" />';
+                html4 = '<img src="' + updatePhotoUrl + ret.data.photo + '" alt="" />';
                 $api.html(title1, html4);
               }
               //用户名
@@ -468,15 +428,9 @@
               var html7 = ret.data.fans_total;
               $api.html(stylelist7, html7);
               //等级
-              // var stylelist2 = $api.byId('scoreBar');
-              // var stylelist3 = $api.byId('scoreDisplay');
-              // var html2 = ret.data.level +"%";
-              // $api.css(stylelist2,'width:'+html2+'');
-
               var objTmp =["童生","秀才","举人","进士","探花","榜眼","状元","国主"];
               var level = ret.data.level;
               var scores = ret.data.user_exp;
-
               // console.log(scores);
               var totalNum =[0,100,500,2000,5000,10000,30000,100000];
               var processbar = document.getElementById("processbar");
@@ -488,7 +442,6 @@
                 if(level == 1){
                     var dengJi = $api.byId('dengJi');
                     var html11 = objTmp[0];
-
                     $api.html(dengJi, html11);
                     var sss = totalNum[1];
                     var aaa = scores/sss;
@@ -622,7 +575,7 @@
               //
               // }
           } else {
-            alert(1);
+            // alert(1);
             $api.rmStorage('token');
              api.openWin({
                  name: 'login',
