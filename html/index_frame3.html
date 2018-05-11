@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
     <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
-    <title>孔孟之道--朗读</title>
+    <title>孔孟之道--朗诵</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
     <!-- <link rel="stylesheet" type="text/css" href="../css/idangerous.swiper.css"> -->
     <link rel="stylesheet" href="../css/swiper.min.css">
@@ -482,7 +482,10 @@
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/swiper.min.js"></script>
 <script type="text/javascript" src="../script/index1.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript">
+var token;
+
     function fnReadListWin() {
         api.openWin({
             name: 'readlist',
@@ -530,6 +533,7 @@
 
     }
     apiready = function() {
+        token = $api.getStorage('token');
         fnInitSwiper();
         fnOpenUserButton();
         // fnInitSwiper1();
@@ -609,13 +613,39 @@
                       }
                     },function(ret) {
                       if (ret.eventType == 'right') {
-                          if(friend_lis[j].getAttribute("src",2)=="../image/read/care.png"){
-                            friend_lis[j].src="../image/read/care1.png";
-                          }
-                          var dialogBox = api.require('dialogBox');
-                          dialogBox.close({
-                              dialogName: 'alert'
-                          });
+                          // if(friend_lis[j].getAttribute("src",2)=="../image/read/care.png"){
+                          //   friend_lis[j].src="../image/read/care1.png";
+                          // }
+
+                          api.ajax({
+                              url: host + apiUri + '/user/follow',
+                              method: 'post',
+                              headers: {
+                                  "source": api.systemType,
+                                  "version": version,
+                                  "session": token
+                              },
+                              data: {
+                                  values: {
+                                      "follow_id": 2,
+                                  }
+                              },
+                          }, function(ret, err) {
+                            // console.log(JSON.stringify(ret));
+                            if(ret.status ==200 ){
+                              if(friend_lis[j].getAttribute("src",2)=="../image/read/care.png"){
+                                friend_lis[j].src="../image/read/care1.png";
+                                var dialogBox = api.require('dialogBox');
+                                dialogBox.close({
+                                    dialogName: 'alert'
+                                });
+                              }
+                              var data = ret.data;
+                              // console.log(data);
+                            }else{
+
+                            }
+                          })
                       }else if (ret.eventType == 'left') {
                         var dialogBox = api.require('dialogBox');
                         dialogBox.close({

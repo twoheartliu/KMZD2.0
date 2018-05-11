@@ -142,6 +142,7 @@
 </body>
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript">
     apiready = function() {
       // fnDeleteUser();
@@ -204,11 +205,12 @@
                       }
                     },function(ret) {
                       if (ret.eventType == 'right') {
-                          if(userDeleteA_lis[j].getAttribute("src",2)=="../image/my/attention.png"){
-                            userDeleteA_lis[j].src="../image/my/personal_care_a.png";
-                          }else {
-                            userDeleteA_lis[j].src="../image/my/attention.png";
-                          }
+                        if(userDeleteA_lis[j].getAttribute("src",2)=="../image/my/attention.png"){
+                          userDeleteA_lis[j].src="../image/my/personal_care_a.png";
+
+                        }else {
+                          userDeleteA_lis[j].src="../image/my/attention.png";
+                        }
                           var dialogBox = api.require('dialogBox');
                           dialogBox.close({
                               dialogName: 'alert'
