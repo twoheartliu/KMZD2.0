@@ -569,9 +569,11 @@ var token;
       });
     };
     //加关注
+
     function fnOpenUserButton() {
       var friend = document.getElementById('friend');
       var friend_lis = friend.getElementsByClassName('userButton');
+
         for (var i = 0; i < friend_lis.length; i++) {
           friend_lis[i].index = i;
             friend_lis[i].onclick = function() {
@@ -616,7 +618,6 @@ var token;
                           // if(friend_lis[j].getAttribute("src",2)=="../image/read/care.png"){
                           //   friend_lis[j].src="../image/read/care1.png";
                           // }
-
                           api.ajax({
                               url: host + apiUri + '/user/follow',
                               method: 'post',
@@ -653,10 +654,8 @@ var token;
                         });
                     }
                 });
-
+          }
         }
-      }
-
       }
 
 </script>
