@@ -202,6 +202,9 @@
 <script type="text/javascript">
     var songListID;
     function goback() {
+//       api.closeToWin({
+//     name: 'root'
+// });
         api.closeWin({
             name: 'addListening'
         });
@@ -263,14 +266,14 @@
               }
           } else {
             alert(ret.message);
-            $api.rmStorage('token');
-            api.openWin({
-                name: 'login',
-                url: '../login.html',
-                pageParam: {
-                    name: 'test'
-                }
-            });
+            // $api.rmStorage('token');
+            // api.openWin({
+            //     name: 'login',
+            //     url: '../login.html',
+            //     pageParam: {
+            //         name: 'test'
+            //     }
+            // });
           }
       });
 
@@ -295,13 +298,7 @@
         },function(ret, err){
             if (ret) {
                 if (ret.status == 200) {
-                    api.openWin({
-                        name: 'ListingsList',
-                        url: './ListingsList.html',
-                        pageParam: {
-                            name: 'test'
-                        }
-                    });
+                  api.closeWin();
                 }else {
                   var retr = ret.message;
                   console.log(retr);
@@ -337,17 +334,5 @@
       });
 
     }
-    // //选择添加的听单
-    // function fnOpenSelectListening() {
-    //   var messageFrameDiv = document.getElementById('messageFrameDiv');
-    //   var p20pxs_lis = messageFrameDiv.getElementsByClassName('p20pxs');
-    //     for (var i = 0; i < p20pxs_lis.length; i++) {
-    //       p20pxs_lis[i].index = i;
-    //         p20pxs_lis[i].onclick = function() {
-    //           var j = this.index;
-    //           goback();
-    //       }
-    //     }
-    //   }
 
 </script>

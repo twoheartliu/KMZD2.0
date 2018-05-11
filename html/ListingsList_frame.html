@@ -516,6 +516,7 @@
                   "session": token
               }
         },function(ret, err){
+          // img = get_img(img)；
             if (ret) {
               var single = $api.byId('single');
               var listening_cover = ret.data.linstening_info.listening_cover;
@@ -681,7 +682,7 @@
     // 删除单曲
     function DeleteSingle(songListID) {
       // console.log(ids);
-      //   console.log(songListID);
+        console.log(songListID);
         api.ajax({
           url: host + apiUri +'/listening/del_song/' + songListID,
           method: 'post',
@@ -698,11 +699,10 @@
             },
         },function(ret, err){
             if (ret) {
-              // ret.
-              // if () {
-              //
-              // }
-                console.log( JSON.stringify( ret ) );
+                var songListIDs = 'id_' + songListID;
+                var id_items = $api.byId(songListIDs);//找到li标签上的id
+                $api.remove(id_items);
+
             } else {
                 alert( JSON.stringify( err ) );
             }
