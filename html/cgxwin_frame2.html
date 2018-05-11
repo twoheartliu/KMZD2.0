@@ -169,13 +169,9 @@
         }
 
         .egret-flex-item-shelf .egret-flex-item-shelf01 .span4 {
-            width: 50px;
-            height: 18px;
-            border: 1px solid #89211b;
+            width: 25px;
             font-size: 12px;
             color: #89211b;
-            line-height: 18px;
-            border-radius: 5px;
             text-align: center;
         }
 
@@ -298,9 +294,9 @@ var Guid = new Array();
               var name = historyUrlArray[i*4-1];
               var desc = historyUrlArray[i*4];
               if(historyUrlArray[i*4-1]){
-                html +='<div class="egret-flex-item" tapmode="fmbtnhover" onclick="opencaogaoyinyue(' + i + ');"><div class="egret-flex-item-logo""><img src="../image/frame0101cover/frame0101cover16.png" alt="" class=""></div><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 col fl">' + historyUrlArray[i*4-2] + '</span><span class="span2 col fl">' + historyUrlArray[i*4-1] + '</span> <span class="span3 col fl">11:36</span><span class="span4 col fr" onclick="dialogBox_actionMenu();">编辑</span></div> <div class="egret-flex-item-shelf03"><div><img src="../image/play_icon.png" alt=""><span>100</span></div><div><img src="../image/KM_zf.png" alt=""><span>100</span></div><div><img src="../image/KM_dz.png" alt=""><span>100</span></div></div></div></div>';
+                html +='<div class="egret-flex-item" tapmode="fmbtnhover"><div class="egret-flex-item-logo"  onclick="opencaogaoyinyue(' + i + ');"><img src="../image/frame0101cover/frame0101cover16.png" alt="" class=""></div><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 col fl" >' + historyUrlArray[i*4-2] + '</span><span class="span2 col fl" onclick="opencaogaoyinyue(' + i + ');">' + historyUrlArray[i*4-1] + '</span><span class="span3 col fl" onclick="opencaogaoyinyue(' + i + ');">11:36</span><img class="span4 col fr" onclick="dialogBox_actionMenu();" src="../image/KM_list_more.png"alt=""/></div><div class="egret-flex-item-shelf03" onclick="opencaogaoyinyue(' + i + ');"><div ><img src="../image/play_icon.png" alt=""><span>100</span></div><div><img src="../image/KM_zf.png" alt=""><span>100</span></div><div ><img src="../image/KM_dz.png" alt=""><span>100</span></div></div></div></div>';
               }else{
-                html +='<div class="egret-flex-item" tapmode="fmbtnhover" onclick="opencaogaoyinyue(' + i + ');"><div class="egret-flex-item-logo""><img src="../image/frame0101cover/frame0101cover16.png" alt="" class=""></div><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 col fl">' + historyUrlArray[i*4-2] + '</span> <span class="span3 col fl">11:36</span><span class="span4 col fr" onclick="dialogBox_actionMenu();">编辑</span></div> <div class="egret-flex-item-shelf03"><div><img src="../image/play_icon.png" alt=""><span>100</span></div><div><img src="../image/KM_zf.png" alt=""><span>100</span></div><div><img src="../image/KM_dz.png" alt=""><span>100</span></div></div></div></div>';
+                html +='<div class="egret-flex-item" tapmode="fmbtnhover"><div class="egret-flex-item-logo"" onclick="opencaogaoyinyue(' + i + ');"><img src="../image/frame0101cover/frame0101cover16.png" alt="" class=""></div><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 col fl">' + historyUrlArray[i*4-2] + '</span><span class="span3 col fl" onclick="opencaogaoyinyue(' + i + ');">11:36</span><img class="span4 col fr" onclick="dialogBox_actionMenu();"src="../image/KM_list_more.png" alt=""/></div><div class="egret-flex-item-shelf03" onclick="opencaogaoyinyue(' + i + ');"><div><img src="../image/play_icon.png" alt=""><span>100</span></div><div><img src="../image/KM_zf.png" alt=""><span>100</span></div><div><img src="../image/KM_dz.png" alt=""><span>100</span></div></div></div></div>';
               }
               $api.html(stylelist, html);
           }
