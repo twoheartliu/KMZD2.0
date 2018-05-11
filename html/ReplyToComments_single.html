@@ -29,18 +29,18 @@
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
-    var albumId;
+    var soundId;
     var uris;
     apiready = function() {
-      albumId = api.pageParam.albumId;
+      soundId = api.pageParam.soundId;
       uris = api.pageParam.uris;
     }
     function ReplyToCommentsDiscuss_detail() {
       api.openWin({
-          name: 'ReplyToCommentsDiscussDetail',
-          url: './ReplyToCommentsDiscuss_detail.html',
+          name: 'ReplyToCommentsDiscussDetailSingle',
+          url: './ReplyToCommentsDiscuss_detail_single.html',
           pageParam: {
-              albumId: albumId,
+              soundId: soundId,
               uris: uris
           },
           reload : true

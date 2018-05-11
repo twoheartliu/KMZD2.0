@@ -434,30 +434,7 @@
     <div class="list_bj">
         <div class="p13px">
             <div class="single" id="single">
-                <!-- <div class="single_img fl"><img src="../image/my/fnShareImg.jpg" alt=""></div> -->
-                <!-- <div class="single_l fl">
-                  <div class="single_h1" id="tingdanliebiaobiaoti">我是听单名字</div>
-                  <div class="single_img_p_span">
-                      <div class="single_div_img fl">
-                        <img src="../image/KM_tx.png" alt="">
-                      </div>
-                      <div class="single_img_name fl">小许</div>
-                  </div>
-                  <div class="single_time">
-                    <div class="single_time_img fl">
-                      <img src="../image/KM_sc.png" alt="">
-                    </div>
-                    <div class="single_img_num fl">10</div>
-                    <div class="single_time_img fl">
-                      <img src="../image/KM_play.png" alt="">
-                    </div>
-                    <div class="single_img_num fl">20</div>
-                    <div class="single_time_img fl">
-                      <img src="../image/read/aloud_py.png" alt="">
-                    </div>
-                    <div class="single_img_num fl">30</div>
-                  </div>
-              </div> -->
+
             </div>
         </div>
         <div class="list_bjDiv_img">
@@ -503,16 +480,7 @@
             </div>
         </div>
         <ul class="on" id="tuijianliebiaogequ">
-            <!-- <li>
-                <div class="on_playall">
-                    <span class="fl on_playall_name">昏昏欲睡：</span>
-                    <span></span>
-                </div>
-                <div class="author">
-                    作者：小许
-                </div>
-                <div class="fr on_playall_img" onclick="fnOpenPlayMore();"><img src="../image/KM_list_more.png" alt=""></div>
-            </li> -->
+
         </ul>
     </div>
 </body>
@@ -521,14 +489,17 @@
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript">
+    // 传过来的听单id
     var ids;
+    //用户手机标识id判断是否登陆过期
     var token;
+    // 用户头像信息
+    var photo;
     apiready = function() {
         //fnTingdanTuijianliebiao()
         ids = api.pageParam.ids;
         ListenToTheDetails(ids);
     }
-
     function ListenToTheDetails(ids) {
         token = $api.getStorage('token');
         api.ajax({
@@ -540,23 +511,31 @@
                 "session": token
             }
         }, function(ret, err) {
-            // img = get_img(img)；
             if (ret) {
               if (ret.status == 200) {
-                var single = $api.byId('single');
+              var single = $api.byId('single');
+              var  photos  =  ret.data.linstening_info.photo;
+              var photo = photos.substring(0, 4);
+                if (photo == 'http') {
+                    photo  =  ret.data.linstening_info.photo;
+                }else if (photo != 'http') {
+                  // var listening = 'info/';
+                   photo = updatePhotoUrl+ photos;
+                } else {
+                  photo = '../image/KM_tx.png'
+                }
                 var listening_cover = ret.data.linstening_info.listening_cover;
                 var sandBox = listening_cover.substring(0, 8);
-
                 if (sandBox == 'sand_box') {
                     var sandBoxs = listening_cover.replace(/sand_box/, '..');
                     $api.append(single, '<div class="single_img fl"><img src="' + sandBoxs + '" alt=""></div><div class="single_l fl"><div class="single_h1" id="tingdanliebiaobiaoti">' + ret.data.linstening_info.listening_name +
-                        '</div><div class="single_img_p_span"><div class="single_div_img fl"><img src="' + ret.data.linstening_info.photo + '" alt=""></div><div class="single_img_name fl">' + ret.data.linstening_info.nick_name +
+                        '</div><div class="single_img_p_span"><div class="single_div_img fl"><img src="' + photo + '" alt=""></div><div class="single_img_name fl">' + ret.data.linstening_info.nick_name +
                         '</div></div><div class="single_time"><div class="single_time_img fl"><img src="../image/KM_sc.png" alt=""></div><div class="single_img_num fl">' + ret.data.linstening_info.collection_total +
                         '</div><div class="single_time_img fl"><img src="../image/KM_play.png" alt=""></div><div class="single_img_num fl">' + ret.data.linstening_info.song_total +
                         '</div><div class="single_time_img fl"><img src="../image/read/aloud_py.png" alt=""></div><div class="single_img_num fl">' + ret.data.linstening_info.play_total + '</div></div></div>')
                 } else if (listening_cover == '') {
                     $api.append(single, '<div class="single_img fl"><img src="../image/my/fnShareImg.jpg" alt=""></div><div class="single_l fl"><div class="single_h1" id="tingdanliebiaobiaoti">' + ret.data.linstening_info.listening_name +
-                        '</div><div class="single_img_p_span"><div class="single_div_img fl"><img src="' + ret.data.linstening_info.photo + '" alt=""></div><div class="single_img_name fl">' + ret.data.linstening_info.nick_name +
+                        '</div><div class="single_img_p_span"><div class="single_div_img fl"><img src="' + photo + '" alt=""></div><div class="single_img_name fl">' + ret.data.linstening_info.nick_name +
                         '</div></div><div class="single_time"><div class="single_time_img fl"><img src="../image/KM_sc.png" alt=""></div><div class="single_img_num fl">' + ret.data.linstening_info.collection_total +
                         '</div><div class="single_time_img fl"><img src="../image/KM_play.png" alt=""></div><div class="single_img_num fl">' + ret.data.linstening_info.song_total +
                         '</div><div class="single_time_img fl"><img src="../image/read/aloud_py.png" alt=""></div><div class="single_img_num fl">' + ret.data.linstening_info.play_total + '</div></div></div>')
@@ -564,7 +543,7 @@
                     var listening = 'listening/';
                     var listening_covers = http + listening + listening_cover;
                     $api.append(single, '<div class="single_img fl"><img src="' + listening_covers + '" alt=""></div><div class="single_l fl"><div class="single_h1" id="tingdanliebiaobiaoti">' + ret.data.linstening_info.listening_name +
-                        '</div><div class="single_img_p_span"><div class="single_div_img fl"><img src="' + ret.data.linstening_info.photo + '" alt=""></div><div class="single_img_name fl">' + ret.data.linstening_info.nick_name +
+                        '</div><div class="single_img_p_span"><div class="single_div_img fl"><img src="' + photo + '" alt=""></div><div class="single_img_name fl">' + ret.data.linstening_info.nick_name +
                         '</div></div><div class="single_time"><div class="single_time_img fl"><img src="../image/KM_sc.png" alt=""></div><div class="single_img_num fl">' + ret.data.linstening_info.collection_total +
                         '</div><div class="single_time_img fl"><img src="../image/KM_play.png" alt=""></div><div class="single_img_num fl">' + ret.data.linstening_info.song_total +
                         '</div><div class="single_time_img fl"><img src="../image/read/aloud_py.png" alt=""></div><div class="single_img_num fl">' + ret.data.linstening_info.play_total + '</div></div></div>')

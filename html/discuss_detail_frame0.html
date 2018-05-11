@@ -301,11 +301,18 @@
             color: #999;
             border-radius: 5px;
         }
-        .reply{width: 100%;overflow: hidden;}
-        .reply div{float: right;}
 
-        #section{
-          margin-bottom: 50px;
+        .reply {
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .reply div {
+            float: right;
+        }
+
+        #section {
+            margin-bottom: 50px;
         }
     </style>
 </head>
@@ -332,22 +339,10 @@
         <div class="playall">
             <section id="section">
                 <div class="sec-tit">所有评论</div>
-                <div class="sec-discuss">
-                    <div class="dis-left fl">
-                        <div class="sec-img"><img src="../image/icon-person.png" alt=""></div>
-                        <div class="sec-txt">
-                            <p>燕赵门</p>
-                            <p>2017年9月19日</p>
-                        </div>
-                    </div>
-                    <div class="dis-right fr">
-                        <span>3</span><img src="../image/KM_ListingsListDzs.png" alt="" class="zan01">
-                    </div>
-                    <div class="clear"></div>
-                    <div class="dis-txt">海中月是天上月，眼前人是心上人。向来心是看客心，奈何人是剧中人</div>
-                    <div class="reply"><div  onclick="fnOpenMessageNotDetail()">回复</div></div>
+                <div class="sec-discuss" id="comments">
+
                 </div>
-                <div class="sec-discuss">
+                <!-- <div class="sec-discuss">
                     <div class="dis-left fl">
                         <div class="sec-img"><img src="../image/icon-person.png" alt=""></div>
                         <div class="sec-txt">
@@ -378,8 +373,8 @@
                     <div class="reply"><div  onclick="fnOpenMessageNotDetail()">回复</div></div>
                     <div class="discuss">
                         <span>我的评论：不知道为什么分开，很多喜欢以为永远会喜欢，到最后才发现任何事情都抵不过时过境迁。</span>
-                    </div>
-                </div>
+                    </div> -->
+
             </section>
         </div>
     </div>
@@ -388,10 +383,15 @@
 <script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript">
     var token;
+    var albumId;
+    var uris;
     apiready = function() {
         token = $api.getStorage('token');
-        // var mHeader = $api.byId('mesHeader');
-        // var headerPos = $api.offset(mHeader);
+        albumId = api.pageParam.albumId;
+        uris = api.pageParam.uris;
+        // var notHeader = $api.byId('notHeader');
+        // $api.fixStatusBar(notHeader);
+        // fnOpenMessageNotDetail();
         var section = document.getElementById('section');
         var ul_lis = section.getElementsByClassName('zan01');
         for (var i = 0; i < ul_lis.length; i++) {
@@ -413,31 +413,51 @@
             }
         };
         ListenToTheListOfComments();
-        // console.log(liLid);
+        api.addEventListener({
+            name: 'gengXin'
+        }, function(ret, err) {
+            ListenToTheListOfComments();
+        });
     }
 
     function ListenToTheListOfComments() {
-
-        var albumId = api.pageParam.albumId;
-        var uris = api.pageParam.uris;
-        console.log(albumId);
-        console.log(uris);
         api.ajax({
             url: host + apiUri + uris + albumId,
             method: 'get',
             dataType: 'json',
             headers: {
-                  "source": api.systemType,
-                  "version": version,
-                  "session": token
-              }
-        },function(ret, err){
-            if (ret) {
-              console.log(JSON.stringify(ret));
-
-                // alert( JSON.stringify( ret ) );
+                "source": api.systemType,
+                "version": version,
+                "session": token
+            }
+        }, function(ret, err) {
+            if (ret.status == 200) {
+                var stylelist = $api.byId('comments');
+                var html = '';
+                for (var i = 0; i < ret.data.length; i++) {
+                    var date = new Date(ret.data[i].create_date * 1000); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
+                    Y = date.getFullYear() + '年';
+                    M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '月';
+                    D = (date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate()) + '日';
+                    // h = date.getHours() + ':';
+                    // m = date.getMinutes() + ':';
+                    // s = date.getSeconds();
+                    // return Y+M+D+h+m+s;
+                    var dates = Y + M + D;
+                    if (ret.data[i].re_nick_name) {
+                        html += '<div class="dis-left fl"><div class="sec-img"><img src="' + ret.data[i].photo + '" alt=""></div><div class="sec-txt"><p>' + ret.data[i].nick_name + '</p><p>' + dates +
+                            '</p></div></div><div class="dis-right fr"><span>' + ret.data[i].good_total + '</span><img src="../image/KM_ListingsListDzs.png" alt="" class="zan01"></div><div class="clear"></div><div class="dis-txt">' + ret.data[
+                                i].content + '</div><div class="reply"><div  onclick="fnOpenMessageNotDetail(' + ret.data[i].comment_id + ')">回复</div></div><div class="discuss"><span>' + ret.data[i].re_nick_name + ':' + ret.data[i].re_content +
+                            '</span></div>';
+                    } else {
+                        html += '<div class="dis-left fl"><div class="sec-img"><img src="' + ret.data[i].photo + '" alt=""></div><div class="sec-txt"><p>' + ret.data[i].nick_name + '</p><p>' + dates +
+                            '</p></div></div><div class="dis-right fr"><span>' + ret.data[i].good_total + '</span><img src="../image/KM_ListingsListDzs.png" alt="" class="zan01"></div><div class="clear"></div><div class="dis-txt">' + ret.data[
+                                i].content + '</div><div class="reply"><div  onclick="fnOpenMessageNotDetail(' + ret.data[i].comment_id + ')">回复</div></div>';
+                    }
+                }
+                $api.html(stylelist, html);
             } else {
-                alert( JSON.stringify( err ) );
+                alert(JSON.stringify(err));
                 alert(ret.message);
                 // $api.rmStorage('token');
                 // api.openWin({
@@ -452,21 +472,20 @@
 
     }
 
-
-
-    function fnOpenMessageNotDetail() {
+    function fnOpenMessageNotDetail(comment_id) {
         api.openWin({
             name: 'replyDetail',
             url: './reply_detail.html',
             pageParam: {
-                name: 'test'
+                comment_id: comment_id,
+                albumId: albumId,
+                uris: uris
             },
             bounces: false,
             vScrollBarEnabled: true,
             hScrollBarEnabled: true
         });
     }
-
 </script>
 
 </html>
