@@ -8,411 +8,434 @@
     <title>听单列表</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
     <style media="screen">
-      body {}
+        body {}
 
-      .fr {
-          float: right;
-      }
+        .fr {
+            float: right;
+        }
 
-      .fl {
-          float: left;
-      }
+        .fl {
+            float: left;
+        }
 
-      .p13px {
-          padding: 0px 13px;
-      }
+        .p13px {
+            padding: 0px 13px;
+        }
 
-      .clr {
-          overflow: hidden;
-      }
+        .clr {
+            overflow: hidden;
+        }
 
-      .p20px {
-          padding: 0 20px;
-      }
+        .p20px {
+            padding: 0 20px;
+        }
 
-      .list_bj {
-          width: 100%;
-      }
+        .list_bj {
+            width: 100%;
+        }
 
-      .list_bj .list_bjDiv {
-          width: 67px;
-          height: 86px;
-          margin: 0 auto;
-          padding: 13px 0;
-      }
+        .list_bj .list_bjDiv {
+            width: 67px;
+            height: 86px;
+            margin: 0 auto;
+            padding: 13px 0;
+        }
 
-      .list_bj .list_bjDiv img {
-          width: 67px;
-          height: 86px;
-      }
+        .list_bj .list_bjDiv img {
+            width: 67px;
+            height: 86px;
+        }
 
-      .list_bj p {
-          width: 100%;
-          height: 20px;
-          line-height: 20px;
-          font-style: 16px;
-          text-align: center;
-          padding-bottom: 13px;
-      }
+        .list_bj p {
+            width: 100%;
+            height: 20px;
+            line-height: 20px;
+            font-style: 16px;
+            text-align: center;
+            padding-bottom: 13px;
+        }
 
-      .row {
-          display: -webkit-box;
-          display: -webkit-flex;
-      }
+        .row {
+            display: -webkit-box;
+            display: -webkit-flex;
+        }
 
-      .col {
-          -webkit-box-flex: 1;
-          -webkit-flex: 1;
-          flex: 1;
-          margin: 0 5px;
-          position: relative;
-      }
+        .col {
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+            margin: 0 5px;
+            position: relative;
+        }
 
-      .border_r {
-          border-right: 1px dashed #ccc;
-      }
-      /* 弹出工具条 */
+        .border_r {
+            border-right: 1px dashed #ccc;
+        }
+        /* 弹出工具条 */
 
-      .musiclist-item-tool {
-          background-color: #e9c19a;
-          color: #fff;
-          display: -webkit-box;
-          padding: 0 10px;
-          display: none;
-      }
+        .musiclist-item-tool {
+            background-color: #e9c19a;
+            color: #fff;
+            display: -webkit-box;
+            padding: 0 10px;
+            display: none;
+        }
 
-      .musiclist-item-tool .userinfocol {
-          -webkit-box-flex: 1;
-          text-align: center;
-          padding: 5px 0;
-      }
+        .musiclist-item-tool .userinfocol {
+            -webkit-box-flex: 1;
+            text-align: center;
+            padding: 5px 0;
+        }
 
-      .musiclist-item-tool .userinfocol .info img {
-          width: 50%;
-      }
+        .musiclist-item-tool .userinfocol .info img {
+            width: 50%;
+        }
 
-      .musiclist-item-tool .userinfocol .num {
-          color: #A8A8A8;
-          font-size: 0.8em;
-      }
-      /* 悬浮 */
+        .musiclist-item-tool .userinfocol .num {
+            color: #A8A8A8;
+            font-size: 0.8em;
+        }
+        /* 悬浮 */
 
-      .exitbtnhover {
-          background-color: #d33a31;
-          color: #fff;
-      }
-      /*.userinfo .toolhover {background-color: #e9c19a;}*/
+        .exitbtnhover {
+            background-color: #d33a31;
+            color: #fff;
+        }
+        /*.userinfo .toolhover {background-color: #e9c19a;}*/
 
-      .musiclist-item-tool .toolhover {
-          background-color: #e9c19a;
-      }
+        .musiclist-item-tool .toolhover {
+            background-color: #e9c19a;
+        }
 
-      .allplayhover {
-          background-color: #e2e2e2;
-      }
+        .allplayhover {
+            background-color: #e2e2e2;
+        }
 
-      .userinfo {
-          display: -webkit-box;
-          /*padding: 10px 0;*/
-      }
+        .userinfo {
+            display: -webkit-box;
+            /*padding: 10px 0;*/
+        }
 
-      .userinfo .userinfocol {
-          /*-webkit-box-flex:1;*/
-          padding: 10px 0;
-          text-align: center;
-          width: 50%;
-          box-sizing: border-box;
-          height: 70px;
-      }
+        .userinfo .userinfocol {
+            /*-webkit-box-flex:1;*/
+            padding: 10px 0;
+            text-align: center;
+            width: 50%;
+            box-sizing: border-box;
+            height: 70px;
+        }
 
-      .userinfo .userinfocol .info {
-          font-size: 0.8em;
-          color: #999;
-          line-height: 60px;
-          height: 60px;
-      }
+        .userinfo .userinfocol .info {
+            font-size: 0.8em;
+            color: #999;
+            line-height: 60px;
+            height: 60px;
+        }
 
-      .userinfo .userinfocol .info img {
-          width: 3em;
-          padding: 10px 0;
-      }
+        .userinfo .userinfocol .info img {
+            width: 3em;
+            padding: 10px 0;
+        }
 
-      .userinfo .userinfocol .num {
-          padding-top: 5px;
-      }
+        .userinfo .userinfocol .num {
+            padding-top: 5px;
+        }
 
-      .list_bjDiv_img {
-          height: 70px;
-          overflow: hidden;
-      }
+        .list_bjDiv_img {
+            height: 70px;
+            overflow: hidden;
+        }
 
-      #con {
-          background-color: #fff;
-      }
+        #con {
+            background-color: #fff;
+        }
 
-      #con ul {
-          padding: 0 10px;
-      }
+        #con ul {
+            padding: 0 10px;
+        }
 
-      #con ul li {
-          border-bottom: 1px solid #e6e6e6;
-          text-indent: 10px;
-          overflow: hidden;
-          margin: 0px 0;
-          position: relative;
-      }
+        #con ul li {
+            border-bottom: 1px solid #e6e6e6;
+            text-indent: 10px;
+            overflow: hidden;
+            margin: 0px 0;
+            position: relative;
+        }
 
-      #con ul li div span {
-          display: block;
-          line-height: 30px;
-      }
+        #con ul li div span {
+            display: block;
+            line-height: 30px;
+        }
 
-      .on_li_divImg img {
-          width: 39px;
-          height: 39px;
-          padding: 5px;
-      }
+        .on_li_divImg img {
+            width: 39px;
+            height: 39px;
+            padding: 5px;
+        }
 
-      .on_li_divImg1 {
-          width: 30px;
-          height: 30px;
-          padding: 10px;
-          line-height: 30px;
-          font-size: 20px;
-          color: #ccc;
-      }
+        .on_li_divImg1 {
+            width: 30px;
+            height: 30px;
+            padding: 10px;
+            line-height: 30px;
+            font-size: 20px;
+            color: #ccc;
+        }
 
-      .single {
-          height: 150px;
-          border-radius: 10px;
-          box-shadow: 0px 0px 5px #bbb;
-          margin-top: 5px;
-      }
+        .single {
+            height: 150px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 5px #bbb;
+            margin-top: 5px;
+        }
 
-      .single_img {
-          width: 130px;
-          height: 130px;
-          padding: 10px;
-      }
+        .single_img {
+            width: 130px;
+            height: 130px;
+            padding: 10px;
+        }
 
-      .single_img img {
-          width: 100%;
-      }
+        .single_img img {
+            width: 100%;
+        }
 
-      .single_l {
-          padding: 10px 0;
-          position: relative;
-          height: 130px;
-      }
+        .single_l {
+            padding: 10px 0;
+            position: relative;
+            height: 130px;
+        }
 
-      .single_h1 {
-          font-size: 13px;
-          padding: 5px 0;
-      }
+        .single_h1 {
+            font-size: 13px;
+            padding: 5px 0;
+        }
 
-      .single_img_p_span {
-          padding: 5px 0;
-          overflow: hidden;
-      }
+        .single_img_p_span {
+            padding: 5px 0;
+            overflow: hidden;
+        }
 
-      .single_div_img {
-          width: 17px;
-          height: 17px;
-      }
+        .single_div_img {
+            width: 17px;
+            height: 17px;
+        }
 
-      .single_div_img img {
-          width: 100%;
-      }
+        .single_div_img img {
+            width: 100%;
+        }
 
-      .single_img_name {
-          font-size: 12px;
-          margin: 0 5px;
-      }
+        .single_img_name {
+            font-size: 12px;
+            margin: 0 5px;
+        }
 
-      .single_LIVE {
-          width: 37px;
-          height: 14px;
-      }
+        .single_LIVE {
+            width: 37px;
+            height: 14px;
+        }
 
-      .single_LIVE img {
-          width: 100%;
-      }
+        .single_LIVE img {
+            width: 100%;
+        }
 
-      .single_time {
-          font-size: 12px;
-          overflow: hidden;
-          margin-top: 30px;
-      }
+        .single_time {
+            font-size: 12px;
+            overflow: hidden;
+            margin-top: 30px;
+        }
 
-      .playall {
-          width: 100%;
-          /*height: 47.5px;*/
-          height: 40px;
-      }
+        .playall {
+            width: 100%;
+            /*height: 47.5px;*/
+            height: 40px;
+        }
 
-      .playall_img {
-          width: 16px;
-          height: 16px;
-          /*line-height: 47.5px;*/
-          line-height: 40px;
-          /*height: 47.5px;*/
-          height: 40px;
-          position: relative;
-          margin-right: 5px;
-      }
+        .playall_img {
+            width: 16px;
+            height: 16px;
+            /*line-height: 47.5px;*/
+            line-height: 40px;
+            /*height: 47.5px;*/
+            height: 40px;
+            position: relative;
+            margin-right: 5px;
+        }
 
-      .playall_img img {
-          width: 100%;
-          position: relative;
-          top: 3px;
-      }
+        .playall_img img {
+            width: 100%;
+            position: relative;
+            top: 3px;
+        }
 
-      .playall_span {
-          /*line-height: 47.5px;*/
-          line-height: 40px;
-          /*height: 47.5px;*/
-          height: 40px;
-          font-size: 14px;
-      }
-      .on_play{
-        width:80%;
-        /*position: relative;*/
-      }
-      .on_playall {
-          overflow: hidden;
-          position: relative;
-          z-index: 0;
-      }
+        .playall_span {
+            /*line-height: 47.5px;*/
+            line-height: 40px;
+            /*height: 47.5px;*/
+            height: 40px;
+            font-size: 14px;
+        }
 
-      .on_playall_img {
-          overflow: hidden;
-          position: absolute;
-          right: 10px;
-          top: 0;
-          width: 20px;padding: 5px 0;
-          z-index: 1;
-      }
+        .on_play {
+            width: 80%;
+            /*position: relative;*/
+        }
 
-      .on_playall_img img,
-      span {
-          float: left;
-      }
+        .on_playall {
+            overflow: hidden;
+            position: relative;
+            z-index: 0;
+        }
 
-      .on_playall_div {
-          /*margin: 0 10px;*/
-          margin-right: 5px;
-          overflow: hidden;
-          font-size: 10px;
-      }
+        .on_playall_img {
+            overflow: hidden;
+            position: absolute;
+            right: 10px;
+            top: 0;
+            width: 20px;
+            padding: 5px 0;
+            z-index: 1;
+        }
 
-      .on_playall_div_img {
-          width: 15px;
-      }
+        .on_playall_img img,
+        span {
+            float: left;
+        }
 
-      .on_playall_div_img img {
-          width: 100%;
-          padding: 7.5px;
-      }
+        .on_playall_div {
+            /*margin: 0 10px;*/
+            margin-right: 5px;
+            overflow: hidden;
+            font-size: 10px;
+        }
 
-      .on_playall_div_img1 {
-          width: 11px;
-      }
+        .on_playall_div_img {
+            width: 15px;
+        }
 
-      .on_playall_div_img1 img {
-          width: 100%;
-          padding: 9px 0px;
-      }
-      .on_playall_name{font-size: 13px;}
-      .on_playall_names{font-size: 13px;}
-      .on_playall_img img{width: 100%;}
+        .on_playall_div_img img {
+            width: 100%;
+            padding: 7.5px;
+        }
 
-      .list_bjDiv_img {
-          height: 70px;
-          overflow: hidden;
-      }
+        .on_playall_div_img1 {
+            width: 11px;
+        }
 
-      .userinfo {
-          display: -webkit-box;
-          /*padding: 10px 0;*/
-          background: src(0, 0, 0, 0.5);
-      }
+        .on_playall_div_img1 img {
+            width: 100%;
+            padding: 9px 0px;
+        }
 
-      .userinfo .userinfocol {
-          -webkit-box-flex: 1;
-          padding: 10px 0;
-          text-align: center;
-          /*width: 50%;*/
-          box-sizing: border-box;
-          height: 70px;
-      }
+        .on_playall_name {
+            font-size: 13px;
+        }
 
-      .userinfo .userinfocol .info {
-          font-size: 0.8em;
-          color: #ccc;
-          /*line-height: 60px;*/
-          height: 35px;
-          position: relative;
-      }
+        .on_playall_names {
+            font-size: 13px;
+        }
 
-      .userinfo .userinfocol .info img {
-          /*width: 3em;*/
-          width: 25px;
-          padding: 5px 0;
-      }
-      .userinfo .userinfocol p{
-        color: #706c6c;
-        font-size: 12px;
-      }
-      .userinfo .userinfocol .info>i {
-          position: absolute;
-          top: -20px;
-          right: 32%;
-          width: 10px;
-          height: 10px;
-          display: inline-block;
-          font-style: normal;
-          font-size: 12px;
-          color: #706c6c;
-      }
-      .userinfo .userinfocol .num {
-          padding-top: 5px;
-      }
-      /*.single_time .single_time_img{
+        .on_playall_img img {
+            width: 100%;
+        }
+
+        .list_bjDiv_img {
+            height: 70px;
+            overflow: hidden;
+        }
+
+        .userinfo {
+            display: -webkit-box;
+            /*padding: 10px 0;*/
+            background: src(0, 0, 0, 0.5);
+        }
+
+        .userinfo .userinfocol {
+            -webkit-box-flex: 1;
+            padding: 10px 0;
+            text-align: center;
+            /*width: 50%;*/
+            box-sizing: border-box;
+            height: 70px;
+        }
+
+        .userinfo .userinfocol .info {
+            font-size: 0.8em;
+            color: #ccc;
+            /*line-height: 60px;*/
+            height: 35px;
+            position: relative;
+        }
+
+        .userinfo .userinfocol .info img {
+            /*width: 3em;*/
+            width: 25px;
+            padding: 5px 0;
+        }
+
+        .userinfo .userinfocol p {
+            color: #706c6c;
+            font-size: 12px;
+        }
+
+        .userinfo .userinfocol .info>i {
+            position: absolute;
+            top: -20px;
+            right: 32%;
+            width: 10px;
+            height: 10px;
+            display: inline-block;
+            font-style: normal;
+            font-size: 12px;
+            color: #706c6c;
+        }
+
+        .userinfo .userinfocol .num {
+            padding-top: 5px;
+        }
+        /*.single_time .single_time_img{
         padding-right: 20px;
       }*/
-      .single_time .single_time_img img{
-        width: 15px;
 
-      }
-      .single_img_num{
-          font-size:14px;
-          color: #ccc;
-          padding-left: 3px;
-          padding-right: 10px;
-      }
-      .on_playall_more_imgs{
-        width:15%;
-        position: absolute;
-        top:0;
-        right:10px;
-        overflow: hidden;
-      }
-      .on_playall_more_imgs img{
-        width:20px;
-      }
-      .author{font-size: 11px;padding-bottom: 10px;}
-      .items{
-        position: relative;
-      }
+        .single_time .single_time_img img {
+            width: 15px;
+        }
+
+        .single_img_num {
+            font-size: 14px;
+            color: #ccc;
+            padding-left: 3px;
+            padding-right: 10px;
+        }
+
+        .on_playall_more_imgs {
+            width: 15%;
+            position: absolute;
+            top: 0;
+            right: 10px;
+            overflow: hidden;
+        }
+
+        .on_playall_more_imgs img {
+            width: 20px;
+        }
+
+        .author {
+            font-size: 11px;
+            padding-bottom: 10px;
+        }
+
+        .items {
+            position: relative;
+        }
     </style>
 </head>
 
 <body>
-  <div class="list_bj">
-      <div class="p13px">
-          <div class="single" id="single">
-              <!-- <div class="single_img fl"><img src="../image/my/fnShareImg.jpg" alt=""></div> -->
-              <!-- <div class="single_l fl">
+    <div class="list_bj">
+        <div class="p13px">
+            <div class="single" id="single">
+                <!-- <div class="single_img fl"><img src="../image/my/fnShareImg.jpg" alt=""></div> -->
+                <!-- <div class="single_l fl">
                   <div class="single_h1" id="tingdanliebiaobiaoti">我是听单名字</div>
                   <div class="single_img_p_span">
                       <div class="single_div_img fl">
@@ -435,11 +458,11 @@
                     <div class="single_img_num fl">30</div>
                   </div>
               </div> -->
-          </div>
-      </div>
-      <div class="list_bjDiv_img">
-          <div class="userinfo" id="userinfo">
-              <!-- <div class="userinfocol" tapmode="toolhover" onclick="collectmusicFx(this)">
+            </div>
+        </div>
+        <div class="list_bjDiv_img">
+            <div class="userinfo" id="userinfo">
+                <!-- <div class="userinfocol" tapmode="toolhover" onclick="collectmusicFx(this)">
                   <div class="info">
                     <img src="../image/KM_ListingsListDzs.png" alt="" class="collectmusicFx">
                   </div>
@@ -469,9 +492,9 @@
                   </div>
                   <p>分享</p>
               </div> -->
-          </div>
-      </div>
-  </div>
+            </div>
+        </div>
+    </div>
     <div id="con">
         <div class="playall" onclick="">
             <div class="p13px">
@@ -501,59 +524,91 @@
     var ids;
     var token;
     apiready = function() {
-            //fnTingdanTuijianliebiao()
-            ids = api.pageParam.ids;
-            ListenToTheDetails(ids);
+        //fnTingdanTuijianliebiao()
+        ids = api.pageParam.ids;
+        ListenToTheDetails(ids);
     }
+
     function ListenToTheDetails(ids) {
         token = $api.getStorage('token');
         api.ajax({
-            url: host + apiUri +'/listening/detail/' + ids,
+            url: host + apiUri + '/listening/detail/' + ids,
             method: 'get',
             headers: {
-                  "source": api.systemType,
-                  "version": version,
-                  "session": token
-              }
-        },function(ret, err){
-          // img = get_img(img)；
+                "source": api.systemType,
+                "version": version,
+                "session": token
+            }
+        }, function(ret, err) {
+            // img = get_img(img)；
             if (ret) {
-              var single = $api.byId('single');
-              var listening_cover = ret.data.linstening_info.listening_cover;
-              var sandBox = listening_cover.substring(0,8);
-              //
-              if (sandBox == 'sand_box') {
-                var sandBoxs = listening_cover.replace(/sand_box/,'..');
-                $api.append(single, '<div class="single_img fl"><img src="'+ sandBoxs +'" alt=""></div><div class="single_l fl"><div class="single_h1" id="tingdanliebiaobiaoti">'+ret.data.linstening_info.listening_name+'</div><div class="single_img_p_span"><div class="single_div_img fl"><img src="'+ret.data.linstening_info.photo+'" alt=""></div><div class="single_img_name fl">'+ret.data.linstening_info.nick_name+'</div></div><div class="single_time"><div class="single_time_img fl"><img src="../image/KM_sc.png" alt=""></div><div class="single_img_num fl">'+ret.data.linstening_info.collection_total+'</div><div class="single_time_img fl"><img src="../image/KM_play.png" alt=""></div><div class="single_img_num fl">'+ret.data.linstening_info.song_total+'</div><div class="single_time_img fl"><img src="../image/read/aloud_py.png" alt=""></div><div class="single_img_num fl">'+ret.data.linstening_info.play_total+'</div></div></div>')
-              }else if (listening_cover == '') {
-                $api.append(single, '<div class="single_img fl"><img src="../image/my/fnShareImg.jpg" alt=""></div><div class="single_l fl"><div class="single_h1" id="tingdanliebiaobiaoti">'+ret.data.linstening_info.listening_name+'</div><div class="single_img_p_span"><div class="single_div_img fl"><img src="'+ret.data.linstening_info.photo+'" alt=""></div><div class="single_img_name fl">'+ret.data.linstening_info.nick_name+'</div></div><div class="single_time"><div class="single_time_img fl"><img src="../image/KM_sc.png" alt=""></div><div class="single_img_num fl">'+ret.data.linstening_info.collection_total+'</div><div class="single_time_img fl"><img src="../image/KM_play.png" alt=""></div><div class="single_img_num fl">'+ret.data.linstening_info.song_total+'</div><div class="single_time_img fl"><img src="../image/read/aloud_py.png" alt=""></div><div class="single_img_num fl">'+ret.data.linstening_info.play_total+'</div></div></div>')
+              if (ret.status == 200) {
+                var single = $api.byId('single');
+                var listening_cover = ret.data.linstening_info.listening_cover;
+                var sandBox = listening_cover.substring(0, 8);
+
+                if (sandBox == 'sand_box') {
+                    var sandBoxs = listening_cover.replace(/sand_box/, '..');
+                    $api.append(single, '<div class="single_img fl"><img src="' + sandBoxs + '" alt=""></div><div class="single_l fl"><div class="single_h1" id="tingdanliebiaobiaoti">' + ret.data.linstening_info.listening_name +
+                        '</div><div class="single_img_p_span"><div class="single_div_img fl"><img src="' + ret.data.linstening_info.photo + '" alt=""></div><div class="single_img_name fl">' + ret.data.linstening_info.nick_name +
+                        '</div></div><div class="single_time"><div class="single_time_img fl"><img src="../image/KM_sc.png" alt=""></div><div class="single_img_num fl">' + ret.data.linstening_info.collection_total +
+                        '</div><div class="single_time_img fl"><img src="../image/KM_play.png" alt=""></div><div class="single_img_num fl">' + ret.data.linstening_info.song_total +
+                        '</div><div class="single_time_img fl"><img src="../image/read/aloud_py.png" alt=""></div><div class="single_img_num fl">' + ret.data.linstening_info.play_total + '</div></div></div>')
+                } else if (listening_cover == '') {
+                    $api.append(single, '<div class="single_img fl"><img src="../image/my/fnShareImg.jpg" alt=""></div><div class="single_l fl"><div class="single_h1" id="tingdanliebiaobiaoti">' + ret.data.linstening_info.listening_name +
+                        '</div><div class="single_img_p_span"><div class="single_div_img fl"><img src="' + ret.data.linstening_info.photo + '" alt=""></div><div class="single_img_name fl">' + ret.data.linstening_info.nick_name +
+                        '</div></div><div class="single_time"><div class="single_time_img fl"><img src="../image/KM_sc.png" alt=""></div><div class="single_img_num fl">' + ret.data.linstening_info.collection_total +
+                        '</div><div class="single_time_img fl"><img src="../image/KM_play.png" alt=""></div><div class="single_img_num fl">' + ret.data.linstening_info.song_total +
+                        '</div><div class="single_time_img fl"><img src="../image/read/aloud_py.png" alt=""></div><div class="single_img_num fl">' + ret.data.linstening_info.play_total + '</div></div></div>')
+                } else {
+                    var listening = 'listening/';
+                    var listening_covers = http + listening + listening_cover;
+                    $api.append(single, '<div class="single_img fl"><img src="' + listening_covers + '" alt=""></div><div class="single_l fl"><div class="single_h1" id="tingdanliebiaobiaoti">' + ret.data.linstening_info.listening_name +
+                        '</div><div class="single_img_p_span"><div class="single_div_img fl"><img src="' + ret.data.linstening_info.photo + '" alt=""></div><div class="single_img_name fl">' + ret.data.linstening_info.nick_name +
+                        '</div></div><div class="single_time"><div class="single_time_img fl"><img src="../image/KM_sc.png" alt=""></div><div class="single_img_num fl">' + ret.data.linstening_info.collection_total +
+                        '</div><div class="single_time_img fl"><img src="../image/KM_play.png" alt=""></div><div class="single_img_num fl">' + ret.data.linstening_info.song_total +
+                        '</div><div class="single_time_img fl"><img src="../image/read/aloud_py.png" alt=""></div><div class="single_img_num fl">' + ret.data.linstening_info.play_total + '</div></div></div>')
+                }
+                var userinfo = $api.byId('userinfo');
+                $api.append(userinfo, '<div class="userinfocol" tapmode="toolhover" onclick="collectmusicFx(this)" data-click="0"><div class="info"><img src="../image/KM_ListingsListDzs.png" alt="" class="collectmusicFx"></div><p>' + ret.data
+                    .linstening_info.good_total +
+                    '</p></div><div class="userinfocol" tapmode="toolhover" onclick="collectmusic(this)" data-click="0"><div class="info"><img src="../image/KM_hxs.png" alt="" class="collectmusic"></div><p>收藏</p></div><div class="userinfocol" tapmode="toolhover" onclick=""><div class="info"><img src="../image/KM_ListingsListYzpd.png" alt=""></div><p>预置频道</p></div><div class="userinfocol" tapmode="toolhover" onclick="fnOpenDiscussDetail(' +
+                    ret.data.linstening_info.l_id + '); "><div class="info"><img src="../image/KM_ListingsListSx.png" alt=""></div><p>' + ret.data.linstening_info.comment_total +
+                    '</p></div><div class="userinfocol" tapmode="toolhover" onclick="fnOpenPlayShare();"><div class="info"><img src="../image/KM_ListingsListGd.png" alt=""></div><p>分享</p></div>');
+                songList(ret);
               }else {
-                var listening = 'listening/';
-                var listening_covers = http + listening + listening_cover;
-                $api.append(single, '<div class="single_img fl"><img src="'+ listening_covers +'" alt=""></div><div class="single_l fl"><div class="single_h1" id="tingdanliebiaobiaoti">'+ret.data.linstening_info.listening_name+'</div><div class="single_img_p_span"><div class="single_div_img fl"><img src="'+ret.data.linstening_info.photo+'" alt=""></div><div class="single_img_name fl">'+ret.data.linstening_info.nick_name+'</div></div><div class="single_time"><div class="single_time_img fl"><img src="../image/KM_sc.png" alt=""></div><div class="single_img_num fl">'+ret.data.linstening_info.collection_total+'</div><div class="single_time_img fl"><img src="../image/KM_play.png" alt=""></div><div class="single_img_num fl">'+ret.data.linstening_info.song_total+'</div><div class="single_time_img fl"><img src="../image/read/aloud_py.png" alt=""></div><div class="single_img_num fl">'+ret.data.linstening_info.play_total+'</div></div></div>')
+                api.toast({
+                    msg: '失败',
+                    duration: 2000,
+                    location: 'middle'
+                });
               }
-              var userinfo = $api.byId('userinfo');
-              $api.append(userinfo, '<div class="userinfocol" tapmode="toolhover" onclick="collectmusicFx(this)" data-click="0"><div class="info"><img src="../image/KM_ListingsListDzs.png" alt="" class="collectmusicFx"></div><p>'+ret.data.linstening_info.good_total+'</p></div><div class="userinfocol" tapmode="toolhover" onclick="collectmusic(this)" data-click="0"><div class="info"><img src="../image/KM_hxs.png" alt="" class="collectmusic"></div><p>收藏</p></div><div class="userinfocol" tapmode="toolhover" onclick=""><div class="info"><img src="../image/KM_ListingsListYzpd.png" alt=""></div><p>预置频道</p></div><div class="userinfocol" tapmode="toolhover" onclick="fnOpenDiscussDetail('+ ret.data.linstening_info.l_id +'); "><div class="info"><img src="../image/KM_ListingsListSx.png" alt=""></div><p>'+ret.data.linstening_info.comment_total+'</p></div><div class="userinfocol" tapmode="toolhover" onclick="fnOpenPlayShare();"><div class="info"><img src="../image/KM_ListingsListGd.png" alt=""></div><p>分享</p></div>');
-              songList(ret);
+
             } else {
-              api.toast({
-                  msg: '失败',
-                  duration: 2000,
-                  location: 'middle'
+              alert(ret.message);
+              $api.rmStorage('token');
+              api.openWin({
+                  name: 'login',
+                  url: '../login.html',
+                  pageParam: {
+                      name: 'test'
+                  }
               });
             }
         });
 
     }
+
     function songList(ret) {
-      var tuijianliebiaogequ = $api.byId('tuijianliebiaogequ');
-      var author_name;
-      var reciter;
-      for (var i = 0; i < ret.data.song_list.length; i++) {
-        author_name = ((ret.data.song_list[i].author_name == null) ? "" : ret.data.song_list[i].author_name);
-        reciter = ((ret.data.song_list[i].reciter == null) ? "" : ret.data.song_list[i].reciter);
-        $api.append(tuijianliebiaogequ, '<li id="id_' + ret.data.song_list[i].id +  '"><div class="on_playall"><span class="fl on_playall_name">'+ret.data.song_list[i].title +'</span><span></span></div><div class="author fl">作者：'+ author_name +'</div><div class="author fl">朗读者：'+ reciter +'</div><div class="fr on_playall_img" onclick="fnOpenPlayMore('+ ret.data.song_list[i].id +');"><img src="../image/KM_list_more.png" alt=""></div></li>');
-      }
+        var tuijianliebiaogequ = $api.byId('tuijianliebiaogequ');
+        var author_name;
+        var reciter;
+        for (var i = 0; i < ret.data.song_list.length; i++) {
+            author_name = ((ret.data.song_list[i].author_name == null) ? "" : ret.data.song_list[i].author_name);
+            reciter = ((ret.data.song_list[i].reciter == null) ? "" : ret.data.song_list[i].reciter);
+            $api.append(tuijianliebiaogequ, '<li id="id_' + ret.data.song_list[i].id + '"><div class="on_playall"><span class="fl on_playall_name">' + ret.data.song_list[i].title + '</span><span></span></div><div class="author fl">作者：' + author_name +
+                '</div><div class="author fl">朗读者：' + reciter + '</div><div class="fr on_playall_img" onclick="fnOpenPlayMore(' + ret.data.song_list[i].id + ');"><img src="../image/KM_list_more.png" alt=""></div></li>');
+        }
     }
 
     function collectmusic(clicktoolitem) {
@@ -561,11 +616,11 @@
         var click = clicktoolitem.getAttribute("data-click");
         if (click == 0) {
 
-          api.toast({
-              msg: '收藏成功',
-              duration: 2000,
-              location: 'middle'
-          });
+            api.toast({
+                msg: '收藏成功',
+                duration: 2000,
+                location: 'middle'
+            });
             // 点开
             clicktoolitem.setAttribute("data-click", 1);
             toolbarlist.src = "../image/KM_play_collect_red.png";
@@ -582,11 +637,11 @@
         var click = clicktoolitem.getAttribute("data-click");
 
         if (click == 0) {
-          api.toast({
-              msg: '点赞成功',
-              duration: 2000,
-              location: 'middle'
-          });
+            api.toast({
+                msg: '点赞成功',
+                duration: 2000,
+                location: 'middle'
+            });
             // 点开
             clicktoolitem.setAttribute("data-click", 1);
             toolbarlist.src = "../image/KM_play_dianzan_red.png";
@@ -663,7 +718,7 @@
                 //     dialogName: 'alert'
                 // });
                 // alert(3);
-            }else if (ret.index == "3") {
+            } else if (ret.index == "3") {
                 // fnOpenPlayShare();
                 dialogBox.close({
                     dialogName: 'alert'
@@ -681,43 +736,43 @@
     }
     // 删除单曲
     function DeleteSingle(songListID) {
-      // console.log(ids);
+        // console.log(ids);
         console.log(songListID);
         api.ajax({
-          url: host + apiUri +'/listening/del_song/' + songListID,
-          method: 'post',
-          headers: {
+            url: host + apiUri + '/listening/del_song/' + songListID,
+            method: 'post',
+            headers: {
                 "source": api.systemType,
                 "version": version,
                 "session": token
             },
-            data : {
-              values: {
-                  'id' : songListID,
-                  'l_id' : ids
-              }
+            data: {
+                values: {
+                    'id': songListID,
+                    'l_id': ids
+                }
             },
-        },function(ret, err){
+        }, function(ret, err) {
             if (ret) {
                 var songListIDs = 'id_' + songListID;
-                var id_items = $api.byId(songListIDs);//找到li标签上的id
+                var id_items = $api.byId(songListIDs); //找到li标签上的id
                 $api.remove(id_items);
 
             } else {
-                alert( JSON.stringify( err ) );
+                alert(JSON.stringify(err));
             }
         });
 
     }
     //添加到听单
-    function fnOpenAddListening(songListID){
-      api.openWin({
-          name: 'addListening',
-          url: './add_listening.html',
-          pageParam: {
-              songListID: songListID
-          }
-      });
+    function fnOpenAddListening(songListID) {
+        api.openWin({
+            name: 'addListening',
+            url: './add_listening.html',
+            pageParam: {
+                songListID: songListID
+            }
+        });
     }
     //打开评论列表页面
     function openMessage() {
@@ -727,15 +782,15 @@
         });
     };
     //打开评论详情
-    function fnOpenDiscussDetail(liLid){
-      api.openWin({
-          name: 'discussDetail0',
-          url: './discuss_detail0.html',
-          pageParam: {
-              albumId: liLid,
-              uris: '/listening/comment/'
-          }
-      });
+    function fnOpenDiscussDetail(liLid) {
+        api.openWin({
+            name: 'discussDetail0',
+            url: './discuss_detail0.html',
+            pageParam: {
+                albumId: liLid,
+                uris: '/listening/comment/'
+            }
+        });
     }
     //打开分享
     function fnOpenPlayShare() {
@@ -809,5 +864,4 @@
 
         });
     }
-
 </script>
