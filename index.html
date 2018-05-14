@@ -391,7 +391,9 @@
     var token;
     var a;
     apiready = function() {
+      // $api.clearStorage();
             token = $api.getStorage('token');
+            console.log(token);
             if (token) {
                 var secHeader = $api.byId('secHeader');
                 $api.fixStatusBar(secHeader);
