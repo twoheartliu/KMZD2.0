@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>孔孟之道--新建我的听单</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
+    <style>
+        .fr {
+            float: right;
+        }
+
+        .fl {
+            float: left;
+        }
+
+        header {
+            width: 100%;
+            height: 50px;
+            background: #89211b;
+        }
+
+        .header_fl img {
+            width: 15px;
+            height: 20px;
+            /*padding: 10px;*/
+            padding: 16px 10px 10px 20px;
+        }
+
+        .header_center {
+            margin: 0 auto;
+            width: 100%;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            font-size: 20px;
+            color: #fff;
+        }
+
+        .header_fr {
+            width: 30px;
+            height: 30px;
+            padding: 10px 20px 10px 10px;
+            line-height: 30px;
+            font-size: 15px;
+            color: #fff;
+            /*display: none;*/
+        }
+
+        .header_fr img {
+            width: 100%;
+        }
+
+        .Cover {
+            width: 100%;
+            height: 100px;
+            background-color: #fff;
+        }
+
+        .Cover_img {
+            width: 80px;
+            height: 80px;
+            float: left;
+            margin: 10px;
+        }
+
+        .Cover_img img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .Cover_title {
+            width: 100px;
+            height: 100px;
+            text-align: center;
+            float: right;
+            line-height: 100px;
+        }
+
+        .bg {
+            width: 100%;
+            height: 25px;
+        }
+
+        .Cover_input {
+            width: 100%;
+            height: 50px;
+            line-height: 50px;
+            background: #fff;
+        }
+
+        .Cover_div_input {
+            padding-left: 10px;
+            -webkit-box-flex: 4;
+            -webkit-flex: 4;
+            flex: 4;
+        }
+
+        .Cover_div_input input {
+            outline: 0;
+            width: 100%;
+        }
+
+        .Cover_x {
+            float: right;
+            width: 100px;
+            text-align: center;
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+        }
+
+        .Cover_name {
+            float: right;
+            width: 100px;
+            text-align: center;
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+        }
+
+        .row {
+            display: -webkit-box;
+            display: -webkit-flex;
+        }
+
+        .description {
+            height: 50px;
+            line-height: 50px;
+            padding-left: 10px;
+            background: #fff;
+            border-bottom: 1px solid #efefef;
+        }
+
+        .textarea {
+            background: #fff;
+        }
+
+        .replyValue {
+            /*background: red;*/
+            width: 300px;
+            height: 300px;
+            line-height: 25px;
+            display: block;
+            margin: 0 auto;
+            resize: none;
+            overflow: scroll;
+            text-shadow: 2rem;
+            outline: none;
+            -webkit-appearance: none;
+            border-radius: 0;
+        }
+
+        .replyValue::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+
+<body id="body">
+    <header id="secHeader">
+        <div class="header_fl fl" onclick="goback();"><img src="../image/icon_back.png" alt=""></div>
+        <div class="header_fr fr" onclick="fnOkWin();">确定</div>
+        <div class="header_center" id='header_center'>修改听单</div>
+    </header>
+    <div id="main">
+        <div class="Cover" onclick="fnSettings();">
+            <div class="Cover_img" id="Cover_img"><img src="../image/my/fnShareImg.jpg" alt="CoverDivInput"></div>
+            <div class="Cover_title">封面</div>
+        </div>
+        <div class="bg"></div>
+        <div class="Cover_input row">
+            <div class="Cover_div_input"><input type="text" placeholder="请输入听单名" id="CoverDivInput"></div>
+            <div class="Cover_x" onclick="CoverDivInputs();">×</div>
+            <div class="Cover_name">名称</div>
+        </div>
+        <div class="bg"></div>
+        <div class="description">
+            描述
+        </div>
+        <div class="textarea">
+            <textarea placeholder="长按粘贴文本" class="replyValue" type="text" id="bar" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
+
+        </div>
+    </div>
+</body>
+
+</html>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript">
+    var id;
+    var CoverDivInput;
+    var CoverImgs;
+    var bar;
+    var dataImg;
+    var token;
+
+    function goback() {
+        api.closeWin({
+            name: 'NewData'
+        });
+    }
+
+    apiready = function() {
+        token = $api.getStorage('token');
+        var header = $api.byId('secHeader');
+        $api.fixStatusBar(header);
+        var headerPos = $api.offset(header);
+        var headerPosH = $api.offset(header).h;
+        id = api.pageParam.id;
+        var header_center = $api.byId('header_center');
+        // 获取浏览器高度
+        if (window.innerHeight)
+            winHeight = window.innerHeight;
+        else if ((document.body) && (document.body.clientHeight))
+            winHeight = document.body.clientHeight;
+        var main = $api.byId('main');
+        var winHeightHeader = winHeight - headerPosH;
+        $api.css(main, 'height:' + winHeightHeader + 'px;');
+        // CoverDivInputImgBar();
+        fnData();
+    }
+
+    function fnData() {
+        api.ajax({
+            url: host + apiUri + '/listening/detail/' + id,
+            method: 'get',
+            headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token
+            }
+        }, function(ret, err) {
+            if (ret) {
+                var CoverDivInput = $api.byId('CoverDivInput');
+
+                var CoverDivInputs = ret.data.linstening_info.listening_name;
+                CoverDivInput.value = CoverDivInputs;
+                var dataImg = ret.data.linstening_info.listening_cover;
+                if (dataImg == '') {
+                    var Cover_img = $api.byId('Cover_img');
+                    Cover_img.innerHTML = '<img src="../image/my/fnShareImg.jpg">'
+                } else {
+                    var Cover_img = $api.byId('Cover_img');
+                    Cover_img.innerHTML = '<img src="' + http + 'listening/' + dataImg + '">'
+                    CoverImgs = dataImg;
+                }
+
+            } else {
+                alert(JSON.stringify(err));
+            }
+        });
+    }
+
+    function fnSettings() {
+        var dialogBox = api.require('dialogBox');
+        dialogBox.actionMenu({
+            rect: {
+                h: 150
+            },
+            texts: {
+                cancel: '取消'
+            },
+            items: [{
+                text: '相机',
+                icon: 'widget://image/New_Xj.png'
+            }, {
+                text: '相册',
+                icon: 'widget://image/New_Xc.png'
+            }, {
+                text: '自定义',
+                icon: 'widget://image/New_Zdy.png'
+            }],
+            styles: {
+                bg: '#FFF',
+                corner: 6,
+                column: 3,
+                itemText: {
+                    color: '#000',
+                    size: 12,
+                    marginT: 10
+                },
+                itemIcon: {
+                    size: 30
+                },
+                cancel: {
+                    bg: '#fff',
+                    color: '#333',
+                    h: 55,
+                    size: 14
+                }
+            },
+            tapClose: true
+        }, function(ret) {
+
+            var texts = ret.eventType;
+            var index = ret.index;
+            if (texts == "cancel") {
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+            } else if (index == 0) {
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+                api.getPicture({
+                    sourceType: 'camera',
+                    encodingType: 'jpg',
+                    mediaValue: 'pic',
+                    destinationType: 'url',
+                    allowEdit: true,
+                    quality: 50,
+                    targetWidth: 100,
+                    targetHeight: 100,
+                    saveToPhotoAlbum: false
+                }, function(ret, err) {
+                    if (ret) {
+                        // alert(JSON.stringify(ret));
+                        // console.log(JSON.stringify(ret.data));
+                        var CoverImg = $api.byId('Cover_img');
+                        CoverImg.innerHTML = '<img src="' + ret.data + '">';
+                        // console.log(ret.data);
+                        var token = $api.getStorage('token');
+                        api.ajax({
+                            url: host + apiUri + '/upload/listening_cover',
+                            method: 'post',
+                            headers: {
+                                "source": api.systemType,
+                                "version": version,
+                                "session": token
+                            },
+                            data: {
+                                files: {
+                                    cover: ret.data
+                                }
+                            }
+                        }, function(ret, err) {
+                            if (ret) {
+                                if (ret.status == 200) {
+                                    fnUploadImage(ret);
+                                } else {
+                                    api.toast({
+                                        msg: '上传失败',
+                                        duration: 2000,
+                                        location: 'bottom'
+                                    });
+                                }
+                                // alert( JSON.stringify( ret ) );
+                                // console.log(JSON.stringify( ret ));
+
+                            } else {
+                                var CoverImg = ret.data;
+                                var CoverImg = $api.byId('Cover_img');
+                                CoverImg.innerHTML = '<img src="../image/my/fnShareImg.jpg">'
+
+                                api.toast({
+                                    msg: '上传失败',
+                                    duration: 2000,
+                                    location: 'bottom'
+                                });
+
+                            }
+                        });
+
+
+                    } else {
+                        alert(ret.message);
+                        $api.rmStorage('token');
+                        api.openWin({
+                            name: 'login',
+                            url: '../login.html',
+                            pageParam: {
+                                name: 'test'
+                            }
+                        });
+                    }
+                });
+            } else if (index == 1) {
+                // alert('相册')
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+                api.getPicture({
+                    sourceType: 'album',
+                    encodingType: 'jpg',
+                    mediaValue: 'pic',
+                    destinationType: 'url',
+                    allowEdit: true,
+                    quality: 50,
+                    targetWidth: 100,
+                    targetHeight: 100,
+                    saveToPhotoAlbum: false
+                }, function(ret, err) {
+                    if (ret) {
+                        var CoverImg = $api.byId('Cover_img');
+                        CoverImg.innerHTML = '<img src="' + ret.data + '">';
+                        // console.log(ret.data);
+                        var token = $api.getStorage('token');
+                        api.ajax({
+                            url: host + apiUri + '/upload/listening_cover',
+                            method: 'post',
+                            headers: {
+                                "source": api.systemType,
+                                "version": version,
+                                "session": token
+                            },
+                            data: {
+                                files: {
+                                    cover: ret.data
+                                }
+                            }
+                        }, function(ret, err) {
+                            if (ret) {
+                                if (ret.status == 200) {
+                                    fnUploadImage(ret);
+                                }
+                                // alert( JSON.stringify( ret ) );
+                                // console.log(JSON.stringify( ret ));
+
+                            } else {
+                                api.toast({
+                                    msg: '上传失败',
+                                    duration: 2000,
+                                    location: 'bottom'
+                                });
+
+                            }
+                        });
+                    } else {
+                        alert(ret.message);
+                        $api.rmStorage('token');
+                        api.openWin({
+                            name: 'login',
+                            url: '../login.html',
+                            pageParam: {
+                                name: 'test'
+                            }
+                        });
+                    }
+                });
+
+            } else if (index == 2) {
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+                fnShare();
+
+            }
+        });
+    }
+
+    function CoverDivInputs() {
+        var CoverDivInputss = document.getElementById('CoverDivInput');
+        // var CoverDivInputValue = CoverDivInput.value;
+
+        CoverDivInput = CoverDivInputss.value;
+        if (!CoverDivInput == '') {
+
+            CoverDivInputss.value = '';
+
+            var CoverDivInputs = CoverDivInputss.value;
+            api.toast({
+                msg: '已清空',
+                duration: 2000,
+                location: 'bottom'
+            });
+            api.sendEvent({
+                name: 'NewCoverDivInput',
+                extra: {
+                    CoverDivInput: CoverDivInputs
+                }
+            });
+        }
+    }
+
+    function fnUploadImage(ret) {
+        var CoverImg = ret.data;
+
+        if (CoverImg == '') {
+            var CoverImg = $api.byId('Cover_img');
+            CoverImg.innerHTML = '<img src="../image/my/fnShareImg.jpg">'
+        } else {
+            CoverImgs = ret.data;
+        }
+    }
+
+    function fnShare() {
+        var dialogBox = api.require('dialogBox');
+        widget = ['/image/my/fnShareImg/01.jpg', '/image/my/fnShareImg/02.jpg', '/image/my/fnShareImg/03.jpg', '/image/my/fnShareImg/04.jpg', '/image/my/fnShareImg/05.jpg', '/image/my/fnShareImg/06.jpg', '/image/my/fnShareImg/07.jpg',
+            '/image/my/fnShareImg/08.jpg',
+        ]
+        dialogBox.share({
+            rect: {
+                w: 300,
+                h: 200
+            },
+            items: [{
+                // text: '微信',
+                icon: 'widget:/' + widget[0]
+            }, {
+                // text: 'QQ',
+                icon: 'widget:/' + widget[1]
+            }, {
+                // text: 'QQZone',
+                icon: 'widget:/' + widget[2]
+            }, {
+                // text: 'apiCloud',
+                icon: 'widget:/' + widget[3]
+            }, {
+                // text: '微博',
+                icon: 'widget:/' + widget[4]
+            }, {
+                // text: '短信',
+                icon: 'widget:/' + widget[5]
+            }, {
+                // text: '短信',
+                icon: 'widget:/' + widget[6]
+            }, {
+                // text: '短信',
+                icon: 'widget:/' + widget[7]
+            }],
+            styles: {
+                bg: '#FFF',
+                column: 4,
+                horizontalSpace: 5,
+                verticalSpace: 5,
+                itemText: {
+                    color: '#000',
+                    // size: 15,
+                    marginT: 0
+                },
+                itemIcon: {
+                    size: 65
+                }
+            },
+            // 点击灰色部分弹框消失
+            tapClose: true
+        }, function(ret) {
+            var index = ret.index;
+            // alert(JSON.stringify(ret));
+            if (index == 0) {
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+            } else if (index == 1) {
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+                fnUploadImages(index);
+            } else if (index == 2) {
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+                fnUploadImages(index);
+            } else if (index == 3) {
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+                fnUploadImages(index);
+            } else if (index == 4) {
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+                fnUploadImages(index);
+            } else if (index == 5) {
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+                fnUploadImages(index);
+            } else if (index == 6) {
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+                fnUploadImages(index);
+            } else if (index == 7) {
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+                fnUploadImages(index);
+            } else if (styles == "itemText") {
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+            }
+        });
+    }
+
+    function fnUploadImages(index) {
+
+        var CoverImg = $api.byId('Cover_img');
+        CoverImg.innerHTML = '<img src="..' + widget[index] + '">';
+
+        CoverImgs = 'sand_box' + widget[index];
+
+    }
+
+    function fnBar() {
+        bar = $api.byId('bar').value;
+        if (bar != '') {
+            api.sendEvent({
+                name: 'Newbar',
+                extra: {
+                    bar: bar
+                }
+            });
+        }
+    }
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    function fnOkWin() {
+        CoverDivInputs();
+        // fnUploadImage();
+        fnBar();
+        if (CoverDivInput == undefined || CoverDivInput == '') {
+            // console.log(CoverDivInput);
+            api.toast({
+                msg: '用户名不能为空',
+                duration: 2000,
+                location: 'bottom'
+            });
+        } else {
+            api.toast({
+                msg: '修改成功',
+                duration: 2000,
+                location: 'bottom'
+            });
+
+            // var token = $api.getStorage('token');
+            api.ajax({
+                url: host + apiUri + '/listening/edit',
+                method: 'post',
+                headers: {
+                    "source": api.systemType,
+                    "version": version,
+                    "session": token
+                },
+                data: {
+                    values: {
+                        'name': CoverDivInput,
+                        'cover': CoverImgs,
+                        'description': bar,
+                        'id': id
+                    }
+                }
+            }, function(ret, err) {
+                if (ret) {
+                    if (ret.status == 200) {
+                      var newData = 1;
+                      api.sendEvent({
+                          name: 'newData',
+                          extra: {
+                              newData: newData
+                          }
+                      });
+                      // goback();
+                        // api.closeWin();
+                    }
+                } else {
+                    alert(ret.message);
+                    $api.rmStorage('token');
+                    api.openWin({
+                        name: 'login',
+                        url: '../login.html',
+                        pageParam: {
+                            name: 'test'
+                        }
+                    });
+                }
+            });
+
+
+        }
+    }
+</script>

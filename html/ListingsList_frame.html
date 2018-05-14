@@ -439,11 +439,11 @@
         </div>
         <div class="list_bjDiv_img">
             <div class="userinfo" id="userinfo">
-                <!-- <div class="userinfocol" tapmode="toolhover" onclick="collectmusicFx(this)">
-                  <div class="info">
-                    <img src="../image/KM_ListingsListDzs.png" alt="" class="collectmusicFx">
+                <div class="userinfocol" tapmode="toolhover">
+                  <div class="info"  id="extraGood">
+                    <!-- <img src="../image/KM_ListingsListDzs.png" alt="" class="collectmusicFx"> -->
                   </div>
-                  <p>20</p>
+                  <p id='goods'></p>
               </div>
               <div class="userinfocol" tapmode="toolhover" onclick="collectmusic(this)" data-click="0">
                   <div class="info">
@@ -461,14 +461,14 @@
                   <div class="info">
                     <img src="../image/KM_ListingsListSx.png" alt="">
                   </div>
-                  <p>22</p>
+                  <p id="DiscussDetailP">22</p>
               </div>
               <div class="userinfocol" tapmode="toolhover" onclick="fnOpenPlayShare();">
                   <div class="info">
                     <img src="../image/KM_ListingsListGd.png" alt="">
                   </div>
                   <p>分享</p>
-              </div> -->
+              </div>
             </div>
         </div>
     </div>
@@ -495,11 +495,18 @@
     var token;
     // 用户头像信息
     var photo;
+    // 点赞全局
+    var goodss;
+    var ListingsListGoodHtml;
     apiready = function() {
-        //fnTingdanTuijianliebiao()
-        ids = api.pageParam.ids;
-        ListenToTheDetails(ids);
-    }
+
+            //fnTingdanTuijianliebiao()
+            ids = api.pageParam.ids;
+            ListenToTheDetails(ids);
+
+
+        }
+        // 调取用户基本信息
     function ListenToTheDetails(ids) {
         token = $api.getStorage('token');
         api.ajax({
@@ -512,72 +519,211 @@
             }
         }, function(ret, err) {
             if (ret) {
-              if (ret.status == 200) {
-              var single = $api.byId('single');
-              var  photos  =  ret.data.linstening_info.photo;
-              var photo = photos.substring(0, 4);
-                if (photo == 'http') {
-                    photo  =  ret.data.linstening_info.photo;
-                }else if (photo != 'http') {
-                  // var listening = 'info/';
-                   photo = updatePhotoUrl+ photos;
+                if (ret.status == 200) {
+                    var single = $api.byId('single');
+                    // 判断用户头像
+                    var photos = ret.data.linstening_info.photo;
+                    var photo = photos.substring(0, 4);
+                    if (photo == 'http') {
+                        photo = ret.data.linstening_info.photo;
+                    } else if (photo == '') {
+                        photo = '../image/KM_tx.png'
+                    } else if (photo != 'http') {
+                        photo = updatePhotoUrl + photos;
+                    }
+                    // 判断用户听单封面信息
+                    var listening_cover = ret.data.linstening_info.listening_cover;
+                    var sandBox = listening_cover.substring(0, 8);
+                    if (sandBox == 'sand_box') {
+                        var sandBoxs = listening_cover.replace(/sand_box/, '..');
+                        $api.append(single, '<div class="single_img fl"><img src="' + sandBoxs + '" alt=""></div><div class="single_l fl"><div class="single_h1" id="tingdanliebiaobiaoti">' + ret.data.linstening_info.listening_name +
+                            '</div><div class="single_img_p_span"><div class="single_div_img fl"><img src="' + photo + '" alt=""></div><div class="single_img_name fl">' + ret.data.linstening_info.nick_name +
+                            '</div></div><div class="single_time"><div class="single_time_img fl"><img src="../image/KM_sc.png" alt=""></div><div class="single_img_num fl">' + ret.data.linstening_info.collection_total +
+                            '</div><div class="single_time_img fl"><img src="../image/KM_play.png" alt=""></div><div class="single_img_num fl">' + ret.data.linstening_info.song_total +
+                            '</div><div class="single_time_img fl"><img src="../image/read/aloud_py.png" alt=""></div><div class="single_img_num fl">' + ret.data.linstening_info.play_total + '</div></div></div>')
+                    } else if (listening_cover == '') {
+                        $api.append(single, '<div class="single_img fl"><img src="../image/my/fnShareImg.jpg" alt=""></div><div class="single_l fl"><div class="single_h1" id="tingdanliebiaobiaoti">' + ret.data.linstening_info.listening_name +
+                            '</div><div class="single_img_p_span"><div class="single_div_img fl"><img src="' + photo + '" alt=""></div><div class="single_img_name fl">' + ret.data.linstening_info.nick_name +
+                            '</div></div><div class="single_time"><div class="single_time_img fl"><img src="../image/KM_sc.png" alt=""></div><div class="single_img_num fl">' + ret.data.linstening_info.collection_total +
+                            '</div><div class="single_time_img fl"><img src="../image/KM_play.png" alt=""></div><div class="single_img_num fl">' + ret.data.linstening_info.song_total +
+                            '</div><div class="single_time_img fl"><img src="../image/read/aloud_py.png" alt=""></div><div class="single_img_num fl">' + ret.data.linstening_info.play_total + '</div></div></div>')
+                    } else {
+                        var listening = 'listening/';
+                        var listening_covers = http + listening + listening_cover;
+                        $api.append(single, '<div class="single_img fl"><img src="' + listening_covers + '" alt=""></div><div class="single_l fl"><div class="single_h1" id="tingdanliebiaobiaoti">' + ret.data.linstening_info.listening_name +
+                            '</div><div class="single_img_p_span"><div class="single_div_img fl"><img src="' + photo + '" alt=""></div><div class="single_img_name fl">' + ret.data.linstening_info.nick_name +
+                            '</div></div><div class="single_time"><div class="single_time_img fl"><img src="../image/KM_sc.png" alt=""></div><div class="single_img_num fl">' + ret.data.linstening_info.collection_total +
+                            '</div><div class="single_time_img fl"><img src="../image/KM_play.png" alt=""></div><div class="single_img_num fl">' + ret.data.linstening_info.song_total +
+                            '</div><div class="single_time_img fl"><img src="../image/read/aloud_py.png" alt=""></div><div class="single_img_num fl">' + ret.data.linstening_info.play_total + '</div></div></div>')
+                    }
+                    var DiscussDetailP = $api.byId('DiscussDetailP');
+                    var comment_total = ret.data.linstening_info.comment_total;
+                    $api.html(DiscussDetailP, comment_total);
+
+                    // 调取用户
+                    // var userinfo = $api.byId('userinfo');
+                    // $api.append(userinfo, '<div class="userinfocol" tapmode="toolhover"><div class="info" id="extraGood"></div><p id="id="goodsssssss"></p></div><div class="userinfocol" tapmode="toolhover" onclick="collectmusic(this)" data-click="0"><div class="info"><img src="../image/KM_hxs.png" alt="" class="collectmusic"></div><p>收藏</p></div><div class="userinfocol" tapmode="toolhover" onclick=""><div class="info"><img src="../image/KM_ListingsListYzpd.png" alt=""></div><p>预置频道</p></div><div class="userinfocol" tapmode="toolhover" onclick="fnOpenDiscussDetail(' +
+                    //     ret.data.linstening_info.l_id + '); "><div class="info"><img src="../image/KM_ListingsListSx.png" alt=""></div><p>' + ret.data.linstening_info.comment_total +
+                    //     '</p></div><div class="userinfocol" tapmode="toolhover" onclick="fnOpenPlayShare();"><div class="info"><img src="../image/KM_ListingsListGd.png" alt=""></div><p>分享</p></div>');
+
+
+                        fnExtraGoodssssss();
+                        goodss = ret.data.linstening_info.good_total;
+                        console.log(goodss);
+                        // console.log(ret.data.linstening_info.good_total);
+                        // console.log(goods);
+                        var stylelistss = $api.byId('goods');
+                        $api.html(stylelistss, goodss);
+                    songList(ret);
+
                 } else {
-                  photo = '../image/KM_tx.png'
+                    api.toast({
+                        msg: '失败',
+                        duration: 2000,
+                        location: 'middle'
+                    });
                 }
-                var listening_cover = ret.data.linstening_info.listening_cover;
-                var sandBox = listening_cover.substring(0, 8);
-                if (sandBox == 'sand_box') {
-                    var sandBoxs = listening_cover.replace(/sand_box/, '..');
-                    $api.append(single, '<div class="single_img fl"><img src="' + sandBoxs + '" alt=""></div><div class="single_l fl"><div class="single_h1" id="tingdanliebiaobiaoti">' + ret.data.linstening_info.listening_name +
-                        '</div><div class="single_img_p_span"><div class="single_div_img fl"><img src="' + photo + '" alt=""></div><div class="single_img_name fl">' + ret.data.linstening_info.nick_name +
-                        '</div></div><div class="single_time"><div class="single_time_img fl"><img src="../image/KM_sc.png" alt=""></div><div class="single_img_num fl">' + ret.data.linstening_info.collection_total +
-                        '</div><div class="single_time_img fl"><img src="../image/KM_play.png" alt=""></div><div class="single_img_num fl">' + ret.data.linstening_info.song_total +
-                        '</div><div class="single_time_img fl"><img src="../image/read/aloud_py.png" alt=""></div><div class="single_img_num fl">' + ret.data.linstening_info.play_total + '</div></div></div>')
-                } else if (listening_cover == '') {
-                    $api.append(single, '<div class="single_img fl"><img src="../image/my/fnShareImg.jpg" alt=""></div><div class="single_l fl"><div class="single_h1" id="tingdanliebiaobiaoti">' + ret.data.linstening_info.listening_name +
-                        '</div><div class="single_img_p_span"><div class="single_div_img fl"><img src="' + photo + '" alt=""></div><div class="single_img_name fl">' + ret.data.linstening_info.nick_name +
-                        '</div></div><div class="single_time"><div class="single_time_img fl"><img src="../image/KM_sc.png" alt=""></div><div class="single_img_num fl">' + ret.data.linstening_info.collection_total +
-                        '</div><div class="single_time_img fl"><img src="../image/KM_play.png" alt=""></div><div class="single_img_num fl">' + ret.data.linstening_info.song_total +
-                        '</div><div class="single_time_img fl"><img src="../image/read/aloud_py.png" alt=""></div><div class="single_img_num fl">' + ret.data.linstening_info.play_total + '</div></div></div>')
-                } else {
-                    var listening = 'listening/';
-                    var listening_covers = http + listening + listening_cover;
-                    $api.append(single, '<div class="single_img fl"><img src="' + listening_covers + '" alt=""></div><div class="single_l fl"><div class="single_h1" id="tingdanliebiaobiaoti">' + ret.data.linstening_info.listening_name +
-                        '</div><div class="single_img_p_span"><div class="single_div_img fl"><img src="' + photo + '" alt=""></div><div class="single_img_name fl">' + ret.data.linstening_info.nick_name +
-                        '</div></div><div class="single_time"><div class="single_time_img fl"><img src="../image/KM_sc.png" alt=""></div><div class="single_img_num fl">' + ret.data.linstening_info.collection_total +
-                        '</div><div class="single_time_img fl"><img src="../image/KM_play.png" alt=""></div><div class="single_img_num fl">' + ret.data.linstening_info.song_total +
-                        '</div><div class="single_time_img fl"><img src="../image/read/aloud_py.png" alt=""></div><div class="single_img_num fl">' + ret.data.linstening_info.play_total + '</div></div></div>')
-                }
-                var userinfo = $api.byId('userinfo');
-                $api.append(userinfo, '<div class="userinfocol" tapmode="toolhover" onclick="collectmusicFx(this)" data-click="0"><div class="info"><img src="../image/KM_ListingsListDzs.png" alt="" class="collectmusicFx"></div><p>' + ret.data
-                    .linstening_info.good_total +
-                    '</p></div><div class="userinfocol" tapmode="toolhover" onclick="collectmusic(this)" data-click="0"><div class="info"><img src="../image/KM_hxs.png" alt="" class="collectmusic"></div><p>收藏</p></div><div class="userinfocol" tapmode="toolhover" onclick=""><div class="info"><img src="../image/KM_ListingsListYzpd.png" alt=""></div><p>预置频道</p></div><div class="userinfocol" tapmode="toolhover" onclick="fnOpenDiscussDetail(' +
-                    ret.data.linstening_info.l_id + '); "><div class="info"><img src="../image/KM_ListingsListSx.png" alt=""></div><p>' + ret.data.linstening_info.comment_total +
-                    '</p></div><div class="userinfocol" tapmode="toolhover" onclick="fnOpenPlayShare();"><div class="info"><img src="../image/KM_ListingsListGd.png" alt=""></div><p>分享</p></div>');
-                songList(ret);
-              }else {
-                api.toast({
-                    msg: '失败',
-                    duration: 2000,
-                    location: 'middle'
-                });
-              }
 
             } else {
-              alert(ret.message);
-              $api.rmStorage('token');
-              api.openWin({
-                  name: 'login',
-                  url: '../login.html',
-                  pageParam: {
-                      name: 'test'
-                  }
-              });
+                alert(ret.message);
+                $api.rmStorage('token');
+                api.openWin({
+                    name: 'login',
+                    url: '../login.html',
+                    pageParam: {
+                        name: 'test'
+                    }
+                });
             }
         });
 
     }
 
+    //
+    function fnExtraGoodssssss() {
+        var albumss = $api.getStorage('ListingsList'+ids);
+
+        // console.log(album);
+        if (albumss) {
+            if (albumss != 'inc') {
+                ListingsListGoodHtml = '<img src="../image/KM_ListingsListDzs.png" alt="" class="collectmusicFxs" onclick="collectmusicFx(this)" data-click="0">';
+            } else {
+                ListingsListGoodHtml = '<img src="../image/KM_play_dianzan_red.png" alt="" class="collectmusicFxs" onclick="collectmusicFx(this)" data-click="1">';
+            }
+        } else {
+            ListingsListGoodHtml = '<img src="../image/KM_ListingsListDzs.png" alt="" class="collectmusicFxs" onclick="collectmusicFx(this)" data-click="0">';
+        }
+        var stylelist = $api.byId('extraGood');
+        $api.html(stylelist, ListingsListGoodHtml);
+    }
+
+    function collectmusicFx(clicktoolitem) {
+        var toolbarlist = document.getElementsByClassName('collectmusicFxs')[0];
+        var click = clicktoolitem.getAttribute("data-click");
+        var stylelist = $api.byId('goods');
+        if (click == 0) {
+          // 点开
+          clicktoolitem.setAttribute("data-click", 1);
+          toolbarlist.src = "../image/KM_play_dianzan_red.png";
+          var ids = api.pageParam.ids;
+          uri = '/extra/good';
+          var url = host + apiUri + uri + '/' + ids;
+          api.ajax({
+              url: host + apiUri + uri + '/' + ids,
+              method: 'post',
+              dataType: 'json',
+              headers: {
+                  "source": api.systemType,
+                  "version": version,
+                  "session": token
+              },
+              data:{
+                values:{
+                  "type":'inc',
+                  "model":'listen',
+                },
+              },
+          }, function(ret, err) {
+              if (ret.status == 200) {
+                  api.toast({              
+                      msg:   '已点赞',
+                      duration:  2000,
+                      location:   'middle'          
+                  });
+                  console.log(goodss);
+                  goodss++;
+                  console.log(goodss);
+                  $api.html(stylelist, goodss);
+                  var album = ids + 'ListingsLists';
+                  // $api.rmStorage('ListingsList',album)
+                  $api.setStorage('ListingsList'+ids,'inc');
+              } else {
+                api.toast({              
+                    msg:  ret.message,
+                    duration:  2000,
+                    location:   'middle'          
+                });
+                  // $api.rmStorage('token');
+                  // api.openWin({
+                  //     name: 'login',
+                  //     url: '../login.html',
+                  // });
+              }
+          });
+        } else {
+          // 关闭
+          clicktoolitem.setAttribute("data-click", 0);
+          toolbarlist.src = "../image/KM_ListingsListDzs.png";
+          var ids = api.pageParam.ids;
+          uri = '/extra/good';
+          api.ajax({
+              url: host + apiUri + uri + '/' + ids,
+              method: 'post',
+              dataType: 'json',
+              headers: {
+                  "source": api.systemType,
+                  "version": version,
+                  "session": token
+              },
+              data:{
+                values:{
+                  "type":'dec',
+                  "model":'listen',
+                }
+              }
+          }, function(ret, err) {
+              if (ret.status == 200) {
+                  api.toast({              
+                      msg:   '已取消点赞',
+                      duration:  2000,
+                      location:   'middle'          
+                  });
+                  console.log(goodss);
+                  goodss--;
+                  if(goodss<0){
+                    goodss = 0;
+                  }
+                  console.log(goodss);
+                  $api.html(stylelist, goodss);
+                  $api.setStorage('ListingsList'+ids,'dec');
+                  // $api.rmStorage('ListingsList',album)
+              } else {
+                api.toast({              
+                    msg:  ret.message,
+                    duration:  2000,
+                    location:  'middle'          
+                });
+                  // $api.rmStorage('token');
+                  // api.openWin({
+                  //     name: 'login',
+                  //     url: '../login.html',
+                  // });
+              }
+          });
+        }
+    }
+
+    // 调取用户听单单曲列表
     function songList(ret) {
         var tuijianliebiaogequ = $api.byId('tuijianliebiaogequ');
         var author_name;
@@ -589,12 +735,11 @@
                 '</div><div class="author fl">朗读者：' + reciter + '</div><div class="fr on_playall_img" onclick="fnOpenPlayMore(' + ret.data.song_list[i].id + ');"><img src="../image/KM_list_more.png" alt=""></div></li>');
         }
     }
-
+    // 收藏成功
     function collectmusic(clicktoolitem) {
         var toolbarlist = document.getElementsByClassName('collectmusic')[0];
         var click = clicktoolitem.getAttribute("data-click");
         if (click == 0) {
-
             api.toast({
                 msg: '收藏成功',
                 duration: 2000,
@@ -611,28 +756,8 @@
         }
     }
 
-    function collectmusicFx(clicktoolitem) {
-        var toolbarlist = document.getElementsByClassName('collectmusicFx')[0];
-        var click = clicktoolitem.getAttribute("data-click");
-
-        if (click == 0) {
-            api.toast({
-                msg: '点赞成功',
-                duration: 2000,
-                location: 'middle'
-            });
-            // 点开
-            clicktoolitem.setAttribute("data-click", 1);
-            toolbarlist.src = "../image/KM_play_dianzan_red.png";
-        } else {
-            // 关闭
-            clicktoolitem.setAttribute("data-click", 0);
-            toolbarlist.src = "../image/KM_ListingsListDzs.png";
-        }
-    }
     //打开分享
     function fnOpenPlayMore(songListID) {
-
         var dialogBox = api.require('dialogBox');
         dialogBox.actionMenu({
             rect: {

@@ -113,7 +113,13 @@
 <script type="text/javascript">
     var widget
     apiready = function() {
-
+      api.addEventListener({
+          name: 'newData'
+      }, function(ret, err) {
+        console.log(111);
+        alert(111);
+          // bar = ret.value.bar;
+      });
     }
     function fnCoverDivInput() {
          CoverDivInput = $api.byId('CoverDivInput').value;
