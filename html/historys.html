@@ -330,7 +330,21 @@
         .time {
             padding: 0 20px;
         }
-        #test li{position: relative;}
+
+        #test li {
+            position: relative;
+        }
+
+        .noHistory {
+            color: #999;
+            font-size: 15px;
+            margin-top: 20px;
+            width: 100%;
+            text-align: center;
+        }
+        .message{
+          width:80%;
+        }
     </style>
 </head>
 
@@ -338,17 +352,19 @@
     <header id="secHeader">
         <div class="header_fl fl" onclick="goback();"><img src="../image/icon_back.png" alt=""></div>
         <div class="header_fr fr" onclick="fnOpenPlayButton();" id="btnhref">编辑</div>
-        <div class="header_center">播放历史</div>
+        <div class="header_center">历史记录</div>
     </header>
     <div class="message_frame" id="messageFrameDiv">
         <ul id="test">
+            <!-- <li class="noHistory">您还没有历史记录~</li> -->
             <li>
-                <div class="message_frame_cycle">
+                <div class="message_frame_cycle" >
                     <div class="message_frame_cycle_imgs hy-checkk"><input class="hy-radio" type="checkbox" ng-model="item.checked1" value="" name="chckBox" /></div>
-                    <div class="message_frame_cycle_img" onclick="fnPlayWin();"><img src="../image/KM_album.png" alt=""></div>
-                    <div class="message_frame_cycle_div fl">
+                    <div class="message_frame_cycle_div fl" onclick="fnPlayWin();">
+                      <div class="message" onclick="fnPlayWin();">
                         <div class="message_frame_cycle_div_1 col">作品《鹅鹅鹅》</div>
-                        <div class="message_frame_cycle_div_2 col">作者：小许</div>
+                        <div class="message_frame_cycle_div_2 col">作者:<span>小许</span>&nbsp;&nbsp; 朗诵者:<span>小许</span></div>
+                      </div>
                         <div class="message_frame_cycle_div_3 fl">
                             <div class="message_frame_cycle_div_3fl ">
                                   <span class="message_frame_cycle_div_3fl_img fr">×</span>
@@ -358,12 +374,25 @@
                 </div>
             </li>
             <li>
-                <div class="message_frame_cycle">
+                <div class="message_frame_cycle" >
                     <div class="message_frame_cycle_imgs hy-checkk"><input class="hy-radio" type="checkbox" ng-model="item.checked1" value="" name="chckBox" /></div>
-                    <div class="message_frame_cycle_img" onclick="fnPlayWin();"><img src="../image/KM_album.png" alt=""></div>
+                    <div class="message_frame_cycle_div fl" onclick="fnPlayWin();">
+                        <div class="message_frame_cycle_div_1 col">作品《鹅鹅鹅》</div>
+                        <div class="message_frame_cycle_div_2 col">作者:<span>小许</span>&nbsp;&nbsp; 朗诵者:<span>小许</span></div>
+                    </div>
+                    <div class="message_frame_cycle_div_3 fl">
+                        <div class="message_frame_cycle_div_3fl ">
+                              <span class="message_frame_cycle_div_3fl_img fr">×</span>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <!-- <li>
+                <div class="message_frame_cycle" onclick="fnPlayWin();">
+                    <div class="message_frame_cycle_imgs hy-checkk"><input class="hy-radio" type="checkbox" ng-model="item.checked1" value="" name="chckBox" /></div>
                     <div class="message_frame_cycle_div fl">
                         <div class="message_frame_cycle_div_1 col">作品《鹅鹅鹅》</div>
-                        <div class="message_frame_cycle_div_2 col">作者：小许</div>
+                        <div class="message_frame_cycle_div_2 col">作者:<span>小许</span>&nbsp;&nbsp; 朗诵者:<span>小许</span></div>
                         <div class="message_frame_cycle_div_3 fl">
                             <div class="message_frame_cycle_div_3fl ">
                                   <span class="message_frame_cycle_div_3fl_img fr">×</span>
@@ -371,67 +400,7 @@
                         </div>
                     </div>
                 </div>
-            </li>
-            <li>
-                <div class="message_frame_cycle">
-                    <div class="message_frame_cycle_imgs hy-checkk"><input class="hy-radio" type="checkbox" ng-model="item.checked1" value="" name="chckBox" /></div>
-                    <div class="message_frame_cycle_img" onclick="fnPlayWin();"><img src="../image/KM_album.png" alt=""></div>
-                    <div class="message_frame_cycle_div fl">
-                        <div class="message_frame_cycle_div_1 col">作品《鹅鹅鹅》</div>
-                        <div class="message_frame_cycle_div_2 col">作者：小许</div>
-                        <div class="message_frame_cycle_div_3 fl">
-                            <div class="message_frame_cycle_div_3fl ">
-                                  <span class="message_frame_cycle_div_3fl_img fr">×</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="message_frame_cycle">
-                    <div class="message_frame_cycle_imgs hy-checkk"><input class="hy-radio" type="checkbox" ng-model="item.checked1" value="" name="chckBox" /></div>
-                    <div class="message_frame_cycle_img" onclick="fnPlayWin();"><img src="../image/KM_album.png" alt=""></div>
-                    <div class="message_frame_cycle_div fl">
-                        <div class="message_frame_cycle_div_1 col">作品《鹅鹅鹅》</div>
-                        <div class="message_frame_cycle_div_2 col">作者：小许</div>
-                        <div class="message_frame_cycle_div_3 fl">
-                            <div class="message_frame_cycle_div_3fl ">
-                                  <span class="message_frame_cycle_div_3fl_img fr">×</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="message_frame_cycle">
-                    <div class="message_frame_cycle_imgs hy-checkk"><input class="hy-radio" type="checkbox" ng-model="item.checked1" value="" name="chckBox" /></div>
-                    <div class="message_frame_cycle_img" onclick="fnPlayWin();"><img src="../image/KM_album.png" alt=""></div>
-                    <div class="message_frame_cycle_div fl">
-                        <div class="message_frame_cycle_div_1 col">作品《鹅鹅鹅》</div>
-                        <div class="message_frame_cycle_div_2 col">作者：小许</div>
-                        <div class="message_frame_cycle_div_3 fl">
-                            <div class="message_frame_cycle_div_3fl ">
-                                  <span class="message_frame_cycle_div_3fl_img fr">×</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="message_frame_cycle">
-                    <div class="message_frame_cycle_imgs hy-checkk"><input class="hy-radio" type="checkbox" ng-model="item.checked1" value="" name="chckBox" /></div>
-                    <div class="message_frame_cycle_img" onclick="fnPlayWin();"><img src="../image/KM_album.png" alt=""></div>
-                    <div class="message_frame_cycle_div fl">
-                        <div class="message_frame_cycle_div_1 col">作品《鹅鹅鹅》</div>
-                        <div class="message_frame_cycle_div_2 col">作者：小许</div>
-                        <div class="message_frame_cycle_div_3 fl">
-                            <div class="message_frame_cycle_div_3fl ">
-                                  <span class="message_frame_cycle_div_3fl_img fr">×</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </li>
+            </li> -->
         </ul>
     </div>
     <div class="footer active">
@@ -449,18 +418,20 @@
 
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript">
     function goback() {
         api.closeWin({
             name: 'historys'
         });
     }
-
+    var token;
     apiready = function() {
         var header = $api.byId('secHeader');
         $api.fixStatusBar(header);
         var headerPos = $api.offset(header);
         var headerPosH = $api.offset(header).h;
+        token = $api.getStorage('token');
         // 获取浏览器高度
         if (window.innerHeight)
             winHeight = window.innerHeight;
@@ -480,17 +451,18 @@
                 $api.addCls(ul_lisdiv[j], 'active');
             }
         }
-// ccg();
+        // ccg();
+        fnPlayHistory();
 
     }
 
     function ccg() {
-      var theight = getScrollTop();
+        var theight = getScrollTop();
         var ccg = $api.byId(ccg);
         var ccg2 = document.getElementById("ccg").offsetTop;
         var ccg1 = document.documentElement.scrollTop;
         var ccg3 = ccg.theight
-        // console.log(ccg3);
+            // console.log(ccg3);
     }
 
     function getScrollTop() {
@@ -504,60 +476,6 @@
         return scrollTop;
     }
 
-
-    // 获取高度
-    // function functionName() {
-    //     function getElementViewTop(element) {
-    //         var actualTop = element.offsetTop;
-    //         var current = element.offsetParent;
-    //         while (current !== null) {
-    //             actualTop += current.offsetTop;
-    //             current = current.offsetParent;
-    //         }
-    //         var elementScrollTop = 0;
-    //         if (document.compatMode == "BackCompat") {
-    //             elementScrollTop = document.body.scrollTop;
-    //         } else {
-    //             elementScrollTop = document.documentElement.scrollTop;
-    //         }
-    //         return actualTop;
-    //         //　return actualTop-elementScrollTop;
-    //     }
-    //
-    //     function getScroll() {
-    //         var top, left, width, height;
-    //
-    //         if (document.documentElement && document.documentElement.scrollTop) {
-    //             top = document.documentElement.scrollTop;
-    //             left = document.documentElement.scrollLeft;
-    //             width = document.documentElement.scrollWidth;
-    //             height = document.documentElement.scrollHeight;
-    //         } else if (document.body) {
-    //             top = document.body.scrollTop;
-    //             left = document.body.scrollLeft;
-    //             width = document.body.scrollWidth;
-    //             height = document.body.scrollHeight;
-    //         }
-    //         // alert(top);
-    //         // console.log(top);
-    //         return {
-    //             'top': top,
-    //             'left': left,
-    //             'width': width,
-    //             'height': height
-    //         };
-    //     }
-    //     var nav = document.getElementById('nav');
-    //     var posTop = getElementViewTop(nav);
-    //     window.addEventListener('scroll', function(event) {
-    //         var scrollTop = getScroll().top;
-    //         var output = document.getElementById('output');
-    //         // output.innerHTML = posTop +' '+scrollTop+' '+(posTop-scrollTop);
-    //         if (posTop >= 30 && posTop - scrollTop <= 30)
-    //             nav.className = 'nav fixed';
-    //         else nav.className = 'nav';
-    //     }, false);
-    // }
     // 播放切换按钮
     function fnOpenPlayCollect() {
         var playCollect = $api.byId('playCollect');
@@ -631,5 +549,70 @@
             $api.removeCls(footer[i], 'actives');
             $api.addCls(footer[i], 'active');
         }
+    }
+    //打开播放
+    function fnPlayWin() {
+        api.openWin({
+            name: 'play',
+            url: './play.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
+    }
+
+    //调接口
+    function fnPlayHistory() {
+        var uri = '/user/play_history';
+        api.ajax({
+            url: host + apiUri + uri,
+            method: 'get',
+            dataType: 'json',
+            headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token
+            }
+        }, function(ret, err) {
+            // alert(JSON.stringify(ret));
+            if (ret.status == 200) {
+                // console.log(ret.data.length);
+                var data = ret.data;
+                var len = ret.data.length;
+                if (data == "") {
+                    var stylelist = $api.byId('test');
+                    var html = '<li class="noHistory">您还没有历史记录~</li>';
+                    $api.html(stylelist, html);
+                    // alert(111);
+                } else {
+                    var html1 = '';
+                    for (var i = 0; i < len; i++) {
+                        var itemName = ret.data[i].item_name;
+                        var author = ret.data[i].author;
+                        var reciter = ret.data[i].reciter;
+                        // console.log(data1);
+                        var stylelist1 = $api.byId('test');
+                        if(!author){
+                          author = ' ';
+                        }
+                        if(reciter){
+                          html1 +=
+                              '<li><div class="message_frame_cycle" ><div class="message_frame_cycle_imgs hy-checkk"><input class="hy-radio" type="checkbox" ng-model="item.checked1" value="" name="chckBox" /></div><div class="message_frame_cycle_div fl" ><div class="message" onclick="fnPlayWin();"><div class="message_frame_cycle_div_1 col">' +
+                              itemName + '</div><div class="message_frame_cycle_div_2 col">作者:<span>' + author + '</span>&nbsp;&nbsp;&nbsp;&nbsp; 朗诵者:<span>' + reciter+
+                              '</span></div></div><div class="message_frame_cycle_div_3 fl"> <div class="message_frame_cycle_div_3fl "><span class="message_frame_cycle_div_3fl_img fr">×</span></div></div></div></div></li>';
+
+                        }else{
+                          html1 +=
+                              '<li><div class="message_frame_cycle" ><div class="message_frame_cycle_imgs hy-checkk"><input class="hy-radio" type="checkbox" ng-model="item.checked1" value="" name="chckBox" /></div><div class="message_frame_cycle_div fl"><div class="message" onclick="fnPlayWin();"><div class="message_frame_cycle_div_1 col">' +
+                              itemName + '</div><div class="message_frame_cycle_div_2 col"><span>作者:' + author + '</span></div></div><div class="message_frame_cycle_div_3 fl"> <div class="message_frame_cycle_div_3fl "><span class="message_frame_cycle_div_3fl_img fr">×</span></div></div></div></div></li>';
+                        }
+                        $api.html(stylelist1, html1);
+                    }
+                }
+            } else {
+                alert(JSON.stringify(err));
+            }
+
+        });
     }
 </script>
