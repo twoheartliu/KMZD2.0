@@ -146,13 +146,13 @@
 <script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript">
 var comment_id;
-var albumId;
+var soundId;
 var uris;
 var token;
     apiready = function() {
       token = $api.getStorage('token');
       comment_id = api.pageParam.comment_id;
-      albumId = api.pageParam.albumId;
+      soundId = api.pageParam.soundId;
       uris = api.pageParam.uris;
             var mHeader = $api.byId('mesHeader');
             var headerPos = $api.offset(mHeader);
@@ -171,19 +171,18 @@ var token;
                 },
                 data: {
                     values: {
-                        'id': albumId,
+                        'id': soundId,
                         'comment': replyValue,
                         'replay_id': comment_id
                     }
                 }
             }, function(ret, err) {
-              console.log(JSON.stringify(ret));
                 if (ret) {
                     if (ret.status == 200) {
                       api.sendEvent({
-                          name: 'gengXin',
+                          name: 'gengXinSingle',
                           extra: {
-                              albumId: albumId
+                              soundId: soundId
                           }
                       });
                       api.closeWin();

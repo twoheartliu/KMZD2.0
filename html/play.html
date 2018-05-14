@@ -468,6 +468,7 @@
     <!-- <header class="qx" id="secHeader">
       <i class="back" tapmode onclick="api.closeWin();"></i>
       <div id="title">
+
       </div>
       <i class="more"></i>
   </header> -->
@@ -567,6 +568,8 @@
     var bookCollectionHtml;
     var collections;
     var goods;
+    var soundId;
+
     apiready = function() {
       token = $api.getStorage('token');
         var secHeader = $api.byId('secHeader');
@@ -583,10 +586,12 @@
         var winHeightHeader = winHeight - headerPosH;
         $api.css(messageFrameDiv, 'height:' + winHeightHeader + 'px;');
         $api.fixIos7Bar(header);
+        fnBookExtraGoodssssss()
         var connectionType = api.connectionType;
         dangqianbofangid = api.pageParam.dangqianbofangid;
         if(dangqianbofangid){
           bookId = dangqianbofangid;
+          soundId = dangqianbofangid;
           fnBookExtraGoodssssss();
 
         }
@@ -600,10 +605,12 @@
 
                 fnJinRuBofangs(dangqianbofangid);
                 bookId == dangqianbofangid;
+                soundId = dangqianbofangid;
             } else {
                bookId = api.pageParam.a;
                if(!bookId){
                  bookId = 1;
+                 soundId = 1;
                }
                 api.addEventListener({
                     name: 'neizhiliebiaoPlaysss'
@@ -665,6 +672,7 @@
                 if (ret.eventType == 'right') {
                     dangqianbofangid = api.pageParam.dangqianbofangid;
                     if (dangqianbofangid) {
+                      soundId = dangqianbofangid;
                         fnJinRuBofangs(dangqianbofangid);
                     } else {
                         api.addEventListener({
@@ -706,8 +714,9 @@
     }
     var bookGoodHtml;
     function fnBookExtraGoodssssss(){
-      var bookss = $api.getStorage("bookExtraGood");
-      var bookg = bookId + 'bookinc';
+      var bookss = $api.getStorage('bookExtraGood'+bookId);
+      console.log(bookss);
+      var bookg = 'inc';
       if(bookss){
         if(bookss != bookg){
           bookGoodHtml = '<img src="../image/KM_play_dianzan.png" alt="" class="collectmusicFxssss" id="playDz" onclick="fnOpenPlayDz(this)" data-click="0"><p>点赞</p>';
@@ -720,19 +729,19 @@
       var stylelist = $api.byId('bookExtraGood');
       $api.html(stylelist, bookGoodHtml);
 
-      var bookCollectionss = $api.getStorage("bookExtraCollection");
-      var bookC = bookId + 'bookCollectionncInc';
-      if(bookCollectionss){
-        if(bookCollectionss != bookC){
-          bookCollectionHtml = '<img src="../image/KM_play_collect.png" alt="" class="collectmusicssss" id="playCollect"  onclick="fnOpenPlayCollect(this)" data-click="0"><p>收藏</p>';
-        }else{
-          bookCollectionHtml = '<img src="../image/KM_play_collect_red.png" alt="" class="collectmusicssss" id="playCollect" onclick="fnOpenPlayCollect(this)" data-click="1"><p>收藏</p>';
-        }
-      }else{
-        bookCollectionHtml = '<img src="../image/KM_play_collect.png" alt="" class="collectmusicssss" id="playCollect" onclick="fnOpenPlayCollect(this)" data-click="0"><p>收藏</p>';
-      }
-      var stylelists = $api.byId('bookExtraCollectionHtml');
-      $api.html(stylelists, bookCollectionHtml);
+      // var bookCollectionss = $api.getStorage("bookExtraCollection");
+      // var bookC = bookId + 'bookCollectionncInc';
+      // if(bookCollectionss){
+      //   if(bookCollectionss != bookC){
+      //     bookCollectionHtml = '<img src="../image/KM_play_collect.png" alt="" class="collectmusicssss" id="playCollect"  onclick="fnOpenPlayCollect(this)" data-click="0"><p>收藏</p>';
+      //   }else{
+      //     bookCollectionHtml = '<img src="../image/KM_play_collect_red.png" alt="" class="collectmusicssss" id="playCollect" onclick="fnOpenPlayCollect(this)" data-click="1"><p>收藏</p>';
+      //   }
+      // }else{
+      //   bookCollectionHtml = '<img src="../image/KM_play_collect.png" alt="" class="collectmusicssss" id="playCollect" onclick="fnOpenPlayCollect(this)" data-click="0"><p>收藏</p>';
+      // }
+      // var stylelists = $api.byId('bookExtraCollectionHtml');
+      // $api.html(stylelists, bookCollectionHtml);
     }
     function fnDangQianbofangid(id) {
         Dqbofangid = id;
@@ -745,6 +754,7 @@
         var html = '<img src="../image/play/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player"></div>';
         $api.html(stylelist, html);
         if (id) {
+          soundId = id;
             api.sendEvent({
                 name: 'netPlayingUrl',
                 extra: {
@@ -774,13 +784,16 @@
         }
         dqbfid = api.pageParam.a;
         id = api.pageParam.a;
+
         if (!id){
+          soundId = 1;
           id = 1;
         }
         if(!playlistid){
           playlistid = 1;
         }
         if (id) {
+          soundId = id;
             api.sendEvent({
                 name: 'netPlayUrl',
                 extra: {
@@ -852,6 +865,7 @@
         dqbfid = aa;
         id = aa;
         if (id) {
+          soundId = id;
             api.sendEvent({
                 name: 'netPlayUrl',
                 extra: {
@@ -919,6 +933,7 @@
         playlistid = listid;
         dqbfid = aa;
         id = aa;
+        soundId = aa;
     }
     //播放时间,总时长
     function fnbofangshijian() {
@@ -1322,6 +1337,18 @@
             url: './choice_player.html',
         });
     };
+    // 打开评论页面
+    function fnOpenPlayDiscuss() {
+      var uris = '/sound/comment/';
+        api.openWin({
+            name: 'discussNoticeDetail0',
+            url: './discuss_notice_detail0.html',
+            pageParam: {
+                soundId: soundId,
+                uris: uris
+            }
+        });
+    }
     // 收藏
     function fnOpenPlayCollect(clicktoolitem) {
       var toolbarlist = document.getElementsByClassName('collectmusicssss')[0];
@@ -1331,7 +1358,6 @@
           clicktoolitem.setAttribute("data-click", 1);
           toolbarlist.src = "../image/KM_play_collect_red.png";
           uri = '/extra/collection';
-          console.log(bookId);
           api.ajax({
               url: host + apiUri + uri + '/' + bookId,
               method: 'post',
@@ -1347,7 +1373,6 @@
                 }
               }
           }, function(ret, err) {
-            console.log(ret.data);
               if (ret.status == 200) {
                   if(ret.data == "inc"){
                     api.toast({              
@@ -1356,8 +1381,7 @@
                         location:   'middle'          
                     });
                   }
-                  var book = bookId + 'bookCollectionncInc';
-                  $api.setStorage('bookExtraCollection',book);
+                  // $api.setStorage('bookExtraCollection'+bookId+'','inc');
               } else {
                 api.toast({              
                     msg:  ret.message,
@@ -1391,7 +1415,6 @@
                 }
               }
           }, function(ret, err) {
-            console.log(ret.data);
               if (ret.status == 200) {
                   if(ret.data == "dec"){
                     api.toast({              
@@ -1400,8 +1423,7 @@
                         location:   'middle'          
                     });
                   }
-                  var book = bookId + 'bookCollectionncDec';
-                  $api.setStorage('bookExtraCollection',book);
+                  // $api.setStorage('bookExtraCollection'+bookId+'','dec');
               } else {
                 api.toast({              
                     msg:  ret.message,
@@ -1416,17 +1438,6 @@
               }
           });
       }
-        // var playCollect = $api.byId('playCollect');
-        // if (playCollect.getAttribute("src", 2) == "../image/KM_play_collect.png") {
-        //     playCollect.src = "../image/KM_play_collect_red.png";
-        //     api.toast({              
-        //         msg:   '收藏成功',
-        //                       duration:  2000,
-        //                       location:   'middle'          
-        //     });
-        // } else {
-        //     playCollect.src = "../image/KM_play_collect.png";
-        // }
     }
     // 点赞
     function fnOpenPlayDz(clicktoolitem) {
@@ -1470,9 +1481,7 @@
                 // var stylelist = $api.byId('goods');
                 // var html = goods;
                 // $api.html(stylelist, html);
-                var book = bookId + 'bookinc';
-
-                $api.setStorage('bookExtraGood',book);
+                $api.setStorage('bookExtraGood'+bookId,'inc');
             } else {
               api.toast({              
                   msg:  ret.message,
@@ -1521,8 +1530,7 @@
                 // var stylelist = $api.byId('goods');
                 // var html = goods;
                 // $api.html(stylelist, html);
-                var book = bookId + 'bookdec';
-                $api.setStorage('bookExtraGood',book);
+                $api.setStorage('bookExtraGood'+bookId,'dec');
             } else {
               api.toast({              
                   msg:  ret.message,

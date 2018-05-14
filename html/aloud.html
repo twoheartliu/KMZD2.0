@@ -208,6 +208,7 @@
     <header id="secHeader">
         <div class="header_fls fl" onclick="goback();"><img src="../image/icon_back.png" alt=""></div>
         <div class="header_fl fr" onclick="fnLuYinBaoCun();"><span>保存</span></div>
+        <!-- <div class="header_fl fr" onclick="fnLuYinShangChuan();"><span>上传</span></div> -->
         <div class="header_center">朗诵</div>
     </header>
     <div class="name_bg">
@@ -260,7 +261,9 @@
 
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript">
+var token;
 var jubenid;
 var beiyueid;
 var CompanyInfobeiyue;
@@ -277,6 +280,7 @@ var timestamp=new Date().getTime();
 var timestamps;
 var Guid = new Array();
     apiready = function() {
+      token = $api.getStorage('token');
       path = '';
       var CompanyInfobeiyue;
       var secHeader = $api.byId('secHeader');
@@ -293,6 +297,62 @@ var Guid = new Array();
   				}
   		});
 
+
+    }
+    //上传
+    function fnLuYinShangChuan(){
+      var fs = api.require('fs');
+      fs.copyTo({
+          oldPath: path,
+          newPath: 'fs://shangchuanxiang'
+      }, function(ret, err) {
+          var paths = 'fs://shangchuanxiang/' + timestamps +'';
+          if (ret.status) {
+            var fs = api.require('fs');
+            fs.rename({
+              oldPath: paths,
+              newPath: 'fs://shangchuanxiang/' + timestamp +'' + jubenid + '.amr'
+            }, function(ret, err) {
+
+              if (ret.status) {
+                  alert('已保存');
+                  uri = '/upload/user_records';
+                  console.log(host + apiUri + uri);
+                  api.ajax({
+                      url: host + apiUri + uri,
+                      method: 'post',
+                      dataType: 'json',
+                      headers: {
+                          "source": api.systemType,
+                          "version": version,
+                          "session": token
+                      },
+                      data:{
+                        files: {
+                           records: 'fs://shangchuanxiang/' + timestamp +'' + jubenid + '.amr'
+                       }
+                        // values:{
+                        //   "type":'dec',
+                        //   "model":'album',
+                        // }
+                      }
+                  }, function(ret, err) {
+                    console.log(path);
+                    console.log(JSON.stringify(ret));
+                      if (ret.status == 200) {
+            console.log(ret.status);
+                      } else {
+
+                      }
+                  });
+              } else {
+                  alert(JSON.stringify(err));
+              }
+            });
+          } else {
+              alert(JSON.stringify(err));
+          }
+      });
 
     }
     //播放背景音乐
@@ -410,6 +470,7 @@ var Guid = new Array();
         //fs 文件管理 删除  拷贝  移除等
     		//拷贝文件
         if(path){
+          console.log(path);
           var fs = api.require('fs');
       		fs.copyTo({
       		    oldPath: path,
@@ -465,6 +526,7 @@ var Guid = new Array();
       fs.createDir({
           path: 'fs://luyintxtss',
       }, function(ret, err) {
+
           if (ret.status) {
             newLuyinWenjian();
           } else {
@@ -488,6 +550,7 @@ var Guid = new Array();
                       start: 0
                   }
               }, function(ret, err) {
+
                   if (ret.status) {
 
                   } else {
@@ -641,6 +704,7 @@ var Guid = new Array();
   			api.startRecord({
   			    path: 'fs://luyin/' + timestamp + ''
   			});
+        console.log(path);
   			timestamps = timestamp;
         timedCount();
   	}
