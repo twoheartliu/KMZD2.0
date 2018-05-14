@@ -596,10 +596,10 @@
         // $api.rmStorage('albumExtraGood');
     }
     function fnExtraGoodssssss(){
-      var albumss = $api.getStorage("albumExtraGood");
-      var album = albumId + 'albuminc';
+      var albumss = $api.getStorage('albumExtraGood'+albumId);
+      console.log(albumss);
       if(albumss){
-        if(albumss != album){
+        if(albumss != 'inc'){
           albumGoodHtml = '<img src="../image/KM_ListingsListDzs.png" alt="" class="collectmusicFxs" onclick="collectmusicFx(this)" data-click="0">';
         }else{
           albumGoodHtml = '<img src="../image/KM_play_dianzan_red.png" alt="" class="collectmusicFxs" onclick="collectmusicFx(this)" data-click="1">';
@@ -609,20 +609,6 @@
       }
       var stylelist = $api.byId('extraGood');
       $api.html(stylelist, albumGoodHtml);
-
-      // var albumCollectionss = $api.getStorage("albumExtraCollection");
-      // var album = albumId + 'albumcollectionncinc';
-      // if(albumCollectionss){
-      //   if(albumCollectionss != album){
-      //     albumCollectionHtml = '<img src="../image/KM_hxs.png" alt="" class="collectmusic" onclick="collectmusic(this)" data-click="0">';
-      //   }else{
-      //     albumCollectionHtml = '<img src="../image/KM_play_collect_red.png" alt="" class="collectmusic" onclick="collectmusic(this)" data-click="1">';
-      //   }
-      // }else{
-      //   albumCollectionHtml = '<img src="../image/KM_hxs.png" alt="" class="collectmusic" onclick="collectmusic(this)" data-click="0">';
-      // }
-      // var stylelists = $api.byId('extraCollectionHtml');
-      // $api.html(stylelists, albumCollectionHtml);
     }
     function fnAlbumAetails() {
         albumId = api.pageParam.albumId;
@@ -965,12 +951,11 @@
                       });
                       // fnAlbumAetails();
                     }
-                    collections++;
-                    var stylelist = $api.byId('collections');
-                    var html = collections;
-                    $api.html(stylelist, html);
-                    var album = albumId + 'albumcollectionncinc';
-                    $api.setStorage('albumExtraCollection',album);
+                    // collections++;
+                    // var stylelist = $api.byId('collections');
+                    // var html = collections;
+                    // $api.html(stylelist, html);
+                    // $api.setStorage('albumExtraCollection' + albumId + '','inc');
                 } else {
                   api.toast({              
                       msg:  ret.message,
@@ -1014,15 +999,14 @@
                           location:   'middle'          
                       });
                     }
-                    collections--;
-                    if(collections<0){
-                      collections = 0;
-                    }
-                    var stylelist = $api.byId('collections');
-                    var html = collections;
-                    $api.html(stylelist, html);
-                    var album = albumId + 'albumcollectionncdec';
-                    $api.setStorage('albumExtraCollection',album);
+                    // collections--;
+                    // if(collections<0){
+                    //   collections = 0;
+                    // }
+                    // var stylelist = $api.byId('collections');
+                    // var html = collections;
+                    // $api.html(stylelist, html);
+                    // $api.setStorage('albumExtraCollection' + albumId + '','dec');
                 } else {
                   api.toast({              
                       msg:  ret.message,
@@ -1073,10 +1057,8 @@
                   });
                   goods++;
                   var stylelist = $api.byId('goods');
-                  var html = goods;
-                  $api.html(stylelist, html);
-                  var album = albumId + 'albuminc';
-                  $api.setStorage('albumExtraGood',album);
+                  $api.html(stylelist, goods);
+                  $api.setStorage('albumExtraGood'+albumId,'inc');
               } else {
                 api.toast({              
                     msg:  ret.message,
@@ -1123,10 +1105,8 @@
                     goods = 0;
                   }
                   var stylelist = $api.byId('goods');
-                  var html = goods;
-                  $api.html(stylelist, html);
-                  var album = albumId + 'albumdec';
-                  $api.setStorage('albumExtraGood',album);
+                  $api.html(stylelist, goods);
+                  $api.setStorage('albumExtraGood'+albumId,'dec');
               } else {
                 api.toast({              
                     msg:  ret.message,

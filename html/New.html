@@ -152,16 +152,18 @@
             },function(ret, err){
                 if (ret) {
                   if (ret.status == 200) {
-                    api.openWin({
-                        name: 'ListeningList',
-                        url: './ListeningList.html',
-                        pageParam: {
-                            name: 'test'
-                        },
-                        reload:true
-
-                    });
+                    // api.openWin({
+                    //     name: 'ListeningList',
+                    //     url: './ListeningList.html',
+                    //     pageParam: {
+                    //         name: 'test'
+                    //     },
+                    //     reload:true
+                    //
+                    // });
+                    api.closeWin();
                   }
+
                 } else {
                   alert(ret.message);
                   $api.rmStorage('token');

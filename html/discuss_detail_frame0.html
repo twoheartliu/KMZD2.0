@@ -339,7 +339,7 @@
         <div class="playall">
             <section id="section">
                 <div class="sec-tit">所有评论</div>
-                <div class="sec-discuss" id="comments">
+                <div class="sec-discuss" id="comments" >
 
                 </div>
                 <!-- <div class="sec-discuss">
@@ -350,8 +350,8 @@
                             <p>2017年9月19日</p>
                         </div>
                     </div>
-                    <div class="dis-right fr">
-                        <span>3</span><img src="../image/KM_ListingsListDzs.png" alt="" class="zan01">
+                    <div class="dis-right fr" >
+                        <div class="fr" ><img src="../image/KM_ListingsListDzs.png" alt="" class="zan01"></div><div class="fr"><span>3</span></div>
                     </div>
                     <div class="clear"></div>
                     <div class="dis-txt">海中月是天上月，眼前人是心上人。向来心是看客心，奈何人是剧中人</div>
@@ -385,33 +385,14 @@
     var token;
     var albumId;
     var uris;
+    var commentaAlbumGoodHtml;
+    var commentExtraGoods;
+
     apiready = function() {
         token = $api.getStorage('token');
+
         albumId = api.pageParam.albumId;
         uris = api.pageParam.uris;
-        // var notHeader = $api.byId('notHeader');
-        // $api.fixStatusBar(notHeader);
-        // fnOpenMessageNotDetail();
-        var section = document.getElementById('section');
-        var ul_lis = section.getElementsByClassName('zan01');
-        for (var i = 0; i < ul_lis.length; i++) {
-            ul_lis[i].index = i;
-
-            ul_lis[i].onclick = function() {
-                // alert(1);
-                var j = this.index;
-                if (ul_lis[j].getAttribute("src", 2) == "../image/KM_ListingsListDzs.png") {
-                    ul_lis[j].src = "../image/KM_play_dianzan_red.png";
-                    api.toast({              
-                        msg:   '点赞成功',
-                                      duration:  2000,
-                                      location:   'middle'          
-                    });
-                } else {
-                    ul_lis[j].src = "../image/KM_ListingsListDzs.png";
-                }
-            }
-        };
         ListenToTheListOfComments();
         api.addEventListener({
             name: 'gengXin'
@@ -444,18 +425,44 @@
                     // s = date.getSeconds();
                     // return Y+M+D+h+m+s;
                     var dates = Y + M + D;
+                    commentExtraGoods = ret.data[i].good_total;
                     if (ret.data[i].re_nick_name) {
-                        html += '<div class="dis-left fl"><div class="sec-img"><img src="' + ret.data[i].photo + '" alt=""></div><div class="sec-txt"><p>' + ret.data[i].nick_name + '</p><p>' + dates +
-                            '</p></div></div><div class="dis-right fr"><span>' + ret.data[i].good_total + '</span><img src="../image/KM_ListingsListDzs.png" alt="" class="zan01"></div><div class="clear"></div><div class="dis-txt">' + ret.data[
-                                i].content + '</div><div class="reply"><div  onclick="fnOpenMessageNotDetail(' + ret.data[i].comment_id + ')">回复</div></div><div class="discuss"><span>' + ret.data[i].re_nick_name + ':' + ret.data[i].re_content +
+                        html += '<div class="dis-left fl"><div class="sec-img"><img src="'+ret.data[i].photo+'" alt=""></div><div class="sec-txt"><p>'+ret.data[i].nick_name+'</p><p>' + dates +
+                            '</p></div></div><div class="dis-right fr"><div class="fr" id="commentExtraGood'+ret.data[i].comment_id+'"  class="collectmusicFxs">';
+                            var commentaAlbumss = $api.getStorage('commentaAlbumExtraGood'+ret.data[i].comment_id+'');
+                            // console.log(commentaAlbumss);
+                            if(!commentaAlbumss){
+                              html += '<img src="../image/KM_ListingsListDzs.png" alt="" id="'+ret.data[i].comment_id+'" class="collectmusicFxs" onclick="collectmusicFx(this)" data-click="0">';
+
+                            }else{
+                              if(commentaAlbumss != 'inc'){
+                                html += '<img src="../image/KM_ListingsListDzs.png" alt="" id="'+ret.data[i].comment_id+'" class="collectmusicFxs" onclick="collectmusicFx(this)" data-click="0">';
+                              }else{
+                                html += '<img src="../image/KM_play_dianzan_red.png" alt="" id="'+ret.data[i].comment_id+'" class="collectmusicFxs" onclick="collectmusicFx(this)" data-click="1">';
+                              }
+                            }
+                        html += '</div><div class="fr"><span id="corner_mark'+ret.data[i].comment_id+'">'+ret.data[i].good_total +'</span></div></div><div class="clear"></div><div class="dis-txt">'+ret.data[
+                                i].content +'</div><div class="reply"><div  onclick="fnOpenMessageNotDetail('+ret.data[i].comment_id+')">回复</div></div><div class="discuss"><span>'+ret.data[i].re_nick_name+':'+ret.data[i].re_content+
                             '</span></div>';
                     } else {
-                        html += '<div class="dis-left fl"><div class="sec-img"><img src="' + ret.data[i].photo + '" alt=""></div><div class="sec-txt"><p>' + ret.data[i].nick_name + '</p><p>' + dates +
-                            '</p></div></div><div class="dis-right fr"><span>' + ret.data[i].good_total + '</span><img src="../image/KM_ListingsListDzs.png" alt="" class="zan01"></div><div class="clear"></div><div class="dis-txt">' + ret.data[
-                                i].content + '</div><div class="reply"><div  onclick="fnOpenMessageNotDetail(' + ret.data[i].comment_id + ')">回复</div></div>';
+                        html += '<div class="dis-left fl"><div class="sec-img"><img src="'+ret.data[i].photo+'" alt=""></div><div class="sec-txt"><p>'+ret.data[i].nick_name+'</p><p>' + dates +
+                            '</p></div></div><div class="dis-right fr"><div class="fr" id="commentExtraGood'+ret.data[i].comment_id+'" class="collectmusicFxs">';
+                            var commentaAlbumss = $api.getStorage('commentaAlbumExtraGood'+ret.data[i].comment_id+'');
+                            // console.log(commentaAlbumss);
+                            if(!commentaAlbumss){
+                              html += '<img src="../image/KM_ListingsListDzs.png" alt="" id="'+ret.data[i].comment_id+'" class="collectmusicFxs" onclick="collectmusicFx(this)" data-click="0">';
+                            }else{
+                              if(commentaAlbumss != 'inc'){
+                                html += '<img src="../image/KM_ListingsListDzs.png" alt="" id="'+ret.data[i].comment_id+'" class="collectmusicFxs" onclick="collectmusicFx(this)" data-click="0">';
+                              }else{
+                                html += '<img src="../image/KM_play_dianzan_red.png" alt="" id="'+ ret.data[i].comment_id+'" class="collectmusicFxs" onclick="collectmusicFx(this)" data-click="1">';
+                              }
+                            }
+                        html +=  '</div><div class="fr"><span id="corner_mark'+ret.data[i].comment_id+'">'+ret.data[i].good_total+'</span></div></div><div class="clear"></div><div class="dis-txt">'+ret.data[
+                                i].content+'</div><div class="reply"><div  onclick="fnOpenMessageNotDetail('+ret.data[i].comment_id+')">回复</div></div>';
                     }
+                  $api.html(stylelist, html);
                 }
-                $api.html(stylelist, html);
             } else {
                 alert(JSON.stringify(err));
                 alert(ret.message);
@@ -469,7 +476,108 @@
                 // });
             }
         });
+    }
 
+    function collectmusicFx(clicktoolitem) {
+
+        var img_id = clicktoolitem.getAttribute("id");
+
+        var toolbarlist = document.getElementById(img_id);
+        var click = toolbarlist.getAttribute("data-click");
+        var stylelist = $api.byId('corner_mark'+img_id+'');
+        var conner_num = parseInt(stylelist.innerText);
+        if (click == 0) {
+          // 点开
+          toolbarlist.setAttribute("data-click", 1);
+          toolbarlist.src = "../image/KM_play_dianzan_red.png";
+          uri = '/extra/good';
+          api.ajax({
+              url: host + apiUri + uri + '/' + img_id,
+              method: 'post',
+              dataType: 'json',
+              headers: {
+                  "source": api.systemType,
+                  "version": version,
+                  "session": token
+              },
+              data:{
+                values:{
+                  "type":'inc',
+                  "model":'album_c',
+                },
+              },
+          }, function(ret, err) {
+              if (ret.status == 200) {
+                  api.toast({              
+                      msg:   '已点赞',
+                      duration:  2000,
+                      location:   'middle'          
+                  });
+
+                  conner_num++;
+                  $api.html(stylelist, conner_num);
+                  $api.setStorage('commentaAlbumExtraGood'+img_id+'','inc');
+                  // $api.rmStorage('commentaAlbumExtraGood'+img_id+'');
+              } else {
+              //   api.toast({              
+              //       msg:  ret.message,
+              //       duration:  2000,
+              //       location:   'middle'          
+              //   });
+              //     $api.rmStorage('token');
+              //     api.openWin({
+              //         name: 'login',
+              //         url: '../login.html',
+              //     });
+              }
+          });
+        } else {
+          // 关闭
+          toolbarlist.setAttribute("data-click", 0);
+          toolbarlist.src = "../image/KM_ListingsListDzs.png";
+          uri = '/extra/good';
+          api.ajax({
+              url: host + apiUri+uri+'/'+img_id,
+              method: 'post',
+              dataType: 'json',
+              headers: {
+                  "source": api.systemType,
+                  "version": version,
+                  "session": token
+              },
+              data:{
+                values:{
+                  "type":'dec',
+                  "model":'album_c',
+                }
+              }
+          }, function(ret, err) {
+              if (ret.status == 200) {
+                  api.toast({              
+                      msg:   '已取消点赞',
+                      duration:  2000,
+                      location:   'middle'          
+                  });
+                  conner_num--;
+                  if(conner_num<0){
+                    conner_num = 0;
+                  }
+                  $api.html(stylelist, conner_num);
+                  $api.setStorage('commentaAlbumExtraGood'+img_id+'','dec');
+              } else {
+                // api.toast({              
+                //     msg:  ret.message,
+                //     duration:  2000,
+                //     location:  'middle'          
+                // });
+                  // $api.rmStorage('token');
+                  // api.openWin({
+                  //     name: 'login',
+                  //     url: '../login.html',
+                  // });
+              }
+          });
+        }
     }
 
     function fnOpenMessageNotDetail(comment_id) {
