@@ -118,7 +118,6 @@
             color: #1a1a1a;
             padding-top: 2px;
             margin-top: 10px;
-
         }
 
         .sectionTitle .more {
@@ -342,63 +341,72 @@
         // fnZhuanJiTuijian();
         fnHomePageLayout();
     }
-var token = $api.getStorage('token');
-// console.log(token);
-    function fnHomePageLayout(){
-      uri = '/index/floor';
-      api.ajax({
-          url: host + apiUri + uri,
-          method: 'get',
-          dataType: 'json',
-          headers: {
-              "source": api.systemType,
-              "version": version,
-              "session": token
-          },
-      }, function(ret, err) {
-          if (ret.status == 200) {
-              // fnRecommendedDirectory(ret);
-              fnPageLayoutAssignment(ret);
-          } else {
-              alert(ret.message);
-              $api.rmStorage('token');
-              api.openWin({
-                  name: 'login',
-                  url: '../login.html',
-                  pageParam: {
-                      name: 'test'
-                  }
-              });
-          }
-      });
+    var token = $api.getStorage('token');
+    // console.log(token);
+    function fnHomePageLayout() {
+        uri = '/index/floor';
+        api.ajax({
+            url: host + apiUri + uri,
+            method: 'get',
+            dataType: 'json',
+            headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token
+            },
+        }, function(ret, err) {
+            if (ret.status == 200) {
+                // fnRecommendedDirectory(ret);
+                fnPageLayoutAssignment(ret);
+            } else {
+                alert(ret.message);
+                $api.rmStorage('token');
+                api.openWin({
+                    name: 'login',
+                    url: '../login.html',
+                    pageParam: {
+                        name: 'test'
+                    }
+                });
+            }
+        });
     }
-    function fnPageLayoutAssignment(data_){
-      var stylelist = $api.byId('floorId');
+
+    function fnPageLayoutAssignment(data_) {
+        var stylelist = $api.byId('floorId');
         var frameWidth = api.frameWidth;
-      var html = '';
-      for (var i = 0; i < data_.data.length; i++) {
-          if (data_.data[i].floor_id) {
-              html += '<div class="p20px"  id="ret.data[i].floor_id"><div class="sectionTitle mt20"><span class="TD_div fl">' + data_.data[i].floor_name + '</span><span class="fr more" onclick="fnRecommendWin(' + data_.data[i].floor_id + ');">更多</span><div class="clear"></div><div class="clear"></div></div><div class="hot" id="hot">';
-          var column = data_.data[i].floor_column;
-          var row = data_.data[i].floor_row;
-          if(column == 0){
-            column = 1;
-          }
-          for (var s = 0; s < column * row; s++) {
-              if(data_.data[i].floor_type == "block"){
-                var cccc = column;
-                var ssss = frameWidth - 50
-                var xxxx = ssss / cccc;
-                html += '<div class="hotC" style="width:'  + xxxx + 'px;" onclick="fnSingLeWin(' + data_.data[i].content[s].id + ');"><img src=" ' + host + '/' + data_.data[i].content[s].sma + '" alt=""><div class="listtitle"> ' + data_.data[i].content[s].title + '</div></div>';
-              }else if(data_.data[i].floor_type == "list"){
-                  html += '<div class="egret-flex-item"><div class="egret-flex-items" tapmode="fmbtnhover" onclick="fnOpenPlay(' + data_.data[i].content[s].id + ')"><div class="egret-flex-item-logo"><img src="' + host + '/' + data_.data[i].content[s].mid + '" alt="" class=""></div><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 fl">作品：<span>' + data_.data[i].content[s].title + '</span></span><!-- <span class="span2 iconfont icon-nv fl"></span> --><!-- <img src="../image/js.png" alt="" class="fl"> --><!-- <span class="span3 fr">昨天21.30</span> --></div><div class="egret-flex-item-shelf02"><span>' + data_.data[i].content[s].author_name + '</span><!-- <span><img src="../image/js.png" alt="" class="fl"></span> --></div><div class="egret-flex-item-shelf03"><div><img src="../image/KM_play.png" alt=""><span>' + data_.data[i].content[s].play_total + '</span></div><!-- <div><img src="../image/KM_dx.png" alt=""><span>100</span></div> --><div><img src="../image/KM_zf.png" alt=""><span>' + data_.data[i].content[s].share_total + '</span></div><div><img src="../image/KM_dz.png" alt=""><span>' + data_.data[i].content[s].good_total + '</span></div></div></div>  </div><div class="egret-flex-item-shelf04" onclick="fnOpenPlayMore()"><img src="../image/KM_list_more.png" alt=""></div></div><div class="hdivider"></div>';
-              }
-          }
-          html += '</div></div>';
-          }
-      }
-      // console.log(html);
-      $api.html(stylelist, html);
+        var html = '';
+        for (var i = 0; i < data_.data.length; i++) {
+            if (data_.data[i].floor_id) {
+                html += '<div class="p20px"  id="ret.data[i].floor_id"><div class="sectionTitle mt20"><span class="TD_div fl">' + data_.data[i].floor_name + '</span><span class="fr more" onclick="fnRecommendWin(' + data_.data[i].floor_id +
+                    ');">更多</span><div class="clear"></div><div class="clear"></div></div><div class="hot" id="hot">';
+                var column = data_.data[i].floor_column;
+                var row = data_.data[i].floor_row;
+                if (column == 0) {
+                    column = 1;
+                }
+                for (var s = 0; s < column * row; s++) {
+                    if (data_.data[i].floor_type == "block") {
+                        var cccc = column;
+                        var ssss = frameWidth - 50
+                        var xxxx = ssss / cccc;
+                        html += '<div class="hotC" style="width:' + xxxx + 'px;" onclick="fnSingLeWin(' + data_.data[i].content[s].id + ');"><img src=" ' + host + '/' + data_.data[i].content[s].sma + '" alt=""><div class="listtitle"> ' + data_.data[
+                            i].content[s].title + '</div></div>';
+                    } else if (data_.data[i].floor_type == "list") {
+                        html += '<div class="egret-flex-item"><div class="egret-flex-items" tapmode="fmbtnhover" onclick="fnOpenPlay(' + data_.data[i].content[s].id + ')"><div class="egret-flex-item-logo"><img src="' + host + '/' + data_.data[i].content[
+                                s].mid + '" alt="" class=""></div><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 fl">作品：<span>' + data_.data[i].content[s].title +
+                            '</span></span><!-- <span class="span2 iconfont icon-nv fl"></span> --><!-- <img src="../image/js.png" alt="" class="fl"> --><!-- <span class="span3 fr">昨天21.30</span> --></div><div class="egret-flex-item-shelf02"><span>' +
+                            data_.data[i].content[s].author_name + '</span><!-- <span><img src="../image/js.png" alt="" class="fl"></span> --></div><div class="egret-flex-item-shelf03"><div><img src="../image/KM_play.png" alt=""><span>' + data_.data[
+                                i].content[s].play_total + '</span></div><!-- <div><img src="../image/KM_dx.png" alt=""><span>100</span></div> --><div><img src="../image/KM_zf.png" alt=""><span>' + data_.data[i].content[s].share_total +
+                            '</span></div><div><img src="../image/KM_dz.png" alt=""><span>' + data_.data[i].content[s].good_total +
+                            '</span></div></div></div>  </div><div class="egret-flex-item-shelf04" onclick="fnOpenPlayMore(' + data_.data[i].content[s].id + ')"><img src="../image/KM_list_more.png" alt=""></div></div><div class="hdivider"></div>';
+                    }
+                }
+                html += '</div></div>';
+            }
+        }
+        // console.log(html);
+        $api.html(stylelist, html);
     }
     //接口  推荐听单
     function fnXiMaLaYaTingDan() {
@@ -447,23 +455,23 @@ var token = $api.getStorage('token');
 
     function fnSingLeWin(id) {
 
-      api.openWin({
-          name: 'single',
-          url: './single.html',
-          pageParam: {
-              albumId: id
-          }
-      });
+        api.openWin({
+            name: 'single',
+            url: './single.html',
+            pageParam: {
+                albumId: id
+            }
+        });
     }
 
     function fnRecommendWin(id) {
-      api.openWin({
-          name: 'recommend',
-          url: './recommend.html',
-          pageParam: {
-              id: id
-          }
-      });
+        api.openWin({
+            name: 'recommend',
+            url: './recommend.html',
+            pageParam: {
+                id: id
+            }
+        });
 
     }
 
@@ -540,7 +548,7 @@ var token = $api.getStorage('token');
 
     }
     //打开更多页面
-    function fnOpenPlayMore() {
+    function fnOpenPlayMore(id) {
         var dialogBox = api.require('dialogBox');
         dialogBox.actionMenu({
             rect: {
@@ -594,14 +602,14 @@ var token = $api.getStorage('token');
                     dialogName: 'alert'
                 });
             } else if (ret.index == "1") {
-                fnOpenAddListening();
+                fnOpenAddListening(id);
 
                 dialogBox.close({
                     dialogName: 'alert'
                 });
                 // alert(2);
             } else if (ret.index == "2") {
-                fnOpenPlayShare();
+                fnOpenPlayShare(id);
                 // dialogBox.close({
                 //     dialogName: 'alert'
                 // });
@@ -691,12 +699,13 @@ var token = $api.getStorage('token');
         });
     }
     //添加到听单
-    function fnOpenAddListening() {
+    function fnOpenAddListening(id) {
+      console.log(id);
         api.openWin({
             name: 'addListening',
             url: './add_listening.html',
             pageParam: {
-                name: 'test'
+                songListID: id
             }
         });
     }
