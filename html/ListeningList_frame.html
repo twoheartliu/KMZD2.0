@@ -151,16 +151,17 @@
 <script type="text/javascript">
     apiready = function() {
       ListenList();
-      console.log(23323);
+      // console.log(23323);
       api.addEventListener({
           name: 'newData'
       }, function(ret, err) {
-
-          console.log(11111);
+          ListenList();
       });
 
     }
     function ListenList() {
+      console.log(111);
+
       var token = $api.getStorage('token');
       api.ajax({
           url: host + apiUri +'/listening',
@@ -174,28 +175,31 @@
       },function(ret, err){
           if (ret) {
             if (ret.status == 200) {
+
               var id = $api.byId('ListeningListFrame');
+              var html = '';
                 for (var i = 0; i < ret.data.length; i++) {
                   var listening_cover = ret.data[i].listening_cover;
                   var sandBox = listening_cover.substring(0,8);
-
                   if (sandBox == 'sand_box') {
                     var sandBoxs = listening_cover.replace(/sand_box/,'..');
-                     $api.append(id, '<li id="listen_' + ret.data[i].l_id + '" class="p20pxs"><div class="egret-flex-item" tapmode="fmbtnhover"><div class="egret-flex-item-logo" onclick="fnOpenPlay('+ ret.data[i].l_id +')"><img src="'+ sandBoxs +'" alt="" class=""></div><div class="egret-flex-item-shelf"> <div class="egret-flex-item-shelf01" onclick="fnOpenPlay('+ ret.data[i].l_id +')"><span class="span1 fl"><span>'+ ret.data[i].listening_name +'</span></span><span class="span3 fr"></span></div><div class="egret-flex-item-shelf03" onclick="fnOpenPlay('+ ret.data[i].l_id +')"><div><img src="../image/KM_play.png" alt=""><span>'
+                     html += '<li id="listen_' + ret.data[i].l_id + '" class="p20pxs"><div class="egret-flex-item" tapmode="fmbtnhover"><div class="egret-flex-item-logo" onclick="fnOpenPlay('+ ret.data[i].l_id +')"><img src="'+ sandBoxs +'" alt="" class=""></div><div class="egret-flex-item-shelf"> <div class="egret-flex-item-shelf01" onclick="fnOpenPlay('+ ret.data[i].l_id +')"><span class="span1 fl"><span>'+ ret.data[i].listening_name +'</span></span><span class="span3 fr"></span></div><div class="egret-flex-item-shelf03" onclick="fnOpenPlay('+ ret.data[i].l_id +')"><div><img src="../image/KM_play.png" alt=""><span>'
                       + ret.data[i].play_total + '</span></div><div><img src="../image/KM_zf.png" alt=""><span>'+ ret.data[i].share_total +'</span></div><div><img src="../image/KM_dz.png" alt=""><span>'
-                     + ret.data[i].good_total +'</span></div></div></div><div class="egret-flex-item-under" onclick="fnSettings('+ ret.data[i].l_id +');"><img src="../image/KM_list_more.png" alt=""></div></div></li>');
+                     + ret.data[i].good_total +'</span></div></div></div><div class="egret-flex-item-under" onclick="fnSettings('+ ret.data[i].l_id +');"><img src="../image/KM_list_more.png" alt=""></div></div></li>';
                   }else if (listening_cover == '') {
-                     $api.append(id, '<li id="listen_' + ret.data[i].l_id + '" class="p20pxs"><div class="egret-flex-item" tapmode="fmbtnhover"><div class="egret-flex-item-logo" onclick="fnOpenPlay('+ ret.data[i].l_id +')"><img src="../image/my/fnShareImg.jpg" alt="" class=""></div><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01" onclick="fnOpenPlay('+ ret.data[i].l_id +')"><span class="span1 fl"><span>'+ ret.data[i].listening_name +'</span></span><span class="span3 fr"></span></div><div class="egret-flex-item-shelf03" onclick="fnOpenPlay('+ ret.data[i].l_id +')"><div><img src="../image/KM_play.png" alt=""><span>'
+                     html += '<li id="listen_' + ret.data[i].l_id + '" class="p20pxs"><div class="egret-flex-item" tapmode="fmbtnhover"><div class="egret-flex-item-logo" onclick="fnOpenPlay('+ ret.data[i].l_id +')"><img src="../image/my/fnShareImg.jpg" alt="" class=""></div><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01" onclick="fnOpenPlay('+ ret.data[i].l_id +')"><span class="span1 fl"><span>'+ ret.data[i].listening_name +'</span></span><span class="span3 fr"></span></div><div class="egret-flex-item-shelf03" onclick="fnOpenPlay('+ ret.data[i].l_id +')"><div><img src="../image/KM_play.png" alt=""><span>'
                      + ret.data[i].play_total +  '</span></div><div><img src="../image/KM_zf.png" alt=""><span>'+ ret.data[i].share_total +'</span></div><div><img src="../image/KM_dz.png" alt=""><span>'
-                     + ret.data[i].good_total +'</span></div></div></div><div class="egret-flex-item-under" onclick="fnSettings('+ ret.data[i].l_id +');"><img src="../image/KM_list_more.png" alt=""></div></div></li>');
+                     + ret.data[i].good_total +'</span></div></div></div><div class="egret-flex-item-under" onclick="fnSettings('+ ret.data[i].l_id +');"><img src="../image/KM_list_more.png" alt=""></div></div></li>';
                   }else {
                     var listening = 'listening/';
                     var listening_covers = http + listening + listening_cover;
-                     $api.append(id, '<li id="listen_' + ret.data[i].l_id + '" class="p20pxs"><div class="egret-flex-item" tapmode="fmbtnhover"><div class="egret-flex-item-logo" onclick="fnOpenPlay('+ ret.data[i].l_id +')"><img src="'+ listening_covers +'" alt="" class=""></div><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01" onclick="fnOpenPlay('+ ret.data[i].l_id +')"><span class="span1 fl"><span>'+ ret.data[i].listening_name +'</span></span><span class="span3 fr"></span></div><div class="egret-flex-item-shelf03" onclick="fnOpenPlay('+ ret.data[i].l_id +')"><div><img src="../image/KM_play.png" alt=""><span>'
+                     html +='<li id="listen_' + ret.data[i].l_id + '" class="p20pxs"><div class="egret-flex-item" tapmode="fmbtnhover"><div class="egret-flex-item-logo" onclick="fnOpenPlay('+ ret.data[i].l_id +')"><img src="'+ listening_covers +'" alt="" class=""></div><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01" onclick="fnOpenPlay('+ ret.data[i].l_id +')"><span class="span1 fl"><span>'+ ret.data[i].listening_name +'</span></span><span class="span3 fr"></span></div><div class="egret-flex-item-shelf03" onclick="fnOpenPlay('+ ret.data[i].l_id +')"><div><img src="../image/KM_play.png" alt=""><span>'
                      + ret.data[i].play_total +  '</span></div><div><img src="../image/KM_zf.png" alt=""><span>'+ ret.data[i].share_total +'</span></div><div><img src="../image/KM_dz.png" alt=""><span>'
-                     + ret.data[i].good_total +'</span></div></div></div><div class="egret-flex-item-under" onclick="fnSettings('+ ret.data[i].l_id +');"><img src="../image/KM_list_more.png" alt=""></div></div></li>');
+                     + ret.data[i].good_total +'</span></div></div></div><div class="egret-flex-item-under" onclick="fnSettings('+ ret.data[i].l_id +');"><img src="../image/KM_list_more.png" alt=""></div></div></li>';
                   }
                 }
+                $api.html(id, html);
+
             }else {
               api.toast({
                   msg: '失败',
