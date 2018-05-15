@@ -99,7 +99,6 @@ function fnBoFangyinpinxinxiing(play) {
 function fnBoFangyinpinxinxi() {
 
     var playgedan = rets.data[play].id;
-
     api.ajax({
       url: host + apiUri + '/sound/' + playgedan,
       method: 'get',
@@ -551,7 +550,6 @@ function suiji() {
         if (myAudio.ended) {
             if (n == rets.data.length) {
                 n == rets.data.length - 1;
-                console.log(n);
                 fnSuiJiBoFangMoShiGeQuid(n);
             } else {
                 fnSuiJiBoFangMoShiGeQuid(n);
