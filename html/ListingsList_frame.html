@@ -445,9 +445,9 @@
                   </div>
                   <p id='goods'></p>
               </div>
-              <div class="userinfocol" tapmode="toolhover" onclick="collectmusic(this)" data-click="0">
-                  <div class="info">
-                    <img src="../image/KM_hxs.png" alt="" class="collectmusic">
+              <div class="userinfocol" tapmode="toolhover">
+                  <div class="info" id="extraCollectionHtml">
+
                   </div>
                   <p>收藏</p>
               </div>
@@ -559,22 +559,21 @@
                     var DiscussDetailP = $api.byId('DiscussDetailP');
                     var comment_total = ret.data.linstening_info.comment_total;
                     $api.html(DiscussDetailP, comment_total);
-
-                    // 调取用户
-                    // var userinfo = $api.byId('userinfo');
-                    // $api.append(userinfo, '<div class="userinfocol" tapmode="toolhover"><div class="info" id="extraGood"></div><p id="id="goodsssssss"></p></div><div class="userinfocol" tapmode="toolhover" onclick="collectmusic(this)" data-click="0"><div class="info"><img src="../image/KM_hxs.png" alt="" class="collectmusic"></div><p>收藏</p></div><div class="userinfocol" tapmode="toolhover" onclick=""><div class="info"><img src="../image/KM_ListingsListYzpd.png" alt=""></div><p>预置频道</p></div><div class="userinfocol" tapmode="toolhover" onclick="fnOpenDiscussDetail(' +
-                    //     ret.data.linstening_info.l_id + '); "><div class="info"><img src="../image/KM_ListingsListSx.png" alt=""></div><p>' + ret.data.linstening_info.comment_total +
-                    //     '</p></div><div class="userinfocol" tapmode="toolhover" onclick="fnOpenPlayShare();"><div class="info"><img src="../image/KM_ListingsListGd.png" alt=""></div><p>分享</p></div>');
-
-
                         fnExtraGoodssssss();
                         goodss = ret.data.linstening_info.good_total;
-                        console.log(goodss);
                         // console.log(ret.data.linstening_info.good_total);
                         // console.log(goods);
                         var stylelistss = $api.byId('goods');
                         $api.html(stylelistss, goodss);
                     songList(ret);
+                    var stylelistCollectionHtml = $api.byId('extraCollectionHtml');
+                    if(ret.data.linstening_info.collection_total == 0){
+                      albumCollectionHtml = '<img src="../image/KM_hxs.png" alt="" class="collectmusic" onclick="collectmusic(this)" data-click="0">';
+                    }else{
+                      albumCollectionHtml = '<img src="../image/KM_play_collect_red.png" alt="" class="collectmusic" onclick="collectmusic(this)" data-click="1">';
+                    }
+
+                    $api.html(stylelistCollectionHtml, albumCollectionHtml);
 
                 } else {
                     api.toast({
@@ -967,5 +966,94 @@
             // })
 
         });
+    }
+    function collectmusic(clicktoolitem) {
+        var toolbarlist = document.getElementsByClassName('collectmusic')[0];
+        var click = clicktoolitem.getAttribute("data-click");
+        if (click == 0) {
+            // 点开
+            clicktoolitem.setAttribute("data-click", 1);
+            toolbarlist.src = "../image/KM_play_collect_red.png";
+            uri = '/extra/collection';
+            api.ajax({
+                url: host + apiUri + uri + '/' + ids,
+                method: 'post',
+                dataType: 'json',
+                headers: {
+                    "source": api.systemType,
+                    "version": version,
+                    "session": token
+                },
+                data:{
+                  values:{
+                    "model":'listen',
+                  }
+                }
+            }, function(ret, err) {
+                if (ret.status == 200) {
+                    // fnRecommendedDirectory(ret);
+                    if(ret.data == "inc"){
+                      api.toast({              
+                          msg:   '已收藏',
+                          duration:  2000,
+                          location:   'middle'          
+                      });
+                    }
+                } else {
+                  api.toast({              
+                      msg:  ret.message,
+                      duration:  2000,
+                      location:   'middle'          
+                  });
+                    $api.rmStorage('token');
+                    api.openWin({
+                        name: 'login',
+                        url: '../login.html',
+                    });
+                }
+            });
+        } else {
+
+            // 关闭
+            clicktoolitem.setAttribute("data-click", 0);
+            toolbarlist.src = "../image/KM_hxs.png";
+            uri = '/extra/collection';
+            api.ajax({
+                url: host + apiUri + uri + '/' + ids,
+                method: 'post',
+                dataType: 'json',
+                headers: {
+                    "source": api.systemType,
+                    "version": version,
+                    "session": token
+                },
+                data:{
+                  values:{
+                    "model":'listen',
+                  }
+                }
+            }, function(ret, err) {
+                if (ret.status == 200) {
+                    if(ret.data == "dec"){
+                      api.toast({              
+                          msg:   '已取消收藏',
+                          duration:  2000,
+                          location:   'middle'          
+                      });
+                    }
+                } else {
+                  api.toast({              
+                      msg:  ret.message,
+                      duration:  2000,
+                      location:   'middle'          
+                  });
+                    $api.rmStorage('token');
+                    api.openWin({
+                        name: 'login',
+                        url: '../login.html',
+                    });
+                }
+            });
+        }
     }
 </script>

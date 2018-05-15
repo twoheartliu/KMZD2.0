@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
@@ -7,252 +8,304 @@
     <title>孔孟之道--我的关注</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
     <style>
-    html,
-    body {
-        background-color: #f2f2f2;
-    }
-    /* 头部 */
-    .nomessage {margin-top: 20px;font-size: 0.8em;text-align: center;color: #999;}
-    nav{border-top: 1px solid #ccc;}
-    nav .total{color:#000;font-size: 16px;padding-left: 15px;height:40px;line-height: 40px;}
-    nav>ul{background-color: #fff;}
-    nav ul li{width:100%;height:70px;padding: 10px 0 0;background-color: #fff;border-bottom: 10px solid #f2f2f2;;}
-    .user-detail{display: inline-block;width:80%;}
-    /*section ul li:nth-last-child(1){border-bottom: 1px solid #ccc;}*/
-    .user-img{width:50px;height: 60px;line-height: 60px;display: inline-block;margin-left: 10px;vertical-align: top;}
-    .user-name{height: 60px;display: inline-block;vertical-align: middle;width: 65%;}
-    .user-name p{font-size: 16px;color: #000;width:100%;overflow: hidden;text-overflow: ellipsis;white-space:nowrap;line-height: 25px;}
-    .user-name p:nth-child(2){font-size: 14px;margin-top: 8px;color: #ccc;line-height: 20px;}
-    /*.user-name p:nth-child(3){font-size: 14px;margin-top: 5px;color: #ccc;}*/
-    /*.user-name p>span{margin-right: 10px;vertical-align: top;}*/
-    /*.user-name p:nth-last-child(1){font-size: 12px;width:92px;color: #999;float:right;}*/
-    .userDelete{display: inline-block;width: 30px;line-height: 70px;text-align: center;}
-    .userDelete>img{width: 50px;}
-    .active{display: none;}
-    .p>span{
-      font-size: 12px;
-    }
+        html,
+        body {
+            background-color: #f2f2f2;
+        }
+        /* 头部 */
+
+        .nomessage {
+            margin-top: 20px;
+            font-size: 0.8em;
+            text-align: center;
+            color: #999;
+        }
+
+        nav {
+            border-top: 1px solid #ccc;
+        }
+
+        nav .total {
+            color: #000;
+            font-size: 16px;
+            padding-left: 15px;
+            height: 40px;
+            line-height: 40px;
+        }
+
+        nav>ul {
+            background-color: #fff;
+        }
+
+        nav ul li {
+            width: 100%;
+            height: 70px;
+            padding: 10px 0 0;
+            background-color: #fff;
+            border-bottom: 10px solid #f2f2f2;
+            ;
+        }
+
+        .user-detail {
+            display: inline-block;
+            width: 80%;
+        }
+        /*section ul li:nth-last-child(1){border-bottom: 1px solid #ccc;}*/
+
+        .user-img {
+            width: 50px;
+            height: 60px;
+            line-height: 60px;
+            display: inline-block;
+            margin-left: 10px;
+            vertical-align: top;
+        }
+
+        .user-img img {
+            width: 100%;
+        }
+
+        .user-name {
+            height: 60px;
+            display: inline-block;
+            vertical-align: middle;
+            width: 65%;
+        }
+
+        .user-name p {
+            font-size: 16px;
+            color: #000;
+            width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            line-height: 25px;
+        }
+
+        .user-name p:nth-child(2) {
+            font-size: 14px;
+            margin-top: 8px;
+            color: #ccc;
+            line-height: 20px;
+        }
+        /*.user-name p:nth-child(3){font-size: 14px;margin-top: 5px;color: #ccc;}*/
+        /*.user-name p>span{margin-right: 10px;vertical-align: top;}*/
+        /*.user-name p:nth-last-child(1){font-size: 12px;width:92px;color: #999;float:right;}*/
+
+        .userDelete {
+            display: inline-block;
+            width: 30px;
+            line-height: 70px;
+            text-align: center;
+        }
+
+        .userDelete>img {
+            width: 50px;
+        }
+
+        .active {
+            display: none;
+        }
+
+        .p>span {
+            font-size: 12px;
+        }
+        .attention1{width: 100%;text-align: center;height: 100px;line-height: 100px;}
     </style>
 </head>
 
 <body>
-  <nav id="nav" >
-    <div class="total">共关注了<span>12</span>人</div>
-    <ul>
-      <li class="item" id="item">
-        <div class="user-detail" onclick="fnOpenmyPersonal();">
-            <div class="user-img"><img src="../image/my/user-logo.png" alt=""></div>
-            <div class="user-name" >
-              <p id='userName'>走不出胡同的猫</p>
-              <p class="p">
-                <span>粉丝</span><span>180</span>
-                <span>作品</span><span>180</span>
-              </p>
-            </div>
-          </div>
-          <div class="userDelete" >
-            <img src="../image/my/personal_care_a.png" alt="" class="userDeleteA">
-          </div>
-      </li>
-      <li class="item" id="item">
-        <div class="user-detail" onclick="fnOpenmyPersonal();">
-            <div class="user-img"><img src="../image/my/user-logo.png" alt=""></div>
-            <div class="user-name" >
-              <p>走不出胡同的猫</p>
-              <!-- <p>注册时间：2017年12月30日</p> -->
-              <p class="p">
-                <span>粉丝</span><span>180</span>
-                <span>作品</span><span>180</span>
-              </p>
-            </div>
-          </div>
-          <div class="userDelete" >
-            <img src="../image/my/personal_care_a.png" alt="" class="userDeleteA">
-          </div>
-      </li>
-      <li class="item" id="item">
-        <div class="user-detail" onclick="fnOpenmyPersonal();">
-            <div class="user-img"><img src="../image/my/user-logo.png" alt=""></div>
-            <div class="user-name" >
-              <p>走不出胡同的猫</p>
-              <!-- <p>注册时间：2017年12月30日</p> -->
-              <p class="p">
-                <span>粉丝</span><span>180</span>
-                <span>作品</span><span>180</span>
-              </p>
-            </div>
-          </div>
-          <div class="userDelete" >
-            <img src="../image/my/personal_care_a.png" alt="" class="userDeleteA">
-          </div>
-      </li>
-      <li class="item" id="item">
-        <div class="user-detail" onclick="fnOpenmyPersonal();">
-            <div class="user-img"><img src="../image/my/user-logo.png" alt=""></div>
-            <div class="user-name" >
-              <p>走不出胡同的猫</p>
-              <!-- <p>注册时间：2017年12月30日</p> -->
-              <p class="p">
-                <span>粉丝</span><span>180</span>
-                <span>作品</span><span>180</span>
-              </p>
-            </div>
-          </div>
-          <div class="userDelete" >
-            <img src="../image/my/personal_care_a.png" alt="" class="userDeleteA">
-          </div>
-      </li>
-      <li class="item" id="item">
-        <div class="user-detail" onclick="fnOpenmyPersonal();">
-            <div class="user-img"><img src="../image/my/user-logo.png" alt=""></div>
-            <div class="user-name" >
-              <p>走不出胡同的猫</p>
-              <!-- <p>注册时间：2017年12月30日</p> -->
-              <p class="p">
-                <span>粉丝</span><span>180</span>
-                <span>作品</span><span>180</span>
-              </p>
-            </div>
-          </div>
-          <div class="userDelete" >
-            <img src="../image/my/personal_care_a.png" alt="" class="userDeleteA">
-          </div>
-      </li>
-      <li class="item" id="item">
-        <div class="user-detail" onclick="fnOpenmyPersonal();">
-            <div class="user-img"><img src="../image/my/user-logo.png" alt=""></div>
-            <div class="user-name" >
-              <p>走不出胡同的猫</p>
-              <!-- <p>注册时间：2017年12月30日</p> -->
-              <p class="p">
-                <span>粉丝</span><span>180</span>
-                <span>作品</span><span>180</span>
-              </p>
-            </div>
-          </div>
-          <div class="userDelete" >
-            <img src="../image/my/personal_care_a.png" alt="" class="userDeleteA">
-          </div>
-      </li>
-
-    </ul>
-    <!-- <div class="nomessage">暂无消息</div> -->
-  </nav>
+    <nav id="nav">
+        <div class="total">已关注了<span id="total">0</span>人</div>
+        <ul id="attention">
+        </ul>
+        <!-- <div class="nomessage">暂无消息</div> -->
+    </nav>
 </body>
+
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript">
+    var token;
+    var follow_list_photo;
+    // 关注图片
+    var userDeleteHtml;
     apiready = function() {
-      fnDeleteUser();
+        token = $api.getStorage('token');
+        // fnDeleteUser();
+        fnAttention();
     };
-    function fnOpenmyPersonal(){
-      api.openWin({
-          name: 'myPersonal',
-          url: './my_personal.html',
-          pageParam: {
-              name: 'test'
-          }
-      });
+
+    function fnAttention() {
+
+        api.ajax({
+            url: host + apiUri + '/user/follow',
+            method: 'get',
+            headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token
+            }
+        }, function(ret, err) {
+
+            if (ret.status == 200) {
+              if (ret.data == '') {
+                var attentionsss = $api.byId('attention');
+                htmlss = '<li class="attention1">当前你还未添加关注过人</li>';
+                $api.html(attentionsss, htmlss);
+              }else {
+                var attention = $api.byId('attention');
+                var total = $api.byId('total');
+                var totalHtml = ret.data.follow_list.length;
+                $api.html(total, totalHtml);
+                console.log();
+
+                html = '';
+                for (var i = 0; i < ret.data.follow_list.length; i++) {
+                    var userDelete = $api.byId('userDelete');
+
+                    var user_id = ret.data.follow_list[i].user_id;
+
+                    if (ret.data.relation[user_id] == 2) {
+                        userDeleteHtml = '<img src="../image/my/personal_care_a.png"  alt="" class="userDeleteA">'
+                    } else if(ret.data.relation[user_id] == 1){
+                        userDeleteHtml = '<img src="../image/my/personal_care.png" alt="" class="userDeleteA">'
+                    }
+                    var photossss = ret.data.follow_list[i].photo;
+                    if (photossss == null) {
+                        follow_list_photo = '../image/KM_tx.png'
+                    } else {
+                        var photo = photossss.substring(0, 4);
+                        if (photo == 'http') {
+                            follow_list_photo = ret.data.follow_list[i].photo;
+                        } else if (photo != 'http') {
+                            follow_list_photo = updatePhotoUrl + photossss;
+                        }
+                    }
+                    html +=
+                        '<li class="item"><div class="user-detail" onclick="fnOpenmyPersonal();"><div class="user-img"><img src="' + follow_list_photo + '" alt=""></div><div class="user-name" ><p id="userName">' + ret.data.follow_list[i].nick_name +
+                        '</p><p class="p">' + ret.data.follow_list[i].signature +
+                        '</p></div></div><div id="userDelete" id="userDelete_' + ret.data.follow_list[i].user_id + '" class="userDelete" onclick="fnUserDelete(' + ret.data.follow_list[i].user_id + ');">' +
+                        userDeleteHtml + '</div></li>'
+
+                }
+                $api.html(attention, html);
+              }
+
+
+
+            } else {
+                alert(JSON.stringify(err));
+            }
+        });
+
+    }
+
+
+
+
+    function fnOpenmyPersonal() {
+        api.openWin({
+            name: 'myPersonal',
+            url: './my_personal.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
 
     };
-    function fnDeleteUser() {
-      // var userDeleteA = document.getElementById('userDeleteA');
-      var nav = document.getElementById('nav');
-      var userDeleteA = nav.getElementsByClassName('userDeleteA');
-      for (var i = 0; i < userDeleteA.length; i++) {
-        userDeleteA[i].index = i;
-        userDeleteA[i].onclick = function() {
-          var j = this.index;
-          var dialogBox = api.require('dialogBox');
-              dialogBox.alert({
-                  texts:{
-                      content:'确定要取消关注吗？',
-                      leftBtnTitle: '取消',
-                      rightBtnTitle: '确认'
-                  },
-                  styles: {
-                      bg: '#fff',
-                      w: 300,
-                      content: {
-                          color: '#000',
-                          size: 14
-                      },
-                      left: {
-                          marginB: 15,
-                          marginL: 20,
-                          w: 100,
-                          h: 35,
-                          corner: 2,
-                          bg: '#ccc',
-                          color: '#fff',
-                          size: 12
-                      },
-                      right: {
-                          marginB: 15,
-                          marginL: 60,
-                          w: 100,
-                          h: 35,
-                          corner: 2,
-                          bg: '#ccc',
-                          color: '#fff',
-                          size: 12
-                      }
-                  }
-                },function(ret) {
-                  if (ret.eventType == 'right') {
-                    var item = nav.getElementsByClassName('item');
-                    $api.css(item[j],'display:none;');
-                      var dialogBox = api.require('dialogBox');
-                      dialogBox.close({
-                          dialogName: 'alert'
-                      });
-                  }else if (ret.eventType == 'left') {
+
+    function fnUserDelete(id) {
+        if (id) {
+            var dialogBox = api.require('dialogBox');
+            dialogBox.alert({
+                texts: {
+                    content: '确定要取消关注吗？',
+                    leftBtnTitle: '取消',
+                    rightBtnTitle: '确认'
+                },
+                styles: {
+                    bg: '#fff',
+                    w: 300,
+                    content: {
+                        color: '#000',
+                        size: 14
+                    },
+                    left: {
+                        marginB: 15,
+                        marginL: 20,
+                        w: 100,
+                        h: 35,
+                        corner: 2,
+                        bg: '#ccc',
+                        color: '#fff',
+                        size: 12
+                    },
+                    right: {
+                        marginB: 15,
+                        marginL: 60,
+                        w: 100,
+                        h: 35,
+                        corner: 2,
+                        bg: '#ccc',
+                        color: '#fff',
+                        size: 12
+                    }
+                }
+            }, function(ret) {
+                if (ret.eventType == 'right') {
+                    api.ajax({
+                        url: host + apiUri + '/user/follow',
+                        method: 'post',
+                        headers: {
+                            "source": api.systemType,
+                            "version": version,
+                            "session": token
+                        },
+                        data: {
+                            values: {
+                                follow_id: id
+                            }
+                        }
+                    }, function(ret, err) {
+                      console.log(JSON.stringify(ret));
+                        // html = ''
+                        if (ret.status == 200) {
+                          fnAttention();
+                            // var userDelete = $api.byId('userDelete');
+                            // var userDeleteID = userDelete + ret;
+                            // html += '<img src="../image/my/attention_j.png" alt="" class="userDeleteA">';
+                            // $api.html(userDelete, html);
+
+                        } else {
+                            alert(JSON.stringify(err));
+                        }
+                    });
+
+                    var dialogBox = api.require('dialogBox');
+                    dialogBox.close({
+                        dialogName: 'alert'
+                    });
+                } else if (ret.eventType == 'left') {
                     var dialogBox = api.require('dialogBox');
                     dialogBox.close({
                         dialogName: 'alert'
                     });
                 }
             });
-      }
+        }
+
     }
-
-      // var ul_li = nav.getElementsByClassName('item');
-      // for (var i = 0; i < user_delete.length; i++) {
-      //     user_delete[i].index = i;
-      //     user_delete[i].onclick = function() {
-      //         var j = this.index;
-      //       $api.addCls(ul_li[j], 'active');
-      //       user_delete[j].src="../image/user-delete-a.png";
-      //       if(user_delete[j].getAttribute("src",2)=="../image/play_collect.png"){
-      //         user_delete[j].src="../image/user-delete-a.png";
-      //       }else{
-      //         user_delete[j].src="../image/user-delete.png";
-      //       }
-      //     }
-      // }
-
-
-
-
-
-    };
-
-    function confire(){
-      //   var friend = document.getElementById('friend');
-      //   var friend_lis = friend.getElementsByClassName('userButton');
-      //   for (var i = 0; i < friend_lis.length; i++) {
-      //     friend_lis[i].index = i;
-      //     friend_lis[i].onclick = function() {
-      //       var j = this.index;
-      //     if(friend_lis[j].getAttribute("src",2)=="../image/care.png"){
-      //       friend_lis[j].src="../image/care1.png";
-      //     }
-      //   }
-      // }
-      var nav = document.getElementById('nav');
-
-
-
-    };
-
+    // function fnFollow(ret_data){
+    //   // console.log(ret_data.data);
+    //   if (ret_data.data == 'dec') {
+    //     console.log(1111);
+    //       userDelete += '<img src="../image/my/care_a.png" alt=""';
+    //       fnAttention();
+    //   }else {
+    //     fnAttention();
+    //   }
+    //
+    // }
 </script>
