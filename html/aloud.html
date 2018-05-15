@@ -261,7 +261,7 @@
     <header id="secHeader">
         <div class="header_fls fl" onclick="goback();"><img src="../image/icon_back.png" alt=""></div>
         <div class="header_fl fr" onclick="fnLuYinBaoCun();"><span>保存</span></div>
-        <div class="header_fl fr" onclick="fnLuYinShangChuan();"><span>上传</span></div>
+        <!-- <div class="header_fl fr" onclick="fnLuYinShangChuan();"><span>上传</span></div> -->
         <div class="header_center">朗诵</div>
     </header>
     <div class="name_bg">
@@ -493,6 +493,15 @@
     }
     //返回
     function goback() {
+      var fs = api.require('fs');
+      fs.rmdir({
+          path: 'fs://luyin'
+      }, function(ret, err) {
+          if (ret.status) {
+          } else {
+              // alert(JSON.stringify(err));
+          }
+      });
         api.closeWin({
             name: 'aloud'
         });
@@ -569,7 +578,6 @@
                 //fs 文件管理 删除  拷贝  移除等
               	//拷贝文件
                 if(path){
-                  console.log(path);
                   var fs = api.require('fs');
               		fs.copyTo({
               		    oldPath: path,
@@ -584,6 +592,15 @@
               					}, function(ret, err) {
               						if (ret.status) {
               								alert('已保存');
+                              fs.rmdir({
+                                  path: 'fs://luyin'
+                              }, function(ret, err) {
+                                  if (ret.status) {
+                                      // alert(JSON.stringify(ret));
+                                  } else {
+                                      alert(JSON.stringify(err));
+                                  }
+                              });
               						} else {
               								alert(JSON.stringify(err));
               						}
@@ -611,6 +628,7 @@
                           alert(JSON.stringify(err));
                       }
                   });
+
                 }else{
                   alert("请先录音");
                 }
@@ -659,15 +677,13 @@
                                       }
                                   }, function(ret, err) {
                                       // console.log('fs://shangchuanxiang/' + timestamp + jubenid + '.amr');
-                                      console.log(JSON.stringify(ret));
+                                      // console.log(JSON.stringify(ret));
                                       if (ret.status == 200) {
                                           // console.log(ret.status);
                                           fs.rmdir({
                                               path: 'fs://shangchuanxiang'
                                           }, function(ret, err) {
                                               if (ret.status) {
-                                                console.log('已删除');
-                                                  // alert(JSON.stringify(ret));
                                               } else {
                                                   alert(JSON.stringify(err));
                                               }
@@ -676,14 +692,11 @@
                                               path: 'fs://luyin'
                                           }, function(ret, err) {
                                               if (ret.status) {
-                                                console.log('已删除');
-                                                  // alert(JSON.stringify(ret));
                                               } else {
                                                   alert(JSON.stringify(err));
                                               }
                                           });
-
-                                          uri = '/upload/records';
+                                          uri = '/user/records';
                                           api.ajax({
                                               url: host + apiUri + uri,
                                               method: 'post',
@@ -695,20 +708,20 @@
                                               },
                                               data: {
                                                   values: {
-                                                      script_id: jubenid,
-                                                      title: name,
-                                                      author_id: 5177,
-                                                      lyric: body,
-                                                      records: ret.data.records,
-                                                      format: ret.data.format,
-                                                      size: ret.data.size,
-                                                      time: ret.data.time,
-
+                                                      "script_id":jubenid,
+                                                      "title": name,
+                                                      "author_id":5177,
+                                                      "lyric": body,
+                                                      "records": ret.data.records,
+                                                      "format": ret.data.formate,
+                                                      "size": ret.data.size,
+                                                      "time": ret.data.time,
                                                   }
                                               }
                                           }, function(ret, err) {
+                                            // console.log(JSON.stringify(ret));
                                               if (ret.status == 200) {
-
+                                              alert('已上传');
 
                                               } else {
 
@@ -742,18 +755,6 @@
               });
             }
         });
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
     function newluyintxt() {
@@ -808,6 +809,15 @@
                 }, function(ret, err) {
                     var index = ret.buttonIndex;
                     if (index == 1) {
+                      var fs = api.require('fs');
+                      fs.rmdir({
+                          path: 'fs://luyin'
+                      }, function(ret, err) {
+                          if (ret.status) {
+                          } else {
+                              // alert(JSON.stringify(err));
+                          }
+                      });
                         var c = 0;
                         var t = '';
                         var playCollect = $api.byId('playCollect');
@@ -971,6 +981,7 @@
                     duration = ret.duration;
                 }
             });
+
         }
 
     }

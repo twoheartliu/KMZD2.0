@@ -266,12 +266,16 @@
 
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript">
 var caogao;
 var Dqbofangid;
 var Guid = new Array();
+var token;
+var jubenid;
     apiready = function() {
-      fnGetBeiJingYinYueTypelist()
+      token = $api.getStorage('token');
+      fnGetBeiJingYinYueTypelist();
     }
     function fnGetBeiJingYinYueTypelist() {
 
@@ -294,9 +298,9 @@ var Guid = new Array();
               var name = historyUrlArray[i*4-1];
               var desc = historyUrlArray[i*4];
               if(historyUrlArray[i*4-1]){
-                html +='<div class="egret-flex-item" tapmode="fmbtnhover"><div class="egret-flex-item-logo"  onclick="opencaogaoyinyue(' + i + ');"><img src="../image/frame0101cover/frame0101cover16.png" alt="" class=""></div><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 col fl" >' + historyUrlArray[i*4-2] + '</span><span class="span2 col fl" onclick="opencaogaoyinyue(' + i + ');">' + historyUrlArray[i*4-1] + '</span><span class="span3 col fl" onclick="opencaogaoyinyue(' + i + ');">11:36</span><img class="span4 col fr" onclick="dialogBox_actionMenu();" src="../image/KM_list_more.png"alt=""/></div><div class="egret-flex-item-shelf03" onclick="opencaogaoyinyue(' + i + ');"><div ><img src="../image/play_icon.png" alt=""><span>100</span></div><div><img src="../image/KM_zf.png" alt=""><span>100</span></div><div ><img src="../image/KM_dz.png" alt=""><span>100</span></div></div></div></div>';
+                html +='<div class="egret-flex-item" tapmode="fmbtnhover"><div class="egret-flex-item-logo"  onclick="opencaogaoyinyue(' + i + ');"><img src="../image/frame0101cover/frame0101cover16.png" alt="" class=""></div><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 col fl" >' + historyUrlArray[i*4-2] + '</span><span class="span2 col fl" onclick="opencaogaoyinyue(' + i + ');">' + historyUrlArray[i*4-1] + '</span><span class="span3 col fl" onclick="opencaogaoyinyue(' + i + ');"></span><img class="span4 col fr" onclick="dialogBox_actionMenu(' + i + ');" src="../image/KM_list_more.png"alt=""/></div><div class="egret-flex-item-shelf03" onclick="opencaogaoyinyue(' + i + ');"><div ><img src="../image/play_icon.png" alt=""><span>100</span></div><div><img src="../image/KM_zf.png" alt=""><span>100</span></div><div ><img src="../image/KM_dz.png" alt=""><span>100</span></div></div></div></div>';
               }else{
-                html +='<div class="egret-flex-item" tapmode="fmbtnhover"><div class="egret-flex-item-logo"" onclick="opencaogaoyinyue(' + i + ');"><img src="../image/frame0101cover/frame0101cover16.png" alt="" class=""></div><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 col fl">' + historyUrlArray[i*4-2] + '</span><span class="span3 col fl" onclick="opencaogaoyinyue(' + i + ');">11:36</span><img class="span4 col fr" onclick="dialogBox_actionMenu();"src="../image/KM_list_more.png" alt=""/></div><div class="egret-flex-item-shelf03" onclick="opencaogaoyinyue(' + i + ');"><div><img src="../image/play_icon.png" alt=""><span>100</span></div><div><img src="../image/KM_zf.png" alt=""><span>100</span></div><div><img src="../image/KM_dz.png" alt=""><span>100</span></div></div></div></div>';
+                html +='<div class="egret-flex-item" tapmode="fmbtnhover"><div class="egret-flex-item-logo"" onclick="opencaogaoyinyue(' + i + ');"><img src="../image/frame0101cover/frame0101cover16.png" alt="" class=""></div><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 col fl">' + historyUrlArray[i*4-2] + '</span><span class="span3 col fl" onclick="opencaogaoyinyue(' + i + ');"></span><img class="span4 col fr" onclick="dialogBox_actionMenu(' + i + ');"src="../image/KM_list_more.png" alt=""/></div><div class="egret-flex-item-shelf03" onclick="opencaogaoyinyue(' + i + ');"><div><img src="../image/play_icon.png" alt=""><span>100</span></div><div><img src="../image/KM_zf.png" alt=""><span>100</span></div><div><img src="../image/KM_dz.png" alt=""><span>100</span></div></div></div></div>';
               }
               $api.html(stylelist, html);
           }
@@ -337,7 +341,7 @@ var Guid = new Array();
       }
 
   	}
-    function dialogBox_actionMenu() {
+    function dialogBox_actionMenu(s) {
         var dialogBox = api.require('dialogBox');
         dialogBox.actionMenu({
             rect: {
@@ -381,12 +385,171 @@ var Guid = new Array();
                     dialogName: 'alert'
                 });
             } else if (index == 0) {
-                alert('公开')
+                api.getPrefs({
+                    key: 'cgxlist'
+                }, function(ret, err) {
+                    var historyUrlText = '' || ret.value;
+                    historyUrlArray = historyUrlText.split(',');
+                    var fs = api.require('fs');
+                    fs.copyTo({
+                        oldPath: 'fs://caogaoxiang/'+historyUrlArray[s*4-3],
+                        newPath: 'fs://shangchuanxiang'
+                    }, function(ret, err) {
+                        var paths = 'fs://shangchuanxiang/'+historyUrlArray[s*4-3];
+                        if (ret.status) {
+                            fs.rename({
+                                oldPath: paths,
+                                newPath: 'fs://shangchuanxiang/'+historyUrlArray[s*4-3] + '.amr'
+                            }, function(ret, err) {
+                                if (ret.status) {
+                                    // alert('已上传');
+                                    uri = '/upload/user_records';
+                                    api.ajax({
+                                        url: host + apiUri + uri,
+                                        method: 'post',
+                                        dataType: 'json',
+                                        headers: {
+                                            "source": api.systemType,
+                                            "version": version,
+                                            "session": token
+                                        },
+                                        data: {
+                                            files: {
+                                                records: 'fs://shangchuanxiang/' + historyUrlArray[s*4-3] + '.amr'
+                                            }
+                                        }
+                                    }, function(ret, err) {
+                                        // console.log('fs://shangchuanxiang/' + timestamp + jubenid + '.amr');
+                                        // console.log(JSON.stringify(ret));
+                                        if (ret.status == 200) {
+                                            // console.log(ret.status);
+                                            // fs.rmdir({
+                                            //     path: 'fs://shangchuanxiang'
+                                            // }, function(ret, err) {
+                                            //     if (ret.status) {
+                                            //     } else {
+                                            //         alert(JSON.stringify(err));
+                                            //     }
+                                            // });
+                                            var aaaa = historyUrlArray[s*4-3];
+                                            var aaaa = aaaa.substring(12);
+                                            uri = '/user/records';
+                                            api.ajax({
+                                                url: host + apiUri + uri,
+                                                method: 'post',
+                                                dataType: 'json',
+                                                headers: {
+                                                    "source": api.systemType,
+                                                    "version": version,
+                                                    "session": token
+                                                },
+                                                data: {
+                                                    values: {
+                                                        "script_id":aaaa,
+                                                        "title": historyUrlArray[s*4-2],
+                                                        "author_id":5177,
+                                                        "lyric": historyUrlArray[s*4],
+                                                        "records": ret.data.records,
+                                                        "format": ret.data.formate,
+                                                        "size": ret.data.size,
+                                                        "time": ret.data.time,
+                                                    }
+                                                }
+                                            }, function(ret, err) {
+                                                if (ret.status == 200) {
+                                                alert('已上传');
+
+                                                api.getPrefs({
+                                                    key: 'cgxlist'
+                                                }, function(ret, err) {
+                                                    var flag = false;
+                                                    var historyUrlText = '' || ret.value;
+                                                    var historyUrlArray = historyUrlText.split(',');
+                                                    var ccc = s*4-3;
+                                                    historyUrlArray.splice(ccc,4);
+                                                    !flag && api.setPrefs({
+                                                        key: 'cgxlist',
+                                                        value: historyUrlArray.join(',')
+                                                    });
+                                                    fnGetBeiJingYinYueTypelist();
+
+                                                });
+                                                fs.remove({
+                                                    path: 'fs://caogaoxiang/'+historyUrlArray[s*4-3]
+                                                }, function(ret, err) {
+                                                    if (ret.status) {
+                                                        alert(JSON.stringify(ret));
+                                                    } else {
+                                                        alert(JSON.stringify(err));
+                                                    }
+                                                });
+                                                fs.rmdir({
+                                                    path: 'fs://shangchuanxiang'
+                                                }, function(ret, err) {
+                                                    if (ret.status) {
+                                                    } else {
+                                                        // alert(JSON.stringify(err));
+                                                    }
+                                                });
+                                                fs.rmdir({
+                                                    path: 'fs://luyin'
+                                                }, function(ret, err) {
+                                                    if (ret.status) {
+                                                    } else {
+                                                        // alert(JSON.stringify(err));
+                                                    }
+                                                });
+                                                } else {
+
+                                                }
+                                            });
+                                        } else {
+
+                                        }
+                                    });
+
+
+
+                                } else {
+                                    alert(JSON.stringify(err));
+                                }
+                            });
+                        } else {
+                            alert(JSON.stringify(err));
+                        }
+                    });
+                });
                 dialogBox.close({
                     dialogName: 'alert'
                 });
             } else if (index == 1) {
-                alert('删除')
+              api.getPrefs({
+                  key: 'cgxlist'
+              }, function(ret, err) {
+                  var flag = false;
+                  var historyUrlText = '' || ret.value;
+                  var historyUrlArray = historyUrlText.split(',');
+                  var ccc = s*4-3;
+                  historyUrlArray.splice(ccc,4);
+                  !flag && api.setPrefs({
+                      key: 'cgxlist',
+                      value: historyUrlArray.join(',')
+                  });
+                  fnGetBeiJingYinYueTypelist();
+
+              });
+              var fs = api.require('fs');
+              fs.remove({
+                  path: 'fs://caogaoxiang/'+historyUrlArray[s*4-3]
+              }, function(ret, err) {
+                  if (ret.status) {
+                      // alert(JSON.stringify(ret));
+                        alert('已删除')
+                  } else {
+                      alert(JSON.stringify(err));
+                  }
+              });
+
                 dialogBox.close({
                     dialogName: 'alert'
                 });
