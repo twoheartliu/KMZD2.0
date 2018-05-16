@@ -488,8 +488,7 @@
         var conner_num = parseInt(stylelist.innerText);
         if (click == 0) {
           // 点开
-          toolbarlist.setAttribute("data-click", 1);
-          toolbarlist.src = "../image/KM_play_dianzan_red.png";
+
           uri = '/extra/good';
           api.ajax({
               url: host + apiUri + uri + '/' + img_id,
@@ -508,6 +507,8 @@
               },
           }, function(ret, err) {
               if (ret.status == 200) {
+                toolbarlist.setAttribute("data-click", 1);
+                toolbarlist.src = "../image/KM_play_dianzan_red.png";
                   api.toast({              
                       msg:   '已点赞',
                       duration:  2000,
@@ -533,8 +534,7 @@
           });
         } else {
           // 关闭
-          toolbarlist.setAttribute("data-click", 0);
-          toolbarlist.src = "../image/KM_ListingsListDzs.png";
+
           uri = '/extra/good';
           api.ajax({
               url: host + apiUri+uri+'/'+img_id,
@@ -553,6 +553,8 @@
               }
           }, function(ret, err) {
               if (ret.status == 200) {
+                toolbarlist.setAttribute("data-click", 0);
+                toolbarlist.src = "../image/KM_ListingsListDzs.png";
                   api.toast({              
                       msg:   '已取消点赞',
                       duration:  2000,

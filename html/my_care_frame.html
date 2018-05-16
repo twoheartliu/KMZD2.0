@@ -110,15 +110,20 @@
         .p>span {
             font-size: 12px;
         }
-        .attention1{width: 100%;text-align: center;height: 100px;line-height: 100px;}
+
+        .attention1 {
+            width: 100%;
+            text-align: center;
+            height: 100px;
+            line-height: 100px;
+        }
     </style>
 </head>
 
 <body>
     <nav id="nav">
         <div class="total">已关注了<span id="total">0</span>人</div>
-        <ul id="attention">
-        </ul>
+        <ul id="attention"></ul>
         <!-- <div class="nomessage">暂无消息</div> -->
     </nav>
 </body>
@@ -150,48 +155,48 @@
         }, function(ret, err) {
 
             if (ret.status == 200) {
-              if (ret.data == '') {
-                var attentionsss = $api.byId('attention');
-                htmlss = '<li class="attention1">当前你还未添加关注过人</li>';
-                $api.html(attentionsss, htmlss);
-              }else {
-                var attention = $api.byId('attention');
-                var total = $api.byId('total');
-                var totalHtml = ret.data.follow_list.length;
-                $api.html(total, totalHtml);
-                console.log();
+                if (ret.data == '') {
+                    var attentionsss = $api.byId('attention');
+                    htmlss = '<li class="attention1">当前你还未添加关注过人</li>';
+                    $api.html(attentionsss, htmlss);
+                } else {
+                    var attention = $api.byId('attention');
+                    var total = $api.byId('total');
+                    var totalHtml = ret.data.follow_list.length;
+                    $api.html(total, totalHtml);
+                    html = '';
+                    for (var i = 0; i < ret.data.follow_list.length; i++) {
+                        var userDelete = $api.byId('userDelete');
 
-                html = '';
-                for (var i = 0; i < ret.data.follow_list.length; i++) {
-                    var userDelete = $api.byId('userDelete');
+                        var user_id = ret.data.follow_list[i].user_id;
 
-                    var user_id = ret.data.follow_list[i].user_id;
-
-                    if (ret.data.relation[user_id] == 2) {
-                        userDeleteHtml = '<img src="../image/my/personal_care_a.png"  alt="" class="userDeleteA">'
-                    } else if(ret.data.relation[user_id] == 1){
-                        userDeleteHtml = '<img src="../image/my/personal_care.png" alt="" class="userDeleteA">'
-                    }
-                    var photossss = ret.data.follow_list[i].photo;
-                    if (photossss == null) {
-                        follow_list_photo = '../image/KM_tx.png'
-                    } else {
-                        var photo = photossss.substring(0, 4);
-                        if (photo == 'http') {
-                            follow_list_photo = ret.data.follow_list[i].photo;
-                        } else if (photo != 'http') {
-                            follow_list_photo = updatePhotoUrl + photossss;
+                        if (ret.data.relation[user_id] == 2) {
+                            userDeleteHtml = '<img src="../image/my/personal_care_a.png"   alt="'+ret.data.relation[user_id]+'"  class="userDeleteA" onclick="collectmusicFx(this)" data-click="0" id="' + user_id + '">'
+                        } else if (ret.data.relation[user_id] == 1) {
+                            userDeleteHtml = '<img src="../image/my/personal_care.png"  alt="'+ret.data.relation[user_id]+'"  class="userDeleteA" onclick="collectmusicFx(this)" data-click="0" id="' + user_id + '">'
+                        } else {
+                            userDeleteHtml = '<img src="../image/my/attention_j.png" alt="'+ret.data.relation[user_id]+'" class="userDeleteA" onclick="collectmusicFx(this)" data-click="1" id="' + user_id + '">'
                         }
-                    }
-                    html +=
-                        '<li class="item"><div class="user-detail" onclick="fnOpenmyPersonal();"><div class="user-img"><img src="' + follow_list_photo + '" alt=""></div><div class="user-name" ><p id="userName">' + ret.data.follow_list[i].nick_name +
-                        '</p><p class="p">' + ret.data.follow_list[i].signature +
-                        '</p></div></div><div id="userDelete" id="userDelete_' + ret.data.follow_list[i].user_id + '" class="userDelete" onclick="fnUserDelete(' + ret.data.follow_list[i].user_id + ');">' +
-                        userDeleteHtml + '</div></li>'
+                        var photossss = ret.data.follow_list[i].photo;
+                        if (photossss == null) {
+                            follow_list_photo = '../image/KM_tx.png'
+                        } else {
+                            var photo = photossss.substring(0, 4);
+                            if (photo == 'http') {
+                                follow_list_photo = ret.data.follow_list[i].photo;
+                            } else if (photo != 'http') {
+                                follow_list_photo = updatePhotoUrl + photossss;
+                            }
+                        }
+                        html +=
+                            '<li class="item"><div class="user-detail" onclick="fnOpenmyPersonal();"><div class="user-img"><img src="' + follow_list_photo + '" alt=""></div><div class="user-name" ><p id="userName">' + ret.data.follow_list[i]
+                            .nick_name +
+                            '</p><p class="p">' + ret.data.follow_list[i].signature +
+                            '</p></div></div><div id="userDelete" id="userDelete_' + ret.data.follow_list[i].user_id + ' " class="userDelete" >' + userDeleteHtml + '</div></li>'
 
+                    }
+                    $api.html(attention, html);
                 }
-                $api.html(attention, html);
-              }
 
 
 
@@ -216,8 +221,13 @@
 
     };
 
-    function fnUserDelete(id) {
-        if (id) {
+    function collectmusicFx(clicktoolitem) {
+      var img_id = clicktoolitem.getAttribute("id");
+        var img_alt = clicktoolitem.getAttribute("alt");
+
+        var toolbarlist = document.getElementById(img_id);
+        var click = toolbarlist.getAttribute("data-click");
+        if (click == 0) {
             var dialogBox = api.require('dialogBox');
             dialogBox.alert({
                 texts: {
@@ -255,6 +265,9 @@
                 }
             }, function(ret) {
                 if (ret.eventType == 'right') {
+                    // console.log(id);
+
+
                     api.ajax({
                         url: host + apiUri + '/user/follow',
                         method: 'post',
@@ -265,22 +278,26 @@
                         },
                         data: {
                             values: {
-                                follow_id: id
+                                follow_id: img_id
                             }
                         }
                     }, function(ret, err) {
-                      console.log(JSON.stringify(ret));
+                        // console.log(JSON.stringify(ret));
+                        // var user = $api.byId('userDelete_' + id + '');
                         // html = ''
                         if (ret.status == 200) {
-                          fnAttention();
+                          toolbarlist.setAttribute("data-click", 1);
+                          toolbarlist.src = "../image/my/attention_j.png";
+                            // fnAttention();
+
                             // var userDelete = $api.byId('userDelete');
                             // var userDeleteID = userDelete + ret;
                             // html += '<img src="../image/my/attention_j.png" alt="" class="userDeleteA">';
-                            // $api.html(userDelete, html);
-
                         } else {
                             alert(JSON.stringify(err));
                         }
+                        // $api.html(user, html);
+                        // console.log(html);
                     });
 
                     var dialogBox = api.require('dialogBox');
@@ -294,18 +311,93 @@
                     });
                 }
             });
-        }
+        }else {
+          var dialogBox = api.require('dialogBox');
+          dialogBox.alert({
+              texts: {
+                  content: '确定要添加关注吗？',
+                  leftBtnTitle: '取消',
+                  rightBtnTitle: '确认'
+              },
+              styles: {
+                  bg: '#fff',
+                  w: 300,
+                  content: {
+                      color: '#000',
+                      size: 14
+                  },
+                  left: {
+                      marginB: 15,
+                      marginL: 20,
+                      w: 100,
+                      h: 35,
+                      corner: 2,
+                      bg: '#ccc',
+                      color: '#fff',
+                      size: 12
+                  },
+                  right: {
+                      marginB: 15,
+                      marginL: 60,
+                      w: 100,
+                      h: 35,
+                      corner: 2,
+                      bg: '#ccc',
+                      color: '#fff',
+                      size: 12
+                  }
+              }
+          }, function(ret) {
+              if (ret.eventType == 'right') {
+                  // console.log(id);
+                  api.ajax({
+                      url: host + apiUri + '/user/follow',
+                      method: 'post',
+                      headers: {
+                          "source": api.systemType,
+                          "version": version,
+                          "session": token
+                      },
+                      data: {
+                          values: {
+                              follow_id: img_id
+                          }
+                      }
+                  }, function(ret, err) {
+                      // console.log(JSON.stringify(ret));
+                      // var user = $api.byId('userDelete_' + id + '');
+                      // html = ''
+                      if (ret.status == 200) {
+                        if (img_alt == 1) {
+                          toolbarlist.setAttribute("data-click", 0);
+                          toolbarlist.src = "../image/my/personal_care.png";
+                        }else if (img_alt == 2) {
+                          toolbarlist.setAttribute("data-click", 0);
+                          toolbarlist.src = "../image/my/personal_care_a.png";
+                        }
+                          // fnAttention();
 
+                          // var userDelete = $api.byId('userDelete');
+                          // var userDeleteID = userDelete + ret;
+                          // html += '<img src="../image/my/attention_j.png" alt="" class="userDeleteA">';
+                      } else {
+                          // alert(JSON.stringify(err));
+                      }
+                      // $api.html(user, html);
+                      // console.log(html);
+                  });
+
+                  var dialogBox = api.require('dialogBox');
+                  dialogBox.close({
+                      dialogName: 'alert'
+                  });
+              } else if (ret.eventType == 'left') {
+                  var dialogBox = api.require('dialogBox');
+                  dialogBox.close({
+                      dialogName: 'alert'
+                  });
+              }
+          });
+        }
     }
-    // function fnFollow(ret_data){
-    //   // console.log(ret_data.data);
-    //   if (ret_data.data == 'dec') {
-    //     console.log(1111);
-    //       userDelete += '<img src="../image/my/care_a.png" alt=""';
-    //       fnAttention();
-    //   }else {
-    //     fnAttention();
-    //   }
-    //
-    // }
 </script>
