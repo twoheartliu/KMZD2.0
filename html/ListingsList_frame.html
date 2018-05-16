@@ -440,35 +440,35 @@
         <div class="list_bjDiv_img">
             <div class="userinfo" id="userinfo">
                 <div class="userinfocol" tapmode="toolhover">
-                  <div class="info"  id="extraGood">
-                    <!-- <img src="../image/KM_ListingsListDzs.png" alt="" class="collectmusicFx"> -->
-                  </div>
-                  <p id='goods'></p>
-              </div>
-              <div class="userinfocol" tapmode="toolhover">
-                  <div class="info" id="extraCollectionHtml">
+                    <div class="info" id="extraGood">
+                        <!-- <img src="../image/KM_ListingsListDzs.png" alt="" class="collectmusicFx"> -->
+                    </div>
+                    <p id='goods'></p>
+                </div>
+                <div class="userinfocol" tapmode="toolhover">
+                    <div class="info" id="extraCollectionHtml">
 
-                  </div>
-                  <p>收藏</p>
-              </div>
-              <div class="userinfocol" tapmode="toolhover" onclick="">
-                  <div class="info">
-                    <img src="../image/KM_ListingsListYzpd.png" alt="">
-                  </div>
-                  <p>预置频道</p>
-              </div>
-              <div class="userinfocol" tapmode="toolhover" onclick="fnOpenDiscussDetail(); ">
-                  <div class="info">
-                    <img src="../image/KM_ListingsListSx.png" alt="">
-                  </div>
-                  <p id="DiscussDetailP">22</p>
-              </div>
-              <div class="userinfocol" tapmode="toolhover" onclick="fnOpenPlayShare();">
-                  <div class="info">
-                    <img src="../image/KM_ListingsListGd.png" alt="">
-                  </div>
-                  <p>分享</p>
-              </div>
+                    </div>
+                    <p>收藏</p>
+                </div>
+                <div class="userinfocol" tapmode="toolhover" onclick="">
+                    <div class="info">
+                        <img src="../image/KM_ListingsListYzpd.png" alt="">
+                    </div>
+                    <p>预置频道</p>
+                </div>
+                <div class="userinfocol" tapmode="toolhover" onclick="fnOpenDiscussDetail(); ">
+                    <div class="info">
+                        <img src="../image/KM_ListingsListSx.png" alt="">
+                    </div>
+                    <p id="DiscussDetailP">22</p>
+                </div>
+                <div class="userinfocol" tapmode="toolhover" onclick="fnOpenPlayShare();">
+                    <div class="info">
+                        <img src="../image/KM_ListingsListGd.png" alt="">
+                    </div>
+                    <p>分享</p>
+                </div>
             </div>
         </div>
     </div>
@@ -559,18 +559,18 @@
                     var DiscussDetailP = $api.byId('DiscussDetailP');
                     var comment_total = ret.data.linstening_info.comment_total;
                     $api.html(DiscussDetailP, comment_total);
-                        fnExtraGoodssssss();
-                        goodss = ret.data.linstening_info.good_total;
-                        // console.log(ret.data.linstening_info.good_total);
-                        // console.log(goods);
-                        var stylelistss = $api.byId('goods');
-                        $api.html(stylelistss, goodss);
+                    fnExtraGoodssssss();
+                    goodss = ret.data.linstening_info.good_total;
+                    // console.log(ret.data.linstening_info.good_total);
+                    // console.log(goods);
+                    var stylelistss = $api.byId('goods');
+                    $api.html(stylelistss, goodss);
                     songList(ret);
                     var stylelistCollectionHtml = $api.byId('extraCollectionHtml');
-                    if(ret.data.linstening_info.collection_total == 0){
-                      albumCollectionHtml = '<img src="../image/KM_hxs.png" alt="" class="collectmusic" onclick="collectmusic(this)" data-click="0">';
-                    }else{
-                      albumCollectionHtml = '<img src="../image/KM_play_collect_red.png" alt="" class="collectmusic" onclick="collectmusic(this)" data-click="1">';
+                    if (ret.data.linstening_info.collection_total == 0) {
+                        albumCollectionHtml = '<img src="../image/KM_hxs.png" alt="" class="collectmusic" onclick="collectmusic(this)" data-click="0">';
+                    } else {
+                        albumCollectionHtml = '<img src="../image/KM_play_collect_red.png" alt="" class="collectmusic" onclick="collectmusic(this)" data-click="1">';
                     }
 
                     $api.html(stylelistCollectionHtml, albumCollectionHtml);
@@ -600,7 +600,7 @@
 
     //
     function fnExtraGoodssssss() {
-        var albumss = $api.getStorage('ListingsList'+ids);
+        var albumss = $api.getStorage('ListingsList' + ids);
 
         // console.log(album);
         if (albumss) {
@@ -621,104 +621,104 @@
         var click = clicktoolitem.getAttribute("data-click");
         var stylelist = $api.byId('goods');
         if (click == 0) {
-          // 点开
-          clicktoolitem.setAttribute("data-click", 1);
-          toolbarlist.src = "../image/KM_play_dianzan_red.png";
-          var ids = api.pageParam.ids;
-          uri = '/extra/good';
-          var url = host + apiUri + uri + '/' + ids;
-          api.ajax({
-              url: host + apiUri + uri + '/' + ids,
-              method: 'post',
-              dataType: 'json',
-              headers: {
-                  "source": api.systemType,
-                  "version": version,
-                  "session": token
-              },
-              data:{
-                values:{
-                  "type":'inc',
-                  "model":'listen',
+            // 点开
+            clicktoolitem.setAttribute("data-click", 1);
+            toolbarlist.src = "../image/KM_play_dianzan_red.png";
+            var ids = api.pageParam.ids;
+            uri = '/extra/good';
+            var url = host + apiUri + uri + '/' + ids;
+            api.ajax({
+                url: host + apiUri + uri + '/' + ids,
+                method: 'post',
+                dataType: 'json',
+                headers: {
+                    "source": api.systemType,
+                    "version": version,
+                    "session": token
                 },
-              },
-          }, function(ret, err) {
-              if (ret.status == 200) {
-                  api.toast({              
-                      msg:   '已点赞',
-                      duration:  2000,
-                      location:   'middle'          
-                  });
-                  console.log(goodss);
-                  goodss++;
-                  console.log(goodss);
-                  $api.html(stylelist, goodss);
-                  var album = ids + 'ListingsLists';
-                  // $api.rmStorage('ListingsList',album)
-                  $api.setStorage('ListingsList'+ids,'inc');
-              } else {
-                api.toast({              
-                    msg:  ret.message,
-                    duration:  2000,
-                    location:   'middle'          
-                });
-                  // $api.rmStorage('token');
-                  // api.openWin({
-                  //     name: 'login',
-                  //     url: '../login.html',
-                  // });
-              }
-          });
-        } else {
-          // 关闭
-          clicktoolitem.setAttribute("data-click", 0);
-          toolbarlist.src = "../image/KM_ListingsListDzs.png";
-          var ids = api.pageParam.ids;
-          uri = '/extra/good';
-          api.ajax({
-              url: host + apiUri + uri + '/' + ids,
-              method: 'post',
-              dataType: 'json',
-              headers: {
-                  "source": api.systemType,
-                  "version": version,
-                  "session": token
-              },
-              data:{
-                values:{
-                  "type":'dec',
-                  "model":'listen',
+                data: {
+                    values: {
+                        "type": 'inc',
+                        "model": 'listen',
+                    },
+                },
+            }, function(ret, err) {
+                if (ret.status == 200) {
+                    api.toast({              
+                        msg:   '已点赞',
+                        duration:  2000,
+                        location:   'middle'          
+                    });
+                    console.log(goodss);
+                    goodss++;
+                    console.log(goodss);
+                    $api.html(stylelist, goodss);
+                    var album = ids + 'ListingsLists';
+                    // $api.rmStorage('ListingsList',album)
+                    $api.setStorage('ListingsList' + ids, 'inc');
+                } else {
+                    api.toast({              
+                        msg:  ret.message,
+                        duration:  2000,
+                        location:   'middle'          
+                    });
+                    // $api.rmStorage('token');
+                    // api.openWin({
+                    //     name: 'login',
+                    //     url: '../login.html',
+                    // });
                 }
-              }
-          }, function(ret, err) {
-              if (ret.status == 200) {
-                  api.toast({              
-                      msg:   '已取消点赞',
-                      duration:  2000,
-                      location:   'middle'          
-                  });
-                  console.log(goodss);
-                  goodss--;
-                  if(goodss<0){
-                    goodss = 0;
-                  }
-                  console.log(goodss);
-                  $api.html(stylelist, goodss);
-                  $api.setStorage('ListingsList'+ids,'dec');
-                  // $api.rmStorage('ListingsList',album)
-              } else {
-                api.toast({              
-                    msg:  ret.message,
-                    duration:  2000,
-                    location:  'middle'          
-                });
-                  // $api.rmStorage('token');
-                  // api.openWin({
-                  //     name: 'login',
-                  //     url: '../login.html',
-                  // });
-              }
-          });
+            });
+        } else {
+            // 关闭
+            clicktoolitem.setAttribute("data-click", 0);
+            toolbarlist.src = "../image/KM_ListingsListDzs.png";
+            var ids = api.pageParam.ids;
+            uri = '/extra/good';
+            api.ajax({
+                url: host + apiUri + uri + '/' + ids,
+                method: 'post',
+                dataType: 'json',
+                headers: {
+                    "source": api.systemType,
+                    "version": version,
+                    "session": token
+                },
+                data: {
+                    values: {
+                        "type": 'dec',
+                        "model": 'listen',
+                    }
+                }
+            }, function(ret, err) {
+                if (ret.status == 200) {
+                    api.toast({              
+                        msg:   '已取消点赞',
+                        duration:  2000,
+                        location:   'middle'          
+                    });
+                    console.log(goodss);
+                    goodss--;
+                    if (goodss < 0) {
+                        goodss = 0;
+                    }
+                    console.log(goodss);
+                    $api.html(stylelist, goodss);
+                    $api.setStorage('ListingsList' + ids, 'dec');
+                    // $api.rmStorage('ListingsList',album)
+                } else {
+                    api.toast({              
+                        msg:  ret.message,
+                        duration:  2000,
+                        location:   'middle'          
+                    });
+                    // $api.rmStorage('token');
+                    // api.openWin({
+                    //     name: 'login',
+                    //     url: '../login.html',
+                    // });
+                }
+            });
         }
     }
 
@@ -941,6 +941,21 @@
                 });
             }
             if (ret.index == "0") {
+                var wx = api.require('wx');
+                wx.shareMusic({
+                    apiKey: '',
+                    scene: 'timeline',
+                    title: '测试标题',
+                    description: '分享内容的描述',
+                    thumb: 'widget://a.jpg',
+                    contentUrl: 'http://docs.apicloud.com/test/m.mp3'
+                }, function(ret, err) {
+                    if (ret.status) {
+                        alert('分享成功');
+                    } else {
+                        alert(err.code);
+                    }
+                });
                 dialogBox.close({
                     dialogName: 'alert'
                 });
@@ -967,6 +982,7 @@
 
         });
     }
+
     function collectmusic(clicktoolitem) {
         var toolbarlist = document.getElementsByClassName('collectmusic')[0];
         var click = clicktoolitem.getAttribute("data-click");
@@ -984,27 +1000,27 @@
                     "version": version,
                     "session": token
                 },
-                data:{
-                  values:{
-                    "model":'listen',
-                  }
+                data: {
+                    values: {
+                        "model": 'listen',
+                    }
                 }
             }, function(ret, err) {
                 if (ret.status == 200) {
                     // fnRecommendedDirectory(ret);
-                    if(ret.data == "inc"){
-                      api.toast({              
-                          msg:   '已收藏',
-                          duration:  2000,
-                          location:   'middle'          
-                      });
+                    if (ret.data == "inc") {
+                        api.toast({              
+                            msg:   '已收藏',
+                            duration:  2000,
+                            location:   'middle'          
+                        });
                     }
                 } else {
-                  api.toast({              
-                      msg:  ret.message,
-                      duration:  2000,
-                      location:   'middle'          
-                  });
+                    api.toast({              
+                        msg:  ret.message,
+                        duration:  2000,
+                        location:   'middle'          
+                    });
                     $api.rmStorage('token');
                     api.openWin({
                         name: 'login',
@@ -1027,26 +1043,26 @@
                     "version": version,
                     "session": token
                 },
-                data:{
-                  values:{
-                    "model":'listen',
-                  }
+                data: {
+                    values: {
+                        "model": 'listen',
+                    }
                 }
             }, function(ret, err) {
                 if (ret.status == 200) {
-                    if(ret.data == "dec"){
-                      api.toast({              
-                          msg:   '已取消收藏',
-                          duration:  2000,
-                          location:   'middle'          
-                      });
+                    if (ret.data == "dec") {
+                        api.toast({              
+                            msg:   '已取消收藏',
+                            duration:  2000,
+                            location:   'middle'          
+                        });
                     }
                 } else {
-                  api.toast({              
-                      msg:  ret.message,
-                      duration:  2000,
-                      location:   'middle'          
-                  });
+                    api.toast({              
+                        msg:  ret.message,
+                        duration:  2000,
+                        location:   'middle'          
+                    });
                     $api.rmStorage('token');
                     api.openWin({
                         name: 'login',

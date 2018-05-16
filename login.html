@@ -249,6 +249,7 @@
                                 // $api.setStorage('openId',ret.openId);
                                 accessToken = ret.accessToken;
                                 openId = ret.openId;
+
                               } else {
                                   alert(err.code);
                               }
@@ -260,7 +261,7 @@
                         }, function(ret, err) {
                             if (ret.status) {
                               api.ajax({
-                                  url: host + apiUri + '//login/wechat',
+                                  url: host + apiUri + '/login/wechat',
                                   method: 'post',
                                   dataType: 'json',
                                   data: {
@@ -277,6 +278,7 @@
                                     "version":version
                                   },
                               }, function(ret, err) {
+
                                   if (ret.status == 200) {
                                     var tokens = ret.data.token;
                                     $api.setStorage('token',tokens);
