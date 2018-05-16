@@ -284,18 +284,29 @@
         }
 
         .friend_list p {
-            font-size: 16px;
+            font-size: 14px;
             color: #000;
             width: 100%;
+            /*width:150px;*/
+            height:16px;
             line-height: 16px;
             text-align: center;
+            overflow: hidden;
         }
 
         .friend_list p>img {
+            display: inline-block;
             width: 16px;
-            line-height: 20px;
+            line-height: 16px;
         }
-
+        p .name{
+          display: inline-block;
+          width:70%;
+          text-align:center;
+          height: 16px;
+          line-height: 16px;
+          overflow: hidden;
+        }
         p:nth-child(2) {
             margin-top: 5px;
             /*color: #ccc;*/
@@ -374,7 +385,7 @@
     <div class="friend " id="friend">
         <!-- <div class="friend_list ">
         <div class="user_img" onclick="fnOpenmyPersonal();"><img src="../image/icon-person.png" alt=""></div>
-        <p>小小 <img src="../image/read/care.png" alt="" class="userButton" ></p>
+        <p><span class="name">小小小小小小小小小小小小</span> <img src="../image/read/care.png" alt="" class="userButton" ></p>
         <p class="p">
           <span>粉丝</span><span>180</span>
           <span>作品</span><span>180</span>
@@ -537,6 +548,7 @@
                     var product = ret.data[i].record_total;
                     var fans = ret.data[i].fans_total;
                     var title = ret.data[i].photo;
+                    // console.log(title);
                     if(title == null ){
                       title =  "../image/KM_tx.png";
                     }else{
@@ -550,7 +562,7 @@
                     }
                     var stylelist = $api.byId('friend');
                     html +=
-                        '<div class="friend_list "><div class="user_img" onclick="fnOpenmyPersonal(\'' + userId + '\',\''+ nickName +'\')" ><img src="'+ title +'" alt=""></div><p>'+nickName+' <img src="../image/read/care.png" alt="" class="userButton" id="userButton'+ret.data[i].user_id+'" onclick="fnOpenUserButton('+ret.data[i].user_id+')"></p><p class="p">  <span>粉丝</span><span>'+fans+'</span>  <span>作品</span><span>'+product+'</span></p></div>';
+                        '<div class="friend_list "><div class="user_img" onclick="fnOpenmyPersonal(\'' + userId + '\',\''+ nickName +'\')" ><img src="'+ title +'" alt=""></div><p><span class="name">'+nickName+'</span> <img src="../image/read/care.png" alt="" class="userButton" id="userButton'+ret.data[i].user_id+'" onclick="fnOpenUserButton('+ret.data[i].user_id+')"></p><p class="p">  <span>粉丝</span><span>'+fans+'</span>  <span>作品</span><span>'+product+'</span></p></div>';
 
                 }
                 $api.html(stylelist, html);
