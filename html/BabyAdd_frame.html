@@ -1,0 +1,237 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>孔孟之道--添加宝宝信息</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.2.0.css" />
+    <link rel="stylesheet" type="text/css" href="../css/Mdate.css">
+    <style>
+        body {
+            background: #ffffff;
+            position: relative;
+        }
+
+        .aui-pull-left span {
+            font-size: 18px;
+        }
+
+        .aui-card-list-content {
+            width: 130px;
+            margin: 0 auto;
+            border-radius: 65px;
+        }
+
+        .aui-card-list-content img {
+            border-radius: 65px;
+        }
+
+        .fl {
+            float: left;
+        }
+
+        .fr {
+            float: right;
+        }
+
+        .clr {
+            clear: both;
+        }
+
+        .upimg ul li {
+            overflow: hidden;
+            padding: 0 10px;
+            height: 45px;
+            line-height: 45px;
+        }
+
+        .upimg ul li div {
+            margin: 0 5px;
+            font-size: 14px;
+        }
+
+        .upimg ul li div:nth-child(1) {
+            /*color: #03a9f4;*/
+            font-size: 14px;
+        }
+
+        .upimg ul li div:nth-child(2) {
+            color: #ccc;
+        }
+
+        .upimg ul li div:nth-child(3) {
+            color: #ccc;
+        }
+
+        .upimg_div {
+            width: 100%;
+            height: 50px;
+            line-height: 50px;
+            padding: 0 10px;
+            font-size: 18px;
+            font-weight: 800;
+            /*color: #03a9f4;*/
+        }
+
+        #header {
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: 45px;
+            line-height: 45px;
+        }
+
+        #baby .dateSelectorOne {
+            text-align: right;
+            font-size: 14px;
+            line-height: 45px;
+        }
+
+        #babyAdd {
+            border: 1px solid #ccc;
+            margin: 20px;
+            text-align: center;
+            height: 50px;
+            line-height: 50px;
+            color: #999;
+            font-weight: 900;
+            border-radius: 10px;
+        }
+
+        #fnBirthday .dateSelectorOneBirthday {
+            text-align: right;
+            font-size: 14px;
+            line-height: 45px;
+            color: #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="upimg">
+        <div class="upimg_div">
+            <div class="fl">我的宝宝</div>
+        </div>
+        <div id="111">
+            <!-- <div class="upimg_div" id="dateShowBtn">
+              <div class="fl">生日</div>
+              <div class="fr"> > </div>
+              <div class="fr"><input type="text" id="dateSelectorTwo" class="dateSelectorOne" placeholder="选择日期" readonly="readonly"></div>
+            </div> -->
+            <ul id="baby">
+                <li onclick="fnSetGender();">
+                    <div class="fl">性别</div>
+                    <div class="fr"> > </div>
+                    <div class="fr">未填写</div>
+                </li>
+                <li id="dateShowBtn">
+                    <div class="fl">生日</div>
+                    <div class="fr"> > </div>
+                    <div class="fr"><input type="text" id="dateSelectorTwo" class="dateSelectorOne" placeholder="选择日期" readonly="readonly"></div>
+                </li>
+
+            </ul>
+        </div>
+        <div id="babyAdd" onclick="fnBabyAdd()">确定</div>
+    </div>
+
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script src="../script/select/iScroll.js"></script>
+<script src="../script/select/MdatePost.js"></script>
+<script type="text/javascript">
+    var token;
+    apiready = function() {
+        token = $api.getStorage('token');
+    };
+    //添加宝宝信息
+    function fnBabyAdd() {}
+    // 时间戳转换成年月日
+    function timestampToTime(timestamp) {
+        var date = new Date(timestamp * 1000); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
+        Y = date.getFullYear() + '-';
+        M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+        D = (date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate());
+        // h = date.getHours() + ':';
+        // m = date.getMinutes() + ':';
+        // s = date.getSeconds();
+        // return Y+M+D+h+m+s;
+        return Y + M + D;
+    }
+    var gender;
+    function fnSetGender() {
+        api.actionSheet({
+            title: '选择性别',
+            cancelTitle: '取消',
+            buttons: ['男', '女']
+        }, function(ret, err) {
+            if (ret.buttonIndex >= 3) {
+                return;
+            }
+            gender = ret.buttonIndex === 1 ? 1 : 2;
+            // console.log(gender);
+            var index = ret.buttonIndex;
+            var uri = '/user/edit';
+            api.ajax({
+                url: host + apiUri + uri,
+                method: 'post',
+                dataType: 'json',
+                headers: {
+                    "source": api.systemType,
+                    "version": version,
+                    "session": token,
+                },
+                data: {
+                    values: {
+                        "name": "sex",
+                        "value": gender
+                    }
+                }
+            }, function(ret, err) {
+                // console.log(ret.status);
+                if (ret.status == 200) {
+                    var stylelist12 = $api.byId('sex');
+                    if (gender == 1) {
+                        var html12 = "男";
+                        $api.html(stylelist12, html12);
+
+                    } else if (gender == 2) {
+                        var html12 = "女";
+                        $api.html(stylelist12, html12);
+                    }
+                }
+            });
+
+
+            // fnUpdateUserInfo('gender',gender)
+        });
+    }
+</script>
+<script type="text/javascript">
+    new Mdate("dateShowBtn", {
+        acceptId: "dateSelectorTwo",
+        beginYear: "2010",
+        beginMonth: "10",
+        beginDay: "24",
+        endYear: "2025",
+        endMonth: "1",
+        endDay: "1",
+        format: "-"
+    })
+    new Mdate("fnBirthday", {
+        acceptId: "dateSelectorOneBirthday",
+        beginYear: "2010",
+        beginMonth: "10",
+        beginDay: "24",
+        endYear: "2025",
+        endMonth: "1",
+        endDay: "1",
+        format: "-"
+    })
+</script>
+
+</html>

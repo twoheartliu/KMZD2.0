@@ -488,6 +488,7 @@
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/wxfx.js"></script>
 <script type="text/javascript">
     // 传过来的听单id
     var ids;
@@ -497,14 +498,13 @@
     var photo;
     // 点赞全局
     var goodss;
+    var wx;
     var ListingsListGoodHtml;
     apiready = function() {
-
+            wx = api.require('wx');
             //fnTingdanTuijianliebiao()
             ids = api.pageParam.ids;
             ListenToTheDetails(ids);
-
-
         }
         // 调取用户基本信息
     function ListenToTheDetails(ids) {
@@ -597,8 +597,7 @@
         });
 
     }
-
-    //
+    //点赞方法
     function fnExtraGoodssssss() {
         var albumss = $api.getStorage('ListingsList' + ids);
 
@@ -615,7 +614,7 @@
         var stylelist = $api.byId('extraGood');
         $api.html(stylelist, ListingsListGoodHtml);
     }
-
+    //点赞方法
     function collectmusicFx(clicktoolitem) {
         var toolbarlist = document.getElementsByClassName('collectmusicFxs')[0];
         var click = clicktoolitem.getAttribute("data-click");
@@ -721,7 +720,6 @@
             });
         }
     }
-
     // 调取用户听单单曲列表
     function songList(ret) {
         var tuijianliebiaogequ = $api.byId('tuijianliebiaogequ');
@@ -739,22 +737,91 @@
         var toolbarlist = document.getElementsByClassName('collectmusic')[0];
         var click = clicktoolitem.getAttribute("data-click");
         if (click == 0) {
-            api.toast({
-                msg: '收藏成功',
-                duration: 2000,
-                location: 'middle'
-            });
             // 点开
             clicktoolitem.setAttribute("data-click", 1);
             toolbarlist.src = "../image/KM_play_collect_red.png";
-
+            uri = '/extra/collection';
+            api.ajax({
+                url: host + apiUri + uri + '/' + ids,
+                method: 'post',
+                dataType: 'json',
+                headers: {
+                    "source": api.systemType,
+                    "version": version,
+                    "session": token
+                },
+                data: {
+                    values: {
+                        "model": 'listen',
+                    }
+                }
+            }, function(ret, err) {
+                if (ret.status == 200) {
+                    // fnRecommendedDirectory(ret);
+                    if (ret.data == "inc") {
+                        api.toast({              
+                            msg:   '已收藏',
+                            duration:  2000,
+                            location:   'middle'          
+                        });
+                    }
+                } else {
+                    api.toast({              
+                        msg:  ret.message,
+                        duration:  2000,
+                        location:   'middle'          
+                    });
+                    $api.rmStorage('token');
+                    api.openWin({
+                        name: 'login',
+                        url: '../login.html',
+                    });
+                }
+            });
         } else {
+
             // 关闭
             clicktoolitem.setAttribute("data-click", 0);
             toolbarlist.src = "../image/KM_hxs.png";
+            uri = '/extra/collection';
+            api.ajax({
+                url: host + apiUri + uri + '/' + ids,
+                method: 'post',
+                dataType: 'json',
+                headers: {
+                    "source": api.systemType,
+                    "version": version,
+                    "session": token
+                },
+                data: {
+                    values: {
+                        "model": 'listen',
+                    }
+                }
+            }, function(ret, err) {
+                if (ret.status == 200) {
+                    if (ret.data == "dec") {
+                        api.toast({              
+                            msg:   '已取消收藏',
+                            duration:  2000,
+                            location:   'middle'          
+                        });
+                    }
+                } else {
+                    api.toast({              
+                        msg:  ret.message,
+                        duration:  2000,
+                        location:   'middle'          
+                    });
+                    $api.rmStorage('token');
+                    api.openWin({
+                        name: 'login',
+                        url: '../login.html',
+                    });
+                }
+            });
         }
     }
-
     //打开分享
     function fnOpenPlayMore(songListID) {
         var dialogBox = api.require('dialogBox');
@@ -941,26 +1008,24 @@
                 });
             }
             if (ret.index == "0") {
-                var wx = api.require('wx');
-                console.log(4444);
-                wx.shareMusic({
-                    scene: 'timeline',
-                    title: '测试标题',
-                    description: '分享内容的描述',
-                    thumb: 'widget://a.jpg',
-                    contentUrl: 'http://docs.apicloud.com/test/m.mp3'
-                }, function(ret, err) {
-                  console.log(JSON.stringify(err));
-                  console.log(3333);
-                    if (ret.status) {
-                        console.log(222);
-                        alert('分享成功');
-                    } else {
-                      console.log(111);
-                      console.log(err.code);
-                        alert(err.code);
-                    }
-                });
+              var wx = api.require('wx');
+              initWx();
+                // wx.shareMusic({
+                //     scene: 'timeline',
+                //     title: '测试标题',
+                //     description: '分享内容的描述',
+                //     thumb: 'widget://a.jpg',
+                //     contentUrl: 'widget://res/0003.mp3'
+                // }, function(ret, err) {
+                //   console.log(JSON.stringify(err));
+                //   console.log(JSON.stringify(ret));
+                //     if (ret.status) {
+                //         alert('分享成功');
+                //     } else {
+                //       console.log(err.code);
+                //         alert(err.code);
+                //     }
+                // });
                 dialogBox.close({
                     dialogName: 'alert'
                 });
@@ -988,93 +1053,4 @@
         });
     }
 
-    function collectmusic(clicktoolitem) {
-        var toolbarlist = document.getElementsByClassName('collectmusic')[0];
-        var click = clicktoolitem.getAttribute("data-click");
-        if (click == 0) {
-            // 点开
-            clicktoolitem.setAttribute("data-click", 1);
-            toolbarlist.src = "../image/KM_play_collect_red.png";
-            uri = '/extra/collection';
-            api.ajax({
-                url: host + apiUri + uri + '/' + ids,
-                method: 'post',
-                dataType: 'json',
-                headers: {
-                    "source": api.systemType,
-                    "version": version,
-                    "session": token
-                },
-                data: {
-                    values: {
-                        "model": 'listen',
-                    }
-                }
-            }, function(ret, err) {
-                if (ret.status == 200) {
-                    // fnRecommendedDirectory(ret);
-                    if (ret.data == "inc") {
-                        api.toast({              
-                            msg:   '已收藏',
-                            duration:  2000,
-                            location:   'middle'          
-                        });
-                    }
-                } else {
-                    api.toast({              
-                        msg:  ret.message,
-                        duration:  2000,
-                        location:   'middle'          
-                    });
-                    $api.rmStorage('token');
-                    api.openWin({
-                        name: 'login',
-                        url: '../login.html',
-                    });
-                }
-            });
-        } else {
-
-            // 关闭
-            clicktoolitem.setAttribute("data-click", 0);
-            toolbarlist.src = "../image/KM_hxs.png";
-            uri = '/extra/collection';
-            api.ajax({
-                url: host + apiUri + uri + '/' + ids,
-                method: 'post',
-                dataType: 'json',
-                headers: {
-                    "source": api.systemType,
-                    "version": version,
-                    "session": token
-                },
-                data: {
-                    values: {
-                        "model": 'listen',
-                    }
-                }
-            }, function(ret, err) {
-                if (ret.status == 200) {
-                    if (ret.data == "dec") {
-                        api.toast({              
-                            msg:   '已取消收藏',
-                            duration:  2000,
-                            location:   'middle'          
-                        });
-                    }
-                } else {
-                    api.toast({              
-                        msg:  ret.message,
-                        duration:  2000,
-                        location:   'middle'          
-                    });
-                    $api.rmStorage('token');
-                    api.openWin({
-                        name: 'login',
-                        url: '../login.html',
-                    });
-                }
-            });
-        }
-    }
 </script>
