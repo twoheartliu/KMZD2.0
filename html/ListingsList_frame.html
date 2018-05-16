@@ -942,17 +942,22 @@
             }
             if (ret.index == "0") {
                 var wx = api.require('wx');
+                console.log(4444);
                 wx.shareMusic({
-                    apiKey: '',
                     scene: 'timeline',
                     title: '测试标题',
                     description: '分享内容的描述',
                     thumb: 'widget://a.jpg',
                     contentUrl: 'http://docs.apicloud.com/test/m.mp3'
                 }, function(ret, err) {
+                  console.log(JSON.stringify(err));
+                  console.log(3333);
                     if (ret.status) {
+                        console.log(222);
                         alert('分享成功');
                     } else {
+                      console.log(111);
+                      console.log(err.code);
                         alert(err.code);
                     }
                 });

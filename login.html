@@ -225,12 +225,10 @@
             wx.auth({
             }, function(ret, err) {
               if (ret.status) {
-
-
                   wx.getToken({
                       code: ret.code
                   }, function(ret, err) {
-
+                      console.log(JSON.stringify(ret));
                       if (ret.status) {
                         // openId 字符串类型；授权用户唯一标识
                         //accessToken 字符串类型；接口调用凭证，传给 getUserInfo 接口 获取用户信息；有效期2小时

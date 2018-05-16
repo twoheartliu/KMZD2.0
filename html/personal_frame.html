@@ -236,11 +236,12 @@
                   var stylelists = $api.byId('wrap');
                   var htmls = '';
                   for (var i = 0; i < ret.data.length; i++) {
+
                       htmls += '<div class="egret-flex-item" id="' + ret.data[i].id +
                           '"><div class="egret-flex-items" tapmode="fmbtnhover" onclick="openFM()"><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 fl"><span>' + ret.data[i].title +
                           '</span></span></div><div class="egret-flex-item-shelf02"><span>' + ret.data[i].author_name + '</span></div><div class="egret-flex-item-shelf03"><div><img src="../image/KM_play.png" alt=""><span>' + ret.data[i].play_total +
                           '</span></div><div><img src="../image/KM_zf.png" alt=""><span>' + ret.data[i].share_total + '</span></div>  <div><img src="../image/KM_dz.png" alt=""><span>' + ret.data[i].good_total +
-                          '</span></div></div></div></div><div class="egret-flex-item-shelf04" onclick="fnOpenPlayMore()"><img src="../image/KM_list_more.png" alt=""></div></div><div class="hdivider"></div>';
+                          '</span></div></div></div></div><div class="egret-flex-item-shelf04" onclick="fnOpenPlayMore('+ ret.data[i].id +')"><img src="../image/KM_list_more.png" alt=""></div></div><div class="hdivider"></div>';
 
                   }
                   $api.html(stylelists, htmls);
@@ -253,7 +254,7 @@
         });
     }
     //打开更多页面
-    function fnOpenPlayMore() {
+    function fnOpenPlayMore(id) {
         var dialogBox = api.require('dialogBox');
         dialogBox.actionMenu({
             rect: {
@@ -298,7 +299,7 @@
                 });
             }
             if (ret.index == "0") {
-                fnOpenAddListening();
+                fnOpenAddListening(id);
                 dialogBox.close({
                     dialogName: 'alert'
                 });
@@ -397,12 +398,12 @@
         });
     }
     //添加到听单
-    function fnOpenAddListening() {
+    function fnOpenAddListening(id) {
         api.openWin({
             name: 'addListening',
             url: './add_listening.html',
             pageParam: {
-                name: 'test'
+                songListID: id
             }
         });
     }
