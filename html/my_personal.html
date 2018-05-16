@@ -58,7 +58,7 @@
     <header id="secHeader">
         <div class="header_fr fr"></div>
         <div class="header_fl fl"  onclick="goback();"><img src="../image/icon_back.png" alt=""></div>
-        <div class="header_center"> XXX的主页</div>
+        <div class="header_center" id='nickName'></div>
     </header>
 </body>
 
@@ -72,8 +72,14 @@
     }
     apiready = function() {
         var header = $api.byId('secHeader');
+        var nickName1 = $api.byId('nickName');
         $api.fixStatusBar(header);
         var headerPos = $api.offset(header).h;
+        var userId = api.pageParam.userId;
+        var nickName = api.pageParam.nickName;
+        html1 = nickName + "的主页";
+        // console.log(nickName);
+        $api.html(nickName1, html1);
         api.openFrame({
             name: 'myPersonalFrame',
             url: './my_personal_frame.html',
@@ -85,7 +91,8 @@
 
             },
             pageParam: {
-                name: 'test'
+                userId: userId,
+                name: nickName
             },
             bounces: false,
         });
