@@ -532,12 +532,11 @@
                 var len = ret.data.length;
                 var html = '';
                 for (var i = 0; i < len; i++) {
+                    var userId = ret.data[i].user_id;
                     var nickName = ret.data[i].nick_name;
                     var product = ret.data[i].record_total;
                     var fans = ret.data[i].fans_total;
                     var title = ret.data[i].photo;
-                    // console.log(title);
-                    // console.log(photo1);
                     if(title == null ){
                       title =  "../image/KM_tx.png";
                     }else{
@@ -551,9 +550,10 @@
                     }
                     var stylelist = $api.byId('friend');
                     html +=
-                        '<div class="friend_list "><div class="user_img" onclick="fnOpenmyPersonal();"><img src="'+ title +'" alt=""></div><p>'+nickName+' <img src="../image/read/care.png" alt="" class="userButton" id="userButton'+ret.data[i].user_id+'" onclick="fnOpenUserButton('+ret.data[i].user_id+')"></p><p class="p">  <span>粉丝</span><span>'+fans+'</span>  <span>作品</span><span>'+product+'</span></p></div>';
-                    $api.html(stylelist, html);
+                        '<div class="friend_list "><div class="user_img" onclick="fnOpenmyPersonal(\'' + userId + '\',\''+ nickName +'\')" ><img src="'+ title +'" alt=""></div><p>'+nickName+' <img src="../image/read/care.png" alt="" class="userButton" id="userButton'+ret.data[i].user_id+'" onclick="fnOpenUserButton('+ret.data[i].user_id+')"></p><p class="p">  <span>粉丝</span><span>'+fans+'</span>  <span>作品</span><span>'+product+'</span></p></div>';
+
                 }
+                $api.html(stylelist, html);
             } else {
                 alert(JSON.stringify(err));
             }
@@ -631,13 +631,16 @@
     //
     // }
     //个人主页
-    function fnOpenmyPersonal() {
+    function fnOpenmyPersonal(id,nickName) {
+      // console.log(name);
+      // console.log(1111);
         api.openWin({
             name: 'myPersonal',
             url: './my_personal.html',
             pageParam: {
-                name: 'test'
-            }
+                userId: id,
+                nickName:nickName
+            },
         });
     };
     //加关注
