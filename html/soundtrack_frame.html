@@ -5,9 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
     <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
-    <title>文档</title>
+    <title>孔孟之道--添加配乐</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
-    <link rel="stylesheet" type="text/css" href="../css/idangerous.swiper.css">
     <link rel="stylesheet" href="../css/swiper.min.css">
     <link rel="stylesheet" href="../css/iconfont.css">
     <style>
@@ -29,354 +28,39 @@
         }
         /*#id{overflow: auto;}*/
 
-        .soundtrack_frameDiv{width: 100%;height: 51px;line-height: 50px;}
+        .soundtrack_frameDiv{width: 100%;height: 50px;line-height: 50px;overflow-y: hidden;}
         .tab{display: none;}
         .soundtrack_frameDiv1{overflow-y: hidden;background: #f2f2f2;}
         .soundtrack_frameDiv2{
           width: 50px;height: 50px;line-height: 50px;text-align: center;z-index: 10;background: #f2f2f2;position: absolute;right: 0;top: 0;
         }
         .soundtrack_frameDiv2 img {width: 14px;height: 8px;}
-        /*.main {width:400px; margin:0 auto;}*/
-        #title {width: 200%;}
-        #title span {width: 100px;height: 50px;line-height: 50px;font-size: 16px;color: #000;text-align: center;}
-        #title span.on { color:red;border-bottom: 1px solid red;}
-        /*#con {background:#fafafa; height:200px; }*/
         #con ul {display:none; padding:10px;}
         #con ul.on {display:block;}
         #con ul li { border-bottom:1px solid #e6e6e6; text-indent:10px;overflow: hidden;}
         #con ul li div span{display: block;height: 25px;line-height: 25px;}
-        .on_li_divImg img{width: 39px;height: 39px;padding: 5px;}
-        .on_li_divImg1 img{width: 30px;height: 30px;padding: 10px;}
+        .on_li_divImg img{width: 37px;height: 37px;padding: 5px;}
+        .on_li_divImg1 img{width: 15px;height: 15px;padding: 16px;}
         .soundtrack_title{padding: 0 10px;margin: 14px 0;}
         .soundtrack_title b{color: red;}
+
     </style>
 </head>
 
 <body>
 
     <div class="wrapper">
-        <!-- <div class="main"> -->
-            <div class="soundtrack_frameDiv" id="id" style="overflow: auto;">
-              <div class="soundtrack_frameDiv1"  id="title">
-                  <span class="soundtrack_frameP fl on">本地</span>
-                  <span class="soundtrack_frameP fl">热门</span>
-                  <span class="soundtrack_frameP fl">推荐</span>
-                  <span class="soundtrack_frameP fl">浪漫</span>
-                  <span class="soundtrack_frameP fl">怀旧</span>
-                  <span class="soundtrack_frameP fl">古典</span>
-                  <span class="soundtrack_frameP fl">沙哑</span>
-              </div>
-            </div>
             <!-- <div class="soundtrack_frameDiv2" onclick="text();"><img src="../image/KM_soundtrackXB.png" alt=""></div> -->
             <div id="con">
-                <ul class="on">
-                    <div class="soundtrack_title">本地配乐共<b>十</b>条</div>
-                    <li>
+                <!-- <ul class="on">
+                    <li onclick="fnSoundtrackList()">
                       <div class="on_li_divImg fl">
                       <img src="../image/KM_soundtrackBF.png" alt=""></div>
-                      <div class="fl">
-                        <span>疗伤</span><span>00:30</span>
+                      <div class="fl" id = "title">
+                        <span>疗伤</span>
                       </div>
-                      <div class="on_li_divImg1 fr"><img src="../image/KM_soundtrack+.png" alt=""></div>
                     </li>
-                    <li>
-                      <div class="on_li_divImg fl">
-                      <img src="../image/KM_soundtrackBF.png" alt=""></div>
-                      <div class="fl">
-                        <span>疗伤</span><span>00:30</span>
-                      </div>
-                      <div class="on_li_divImg1 fr"><img src="../image/KM_soundtrack+.png" alt=""></div>
-                    </li>
-                    <li>
-                      <div class="on_li_divImg fl">
-                      <img src="../image/KM_soundtrackBF.png" alt=""></div>
-                      <div class="fl">
-                        <span>疗伤</span><span>00:30</span>
-                      </div>
-                      <div class="on_li_divImg1 fr"><img src="../image/KM_soundtrack+.png" alt=""></div>
-                    </li>
-                    <li>
-                      <div class="on_li_divImg fl">
-                      <img src="../image/KM_soundtrackBF.png" alt=""></div>
-                      <div class="fl">
-                        <span>疗伤</span><span>00:30</span>
-                      </div>
-                      <div class="on_li_divImg1 fr"><img src="../image/KM_soundtrack+.png" alt=""></div>
-                    </li>
-                    <li>
-                      <div class="on_li_divImg fl">
-                      <img src="../image/KM_soundtrackBF.png" alt=""></div>
-                      <div class="fl">
-                        <span>疗伤</span><span>00:30</span>
-                      </div>
-                      <div class="on_li_divImg1 fr"><img src="../image/KM_soundtrack+.png" alt=""></div>
-                    </li>
-
-                </ul>
-                <ul class="">
-                    <div class="soundtrack_title">本地配乐共<b>十一</b>条</div>
-                    <li>
-                      <div class="on_li_divImg fl">
-                      <img src="../image/KM_soundtrackBF.png" alt=""></div>
-                      <div class="fl">
-                        <span>疗伤</span><span>00:30</span>
-                      </div>
-                      <div class="on_li_divImg1 fr"><img src="../image/KM_soundtrack+.png" alt=""></div>
-                    </li>
-                    <li>
-                      <div class="on_li_divImg fl">
-                      <img src="../image/KM_soundtrackBF.png" alt=""></div>
-                      <div class="fl">
-                        <span>疗伤</span><span>00:30</span>
-                      </div>
-                      <div class="on_li_divImg1 fr"><img src="../image/KM_soundtrack+.png" alt=""></div>
-                    </li>
-                    <li>
-                      <div class="on_li_divImg fl">
-                      <img src="../image/KM_soundtrackBF.png" alt=""></div>
-                      <div class="fl">
-                        <span>疗伤</span><span>00:30</span>
-                      </div>
-                      <div class="on_li_divImg1 fr"><img src="../image/KM_soundtrack+.png" alt=""></div>
-                    </li>
-                    <li>
-                      <div class="on_li_divImg fl">
-                      <img src="../image/KM_soundtrackBF.png" alt=""></div>
-                      <div class="fl">
-                        <span>疗伤</span><span>00:30</span>
-                      </div>
-                      <div class="on_li_divImg1 fr"><img src="../image/KM_soundtrack+.png" alt=""></div>
-                    </li>
-                    <li>
-                      <div class="on_li_divImg fl">
-                      <img src="../image/KM_soundtrackBF.png" alt=""></div>
-                      <div class="fl">
-                        <span>疗伤</span><span>00:30</span>
-                      </div>
-                      <div class="on_li_divImg1 fr"><img src="../image/KM_soundtrack+.png" alt=""></div>
-                    </li>
-
-                </ul>
-                <ul class="">
-                    <div class="soundtrack_title">本地配乐共<b>七</b>条</div>
-                    <li>
-                      <div class="on_li_divImg fl">
-                      <img src="../image/KM_soundtrackBF.png" alt=""></div>
-                      <div class="fl">
-                        <span>疗伤</span><span>00:30</span>
-                      </div>
-                      <div class="on_li_divImg1 fr"><img src="../image/KM_soundtrack+.png" alt=""></div>
-                    </li>
-                    <li>
-                      <div class="on_li_divImg fl">
-                      <img src="../image/KM_soundtrackBF.png" alt=""></div>
-                      <div class="fl">
-                        <span>疗伤</span><span>00:30</span>
-                      </div>
-                      <div class="on_li_divImg1 fr"><img src="../image/KM_soundtrack+.png" alt=""></div>
-                    </li>
-                    <li>
-                      <div class="on_li_divImg fl">
-                      <img src="../image/KM_soundtrackBF.png" alt=""></div>
-                      <div class="fl">
-                        <span>疗伤</span><span>00:30</span>
-                      </div>
-                      <div class="on_li_divImg1 fr"><img src="../image/KM_soundtrack+.png" alt=""></div>
-                    </li>
-                    <li>
-                      <div class="on_li_divImg fl">
-                      <img src="../image/KM_soundtrackBF.png" alt=""></div>
-                      <div class="fl">
-                        <span>疗伤</span><span>00:30</span>
-                      </div>
-                      <div class="on_li_divImg1 fr"><img src="../image/KM_soundtrack+.png" alt=""></div>
-                    </li>
-                    <li>
-                      <div class="on_li_divImg fl">
-                      <img src="../image/KM_soundtrackBF.png" alt=""></div>
-                      <div class="fl">
-                        <span>疗伤</span><span>00:30</span>
-                      </div>
-                      <div class="on_li_divImg1 fr"><img src="../image/KM_soundtrack+.png" alt=""></div>
-                    </li>
-
-                </ul>
-                <ul class="">
-                    <div class="soundtrack_title">本地配乐共<b>五</b>条</div>
-                    <li>
-                      <div class="on_li_divImg fl">
-                      <img src="../image/KM_soundtrackBF.png" alt=""></div>
-                      <div class="fl">
-                        <span>疗伤</span><span>00:30</span>
-                      </div>
-                      <div class="on_li_divImg1 fr"><img src="../image/KM_soundtrack+.png" alt=""></div>
-                    </li>
-                    <li>
-                      <div class="on_li_divImg fl">
-                      <img src="../image/KM_soundtrackBF.png" alt=""></div>
-                      <div class="fl">
-                        <span>疗伤</span><span>00:30</span>
-                      </div>
-                      <div class="on_li_divImg1 fr"><img src="../image/KM_soundtrack+.png" alt=""></div>
-                    </li>
-                    <li>
-                      <div class="on_li_divImg fl">
-                      <img src="../image/KM_soundtrackBF.png" alt=""></div>
-                      <div class="fl">
-                        <span>疗伤</span><span>00:30</span>
-                      </div>
-                      <div class="on_li_divImg1 fr"><img src="../image/KM_soundtrack+.png" alt=""></div>
-                    </li>
-                    <li>
-                      <div class="on_li_divImg fl">
-                      <img src="../image/KM_soundtrackBF.png" alt=""></div>
-                      <div class="fl">
-                        <span>疗伤</span><span>00:30</span>
-                      </div>
-                      <div class="on_li_divImg1 fr"><img src="../image/KM_soundtrack+.png" alt=""></div>
-                    </li>
-                    <li>
-                      <div class="on_li_divImg fl">
-                      <img src="../image/KM_soundtrackBF.png" alt=""></div>
-                      <div class="fl">
-                        <span>疗伤</span><span>00:30</span>
-                      </div>
-                      <div class="on_li_divImg1 fr"><img src="../image/KM_soundtrack+.png" alt=""></div>
-                    </li>
-
-                </ul>
-                <ul class="">
-                    <div class="soundtrack_title">本地配乐共<b>零</b>条</div>
-                    <li>
-                      <div class="on_li_divImg fl">
-                      <img src="../image/KM_soundtrackBF.png" alt=""></div>
-                      <div class="fl">
-                        <span>疗伤</span><span>00:30</span>
-                      </div>
-                      <div class="on_li_divImg1 fr"><img src="../image/KM_soundtrack+.png" alt=""></div>
-                    </li>
-                    <li>
-                      <div class="on_li_divImg fl">
-                      <img src="../image/KM_soundtrackBF.png" alt=""></div>
-                      <div class="fl">
-                        <span>疗伤</span><span>00:30</span>
-                      </div>
-                      <div class="on_li_divImg1 fr"><img src="../image/KM_soundtrack+.png" alt=""></div>
-                    </li>
-                    <li>
-                      <div class="on_li_divImg fl">
-                      <img src="../image/KM_soundtrackBF.png" alt=""></div>
-                      <div class="fl">
-                        <span>疗伤</span><span>00:30</span>
-                      </div>
-                      <div class="on_li_divImg1 fr"><img src="../image/KM_soundtrack+.png" alt=""></div>
-                    </li>
-                    <li>
-                      <div class="on_li_divImg fl">
-                      <img src="../image/KM_soundtrackBF.png" alt=""></div>
-                      <div class="fl">
-                        <span>疗伤</span><span>00:30</span>
-                      </div>
-                      <div class="on_li_divImg1 fr"><img src="../image/KM_soundtrack+.png" alt=""></div>
-                    </li>
-                    <li>
-                      <div class="on_li_divImg fl">
-                      <img src="../image/KM_soundtrackBF.png" alt=""></div>
-                      <div class="fl">
-                        <span>疗伤</span><span>00:30</span>
-                      </div>
-                      <div class="on_li_divImg1 fr"><img src="../image/KM_soundtrack+.png" alt=""></div>
-                    </li>
-
-                </ul>
-                <ul class="">
-                    <div class="soundtrack_title">本地配乐共<b>十七</b>条</div>
-                    <li>
-                      <div class="on_li_divImg fl">
-                      <img src="../image/KM_soundtrackBF.png" alt=""></div>
-                      <div class="fl">
-                        <span>疗伤</span><span>00:30</span>
-                      </div>
-                      <div class="on_li_divImg1 fr"><img src="../image/KM_soundtrack+.png" alt=""></div>
-                    </li>
-                    <li>
-                      <div class="on_li_divImg fl">
-                      <img src="../image/KM_soundtrackBF.png" alt=""></div>
-                      <div class="fl">
-                        <span>疗伤</span><span>00:30</span>
-                      </div>
-                      <div class="on_li_divImg1 fr"><img src="../image/KM_soundtrack+.png" alt=""></div>
-                    </li>
-                    <li>
-                      <div class="on_li_divImg fl">
-                      <img src="../image/KM_soundtrackBF.png" alt=""></div>
-                      <div class="fl">
-                        <span>疗伤</span><span>00:30</span>
-                      </div>
-                      <div class="on_li_divImg1 fr"><img src="../image/KM_soundtrack+.png" alt=""></div>
-                    </li>
-                    <li>
-                      <div class="on_li_divImg fl">
-                      <img src="../image/KM_soundtrackBF.png" alt=""></div>
-                      <div class="fl">
-                        <span>疗伤</span><span>00:30</span>
-                      </div>
-                      <div class="on_li_divImg1 fr"><img src="../image/KM_soundtrack+.png" alt=""></div>
-                    </li>
-                    <li>
-                      <div class="on_li_divImg fl">
-                      <img src="../image/KM_soundtrackBF.png" alt=""></div>
-                      <div class="fl">
-                        <span>疗伤</span><span>00:30</span>
-                      </div>
-                      <div class="on_li_divImg1 fr"><img src="../image/KM_soundtrack+.png" alt=""></div>
-                    </li>
-
-                </ul>
-                <ul class="">
-                    <div class="soundtrack_title">本地配乐共<b>二</b>条</div>
-                    <li>
-                      <div class="on_li_divImg fl">
-                      <img src="../image/KM_soundtrackBF.png" alt=""></div>
-                      <div class="fl">
-                        <span>疗伤</span><span>00:30</span>
-                      </div>
-                      <div class="on_li_divImg1 fr"><img src="../image/KM_soundtrack+.png" alt=""></div>
-                    </li>
-                    <li>
-                      <div class="on_li_divImg fl">
-                      <img src="../image/KM_soundtrackBF.png" alt=""></div>
-                      <div class="fl">
-                        <span>疗伤</span><span>00:30</span>
-                      </div>
-                      <div class="on_li_divImg1 fr"><img src="../image/KM_soundtrack+.png" alt=""></div>
-                    </li>
-                    <li>
-                      <div class="on_li_divImg fl">
-                      <img src="../image/KM_soundtrackBF.png" alt=""></div>
-                      <div class="fl">
-                        <span>疗伤</span><span>00:30</span>
-                      </div>
-                      <div class="on_li_divImg1 fr"><img src="../image/KM_soundtrack+.png" alt=""></div>
-                    </li>
-                    <li>
-                      <div class="on_li_divImg fl">
-                      <img src="../image/KM_soundtrackBF.png" alt=""></div>
-                      <div class="fl">
-                        <span>疗伤</span><span>00:30</span>
-                      </div>
-                      <div class="on_li_divImg1 fr"><img src="../image/KM_soundtrack+.png" alt=""></div>
-                    </li>
-                    <li>
-                      <div class="on_li_divImg fl">
-                      <img src="../image/KM_soundtrackBF.png" alt=""></div>
-                      <div class="fl">
-                        <span>疗伤</span><span>00:30</span>
-                      </div>
-                      <div class="on_li_divImg1 fr"><img src="../image/KM_soundtrack+.png" alt=""></div>
-                    </li>
-
-                </ul>
+                </ul> -->
             </div>
         <!-- </div> -->
     </div>
@@ -387,65 +71,44 @@
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/swiper.min.js"></script>
 <script type="text/javascript">
-
     apiready = function() {
-
+      fnGetBeiJingYinYueTypelist();
 
     }
-    // var oTitle = document.getElementById('title');
-      var oTitle = $api.byId('title');
-      var aSpan = oTitle.getElementsByTagName('span');
-      var oCon = document.getElementById('con');
-      var aUl = oCon.getElementsByTagName('ul');
-      var i = 0;
-      for(i=0; i<aSpan.length; i++) {
-          aSpan[i].index = aUl[i].index = i;
-          aSpan[i].onclick = function () {
-              for(i=0; i<aSpan.length; i++) {
-                  aSpan[i].className = '';
-                  aUl[i].className = '';
-              }
-              this.className = 'on';
-              aUl[this.index].className = 'on';
+    function fnGetBeiJingYinYueTypelist() {
+  		api.ajax({
+  			url: 'http://47.100.11.38/kongmeng/bgmusic/getStyleList.php',
+  			method: 'get',
+  			dataType: 'json',
+  		}, function(ret, err) {
+  			if (ret) {
+  				//alert(JSON.stringify(ret));
+          fnBytitleList(ret);
+  			} else {
+  				alert(JSON.stringify(err));
+  			}
+  		});
+  	}
+    function fnBytitleList(data_) {
+      //console.log(JSON.stringify(data_));
+  		var stylelist = $api.byId('con');
+  		var html = '';
+  		 for (var i = 0; i < data_.data.length; i++) {
+        html += '<ul class="on">  <li onclick="fnSoundtrackList(' + data_.data[i].id + ');"><div class="on_li_divImg fl">  <img src="../image/play/KM_soundtrackBF.png" alt=""></div><div class="fl" id = "title"><span >' + data_.data[i].name + '</span></div></li></ul>';
+  		}
+  		$api.html(stylelist, html);
+      //aSpan[0].className = 'on';
+      //console.log(aSpan.length);
 
+  	}
+    function fnSoundtrackList(byid) {
+      api.openWin({
+          name: 'soundtrackList',
+          url: './soundtrackList.html',
+          pageParam: {
+              byid: byid
           }
+      });
 
-      }
-
-
-
-
-      // function text(){
-      //     // console.log(document.getElementById('id1').style.color);
-      //
-      //     if(document.getElementById('id').style.overflow=="auto"){
-      //         document.getElementById('title').style.width="100%";
-      //         document.getElementById('id').style.overflow="none";
-      //     }
-      //     else{
-      //         document.getElementById('id').style.overflow="auto";
-      //     }
-      // }
-
-    // function fnXiabiao() {
-    //   // id = (id + 1)
-    //   id = 0
-    //             alert(id);
-    //     if (id == 0 ) {
-    //       // alert("1");
-    //
-    //       alert(id);
-    //       id += 1
-    //     }else {
-    //       alert(id)
-    //       id == 0
-    //       alert("0");
-    //     }
-    // }
-
-
-
-
-
-
+    }
 </script>

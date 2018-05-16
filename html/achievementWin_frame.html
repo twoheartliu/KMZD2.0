@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>孔孟之道--成就详情</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <!-- <link rel="stylesheet" href="../css/swiper.min.css">
+    <link rel="stylesheet" href="../css/iconfont.css"> -->
+    <style>
+        body{overflow: hidden;}
+        table{width: 90%;margin: 30px auto;}
+        table tr{width: 100%;height: 40px;}
+        table tr th{width: 50%;font-weight:100;}
+        .credit{margin: 20px auto;text-decoration:underline;color: #539ff5;text-align: left;margin-left: 5%;}
+        .Grade{width: 100%;height: 30px;line-height: 30px;text-align: center;}
+        .Grade span{color: red;}
+        .distance{width: 100%;height: 30px;line-height: 30px; text-align: center;}
+        .distance span{color: red;}
+    </style>
+</head>
+
+<body>
+    <!-- <div class="Grade">当前等级是<span>童生</span></div>
+    <div class="distance">离下个等级还差<span>40</span>学分</div> -->
+    <div></div>
+    <table border="1">
+      <tr>
+        <th>等级</th>
+        <th>学分</th>
+      </tr>
+      <tr>
+        <th>童生</th>
+        <th>0学分</th>
+      </tr>
+      <tr>
+        <th>秀才</th>
+        <th>100学分</th>
+      </tr>
+      <tr>
+        <th>举人</th>
+        <th>500学分</th>
+      </tr>
+      <tr>
+        <th>进士</th>
+        <th>2000学分</th>
+      </tr>
+      <tr>
+        <th>探花</th>
+        <th>5000学分</th>
+      </tr>
+      <tr>
+        <th>榜眼</th>
+        <th>10000学分</th>
+      </tr>
+      <tr>
+        <th>状元</th>
+        <th>30000学分</th>
+      </tr>
+      <tr>
+        <th>国主</th>
+        <th>100000学分</th>
+      </tr>
+    </table>
+    <div class="credit" onclick="fnCreditWin();">如何获得学分</div>
+</body>
+</html>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+    apiready = function() {
+
+    }
+    // 如何获取学分详情页
+    function fnCreditWin() {
+      api.openWin({
+          name: 'credit',
+          url: './credit.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
+
+    }
+</script>

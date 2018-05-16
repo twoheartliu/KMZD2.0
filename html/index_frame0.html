@@ -5,31 +5,38 @@
     <meta charset="UTF-8">
     <meta name="copyright" content="www.apicloud.com" />
     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
-    <title>首页推荐</title>
+    <title>孔孟之道--首页推荐</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
     <link rel="stylesheet" href="../css/swiper.min.css">
     <link rel="stylesheet" href="../css/iconfont/iconfont.css">
-    <link rel="stylesheet" href="../css/iconfont.css">
+    <!-- <link rel="stylesheet" href="../css/iconfont.css"> -->
     <style>
-
-        html,body {
+        html,
+        body {
             min-height: 100%;
+            position: relative;
         }
+
         .fr {
             float: right;
         }
+
         .fl {
             float: left;
         }
-        .clear{
-          clear:both;
+
+        .clear {
+            clear: both;
         }
+
         .mt20 {
             margin-top: 20px;
         }
+
         .p20px {
             padding: 0 20px;
         }
+
         .row {
             display: -webkit-box;
             display: -webkit-flex;
@@ -42,84 +49,124 @@
             margin: 0 5px;
             position: relative;
         }
+
         .hdivider {
             width: 100%;
             height: 1px;
-            background-color: #e0e0e0;
+            background-color: #b2b2b2;
         }
+        /*轮播图 */
 
-        /*轮播图        */
         .swiper-container img {
             width: 100%;
         }
         /* 八大导航 */
+
         .nav {
-          /*padding: 8px;*/
-          margin-bottom: 20px;
+            /*padding: 8px;*/
+            margin-bottom: 20px;
+            display: -webkit-box;
+            display: -webkit-flex;
         }
+
         .navbar {
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
             position: relative;
-            float: left;
-            padding: 4px;
-            box-sizing: border-box;
-            background-clip: content-box;
+            /*float: left; padding: 4px; box-sizing: border-box; background-clip: content-box;*/
             text-align: center;
+            font-size: 14px;
+            color: #1a1a1a;
         }
+
         .navbar img {
-            width:80px;
-            height:80px;
+            width: 60px;
+            height: 60px;
             display: block;
             text-align: center;
             margin: 0 auto;
             /*padding-top: 20px;*/
         }
-        .navbar-item-hov {
-            background-color: rgba(254, 242, 228, 0.7);
-        }
+        /*.navbar-item-hov { background-color: rgba(254, 242, 228, 0.7); }*/
+
         .navbar-item-active {
             color: #D43C33;
         }
         /* 听单推荐 */
-        .hot>.hotC{
-          position: relative;
-          float: left;
-          padding: 4px;
-          box-sizing: border-box;
-          background-clip: content-box;
-          text-align: center;
-          font-size: 20px;
-          /*padding-top:10px;*/
-        }
-        .sectionTitle {
-          margin-bottom: 10px;
-        }
-        .sectionTitle .TD_div {
+
+        .hot>.hotC {
+            position: relative;
+            float: left;
+            border-radius: 5px;
+            padding: 5px;
+            box-sizing: border-box;
+            background-clip: content-box;
+            text-align: center;
             font-size: 20px;
+            padding-top: 10px;
+            padding-bottom: 10px;
         }
+
+        .sectionTitle {
+            margin-bottom: 10px;
+            /*margin: 10px 0;*/
+        }
+
+        .sectionTitle .TD_div {
+            font-size: 16px;
+            color: #1a1a1a;
+            padding-top: 2px;
+            margin-top: 10px;
+        }
+
+        .sectionTitle .more {
+            color: #666;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+
         .hotC>img {
-            width:100%;
-            height:auto;
+            /*border-radius: 10px;*/
+            width: 100%;
+            height: auto;
+        }
+
+        .listtitle {
+            font-size: 12px;
+            color: #000;
         }
         /*个性化推荐 */
+
         .egret-flex-item {
             display: -webkit-box;
             -webkit-box-align: center;
             height: 100px;
         }
+
+        .egret-flex-items {
+            display: -webkit-box;
+            -webkit-box-align: center;
+            height: 100px;
+            width: 80%;
+        }
+
         .egret-flex-item-logo {
             max-width: 80px;
             min-width: 80px;
-            margin-left: 0.5em;
-            margin-right: 0.2em;
+            /*margin-left: 0.5em; margin-right: 0.2em;*/
             -webkit-box-flex: 1;
             -webkit-box-align: center;
         }
+
         .egret-flex-item-logo img {
-            height: 80px;
-            width: 80px;
+            height: 60px;
+            width: 60px;
+            border-radius: 5px;
             -webkit-box-align: center;
             vertical-align: top;
         }
+
         .egret-flex-item-shelf {
             overflow: hidden;
             -webkit-box-flex: 2;
@@ -130,43 +177,73 @@
             text-overflow: ellipsis;
             white-space: nowrap;
             overflow: hidden;
+            /*margin-top: 5px;*/
+            height: 22px;
+            line-height: 22px;
         }
 
         .egret-flex-item-shelf .egret-flex-item-shelf01 .span1 {
-            font-size: 15px;
-        }
-
-        .egret-flex-item-shelf .egret-flex-item-shelf01 .span2 {
-            font-size: 15px;
-            color: #ff3db8;
-            margin: 0 5px;
-        }
-
-        .egret-flex-item-shelf .egret-flex-item-shelf02 {
-            font-size: 15px;
-            color: #666;
-        }
-
-        .egret-flex-item-shelf .egret-flex-item-shelf02 span {
+            /*font-size: 13px;*/
             font-size: 15px;
             color: #000;
         }
 
+        .egret-flex-item-shelf .egret-flex-item-shelf02 .span2 {
+            font-size: 12px;
+            color: #ff3db8;
+            margin: 0 5px;
+        }
+
+        .egret-flex-item-shelf .egret-flex-item-shelf01 .span3 {
+            font-size: 12px;
+            color: #ccc;
+        }
+
+        .egret-flex-item-shelf04 {
+            width: 18%;
+            text-align: right;
+            -webkit-box-flex: 1;
+            -webkit-box-align: center;
+            height: 65px;
+        }
+
+        .egret-flex-item-shelf04 img {
+            width: 20px;
+            height: 20px;
+        }
+
+        .egret-flex-item-shelf .egret-flex-item-shelf02 {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .egret-flex-item-shelf .egret-flex-item-shelf02 span {
+            font-size: 13px;
+            color: #ccc;
+        }
+
+        .egret-flex-item-shelf03 {
+            line-height: 20px;
+        }
+
         .egret-flex-item-shelf03 div {
             float: left;
-            line-height: 20px;
-            margin: 0 5px;
+            /*line-height: 20px;
+            margin: 5px 0px;*/
         }
 
         .egret-flex-item-shelf03 div img {
-            width: 20px;
-            height: 20px;
-            line-height: 20px;
-            margin: 0 5px;
+            width: 12px;
+            height: 12px;
+            line-height: 12px;
+            margin: 0 2px;
         }
 
         .egret-flex-item-shelf03 div span {
-            line-height: 20px;
+            line-height: 22px;
+            vertical-align: top;
+            font-size: 11px;
+            color: #b2b2b2;
         }
 
         .egret-flex-item-shelf .egret-flex-item-redclassify {
@@ -178,170 +255,226 @@
             margin-right: 5px;
             box-sizing: border-box;
         }
-        .fmbtnhover {
-            background: #D8D9DA;
-        }
+        /*.fmbtnhover { background: #D8D9DA; }*/
     </style>
 </head>
 
 <body>
-        <!-- 轮播图 -->
-      <div class="swiper-container">
-          <div class="swiper-wrapper">
-              <div class="swiper-slide">
-                  <img src="../image/frame0101cover/frame0101cover01.jpg" alt="">
-              </div>
-              <div class="swiper-slide">
-                  <img src="../image/frame0101cover/frame0101cover02.jpg" alt="">
-              </div>
-              <div class="swiper-slide">
-                  <img src="../image/frame0101cover/frame0101cover03.jpg" alt="">
-              </div>
-          </div>
-      </div>
+    <!-- 轮播图 -->
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide" onclick="fnMachineXiangqingWin();">
+                <img src="../image/index/KM_swiper1.jpg" alt="">
+            </div>
+            <div class="swiper-slide" onclick="fnMachineXiangqingWin();">
+                <img src="../image/index/KM_swiper2.jpg" alt="">
+            </div>
+        </div>
+    </div>
 
-      <!-- 八大导航 -->
+    <!-- 八大导航 -->
     <div class="nav">
-        <div class="navbar" tapmode="navbar-item-hov" onclick="fnVoiceWin();"><img src="../image/KM_yuyin.png" alt="">智能语音</div>
-        <div class="navbar" tapmode="navbar-item-hov" onclick="fnGuoxueWin();"><img src="../image/KM_goxue.png" alt="">国学馆</div>
-        <div class="navbar" tapmode="navbar-item-hov" onclick="fnReadWin();"><img src="../image/KM_langsong.png" alt="">朗诵</div>
-        <div class="navbar" tapmode="navbar-item-hov" onclick=""><img src="../image/KM_listen.png" alt="">熏听</div>
-        <div class="navbar" tapmode="navbar-item-hov" onclick=""><img src="../image/KM_everyday.png" alt="">每日推荐</div>
-        <div class="navbar" tapmode="navbar-item-hov" onclick="fnBillboard()"><img src="../image/KM_bangdan.png" alt="">榜单</div>
-        <div class="navbar" tapmode="navbar-item-hov" onclick="fnMatchWin();"><img src="../image/KM_dasai.png" alt="">大赛</div>
-        <div class="navbar" tapmode="navbar-item-hov" onclick="fnMachineWin();"><img src="../image/KM_guoxueji1.png" alt="">国学机</div>
-        <div class="clear"></div>
+        <div class="navbar" tapmode="navbar-item-hov" onclick="fnGuoxueWin();"><img src="../image/index/KM_goxue.png" alt="">国学馆</div>
+        <div class="navbar" tapmode="navbar-item-hov" onclick="fnListenWin();"><img src="../image/index/KM_listen.png" alt="">熏听</div>
+        <div class="navbar" tapmode="navbar-item-hov" onclick="fnBillboard()"><img src="../image/index/KM_bangdan.png" alt="">榜单</div>
+        <!-- <div class="navbar" tapmode="navbar-item-hov" onclick="fnReadWin();"><img src="../image/KM_langsong.png" alt="">国学机</div> -->
+        <div class="navbar" tapmode="navbar-item-hov" onclick="fnReadWin();"><img src="../image/index/KM_guoxueji.png" alt="">国学机</div>
+        <!-- <div class="clear"></div> -->
     </div>
     <!-- 2 热门推荐 -->
-    <div class="p20px">
-        <div class="sectionTitle">
-            <span class="TD_div fl">听单推荐</span>
-            <span class="fr">更多</span>
-            <div class="clear"></div>
-        </div>
-        <div class="hot">
-            <div class="hotC" >
-                <img src="../image/frame0101cover/frame0101cover06.png" alt="" >
-                <div class="listtitle">经典诗歌</div>
+    <div id="floorId">
+        <!-- <div class="p20px">
+            <div class="sectionTitle">
+                <span class="TD_div fl">专辑推荐</span>
+                <span class="fr more" onclick="fnRecommendWin();">更多</span>
+                <div class="clear"></div>
             </div>
-            <div class="hotC" >
-                <img src="../image/frame0101cover/frame0101cover07.png" alt="" >
-                <div class="listtitle">经典诗歌</div>
-            </div>
-            <div class="hotC" onclick="openMusicList()">
-                <img src="../image/frame0101cover/frame0101cover08.png" alt="" >
-                <div class="listtitle">经典诗歌</div>
-            </div>
-            <div class="hotC" onclick="openMusicList()">
-                <img src="../image/frame0101cover/frame0101cover09.png" alt="" >
-                <div class="listtitle">经典诗歌</div>
-            </div>
-            <div class="hotC" onclick="openMusicList()">
-                <img src="../image/frame0101cover/frame0101cover10.png" alt="" >
-                <div class="listtitle">经典诗歌</div>
-            </div>
-            <div class="hotC" onclick="openMusicList()">
-                <img src="../image/frame0101cover/frame0101cover11.png" alt="" >
-                <div class="listtitle">经典诗歌</div>
-            </div>
-            <div class="clear"></div>
-        </div>
-    </div>
-    <!-- 3 个性化推荐 -->
-    <div class="p20px">
-        <div class="sectionTitle mt20">
-            <span class="TD_div fl">优秀作品</span>
-            <span class="fr">更多</span>
-            <div class="clear"></div>
-        </div>
-        <div class="egret-flex-item " tapmode="fmbtnhover" onclick="openFM()">
-            <div class="egret-flex-item-logo">
-                <img src="../image/frame0101cover/frame0101cover16.png" alt="" class="">
-            </div>
-            <div class="egret-flex-item-shelf">
-                <div class="egret-flex-item-shelf01">
-                    <span class="span1 fl">唐嫣</span>
-                    <span class="span2 iconfont icon-nv fl"></span>
-                    <img src="../image/js.png" alt="" class="fl">
-                    <span class="span3 fr">昨天21.30</span>
-                </div>
-                <div class="egret-flex-item-shelf02">作品：<span>《沁园春·雪》</span></div>
-                <div class="egret-flex-item-shelf03">
-                    <div><img src="../image/KM_qt.png" alt=""><span>100</span></div>
-                    <div><img src="../image/KM_dx.png" alt=""><span>100</span></div>
-                    <div><img src="../image/KM_zf.png" alt=""><span>100</span></div>
-                    <div><img src="../image/KM_dz.png" alt=""><span>100</span></div>
-                </div>
+            <div class="hot" id="hot">
+
+
             </div>
         </div>
-        <div class="hdivider"></div>
-        <div class="egret-flex-item" tapmode="fmbtnhover" onclick="openFM()">
-            <div class="egret-flex-item-logo">
-                <img src="../image/frame0101cover/frame0101cover16.png" alt="" class="">
+
+        <div class="p20px">
+            <div class="sectionTitle mt20" onclick="">
+                <span class="TD_div fl">优秀作品</span>
+                <span class="fr more" onclick="fnOpenExcellentWorks();">更多</span>
+                <div class="clear"></div>
             </div>
-            <div class="egret-flex-item-shelf">
-                <div class="egret-flex-item-shelf01">
-                    <span class="span1 fl">唐嫣</span>
-                    <span class="span2 iconfont icon-nv fl"></span>
-                    <img src="../image/js.png" alt="" class="fl">
-                    <span class="span3 fr">昨天21.30</span>
+            <div class="egret-flex-item">
+                <div class="egret-flex-items" tapmode="fmbtnhover" onclick="fnOpenPlay()">
+                    <div class="egret-flex-item-logo">
+                        <img src="../image/KM_album.png" alt="" class="">
+                    </div>
+                    <div class="egret-flex-item-shelf">
+                        <div class="egret-flex-item-shelf01">
+                            <span class="span1 fl">作品：<span>《沁园春·雪》</span></span>
+                        </div>
+                        <div class="egret-flex-item-shelf02"><span>唐嫣</span>
+                        </div>
+                        <div class="egret-flex-item-shelf03">
+                            <div><img src="../image/KM_play.png" alt=""><span>100</span></div>
+                            <div><img src="../image/KM_zf.png" alt=""><span>100</span></div>
+                            <div><img src="../image/KM_dz.png" alt=""><span>100</span></div>
+                        </div>
+                    </div>
                 </div>
-                <div class="egret-flex-item-shelf02">作品：<span>《沁园春·雪》</span></div>
-                <div class="egret-flex-item-shelf03">
-                    <div><img src="../image/KM_qt.png" alt=""><span>100</span></div>
-                    <div><img src="../image/KM_dx.png" alt=""><span>100</span></div>
-                    <div><img src="../image/KM_zf.png" alt=""><span>100</span></div>
-                    <div><img src="../image/KM_dz.png" alt=""><span>100</span></div>
-                </div>
-            </div>
-        </div>
-        <div class="hdivider"></div>
-        <div class="egret-flex-item" tapmode="fmbtnhover" onclick="openFM()">
-            <div class="egret-flex-item-logo">
-                <img src="../image/frame0101cover/frame0101cover16.png" alt="" class="">
-            </div>
-            <div class="egret-flex-item-shelf">
-                <div class="egret-flex-item-shelf01">
-                    <span class="span1 fl">唐嫣</span>
-                    <span class="span2 iconfont icon-nv fl"></span>
-                    <img src="../image/js.png" alt="" class="fl">
-                    <span class="span3 fr">昨天21.30</span>
-                </div>
-                <div class="egret-flex-item-shelf02">作品：<span>《沁园春·雪》</span></div>
-                <div class="egret-flex-item-shelf03">
-                    <div><img src="../image/KM_qt.png" alt=""><span>100</span></div>
-                    <div><img src="../image/KM_dx.png" alt=""><span>100</span></div>
-                    <div><img src="../image/KM_zf.png" alt=""><span>100</span></div>
-                    <div><img src="../image/KM_dz.png" alt=""><span>100</span></div>
+                <div class="egret-flex-item-shelf04" onclick="fnOpenPlayMore()">
+                    <img src="../image/KM_list_more.png" alt="">
                 </div>
             </div>
-        </div>
-        <div class="hdivider"></div>
+            <div class="hdivider"></div>
+        </div> -->
     </div>
 </body>
+
 <script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript" src="../script/index.js"></script>
 <script type="text/javascript" src="../script/swiper.min.js"></script>
-
 
 </html>
 <script type="text/javascript">
     apiready = function() {
-        // api.parseTapmode()
         fnInitSwiper();
-        var navbars = $api.domAll('.navbar');
-        var frameWidth = api.frameWidth;
-        var frameHeight = api.frameHeight;
-        for(var i=0; i < 8 ;i++){
-          navbars.item(i).style.width = frameWidth /4 + "px";
-          navbars.item(i).style.height = frameWidth/4 * 1.1 + "px";
-        };
-        var hotCs = $api.domAll('.hotC');
-        for( var j = 0; j < 6 ;j++){
-          hotCs.item(j).style.width = (frameWidth -40) /3 + "px";
-          hotCs.item(j).style.height = (frameWidth -40) /3 * 1.224 + "px";
-        };
+        var qqziliao = api.pageParam.qqziliao;
+        // fnZhuanJiTuijian();
+        fnHomePageLayout();
     }
+    var token = $api.getStorage('token');
+    // console.log(token);
+    function fnHomePageLayout() {
+        uri = '/index/floor';
+        api.ajax({
+            url: host + apiUri + uri,
+            method: 'get',
+            dataType: 'json',
+            headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token
+            },
+        }, function(ret, err) {
+            if (ret.status == 200) {
+                // fnRecommendedDirectory(ret);
+                fnPageLayoutAssignment(ret);
+            } else {
+                alert(ret.message);
+                $api.rmStorage('token');
+                api.openWin({
+                    name: 'login',
+                    url: '../login.html',
+                    pageParam: {
+                        name: 'test'
+                    }
+                });
+            }
+        });
+    }
+
+    function fnPageLayoutAssignment(data_) {
+        var stylelist = $api.byId('floorId');
+        var frameWidth = api.frameWidth;
+        var html = '';
+        for (var i = 0; i < data_.data.length; i++) {
+            if (data_.data[i].floor_id) {
+                html += '<div class="p20px"  id="ret.data[i].floor_id"><div class="sectionTitle mt20"><span class="TD_div fl">' + data_.data[i].floor_name + '</span><span class="fr more" onclick="fnRecommendWin(' + data_.data[i].floor_id +
+                    ');">更多</span><div class="clear"></div><div class="clear"></div></div><div class="hot" id="hot">';
+                var column = data_.data[i].floor_column;
+                var row = data_.data[i].floor_row;
+                if (column == 0) {
+                    column = 1;
+                }
+                for (var s = 0; s < column * row; s++) {
+                    if (data_.data[i].floor_type == "block") {
+                        var cccc = column;
+                        var ssss = frameWidth - 50
+                        var xxxx = ssss / cccc;
+                        html += '<div class="hotC" style="width:' + xxxx + 'px;" onclick="fnSingLeWin(' + data_.data[i].content[s].id + ');"><img src=" ' + host + '/' + data_.data[i].content[s].sma + '" alt=""><div class="listtitle"> ' + data_.data[
+                            i].content[s].title + '</div></div>';
+                    } else if (data_.data[i].floor_type == "list") {
+                        html += '<div class="egret-flex-item"><div class="egret-flex-items" tapmode="fmbtnhover" onclick="fnOpenPlay(' + data_.data[i].content[s].id + ')"><div class="egret-flex-item-logo"><img src="' + host + '/' + data_.data[i].content[
+                                s].mid + '" alt="" class=""></div><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 fl">作品：<span>' + data_.data[i].content[s].title +
+                            '</span></span><!-- <span class="span2 iconfont icon-nv fl"></span> --><!-- <img src="../image/js.png" alt="" class="fl"> --><!-- <span class="span3 fr">昨天21.30</span> --></div><div class="egret-flex-item-shelf02"><span>' +
+                            data_.data[i].content[s].author_name + '</span><!-- <span><img src="../image/js.png" alt="" class="fl"></span> --></div><div class="egret-flex-item-shelf03"><div><img src="../image/KM_play.png" alt=""><span>' + data_.data[
+                                i].content[s].play_total + '</span></div><!-- <div><img src="../image/KM_dx.png" alt=""><span>100</span></div> --><div><img src="../image/KM_zf.png" alt=""><span>' + data_.data[i].content[s].share_total +
+                            '</span></div><div><img src="../image/KM_dz.png" alt=""><span>' + data_.data[i].content[s].good_total +
+                            '</span></div></div></div>  </div><div class="egret-flex-item-shelf04" onclick="fnOpenPlayMore(' + data_.data[i].content[s].id + ')"><img src="../image/KM_list_more.png" alt=""></div></div><div class="hdivider"></div>';
+                    }
+                }
+                html += '</div></div>';
+            }
+        }
+        // console.log(html);
+        $api.html(stylelist, html);
+    }
+    //接口  推荐听单
+    function fnXiMaLaYaTingDan() {
+        var ximalaya = null;
+        var ximalaya = api.require('ximalaya');
+        var param = {
+            appkey: "85fa4ef92fb9ab9ee237146d59b44530",
+            appsecret: "a537faf18f2ba543fbabe3dad47b3511"
+        };
+        ximalaya.initXmly(param, function(ret, err) {
+            // alert(JSON.stringify(ret));
+            if (ret) {
+                alert(JSON.stringify(ret.message));
+            } else {
+                //console.log(JSON.stringify(err));
+                alert(JSON.stringify(err));
+            }
+        });
+
+        function getSearchedTracks() {
+            var param = {
+                keyword: "爱情",
+                categoryid: 1,
+                page: 1,
+                pagesize: 3
+            };
+            ximalaya.getSearchedTracks(param, function(ret, err) {
+                if (ret)
+                    alert(JSON.stringify(ret.total_count));
+                else
+                    alert(JSON.stringify(err));
+            });
+        }
+        // var param = {
+        //     //appkey: "a2bef6e953c529b6ac0b656a32079ecf",
+        //     appsecret: "e1f6e1927fdab1ef1a8de1997557b6db"
+        // };
+        // ximalaya.initXmly(param, function(ret, err) {
+        //     if (ret)
+        //         alert(JSON.stringify(ret));
+        //     else
+        //         alert(JSON.stringify(err));
+        // });
+
+    }
+
+    function fnSingLeWin(id) {
+
+        api.openWin({
+            name: 'single',
+            url: './single.html',
+            pageParam: {
+                albumId: id
+            }
+        });
+    }
+
+    function fnRecommendWin(id) {
+        api.openWin({
+            name: 'recommend',
+            url: './recommend.html',
+            pageParam: {
+                id: id
+            }
+        });
+
+    }
+
     function fnInitSwiper() {
         var mySwiper = new Swiper('.swiper-container', {
             autoplay: true, //可选选项，自动滑动
@@ -349,53 +482,231 @@
         });
     };
 
-    function fnMatchWin() {
-      api.openWin({
-          name: 'match',
-          url: './match.html',
-          pageParam: {
-              name: 'test'
-          }
-      });
-    }
     function fnGuoxueWin() {
-      api.openWin({
-          name: 'guoxue',
-          url: './guoxue.html',
-          pageParam: {
-              name: 'test'
-          }
-      });
+        api.openWin({
+            name: 'guoxue',
+            url: './guoxue.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
 
     }
 
+    //打开熏听页面
+    function fnListenWin() {
+        api.openWin({
+            name: 'listenTo',
+            url: './listen_to.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
+
+    }
+    // 打开优秀作品更多页面
+    function fnOpenExcellentWorks() {
+        api.openWin({
+            name: 'excellentWorks',
+            url: './excellent_works.html',
+        });
+    }
     // 打开榜单页面
-    function fnBillboard(){
-      api.openWin({
-          name: 'billBoardFrame',
-          url: './bill_board_frame.html',
-      });
+    function fnBillboard() {
+        api.openWin({
+            name: 'billBoard',
+            url: './bill_board.html',
+        });
     }
-
+    // 打开国学机页面
     function fnReadWin() {
-      api.openWin({
-          name: 'read',
-          url: './read.html',
-          pageParam: {
-              name: 'test'
-          }
-      });
+        api.openWin({
+            name: 'machine',
+            url: './machine.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
 
     }
-    function fnVoiceWin() {
-      api.openWin({
-          name: 'ai_voice',
-          url: './ai_voice.html',
-          pageParam: {
-              name: 'test'
-          }
-      });
-
+    //作品列表进入播放页面
+    function fnOpenPlay() {
+        api.openWin({
+            name: 'play',
+            url: './play.html',
+        });
     }
 
+    function fnMachineXiangqingWin() {
+        api.openWin({
+            name: 'machine_xiangqing',
+            url: './machine_xiangqing.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
+
+    }
+    //打开更多页面
+    function fnOpenPlayMore(id) {
+        var dialogBox = api.require('dialogBox');
+        dialogBox.actionMenu({
+            rect: {
+                h: 150
+            },
+            texts: {
+                cancel: '取消'
+            },
+            items: [{
+                text: '收藏',
+                icon: 'widget://image/KM_hxs.png'
+            }, {
+                text: '添加到听单',
+                icon: 'widget://image/KM_play_add_gray.png'
+            }, {
+                text: '分享',
+                icon: 'widget://image/KM_ListingsListGd.png'
+            }],
+            styles: {
+                bg: '#FFF',
+                column: 3,
+                itemText: {
+                    color: '#000',
+                    size: 12,
+                    marginT: 8
+                },
+                itemIcon: {
+                    size: 30
+                },
+                cancel: {
+                    bg: 'fs://icon.png',
+                    color: '#000',
+                    h: 44,
+                    size: 14
+                }
+            },
+            tapClose: true
+        }, function(ret) {
+            if (ret.eventType == 'cancel') {
+                dialogBox.close({
+                    dialogName: 'discount'
+                });
+            }
+            if (ret.index == "0") {
+                api.toast({              
+                    msg:   '收藏成功',
+                                  duration:  2000,
+                                  location:   'middle'          
+                });
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+            } else if (ret.index == "1") {
+                fnOpenAddListening(id);
+
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+                // alert(2);
+            } else if (ret.index == "2") {
+                fnOpenPlayShare(id);
+                // dialogBox.close({
+                //     dialogName: 'alert'
+                // });
+                // alert(3);
+            } else {
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+            }
+            // dialogBox.close({
+            //     dialogName: 'alert'
+            // })
+            // alert(JSON.stringify(ret))
+
+        });
+    }
+    //打开分享
+    function fnOpenPlayShare() {
+        var dialogBox = api.require('dialogBox');
+        dialogBox.actionMenu({
+            rect: {
+                h: 150
+            },
+            texts: {
+                cancel: '取消'
+            },
+            items: [{
+                text: '微信',
+                icon: 'widget://image/weixin.png'
+            }, {
+                text: 'QQ',
+                icon: 'widget://image/qq.png'
+            }, {
+                text: '朋友圈',
+                icon: 'widget://image/friends.png'
+            }],
+            styles: {
+                bg: '#FFF',
+                column: 3,
+                itemText: {
+                    color: '#000',
+                    size: 12,
+                    marginT: 8
+                },
+                itemIcon: {
+                    size: 30
+                },
+                cancel: {
+                    bg: 'fs://icon.png',
+                    color: '#000',
+                    h: 44,
+                    size: 14
+                }
+            },
+            tapClose: true
+        }, function(ret) {
+            if (ret.eventType == 'cancel') {
+                dialogBox.close({
+                    dialogName: 'discount'
+                });
+            }
+            if (ret.index == "0") {
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+                // alert(1);
+            } else if (ret.index == "1") {
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+                // alert(2);
+            } else if (ret.index == "2") {
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+                // alert(3);
+            } else {
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+            }
+            // dialogBox.close({
+            //     dialogName: 'alert'
+            // })
+            // alert(JSON.stringify(ret))
+
+        });
+    }
+    //添加到听单
+    function fnOpenAddListening(id) {
+      console.log(id);
+        api.openWin({
+            name: 'addListening',
+            url: './add_listening.html',
+            pageParam: {
+                songListID: id
+            }
+        });
+    }
 </script>

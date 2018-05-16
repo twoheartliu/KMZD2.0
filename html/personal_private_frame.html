@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="copyright" content="www.apicloud.com" />
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+<title>孔孟之道--私信</title>
+<link rel="stylesheet" type="text/css" href="../css/api.css" />
+<style>
+html,body {min-height: 100%;background: #f2f2f2}
+.fr {float: right;}
+.fl {float: left;}
+.mt5 {margin-top: 5px;}
+.mt10 {margin-top: 10px;}
+.mt15 {margin-top: 15px;}
+.mt20 {margin-top: 20px;}
+.ml5 {margin-left: 0.5em;}
+.mr5 {margin-right: 0.5em;}
+.hdivider {width: 100%; height: 1px;background-color: #f2f2f2;}
+.br {border-right: 1px solid #f2f2f2;}
+.bb {border-bottom: 1px solid #f2f2f2;height: 1px;}
+.toRight {right: 0;}
+.row {display: -webkit-box;display: -webkit-flex;}
+.col {-webkit-box-flex:1; -webkit-flex:1; flex:1;margin: 0 5px; position: relative;}
+</style>
+</head>
+<body>
+
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+  apiready = function (){
+    var mHeader = $api.byId('mesHeader');
+    var headerPos = $api.offset(mHeader);
+    fnOpenchatbox();
+  }
+  function fnOpenchatbox(){
+    var UIChatBox = api.require('UIChatBox');
+    UIChatBox.open({
+        placeholder: '',
+        maxRows: 4,
+        emotionPath: 'widget://image/message/emotion',
+        texts: {
+            recordBtn: {
+                normalTitle: '按住说话',
+                activeTitle: '松开结束'
+            },
+            sendBtn: {
+                title: '发送',
+            }
+        },
+        styles: {
+            inputBar: {
+                borderColor: '#d9d9d9',
+                bgColor: '#f2f2f2'
+            },
+            inputBox: {
+                borderColor: '#B3B3B3',
+                bgColor: '#FFFFFF'
+            },
+            emotionBtn: {
+                normalImg: 'widget://image/message/chatBox_face1.png'
+            },
+            extrasBtn: {
+                normalImg: 'widget://image/message/chatBox_add1.png'
+            },
+            keyboardBtn: {
+                normalImg: 'widget://image/message/chatBox_key2.png'
+            },
+            speechBtn: {
+                normalImg: 'widget://image/message/chatBox_key1.png'
+            },
+            recordBtn: {
+                normalBg: '#c4c4c4',
+                activeBg: '#999999',
+                color: '#000',
+                size: 14
+            },
+            indicator: {
+                target: 'both',
+                color: '#c4c4c4',
+                activeColor: '#9e9e9e'
+            },
+            sendBtn: {
+                titleColor: '#fff',
+                bg: '#89211b',
+                activeBg: '#999999',
+                titleSize: 14
+            }
+        },
+        extras: {
+            titleSize: 10,
+            titleColor: '#a3a3a3',
+            btns: [{
+                title: '图片',
+                normalImg: 'widget://image/message/chatBox_album1.png',
+                activeImg: 'widget://image/message/chatBox_album2.png'
+            }, {
+                title: '拍照',
+                normalImg: 'widget://image/message/chatBox_cam1.png',
+                activeImg: 'widget://image/message/chatBox_cam2.png'
+            }]
+        }
+    }, function(ret, err) {
+        if (ret) {
+            // alert(JSON.stringify(ret));
+        } else {
+            // alert(JSON.stringify(err));
+        }
+    });
+  }
+</script>
+</html>

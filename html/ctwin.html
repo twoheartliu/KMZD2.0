@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>孔孟之道--朗读</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
+    <style>
+        html,
+        body {
+            overflow: hidden;
+            /*background-color: #252625;*/
+        }
+
+        .fr {
+            float: right;
+        }
+
+        .fl {
+            float: left;
+        }
+
+        .p20px {
+            padding: 0 20px;
+        }
+
+        .row {
+            display: -webkit-box;
+            display: -webkit-flex;
+        }
+
+        .col {
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+            margin: 0 5px;
+            position: relative;
+        }
+
+        header {
+            width: 100%;
+            height: 50px;
+            background: #89211b;
+            overflow: hidden;
+        }
+
+        .header_fl span {
+            padding: 17px;
+            color:#fff;
+        }
+
+        .header_fls img {
+            width: 15px;
+            height: 20px;
+            padding: 15px;
+        }
+
+        .header_center {
+            margin: 0 auto;
+            width: 100%;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            font-size: 20px;
+            color: #fff;
+        }
+
+        .header_fr {
+            width: 30px;
+            height: 30px;
+            padding: 10px;
+            line-height: 30px;
+            font-size: 15px;
+            color: #fff;
+            /*display: none;*/
+        }
+
+        #footer {
+            width: 100%;
+            /*height: 190px;*/
+            position: fixed;
+            bottom: 0;
+        }
+
+        .footer_bottom {
+            width: 100%;
+        }
+
+        .footer_bottoms {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto;
+        }
+
+        .footer_p {
+            width: 100%;
+            height: 30px;
+            line-height: 30px;
+            background: #252625;
+            color: #4c4c4c;
+            text-align: center;
+        }
+
+        .aloud_frame_bg_bottom {
+            width: 100%;
+            height: 45px;
+            /*background-image: url(../image/KM_bottom.png);*/
+            /*background-size: 100% 100%;*/
+            /*margin-bottom: 40px;*/
+            background: #fff;
+            position: relative;
+            border-bottom: 1px solid #ccc;
+            line-height: 45px;
+            text-align: center;
+            color: #ccc;
+        }
+
+        .footer_bottoms_st {
+            text-align: center;
+            line-height: 100px;
+            height: 100px;
+        }
+
+        .footer_bottoms_st img {
+            width: 50px;
+            height: 50px;
+            padding-top: 25px;
+        }
+
+        .name_bg {
+            /*height: 490px;*/
+            height: 100%;
+            overflow: hidden;
+            background-image: url(../image/read/333074849337770206.png);
+            background-size: 100% 100%;
+        }
+
+        .name {
+            width: 100%;
+            height: 100px;
+        }
+
+        .name_name {
+            width: 100%;
+            height: 50px;
+        }
+
+        .name_name div {
+            width: 100%;
+            height: 25px;
+            line-height: 25px;
+            text-align: center;
+        }
+
+        .name_h1 {
+            font-size: 14px;
+        }
+
+        .aloud_py {
+            width: 100%;
+            height: 50px;
+            background: #fff;
+        }
+
+        .name_h2 {
+            font-size: 12px;
+        }
+
+        .aloud_py_fl {
+            line-height: 50px;
+            color: #999999;
+        }
+
+        .aloud_py_fr {
+            line-height: 50px;
+            position: relative;
+            color: #999999;
+        }
+
+        .aloud_py_fr span {
+            position: relative;
+            top: 5px;
+            width: 20px;
+            height: 20px;
+            background-image: url(../image/read/aloud_py.png);
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+        }
+
+        .name_nr {
+            width: 100%;
+            height: 220px;
+            overflow: auto;
+            text-align: center;
+        }
+
+        .name_nr::-webkit-scrollbar {
+            display: none;
+        }
+
+        .name_nr p {
+            word-wrap: break-word;
+            word-break: break-all;
+        }
+
+        .name_bt {
+            width: 100%;
+            height: 100px;
+            background: rgba(00, 00, 00, 0.5);
+            display: flex;
+        }
+
+        .name_bt div {
+            flex: 1;
+        }
+
+        .name_bt_c {
+            background-image: url(../image/read/738958635261814309.png);
+            background-repeat: no-repeat;
+            /*background-size: ;*/
+            background-position: center;
+        }
+
+        .name_bt_s {
+            background-image: url(../image/read/801115447645509676.png);
+            background-repeat: no-repeat;
+            /*background-size: ;*/
+            background-position: center;
+        }
+
+        .name_bt_b img {
+            display: block;
+            margin: 25px auto;
+            /*line-height: 100px;*/
+        }
+
+        .name_this {
+            width: 100%;
+            height: 50px;
+            line-height: 50px;
+            font-size: 12px;
+            color: red;
+            text-align: center;
+        }
+
+        .name_ov {
+            overflow: hidden;
+        }
+
+        .zyld_input {
+            width: 100%;
+            margin: 5px 0;
+        }
+
+        .zyld_input input {
+            width: 300px;
+            height: 20px;
+            outline: none;
+            -webkit-appearance: none;
+            border-radius: 0;
+            border-bottom: 1px solid #ccc;
+            margin: 0 auto;
+            display: block;
+            text-align: center;
+        }
+
+        .zyld_text {
+            margin: 20px 0;
+        }
+
+        .replyValue {
+            /*background: red;*/
+            width: 300px;
+            height: 300px;
+            line-height: 25px;
+            display: block;
+            margin: 0 auto;
+            resize: none;
+            overflow: scroll;
+            text-shadow: 2rem;
+            outline: none;
+            -webkit-appearance: none;
+            border-radius: 0;
+        }
+
+        .replyValue::-webkit-scrollbar {
+            display: none;
+        }
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 80%;
+            border-radius: 10px;
+            display: block;
+            margin: 0 auto;
+            /*这个属性设置使填充进度条时的图形为圆角*/
+            /*background: -webkit-linear-gradient(#059CFA, #059CFA) no-repeat;*/
+            /*background: -webkit-linear-gradient(#059CFA, #059CFA) no-repeat;*/
+            /*background-size: 0% 100%;*/
+        }
+
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 20px;
+            width: 20px;
+            margin-top: -5px;
+            /*使滑块超出轨道部分的偏移量相等*/
+            background: #ffffff;
+            border-radius: 50%;
+            /*外观设置为圆形*/
+            border: solid 0.025em rgba(205, 224, 230, 0.5);
+            /*设置边框*/
+            box-shadow: 0 .025em .025em #3b4547;
+            /*添加底部阴影*/
+        }
+
+        input[type=range]:focus {
+            outline: none;
+        }
+
+        input[type=range]::-webkit-slider-runnable-track {
+            height: 10px;
+            border-radius: 10px;
+            /*将轨道设为圆角的*/
+            box-shadow: 0 1px 1px #def3f8, inset 0 .125em .125em #0d1112;
+            /*轨道内置阴影效果*/
+        }
+
+        input[type=range]::-ms-fill-lower {
+            /*进度条已填充的部分*/
+            height: 22px;
+            border-radius: 10px;
+            background: linear-gradient(to right, #ff0000, #1abc9c 100%, #123);
+            /*background: red !important;*/
+        }
+
+        input[type=range]::-ms-fill-upper {
+            /*进度条未填充的部分*/
+            height: 22px;
+            border-radius: 10px;
+            background: #ffffff;
+        }
+
+        input[type=range]:focus::-ms-fill-lower {
+            background: linear-gradient(to right, #059CFA, white 100%, white);
+        }
+
+        input[type=range]:focus::-ms-fill-upper {
+            background: #ffffff;
+        }
+
+        input[type=range]::-moz-range-progress {
+            background: linear-gradient(to right, #059CFA, white 100%, white);
+            height: 13px;
+            border-radius: 10px;
+        }
+
+        .red {
+            background: #000;
+        }
+        #slider {
+            height: 50px;
+            position: relative;
+            padding-top: 10px;
+            background-color: #000;
+        }
+
+        #slider span {
+            position: absolute;
+            bottom: 0;
+            font-size: 12px;
+            color: #ccc;
+        }
+
+        #slider .s {
+            left: 10px;
+        }
+
+        #slider .e {
+            right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <header id="secHeader">
+        <div class="header_fls fl" onclick="goback();"><img src="../image/icon_back.png" alt=""></div>
+        <div class="header_fl fr" onclick="fnLuYinBaoCun();"><span>保存</span></div>
+        <div class="header_center">朗读</div>
+    </header>
+    <div id="yinpin">
+        <!-- <audio id="myAudio" >
+    </audio> -->
+    </div>
+    <div class="name_bg">
+        <div class="name">
+            <div class="name_name">
+                <div class="zyld_name">
+                    <!-- <div class="zyld_h1">命名</div> -->
+
+                    <div class="zyld_input" id="jubentitle">
+                      <!-- 三字经 -->
+                      <!-- <input type="text" name="" value="" placeholder="标题" onclick="" id="inputId"> -->
+                    </div>
+
+                </div>
+                <div class="zyld_name" >
+                    <!-- <div class="zyld_h1">命名</div> -->
+
+                    <div class="zyld_input" id="jubenname">
+                      <!-- 小许 -->
+                      <!-- <input type="text" name="" value="" placeholder="作者" onclick="" id="inputId"> -->
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="name_ov">
+            <div class="zyld_text">
+                <div class="p20px">
+                    <p id="jubenbody">
+                      <!-- 1234564654546545456 -->
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+    <footer id="footer">
+        <div class="name_bt">
+            <!-- <div class="name_bt_c" onclick="fnAletr();"></div> -->
+            <div class="name_bt_b"><img src="../image/read/63734540119813241.png" alt="" id="playCollect" onclick="fnOpenPlayCollect();"></div>
+            <!-- <div class="name_bt_s"></div> -->
+        </div>
+        <div id="slider">
+            <span class="s" id="addTime">
+              00:00
+            </span>
+            <input type="range" id="range" name="range" min="0" max="100" step="1" value="0.01" class="red" />
+            <span class="e" id="totalTime">
+              00:00
+            </span>
+        </div>
+    </footer>
+
+</body>
+
+</html>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>
+<script type="text/javascript" src="../script/audio2.js"></script>
+<script type="text/javascript">
+
+    var title;
+    var name;
+    var desc;
+    var cgxid;
+    var path;
+    var timestamp;
+    var timestamps;
+    var jubenid;
+    apiready = function() {
+        var secHeader = $api.byId('secHeader');
+        $api.fixStatusBar(secHeader);
+        var headerH = $api.offset(secHeader).h;
+        title = api.pageParam.title;
+        name = api.pageParam.name;
+        desc = api.pageParam.desc;
+        cgxid = api.pageParam.cgxid;
+        path = api.pageParam.path;
+        jubenid = api.pageParam.jubenid;
+        timestamp = api.pageParam.timestamp;
+        timestamps = api.pageParam.timestamps;
+        fnGetJubentitle();
+        fnGetJubenname();
+        fnGetJubenbody();
+        fnFuZhiAudio();
+    }
+    function fnFuZhiAudio() {
+        var stylelist = $api.byId('yinpin');
+        var html = '<audio id="myAudio" ><source src="' + path + '" type="audio/mpeg"></audio>';
+        $api.html(stylelist, html);
+    }
+    //赋值播放时间
+  	function fnGetAddTime(cur) {
+  		var stylelist = $api.byId('addTime');
+      var html= '00:00';
+      var cur = parseInt(cur);
+      var temp = cur;
+      var minute = parseInt(temp / 60);
+      if (cur % 60 < 10) {
+          if(minute<10){
+             html = "0" + minute + ":0" + cur % 60 + "";
+          }else{
+             html = "" + minute + ":0" + cur % 60 + "";
+          }
+      } else {
+          if(minute<10){
+             html = "0" + minute + ":" + cur % 60 + "";
+          }else{
+             html = "" + minute + ":" + cur % 60 + "";
+          }
+      }
+
+  		$api.html(stylelist, html);
+  	}
+    //赋值总时长
+  	function fnGetTotalTime(lenth) {
+  		var stylelist = $api.byId('totalTime');
+      var html= '00:00';
+      var lenths = parseInt(lenth);
+      var temps = lenths;
+      var minutes = parseInt(temps / 60);
+      if (lenths % 60 < 10) {
+          if(minutes<10){
+             html = "0" + minutes + ":0" + lenths % 60 + "";
+          }else{
+             html = "" + minutes + ":0" + lenths % 60 + "";
+          }
+      } else {
+          if(minutes<10){
+             html = "0" + minutes + ":" + lenths % 60 + "";
+          }else{
+             html = "" + minutes + ":" + lenths % 60 + "";
+          }
+      }
+  		$api.html(stylelist, html);
+  	}
+    //赋值剧本标题
+  	function fnGetJubentitle() {
+  		var stylelist = $api.byId('jubentitle');
+  		var	html = title;
+  		$api.html(stylelist, html);
+  	}
+    //赋值剧本作者
+    function fnGetJubenname() {
+  		var stylelist = $api.byId('jubenname');
+  		var	html = name;
+  		$api.html(stylelist, html);
+  	}
+    //赋值剧本歌词
+    function fnGetJubenbody() {
+  		var stylelist = $api.byId('jubenbody');
+      var str1 = JSON.stringify(desc);
+      var str2 = str1.replace(/r/g, '<br>');
+      var str3 = str2.replace(/n/g, '<br>');
+      var str4 = str3.split('\\').join('');
+      var str5 = str4.split("\"").join('');
+  		var	html = str5;
+      shiTingBody = str5;
+  		$api.html(stylelist, html);
+  	}
+    function fnOpenPlayCollect() {
+        var playCollect = $api.byId('playCollect');
+        if (playCollect.getAttribute("src", 2) == "../image/read/63734540119813241.png") {
+            playCollect.src = "../image/read/428129250927140404.png";
+            fnLuYinshiting();
+
+        } else {
+            playCollect.src = "../image/read/63734540119813241.png";
+            var myAudio = document.getElementById("myAudio");
+            myAudio.pause();
+        }
+    };
+    //调整播放进度
+    function adjusts(playTime) {
+      var myAudio = document.getElementById("myAudio");
+      myAudio.currentTime = playTime;
+    }
+    //进度条
+    function jindutiaos(lenth,cur) {
+      var range = $api.byId('range');
+      var a = cur / lenth;
+      range.value = JSON.stringify(cur / lenth * 100);
+      var sssss = 100 - range.value;
+      //不渐变
+      // range.style.background = 'linear-gradient(to left, #89211b ' + sssss + '%, #000 0,#000  )';
+      // range.css( 'background', 'linear-gradient(to right, #059CFA, white ' + range.value + '%, white)' );
+      range.style.background = 'linear-gradient(to left, #89211b ' + sssss + '%, blue ' + range.value + '%,#789  )';
+      fnZongJinDu(lenth);
+    }
+
+    function fnZongJinDu(lenth) {
+        zongJindu = lenth;
+    }
+    //调整播放进度
+    function adjust() {
+        var range = $api.byId('range');
+        var x = range.value / 100;
+        var playTime = x * zongJindu;
+        adjusts(playTime);
+    }
+    var c = 0;
+    var t
+    function fnLuYinshiting(){
+  		if(path){
+        var myAudio = document.getElementById("myAudio");
+        myAudio.play();
+        myAudio.loop=true;
+
+        jindutiao();
+  		}
+  	}
+    //获取当前歌曲的歌长
+    function jindutiao() {
+        var myAudio = document.getElementById("myAudio");
+        timer1 = setInterval(function() {
+            lenth = myAudio.duration;
+            cur = myAudio.currentTime;
+            jindutiaos(lenth,cur);
+            fnGetAddTime(cur);
+            fnGetTotalTime(lenth);
+        }, 1000)
+
+    }
+    //保存
+  	function fnLuYinBaoCun(){
+  		//fs 文件管理 删除  拷贝  移除等
+  		//拷贝文件
+  		var fs = api.require('fs');
+  		fs.copyTo({
+  		    oldPath: path,
+  		    newPath: 'fs://caogaoxiang'
+  		}, function(ret, err) {
+  				var paths = 'fs://caogaoxiang/' + timestamps +'';
+  		    if (ret.status) {
+  					var fs = api.require('fs');
+  					fs.rename({
+  						oldPath: paths,
+  						newPath: 'fs://caogaoxiang/' + timestamp +'' + jubenid + ''
+  					}, function(ret, err) {
+  						if (ret.status) {
+  								alert('已保存');
+  						} else {
+  								alert(JSON.stringify(err));
+  						}
+  					});
+  		    } else {
+  		        alert(JSON.stringify(err));
+  		    }
+  		});
+      api.getPrefs({
+          key: 'cgxlist'
+      }, function(ret, err) {
+          if (ret) {
+              var flag = false; //是否增加历史记录
+              var historyUrlText = ret.value;
+              var historyUrlArray = historyUrlText.split('');
+              for (var i = 0; i < historyUrlArray.length; i++) {
+                  historyUrlArray[i] == cgxid && (flag = true);
+              }!flag && historyUrlArray.splice(1, 0, cgxid,title,name,desc);
+              !flag && api.setPrefs({
+                  key: 'cgxlist',
+                  value: historyUrlArray.join(',')
+              });
+              // fnHistoryUrl(id);
+          } else {
+              alert(JSON.stringify(err));
+          }
+      });
+  	}
+    function goback() {
+        api.closeWin({
+            name: 'ctwin'
+        });
+    }
+</script>
+<script>
+    var change = function($input) {
+        /*内容可自行定义*/
+        // console.log("123");
+        adjust();
+    }
+    $('input').RangeSlider({
+        callback: change
+    });
+</script>

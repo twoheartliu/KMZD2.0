@@ -3,7 +3,7 @@
   <head>
       <meta charset="utf-8">
       <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
-      <title>榜单</title>
+      <title>孔孟之道--国友榜</title>
       <link rel="stylesheet" type="text/css" href="../css/api.css"/>
       <style>
         body,html{
@@ -40,7 +40,7 @@
           border-radius: 40px;
           border: 5px solid #e5e5e5;
           margin: 0 auto;
-    			background: url(../image/default_head.png) no-repeat center center;
+    			background: url(../image/bangdan/default_head.png) no-repeat center center;
     			-webkit-background-size: contain;
     			background-size: contain;
     		}
@@ -82,51 +82,55 @@
   <body>
     <section>
       <div class="bill-board-top">
-        <div class="user-logo">
+        <div class="user-logo" onclick="fnOpenmyPersonal();">
           <div class="user-img">
-            <p>紫嫣 <img src="../image/js.png" alt=""></p>
+            <p>紫嫣
+              <!-- <img src="../image/js.png" alt=""> -->
+            </p>
           </div>
         </div>
         <ul class="row">
           <li class="col">
-            <p>贡献积分</p>
+            <p>学分</p>
             <p><span class="num">287</span>分</p>
           </li>
           <li class="col">
-            <p>注册时间</p>
-            <p>2017-10-02</p>
+            <p>学时</p>
+            <p><span class="num">1</span>小时<span class="num">30</span>分钟</p>
           </li>
           <li class="col">
-            <p>作品总数</p>
-            <p><span class="num">87</span>份</p>
+            <p>作品</p>
+            <p><span class="num">87</span>个</p>
           </li>
           <li class="col ">
-            <p>总赞数量</p>
+            <p>被赞</p>
             <p><span class="num">999</span>次</p>
           </li>
         </ul>
       </div>
       <div class="bill-board-top">
-        <div class="user-logo">
+        <div class="user-logo" onclick="fnOpenmyPersonal();">
           <div class="user-img">
-            <p>紫嫣 <img src="../image/js.png" alt=""></p>
+            <p>紫嫣
+              <!-- <img src="../image/js.png" alt=""> -->
+            </p>
           </div>
         </div>
         <ul class="row">
           <li class="col">
-            <p>贡献积分</p>
+            <p>学分</p>
             <p><span class="num">287</span>分</p>
           </li>
           <li class="col">
-            <p>注册时间</p>
-            <p>2017-10-02</p>
+            <p>学时</p>
+            <p><span class="num">1</span>小时<span class="num">30</span>分钟</p>
           </li>
           <li class="col">
-            <p>作品总数</p>
-            <p><span class="num">87</span>份</p>
+            <p>作品</p>
+            <p><span class="num">87</span>个</p>
           </li>
           <li class="col ">
-            <p>总赞数量</p>
+            <p>被赞</p>
             <p><span class="num">999</span>次</p>
           </li>
         </ul>
@@ -137,5 +141,14 @@
   <script type="text/javascript">
     apiready = function(){
     };
+    function fnOpenmyPersonal(){
+      api.openWin({
+          name: 'myPersonal',
+          url: './my_personal.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
+    }
   </script>
   </html>

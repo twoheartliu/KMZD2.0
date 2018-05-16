@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="copyright" content="www.apicloud.com" />
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+<title>孔孟之道--私信</title>
+<link rel="stylesheet" type="text/css" href="../css/api.css" />
+<style>
+    html,body {min-height: 100%;background: #f2f2f2}
+    .fr {float: right;}
+    .fl {float: left;}
+    .mt5 {margin-top: 5px;}
+    .mt10 {margin-top: 10px;}
+    .mt15 {margin-top: 15px;}
+    .mt20 {margin-top: 20px;}
+    .ml5 {margin-left: 0.5em;}
+    .mr5 {margin-right: 0.5em;}
+    .hdivider {width: 100%; height: 1px;background-color: #f2f2f2;}
+    .br {border-right: 1px solid #f2f2f2;}
+    .bb {border-bottom: 1px solid #f2f2f2;height: 1px;}
+    .toRight {right: 0;}
+    .row {display: -webkit-box;display: -webkit-flex;}
+    .col {-webkit-box-flex:1; -webkit-flex:1; flex:1;margin: 0 5px; position: relative;}
+    /* 头部 */
+    .topbar {background: #89211b; height:50px; border-bottom: 1px solid #89211b;position: relative;}
+    .egret-img {position: absolute;}
+    .egret-img img {    width: 15px;
+        height: 20px;
+        padding: 15px;vertical-align: top;}
+    .egret-header-title {position: absolute;width: 100%;text-align: center;line-height: 50px;color: #fff;font-size: 20px;}
+</style>
+</head>
+<body>
+  <header class="egret-header topbar" id="mesHeader">
+      <div class="egret-header-title">用户名</div>
+      <div  class="egret-img"><img src="../image/icon_back.png" alt="" onclick="goback()" ></div>
+  </header>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+  function goback () {
+    api.closeWin({name:'personalPrivate'});
+  }
+  apiready = function (){
+    var mHeader = $api.byId('mesHeader');
+       $api.fixStatusBar(mHeader);  //状态栏
+    var headerPos = $api.offset(mHeader);
+    fnOpenPrivateDetailFrame();
+  };
+  function fnOpenPrivateDetailFrame(){
+    var mHeader = $api.byId('mesHeader');
+    var headerH = $api.offset(mHeader).h;
+    api.openFrame({
+        name: 'personalPrivateFrame',
+        url: './personal_private_frame.html',
+        rect: {
+            x: 0,
+            y: headerH,
+            w: api.frameWidth,
+            h: api.frameHeight-50
+        },
+        pageParam: {
+            name: 'test'
+        },
+        bounces: true,
+        bgColor: 'rgba(0,0,0,0)',
+        vScrollBarEnabled: true,
+        hScrollBarEnabled: true
+    });
+  };
+</script>
+</html>

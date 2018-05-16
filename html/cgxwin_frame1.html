@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>孔孟之道--发表作品</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style>
+        html,
+        body {
+            background-color: #f2f2f2;
+        }
+
+        .fr {
+            float: right;
+        }
+
+        .fl {
+            float: left;
+        }
+
+        .p20px {
+            padding: 0px 20px;
+        }
+
+        .row {
+            display: -webkit-box;
+            display: -webkit-flex;
+        }
+
+        .col {
+            position: relative;
+        }
+
+        .index_header {
+            width: 100%;
+            background-color: #fff;
+            margin-bottom: 5px;
+        }
+
+        .index_header_div {
+            width: 100%;
+            position: relative;
+        }
+
+        .index_header_img {
+            width: 75px;
+            margin: 7.5px auto;
+            border-radius: 37.5px;
+            z-index: 0;
+        }
+
+        .index_header_img img {
+            width: 100%;
+        }
+
+        .index_header_mvp {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            z-index: 1;
+        }
+
+        .index_header_mvp img {
+            width: 20px;
+            height: 20px;
+        }
+
+        .wode_bg {
+            width: 100%;
+            padding-bottom: 25px;
+        }
+
+        .wode_bg div {
+            text-align: center;
+        }
+
+        .index_header_mvp_p {
+            color: #333333;
+            font-size: 13px;
+        }
+
+        .index_header_mvp_span {
+            font-size: 12px;
+            color: #808080;
+        }
+
+        .index_header_bor {
+            border: 1px solid #ccc;
+            width: 90px;
+            height: 90px;
+            margin: 0 auto;
+            border-radius: 45px;
+            position: relative;
+        }
+
+        .index_main {
+            width: 100%;
+            background-color: #fff;
+        }
+
+        .index_main_h1 {
+            height: 50px;
+            line-height: 50px;
+            overflow: hidden;
+        }
+
+        .index_main_img img {
+            width: 21px;
+            height: 20px;
+            padding: 15px 0;
+        }
+
+        .index_main_span {
+            font-size: 16px;
+            color: #999;
+            margin-left: 6px;
+        }
+
+        .index_main_span span {
+            font-size: 16px;
+            color: #999;
+        }
+        /*个性化推荐 */
+
+        .egret-flex-item {
+            display: -webkit-box;
+            -webkit-box-align: center;
+            height: 100px;
+            border-bottom: 1px solid #f2f2f2;
+        }
+
+        .egret-flex-item-logo {
+            max-width: 80px;
+            min-width: 80px;
+            margin-left: 0.5em;
+            margin-right: 0.2em;
+            -webkit-box-flex: 1;
+            -webkit-box-align: center;
+        }
+
+        .egret-flex-item-logo img {
+            height: 80px;
+            width: 80px;
+            -webkit-box-align: center;
+            vertical-align: top;
+        }
+
+        .egret-flex-item-shelf {
+            overflow: hidden;
+            -webkit-box-flex: 2;
+            -webkit-box-align: center;
+        }
+
+        .egret-flex-item-shelf div {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            margin-top: 5px;
+        }
+
+        .egret-flex-item-shelf01 span {
+            text-align: center;
+            font-size: 12px;
+            color: #000;
+            display: block;
+        }
+
+        .egret-flex-item-shelf .egret-flex-item-shelf01 .span4 {
+            width: 50px;
+            height: 18px;
+            border: 1px solid #89211b;
+            font-size: 12px;
+            color: #89211b;
+            line-height: 18px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .egret-flex-item-shelf .egret-flex-item-shelf02 {
+            font-size: 15px;
+            color: #666;
+        }
+
+        .egret-flex-item-shelf .egret-flex-item-shelf02 span {
+            font-size: 15px;
+            color: #000;
+        }
+
+        .egret-flex-item-shelf03 div {
+            float: left;
+            line-height: 20px;
+            margin: 5px 0px;
+        }
+
+        .egret-flex-item-shelf03 div img {
+            width: 15px;
+            height: 15px;
+            line-height: 15px;
+            margin: 0 3px;
+        }
+
+        .egret-flex-item-shelf03 div span {
+            line-height: 18px;
+            vertical-align: top;
+            font-size: 14px;
+            color: #b2b2b2;
+        }
+
+        .egret-flex-item-shelf .egret-flex-item-redclassify {
+            color: #E03F40;
+            border: 1px solid #E03F40;
+            font-size: inherit;
+            padding: 0 0.1em;
+            border-radius: 1px;
+            margin-right: 5px;
+            box-sizing: border-box;
+        }
+
+        .fmbtnhover {
+            background: #D8D9DA;
+        }
+
+        .active {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <div class="index_header">
+        <div class="index_header_div">
+            <div class="index_header_bor">
+                <div class="index_header_img"><img src="../image/KM_tx.png" alt=""></div>
+                <div class="index_header_mvp"><img src="../image/vip/vip_icon5.png" alt=""></div>
+            </div>
+            <div class="wode_bg">
+                <div class="index_header_mvp_p">嘿！我不是朝天椒</div>
+                <div class="index_header_mvp_span"><b>个性签名：</b>我是一个狠辣狠辣的辣椒，哈哈哈哈</div>
+            </div>
+        </div>
+    </div> -->
+    <div class="index_main">
+        <div class="p20px">
+            <div class="egret-flex-item" tapmode="fmbtnhover">
+                <div class="egret-flex-item-logo" onclick="openFM()">
+                    <img src="../image/KM_album.png" alt="" class="">
+                </div>
+                <div class="egret-flex-item-shelf">
+                    <div class="egret-flex-item-shelf01">
+                        <span class="span1 col fl">《沁园春·雪》</span>
+                        <span class="span2 col fl">1.20</span>
+                        <span class="span3 col fl">11:36</span>
+                        <span class="span4 col fr" onclick="dialogBox_actionMenu();">编辑</span>
+                    </div>
+                    <div class="egret-flex-item-shelf03">
+                        <div><img src="../image/KM_play.png" alt=""><span>100</span></div>
+                        <!-- <div><img src="../image/KM_dx.png" alt=""><span>100</span></div> -->
+                        <div><img src="../image/KM_zf.png" alt=""><span>100</span></div>
+                        <div><img src="../image/KM_dz.png" alt=""><span>100</span></div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="egret-flex-item" tapmode="fmbtnhover">
+                <div class="egret-flex-item-logo" onclick="openFM()">
+                    <img src="../image/KM_album.png" alt="" class="">
+                </div>
+                <div class="egret-flex-item-shelf">
+                    <div class="egret-flex-item-shelf01">
+                        <span class="span1 col fl">《沁园春·雪》</span>
+                        <span class="span2 col fl">1.20</span>
+                        <span class="span3 col fl">11:36</span>
+                        <span class="span4 col fr" onclick="dialogBox_actionMenu();">编辑</span>
+                    </div>
+                    <div class="egret-flex-item-shelf03">
+                        <div><img src="../image/KM_play.png" alt=""><span>100</span></div>
+                        <!-- <div><img src="../image/KM_dx.png" alt=""><span>100</span></div> -->
+                        <div><img src="../image/KM_zf.png" alt=""><span>100</span></div>
+                        <div><img src="../image/KM_dz.png" alt=""><span>100</span></div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="egret-flex-item" tapmode="fmbtnhover">
+                <div class="egret-flex-item-logo" onclick="openFM()">
+                    <img src="../image/KM_album.png" alt="" class="">
+                </div>
+                <div class="egret-flex-item-shelf">
+                    <div class="egret-flex-item-shelf01">
+                        <span class="span1 col fl">《沁园春·雪》</span>
+                        <span class="span2 col fl">1.20</span>
+                        <span class="span3 col fl">11:36</span>
+                        <span class="span4 col fr" onclick="dialogBox_actionMenu();">编辑</span>
+                    </div>
+                    <div class="egret-flex-item-shelf03">
+                        <div><img src="../image/KM_play.png" alt=""><span>100</span></div>
+                        <!-- <div><img src="../image/KM_dx.png" alt=""><span>100</span></div> -->
+                        <div><img src="../image/KM_zf.png" alt=""><span>100</span></div>
+                        <div><img src="../image/KM_dz.png" alt=""><span>100</span></div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="egret-flex-item" tapmode="fmbtnhover">
+                <div class="egret-flex-item-logo" onclick="openFM()">
+                    <img src="../image/KM_album.png" alt="" class="">
+                </div>
+                <div class="egret-flex-item-shelf">
+                    <div class="egret-flex-item-shelf01">
+                        <span class="span1 col fl">《沁园春·雪》</span>
+                        <span class="span2 col fl">1.20</span>
+                        <span class="span3 col fl">11:36</span>
+                        <span class="span4 col fr" onclick="dialogBox_actionMenu();">编辑</span>
+                    </div>
+                    <div class="egret-flex-item-shelf03">
+                        <div><img src="../image/KM_play.png" alt=""><span>100</span></div>
+                        <!-- <div><img src="../image/KM_dx.png" alt=""><span>100</span></div> -->
+                        <div><img src="../image/KM_zf.png" alt=""><span>100</span></div>
+                        <div><img src="../image/KM_dz.png" alt=""><span>100</span></div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="egret-flex-item" tapmode="fmbtnhover">
+                <div class="egret-flex-item-logo" onclick="openFM()">
+                    <img src="../image/KM_album.png" alt="" class="">
+                </div>
+                <div class="egret-flex-item-shelf">
+                    <div class="egret-flex-item-shelf01">
+                        <span class="span1 col fl">《沁园春·雪》</span>
+                        <span class="span2 col fl">1.20</span>
+                        <span class="span3 col fl">11:36</span>
+                        <span class="span4 col fr" onclick="dialogBox_actionMenu();">编辑</span>
+                    </div>
+                    <div class="egret-flex-item-shelf03">
+                        <div><img src="../image/KM_play.png" alt=""><span>100</span></div>
+                        <!-- <div><img src="../image/KM_dx.png" alt=""><span>100</span></div> -->
+                        <div><img src="../image/KM_zf.png" alt=""><span>100</span></div>
+                        <div><img src="../image/KM_dz.png" alt=""><span>100</span></div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="egret-flex-item" tapmode="fmbtnhover">
+                <div class="egret-flex-item-logo" onclick="openFM()">
+                    <img src="../image/KM_album.png" alt="" class="">
+                </div>
+                <div class="egret-flex-item-shelf">
+                    <div class="egret-flex-item-shelf01">
+                        <span class="span1 col fl">《沁园春·雪》</span>
+                        <span class="span2 col fl">1.20</span>
+                        <span class="span3 col fl">11:36</span>
+                        <span class="span4 col fr" onclick="dialogBox_actionMenu();">编辑</span>
+                    </div>
+                    <div class="egret-flex-item-shelf03">
+                        <div><img src="../image/KM_play.png" alt=""><span>100</span></div>
+                        <!-- <div><img src="../image/KM_dx.png" alt=""><span>100</span></div> -->
+                        <div><img src="../image/KM_zf.png" alt=""><span>100</span></div>
+                        <div><img src="../image/KM_dz.png" alt=""><span>100</span></div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="egret-flex-item" tapmode="fmbtnhover">
+                <div class="egret-flex-item-logo" onclick="openFM()">
+                    <img src="../image/KM_album.png" alt="" class="">
+                </div>
+                <div class="egret-flex-item-shelf">
+                    <div class="egret-flex-item-shelf01">
+                        <span class="span1 col fl">《沁园春·雪》</span>
+                        <span class="span2 col fl">1.20</span>
+                        <span class="span3 col fl">11:36</span>
+                        <span class="span4 col fr" onclick="dialogBox_actionMenu();">编辑</span>
+                    </div>
+                    <div class="egret-flex-item-shelf03">
+                        <div><img src="../image/KM_play.png" alt=""><span>100</span></div>
+                        <!-- <div><img src="../image/KM_dx.png" alt=""><span>100</span></div> -->
+                        <div><img src="../image/KM_zf.png" alt=""><span>100</span></div>
+                        <div><img src="../image/KM_dz.png" alt=""><span>100</span></div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="egret-flex-item" tapmode="fmbtnhover">
+                <div class="egret-flex-item-logo" onclick="openFM()">
+                    <img src="../image/KM_album.png" alt="" class="">
+                </div>
+                <div class="egret-flex-item-shelf">
+                    <div class="egret-flex-item-shelf01">
+                        <span class="span1 col fl">《沁园春·雪》</span>
+                        <span class="span2 col fl">1.20</span>
+                        <span class="span3 col fl">11:36</span>
+                        <span class="span4 col fr" onclick="dialogBox_actionMenu();">编辑</span>
+                    </div>
+                    <div class="egret-flex-item-shelf03">
+                        <div><img src="../image/KM_play.png" alt=""><span>100</span></div>
+                        <!-- <div><img src="../image/KM_dx.png" alt=""><span>100</span></div> -->
+                        <div><img src="../image/KM_zf.png" alt=""><span>100</span></div>
+                        <div><img src="../image/KM_dz.png" alt=""><span>100</span></div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="egret-flex-item" tapmode="fmbtnhover">
+                <div class="egret-flex-item-logo" onclick="openFM()">
+                    <img src="../image/KM_album.png" alt="" class="">
+                </div>
+                <div class="egret-flex-item-shelf">
+                    <div class="egret-flex-item-shelf01">
+                        <span class="span1 col fl">《沁园春·雪》</span>
+                        <span class="span2 col fl">1.20</span>
+                        <span class="span3 col fl">11:36</span>
+                        <span class="span4 col fr" onclick="dialogBox_actionMenu();">编辑</span>
+                    </div>
+                    <div class="egret-flex-item-shelf03">
+                        <div><img src="../image/KM_play.png" alt=""><span>100</span></div>
+                        <!-- <div><img src="../image/KM_dx.png" alt=""><span>100</span></div> -->
+                        <div><img src="../image/KM_zf.png" alt=""><span>100</span></div>
+                        <div><img src="../image/KM_dz.png" alt=""><span>100</span></div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="egret-flex-item" tapmode="fmbtnhover">
+                <div class="egret-flex-item-logo" onclick="openFM()">
+                    <img src="../image/KM_album.png" alt="" class="">
+                </div>
+                <div class="egret-flex-item-shelf">
+                    <div class="egret-flex-item-shelf01">
+                        <span class="span1 col fl">《沁园春·雪》</span>
+                        <span class="span2 col fl">1.20</span>
+                        <span class="span3 col fl">11:36</span>
+                        <span class="span4 col fr" onclick="dialogBox_actionMenu();">编辑</span>
+                    </div>
+                    <div class="egret-flex-item-shelf03">
+                        <div><img src="../image/KM_play.png" alt=""><span>100</span></div>
+                        <!-- <div><img src="../image/KM_dx.png" alt=""><span>100</span></div> -->
+                        <div><img src="../image/KM_zf.png" alt=""><span>100</span></div>
+                        <div><img src="../image/KM_dz.png" alt=""><span>100</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+    apiready = function() {}
+
+    function dialogBox_actionMenu() {
+        var dialogBox = api.require('dialogBox');
+        dialogBox.actionMenu({
+            rect: {
+                h: 150
+            },
+            texts: {
+                cancel: '取消'
+            },
+            items: [{
+                text: '删除',
+                icon: 'widget://image/shanchu.png'
+            }],
+            styles: {
+                bg: '#FFF',
+                corner: 6,
+                column: 1,
+                itemText: {
+                    color: '#000',
+                    size: 14,
+                    marginT: 10
+                },
+                itemIcon: {
+                    size: 20
+                },
+                cancel: {
+                    bg: '#fff',
+                    color: '#333',
+                    h: 55,
+                    size: 14
+                }
+            },
+            tapClose: true
+        }, function(ret) {
+            var texts = ret.eventType;
+            var index = ret.index;
+            if (texts == "cancel") {
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+            }  else if (index == 0) {
+                alert('删除')
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+
+            }
+        });
+    }
+    function openFM() {
+      api.openWin({
+          name: 'play',
+          url: './play.html',
+      });
+    }
+</script>

@@ -5,13 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
     <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
-    <title>大赛</title>
+    <title>孔孟之道--朗诵</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
     <link rel="stylesheet" type="text/css" href="../css/style.css" />
     <style>
         html,
         body {
-            background-color: #252625;
+            overflow: hidden;
         }
 
         .fr {
@@ -21,17 +21,40 @@
         .fl {
             float: left;
         }
-        .p20px{padding: 0 20px;}
+
+        .p20px {
+            padding: 0 20px;
+        }
+
+        .row {
+            display: -webkit-box;
+            display: -webkit-flex;
+        }
+
+        .col {
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+            margin: 0 5px;
+            position: relative;
+        }
+
         header {
             width: 100%;
             height: 50px;
-            background: #252625;
+            background: #89211b;
+            overflow: hidden;
         }
 
-        .header_fl img {
-            width: 30px;
-            height: 30px;
-            padding: 10px;
+        .header_fl span {
+            padding: 17px;
+            color: #fff;
+        }
+
+        .header_fls img {
+            width: 15px;
+            height: 20px;
+            padding: 13px;
         }
 
         .header_center {
@@ -41,7 +64,7 @@
             line-height: 50px;
             text-align: center;
             font-size: 20px;
-            color: #FFF;
+            color: #fff;
         }
 
         .header_fr {
@@ -55,9 +78,8 @@
         }
 
         #footer {
-            background: #252625;
             width: 100%;
-            height: 215px;
+            /*height: 190px;*/
             position: fixed;
             bottom: 0;
         }
@@ -80,68 +102,887 @@
             color: #4c4c4c;
             text-align: center;
         }
-        .aloud_frame_bg_bottom{width: 100%;height: 45px;background-image: url(../image/KM_bottom.png);background-size: 100% 100%;margin-bottom: 40px;}
+
+        .aloud_frame_bg_bottom {
+            width: 100%;
+            height: 45px;
+            /*background-image: url(../image/KM_bottom.png);*/
+            /*background-size: 100% 100%;*/
+            /*margin-bottom: 40px;*/
+            background: #fff;
+            position: relative;
+            border-bottom: 1px solid #ccc;
+            line-height: 45px;
+            text-align: center;
+            color: #ccc;
+        }
+
+        .footer_bottoms_st {
+            text-align: center;
+            line-height: 100px;
+            height: 100px;
+        }
+
+        .footer_bottoms_st img {
+            width: 50px;
+            height: 50px;
+            padding-top: 25px;
+        }
+
+        .name_bg {
+            /*height: 490px;*/
+            height: 100%;
+            overflow: hidden;
+            background-image: url(../image/read/333074849337770206.png);
+            background-size: 100% 100%;
+        }
+
+        .name {
+            width: 100%;
+            height: 100px;
+        }
+
+        .name_name {
+            width: 100%;
+            height: 50px;
+        }
+
+        .name_name div {
+            width: 100%;
+            height: 25px;
+            line-height: 25px;
+            text-align: center;
+        }
+
+        .name_h1 {
+            font-size: 14px;
+        }
+
+        .aloud_py {
+            width: 100%;
+            height: 50px;
+            background: #fff;
+        }
+
+        .name_h2 {
+            font-size: 12px;
+        }
+
+        .aloud_py_fl {
+            line-height: 50px;
+            color: #999999;
+        }
+
+        .aloud_py_fr {
+            line-height: 50px;
+            position: relative;
+            color: #999999;
+        }
+
+        .aloud_py_fr span {
+            position: relative;
+            top: 5px;
+            width: 20px;
+            height: 20px;
+            background-image: url(../image/read/aloud_py.png);
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+        }
+
+        .name_nr {
+            width: 100%;
+            height: 220px;
+            overflow: auto;
+            text-align: center;
+        }
+
+        .name_nr::-webkit-scrollbar {
+            display: none;
+        }
+
+        .name_nr p {
+            word-wrap: break-word;
+            word-break: break-all;
+        }
+
+        .name_bt {
+            width: 100%;
+            height: 100px;
+            background: rgba(00, 00, 00, 0.5);
+            display: flex;
+        }
+
+        .name_bt div {
+            flex: 1;
+        }
+
+        .name_bt_c {
+            /*background-image: url(../image/aloud/738958635261814309.png);*/
+            background-repeat: no-repeat;
+            /*background-size: ;*/
+            background-position: center;
+        }
+
+        .name_bt_c img {
+            display: block;
+            margin: 25px auto;
+            /*line-height: 100px;*/
+        }
+
+        .name_bt_s {
+            background-image: url(../image/read/673516943132436237.png);
+            background-repeat: no-repeat;
+            /*background-size: ;*/
+            background-position: center;
+        }
+
+        .name_bt_b img {
+            display: block;
+            margin: 25px auto;
+            /*line-height: 100px;*/
+        }
+
+        .name_this {
+            width: 100%;
+            height: 50px;
+            line-height: 50px;
+            font-size: 12px;
+            color: red;
+            text-align: center;
+        }
+
+        .name_ov {
+            overflow: hidden;
+        }
     </style>
 </head>
 
 <body>
     <header id="secHeader">
-        <div class="header_fl fl" onclick="goback();"><img src="../image/cm2_icn_back.png" alt=""></div>
-        <div class="header_fl fr"><img src="../image/KM_wh.png" alt=""></div>
-        <div class="header_center">朗读</div>
+        <div class="header_fls fl" onclick="goback();"><img src="../image/icon_back.png" alt=""></div>
+        <div class="header_fl fr" onclick="fnLuYinBaoCun();"><span>保存</span></div>
+        <!-- <div class="header_fl fr" onclick="fnLuYinShangChuan();"><span>上传</span></div> -->
+        <div class="header_center">朗诵</div>
     </header>
-    <footer id="footer">
-        <div class="p20px">
-            <div class="aloud_frame_bg_bottom" onclick="fnSoundtrackWin()"></div>
-            <div class="footer_bottom">
-                <div class="footer_bottoms"><img src="../image/KM_ly.png" alt=""></div>
+    <div class="name_bg">
+        <div class="name">
+            <div class="name_name">
+                <div class="name_h1" id="jubentitle">我是标题</div>
+                <div class="name_h2" id="jubenname">我是副标题</div>
             </div>
-            <div class="footer_p">使用耳机录制效果更佳哦</div>
+            <div class="name_this">
+                ·正在录制 <span id="appTime"> 00:00</span>
+            </div>
         </div>
+        <div class="name_ov">
+            <div class="name_nr">
+                <div class="p20px">
+                    <p id="jubenbody">
+                        <!-- gfuiagsihixzhcjxzhouxizhuighuagdsagsgadyisgadisagdisaoguidosagdoogdasodg -->
+                    </p>
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <footer id="footer">
+        <div class="name_bt">
+            <div class="name_bt_c"><img src="../image/read/335551519577750673.png" alt="" id="playCollects" onclick="fnAletr();"></div>
+            <div class="name_bt_b"><img src="../image/read/recording.png" alt="" id="playCollect" onclick="fnOpenPlayCollect();"></div>
+            <div class="name_bt_s" id="playCollectssss" onclick="fnLuYinshiting();"></div>
+        </div>
+        <!-- <div class="p20px"> -->
+        <div class="aloud_frame_bg_bottom" onclick="fnReadListWin()">
+            更换剧本
+        </div>
+        <div class="aloud_py">
+            <div class="p20px">
+                <div class="fl aloud_py_fl">当前没有配乐</div>
+                <div class="fr aloud_py_fr" onclick="fnSoundtrackWin();"><span></span>选择配乐</div>
+            </div>
+        </div>
+        <!-- <div class="footer_bottom row">
+                <div class="footer_bottoms_st col"><img src="../image/KM_shiting.png" alt=""></div>
+                <div class="footer_bottoms col"><img src="../image/KM_ly.png" alt=""></div>
+                <div class="footer_bottoms_st col"><img src="../image/KM_baocun.png" alt=""></div>
+            </div> -->
+        <!-- </div> -->
     </footer>
 </body>
 
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript">
+    var token;
+    var jubenid;
+    var beiyueid;
+    var CompanyInfobeiyue;
+    var input;
+    var beiyueid;
+    var jubenid;
+    var jubentitle;
+    var path;
+    var duration;
+    var caogaowenjianming;
+    var caogaozuozhe;
+    var duration;
+    var timestamp = new Date().getTime();
+    var timestamps;
+    var Guid = new Array();
+    apiready = function() {
+            token = $api.getStorage('token');
+            path = '';
+            var CompanyInfobeiyue;
+            var secHeader = $api.byId('secHeader');
+            $api.fixStatusBar(secHeader);
+            var headerH = $api.offset(secHeader).h;
+            fnGetJubenlist();
+            api.addEventListener({
+                name: 'netBeiyueId'
+            }, function(ret, err) {
+                if (ret) {
+                    var inputss = ret.value.InfobeiyueId;
+                    // console.log(inputss);
+                    fninputvalue(inputss);
+                }
+            });
+
+
+        }
+        //上传
+    function fnLuYinShangChuan() {
+        var fs = api.require('fs');
+        fs.copyTo({
+            oldPath: path,
+            newPath: 'fs://shangchuanxiang'
+        }, function(ret, err) {
+            var paths = 'fs://shangchuanxiang/' + timestamps + jubenid;
+            if (ret.status) {
+                var fs = api.require('fs');
+                fs.rename({
+                    oldPath: paths,
+                    newPath: 'fs://shangchuanxiang/' + timestamp + jubenid + '.amr'
+                }, function(ret, err) {
+
+                    if (ret.status) {
+                        alert('已上传');
+                        uri = '/upload/user_records';
+                        api.ajax({
+                            url: host + apiUri + uri,
+                            method: 'post',
+                            dataType: 'json',
+                            headers: {
+                                "source": api.systemType,
+                                "version": version,
+                                "session": token
+                            },
+                            data: {
+                                files: {
+                                    records: 'fs://shangchuanxiang/' + timestamp + jubenid + '.amr'
+                                }
+                                // values:{
+                                //   "type":'dec',
+                                //   "model":'album',
+                                // }
+                            }
+                        }, function(ret, err) {
+                            console.log('fs://shangchuanxiang/' + timestamp + jubenid + '.amr');
+                            // console.log(JSON.stringify(ret));
+                            if (ret.status == 200) {
+                                // console.log(ret.status);
+                            } else {
+
+                            }
+                        });
+                    } else {
+                        alert(JSON.stringify(err));
+                    }
+                });
+            } else {
+                alert(JSON.stringify(err));
+            }
+        });
+
+    }
+    //播放背景音乐
+    function fnBeiYueplay() {
+        var byid = input;
+        api.ajax({
+            url: 'http://47.100.11.38/kongmeng/bgmusic/getbgMusicById.php?id= ' + byid,
+            method: 'get',
+            dataType: 'json',
+        }, function(ret, err) {
+            if (ret) {
+                var yinyueid = ret.data[0].url;
+                var netAudio = api.require('netAudio');
+                netAudio.play({
+                    path: yinyueid
+                }, function(ret, err) {
+                    if (ret) {
+
+                    } else {
+                        alert(JSON.stringify(err));
+                    }
+                });
+            } else {
+                alert(JSON.stringify(err));
+            }
+        });
+    }
+    //隐藏域存值
+    function fninputvalue(text) {
+        input = text;
+    }
+    //获取剧本基本信息
+    var title;
+    var name;
+    var body;
+    var cgxid;
+
+    function fnGetJubenlist() {
+        var id = api.pageParam.InfojubenType;
+        jubenid = api.pageParam.InfojubenType;
+        api.ajax({
+            url: 'http://47.100.11.38/kongmeng/scripts/getScriptById.php?id= ' + id,
+            method: 'get',
+            dataType: 'json',
+        }, function(ret, err) {
+            if (ret) {
+                // console.log(JSON.stringify(ret));
+
+                title = ret.data[0].title;
+                name = ret.data[0].name;
+                body = ret.data[0].body;
+                if (!name) {
+                    name = '';
+                }
+                fnGetJubentitle();
+                fnGetJubenname();
+                fnGetJubenbody();
+            } else {
+                alert(JSON.stringify(err));
+            }
+        });
+    }
+    //赋值剧本标题
+    function fnGetJubentitle() {
+        var stylelist = $api.byId('jubentitle');
+        var html = title;
+        $api.html(stylelist, html);
+    }
+    //赋值剧本作者
+    function fnGetJubenname() {
+        var stylelist = $api.byId('jubenname');
+        var html = name;
+        $api.html(stylelist, html);
+    }
+    //赋值剧本歌词
+    function fnGetJubenbody() {
+        var stylelist = $api.byId('jubenbody');
+        var str1 = JSON.stringify(body);
+        var str2 = str1.replace(/r/g, '<br>');
+        var str3 = str2.replace(/n/g, '<br>');
+        var str4 = str3.split('\\').join('');
+        var str5 = str4.split("\"").join('');
+        var html = str5;
+        shiTingBody = str5;
+        $api.html(stylelist, html);
+    }
+    //返回
     function goback() {
+      var fs = api.require('fs');
+      fs.rmdir({
+          path: 'fs://luyin'
+      }, function(ret, err) {
+          if (ret.status) {
+          } else {
+              // alert(JSON.stringify(err));
+          }
+      });
         api.closeWin({
             name: 'aloud'
         });
-
-    }
-    function fnSoundtrackWin() {
-      api.openWin({
-          name: 'soundtrack',
-          url: './soundtrack.html',
-          pageParam: {
-              name: 'test'
-          }
-      });
-
     }
 
-    apiready = function() {
-        var header = $api.byId('secHeader');
-        $api.fixStatusBar(header);
-        var headerPos = $api.offset(header);
-        var footer = $api.byId('footer')
-        $api.fixStatusBar(footer);
-        var footerPos = $api.offset(footer);
-        api.openFrame({
-            name: 'aloud_frame',
-            url: './aloud_frame.html',
-            rect: {
-                x: 0,
-                y: headerPos.h,
-                w: 'auto',
-                h: api.frameHeight - footerPos.h - 60
-            },
+    function fnReadListWin() {
+        api.openWin({
+            name: 'readlist',
+            url: './readlist.html',
             pageParam: {
                 name: 'test'
-            },
-            bounces: false,
+            }
         });
+    }
+    //进入背景音乐列表
+    function fnSoundtrackWin() {
+        api.openWin({
+            name: 'soundtrack',
+            url: './soundtrack.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
+
+    }
+    //保存
+    function fnLuYinBaoCun() {
+        var dialogBox = api.require('dialogBox');
+        dialogBox.alert({
+            texts: {
+                content: '选择保存方式',
+                leftBtnTitle: '草稿箱',
+                rightBtnTitle: '发布作品'
+            },
+            styles: {
+                bg: '#fff',
+                w: 300,
+                title: {
+                    marginT: 20,
+                    icon: 'widget://res/gou.png',
+                    iconSize: 40,
+                    titleSize: 14,
+                    titleColor: '#000'
+                },
+                content: {
+                    color: '#000',
+                    size: 14
+                },
+                left: {
+                    marginB: 7,
+                    marginL: 20,
+                    w: 130,
+                    h: 35,
+                    corner: 2,
+                    bg: '#f2f2f2',
+                    color:'#000',
+                    size: 12
+                },
+                right: {
+                    marginB: 7,
+                    marginL: 10,
+                    w: 130,
+                    h: 35,
+                    corner: 2,
+                    bg: '#f2f2f2',
+                    color:'#000',
+                    size: 12
+                }
+            },
+            tapClose: true
+        }, function(ret) {
+            if (ret.eventType == 'left') {
+              if(a == 2){
+                //fs 文件管理 删除  拷贝  移除等
+              	//拷贝文件
+                if(path){
+                  var fs = api.require('fs');
+              		fs.copyTo({
+              		    oldPath: path,
+              		    newPath: 'fs://caogaoxiang'
+              		}, function(ret, err) {
+              				var paths = 'fs://caogaoxiang/' + timestamps + jubenid;
+              		    if (ret.status) {
+              					var fs = api.require('fs');
+              					fs.rename({
+              						oldPath: paths,
+              						newPath: 'fs://caogaoxiang/' + timestamp + jubenid
+              					}, function(ret, err) {
+              						if (ret.status) {
+              								alert('已保存');
+                              fs.rmdir({
+                                  path: 'fs://luyin'
+                              }, function(ret, err) {
+                                  if (ret.status) {
+                                      // alert(JSON.stringify(ret));
+                                  } else {
+                                      alert(JSON.stringify(err));
+                                  }
+                              });
+              						} else {
+              								alert(JSON.stringify(err));
+              						}
+              					});
+              		    } else {
+              		        alert(JSON.stringify(err));
+              		    }
+              		});
+                    cgxid = ''+ timestamp + '' + jubenid + '';
+                  api.getPrefs({
+                      key: 'cgxlist'
+                  }, function(ret, err) {
+                      if (ret) {
+                          var flag = false; //是否增加历史记录
+                          var historyUrlText = ret.value;
+                          var historyUrlArray = historyUrlText.split(',');
+                          for (var i = 0; i < historyUrlArray.length; i++) {
+                              historyUrlArray[i] == cgxid && (flag = true);
+                          }!flag && historyUrlArray.splice(1, 0, cgxid,title,name,body);
+                          !flag && api.setPrefs({
+                              key: 'cgxlist',
+                              value: historyUrlArray.join(',')
+                          });
+                      } else {
+                          alert(JSON.stringify(err));
+                      }
+                  });
+
+                }else{
+                  alert("请先录音");
+                }
+
+              }else{
+                fnAletrssss();
+              }
+
+                var dialogBox = api.require('dialogBox');
+                dialogBox.close({
+                    dialogName: 're'
+                });
+            }
+            if(ret.eventType == 'right'){
+              if(a == 2){
+                //fs 文件管理 删除  拷贝  移除等
+              	//拷贝文件
+                if(path){
+                  var fs = api.require('fs');
+                  fs.copyTo({
+                      oldPath: path,
+                      newPath: 'fs://shangchuanxiang'
+                  }, function(ret, err) {
+                      var paths = 'fs://shangchuanxiang/' + timestamps + jubenid;
+                      if (ret.status) {
+                          fs.rename({
+                              oldPath: paths,
+                              newPath: 'fs://shangchuanxiang/' + timestamp + jubenid + '.amr'
+                          }, function(ret, err) {
+                              if (ret.status) {
+                                  // alert('已上传');
+                                  uri = '/upload/user_records';
+                                  api.ajax({
+                                      url: host + apiUri + uri,
+                                      method: 'post',
+                                      dataType: 'json',
+                                      headers: {
+                                          "source": api.systemType,
+                                          "version": version,
+                                          "session": token
+                                      },
+                                      data: {
+                                          files: {
+                                              records: 'fs://shangchuanxiang/' + timestamp + jubenid + '.amr'
+                                          }
+                                      }
+                                  }, function(ret, err) {
+                                      // console.log('fs://shangchuanxiang/' + timestamp + jubenid + '.amr');
+                                      // console.log(JSON.stringify(ret));
+                                      if (ret.status == 200) {
+                                          // console.log(ret.status);
+                                          fs.rmdir({
+                                              path: 'fs://shangchuanxiang'
+                                          }, function(ret, err) {
+                                              if (ret.status) {
+                                              } else {
+                                                  alert(JSON.stringify(err));
+                                              }
+                                          });
+                                          fs.rmdir({
+                                              path: 'fs://luyin'
+                                          }, function(ret, err) {
+                                              if (ret.status) {
+                                              } else {
+                                                  alert(JSON.stringify(err));
+                                              }
+                                          });
+                                          uri = '/user/records';
+                                          api.ajax({
+                                              url: host + apiUri + uri,
+                                              method: 'post',
+                                              dataType: 'json',
+                                              headers: {
+                                                  "source": api.systemType,
+                                                  "version": version,
+                                                  "session": token
+                                              },
+                                              data: {
+                                                  values: {
+                                                      "script_id":jubenid,
+                                                      "title": name,
+                                                      "author_id":5177,
+                                                      "lyric": body,
+                                                      "records": ret.data.records,
+                                                      "format": ret.data.formate,
+                                                      "size": ret.data.size,
+                                                      "time": ret.data.time,
+                                                  }
+                                              }
+                                          }, function(ret, err) {
+                                            // console.log(JSON.stringify(ret));
+                                              if (ret.status == 200) {
+                                              alert('已上传');
+
+                                              } else {
+
+                                              }
+                                          });
+                                      } else {
+
+                                      }
+                                  });
+
+
+
+                              } else {
+                                  alert(JSON.stringify(err));
+                              }
+                          });
+                      } else {
+                          alert(JSON.stringify(err));
+                      }
+                  });
+                }else{
+                  alert("请先录音");
+                }
+
+              }else{
+                fnAletrssss();
+              }
+              var dialogBox = api.require('dialogBox');
+              dialogBox.close({
+                  dialogName: 're'
+              });
+            }
+        });
+    }
+
+    function newluyintxt() {
+        var fs = api.require('fs');
+        fs.createDir({
+            path: 'fs://luyintxtss',
+        }, function(ret, err) {
+
+            if (ret.status) {
+                newLuyinWenjian();
+            } else {
+                alert(JSON.stringify(err));
+            }
+        });
+    }
+    //创建录音文件；
+    function newLuyinWenjian() {
+        var fs = api.require('fs');
+        fs.createFile({
+            path: 'fs://luyintxtss/' + timestamp + '' + jubenid + '.txt'
+        }, function(ret, err) {
+            if (ret.status) {
+                var fs = api.require('fs');
+                var aaaa = JSON.stringify(Guid);
+                fs.writeByLength({
+                    path: 'fs://luyintxtss/' + timestamp + '' + jubenid + '.txt',
+                    content: aaaa,
+                    place: {
+                        start: 0
+                    }
+                }, function(ret, err) {
+
+                    if (ret.status) {
+
+                    } else {
+                        alert(JSON.stringify(err));
+                    }
+                });
+            } else {
+                alert(JSON.stringify(err));
+            }
+        });
+    }
+    //是否重新录制
+    function fnAletr() {
+        if (a == 2) {
+            if (path) {
+                api.confirm({
+                    title: '是否重新录制',
+                    msg: '是否重新录制',
+                    buttons: ['确定', '取消']
+                }, function(ret, err) {
+                    var index = ret.buttonIndex;
+                    if (index == 1) {
+                      var fs = api.require('fs');
+                      fs.rmdir({
+                          path: 'fs://luyin'
+                      }, function(ret, err) {
+                          if (ret.status) {
+                          } else {
+                              // alert(JSON.stringify(err));
+                          }
+                      });
+                        var c = 0;
+                        var t = '';
+                        var playCollect = $api.byId('playCollect');
+                        playCollect.src = "../image/read/recordingStart.png";
+                        fnNetAudiosLuYinByID();
+                        a = 1;
+                    }
+                });
+            } else {
+                alert('请先录音');
+            }
+        } else {
+            fnAletrssss();
+        }
+    }
+    //试听
+    function fnLuYinshiting() {
+        // console.log(path);
+        if (a == 2) {
+            if (path) {
+                api.openWin({
+                    name: 'ctwin',
+                    url: './ctwin.html',
+                    pageParam: {
+                        path: path,
+                        desc: body,
+                        title: title,
+                        name: name,
+                        jubenid: jubenid,
+                        cgxid: cgxid,
+                        timestamp: timestamp,
+                        timestamps: timestamps
+                    }
+                });
+            } else {
+                alert('请先录音');
+            }
+        } else {
+            fnAletrssss();
+        }
+    }
+
+    var c = 0;
+    var t = '';
+
+    function timedCount() {
+        var stylelist = $api.byId('appTime');
+        c = c + 1;
+        var temp = c;
+        minute = parseInt(temp / 60);
+        if (c < 10) {
+            var html = "0" + minute + ":0" + c + "";
+        } else if (9 < c) {
+            if (c < 60) {
+                var html = "0" + minute + ":" + c + "";
+            } else {
+                var m = c - minute * 60;
+                if (minute < 10) {
+                    if (m == 0) {
+                        var html = "0" + minute + ":00";
+                    } else {
+                        if (m < 10) {
+                            var html = "0" + minute + ":0" + m + "";
+                        } else {
+                            var html = "0" + minute + ":" + m + "";
+                        }
+
+                    }
+                } else {
+                    if (m == 0) {
+                        var html = "" + minute + ":00";
+                    } else {
+                        if (m < 10) {
+                            var html = "" + minute + ":0" + m + "";
+                        } else {
+                            var html = "" + minute + ":" + m + "";
+                        }
+
+                    }
+                }
+            }
+        }
+        $api.html(stylelist, html);
+        t = setTimeout("timedCount()", 1000)
+    }
+
+    function stopCount() {
+        var stylelist = $api.byId('appTime');
+        c = 0;
+        var temp = c;
+        minute = parseInt(temp / 60);
+        if (c < 10) {
+            var html = "0" + minute + ":0" + c + "";
+        } else if (9 < c) {
+            if (c < 60) {
+                var html = "0" + minute + ":" + c + "";
+            } else {
+                var m = c - minute * 60;
+                if (minute < 10) {
+                    if (m == 0) {
+                        var html = "0" + minute + ":00";
+                    } else {
+                        if (m < 10) {
+                            var html = "0" + minute + ":0" + m + "";
+                        } else {
+                            var html = "0" + minute + ":" + m + "";
+                        }
+                    }
+                } else {
+                    if (m == 0) {
+                        var html = "" + minute + ":00";
+                    } else {
+                        if (m < 10) {
+                            var html = "" + minute + ":0" + m + "";
+                        } else {
+                            var html = "" + minute + ":" + m + "";
+                        }
+                    }
+                }
+            }
+        }
+        clearTimeout(t);
+        $api.html(stylelist, html);
+    }
+    //点击播放并录音
+    function fnNetAudiosLuYinByID() {
+        if (input) {
+            fnBeiYueplay();
+        }
+        api.startRecord({
+            path: 'fs://luyin/' + timestamp + jubenid
+        });
+        // console.log(path);
+        timestamps = timestamp;
+        timedCount();
+    }
+    var a = 2;
+
+    function fnAletrssss() {
+        alert("请先暂停播放");
+    }
+    //开始暂停
+    function fnOpenPlayCollect() {
+        var playCollect = $api.byId('playCollect');
+        if (playCollect.getAttribute("src", 2) == "../image/read/recording.png") {
+            playCollect.src = "../image/read/recordingStart.png";
+            fnNetAudiosLuYinByID();
+            a = 1;
+        } else {
+            playCollect.src = "../image/read/recording.png";
+            a = 2;
+            //暂停播放
+            var netAudio = api.require('netAudio');
+            netAudio.stop();
+            stopCount();
+            //暂停录音
+            api.stopRecord(function(ret, err) {
+                if (ret) {
+                    // console.log(ret.path);
+                    path = ret.path;
+                    duration = ret.duration;
+                }
+            });
+
+        }
 
     }
 </script>

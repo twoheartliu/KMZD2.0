@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="copyright" content="www.apicloud.com" />
 <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
-<title>评论</title>
+<title>孔孟之道--评论</title>
 <link rel="stylesheet" type="text/css" href="../css/api.css" />
 <style>
 html,body {min-height: 100%;background: #ebebeb}
@@ -25,36 +25,40 @@ html,body {min-height: 100%;background: #ebebeb}
 .swiper-container img {width: 100%;}
 /* 头部 */
 .nomessage {margin-top: 20px;font-size: 0.8em;text-align: center;color: #999;}
-section{border-top: 1px solid #ccc;margin-top: 10px;}
+section{border-top: 1px solid #ccc;margin-bottom: 40px;height:100%;width: 100%;  }
 section>ul{margin: 0 10px;}
 section ul li{width:100%;padding: 10px 0;}
 /*section ul li:nth-last-child(1){border-bottom: 1px solid #ccc;}*/
-.user-img{width:40px;height: 50px;line-height: 50px;display: inline-block;}
-.user-name{display: inline-block;vertical-align: top;position: relative;width: 85%;border-bottom: 1px solid #ccc;}
-.user-name p{font-size: 16px;color: #89211b;line-height: 30px;}
-.user-name p:nth-child(2){color: #535354;}
+.user-img{width:50px;height: 50px;line-height: 50px;display: inline-block;}
+.user-img img{width:45px;height: 45px;}
+.userName{display: inline-block;vertical-align: top;position: relative;width: 80%;border-bottom: 1px solid #ccc;}
+.userName p{font-size: 16px;color: #89211b;line-height: 30px;}
+.userName p:nth-child(2){color: #535354;}
 .discuss{height: auto;padding: 10px;background-color: #f2f2f3;color: #999;border-radius: 5px;}
-.user-name p:nth-last-child(1){font-size: 12px;position: absolute;top: 0;right: 0;width:92px;color: #999;}
-#reply{display:none;}
-.replyButton{width:100%;height:30px;text-align: right;padding-bottom: 10px;}
-.replySend{width: 50px;height: 30px;line-height: 30px;border-radius: 5px;text-align: center;
-  background-color: #89211b;color:#FFF;}
-#reply textarea{background-color: #fff;}
+.userName p:nth-last-child(1){font-size: 12px;position: absolute;top: 0;right: 0;width:92px;color: #999;}
+.reply{display:block;margin: 8px 2%;width:100%; position: fixed;left:0;bottom:0;}
+.replyButton{width:50px;height:33px;text-align: right;padding-bottom: 10px;display: inline-block;vertical-align: bottom;}
+.replySend{width: 50px;height: 33px;line-height: 33px;border-radius: 5px;text-align: center;
+  background-color: #89211b;color:#FFF;font-size: 14px;}
+/*.reply textarea{background-color: #fff; width: 100%;height:60px;padding: 5px 0;}*/
+.reply textarea{background-color: #fff; width: 80%;height:25px;padding: 5px 0;margin-bottom: 8px;
+display: inline-block;}
 textarea:focus{outline-color: #fff;background-color: #fff;}
+button:focus{outline: none;}
 </style>
 </head>
 <body>
-  <section>
+  <section id="section">
     <ul>
       <li>
         <div class="user-img"><img src="../image/icon-person.png" alt=""></div>
-        <div class="user-name"><p>云儿123</p>
-          <p onclick="fnOpendiscussFrame()" >回复我：时间就是最好的良药。</p>
-          <div class="reply" id="reply">
-            <textarea name="name" rows="6" cols="45" id="replyValue"></textarea>
-            <div class="replyButton" id="replySend" onclick="fnOpensendFrame()">
+        <div class="userName"><p>云儿123</p>
+          <p class="replyCont" >回复我：时间就是最好的良药。</p>
+          <!-- <div class="reply" >
+            <textarea name="name" class="replyValue"></textarea>
+            <div class="replyButton" >
               <button class="replySend" >发送</button></div>
-          </div>
+          </div> -->
           <div class="discuss">
             <span>我的评论：不知道为什么分开，很多喜欢以为永远会喜欢，到最后才发现任何事情都抵不过时过境迁。</span>
           </div>
@@ -63,13 +67,13 @@ textarea:focus{outline-color: #fff;background-color: #fff;}
       </li>
       <li>
         <div class="user-img"><img src="../image/icon-person.png" alt=""></div>
-        <div class="user-name"><p>云儿123</p>
-          <p onclick="fnOpendiscussFrame()" >回复我：时间就是最好的良药。</p>
-          <div class="reply" id="reply">
-            <textarea name="name" rows="6" cols="40" id="replyValue"></textarea>
-            <div class="replyButton" id="replySend" onclick="fnOpensendFrame()">
+        <div class="userName"><p>云儿123</p>
+          <p class="replyCont" >回复我：时间就是最好的良药。</p>
+          <!-- <div class="reply" >
+            <textarea name="name" class="replyValue"></textarea>
+            <div class="replyButton" >
               <button class="replySend" >发送</button></div>
-          </div>
+          </div> -->
           <div class="discuss">
             <span>我的评论：不知道为什么分开，很多喜欢以为永远会喜欢，到最后才发现任何事情都抵不过时过境迁。</span>
           </div>
@@ -78,13 +82,13 @@ textarea:focus{outline-color: #fff;background-color: #fff;}
       </li>
       <li>
         <div class="user-img"><img src="../image/icon-person.png" alt=""></div>
-        <div class="user-name"><p>云儿123</p>
-          <p onclick="fnOpendiscussFrame()" >回复我：时间就是最好的良药。</p>
-          <div class="reply" id="reply">
-            <textarea name="name" rows="6" cols="40" id="replyValue"></textarea>
-            <div class="replyButton" id="replySend" onclick="fnOpensendFrame()">
+        <div class="userName"><p>云儿123</p>
+          <p class="replyCont" >回复我：时间就是最好的良药。</p>
+          <!-- <div class="reply" >
+            <textarea name="name" class="replyValue"></textarea>
+            <div class="replyButton" >
               <button class="replySend" >发送</button></div>
-          </div>
+          </div> -->
           <div class="discuss">
             <span>我的评论：不知道为什么分开，很多喜欢以为永远会喜欢，到最后才发现任何事情都抵不过时过境迁。</span>
           </div>
@@ -93,13 +97,58 @@ textarea:focus{outline-color: #fff;background-color: #fff;}
       </li>
       <li>
         <div class="user-img"><img src="../image/icon-person.png" alt=""></div>
-        <div class="user-name"><p>云儿123</p>
-          <p onclick="fnOpendiscussFrame()" >回复我：时间就是最好的良药。</p>
-          <div class="reply" id="reply">
-            <textarea name="name" rows="6" cols="40" id="replyValue"></textarea>
-            <div class="replyButton" id="replySend" onclick="fnOpensendFrame()">
+        <div class="userName"><p>云儿123</p>
+          <p class="replyCont" >回复我：时间就是最好的良药。</p>
+          <!-- <div class="reply" >
+            <textarea name="name" class="replyValue"></textarea>
+            <div class="replyButton" >
               <button class="replySend" >发送</button></div>
+          </div> -->
+          <div class="discuss">
+            <span>我的评论：不知道为什么分开，很多喜欢以为永远会喜欢，到最后才发现任何事情都抵不过时过境迁。</span>
           </div>
+          <p>2017年12月30日</p>
+        </div>
+      </li>
+      <li>
+        <div class="user-img"><img src="../image/icon-person.png" alt=""></div>
+        <div class="userName"><p>云儿123</p>
+          <p class="replyCont" >回复我：时间就是最好的良药。</p>
+          <!-- <div class="reply" >
+            <textarea name="name" class="replyValue"></textarea>
+            <div class="replyButton" >
+              <button class="replySend" >发送</button></div>
+          </div> -->
+          <div class="discuss">
+            <span>我的评论：不知道为什么分开，很多喜欢以为永远会喜欢，到最后才发现任何事情都抵不过时过境迁。</span>
+          </div>
+          <p>2017年12月30日</p>
+        </div>
+      </li>
+      <li>
+        <div class="user-img"><img src="../image/icon-person.png" alt=""></div>
+        <div class="userName"><p>云儿123</p>
+          <p class="replyCont" >回复我：时间就是最好的良药。</p>
+          <!-- <div class="reply" >
+            <textarea name="name" class="replyValue"></textarea>
+            <div class="replyButton" >
+              <button class="replySend" >发送</button></div>
+          </div> -->
+          <div class="discuss">
+            <span>我的评论：不知道为什么分开，很多喜欢以为永远会喜欢，到最后才发现任何事情都抵不过时过境迁。</span>
+          </div>
+          <p>2017年12月30日</p>
+        </div>
+      </li>
+      <li>
+        <div class="user-img"><img src="../image/icon-person.png" alt=""></div>
+        <div class="userName"><p>云儿123</p>
+          <p class="replyCont" >回复我：时间就是最好的良药。</p>
+          <!-- <div class="reply" >
+            <textarea name="name" class="replyValue"></textarea>
+            <div class="replyButton" >
+              <button class="replySend" >发送</button></div>
+          </div> -->
           <div class="discuss">
             <span>我的评论：不知道为什么分开，很多喜欢以为永远会喜欢，到最后才发现任何事情都抵不过时过境迁。</span>
           </div>
@@ -109,6 +158,12 @@ textarea:focus{outline-color: #fff;background-color: #fff;}
     </ul>
     <!-- <div class="nomessage">暂无消息01</div> -->
   </section>
+  <!-- <div class="reply" >
+    <textarea name="name" class="replyValue" id="input"></textarea>
+    <input type="text" class="replyValue">
+    <div class="replyButton" >
+      <button class="replySend" >提交</button></div>
+  </div> -->
   <!-- <div id="popup">
     <ul style="margin: 0 10px;">
       <li style="width:100%;padding: 10px 0;border-top: 1px solid #ccc;">
@@ -135,17 +190,148 @@ textarea:focus{outline-color: #fff;background-color: #fff;}
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
   apiready = function (){
+    fnOpenUserButton();
+    fnOpensendFrame();
   }
-  function fnOpendiscussFrame(){
-    ereply = $api.byId('reply');
-    ereply.style.display='block';
+  function fnOpenUserButton() {
+    var section = document.getElementById('section');
+    var ul_lis = section.getElementsByClassName('userName');
+    var reply = section.getElementsByClassName('reply');
+    for (var i = 0; i < ul_lis.length; i++) {
+        ul_lis[i].index = i;
+        ul_lis[i].onclick = function() {
+            var dialogBox = api.require('dialogBox');
+            dialogBox.actionMenu({
+                rect: {
+                    h: 150
+                },
+                texts: {
+                    cancel: '取消'
+                },
+                items: [{
+                    text: '回复',
+                    icon: 'widget://image/message/reply.png'
+                }, {
+                    text: '查看详情',
+                    icon: 'widget://image/message/detail.png'
+                }],
+                styles: {
+                    bg: '#FFF',
+                    corner: 6,
+                    column: 2,
+                    itemText: {
+                        color: '#000',
+                        size: 14,
+                        marginT: 10
+                    },
+                    itemIcon: {
+                        size: 30
+                    },
+                    cancel: {
+                        bg: '#fff',
+                        color: '#333',
+                        h: 55,
+                        size: 14
+                    }
+                },
+                tapClose: true
+            }, function(ret) {
+                var texts = ret.eventType;
+                var index = ret.index;
+                if (texts == "cancel") {
+                    dialogBox.close({
+                        dialogName: 'alert'
+                    });
+                } else if (index == 0) {
+                  fnOpenMessageNotDetail();
+                    dialogBox.close({
+                        dialogName: 'alert'
+                    });
+                } else if (index == 1) {
+                    fnOpendiscuss();
+                    dialogBox.close({
+                        dialogName: 'alert'
+                    });
 
+                }
+            });
+
+        }
+      }
+    }
+  function fnOpendiscuss(){
+    api.openWin({
+        name: 'discussNoticeDetail',
+        url: './discuss_notice_detail.html',
+        pageParam: {
+            name: 'test'
+        }
+    });
+  }
+  // function fnOpenMessageNotDetail(){
+  //   var section = $api.byId('section');
+  //   var sectionH = $api.offset(section).h;
+  //   api.openFrame({
+  //       name: 'replyDetailFrame',
+  //       url: './reply_detail_frame.html',
+  //       rect: {
+  //           x: 0,
+  //           y: sectionH + 100,
+  //           w: api.frameWidth,
+  //           h: 'auto'
+  //       },
+  //       pageParam: {
+  //           name: 'test'
+  //       },
+  //       bounces: false,
+  //       bgColor: 'rgba(0,0,0,0)',
+  //       vScrollBarEnabled: true,
+  //       hScrollBarEnabled: true
+  //   });
+  // }
+  function fnOpenMessageNotDetail(){
+    api.openWin({
+        name: 'replyDetail',
+        url: './reply_detail.html',
+        pageParam: {
+            name: 'test'
+        },
+        bounces: false,
+        vScrollBarEnabled: true,
+        hScrollBarEnabled: true
+    });
   }
   function fnOpensendFrame(){
-    ereply = $api.byId('reply');
-    replyValue = $api.byId('replyValue');
-    ereply.style.display='none';
-    replyValue.value= " ";
-  }
+    var section = document.getElementById('section');
+    var replyValue = section.getElementsByClassName('replyValue');
+    var reply = section.getElementsByClassName('reply');
+    var replySend = section.getElementsByClassName('replySend');
+    for (var i = 0; i < replySend.length; i++) {
+        replySend[i].index = i;
+        replySend[i].onclick = function() {
+            var j = this.index;
+            reply[j].style.display='none';
+            replyValue[j].value= " ";
+            // $api.addCls(ul_lis[j], 'active');
+            // ul_lis[j].innerHTML="已关注"
+        }
+    }
+  //   ereply = $api.byId('reply');
+  //   replyValue = $api.byId('replyValue');
+  //   ereply.style.display='none';
+  //   replyValue.value= " ";
+   }
+  // function fnOpendiscussFrame(){
+  //
+  //   ereply = $api.byId('reply');
+  //   ereply.style.display='block';
+  //
+  // }
+  // function fnOpensendFrame(){
+  //   ereply = $api.byId('reply');
+  //   replyValue = $api.byId('replyValue');
+  //   ereply.style.display='none';
+  //   replyValue.value= " ";
+  // }
 </script>
 </html>

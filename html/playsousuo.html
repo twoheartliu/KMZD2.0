@@ -1,0 +1,1305 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <title>孔孟之道——搜索播放</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" href="../css/swiper.min.css">
+    <style>
+        html,
+        body {
+            overflow: hidden;
+            background: url(../image/play/play_bg_tra.jpg) no-repeat;
+            background-size: 100% 100%;
+        }
+
+        .clear {
+            clear: both;
+        }
+
+        #wrap {
+            -webkit-background-size: cover;
+            background-size: cover;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-flex-flow: column;
+            flex-flow: column;
+        }
+
+        #main {
+            position: relative;
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+        }
+        /*header {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            height: 50px;
+        }
+
+        header div {
+            font-size: 14px;
+            color: #fff;
+            text-align: center;
+            line-height: 49px;
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+        }
+
+        header i {
+            display: block;
+            width: 53px;
+            height: 49px;
+        }
+
+        header .back {
+            background: url(../image/play/navi_back.png) no-repeat;
+            -webkit-background-size: contain;
+            background-size: contain;
+        }
+
+        header .more {
+            background: url() no-repeat;
+            -webkit-background-size: contain;
+            background-size: contain;
+        }*/
+
+        header {
+            height: 50px;
+            line-height: 50px;
+            background: transparent;
+            /*overflow: hidden;*/
+        }
+
+        .egret-img {
+            display: block;
+            float: left;
+            /*padding-left: 18px;*/
+            width: 45px;
+            height: 50px;
+        }
+
+        .egret-imgs {
+            display: block;
+            float: right;
+            width: 45px;
+            height: 50px;
+            /*padding-left: 18px;*/
+        }
+
+        .egret-img img {
+            width: 15px;
+            height: 20px;
+            padding: 15px;
+        }
+
+        .egret-txt {
+            display: block;
+            margin: 0 auto;
+            width: 75%;
+            color: #fff;
+            text-align: center;
+            line-height: 50px;
+            height: 50px;
+            font-size: 16px;
+            /*vertical-align: top;*/
+        }
+
+        .header_fr {
+            width: 30px;
+            height: 30px;
+            padding: 10px 20px 10px 10px;
+            line-height: 30px;
+            font-size: 15px;
+            color: #fff;
+            position: absolute;
+            right: 5px;
+            bottom: -0px;
+            /*display: inline-block;*/
+            /*display: none;*/
+        }
+
+        .header_fr img {
+            width: 100%;
+        }
+
+        #action {
+            margin-bottom: 10px;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+        }
+
+        #action li {
+            text-align: center;
+            color: #cbcbcb;
+            font-size: 12px;
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+            /*padding-top: 30px;*/
+            background-position: center top;
+            background-repeat: no-repeat;
+            -webkit-background-size: 25px;
+            background-size: 25px;
+            position: relative;
+        }
+
+        #action li>img {
+            width: 25px;
+        }
+
+        #action li>i {
+            position: absolute;
+            top: -2px;
+            right: 30%;
+            width: 10px;
+            height: 10px;
+            display: inline-block;
+            font-style: normal;
+            font-size: 12px;
+            color: #fff;
+        }
+        /*#action .collect {
+          text-align: center;
+          color: #cbcbcb;
+          font-size: 12px;
+          -webkit-box-flex: 1;
+          -webkit-flex: 1;
+          flex: 1;
+          padding-top: 0px;
+          background-position: center top;
+          background-repeat: no-repeat;
+          -webkit-background-size: 25px;
+          background-size: 25px;
+        }*/
+        /*#action .timer {
+            background-image: url(../image/play/play_choice.png);
+        }
+
+        #action .timer.focus {
+            background-image: url(../image/play/play_choice.png);
+        }
+
+        #action .share {
+            background-image: url(../image/play/ic_play_share.png);
+        }*/
+        /*#action .share.focus {
+            background-image: url(../image/img/ic_play_share_s.png);
+        }*/
+        /*#action .checkin {
+            background-image: url(../image/play/discuss.png);
+        }
+
+        #action .checkin.focus {
+            background-image: url(../image/play/play_discuss.png);
+        }*/
+
+        #control {
+            /*background-color: #672d32;*/
+        }
+
+        #slider {
+            height: 50px;
+            position: relative;
+        }
+
+        #slider span {
+            position: absolute;
+            bottom: 0;
+            font-size: 12px;
+            color: #ccc;
+        }
+
+        #slider .s {
+            left: 10px;
+        }
+
+        #slider .e {
+            right: 10px;
+        }
+
+        #panel {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            padding: 30px 0 40px;
+        }
+
+        #panel li {
+            width: 30px;
+            height: 30px;
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+            background-position: center;
+            background-repeat: no-repeat;
+            -webkit-background-size: 30px;
+            background-size: 30px;
+        }
+
+        #panel .list {
+            background-image: url(../image/play/ic_play_schedule.png);
+            -webkit-background-size: 25px;
+            background-size: 25px;
+        }
+
+        #panel .list.focus {
+            background-image: url(../image/play/ic_play_schedule_s.png);
+        }
+        #panel .prev {
+            background-image: url(../image/play/ic_play_pre.png);
+        }
+
+        #panel .prev.focus {
+            background-image: url(../image/play/ic_play_pre_s.png);
+        }
+
+        /*#panel .play {
+            background-image: url(../image/play/ic_play_play.png);
+        }
+
+        #panel .play.focus {
+            background-image: url(../image/play/ic_play_play_s.png);
+        }*/
+
+        #panel .pause {
+            background-image: url(../image/play/ic_play_pause.png);
+        }
+
+        #panel .pause.focus {
+            background-image: url(../image/play/ic_play_pause_s.png);
+        }
+
+        #panel .buffer {
+            background-image: none;
+        }
+
+        @-webkit-keyframes rotate {
+            from {
+                -webkit-transform: rotate(0deg);
+            }
+            to {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        #panel .buffer:before {
+            content: '';
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            background: url(../image/play/ic_play_buffer.png) no-repeat center;
+            -webkit-background-size: contain;
+            background-size: contain;
+            -webkit-animation: rotate 4s linear infinite;
+            animation: rotate 4s linear infinite;
+        }
+
+        #panel .buffer.focus {
+            background-image: url(../image/play/ic_play_buffer_s.png);
+        }
+
+        #panel .next {
+            background-image: url(../image/play/ic_play_next.png);
+        }
+
+        #panel .next.focus {
+            background-image: url(../image/play/ic_play_next_s.png);
+        }
+
+        #panel .download {
+            background-image: url(../image/play/play_choice.png);
+        }
+
+        #panel .download.focus {
+            background-image: url(../image/play/play_choice.png);
+        }
+
+        #chat {
+            overflow: hidden;
+            border-top: 1px solid #845253;
+        }
+
+        #chat a {
+            float: right;
+            padding: 10px;
+            font-size: 12px;
+            color: #ccc;
+        }
+
+        #main .wrap {
+            position: absolute;
+            margin: auto;
+            width: 100%;
+            bottom: 0;
+            top: 0;
+            height: 60px;
+        }
+
+        #main h1 {
+            font-size: 20px;
+            color: #fff;
+            text-align: center;
+        }
+
+        #main label {
+            display: block;
+            text-align: center;
+            font-size: 14px;
+            color: #ccc;
+            padding-top: 20px;
+        }
+        /*轮播图        */
+
+        .swiper-container {
+            width: 100%;
+            text-align: center;
+            height: 250px;
+            margin-top: 75px;
+        }
+
+        .swiper-container img {
+            width: 240px;
+            /*margin-top: 50px;*/
+        }
+
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 63%;
+            border-radius: 10px;
+            display: block;
+            margin: 0 auto;
+            position: absolute;
+            bottom: 4px;
+            left: 18%;
+            height: 5px;
+            /*这个属性设置使填充进度条时的图形为圆角*/
+            /*background: -webkit-linear-gradient(#059CFA, #059CFA) no-repeat;*/
+            /*background: -webkit-linear-gradient(#059CFA, #059CFA) no-repeat;*/
+            /*background-size: 0% 100%;*/
+        }
+
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 15px;
+            width: 15px;
+            margin-top: -5px;
+            /*使滑块超出轨道部分的偏移量相等*/
+            background: #ffffff;
+            border-radius: 50%;
+            /*外观设置为圆形*/
+            border: solid 0.025em rgba(205, 224, 230, 0.5);
+            /*设置边框*/
+            box-shadow: 0 .025em .025em #3b4547;
+            /*添加底部阴影*/
+        }
+
+        input[type=range]:focus {
+            outline: none;
+        }
+
+        input[type=range]::-webkit-slider-runnable-track {
+            height: 5px;
+            border-radius: 2.5px;
+            /*将轨道设为圆角的*/
+            /*box-shadow: 0 1px 1px #def3f8, inset 0 .125em .125em #0d1112;*/
+            /*轨道内置阴影效果*/
+        }
+
+        input[type=range]::-ms-fill-lower {
+            /*进度条已填充的部分*/
+            height: 15px;
+            border-radius: 5px;
+            /*background: linear-gradient(to right, #ff0000, #1abc9c 100%, #123);*/
+            /*background: red !important;*/
+        }
+
+        input[type=range]::-ms-fill-upper {
+            /*进度条未填充的部分*/
+            height: 15px;
+            /*border-radius: 10px;*/
+            background: #ffffff;
+        }
+
+        input[type=range]:focus::-ms-fill-lower {
+            background: linear-gradient(to right, #059CFA, white 100%, white);
+        }
+
+        input[type=range]:focus::-ms-fill-upper {
+            background: #ffffff;
+        }
+
+        input[type=range]::-moz-range-progress {
+            /*background: linear-gradient(to right, #059CFA, white 100%, white);*/
+            height: 5px;
+            /*border-radius: 5px;*/
+        }
+
+        .red {
+            background: #89211b;
+        }
+
+        #player {
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <div id="wrap" class="mh"> -->
+    <!-- <img src="" alt=""> -->
+    <!-- <header class="qx" id="secHeader">
+            <i class="back" tapmode onclick="api.closeWin();"></i>
+            <div id="title">
+            </div>
+            <i class="more"></i>
+        </header> -->
+    <header id="secHeader">
+        <div class="egret-img"><img src="../image/icon_back.png" alt="" onclick="api.closeWin();"></div>
+        <div class="egret-txt" id="title">
+        </div>
+        <div class="header_fr" onclick="fnOpenPlayShare(); ">
+            <img src="../image/KM__play_share.png" alt="">
+        </div>
+    </header>
+    <div id="wrap" class="mh">
+        <div id="main" class="qx">
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <img src="../image/play/poster.png" alt="">
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="play-txt">
+                            <p id="sousuogeci"></p>
+                        </div>
+                    </div>
+                    <!-- <div class="swiper-slide">
+                        <div class="play-list">
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+        <ul id="action" class="qx">
+            <li class="collect">
+                <img src="../image/KM_play_collect.png" alt="" id="playCollect" onclick="fnOpenPlayCollect();">
+                <p>收藏</p>
+            </li>
+            <li class="share" tapmode="focus" onclick="fnOpenAddListening(); ">
+                <img src="../image/KM__play_add.png" alt="">
+                <p>添加到听单</p>
+            </li>
+            <li class="collect">
+                <img src="../image/KM_play_dianzan.png" alt="" id="playDz" onclick="fnOpenPlayDz();">
+                <p>点赞</p>
+            </li>
+            <li class="checkin" tapmode="focus" onclick="fnOpenPlayDiscuss();">
+                <!-- <img src="../image/discuss_detail.png" alt=""  > -->
+                <img src="../image/KM_play_discuss.png" alt="">
+                <i>20</i>
+                <p>评论</p>
+            </li>
+            <li class="timer" tapmode="focus" onclick="fnOpenChoicePlayer();">
+                <img src="../image/KM_play_choice.png" alt="">
+                <p>切换国学机</p>
+            </li>
+        </ul>
+        <div id="control" class="qx">
+            <div id="slider">
+                <span class="s" id="kaishijishi">
+                00:00:00
+              </span>
+                <input type="range" id="range" name="range" min="0" max="100" step="1" value="1" class="red" />
+                <span class="e" id="zongshichang">
+                00:00:00
+              </span>
+            </div>
+            <ul id="panel">
+                <!-- <li class="list" tapmode="focus" onclick="openRadioList()"></li>
+                <li class="prev" tapmode="focus" onclick="fnOpenPlayershangyi()"></li>
+                <li class="play" tapmode="focus" id="openplayer"></li>
+                <li class="next" tapmode="focus" onclick="fnOpenPlayerxiayi()"></li>
+                <li><img src="../image/play/play_change0.png" alt="" id="img"></li> -->
+                <li class="list" tapmode="focus" onclick="openRadioList()"></li>
+                <li class="prev" tapmode="focus" onclick="fnOpenPlayershangyi()"></li>
+                <li class="play" tapmode="focus" id="openplayer"></li>
+                <li class="next" tapmode="focus" onclick="fnOpenPlayerxiayi()"></li>
+                <li><img src="../image/play/play_change0.png" alt="" id="img"></li>
+            </ul>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<!-- <script type="text/javascript" src="../script/api-lite.js"></script> -->
+<script type="text/javascript" src="../script/swiper.min.js"></script>
+<script type="text/javascript" src="../script/zepto.js"></script>
+<script type="text/javascript" src="../script/audio2.js"></script>
+<script type="text/javascript">
+    var radios = ['see_you_again', 'new_soul', 'i_am_you'];
+    var i = 0;
+    var id;
+    var dqbfid;
+    var timer1;
+    var lenth;
+    var cur;
+    var ccc;
+    var sss;
+    apiready = function() {
+        var secHeader = $api.byId('secHeader');
+        $api.fixStatusBar(secHeader);
+        var headerH = $api.offset(secHeader).h;
+        var headerPosH = $api.offset(secHeader).h;
+        var header = document.querySelector('header');
+        $api.fixIos7Bar(header);
+        if (window.innerHeight)
+            winHeight = window.innerHeight;
+        else if ((document.body) && (document.body.clientHeight))
+            winHeight = document.body.clientHeight;
+        var messageFrameDiv = $api.byId('wrap');
+        var winHeightHeader = winHeight - headerPosH;
+        $api.css(messageFrameDiv, 'height:' + winHeightHeader + 'px;');
+        // api.addEventListener({
+        //     name: 'zongJinDu'
+        // }, function(ret, err) {
+        // if (ret) {
+        //     var stylelist = $api.byId('zongshichang');
+        //     var lenth = ret.value.lenth;
+        //     var cur = ret.value.cur;
+        //     var aaa= cur/lenth;
+        //     //console.log(aaa);
+        //     var $slider = $('#slider');
+        //     var sliderPos = $slider.offset();
+        //     var obj = api.require('slider');
+        //     obj.open({
+        //         x: 10,
+        //         y: sliderPos.top + 10,
+        //         w: api.winWidth,
+        //         h : 10,
+        //         alwaysShowBubble:false,
+        //         bgImg: "widget://image/slider/slider-bg.png",
+        //         selectedBgImg: "widget://image/slider/slider-fg.png",
+        //         bar: {
+        //             barWidth: 20,
+        //             barHeight: 20,
+        //             barImg: "widget://image/slider/slider-btn.png"
+        //         },
+        //         bubble: {
+        //             bubbleWidth: 40,
+        //             bubbleHeight: 20
+        //         },
+        //         minValue: 0,
+        //         maxValue: 100,
+        //         defValue: aaa,
+        //         fixed: false
+        //     // }, function(ret, err) {
+        //     //      //console.log(touchCancel);
+        //     //     console.log('111');
+        //     //      console.log(JSON.stringify( ret ));
+        //     //     //  obj.setValue({
+        //     //     //       id: ret.id,
+        //     //     //       value: 51
+        //     //     //   });
+        //     //     //  obj.show({
+        //     //     //       id: ret.id
+        //     //     //   });
+        //     //     // if (ret.touchCancel) {
+        //     //     //     // api.alert({msg:ret.value});
+        //     //     //     var slider = api.require('slider');
+        //     //     //     slider.setValue({
+        //     //     //         id: -1,
+        //     //     //         value: 51
+        //     //     //     });
+        //     //     // }
+        //     // });
+        //     //window.setTimeout("jindutiao()",1000);
+        //     //$api.html(stylelist, html);
+        //     //range.style.width=""+parseFloat(cur/lenth)*240+"px";
+        // }
+        // });
+
+        dqbfid = api.pageParam.a;
+        id = api.pageParam.a;
+        if (id) {
+            api.sendEvent({
+                name: 'netUrl',
+                extra: {
+                    id: id
+                }
+            });
+        }
+        api.addEventListener({
+            name: 'dangqianbofang'
+        }, function(ret, err) {
+            if (ret) {
+                dqbfid = ret.value.dangqianbofangid;
+                //fnGeCixianshi(dqbfid);
+            } else {
+                alert(JSON.stringify(err));
+            }
+        });
+        //fnGeCixianshi(id);
+        var eHeader = $api.byId('header')
+        fnInitSwiper();
+        fnOpenChangeImg();
+        AddHistory(id);
+        fnbofangshijian();
+        fnZongShiChang();
+        //
+        var bofang = api.pageParam.bofang;
+        if (!bofang) {
+            var stylelist = $api.byId('openplayer');
+            var html = '';
+            html += '<img src="../image/play/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player"></div>';
+            $api.html(stylelist, html);
+            bofang = 1;
+            api.sendEvent({
+                name: 'netbofang',
+                extra: {
+                    bofang: bofang,
+                    a: id
+                }
+            });
+            fnNetAudiosPlayByID(id);
+        } else if (bofang == 0) {
+            var stylelist = $api.byId('openplayer');
+            var html = '';
+            html += '<img src="../image/play/ic_play_play.png" alt="" onclick="fnOpenPlayer();" id="player"></div>';
+            $api.html(stylelist, html);
+        } else if (bofang == 1) {
+            var stylelist = $api.byId('openplayer');
+            var html = '';
+            html += '<img src="../image/play/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player"></div>';
+            $api.html(stylelist, html);
+        }
+
+    };
+    // function playRadio(it) {
+    //     if ($(it).hasClass('pause')) {
+    //         $(it).removeClass().addClass('play');
+    //         //api.stopPlay();
+    //     } else {
+    //         $(it).removeClass().addClass('buffer');
+    //         setTimeout(function() {
+    //             $(it).removeClass().addClass('pause');
+    //             var radio = radios[i];
+    //             api.startPlay({
+    //                 path: 'widget://res/' + radio + '.mp3'
+    //             }, function() {
+    //                 // api.alert({msg: '播放完成'});
+    //             });
+    //         }, 500);
+    //     }
+    //
+    // }
+    //播放时间
+    function fnbofangshijian() {
+        api.addEventListener({
+            name: 'bofangshijian'
+        }, function(ret, err) {
+            if (ret) {
+                var stylelist = $api.byId('kaishijishi');
+                var html = ret.value.bofangshijian;
+                $api.html(stylelist, html);
+            }
+        });
+    }
+    // 点赞
+    function fnOpenPlayDz() {
+        var playDz = $api.byId('playDz');
+        if (playDz.getAttribute("src", 2) == "../image/KM_play_dianzan.png") {
+            playDz.src = "../image/KM_play_dianzan_red.png";
+            api.toast({
+              msg: '点赞成功',
+              duration: 2000,
+              location: 'middle'
+          });
+        } else {
+            playDz.src = "../image/KM_play_dianzan.png";
+        }
+    };
+    //赋值总时长
+    function fnZongShiChang() {
+        api.addEventListener({
+            name: 'zongSC'
+        }, function(ret, err) {
+            if (ret) {
+                var stylelist = $api.byId('zongshichang');
+                var html = ret.value.zongSC;
+                $api.html(stylelist, html);
+            }
+        });
+    }
+    //播放，暂停键
+
+    function fnOpenPlayer() {
+        var player = $api.byId('player');
+        if (player.getAttribute("src", 2) == "../image/play/ic_play_play.png") {
+            player.src = "../image/play/ic_play_pause.png";
+            fnNetAudiosPlayByID();
+            var bofang = 1;
+            var a = api.pageParam.a;
+            api.sendEvent({
+                name: 'netbofang',
+                extra: {
+                    bofang: bofang,
+                    a: a
+                }
+            });
+            var zaicibf
+            api.sendEvent({
+                name: 'zaicibf',
+                extra: {
+                    zaicibf: zaicibf,
+                }
+            });
+        } else {
+            player.src = "../image/play/ic_play_play.png";
+            // fnNetAudiosPlayByIDs();
+            //b();
+            var netAudiopausess = '';
+            //var  netAudiopausess = ret;
+            api.sendEvent({
+                name: 'netAudiopause',
+                extra: {
+                    netAudiopauses: netAudiopausess
+                }
+            });
+            var bofang = 0;
+            var a = api.pageParam.a;
+            api.sendEvent({
+                name: 'netbofang',
+                extra: {
+                    bofang: bofang,
+                    a: a
+                }
+            });
+
+        }
+    }
+
+    function jindutiao(a, b) {
+        lenth = a;
+        cur = b;
+        ccc = cur / lenth * 100;
+        sss = JSON.stringify(ccc);
+        //JinDuTiao();
+
+        //setInterval(JinDuTiao,500);
+        // time1 = setInterval(function(e){
+        //     if(range.value!=100) range.value++;
+        //      else range.value=0;
+        //  },200);
+        //  api.addEventListener({
+        //      name: 'zongJinDu'
+        //  }, function(ret, err) {
+        //      if (ret) {
+        //          var stylelist = $api.byId('zongshichang');
+        //          var lenth = ret.value.lenth;
+        //          var cur = ret.value.cur;
+        //          //$api.html(stylelist, html);
+        //          //range.style.width=""+parseFloat(cur/lenth)*240+"px";
+        //      }
+        //  });
+    }
+
+    function JinDuTiao() {
+        //console.log('111');
+        //console.log(sss);
+
+
+
+        var obj = api.require('slider');
+        //setInterval('JanTingJinDuTiao()',50);
+        //setTimeout("jindutiao()", 1000)
+        //jindutiao();
+    }
+
+    function JanTingJinDuTiao() {
+
+        api.addEventListener({
+            name: 'zongJinDu'
+        }, function(ret, err) {
+            if (ret) {
+                var stylelist = $api.byId('zongshichang');
+                var lenth = ret.value.lenth;
+                var cur = ret.value.cur;
+                jindutiao(lenth, cur);
+                //window.setTimeout("jindutiao()",1000);
+                //$api.html(stylelist, html);
+                //range.style.width=""+parseFloat(cur/lenth)*240+"px";
+            }
+        });
+    }
+    // function b(){
+    //   clearInterval(time1);
+    // }
+    //上一曲
+    function fnOpenPlayershangyi() {
+        var player = $api.byId('player');
+        player.src = "../image/play/ic_play_pause.png";
+        var c = 1;
+        api.sendEvent({
+            name: 'bofangshangyi',
+            extra: {
+                c: c
+            }
+        });
+        // api.getPrefs({
+        //     key: 'sousuohistory'
+        // }, function(ret, err) {
+        //     if (ret) {
+        //         var flag = false; //是否增加历史记录
+        //         var historyText = ret.value;
+        //         var historyArray = historyText.split(',');
+        //         for (var i = 0; i < historyArray.length; i++) {
+        //             var id1 = historyArray[i];
+        //             var id2 = dqbfid;
+        //             if (id1 == id2) {
+        //                 var ii;
+        //                 if (!i) {
+        //                     ii = historyArray.length - 1;
+        //                 } else if (i == 1) {
+        //                     ii = historyArray.length - 1;
+        //                 } else {
+        //                     ii = i - 1;
+        //                 }
+        //                 var dangqianbofangid = historyArray.splice(ii, 1);
+        //                 api.sendEvent({
+        //                     name: 'dangqianbofang',
+        //                     extra: {
+        //                         dangqianbofangid: dangqianbofangid
+        //                     }
+        //                 });
+        //                 var bofang = 1;
+        //                 var a = dangqianbofangid;
+        //                 api.sendEvent({
+        //                     name: 'netbofang',
+        //                     extra: {
+        //                         bofang: bofang,
+        //                         a: a
+        //                     }
+        //                 });
+        //                 fnNetAudiosPlayByID(dangqianbofangid);
+        //             }
+        //         }
+        //     } else {
+        //         alert(JSON.stringify(err));
+        //     }
+        // });
+    }
+    //下一曲
+    function fnOpenPlayerxiayi() {
+        var c = 2;
+        api.sendEvent({
+            name: 'bofangxiayi',
+            extra: {
+                c: c
+            }
+        });
+        var player = $api.byId('player');
+        player.src = "../image/play/ic_play_pause.png";
+        // api.getPrefs({
+        //     key: 'sousuohistory'
+        // }, function(ret, err) {
+        //     if (ret) {
+        //         var flag = false; //是否增加历史记录
+        //         var historyText = ret.value;
+        //         var historyArray = historyText.split(',');
+        //         for (var i = 0; i < historyArray.length; i++) {
+        //             var id1 = historyArray[i];
+        //             var id2 = dqbfid;
+        //             if (id1 == id2) {
+        //                 var ii;
+        //                 var historyArraylength = JSON.stringify(historyArray.length) - 1;
+        //                 if (!i) {
+        //                     ii = 1;
+        //                 } else if (i == historyArraylength) {
+        //                     ii = 1;
+        //                 } else {
+        //                     ii = i + 1;
+        //                 }
+        //                 var dangqianbofangid = historyArray.splice(ii, 1);
+        //                 api.sendEvent({
+        //                     name: 'dangqianbofang',
+        //                     extra: {
+        //                         dangqianbofangid: dangqianbofangid
+        //                     }
+        //                 });
+        //                 var bofang = 1;
+        //                 var a = dangqianbofangid;
+        //                 api.sendEvent({
+        //                     name: 'netbofang',
+        //                     extra: {
+        //                         bofang: bofang,
+        //                         a: a
+        //                     }
+        //                 });
+        //                 fnNetAudiosPlayByID(dangqianbofangid);
+        //                 var player = $api.byId('player');
+        //                 player.src = "../image/play_now.png";
+        //             }
+        //         }
+        //     } else {
+        //         alert(JSON.stringify(err));
+        //     }
+        // });
+    }
+    //播放
+    function fnNetAudiosPlayByID(id) {
+        if (id) {
+            api.ajax({
+                url: 'http://47.100.11.38/kongmeng/thirdParty/search_songs_by_id.php?id= ' + id,
+                method: 'get',
+                dataType: 'json',
+            }, function(ret, err) {
+                if (ret) {
+                    var dangqianbofangurl = ret.data[0].url;
+                    fnTitlexianshi(ret);
+                    fnGeCixianshi(ret);
+                    //a ();
+                    netAudioss = ret;
+                    api.sendEvent({
+                        name: 'netAudioplay',
+                        extra: {
+                            netAudios: netAudioss
+                        }
+                    });
+                    var dangqianbofangid = ret.data[0].id;
+                    api.sendEvent({
+                        name: 'dangqianbofang',
+                        extra: {
+                            dangqianbofangid: dangqianbofangid
+                        }
+                    });
+                    fnZongShiChang();
+                    fnbofangshijian();
+                    var title = ret.data[0].name;
+                    var singerName = ret.data[0].singerName;
+                    AddHistoryTitle(title, singerName);
+                } else {
+                    alert(JSON.stringify(err));
+                }
+            });
+        } else {
+            api.ajax({
+                url: 'http://47.100.11.38/kongmeng/thirdParty/search_songs_by_id.php?id= ' + dqbfid,
+                method: 'get',
+                dataType: 'json',
+            }, function(ret, err) {
+                if (ret) {
+                    var dangqianbofangurl = ret.data[0].url;
+                    fnTitlexianshi(ret);
+                    fnGeCixianshi(ret);
+                    fnZongShiChang(ret);
+                    netAudioss = ret;
+                    api.sendEvent({
+                        name: 'netAudioplay',
+                        extra: {
+                            netAudios: netAudioss
+                        }
+                    });
+                    var dangqianbofangid = ret.data[0].id;
+                    api.sendEvent({
+                        name: 'dangqianbofang',
+                        extra: {
+                            dangqianbofangid: dangqianbofangid
+                        }
+                    });
+                    var title = ret.data[0].name;
+                    var singerName = ret.data[0].singerName;
+                    AddHistoryTitle(title, singerName);
+                } else {
+                    alert(JSON.stringify(err));
+                }
+            });
+        }
+
+    }
+    //赋值歌词
+    function fnGeCixianshi(ret) {
+        var stylelist = $api.byId('sousuogeci');
+        var html = '<p >' + ret.data[0].desc + '</p>';
+        $api.html(stylelist, html);
+    }
+    var timer2;
+
+    //赋值大标题
+    function fnTitlexianshi(ret) {
+        var stylelist = $api.byId('title');
+        var html = ret.data[0].name;
+        $api.html(stylelist, html);
+    }
+
+    // 轮播
+    function fnInitSwiper() {
+        var mySwiper = new Swiper('.swiper-container', {
+            loop: true,
+        });
+    };
+    // 切换单曲循环、顺序播放、随机播放
+    function fnOpenChangeImg() {
+        var image_urls = ["../image/play/play_change0.png", "../image/play/play_change1.png", "../image/play/play_change2.png"];
+        // 初始化数组键值 (0 = 第一个图片)
+        var idx = 0;
+        // 点击 id 为 img 的图片
+        document.getElementById("img").onclick = function() {
+            // idx + 1，如果为最后一张，还原回第一张
+            idx = idx === image_urls.length - 1 ? 0 : idx + 1;
+            // 设置 src
+            this.src = image_urls[idx];
+            // 测试
+            // alert(this.src);
+        };
+        // var imgs = document.getElementById('imgBox').getElementsByTagName('img');
+        // for(var i=0;i<=imgs.length;i++){
+        //   if(i==num+1){
+        //      imgs[i].style.display="inline";
+        //   }else{
+        //     imgs[i].style.display="none";
+        //   };
+        //   if(num==2){
+        //     imgs[0].style.display="inline";
+        //   };
+        // }
+    };
+    // 选择播放器
+    function fnOpenChoicePlayer() {
+        api.openWin({
+            name: 'choicePlayer',
+            url: './choice_player.html',
+        });
+    };
+    // 收藏
+    function fnOpenPlayCollect() {
+        var playCollect = $api.byId('playCollect');
+        if (playCollect.getAttribute("src", 2) == "../image/KM_play_collect.png") {
+            playCollect.src = "../image/KM_play_collect_red.png";
+            api.toast({
+              msg: '点赞成功',
+              duration: 2000,
+              location: 'middle'
+          });
+        } else {
+            playCollect.src = "../image/KM_play_collect.png";
+        }
+    };
+    // 打开评论页面
+    function fnOpenPlayDiscuss() {
+      api.openWin({
+          name: 'discussNoticeDetail0',
+          url: './discuss_notice_detail0.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
+    }
+    //打开分享
+    function fnOpenPlayShare() {
+        var dialogBox = api.require('dialogBox');
+        dialogBox.actionMenu({
+            rect: {
+                h: 150
+            },
+            texts: {
+                cancel: '取消'
+            },
+            items: [{
+                text: '微信',
+                icon: 'widget://image/weixin.png'
+            }, {
+                text: 'QQ',
+                icon: 'widget://image/qq.png'
+            }, {
+                text: '朋友圈',
+                icon: 'widget://image/friends.png'
+            }],
+            styles: {
+                bg: '#FFF',
+                column: 3,
+                itemText: {
+                    color: '#000',
+                    size: 12,
+                    marginT: 8
+                },
+                itemIcon: {
+                    size: 30
+                },
+                cancel: {
+                    bg: 'fs://icon.png',
+                    color: '#000',
+                    h: 44,
+                    size: 14
+                }
+            },
+            tapClose: true
+        }, function(ret) {
+            if (ret.eventType == 'cancel') {
+                dialogBox.close({
+                    dialogName: 'discount'
+                });
+            }
+            if (ret.index == "0") {
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+                // alert(1);
+            } else if (ret.index == "1") {
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+                // alert(2);
+            } else if (ret.index == "2") {
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+                // alert(3);
+            } else {
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+            }
+            // dialogBox.close({
+            //     dialogName: 'alert'
+            // })
+            // alert(JSON.stringify(ret))
+
+        });
+    }
+    //添加到听单
+    function fnOpenAddListening(){
+      api.openWin({
+          name: 'addListening',
+          url: './add_listening.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
+    }
+
+
+    //打开播放列表
+    function openRadioList() {
+        var height = api.frameHeight + 50;
+        api.openFrame({
+            name: 'playsousuo_radiolist',
+            url: './playsousuo_radiolist.html',
+            bounces: false,
+            bgColor: 'rgba(0,0,0,0.6)',
+            rect: {
+                x: 0,
+                y: 0,
+                w: api.frameWidth,
+                h: height
+            }
+        });
+    }
+
+    function AddHistory(id) {
+        var dangqianbofangid = id;
+        api.sendEvent({
+            name: 'dangqianbofang',
+            extra: {
+                dangqianbofangid: dangqianbofangid
+            }
+        });
+        api.getPrefs({
+            key: 'sousuohistory'
+        }, function(ret, err) {
+            if (ret) {
+                var flag = false; //是否增加历史记录
+                var historyText = ret.value;
+                var historyArray = historyText.split(',');
+                //console.log(JSON.stringify(historyArray));
+                for (var i = 0; i < historyArray.length; i++) {
+                    historyArray[i] == id && (flag = true);
+                }!flag && historyArray.splice(1, 0, id);
+                !flag && api.setPrefs({
+                    key: 'sousuohistory',
+                    value: historyArray.join(',')
+                });
+            } else {
+                alert(JSON.stringify(err));
+            }
+        });
+    }
+
+    function AddHistoryTitle(title, singerName) {
+        api.getPrefs({
+            key: 'sousuohistorytitle'
+        }, function(ret, err) {
+            if (ret) {
+                var flag = false; //是否增加历史记录
+                var historyText = ret.value;
+                var historyArray = historyText.split(',');
+                for (var i = 0; i < historyArray.length; i++) {
+                    historyArray[i] == title && (flag = true);
+                }!flag && historyArray.splice(1, 0, title, singerName);
+                !flag && api.setPrefs({
+                    key: 'sousuohistorytitle',
+                    value: historyArray.join(',')
+                });
+            } else {
+                alert(JSON.stringify(err));
+            }
+        });
+        fnHistorysingerName();
+    }
+
+    function fnHistorysingerName() {
+        api.getPrefs({
+            key: 'sousuohistorytitle'
+        }, function(ret, err) {
+            var historyText = '' || ret.value;
+            var historyArray = historyText.split(',');
+            for (var i = 0; i < historyArray.length; i++) {
+                if (historyArray[i].length == 0)
+                    continue;
+                var stylelist = $api.byId('sousuoliebiao');
+                var html = '';
+                for (var s = 1; s < historyArray.length; s++) {
+                    if (historyArray[2 * s - 1]) {
+                        //console.log(JSON.stringify(historyArray[2*s-1]));
+                        //console.log(JSON.stringify(historyArray[2*s]));
+                        html += '<p>' + historyArray[2 * s - 1] + '  ' + historyArray[2 * s] + '</p>';
+                    }
+                }
+                $api.html(stylelist, html);
+            }
+        });
+    }
+
+    function goback() {
+        api.closeWin();
+    }
+</script>
+<script>
+    var change = function($input) {
+        /*内容可自行定义*/
+        // console.log("123");
+        adjust();
+    }
+    $('input').RangeSlider({
+        callback: change
+    });
+</script>
+
+</html>

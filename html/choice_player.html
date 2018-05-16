@@ -1,0 +1,190 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+  <title>孔孟之道--播放（选择播放器）</title>
+  <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <style>
+        html,
+        body {
+            height: 100%;
+            background-color: #f2f2f2;
+        }
+        /*头部样式*/
+
+        .topbar {
+          background: #89211b;
+          height:50px;
+          position: relative;
+        }
+        .egret-header-box {
+          height: 50px;
+        }
+        .egret-img {
+          position: absolute;
+        }
+        .egret-img img {
+          width: 15px;
+          height: 20px;
+          padding: 15px;
+          vertical-align: top;
+        }
+        .egret-header-title {
+          position: absolute;
+          width: 100%;
+          text-align: center;
+          line-height: 50px;
+          color: #fff;
+          font-size: 20px;
+        }
+
+        #miniplayer .miniitem {
+            margin:10px 5px 0px;
+            height: 80px;
+            background-color: #999;
+            border-radius: 5px;
+            position: relative;
+        }
+        .minitxt {
+            color: #fff;
+            padding-top: 5px;
+            padding-left: 10px;
+            height: 20px;
+            line-height: 20px;
+            vertical-align: top;
+            margin-bottom: 8px;
+        }
+
+        .minibutton {
+            height: 40px;
+            line-height: 40px;
+        }
+
+        #miniplayer span {
+            position: absolute;
+            white-space: nowrap;
+            background-repeat: no-repeat;
+            background-position: center;
+            -webkit-background-size: contain;
+            background-size: contain;
+        }
+
+        #miniplayer .radio.active {
+            background-color: rgba(0, 0, 0, .2);
+        }
+
+        #miniplayer .radio .inner {
+            padding-left: 72px;
+            max-width: 50%;
+            color: #fff;
+            font-size: 14px;
+            line-height: 40px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            background: url(../image/play/scheduleliving2.png) no-repeat 48px center;
+            -webkit-background-size: 25px 13px;
+            background-size: 25px 13px;
+        }
+
+        #miniplayer .menu,
+        #miniplayer .play,
+        #miniplayer .pause,
+        #miniplayer .buffer,
+        #miniplayer .next {
+            width: 36px;
+            height: 36px;
+            top: 6px;
+        }
+
+        #miniplayer .menu {
+            left: 10px;
+            top: 35px;
+            background-image: url(../image/play/miniplay_menu.png);
+        }
+
+        #miniplayer .menu.active {
+            background-image: url(../image/miniplay_menu_s.png);
+        }
+
+        #miniplayer .play {
+            right: 56px;
+            top: 35px;
+            background-image: url(../image/play/miniplay_play.png);
+        }
+
+        #miniplayer .play.active {
+            background-image: url(../image/miniplay_play_s.png);
+        }
+
+        #miniplayer .pause {
+            right: 56px;
+            background-image: url(../image/miniplay_pause.png);
+        }
+
+        #miniplayer .pause.active {
+            background-image: url(../image/miniplay_pause_s.png);
+        }
+
+        #miniplayer .buffer {
+            background-image: none;
+            right: 56px;
+        }
+
+        #miniplayer .next {
+            right: 10px;
+            top: 35px;
+            background-image: url(../image/play/miniplay_next.png);
+        }
+    </style>
+</head>
+<body>
+  <header class="egret-header topbar" id="header">
+     <div class="egret-header-title">选择播放器</div>
+     <div  class="egret-img"><img src="../image/icon_back.png" alt="" onclick="goback()" ></div>
+ </header>
+    <div id="miniplayer">
+        <div class="miniitem">
+            <div class="minitxt"><img src="../image/play/KM_phone.png" alt=""><span>手机</span></div>
+            <div class="minibutton">
+                <span class="menu">
+    		</span>
+                <div class="radio">
+                    <div class="inner">
+                        正说纪晓岚-第二集:纪晓岚入仕之谜
+                    </div>
+                </div>
+                <span class="play"></span>
+                <span class="next"></span>
+            </div>
+        </div>
+        <div class="miniitem">
+            <div class="minitxt"><img src="../image/play/KM_gxj.png" alt=""><span>国学机</span></div>
+            <div class="minibutton">
+                <span class="menu">
+    		</span>
+                <div class="radio">
+                    <div class="inner">
+                        正说纪晓岚-第二集:纪晓岚入仕之谜
+                    </div>
+                </div>
+                <span class="play"></span>
+                <span class="next"></span>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+    function goback(){
+        api.closeWin({
+            name: "choicePlayer"
+        });
+    };
+    apiready = function() {
+        var header = $api.byId("header");
+        $api.fixStatusBar(header);
+    };
+</script>
+</html>

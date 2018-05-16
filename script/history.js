@@ -18,7 +18,8 @@ function InitHistory() {
     }, function (ret, err) {
         var historyText = ret.value || '';
         var historyArray = historyText.split(',');
-        var li = '<li class="history" data-index="{index}">{text}</li>';
+        //console.log(historyArray);
+        var li = '<li class="history" data-index="{index}">{text}<img class="historyImg" src="../image/x.png" alt="" style="float: right;padding-top:5px;"></li>';
         for (var i = 0; i < historyArray.length; i++) {
             if (historyArray[i].length == 0)
                 continue;
@@ -26,8 +27,10 @@ function InitHistory() {
             tempLi = tempLi.replace(/\{text\}/g, decodeURIComponent(historyArray[i]));
             history.appendHTML(tempLi);
         }
+
     });
 }
+
 
 function ClearHistory(index) {
     var history = $api.byId('history');
@@ -60,7 +63,7 @@ function ClearHistory(index) {
 function AppendHistory(text) {
     var history = $api.byId('history');
     var index = history.children.length;
-    var li = '<li class="history" data-index="' + index + '">' + text + '</li>';
+    var li = '<li class="history" data-index="' + index + '">' + text + '<img class="historyImg" src="../image/x.png" alt="" style="float: right;"></li>';
     history.appendHTML(li);
 }
 

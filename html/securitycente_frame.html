@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>孔孟之道--安全中心</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style>
+        body {
+            padding: 10px;
+        }
+
+        .fl {
+            float: left;
+        }
+
+        .fr {
+            float: right;
+        }
+
+        .code {
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+            margin-top: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        input:focus,
+        button:focus {
+            outline: none;
+        }
+
+        .securitycente_BangDin {
+            padding: 10px 0;
+        }
+
+        .securitycente_div {
+            width: 100%;
+            height: 50px;
+            border-bottom: 1px solid #ccc;
+            overflow: hidden;
+        }
+
+        .securitycente_MiMa {
+            width: 100%;
+            height: 50px;
+            color: #ccc;
+            line-height: 50px;
+        }
+        .securitycente_MiMaImg{
+          width: 50px;
+          height: 50px;
+          text-align: center;
+        }
+        .securitycente_MiMaImg img{
+          margin-top: 12px;
+          width: 9px;
+        }
+        .securitycente_Img1 {
+            width: 50px;
+            height: 50px;
+            text-align: center;
+        }
+
+        .securitycente_Img1 img {
+            width: 25px;
+            margin: 12.5px auto;
+        }
+
+        .securitycente_Img {
+            width: 50px;
+            height: 50px;
+        }
+
+        .securitycente_Img img {
+            width: 100%;
+            margin-top: 12px;
+        }
+
+
+        .securitycente_Name {
+            line-height: 25px;
+            margin-left: 10px;
+        }
+
+        .securitycente_header {
+            width: 100%;
+            height: 50px;
+            line-height: 50px;
+            font-size: 12px;
+            color: #ccc;
+        }
+
+        .securitycente_name1 {
+            line-height: 50px;
+            color: #999;
+        }
+
+        .securitycente_name2 {
+            font-size: 10px;
+            color: #ccc;
+        }
+        .collectmusicSj{width: 50px;text-align: center;height: 50px;line-height: 50px;}
+        .collectmusicSj img{margin-top: 12px;width: 9px;}
+        .securitycente_MiMa_div{margin: 0 10px;}
+        .securitycente_MiMa_div img{position: relative;top: 2px;}
+    </style>
+</head>
+
+<body>
+    <div class="securitycente_MiMa" onclick="changePassword();"><div class="fl securitycente_MiMa_div"><img src="../image/login/login_password.png" alt=""></div><div class="fl">修改密码</div><div class="fr securitycente_MiMaImg"><img src="../image/my/index_y.png" alt=""></div></div>
+    <div class="securitycente_BangDin">
+        <div class="securitycente_header" onclick="">其他登录方式</div>
+        <div class="securitycente_div" onclick="collectmusicSj();">
+            <div class="securitycente_Img1 fl"><img src="../image/phoneNumber.png" alt=""></div>
+            <div class="securitycente_Name fl">
+                <div class="securitycente_name1">手机号</div>
+            </div>
+            <div class="fr collectmusicSj"><img src="../image/my/index_y.png" alt=""></div>
+        </div>
+        <div class="securitycente_div">
+            <div class="securitycente_Img1 fl"><img src="../image/qq.png" alt=""></div>
+            <div class="securitycente_Name fl">
+                <div class="securitycente_name1">QQ</div>
+            </div>
+            <div class="securitycente_Img fr" onclick="collectmusicQQ(this)" data-click="0"><img src="../image/my/Binding.png" alt="" class="collectmusicQQ"></div>
+        </div>
+        <div class="securitycente_div">
+            <div class="securitycente_Img1 fl"><img src="../image/weixin.png" alt=""></div>
+            <div class="securitycente_Name fl">
+                <div class="securitycente_name1">微信</div>
+            </div>
+            <div class="securitycente_Img fr" onclick="collectmusicWX(this)" data-click="0"><img src="../image/my/Binding.png" alt="" class="collectmusicWX"></div>
+        </div>
+    </div>
+</body>
+
+</html>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+    apiready = function() {
+
+        }
+
+    function collectmusicSj() {
+
+            api.openWin({
+                name: 'Binding',
+                url: './Binding.html',
+                pageParam: {
+                    name: 'test'
+                }
+            });
+    }
+
+    function collectmusicQQ(clicktoolitem) {
+        var toolbarlist = document.getElementsByClassName('collectmusicQQ')[0];
+        var click = clicktoolitem.getAttribute("data-click");
+        if (click == 0) {
+            var qq = api.require('qq');
+            qq.installed(function(ret, err) {
+                if (ret.status) {
+                    qq.login(function(ret, err) {
+                        api.toast({
+                            msg: '绑定成功',
+                            duration: 2000,
+                            location: 'middle'
+                        });
+                        clicktoolitem.setAttribute("data-click", 1);
+                        toolbarlist.src = "../image/my/Bindings.png";
+                    });
+                } else {
+                  api.toast({
+                      msg: '没有安装',
+                      duration: 2000,
+                      location: 'middle'
+                  });
+
+                }
+            });
+            // 点开
+
+        } else {
+            var qq = api.require('qq');
+            qq.logout(function(ret, err) {
+                if (ret.status) {
+                  api.toast({
+                      msg: '解除绑定',
+                      duration: 2000,
+                      location: 'middle'
+                  });
+                    clicktoolitem.setAttribute("data-click", 0);
+                    toolbarlist.src = "../image/my/Binding.png";
+                } else {
+                  api.toast({
+                      msg: err.msg,
+                      duration: 2000,
+                      location: 'middle'
+                  });
+
+                }
+            });
+            // 关闭
+
+        }
+    }
+
+    function collectmusicWX(clicktoolitem) {
+        var toolbarlist = document.getElementsByClassName('collectmusicWX')[0];
+        var click = clicktoolitem.getAttribute("data-click");
+        if (click == 0) {
+            var wx = api.require('wx');
+            wx.isInstalled(function(ret, err) {
+                if (ret.installed) {
+                    wx.auth({}, function(ret, err) {
+                        if (ret.status) {
+                            var wx = api.require('wx');
+                            wx.getToken({
+                                code: ret.code
+                            }, function(ret, err) {
+                                if (ret.status) {
+                                    wx.getUserInfo({
+                                        accessToken: ret.accessToken,
+                                        openId: ret.openId
+                                    }, function(ret, err) {
+                                        if (ret.status) {
+                                            // console.log(JSON.stringify(ret));
+                                            // var WXName = $api.byId('WXName');
+                                            // var html = ret.nickname;
+                                            // // console.log(html);
+                                            // $api.html(WXName, html);
+                                            // 点开
+                                            clicktoolitem.setAttribute("data-click", 1);
+                                            toolbarlist.src = "../image/my/Bindings.png";
+                                        } else {
+                                            alert(err.code);
+                                        }
+                                    });
+
+                                } else {
+                                    alert(err.code);
+                                }
+                            });
+                        } else {
+                            alert(err.code);
+                        }
+                    });
+                } else {
+                    alert('当前设备未安装微信客户端');
+                }
+            });
+        } else {
+            // var WXName = $api.byId('WXName');
+            // var html = '未绑定';
+            // // console.log(html);
+            // $api.html(WXName, html);
+            // 关闭
+            clicktoolitem.setAttribute("data-click", 0);
+            toolbarlist.src = "../image/my/Binding.png";
+        }
+    }
+
+    function changePassword() {
+        api.openWin({
+            name: 'changePassword',
+            url: './changePassword.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
+
+    }
+</script>

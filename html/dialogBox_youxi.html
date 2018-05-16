@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>孔孟之道--语文考试小游戏</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
+    <style>
+        html,
+        body {
+            background-color: rgba(247, 247, 247, .5);
+        }
+
+        .fr {
+            float: right;
+        }
+
+        .fl {
+            float: left;
+        }
+
+        header {
+            width: 100%;
+            height: 50px;
+            /*background: #FFF;*/
+            background-color: #fff;
+        }
+
+        #secHeader {
+            text-align: center;
+            line-height: 50px;
+            width: 100%;
+            height: 50px;
+            background: url(../image/youxiimg/youxibg.jpg) repeat-x;
+            background-size: 100% 100%;
+            position: relative;
+        }
+
+        .header_fl img {
+            width: 15px;
+            height: 20px;
+            padding: 15px;
+        }
+
+        .header_center {
+            margin: 0 auto;
+            width: 100%;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            font-size: 20px;
+            color: #000;
+        }
+
+        .header_fr {
+            width: 30px;
+            height: 30px;
+            padding: 10px;
+            line-height: 30px;
+            font-size: 15px;
+            color: #fff;
+            /*display: none;*/
+        }
+    </style>
+</head>
+
+<body>
+    <header id="secHeader">
+        <div class="header_fl fl" onclick="goback();"><img src="../image/icon_back.png" alt=""></div>
+        <div class="header_fl fr" style="width:45px;height: 50px;color:#000;" onclick="fnOpenPlayShare();">分享</div>
+        <!-- <div class="header_fr fr"></div>
+        <div class="header_center"></div> -->
+        看图猜字
+    </header>
+</body>
+
+</html>
+<script type="text/javascript" src="../script/api.js"></script>
+
+<script type="text/javascript">
+    function goback() {
+        api.closeWin({
+            name: 'dialogBox_youxi'
+        });
+    }
+    apiready = function() {
+        var header = $api.byId('secHeader');
+        $api.fixStatusBar(header);
+        var headerPos = $api.offset(header);
+        api.openFrame({
+            name: 'dialogBox_youxi_frame1',
+            url: './dialogBox_youxi_frame1.html',
+            rect: {
+                x: 0,
+                y: headerPos.h,
+                w: 'auto',
+                h: 'auto'
+            },
+            pageParam: {
+                name: 'test'
+            },
+            bounces: false,
+        });
+
+    }
+    function fnOpenPlayShare() {
+      var dialogBox = api.require('dialogBox');
+      dialogBox.actionMenu({
+          rect: {
+              h: 150
+          },
+          texts: {
+              cancel: '取消'
+          },
+          items: [{
+              text: '微信',
+              icon: 'widget://image/weixin.png'
+          }, {
+              text: 'QQ',
+              icon: 'widget://image/qq.png'
+          }, {
+              text: '朋友圈',
+              icon: 'widget://image/friends.png'
+          }],
+          styles: {
+              bg: '#FFF',
+              column: 3,
+              itemText: {
+                  color: '#000',
+                  size: 12,
+                  marginT: 8
+              },
+              itemIcon: {
+                  size: 48
+              },
+              cancel: {
+                  bg: 'fs://icon.png',
+                  color: '#000',
+                  h: 44,
+                  size: 14
+              }
+          },
+          tapClose: true
+      }, function(ret) {
+
+        if (ret.index == "0") {
+            dialogBox.close({
+                dialogName: 'alert'
+            });
+            // alert(1);
+        }else if (ret.index == "1") {
+          dialogBox.close({
+              dialogName: 'alert'
+          });
+                        // alert(2);
+        }else if (ret.index == "2") {
+          dialogBox.close({
+              dialogName: 'alert'
+          });
+                        // alert(3);
+        }else {
+          dialogBox.close({
+              dialogName: 'alert'
+          });
+        }
+        // dialogBox.close({
+        //     dialogName: 'alert'
+        // })
+        // alert(JSON.stringify(ret))
+
+      });
+    }
+</script>

@@ -1,0 +1,368 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>孔孟之道--手机登陆</title>
+    <link rel="stylesheet" type="text/css" href="css/api.css" />
+    <style>
+        html,
+        body {
+            min-height: 100%;
+            background: #fff;
+        }
+
+        .fr {
+            float: right;
+        }
+
+        .fl {
+            float: left;
+        }
+
+        .clear {
+            clear: both;
+        }
+
+        .pa {
+            position: absolute;
+        }
+
+        .bb {
+            border-bottom: 1px solid #e0e0e0;
+            height: 1px;
+        }
+
+        nav {
+            margin: 30px 25px;
+        }
+
+        nav .phonenum,
+        .code {
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+            margin-top: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        nav .phonenum>img {
+            vertical-align: middle;
+            width: 20px;
+        }
+
+        nav .phonenum>input {
+            width: 85%;
+            height: 36px;
+            line-height: 36px;
+            /*border-bottom: 1px solid #ccc;*/
+        }
+
+        .code>input {
+            width: 85%;
+            height: 36px;
+            line-height: 36px;
+            padding-left: 10px;
+            /*border-bottom: 1px solid #ccc;*/
+        }
+
+        .code>img {
+            width: 20px;
+        }
+
+        .code>button {
+            width: 34.6%;
+            height: 40px;
+            line-height: 40px;
+            background-color: #89211b;
+            color: #fff;
+            float: right;
+            border-radius: 5px;
+            /*border-top-right-radius: 5px;
+          border-bottom-right-radius: 5px;*/
+        }
+
+        nav input:focus,
+        button:focus {
+            outline: none;
+        }
+
+        nav .loginbutton {
+            width: 100%;
+            height: 75px;
+            line-height: 30px;
+            text-align: center;
+        }
+
+        .loginbutton button {
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            background-color: #89211b;
+            color: #fff;
+            margin-top: 15px;
+            border-radius: 5px;
+        }
+
+        .loginbutton>p {
+            text-align: right;
+            color: #89211b;
+            height: 30px;
+            line-height: 30px;
+        }
+
+        .tx {
+            width: 100px;
+            height: 100px;
+            border-radius: 50px;
+            margin: 0 auto;
+        }
+
+        .tx img {
+            width: 100%;
+            height: 100%;
+        }
+				.loginFree{
+					width: 100%;
+					height: 50px;
+					color: #999;
+				}
+				.loginFreeText{
+					width: 100px;
+					height: 50px;
+					line-height: 50px;
+					/*text-align: right;*/
+					text-align: center;
+				}
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="tx">
+            <img src="image/login/login_icon.png" alt="">
+        </div>
+        <div class="phonenum">
+            <img src="image/login/login_phone.png" alt="">
+            <input type="text" placeholder="请输入手机号" onblur="fnSjyanzheng();" id="phone">
+        </div>
+        <div class="code">
+            <img src="./image/login/login_password.png" onblur="fnSjyanzheng();" state="off" id="img">
+            <input type="password" placeholder="请输入密码" id="password">
+            <div class="clear"></div>
+        </div>
+
+        <div class="loginbutton" onclick="fnIndexOpenWin();">
+            <button>登录</button>
+        </div>
+				<div class="loginFree">
+          <div class="loginFreeText fl" onclick="fnLoginFreeText();">注册账号</div>
+          <div class="loginFreeText fr" onclick="fnForgetText();">忘记密码？</div>
+        </div>
+				<!-- <div class="loginFree"></div> -->
+    </nav>
+</body>
+
+</html>
+<script type="text/javascript" src="script/api.js"></script>
+<script type="text/javascript" src="script/common.js"></script>
+<script type="text/javascript">
+    apiready = function() {
+
+        // var ele_pass_box = document.getElementsByTagName("div")[0];
+        // var ele_pass = ele_pass_box.getElementsByTagName("input")[0];
+        var input = $api.byId('password');
+        var img = $api.byId('img');
+
+        // var ele_eye = ele_pass_box.getElementsByTagName("i")[0];
+        img.onclick = function() {
+            var state = this.getAttribute("state");
+            if (state === "off") {
+                input.setAttribute("type", "text");
+                img.setAttribute("state", "on");
+                img.style.opacity = 1;
+            } else {
+                input.setAttribute("type", "password");
+                img.setAttribute("state", "off");
+                img.style.opacity = 1;
+            }
+            // var playCollect = $api.byId('playCollect');
+            if (img.getAttribute("src", 2) == "./image/login/login_password.png") {
+                img.src = "./image/login/login_password2.png";
+            } else {
+                img.src = "./image/login/login_password.png";
+            }
+        }
+    }
+
+    function fnIndexOpenWin() {
+      var phones = $api.byId('phone');
+      phone = $api.byId('phone').value;
+      var phoneRegular = /^(13[0-9]|15[012356789]|17[0135678]|18[0-9]|14[579])[0-9]{8}$/;
+      if (phone == '') {
+          api.toast({
+              msg: '手机不能为空',
+              duration: 2000,
+              location: 'bottom'
+          });
+          return;
+      } else if (!phoneRegular.test(phone)) {
+          api.toast({
+              msg: '手机格式不正确',
+              duration: 2000,
+              location: 'bottom'
+          });
+          phones.value = '';
+          return;
+      }else{
+        var passwords = $api.byId('password');
+        password = $api.byId('password').value;
+        var passwordRegular = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
+        if (password == '') {
+            api.toast({
+                msg: '密码不能为空',
+                duration: 2000,
+                location: 'bottom'
+            });
+            return;
+        } else {
+          var str = password;
+          if (str == null || str.length < 6) {
+            api.toast({
+                msg: '密码必须大于等于六位',
+                duration: 2000,
+                location: 'bottom'
+            });
+              return;
+          }
+          var reg = new RegExp(/^(?![^a-zA-Z]+$)(?!\D+$)/);
+          if (!reg.test(str)){
+            api.toast({
+                msg: '密码必须包含字母和数字',
+                duration: 2000,
+                location: 'bottom'
+            });
+            return;
+          }else{
+            if(phone){
+              if(password){
+                api.ajax({
+                    url: host + apiUri + '/login/phone',
+                    method: 'post',
+                    dataType: 'json',
+                    data: {
+                      values:{
+                        "mobile":	phone,
+                        "password":	password
+                      },
+                    },
+                    headers: {
+                      "source":api.systemType,
+                      "version":version
+                    },
+                }, function(ret, err) {
+                    if (ret.status == 200) {
+                      var tokens = ret.data.token;
+                      $api.setStorage('token',tokens);
+                       api.openWin({
+                           name: 'index',
+                           url: 'index.html',
+                           pageParam: {
+                               name: 'test'
+                           }
+                       });
+                    }else{
+                      alert(ret.message);
+                    }
+                });
+              }else{
+                api.toast({
+                    msg: '请输入正确的验证码',
+                    duration: 2000,
+                    location: 'bottom'
+                });
+              }
+              }
+            }
+          }
+
+      }
+
+    }
+		function fnLoginFreeText() {
+			api.openWin({
+			    name: 'login_free',
+			    url: './login_free.html',
+			    pageParam: {
+			        name: 'test'
+			    }
+			});
+
+		}
+    function fnForgetText() {
+			api.openWin({
+			    name: 'forget_password',
+			    url: './forget_password.html',
+			    pageParam: {
+			        name: 'test'
+			    }
+			});
+
+		}
+    function fnSjyanzheng() {
+      var phones = $api.byId('phone');
+      phone = $api.byId('phone').value;
+      var phoneRegular = /^(13[0-9]|15[012356789]|17[0135678]|18[0-9]|14[579])[0-9]{8}$/;
+      if (phone == '') {
+          api.toast({
+              msg: '手机不能为空',
+              duration: 2000,
+              location: 'bottom'
+          });
+          return;
+      } else if (!phoneRegular.test(phone)) {
+          api.toast({
+              msg: '手机格式不正确',
+              duration: 2000,
+              location: 'bottom'
+          });
+          phones.value = '';
+          return;
+      }
+    }
+    function fnPswordYanZheng() {
+      var passwords = $api.byId('password');
+      password = $api.byId('password').value;
+      var passwordRegular = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
+      if (password == '') {
+          api.toast({
+              msg: '密码不能为空',
+              duration: 2000,
+              location: 'bottom'
+          });
+          return;
+      } else {
+        var str = password;
+        if (str == null || str.length < 6) {
+          api.toast({
+              msg: '密码必须大于等于六位',
+              duration: 2000,
+              location: 'bottom'
+          });
+            return;
+        }
+        var reg = new RegExp(/^(?![^a-zA-Z]+$)(?!\D+$)/);
+        if (!reg.test(str)){
+          api.toast({
+              msg: '密码必须包含字母和数字',
+              duration: 2000,
+              location: 'bottom'
+          });
+          return;
+        }
+    }
+  }
+</script>

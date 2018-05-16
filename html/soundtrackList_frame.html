@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>孔孟之道--添加配乐</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style>
+        .fr {
+            float: right;
+        }
+
+        .fl {
+            float: left;
+        }
+
+        .p20px {
+            padding: 0px 20px;
+        }
+
+        .clr {
+            overflow: hidden;
+        }
+        /*#id{overflow: auto;}*/
+
+        .soundtrack_frameDiv {
+            width: 100%;
+            height: 50px;
+            line-height: 50px;
+            overflow-y: hidden;
+        }
+
+        .tab {
+            display: none;
+        }
+
+        .soundtrack_frameDiv1 {
+            overflow-y: hidden;
+            background: #f2f2f2;
+        }
+
+        .soundtrack_frameDiv2 {
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            z-index: 10;
+            background: #f2f2f2;
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+
+        .soundtrack_frameDiv2 img {
+            width: 14px;
+            height: 8px;
+        }
+
+        #con ul {
+            display: none;
+            padding: 10px;
+        }
+
+        #con ul.on {
+            display: block;
+        }
+
+        #con ul li {
+            border-bottom: 1px solid #e6e6e6;
+            text-indent: 10px;
+            overflow: hidden;
+        }
+
+        #con ul li div span {
+            display: block;
+            height: 25px;
+            line-height: 25px;
+        }
+
+        .on_li_divImg img {
+            width: 37px;
+            height: 37px;
+            padding: 5px;
+        }
+
+        .on_li_divImg1 img {
+            width: 15px;
+            height: 15px;
+            padding: 16px;
+        }
+
+        .soundtrack_title {
+            padding: 0 10px;
+            margin: 14px 0;
+        }
+
+        .soundtrack_title b {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <!-- <div class="soundtrack_frameDiv2" onclick="text();"><img src="../image/KM_soundtrackXB.png" alt=""></div> -->
+        <div id="con">
+            <ul class="on" id = "on">
+                <!-- <li>
+                    <div class="on_li_divImg fl" onclick="">
+                        <img src="../image/soundtrackList.png" alt="" class="userDeleteA" onclick="fnDeleteUser();"></div>
+                    <div class="fl">
+                        <span>疗伤</span><span>00:30</span>
+                    </div>
+                </li> -->
+            </ul>
+        </div>
+        <!-- </div> -->
+    </div>
+
+</body>
+
+</html>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+var jubenid;
+var beiyueid;
+var CompanyInfobeiyue;
+var input;
+var beiyueid;
+var jubenid;
+var jubentitle;
+var path;
+var duration;
+var caogaowenjianming;
+var caogaozuozhe;
+var duration;
+var timestamp=new Date().getTime();
+var timestamps;
+    apiready = function() {
+      var byid = api.pageParam.byid;
+      fnGetBeiJingYinYuelist(byid);
+    }
+    function fnGetBeiJingYinYuelist(byid) {
+
+  		api.ajax({
+  			url: 'http://47.100.11.38/kongmeng/bgmusic/getbgMusicListByStyle_id.php?page=1&size=500&style_id= ' + byid,
+  			method: 'get',
+  			dataType: 'json',
+  		}, function(ret, err) {
+  			if (ret) {
+  				//alert(ret);
+
+  				fnUpdateLyricList(ret);
+  			} else {
+  				alert(JSON.stringify(err));
+  			}
+  		});
+  	}
+
+  	function fnUpdateLyricList(data_) {
+  		//alert(JSON.stringify(data_));
+  		var stylelist = $api.byId('on');
+  		var html = '';
+  		 for (var i = 0; i < data_.data.length; i++) {
+  		 	html +='<li onclick="setBeiYue(' + data_.data[i].id + ')"><div class="on_li_divImg fl" ><img src="../image/play/soundtrackList.png" alt="" class="userDeleteA" id = "userDeleteA" ></div><div class="fl"><span>  ' + data_.data[i].title + '  </span>   <span> ' + data_.data[i].name + ' </span>  </div></li>';
+  		}
+      //onclick="fnDeleteUser(' + data_.data[i].id + ');"
+  		$api.html(stylelist, html);
+  	}
+    function setBeiYue(InfobeiyueId){
+  		// api.execScript({
+  		// 	name: 'luyinplay',
+  		// 	frameName: 'luyinplay_body',
+  		// 	script: 'fnBeiYueplay(\"' + a + '\");'
+  		// });
+  		//alert(CompanyInfobeiyueStyle);
+  		api.sendEvent({
+  			name: 'netBeiyueId',
+  			extra: {
+  				InfobeiyueId: InfobeiyueId
+  			}
+  		});
+  		alert('已选择背景乐');
+  		api.closeToWin({
+  		    name: 'aloud'
+  		});
+  	}
+    function fnDeleteUser(id) {
+
+        // var userDeleteA = document.getElementById('userDeleteA');
+        // var con = document.getElementById('con');
+        // var userDeleteA = con.getElementsByClassName('userDeleteA');
+        // for (var i = 0; i < userDeleteA.length; i++) {
+        //     userDeleteA[i].index = i;
+        //     userDeleteA[i].onclick = function() {
+        //         var j = this.index;
+        //         if (userDeleteA[j].getAttribute("src", 1) == "../image/soundtrackList.png") {
+        //             userDeleteA[j].src = "../image/soundtrackList1.png";
+        //             fnNetAudiosPlayByID(id);
+        //         } else {
+        //             userDeleteA[j].src = "../image/soundtrackList.png";
+        //             api.stopPlay();
+        //         }
+        //     }
+        // }
+        var player = $api.byId('userDeleteA');
+        if (player.getAttribute("src", 2) == "../image/play/soundtrackList.png") {
+            player.src = "../image/play/soundtrackList1.png";
+            fnNetAudiosPlayByID(id);
+
+        } else {
+            player.src = "../image/play/soundtrackList.png";
+            api.stopPlay();
+        }
+      }
+
+
+
+
+      //播放
+      function fnNetAudiosPlayByID(id) {
+        console.log(id);
+        //id = 74;
+          if (id) {
+              api.ajax({
+                  url: 'http://47.100.11.38/kongmeng/thirdParty/search_songs_by_id.php?id= ' + id,
+                  method: 'get',
+                  dataType: 'json',
+              }, function(ret, err) {
+                  if (ret) {
+                    //console.log(JSON.stringify(ret));
+                    var urlsss = ret.data[0].url;
+                    console.log(urlsss);
+                    api.startPlay({
+                        path: 'http://47.100.11.38/mp3_16g/0062.mp3'
+                    }, function(ret, err) {
+                        if (ret) {
+                            alert('播放完成');
+                        } else {
+                            //alert(JSON.stringify(err));
+                        }
+                    });
+                  } else {
+                      alert(JSON.stringify(err));
+                  }
+              });
+          }
+      }
+
+</script>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>孔孟之道--修改密码</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style>
+        body {
+            /*background: #fbfcfe;*/
+        }
+
+        .fr {
+            float: right;
+        }
+
+        .fl {
+            float: left;
+        }
+
+        .p20px {
+            padding: 0px 20px;
+        }
+
+        .clr {
+            overflow: hidden;
+        }
+        .Binding_bg{width: 100%;}
+        .Binding_bg img{width: 100%;}
+        .Binding_name{margin: 10px 0;text-align: center;}
+        .index_name_li1 {
+            width: 100%;
+            border-radius: 5px;
+        }
+        .index_name_div {
+            line-height: 45px;
+            height: 45px;
+            overflow: hidden;
+        }
+
+        .index_name_div_img {
+            height: 45px;
+            line-height: 45px;
+        }
+
+        .index_name_div_img img {
+          width: 25px;
+              /* height: 30px; */
+              padding: 10px;
+
+        }
+
+        .index_name_div_imgr {
+            height: 45px;
+            line-height: 45px;
+        }
+
+        .index_name_div_imgr img {
+            width: 9px;
+            padding: 15px;
+        }
+        .index_name_div_span {
+          font-size: 15px;
+          line-height: 46px;
+          /*color: #222222;*/
+        }
+        .border_b {
+            border-bottom: 1px solid #ccc;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="Binding_bg"><img src="../image/my/Binding_bg.png" alt=""></div>
+    <div class="Binding_name">15132369635</div>
+    <div class="p20px">
+      <div class="Binding_name2 fr" onclick="();"></div>
+      <div class="Binding_name2 fl" onclick="();"></div>
+    </div>
+    <div class="p20px">
+        <div class="index_name_li1">
+            <div class="index_name_div border_b" onclick="changePassword();">
+                <!-- <div class="index_name_div_img fl"><img src="../image/my/index_wdcj.png" alt=""></div> -->
+                <span class="index_name_div_span fl">设置密码后，可使用手机号登陆</span>
+                <div class="index_name_div_imgr fr"><img src="../image/my/index_y.png" alt=""></div>
+            </div>
+            <div class="index_name_div" onclick="Unbinding();">
+                <!-- <div class="index_name_div_img fl"><img src="../image/my/KM_grzx.png" alt=""></div> -->
+                <span class="index_name_div_span fl">解除绑定</span>
+                <div class="index_name_div_imgr fr"><img src="../image/my/index_y.png" alt=""></div>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+    apiready = function() {
+
+    }
+
+    function changePassword() {
+        api.openWin({
+            name: 'changePassword',
+            url: './changePassword.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
+
+    }
+    function Unbinding() {
+        api.openWin({
+            name: 'Unbinding',
+            url: './Unbinding.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
+
+    }
+</script>

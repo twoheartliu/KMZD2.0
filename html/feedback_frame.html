@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>孔孟之道--帮助与反馈</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style>
+        body{padding: 0 10px;}
+        .textarea_input input:focus {
+            /*border:0;*/
+            outline: none;
+        }
+      .fl{float: left;}
+      .fr{float: right;}
+      .clr{overflow: hidden;}
+      .opinion{height: 50px;}
+      .opinion_name{line-height: 50px;}
+      .opinion_img {width: 30px;padding: 10px;}
+      .opinion_img img{width: 100%;}
+      .common_name{width: 100%;font-size: 12px;color: #ccc;}
+      .common ul li{
+        width: 100%;height: 50px;line-height: 50px;font-size: 12px;color: #000;
+      }
+      .Cover {
+          width: 100%;
+          height: 100px;
+          background-color: #fff;
+      }
+
+      .Cover_img {
+        width: 80px;
+        height: 80px;
+        line-height: 80px;
+        float: left;
+        margin: 4px;
+        border: 1px dashed #ccc;
+        text-align: center;
+        font-size: 30px;
+        color: #ccc;
+      }
+
+      .Cover_img img {
+          width: 100%;
+      }
+
+      .Cover_title {
+          width: 100px;
+          height: 100px;
+          text-align: center;
+          float: right;
+          line-height: 100px;
+      }
+      .bg{width: 100%;height: 25px;}
+      .Cover_input{width: 100%;height: 50px;line-height: 50px;background: #fff;}
+      .Cover_div_input{
+        padding-left: 10px;
+        -webkit-box-flex: 4;
+        -webkit-flex: 4;
+        flex: 4;
+      }
+      .Cover_div_input input{
+        outline:0;width: 100%;
+      }
+      .Cover_x{float: right;width: 100px;text-align: center;-webkit-box-flex: 1;
+      -webkit-flex: 1;
+      flex: 1;}
+      .Cover_name{
+        float: right;width: 100px;
+        text-align: center;
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+        flex: 1;
+      }
+      .row {
+          display: -webkit-box;
+          display: -webkit-flex;
+      }
+      .col {
+          -webkit-box-flex: 1;
+          -webkit-flex: 1;
+          flex: 1;
+      }
+      .description{height: 50px;line-height: 50px;padding-left: 10px;background: #fff;border-bottom: 1px solid #efefef;}
+      .textarea{
+                    background: #fff;
+      }
+      .replyValue {
+          /*background: red;*/
+          width: 300px;
+          height: 100px;
+          line-height: 25px;
+          display: block;
+          margin: 0 auto;
+          resize: none;
+          overflow: scroll;
+          text-shadow: 2rem;
+          outline: none;
+          -webkit-appearance: none;
+          border-radius: 0;
+
+      }
+
+      .replyValue::-webkit-scrollbar {
+          display: none;
+      }
+      .Single{width: 100%;background: #fff;}
+      .Single div{text-align: center;height: 50px;line-height: 50px;}
+      .hy-radio {
+          width: 20px;
+          height: 0px;
+          background-color: #000;
+          margin-right: 10px;
+          border-radius: 50%;
+          position: relative;
+          top: -15px;
+      }
+
+      .hy-radio:before,
+      .hy-radio:after {
+          content: '';
+          display: block;
+          position: absolute;
+          border-radius: 50%;
+          transition: .3s ease;
+      }
+
+      .hy-radio:before {
+          top: 0px;
+          left: 0px;
+          width: 18px;
+          height: 18px;
+          background-color: #fff;
+          border: 1px solid #89211b;
+      }
+
+      .hy-radio:after {
+          top: 6px;
+          left: 6px;
+          width: 8px;
+          height: 8px;
+          background-color: #fff;
+      }
+
+      .hy-radio:checked:after {
+          top: 4px;
+          left: 4px;
+          width: 12px;
+          height: 12px;
+          background-color: #89211b;
+      }
+
+      .hy-radio:checked:before {
+          border-color: #89211b;
+      }
+      .textarea_input{width: 100%;height: 50px;line-height: 50px;}
+      .textarea_input input{width: 100%;height: 50px;}
+    </style>
+</head>
+
+<body>
+  <div class="description">
+    选择反馈类型
+  </div>
+    <div class="Single row">
+      <div class="col"><input class="hy-radio" type="radio" name="radio"/>产品建议</div>
+      <div class="col"><input class="hy-radio" type="radio" name="radio"/>程序错误</div>
+      <div class="col"><input class="hy-radio" type="radio" name="radio"/>缺少内容</div>
+    </div>
+    <div class="description">
+      描述
+    </div>
+
+    <div class="textarea">
+      <textarea placeholder="长按粘贴文本" class="replyValue" type="text" id="bar" spellcheck="false"></textarea>
+      <div class="Cover" onclick="fnSettings();">
+        <div class="Cover_img">+</div>
+        <!-- <div class="Cover_img"></div>
+          <div class="Cover_img"></div>
+          <div class="Cover_img"><img src="../image/my/fnShareImg.jpg" alt="CoverDivInput"></div> -->
+          <!-- <div class="Cover_title">封面</div> -->
+      </div>
+    </div>
+    <div class="textarea_input"><input type="text"  placeholder="填写您的手机或者邮箱"></div>
+  <!-- <div class="clr opinion" onclick="opinion()"><div class="fl opinion_name">意见反馈</div><div class="fr opinion_img"><img src="../image/my/index_bzyfk.png" alt=""></div></div> -->
+  <!-- <div class="clr"></div> -->
+  <div class="common">
+    <div class="common_name">常见问题</div>
+    <ul>
+      <li onclick="common();">1我是问题一</li>
+      <li onclick="common();">2我是问题二</li>
+      <li onclick="common();">3我是问题三</li>
+      <li onclick="common();">4我是问题四</li>
+      <li onclick="common();">5我是问题五</li>
+    </ul>
+  </div>
+</body>
+
+</html>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/swiper.min.js"></script>
+<script type="text/javascript">
+    apiready = function() {
+
+    }
+    function common() {
+      api.openWin({
+          name: 'common',
+          url: './common.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
+
+    }
+    function CoverDivInput() {
+      var CoverDivInput = document.getElementById('CoverDivInput');
+      var CoverDivInputValue = CoverDivInput.value;
+      if (!CoverDivInputValue == '') {
+          CoverDivInput.value = '';
+          api.toast({
+              msg: '已清空',
+              duration: 2000,
+              location: 'bottom'
+          });
+          return;
+      }
+    }
+    function fnSettings() {
+        var dialogBox = api.require('dialogBox');
+        dialogBox.actionMenu({
+            rect: {
+                h: 150
+            },
+            texts: {
+                cancel: '取消'
+            },
+            items: [{
+                text: '相机',
+                icon: 'widget://image/New_Xj.png'
+            }, {
+                text: '相册',
+                icon: 'widget://image/New_Xc.png'
+            }],
+            styles: {
+                bg: '#FFF',
+                corner: 6,
+                column: 2,
+                itemText: {
+                    color: '#000',
+                    size: 12,
+                    marginT: 10
+                },
+                itemIcon: {
+                    size: 30
+                },
+                cancel: {
+                    bg: '#fff',
+                    color: '#333',
+                    h: 55,
+                    size: 14
+                }
+            },
+            tapClose: true
+        }, function(ret) {
+
+            var texts = ret.eventType;
+            var index = ret.index;
+            if (texts == "cancel") {
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+            } else if (index == 0) {
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+                api.getPicture({
+                    sourceType: 'camera',
+                    encodingType: 'jpg',
+                    mediaValue: 'pic',
+                    destinationType: 'url',
+                    allowEdit: true,
+                    quality: 50,
+                    targetWidth: 100,
+                    targetHeight: 100,
+                    saveToPhotoAlbum: false
+                }, function(ret, err) {
+                    if (ret) {
+                        alert(JSON.stringify(ret));
+                    } else {
+                        alert(JSON.stringify(err));
+                    }
+                });
+            } else if (index == 1) {
+                alert('相册')
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+                api.getPicture({
+                    sourceType: 'album',
+                    encodingType: 'jpg',
+                    mediaValue: 'pic',
+                    destinationType: 'url',
+                    allowEdit: true,
+                    quality: 50,
+                    targetWidth: 100,
+                    targetHeight: 100,
+                    saveToPhotoAlbum: false
+                }, function(ret, err) {
+                    if (ret) {
+                        alert(JSON.stringify(ret));
+                    } else {
+                        alert(JSON.stringify(err));
+                    }
+                });
+
+            }
+        });
+    }
+</script>

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>孔孟之道--我的</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
+    <style>
+        html,
+        body {
+            background-color: #f2f2f2;
+        }
+
+        .p20px {
+            padding: 0 13px;
+        }
+
+        .border_r {
+            border-right: 1px dotted #ccc;
+        }
+
+        .border_b {
+            border-bottom: 1px solid #e1e1e1;
+            border-top: 1px solid #e1e1e1;
+        }
+
+        .fl {
+            float: left;
+        }
+
+        .fr {
+            float: right;
+        }
+
+        .bg {
+            width: 100%;
+            height: 10px;
+            background-color: #f2f2f2;
+        }
+
+        .wode_bg {
+            width: 100%;
+            height: 100px;
+            background-image: url(../image/wode_bg.png);
+            background-size: 100%;
+            background-repeat: no-repeat;
+        }
+
+        .wode_bg div {
+            color: #fff;
+            text-align: center;
+        }
+
+        .row {
+            width: 100%;
+            border-radius: 10px;
+            background: #fff;
+        }
+
+        .index_name {
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        .index_name_div {
+            line-height: 45px;
+            height: 45px;
+            overflow: hidden;
+            background: #fff;
+            position: relative;
+        }
+
+        .index_name_div_img {
+            height: 45px;
+            line-height: 45px;
+        }
+
+        .index_name_div_img img {
+            width: 23px;
+            padding: 11px;
+        }
+
+        .index_name_div_imgr {
+            height: 45px;
+            line-height: 45px;
+        }
+
+        .index_name_div_imgr img {
+            width: 9px;
+            /*height: 23px;*/
+            padding: 10px;
+        }
+
+        #buttion {
+            width: 100px;
+            height: 30px;
+            position: absolute;
+            right: 0;
+            top: 10px;
+        }
+        .Conditions{
+          text-decoration:underline;
+          text-align: center;
+          width: 100%;
+          margin: 20px auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="index_name">
+        <div class="index_name_li">
+            <div class="bg"></div>
+            <div class="index_name_div border_b" onclick="fnAiVoiceWin();">
+                <div class="p20px">
+                    <div class="index_name_div_img fl"><img src="../image/my/tj.png" alt=""></div>
+                    <span class="index_name_div_span fl">添加国学机</span>
+                    <div class="index_name_div_imgr fr"><img src="../image/my/index_y.png" alt=""></div>
+                </div>
+            </div>
+            <div class="bg"></div>
+            <div class="index_name_div border_b" onclick="dialogBox_alert2();">
+                <div class="p20px">
+                    <div class="index_name_div_img fl"><img src="../image/my/qcls.png" alt=""></div>
+                    <span class="index_name_div_span fl">关于</span>
+                    <div class="index_name_div_imgr fr"><img src="../image/my/index_y.png" alt=""></div>
+                </div>
+            </div>
+            <div class="bg"></div>
+
+            <div class="index_name_div border_b" onclick="dialogBox_alert3();">
+                <div class="p20px">
+                    <div class="index_name_div_img fl"><img src="../image/my/sj.png" alt=""></div>
+                    <span class="index_name_div_span fl">清除缓存</span>
+                    <div class="index_name_div_imgr fr"><img src="../image/my/index_y.png" alt=""></div>
+                </div>
+            </div>
+            <div class="index_name_div border_b" onclick="dialogBox_alert4();">
+                <div class="p20px">
+                    <div class="index_name_div_img fl"><img src="../image/my/tc.png" alt=""></div>
+                    <span class="index_name_div_span fl">退出</span>
+                    <div class="index_name_div_imgr fr"><img src="../image/my/index_y.png" alt=""></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="Conditions" onclick="fnConditionsWin()">孔孟之道服务条款</div>
+</body>
+
+</html>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+    apiready = function() {}
+
+    function fnAiVoiceWin() {
+        api.openWin({
+            name: 'aiVoice',
+            url: './ai_voice.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
+
+    }
+
+    function dialogBox_alert4() {
+        // $api.rmStorage('login');
+        $api.rmStorage('token');
+        api.toast({
+            msg: '已退出！',
+            duration: 2000,
+            location: 'middle'
+        });
+        // $api.clearStorage();
+        api.openWin({
+            name: 'login',
+            url: '../login.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
+    }
+
+    function dialogBox_alert3() {
+      //同步返回结果：
+      var size = api.getCacheSize({
+          sync: true
+      });
+        //异步返回结果：
+        api.getCacheSize(function(ret) {
+            var size = ret.size;
+
+            var sizeM = (size / 1024 / 1024);
+            // var sizeMs = Math.round(sizeM);
+            var sizeMsb = (sizeM).toFixed(2);
+
+            // alert(sizeM);
+            // alert(sizeMs);
+            // alert(sizeMsb);
+            api.confirm({
+                title: sizeMsb + 'M',
+                msg: '是否清除缓存',
+                buttons: ['确定', '取消']
+            }, function(ret, err) {
+                var index = ret.buttonIndex;
+                if (index == 1) {
+                  api.clearCache(function() {
+                      api.toast({
+                          msg: '清除完成'
+                      });
+                  });
+                  api.toast({
+                      msg: '清除成功',
+                      duration: 2000,
+                      location: 'middle'
+                  });
+                } else {
+                  return;
+                }
+
+
+            });
+
+        });
+    }
+
+    function dialogBox_alert2() {
+        api.openWin({
+            name: 'setOn',
+            url: './setOn.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
+    }
+    function fnConditionsWin() {
+        api.openWin({
+            name: 'Conditions',
+            url: './Conditions.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
+
+    }
+</script>

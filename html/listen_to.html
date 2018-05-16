@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+      <title>孔孟之道--熏听</title>
+      <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+      <style>
+        body,html{
+          /*background-color: #111010;*/
+          background-image: url(../image/play/KM_listen_bg.png);
+          background-size: 100% 100%;
+          background-repeat: no-repeat;
+          overflow: hidden;
+          /*height: 100%;*/
+        }
+        /*头部样式*/
+        header{
+          height: 50px;
+          background: transparent;
+          overflow: hidden;
+        }
+        .egret-img {
+          display: block;
+          float: left;
+          /*padding-left: 18px;*/
+          width: 45px;
+          height: 50px;
+        }
+        .egret-imgs {
+          display: block;
+          float: right;
+          width: 45px;
+          height: 50px;
+          /*padding-left: 18px;*/
+        }
+        .egret-img img {
+          width: 15px;
+          height: 20px;
+          padding: 15px;
+        }
+        .egret-txt{
+          display: block;
+          margin: 0 auto;
+          width: 75%;
+          color: #fff;
+          text-align: center;
+          line-height: 50px;
+          height:50px;
+          /*vertical-align: top;*/
+        }
+        .egret-txt h1{
+          font-size: 16px;
+        }
+        .egret-txt p{
+          font-size: 14px;
+        }
+        .header_fr {
+            width: 30px;
+            height: 30px;
+            padding: 10px 20px 10px 10px;
+            line-height: 30px;
+            font-size: 15px;
+            color: #fff;
+            position: absolute;
+            right: 5px;
+            bottom: -0px;
+            /*display: inline-block;*/
+            /*display: none;*/
+        }
+
+        .header_fr img {
+            width: 100%;
+        }
+        .wrap{
+          /*background-image: url(../image/play/KM_listen_bg.png);
+          background-size: cover;
+          background-repeat: no-repeat;*/
+          /*height: 100%;*/
+
+        }
+        nav{
+          width:100%;
+          text-align: center;
+        }
+        .video-play{
+          /*padding-top: 100px;*/
+          /*padding-top: 75px;*/
+          padding-top: 25%;
+        }
+        .table-img{
+          margin-top: -30px;
+        }
+        .table-img img{
+          width:100%;
+          /*height:auto;*/
+          height:80px;
+        }
+        .bottom-img{
+          background-image : url(../image/play/bottom.png);
+          background-repeat: no-repeat;
+          background-size: contain;
+          /*width:260px;*/
+          width:245px;
+          /*height:260px;*/
+          height:245px;
+          margin: 0 auto;
+          position: relative;
+        }
+        .fumigate-img{
+          position: absolute;
+          bottom: -10px;
+          right: -30%;
+          width: 150px;
+          height: 150px;
+        }
+        .fumigate-img img{
+          width: 150px;
+          height: 150px;
+        }
+        .video{
+          width:190px;
+          height:190px;
+          position: absolute;
+          top: 34px;
+          /*left: 27px;*/
+          left: 20px;
+        }
+        .video>img{
+          /*width:190px;*/
+          width:180px;
+        }
+        .play{
+          padding:10px 0;
+        }
+        .play>img{
+          width:72%;
+          line-height: 40px;
+        }
+        .play>span{
+          font-size: 14px;
+          color:#fff;
+          /*vertical-align: bottom;*/
+          line-height: 40px;
+          width:8%;
+          text-align: center;
+        }
+        section{
+          display: flex;
+          display: -webkit-flex;
+          display: -webkit-box;
+          padding-top:10px;
+          height: 80px;
+        }
+        .item-sort{
+          flex:1;
+          -webkit-flex:1;
+          -webkit-box-flex:1;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: contain;
+          text-align: center;
+          /*line-height: 95px;*/
+          line-height: 70px;
+          position: relative;
+        }
+        .item-sorts img{
+          width: 30px;
+          height: 30px;
+        }
+        .item-sorts>i {
+            position: absolute;
+            top: -18px;
+            right: 30%;
+            width: 10px;
+            height: 10px;
+            display: inline-block;
+            font-style: normal;
+            font-size: 12px;
+            color: #fff;
+        }
+        @-webkit-keyframes rotation{
+          from {-webkit-transform: rotate(0deg);}
+          to {-webkit-transform: rotate(360deg);}
+        }
+        .Rotation{
+          -webkit-transform: rotate(360deg);
+          animation: rotation 5s linear infinite;
+          -moz-animation: rotation 5s linear infinite;
+          -webkit-animation: rotation 5s linear infinite;
+          -o-animation: rotation 5s linear infinite;
+        }
+        .playTime{
+          /*width: 7%;*/
+          width: 15%;
+          color: #fff;
+          height: 20px;
+          line-height: 20px;
+          text-align: center;
+          font-size: 12px;
+
+        }
+        input[type=range] {
+             -webkit-appearance: none;
+             /*width: 80%;*/
+             width: 65%;
+             border-radius: 10px; /*这个属性设置使填充进度条时的图形为圆角*/
+             /*background: -webkit-linear-gradient(#059CFA, #059CFA) no-repeat;*/
+             /*background: -webkit-linear-gradient(#059CFA, #059CFA) no-repeat;*/
+             /*background-size: 0% 100%;*/
+             height: 5px;
+       }
+       input[type=range]::-webkit-slider-thumb {
+         -webkit-appearance: none;
+         height: 15px;
+         width: 15px;
+         margin-top: -5px;
+         /*使滑块超出轨道部分的偏移量相等*/
+         background: #ffffff;
+         border-radius: 50%;
+         /*外观设置为圆形*/
+         border: solid 0.025em rgba(205, 224, 230, 0.5);
+         /*设置边框*/
+         box-shadow: 0 .025em .025em #3b4547;
+         /*添加底部阴影*/
+       }
+       input[type=range]:focus {
+           outline: none;
+       }
+       input[type=range]::-webkit-slider-runnable-track {
+         height: 5px;
+         border-radius: 2.5px;
+       }
+
+       input[type=range]::-ms-fill-lower {
+           /*进度条已填充的部分*/
+           height: 15px;
+           border-radius: 5px;
+           /*background: linear-gradient(to right, #ff0000, #1abc9c 100%, #123);*/
+           /*background: red !important;*/
+       }
+       input[type=range]::-ms-fill-upper {
+           /*进度条未填充的部分*/
+           height: 15px;
+           /*border-radius: 10px;*/
+           background: #ffffff;
+       }
+       input[type=range]:focus::-ms-fill-lower {
+           background: linear-gradient(to right, #059CFA, white 100%, white);
+       }
+       input[type=range]:focus::-ms-fill-upper {
+           background: #ffffff;
+       }
+
+       input[type=range]::-moz-range-progress {
+           /*background: linear-gradient(to right, #059CFA, white 100%, white);*/
+           height: 5px;
+           /*border-radius: 10px;*/
+       }
+       .red{
+         background: #89211b;
+       }
+       .qx{
+         /*padding-top: 10px;*/
+       }
+       .title{
+         width: 100%;
+         height:40px;
+         line-height: 20px;
+         text-align: center;
+         color:#fff;
+         font-size: 15px;
+         padding: 2px 0;
+       }
+       .title h2{
+         font-style: normal;
+         font-size: 14px;
+
+       }
+       .title p{
+         font-size: 13px;
+       }
+
+      </style>
+  </head>
+  <body>
+    <!-- 头部 -->
+      <header id="header">
+          <div  class="egret-img"><img src="../image/icon_back.png" alt="" onclick="goback()" ></div>
+          <div  class="egret-imgs"></div>
+          <div class="egret-txt">
+            <!-- <h1>失去地心的魔方</h1>
+            <p>周晓鑫</p> -->
+            熏听
+          </div>
+          <div class="header_fr" onclick="fnOpenPlayMore()" >
+              <img src="../image/KM_more.png" alt="">
+          </div>
+      </header>
+      <div class="wrap" id="wrap">
+        <nav id="nav">
+          <div class="video-play" >
+            <div class="bottom-img">
+              <div class="video" >
+                <img src="../image/play/pan.png" alt="" class=" " id="video">
+              </div>
+              <div class="fumigate-img">
+                <img src="../image/play/fumigate.png" alt="">
+              </div>
+            </div>
+
+            <div class="table-img">
+              <img src="../image/play/table.png" alt="">
+            </div>
+          </div>
+          <div class="title">
+            <h2>失去地心的魔方</h2>
+            <p>周晓鑫</p>
+          </div>
+          <div id="control" class="qx">
+
+                <!-- <span class="s">13:00:00</span>
+                <input type="range" id="range" name="range" min="0" max="100" step="1" value="0" class="red"/>
+                <span class="e">14:00:00</span> -->
+
+            <span class="playTime">00:01:46</span>
+            <input type="range" id="range" name="range" min="0" max="100" step="1" value="0" class="red"/>
+            <!-- <span id="slider"></span> -->
+            <!-- <img src="../image/KM_play.png" alt="" > -->
+            <!--外层容器-->
+            <!-- <progress max="100" value="0" id="pg"></progress> -->
+            <span class="playTime">00:03:46</span>
+          </div>
+        <!-- <div id="slider">
+      		<span class="s">13:00:00</span>
+      		<span class="e">14:00:00</span>
+      	</div> -->
+        </nav>
+        <section>
+          <div class="item-sort item-sorts">
+            <img src="../image/play/delete.png" alt="">
+          </div>
+          <div class="item-sort item-sorts">
+            <img src="../image/KM_play_collect.png" alt=""  onclick="fnOpenCollect();" id="collect">
+          </div>
+          <div class="item-sort">
+            <img src="../image/footer_bf0.png" alt="" onclick="fnOpenPlayButton();" id="playButton">
+          </div>
+          <div class="item-sort item-sorts">
+            <img src="../image/play/ic_play_next.png" alt="">
+          </div>
+          <div class="item-sort item-sorts">
+            <img src="../image/KM_play_discuss.png" alt="" onclick="fnOpenPlayDiscuss();">
+            <i>20</i>
+          </div>
+        </section>
+      </div>
+  </body>
+  <script type="text/javascript" src="../script/api.js"></script>
+  <script type="text/javascript" src="../script/zepto.js"></script>
+  <script type="text/javascript" src="../script/swiper.min.js"></script>
+  <script type="text/javascript" src="../script/audio2.js"></script>
+  <script type="text/javascript">
+    function goback () {
+      api.closeWin({name:'listenTo'});
+    }
+    apiready = function(){
+      var eHeader = $api.byId('header')
+      $api.fixStatusBar(eHeader);
+      var headerH = $api.offset(eHeader).h;
+      var header = document.querySelector('header');
+      $api.fixIos7Bar(header);
+      // 获取浏览器高度
+      if (window.innerHeight)
+          winHeight = window.innerHeight;
+      else if ((document.body) && (document.body.clientHeight))
+          winHeight = document.body.clientHeight;
+      var messageFrameDiv = $api.byId('wrap');
+      var winHeightHeader = winHeight - headerH;
+      $api.css(messageFrameDiv, 'height:' + winHeightHeader + 'px;');
+
+      // fnOpenListenFrame();
+    };
+    function fnOpenListenFrame(){
+      var eHeader = $api.byId('header')
+      var headerH = $api.offset(eHeader).h;
+      api.openFrame({
+          name: 'listenFrame',
+          url: './listen_frame.html',
+          rect: {
+              x: 0,
+              y: headerH,
+              w: api.frameWidth,
+              h: api.frameHeight - 50
+          },
+          pageParam: {
+              name: 'test'
+          },
+          bounces: false,
+          bgColor: 'rgba(0,0,0,0)',
+          vScrollBarEnabled: true,
+          hScrollBarEnabled: true
+      });
+    }
+    // function fnOpenPlayButton(){
+    //   var playButton = $api.byId('playButton');
+    //   var video = $api.byId('video');
+    //   if(playButton.getAttribute("src",2)=="../image/play.png"){
+    //     playButton.src="../image/playing.png";
+    //     $api.addCls(video, 'Rotation');
+    //   }else{
+    //     playButton.src="../image/play.png";
+    //     $api.removeCls(video, 'Rotation');
+    //   }
+    // }
+    //打开更多页面
+    function fnOpenPlayMore() {
+        var dialogBox = api.require('dialogBox');
+        dialogBox.actionMenu({
+            rect: {
+                h: 150
+            },
+            texts: {
+                cancel: '取消'
+            },
+            items: [{
+                text: '添加到听单',
+                icon: 'widget://image/KM_play_add_gray.png'
+            }, {
+                text: '分享',
+                icon: 'widget://image/KM_ListingsListGd.png'
+            }],
+            styles: {
+                bg: '#FFF',
+                column: 2,
+                itemText: {
+                    color: '#000',
+                    size: 12,
+                    marginT: 8
+                },
+                itemIcon: {
+                    size: 30
+                },
+                cancel: {
+                    bg: 'fs://icon.png',
+                    color: '#000',
+                    h: 44,
+                    size: 14
+                }
+            },
+            tapClose: true
+        }, function(ret) {
+            if (ret.eventType == 'cancel') {
+                dialogBox.close({
+                    dialogName: 'discount'
+                });
+            }
+            if (ret.index == "0") {
+              fnOpenAddListening();
+              dialogBox.close({
+                  dialogName: 'alert'
+              });
+
+            } else if (ret.index == "1") {
+                  fnOpenPlayShare();
+                // alert(2);
+            } else {
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+            }
+            // dialogBox.close({
+            //     dialogName: 'alert'
+            // })
+            // alert(JSON.stringify(ret))
+
+        });
+    }
+    //打开分享
+    function fnOpenPlayShare() {
+        var dialogBox = api.require('dialogBox');
+        dialogBox.actionMenu({
+            rect: {
+                h: 150
+            },
+            texts: {
+                cancel: '取消'
+            },
+            items: [{
+                text: '微信',
+                icon: 'widget://image/weixin.png'
+            }, {
+                text: 'QQ',
+                icon: 'widget://image/qq.png'
+            }, {
+                text: '朋友圈',
+                icon: 'widget://image/friends.png'
+            }],
+            styles: {
+                bg: '#FFF',
+                column: 3,
+                itemText: {
+                    color: '#000',
+                    size: 12,
+                    marginT: 8
+                },
+                itemIcon: {
+                    size: 30
+                },
+                cancel: {
+                    bg: 'fs://icon.png',
+                    color: '#000',
+                    h: 44,
+                    size: 14
+                }
+            },
+            tapClose: true
+        }, function(ret) {
+            if (ret.eventType == 'cancel') {
+                dialogBox.close({
+                    dialogName: 'discount'
+                });
+            }
+            if (ret.index == "0") {
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+                // alert(1);
+            } else if (ret.index == "1") {
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+                // alert(2);
+            } else if (ret.index == "2") {
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+                // alert(3);
+            } else {
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
+            }
+            // dialogBox.close({
+            //     dialogName: 'alert'
+            // })
+            // alert(JSON.stringify(ret))
+
+        });
+    }
+    //添加到听单
+    function fnOpenAddListening(){
+      api.openWin({
+          name: 'addListening',
+          url: './add_listening.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
+    }
+
+    var timeout, rotate = 0;
+    function fnOpenPlayButton(){
+      var playButton = $api.byId('playButton');
+      var video = $api.byId('video');
+      var timeout, rotate = 0;
+      if(playButton.getAttribute("src",2)=="../image/footer_bf0.png"){
+        playButton.src="../image/footer_bf1.png";
+        // $api.addCls(video, 'Rotation');
+        startAnim();
+        // a();
+
+      }else{
+        playButton.src="../image/footer_bf0.png";
+        // $api.removeCls(video, 'Rotation');
+        stopAnim();
+        // b();
+      }
+    }
+    function startAnim() {
+        timeout = setInterval(function () {
+            var img = document.getElementById("video");
+            var rotateStyle = "rotate(" + rotate + "deg)";
+            img.style.transform = rotateStyle;
+            img.style["-moz-transform"] = rotateStyle;
+            img.style["-webkit-transform"] = rotateStyle;
+            img.style["-o-transform"] = rotateStyle;
+            img.style["-ms-transform"] = rotateStyle;
+
+            rotate += 1;
+            if (rotate > 360) {
+                rotate = 0;
+            }
+        }, 30);
+    }
+    function stopAnim() {
+      clearInterval(timeout);
+      timeout = null;
+    }
+    // 收藏
+    function fnOpenCollect(){
+      var collect = $api.byId('collect');
+      if(collect.getAttribute("src",2)=="../image/KM_play_collect.png"){
+        collect.src="../image/KM_play_collect_red.png";
+        api.toast({
+              msg: '收藏成功',
+              duration: 2000,
+              location: 'middle'
+          });
+      }else{
+        collect.src="../image/KM_play_collect.png";
+      }
+    };
+    // 打开评论页面
+    function fnOpenPlayDiscuss(){
+      api.openWin({
+          name: 'discussNoticeDetail0',
+          url: './discuss_notice_detail0.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
+    }
+  </script>
+  <script>
+      var change = function($input) {
+          /*内容可自行定义*/
+          // console.log("123");
+      }
+      $('input').RangeSlider({ callback: change});
+  </script>
+  </html>

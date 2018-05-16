@@ -1,3 +1,4 @@
+alert('333');
 /*TMODJS:{"version":19,"md5":"fb61ac7dea700c82cbbf2e2056d94dc4"}*/
 template('items',function($data,$filename
 /**/) {

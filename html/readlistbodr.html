@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>孔孟之道--选择剧本</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style>
+        .fr {
+            float: right;
+        }
+
+        .fl {
+            float: left;
+        }
+
+        header {
+            width: 100%;
+            height: 50px;
+            background: #89211b;
+        }
+
+        .header_fl img {
+          width: 15px;
+          height: 20px;
+          padding: 15px;
+        }
+
+        .header_center {
+            margin: 0 auto;
+            width: 100%;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            font-size: 20px;
+            color: #fff;
+        }
+
+        .header_fr {
+            width: 30px;
+            height: 30px;
+            padding: 10px;
+            line-height: 30px;
+            font-size: 15px;
+            color: #fff;
+            /*display: none;*/
+        }
+    </style>
+</head>
+
+<body>
+    <header id="secHeader">
+        <div class="header_fl fl" onclick="goback();"><img src="../image/icon_back.png" alt=""></div>
+        <div class="header_fr fr"></div>
+        <div class="header_center">选择剧本</div>
+    </header>
+</body>
+
+</html>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+    function goback() {
+        api.closeWin({
+            name: 'readlistbodr'
+        });
+    }
+    apiready = function() {
+        var header = $api.byId('secHeader');
+        $api.fixStatusBar(header);
+        var headerPos = $api.offset(header);
+        var CompanyInfojubenByID = api.pageParam.CompanyInfojubenByID;
+        api.openFrame({
+          name: 'readlistbodr_frame',
+          url: './readlistbodr_frame.html',
+          bounces: false,
+          opaque: false,
+          pageParam : {
+            CompanyInfojubenByID : CompanyInfojubenByID
+          },
+          rect: {
+            x: 0,
+            y: headerPos.h,
+            w: 'auto',
+            h: 'auto'
+          }
+
+        });
+    }
+</script>

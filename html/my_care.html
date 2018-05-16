@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>孔孟之道--我的关注</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style>
+        /* 头部 */
+        .topbar {background: #89211b; height:50px; border-bottom: 1px solid #89211b;position: relative;}
+        .egret-img {position: absolute;}
+        .egret-img img {    width: 15px;
+            height: 20px;
+            padding: 15px;vertical-align: top;}
+        .egret-header-title {position: absolute;width: 100%;text-align: center;line-height: 50px;color: #fff;font-size: 20px;}
+    </style>
+</head>
+<body>
+  <header class="egret-header topbar" id="disHeader">
+      <div class="egret-header-title">关注</div>
+      <div  class="egret-img"><img src="../image/icon_back.png" alt="" onclick="goback()" ></div>
+  </header>
+</body>
+</html>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+  function goback () {
+    api.closeWin({name:'myCare'});
+  }
+  apiready = function() {
+    var dHeader = $api.byId('disHeader');
+    $api.fixStatusBar(dHeader);  //状态栏
+    fnOpenMyCareFrame();
+  }
+  function fnOpenMyCareFrame() {
+    var dHeader = $api.byId('disHeader');
+    var headerH = $api.offset(dHeader).h;
+    api.openFrame({
+        name: 'myCareFrame',
+        url: './my_care_frame.html',
+        rect: {
+            x: 0,
+            y: headerH,
+            w: 'auto',
+            h: 'auto'
+        },
+        pageParam: {
+            name: 'test'
+        },
+        bounces: false,
+        bgColor: 'rgba(0,0,0,0)',
+        vScrollBarEnabled: false,
+        hScrollBarEnabled: false
+    });
+
+  }
+
+</script>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>孔孟之道--我的粉丝</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style>
+          html,
+          body {
+              background-color: #f2f2f2;
+          }
+          /* 头部 */
+          .nomessage {margin-top: 20px;font-size: 0.8em;text-align: center;color: #999;}
+          nav{border-top: 1px solid #ccc;}
+          nav .total{color:#000;font-size: 16px;padding-left: 15px;height:40px;line-height: 40px;}
+          nav>ul{background-color: #fff;}
+          nav ul li{width:100%;height:70px;padding: 10px 0 0;background-color: #fff;border-bottom: 10px solid #f2f2f2;;}
+          .user-detail{display: inline-block;width:80%;}
+          /*section ul li:nth-last-child(1){border-bottom: 1px solid #ccc;}*/
+          .user-img{width:50px;height: 60px;line-height: 60px;display: inline-block;margin-left: 10px;vertical-align: top;}
+          .user-name{height: 60px;display: inline-block;vertical-align: middle;width: 65%;}
+          .user-name p{font-size: 16px;color: #000;width:100%;overflow: hidden;text-overflow: ellipsis;white-space:nowrap;line-height: 25px;}
+          .user-name p:nth-child(2){font-size: 14px;margin-top: 8px;color: #ccc;line-height: 20px;}
+          /*.user-name p:nth-child(3){font-size: 14px;margin-top: 5px;color: #ccc;}*/
+          /*.user-name p>span{margin-right: 10px;vertical-align: top;}*/
+          /*.user-name p:nth-last-child(1){font-size: 12px;width:92px;color: #999;float:right;}*/
+          .userDelete{display: inline-block;width: 30px;line-height: 70px;text-align: center;}
+          .userDelete>img{width: 50px;}
+          .active{display: none;}
+          .p>span{
+            font-size: 12px;
+          }
+    </style>
+</head>
+
+<body>
+  <nav id="nav" >
+    <div class="total">已互相关注了<span>12</span>人</div>
+    <ul>
+      <li class="item" id="item">
+        <div class="user-detail" onclick="fnOpenmyPersonal();">
+            <div class="user-img"><img src="../image/my/user-logo.png" alt=""></div>
+            <div class="user-name" >
+              <p>走不出胡同的猫</p>
+              <!-- <p>注册时间：2017年12月30日</p> -->
+              <p class="p">
+                <span>粉丝</span><span>180</span>
+                <span>作品</span><span>180</span>
+              </p>
+            </div>
+          </div>
+          <div class="userDelete" >
+            <img src="../image/my/personal_care_a.png" alt="" class="userDeleteA">
+          </div>
+      </li>
+      <li class="item" >
+        <div class="user-detail" onclick="fnOpenmyPersonal();">
+            <div class="user-img"><img src="../image/my/user-logo.png" alt=""></div>
+            <div class="user-name" >
+              <p>走不出胡同的猫</p>
+              <!-- <p>注册时间：2017年12月30日</p> -->
+              <p class="p">
+                <span>粉丝</span><span>180</span>
+                <span>作品</span><span>180</span>
+              </p>
+            </div>
+          </div>
+          <div class="userDelete" >
+            <img src="../image/my/attention.png" alt="" class="userDeleteA">
+          </div>
+      </li>
+      <li class="item">
+        <div class="user-detail" onclick="fnOpenmyPersonal();">
+            <div class="user-img"><img src="../image/my/user-logo.png" alt=""></div>
+            <div class="user-name" >
+              <p>走不出胡同的猫</p>
+              <!-- <p>注册时间：2017年12月30日</p> -->
+              <p class="p">
+                <span>粉丝</span><span>180</span>
+                <span>作品</span><span>180</span>
+              </p>
+            </div>
+          </div>
+          <div class="userDelete" >
+            <img src="../image/my/attention.png" alt="" class="userDeleteA">
+          </div>
+      </li>
+      <li class="item">
+        <div class="user-detail" onclick="fnOpenmyPersonal();">
+            <div class="user-img"><img src="../image/my/user-logo.png" alt=""></div>
+            <div class="user-name" >
+              <p>走不出胡同的猫</p>
+              <!-- <p>注册时间：2017年12月30日</p> -->
+              <p class="p">
+                <span>粉丝</span><span>180</span>
+                <span>作品</span><span>180</span>
+              </p>
+            </div>
+          </div>
+          <div class="userDelete" >
+            <img src="../image/my/personal_care_a.png" alt="" class="userDeleteA">
+          </div>
+      </li>
+      <li class="item">
+        <div class="user-detail" onclick="fnOpenmyPersonal();">
+            <div class="user-img"><img src="../image/my/user-logo.png" alt=""></div>
+            <div class="user-name" >
+              <p>走不出胡同的猫</p>
+              <!-- <p>注册时间：2017年12月30日</p> -->
+              <p class="p">
+                <span>粉丝</span><span>180</span>
+                <span>作品</span><span>180</span>
+              </p>
+            </div>
+          </div>
+          <div class="userDelete" >
+            <img src="../image/my/personal_care_a.png" alt="" class="userDeleteA">
+          </div>
+      </li>
+      <li class="item">
+        <div class="user-detail" onclick="fnOpenmyPersonal();">
+            <div class="user-img"><img src="../image/my/user-logo.png" alt=""></div>
+            <div class="user-name" >
+              <p>走不出胡同的猫</p>
+              <!-- <p>注册时间：2017年12月30日</p> -->
+              <p class="p">
+                <span>粉丝</span><span>180</span>
+                <span>作品</span><span>180</span>
+              </p>
+            </div>
+          </div>
+          <div class="userDelete" >
+            <img src="../image/my/personal_care_a.png" alt="" class="userDeleteA">
+          </div>
+      </li>
+
+    </ul>
+    <!-- <div class="nomessage">暂无消息</div> -->
+  </nav>
+</body>
+</html>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript">
+    apiready = function() {
+      // fnDeleteUser();
+      fnOpenUserButton();
+    };
+    function fnOpenmyPersonal(){
+      api.openWin({
+          name: 'myPersonal',
+          url: './my_personal.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
+
+    };
+
+
+    //加关注
+    function fnOpenUserButton() {
+      var nav = document.getElementById('nav');
+      var userDeleteA_lis = nav.getElementsByClassName('userDeleteA');
+        for (var i = 0; i < userDeleteA_lis.length; i++) {
+          userDeleteA_lis[i].index = i;
+            userDeleteA_lis[i].onclick = function() {
+              var j = this.index;
+                var dialogBox = api.require('dialogBox');
+                  dialogBox.alert({
+                      texts:{
+                          content:'确定要添加关注吗？',
+                          leftBtnTitle: '取消',
+                          rightBtnTitle: '确认'
+                      },
+                      styles: {
+                          bg: '#fff',
+                          w: 300,
+                          content: {
+                              color: '#000',
+                              size: 14
+                          },
+                          left: {
+                              marginB: 15,
+                              marginL: 20,
+                              w: 100,
+                              h: 35,
+                              corner: 2,
+                              bg: '#ccc',
+                              color: '#fff',
+                              size: 12
+                          },
+                          right: {
+                              marginB: 15,
+                              marginL: 60,
+                              w: 100,
+                              h: 35,
+                              corner: 2,
+                              bg: '#ccc',
+                              color: '#fff',
+                              size: 12
+                          }
+                      }
+                    },function(ret) {
+                      if (ret.eventType == 'right') {
+                        if(userDeleteA_lis[j].getAttribute("src",2)=="../image/my/attention.png"){
+                          userDeleteA_lis[j].src="../image/my/personal_care_a.png";
+                        }else {
+                          userDeleteA_lis[j].src="../image/my/attention.png";
+                        }
+                          var dialogBox = api.require('dialogBox');
+                          dialogBox.close({
+                              dialogName: 'alert'
+                          });
+                      }else if (ret.eventType == 'left') {
+                        var dialogBox = api.require('dialogBox');
+                        dialogBox.close({
+                            dialogName: 'alert'
+                        });
+                    }
+                });
+
+        }
+      }
+
+      }
+
+</script>

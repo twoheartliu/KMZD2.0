@@ -213,7 +213,7 @@
 
             return mark;
         }
-        
+
     };
     u.remove = function(el){
         if(el && el.parentNode){
@@ -331,7 +331,7 @@
                     break;
             }
         }
-        
+
     };
     u.prepend = function(el, html){
         if(!u.isElement(el)){
@@ -475,7 +475,7 @@
         }
     };
 
-   
+
     /*by king*/
     u.fixIos7Bar = function(el){
         if(!u.isElement(el)){
@@ -483,6 +483,7 @@
             return;
         }
         var strDM = api.systemType;
+
         if (strDM == 'ios') {
             var strSV = api.systemVersion;
             var numSV = parseInt(strSV,10);
@@ -598,7 +599,7 @@
     };
 
 /*end*/
-    
+
 
     window.$api = u;
 

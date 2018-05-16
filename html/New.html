@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>孔孟之道--新建我的听单</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
+    <style>
+        .fr {
+            float: right;
+        }
+
+        .fl {
+            float: left;
+        }
+
+        header {
+            width: 100%;
+            height: 50px;
+            background: #89211b;
+        }
+
+        .header_fl img {
+            width: 15px;
+            height: 20px;
+            /*padding: 10px;*/
+            padding: 16px 10px 10px 20px;
+        }
+
+        .header_center {
+            margin: 0 auto;
+            width: 100%;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            font-size: 20px;
+            color: #fff;
+        }
+
+        .header_fr {
+            width: 30px;
+            height: 30px;
+            padding: 10px 20px 10px 10px;
+            line-height: 30px;
+            font-size: 15px;
+            color: #fff;
+            /*display: none;*/
+        }
+
+        .header_fr img {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <header id="secHeader">
+        <div class="header_fl fl" onclick="goback();"><img src="../image/icon_back.png" alt=""></div>
+        <div class="header_fr fr" onclick="fnOkWin();">确定</div>
+        <div class="header_center">我的听单</div>
+    </header>
+</body>
+
+</html>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript">
+    function goback() {
+        api.closeWin({
+            name: 'New'
+        });
+    }
+
+    apiready = function() {
+        var header = $api.byId('secHeader');
+        $api.fixStatusBar(header);
+        var headerPos = $api.offset(header);
+        api.openFrame({
+            name: 'New_frame',
+            url: './New_frame.html',
+            rect: {
+                x: 0,
+                y: headerPos.h,
+                w: 'auto',
+                h: 'auto'
+            },
+            pageParam: {
+                name: 'test'
+            },
+            bounces: false,
+            allowEdit: true,
+            reload: true
+        });
+        CoverDivInputImgBar();
+    }
+
+    var CoverDivInput;
+    var CoverImg;
+    var bar;
+
+    function CoverDivInputImgBar() {
+        api.addEventListener({
+            name: 'Newbar'
+        }, function(ret, err) {
+
+            // console.log(JSON.stringify(ret));
+            bar = ret.value.bar;
+        });
+        api.addEventListener({
+            name: 'NewCoverImg'
+        }, function(ret, err) {
+            // console.log(JSON.stringify( ret ));
+            CoverImg = ret.value.CoverImg;
+        });
+        api.addEventListener({
+            name: 'NewCoverDivInput'
+        }, function(ret, err) {
+            CoverDivInput = ret.value.CoverDivInput
+                // console.log(JSON.stringify(  ));
+        });
+    }
+
+    function fnOkWin() {
+        if (CoverDivInput == undefined || CoverDivInput == '') {
+            // console.log(CoverDivInput);
+            api.toast({
+                msg: '用户名不能为空',
+                duration: 2000,
+                location: 'bottom'
+            });
+        } else {
+
+            var token = $api.getStorage('token');
+            api.ajax({
+                url: host + apiUri + '/listening/create',
+                method: 'post',
+                headers: {
+                        "source": api.systemType,
+                        "version": version,
+                        "session": token
+                    },
+                    data: {
+                      values : {
+                        'name': CoverDivInput,
+                        'cover': CoverImg,
+                        'description': bar
+                      }
+                    }
+            },function(ret, err){
+                if (ret) {
+                  if (ret.status == 200) {
+                    // api.openWin({
+                    //     name: 'ListeningList',
+                    //     url: './ListeningList.html',
+                    //     pageParam: {
+                    //         name: 'test'
+                    //     },
+                    //     reload:true
+                    //
+                    // });
+                    api.closeWin();
+                  }
+
+                } else {
+                  alert(ret.message);
+                  $api.rmStorage('token');
+                  api.openWin({
+                      name: 'login',
+                      url: '../login.html',
+                      pageParam: {
+                          name: 'test'
+                      }
+                  });
+                }
+            });
+
+
+        }
+    }
+</script>

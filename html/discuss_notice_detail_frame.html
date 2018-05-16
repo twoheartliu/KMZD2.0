@@ -1,0 +1,420 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="copyright" content="www.apicloud.com" />
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <title>孔孟之道--单曲评论详情</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style>
+        html,
+        body {
+            min-height: 100%;
+            background: #ebebeb;
+        }
+
+        .fr {
+            float: right;
+        }
+
+        .fl {
+            float: left;
+        }
+
+        .clear {
+            clear: both;
+        }
+
+        .mt5 {
+            margin-top: 5px;
+        }
+
+        .mt10 {
+            margin-top: 10px;
+        }
+
+        .mt15 {
+            margin-top: 15px;
+        }
+
+        .mt20 {
+            margin-top: 20px;
+        }
+
+        .ml5 {
+            margin-left: 0.5em;
+        }
+
+        .mr5 {
+            margin-right: 0.5em;
+        }
+
+        .hdivider {
+            width: 100%;
+            height: 1px;
+            background-color: #e0e0e0;
+        }
+
+        .br {
+            border-right: 1px solid #e0e0e0;
+        }
+
+        .bb {
+            border-bottom: 1px solid #e0e0e0;
+            height: 1px;
+        }
+
+        .toRight {
+            right: 0;
+        }
+
+        .row {
+            display: -webkit-box;
+            display: -webkit-flex;
+        }
+
+        .col {
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+            margin: 0 5px;
+            position: relative;
+        }
+
+        .swiper-container img {
+            width: 100%;
+        }
+        /* 头部 */
+
+        .nomessage {
+            margin-top: 20px;
+            font-size: 0.8em;
+            text-align: center;
+            color: #999;
+        }
+        /*中间内容*/
+
+        nav {
+            height: 70px;
+            padding: 8px;
+            background-color: #fff;
+        }
+
+        .nav-left .nav-img {
+            display: inline-block;
+            width: 70px;
+            height: 70px;
+        }
+
+        .nav-left .nav-txt {
+            display: inline-block;
+            vertical-align: top;
+            width: 150px;
+            line-height: 35px;
+        }
+
+        .nav-right {
+            line-height: 65px;
+            font-size: 32px;
+            color: #ccc
+        }
+
+        ;
+        .nav-tit {
+            height: 32px;
+            padding-left: 8px;
+            line-height: 32px;
+        }
+
+        .nav-txt>p {
+            color: #535354;
+        }
+
+        .nav-txt>p:nth-child(2) {
+            color: #ccc;
+        }
+
+        .sec-tit {
+            height: 40px;
+            line-height: 40px;
+            padding-left: 8px;
+        }
+
+        .sec-discuss {
+            background-color: #fff;
+            padding: 8px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .sec-img {
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        .sec-img img {
+            width: 45px;
+            height: 45px;
+        }
+
+        .sec-txt {
+            display: inline-block;
+        }
+
+        .sec-txt>p {
+            color: #999;
+            line-height: 25px;
+        }
+
+        .sec-txt>p:nth-child(2) {
+            color: #ccc;
+            font-size: 13px;
+        }
+
+        .dis-right>span {
+            color: #ccc;
+            font-size: 12px;
+        }
+
+        .dis-right>img {
+            width: 18px;
+            height: 18px;
+            vertical-align: top;
+        }
+
+        .dis-txt {
+            margin-left: 40px;
+            padding-bottom: 10px;
+            /*border-bottom: 1px solid #e0e0e0;*/
+            color: #535354;
+        }
+
+        .discuss {
+            margin-left: 40px;
+            height: auto;
+            padding: 10px;
+            background-color: #f2f2f3;
+            color: #999;
+            border-radius: 5px;
+        }
+
+        .reply {
+            width: 100%;
+            height: 20px;
+            line-height: 20px;
+            text-align: right;
+            color: #ccc;
+            font-size: 14px;
+            padding-right: 10px;
+        }
+
+        section {
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <nav>
+            <div class="nav-left fl">
+                <div class="nav-img"><img src="../image/index/downloaddiscover01.jpg" alt=""></div>
+                <div class="nav-txt">
+                    <p>焚身以火</p>
+                    <p>叶倩文</p>
+                </div>
+            </div>
+            <div class="nav-right fr">
+                <!-- <img src="../image/cm2_list_icn_arr.png" alt=""> -->
+                &gt;
+            </div>
+            <div class="clear"></div>
+        </nav>
+        <section id="section">
+            <div class="sec-tit">当前评论</div>
+            <div class="sec-discuss">
+                <div class="dis-left fl">
+                    <div class="sec-img"><img src="../image/icon-person.png" alt=""></div>
+                    <div class="sec-txt">
+                        <p>燕赵门</p>
+                        <p>2017年9月19日</p>
+                    </div>
+                </div>
+                <div class="dis-right fr">
+                    <span>3</span><img src="../image/KM_ListingsListDzs.png" alt="" class="zan01">
+                </div>
+                <div class="clear"></div>
+                <div class="dis-txt">海中月是天上月，眼前人是心上人。向来心是看客心，奈何人是剧中人</div>
+                <div class="reply" onclick="fnOpenMessageNotDetail()">回复</div>
+            </div>
+            <div class="sec-tit">所有评论</div>
+            <div class="sec-discuss">
+                <div class="dis-left fl">
+                    <div class="sec-img"><img src="../image/icon-person.png" alt=""></div>
+                    <div class="sec-txt">
+                        <p>燕赵门</p>
+                        <p>2017年9月19日</p>
+                    </div>
+                </div>
+                <div class="dis-right fr">
+                    <span>3</span><img src="../image/KM_ListingsListDzs.png" alt="" class="zan01">
+                </div>
+                <div class="clear"></div>
+                <div class="dis-txt">海中月是天上月，眼前人是心上人。向来心是看客心，奈何人是剧中人</div>
+                <div class="reply" onclick="fnOpenMessageNotDetail()">回复</div>
+            </div>
+            <div class="sec-discuss">
+                <div class="dis-left fl">
+                    <div class="sec-img"><img src="../image/icon-person.png" alt=""></div>
+                    <div class="sec-txt">
+                        <p>燕赵门</p>
+                        <p>2017年9月19日</p>
+                    </div>
+                </div>
+                <div class="dis-right fr">
+                    <span>3</span><img src="../image/KM_ListingsListDzs.png" alt="" class="zan01">
+                </div>
+                <div class="clear"></div>
+                <div class="dis-txt">海中月是天上月，眼前人是心上人。向来心是看客心，奈何人是剧中人</div>
+                <div class="reply" onclick="fnOpenMessageNotDetail()">回复</div>
+            </div>
+            <div class="sec-discuss">
+                <div class="dis-left fl">
+                    <div class="sec-img"><img src="../image/icon-person.png" alt=""></div>
+                    <div class="sec-txt">
+                        <p>燕赵门</p>
+                        <p>2017年9月19日</p>
+                    </div>
+                </div>
+                <div class="dis-right fr">
+                    <span>3</span><img src="../image/KM_ListingsListDzs.png" alt="" class="zan01">
+                </div>
+                <div class="clear"></div>
+                <div class="dis-txt">海中月是天上月，眼前人是心上人。向来心是看客心，奈何人是剧中人</div>
+                <div class="reply" onclick="fnOpenMessageNotDetail()">回复</div>
+            </div>
+            <div class="sec-discuss">
+                <div class="dis-left fl">
+                    <div class="sec-img"><img src="../image/icon-person.png" alt=""></div>
+                    <div class="sec-txt">
+                        <p>燕赵门</p>
+                        <p>2017年9月19日</p>
+                    </div>
+                </div>
+                <div class="dis-right fr">
+                    <span>3</span><img src="../image/KM_ListingsListDzs.png" alt="" class="zan01">
+                </div>
+                <div class="clear"></div>
+                <div class="dis-txt">海中月是天上月，眼前人是心上人。向来心是看客心，奈何人是剧中人</div>
+                <div class="reply" onclick="fnOpenMessageNotDetail()">回复</div>
+            </div>
+            <div class="sec-discuss">
+                <div class="dis-left fl">
+                    <div class="sec-img"><img src="../image/icon-person.png" alt=""></div>
+                    <div class="sec-txt">
+                        <p>燕赵门</p>
+                        <p>2017年9月19日</p>
+                    </div>
+                </div>
+                <div class="dis-right fr">
+                    <span>3</span><img src="../image/KM_ListingsListDzs.png" alt="" class="zan01">
+                </div>
+                <div class="clear"></div>
+                <div class="dis-txt">海中月是天上月，眼前人是心上人。向来心是看客心，奈何人是剧中人</div>
+                <div class="reply" onclick="fnOpenMessageNotDetail()">回复</div>
+            </div>
+            <div class="sec-discuss">
+                <div class="dis-left fl">
+                    <div class="sec-img"><img src="../image/icon-person.png" alt=""></div>
+                    <div class="sec-txt">
+                        <p>燕赵门</p>
+                        <p>2017年9月19日</p>
+                    </div>
+                </div>
+                <div class="dis-right fr">
+                    <span>3</span><img src="../image/KM_ListingsListDzs.png" alt="" class="zan01">
+                </div>
+                <div class="clear"></div>
+                <div class="dis-txt">海中月是天上月，眼前人是心上人。向来心是看客心，奈何人是剧中人</div>
+                <div class="reply" onclick="fnOpenMessageNotDetail()">回复</div>
+                <div class="discuss">
+                    <span>评论：不知道为什么分开，很多喜欢以为永远会喜欢，到最后才发现任何事情都抵不过时过境迁。</span>
+                </div>
+
+            </div>
+
+        </section>
+    </div>
+    <!-- <div class="nomessage">暂无消息02</div> -->
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+    function goback() {
+        api.closeWin({
+            name: 'discussNoticeDetailFrame'
+        });
+
+    }
+    apiready = function() {
+        var notHeader = $api.byId('notHeader');
+        $api.fixStatusBar(notHeader);
+        // fnOpenMessageNotDetail();
+        var section = document.getElementById('section');
+        var ul_lis = section.getElementsByClassName('zan01');
+        for (var i = 0; i < ul_lis.length; i++) {
+            ul_lis[i].index = i;
+
+            ul_lis[i].onclick = function() {
+                // alert(1);
+                var j = this.index;
+                if (ul_lis[j].getAttribute("src", 2) == "../image/KM_ListingsListDzs.png") {
+                    ul_lis[j].src = "../image/KM_play_dianzan_red.png";
+                    api.toast({              
+                        msg:   '点赞成功',
+                                      duration:  2000,
+                                      location:   'middle'          
+                    });
+                } else {
+                    ul_lis[j].src = "../image/KM_ListingsListDzs.png";
+                }
+            }
+        }
+    }
+
+    function fnOpenMessageNotDetail() {
+        api.openWin({
+            name: 'replyDetail',
+            url: './reply_detail.html',
+            pageParam: {
+                name: 'test'
+            },
+            bounces: false,
+            vScrollBarEnabled: true,
+            hScrollBarEnabled: true
+        });
+    }
+    // function fnOpenMessageNotDetail(){
+    //   var container = $api.byId('container');
+    //   var containerH = $api.offset(container).h;
+    //
+    //   api.openFrame({
+    //       name: 'replyDetailFrame',
+    //       url: './reply_detail_frame.html',
+    //       rect: {
+    //           x: api.frameWidth,
+    //           y: api.frameHeight,
+    //           w: api.frameWidth,
+    //           h: 50
+    //       },
+    //       pageParam: {
+    //           name: 'test'
+    //       },
+    //       bounces: false,
+    //       bgColor: 'rgba(0,0,0,0)',
+    //       vScrollBarEnabled: true,
+    //       hScrollBarEnabled: true
+    //   });
+    // }
+</script>
+
+</html>

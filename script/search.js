@@ -49,14 +49,14 @@ function OpenInputBox() {
         },
         styles: {
             bgColor: '#fff',
-            size: 16,
+            size: 14,
             color: '#000',
             placeholder: {
                 color: '#ccc'
             }
         },
         maxRows: 1,
-        placeholder: '搜电影、软件、明星、番号...',
+        placeholder: '请输入关键词搜索...',
         keyboardType: 'search',
         fixedOn: ''
     }, function (ret) {

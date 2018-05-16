@@ -1,0 +1,948 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>孔孟之道--个人信息</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.2.0.css" />
+    <link rel="stylesheet" type="text/css" href="../css/Mdate.css">
+    <style>
+        #box {
+            background: #ffffff;
+            height: 106px;
+            width: 100%;
+            position: fixed;
+            left: 0;
+            bottom: -106px;
+            -webkit-transform: translate3d(0px, -106px, 0px);
+            -moz-transform: translate3d(0px, -106px, 0px);
+            transform: translate3d(0px, -106px, 0px);
+            transition: all 0.3s;
+            visibility: hidden;
+        }
+
+        #box a {
+            display: block;
+            width: 100%;
+            text-align: center;
+            height: 40px;
+            background: #fff;
+            color: #333;
+            line-height: 40px;
+            border-bottom: 1px solid #ebebeb;
+            font-size: 16px;
+            position: relative;
+            margin-bottom: 6px;
+        }
+
+        .btn {
+            margin-top: 0.1rem;
+            margin-bottom: 2rem;
+            text-align: center
+        }
+
+        .btn button {
+            width: 90%;
+            outline: none;
+            border: none;
+            background: #009bdb;
+            color: #fff;
+            height: 40px;
+            display: inline-block;
+            border-radius: 0.4rem;
+            font-size: 16px;
+        }
+
+        body {
+            background: #ffffff;
+            position: relative;
+        }
+
+        .aui-pull-left span {
+            font-size: 18px;
+        }
+
+        .aui-card-list-content {
+            width: 130px;
+            margin: 0 auto;
+            border-radius: 65px;
+        }
+
+        .aui-card-list-content img {
+            border-radius: 65px;
+        }
+
+        .fl {
+            float: left;
+        }
+
+        .fr {
+            float: right;
+        }
+
+        .clr {
+            clear: both;
+        }
+
+        .upimg ul li {
+            overflow: hidden;
+            padding: 0 10px;
+            height: 45px;
+            line-height: 45px;
+        }
+
+        .upimg ul li div {
+            margin: 0 5px;
+            font-size: 14px;
+        }
+
+        .upimg ul li div:nth-child(1) {
+            /*color: #03a9f4;*/
+            font-size: 14px;
+        }
+
+        .upimg ul li div:nth-child(2) {
+            color: #ccc;
+        }
+
+        .upimg ul li div:nth-child(3) {
+            color: #ccc;
+        }
+
+        .upimg_div {
+            width: 100%;
+            height: 50px;
+            line-height: 50px;
+            padding: 0 10px;
+            font-size: 18px;
+            font-weight: 800;
+            /*color: #03a9f4;*/
+        }
+
+        #header {
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: 45px;
+            line-height: 45px;
+        }
+
+        #baby .dateSelectorOne {
+            text-align: right;
+            font-size: 14px;
+            line-height: 45px;
+        }
+
+        #babyAdd {
+            border: 2px dashed #ccc;
+            margin: 20px;
+            text-align: center;
+            height: 50px;
+            line-height: 50px;
+            color: #999;
+            font-weight: 900;
+        }
+
+        #fnBirthday .dateSelectorOneBirthday {
+            text-align: right;
+            font-size: 14px;
+            line-height: 45px;
+            color: #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 进度条-->
+    <div class="aui-progress aui-progress-xxs" style="margin-bottom: 1rem;">
+        <div class="aui-progress-bar" id="jd"></div>
+    </div>
+    <!-- 头像显示区域-->
+    <div class="aui-card-list" onclick="upimg()">
+        <div class="aui-card-list-content" id="tx" style="">
+            <!-- <img src="../res/01.jpg" /> -->
+        </div>
+    </div>
+    <div class="upimg">
+        <ul>
+            <li onclick="fnNickname();">
+                <div class="fl">昵称</div>
+                <div class="fr"> > </div>
+                <div class="fr" id='nickName'></div>
+            </li>
+            <li onclick="fnSignature();">
+                <div class="fl">签名</div>
+                <div class="fr"> > </div>
+                <div class="fr" id="signature"></div>
+            </li>
+            <li onclick="fnSetGender();">
+                <div class="fl">性别</div>
+                <div class="fr"> > </div>
+                <div class="fr" id="sex"></div>
+            </li>
+            <li id="fnBirthday">
+                <div class="fl">生日</div>
+                <div class="fr"> > </div>
+                <div class="fr"><input type="text" id="dateSelectorOneBirthday" class="dateSelectorOneBirthday" placeholder='' value="" readonly="readonly"> </div>
+            </li>
+            <!-- <li onclick="fnArea();">
+                <div class="fl">地区</div>
+                <div class="fr"> > </div>
+                <div class="fr">未填写</div>
+            </li> -->
+        </ul>
+        <div class="upimg_div">
+            <div class="fl">我的宝宝</div>
+        </div>
+        <div id="111">
+            <div class="upimg_div">
+                <div class="fl">宝宝1</div>
+            </div>
+            <ul id="baby">
+                <li onclick="fnSetGender();">
+                    <div class="fl">性别</div>
+                    <div class="fr"> > </div>
+                    <div class="fr">未填写</div>
+                </li>
+                <li id="dateShowBtn">
+                    <div class="fl">生日</div>
+                    <div class="fr"> > </div>
+                    <div class="fr"><input type="text" id="dateSelectorTwo" class="dateSelectorOne" placeholder="选择日期" readonly="readonly"></div>
+                </li>
+
+            </ul>
+        </div>
+        <div id="babyAdd" onclick="fnBabyAdd()">添加宝宝</div>
+    </div>
+    <!-- 操作按钮-->
+    <div id="box">
+        <a>操 作</a>
+        <div class="btn" onclick="save()">
+            <button>
+					截取头像
+				</button>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script src="../script/select/iScroll.js"></script>
+<script src="../script/select/Mdate.js"></script>
+<script type="text/javascript">
+    var x = 1;
+    var token;
+
+    function goback() {
+        api.closeWin({
+            name: 'upimg'
+        });
+    }
+    apiready = function() {
+        token = $api.getStorage('token');
+        api.setStatusBarStyle({
+            style: 'light',
+            color: '#000'
+        });
+        api.parseTapmode();
+        $api.fixStatusBar($api.dom('header'));
+        api.addEventListener({
+            name: 'keyback'
+        }, function(ret, err) {
+            goback();
+        });
+        // var periodSelector = api.require('periodSelector');
+        fninfo();
+
+    };
+
+    function fninfo() {
+        var uri = '/user/info';
+        api.ajax({
+            url: host + apiUri + uri,
+            method: 'get',
+            dataType: 'json',
+            headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token,
+            },
+        }, function(ret, err) {
+            if (ret.status == 200) {
+                //昵称
+                var stylelist = $api.byId('nickName');
+                var html = ret.data.nick_name;
+                $api.html(stylelist, html);
+                //签名
+                var stylelist1 = $api.byId('signature');
+                if (ret.data.signature == null) {
+                    var html1 = '未填写';
+                    $api.html(stylelist1, html1);
+                } else {
+                    var html1 = ret.data.signature;
+                    $api.html(stylelist1, html1);
+                }
+                //性别
+                var stylelist2 = $api.byId('sex');
+                if (ret.data.sex == 0) {
+                    var html2 = '未填写';
+                    $api.html(stylelist2, html2);
+                } else if (ret.data.sex == 1) {
+                    var html2 = '男';
+                    $api.html(stylelist2, html2);
+                }
+                if (ret.data.sex == 2) {
+                    var html2 = '女';
+                    $api.html(stylelist2, html2);
+                }
+                //年龄
+                // var stylelist3 = $api.byId('date');
+                var html3;
+                if (ret.data.birth == null) {
+                    html3 = '选择日期';
+                    var inputsssss = $api.byId('dateSelectorOneBirthday');
+                    inputsssss.value = html3;
+                    // $api.html(stylelist3, html3);
+                } else {
+                    html3 = timestampToTime(ret.data.birth);
+                    var inputsssss = $api.byId('dateSelectorOneBirthday');
+                    inputsssss.value = html3;
+                }
+                //头像
+                var title1 = $api.byId("tx");
+                var html4 = '';
+                if (ret.data.photo == null) {
+                  // console.log(ret.data.photo);
+                    html4 = '<img src="../image/KM_tx.png" alt="" />';
+                    $api.html(title1, html4);
+                } else {
+                    html4 = '<img src="' + updatePhotoUrl + ret.data.photo + '" alt="" />';
+                    $api.html(title1, html4);
+                }
+                fn222222(ret.data);
+            }
+
+        });
+    }
+
+    function fn222222(data) {
+        var aaaa = data.baby.length;
+        var baby = data.baby;
+        if (aaaa) {
+            var stylelists = $api.byId('111');
+            var htmls = '';
+            for (var i = 0; i < aaaa; i++) {
+                var sex;
+                if (baby[i].sex == 0) {
+                    sex = '未填写';
+                }
+                if (baby[i].sex == 1) {
+                    sex = '男';
+                }
+                if (baby[i].sex == 2) {
+                    sex = '女';
+                }
+                var j = i + 1;
+                var mydate = timestampToTime(baby[i].birthday);
+                htmls += '<div class="upimg_div"><div class="fl">宝宝' + j + '</div></div><ul id="baby"><li onclick="fnSetGender();"><div class="fl">性别</div><div class="fr"> > </div><div class="fr" id="sex">' + sex +
+                    '</div></li><li id="dateShowBtn"><div class="fl">生日</div><div class="fr"> > </div><div class="fr" id="date"><input type="text" id="dateSelectorTwo" class="dateSelectorOne" placeholder="' + mydate +
+                    '" readonly="readonly"></div></li></ul>';
+            }
+            $api.html(stylelists, htmls);
+        }
+    }
+    //添加宝宝信息
+    function fnBabyAdd() {
+        // var htmls = '';
+        // htmls += '<div class="upimg_div"><div class="fl">宝宝' + j + '</div></div><ul id="baby"><li onclick="fnSetGender();"><div class="fl">性别</div><div class="fr"> > </div><div class="fr" id="sex">' + sex +
+        //     '</div></li><li id="dateShowBtn"><div class="fl">生日</div><div class="fr"> > </div><div class="fr" id="date"><input type="text" id="dateSelectorTwo" class="dateSelectorOne" placeholder="' + mydate +
+        //     '" readonly="readonly"></div></li></ul>';
+        var id = $api.byId('baby');
+        x += 1;
+        $api.append(id, '<div class="upimg_div">宝宝' + x + '</div>');
+        $api.append(id, '<li onclick="fnSetGender();"><div class="fl">性别</div><div class="fr"> > </div><div class="fr">未填写</div></li>');
+        $api.append(id, '<li><div class="fl" id="">年龄</div><div class="fr"> > </div><div class="fr"><input type="text" readonly="readonly" id="dateSelectorOne' + x + '"	class="dateSelectorOne"  placeholder="选择日期"></div></li>');
+        var dateSelectorOnes = 'dateSelectorOne' + x;
+        new Mdate(dateSelectorOnes);
+    }
+    // 时间戳转换成年月日
+    function timestampToTime(timestamp) {
+        var date = new Date(timestamp * 1000); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
+        Y = date.getFullYear() + '-';
+        M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+        D = (date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate());
+        // h = date.getHours() + ':';
+        // m = date.getMinutes() + ':';
+        // s = date.getSeconds();
+        // return Y+M+D+h+m+s;
+        return Y + M + D;
+    }
+
+    function upimg() {
+        api.actionSheet({
+            title: '上传照片',
+            cancelTitle: '取消',
+            buttons: ['拍照', '手机相册']
+        }, function(ret, err) {
+            if (ret) {
+                var index = ret.buttonIndex;
+                // alert(index);
+                if (index == 1) {
+                    getPicture(index);
+                }
+                if (index == 2) {
+                    getPicture(index);
+                }
+            }
+        });
+
+    }
+
+    function getPicture(sourceType) {
+        //相机拍照
+        if (sourceType == 1) {
+            api.getPicture({
+                sourceType: 'camera',
+                encodingType: 'jpg',
+                mediaValue: 'pic',
+                allowEdit: false,
+                quality: 96,
+                saveToPhotoAlbum: false
+            }, function(ret, err) {
+                var data = ret.data;
+                if (!data == '') {
+                    $api.byId('box').style.visibility = 'visible';
+                    var FNImageClip = api.require('FNImageClip');
+                    FNImageClip.open({
+                        rect: {
+                            x: 0,
+                            y: 0,
+                            w: api.winWidth,
+                            h: api.winHeight - document.querySelector('#box').offsetHeight
+                        },
+                        srcPath: ret.data,
+                        mode: 'image',
+                        style: {
+                            mask: 'rgba(0,0,0,0.75)',
+                            clip: {
+                                w: 200,
+                                h: 200,
+                                x: (api.frameWidth - 200) / 2,
+                                y: (api.frameHeight - 200) / 2,
+                                borderColor: '#0f0',
+                                borderWidth: 1,
+                                appearance: 'rectangle'
+                            }
+                        },
+                    }, function(ret, err) {
+
+                    });
+                } else {
+                    return;
+                }
+            });
+        } else if (sourceType == 2) {
+            //手机相册选图片
+            var obj = api.require('UIMediaScanner');
+            obj.open({
+                type: 'picture',
+                column: 4,
+                max: 1,
+                sort: {
+                    key: 'time',
+                    order: 'desc'
+                },
+                texts: {
+                    stateText: '已选择*项',
+                    cancelText: '取消',
+                    finishText: '完成'
+                },
+                styles: {
+                    bg: '#fff',
+                    mark: {
+                        icon: '',
+                        position: 'bottom_right',
+                        size: 20
+                    },
+                    nav: {
+                        bg: '#eee',
+                        stateColor: '#000',
+                        stateSize: 18,
+                        cancleBg: 'rgba(0,0,0,0)',
+                        cancelColor: '#000',
+                        cancelSize: 18,
+                        finishBg: 'rgba(0,0,0,0)',
+                        finishColor: '#000',
+                        finishSize: 18
+                    }
+                }
+            }, function(ret) {
+                //将选择的图像进行剪辑
+                if (ret.eventType == 'cancel') {} else if (ret.list.length > 0) {
+                    $api.byId('box').style.visibility = 'visible';
+                    var FNImageClip = api.require('FNImageClip');
+                    FNImageClip.open({
+                        rect: {
+                            x: 0,
+                            y: 0,
+                            w: api.winWidth,
+                            h: api.winHeight - document.querySelector('#box').offsetHeight
+                        },
+                        srcPath: ret.list[0].path,
+                        mode: 'image',
+                        style: {
+                            mask: 'rgba(0,0,0,0.75)',
+                            clip: {
+                                w: 200,
+                                h: 200,
+                                x: (api.frameWidth - 200) / 2,
+                                y: (api.frameHeight - 200) / 2,
+                                borderColor: '#0f0',
+                                borderWidth: 0,
+                                appearance: 'rectangle'
+                            }
+                        },
+                    }, function(ret, err) {
+                    });
+                }
+
+            });
+        }
+    }
+    //保存剪辑图像
+    function save() {
+        var FNImageClip = api.require('FNImageClip');
+        var nubs = nub(1000, 3000);
+        FNImageClip.save({
+            destPath: 'fs://tx_' + nubs + '.jpg',
+            copyToAlbum: false,
+            quality: 1
+        }, function(ret, err) {
+            $api.byId('box').style.visibility = 'hidden';
+            var tx = ret.destPath;
+            FNImageClip.close();
+            //上传剪辑后的图像到服务器
+            api.ajax({
+                url: host + apiUri + '/upload/user_photo',
+                method: 'post',
+                headers: {
+                    "source": api.systemType,
+                    "version": version,
+                    "session": token
+                },
+                data: {
+                    files: {
+                        photo: tx
+                    }
+                }
+            }, function(ret, err) {
+                if (ret.status == 200) {
+
+                  api.ajax({
+                      url: host + apiUri + '/user/edit',
+                      method: 'post',
+                      headers: {
+                          "source": api.systemType,
+                          "version": version,
+                          "session": token
+                      },
+                      data: {
+                          values: {
+                              "name": 'photo',
+                              "value": ret.data,
+                          }
+                      }
+                  }, function(ret, err) {
+                    // console.log(ret.status);
+                      if (ret.status == 200) {
+
+                          // $api.byId('tx').innerHTML = '<img src=" ' + updatePhotoUrl + ret.data. + ' ">';
+
+                          api.ajax({
+                              url: host + apiUri + '/user/info',
+                              method: 'get',
+                              headers: {
+                                  "source": api.systemType,
+                                  "version": version,
+                                  "session": token
+                              },
+                          }, function(ret, err) {
+                              if (ret.status == 200) {
+                                  // $api.byId('tx').innerHTML = '<img src=" ' + updatePhotoUrl + ret.data.photo + ' ">';
+                                  var stylelist = $api.byId('tx');
+                                  var html = '<img src=" ' + updatePhotoUrl + ret.data.photo + '">';
+                                  $api.html(stylelist, html);
+                                  api.sendEvent({
+                                      name: 'netTitlePhoto',
+                                      extra: {
+                                          titlePhoto: '<img src=" ' + updatePhotoUrl + ret.data.photo + '">'
+                                      }
+                                  });
+                                  api.toast({
+                                      msg: '上传成功',
+                                      duration: 3000,
+                                      location: 'bottom'
+                                  });
+                              } else {
+                                  // api.toast({
+                                  //     msg: '上传失败，请重试',
+                                  //     duration: 3000,
+                                  //     location: 'bottom'
+                                  // });
+                              }
+                          });
+                      } else {
+                          api.toast({
+                              msg: '上传失败，请重试',
+                              duration: 3000,
+                              location: 'bottom'
+                          });
+                      }
+                  });
+                } else {
+                    api.toast({
+                        msg: '上传失败，请重试',
+                        duration: 3000,
+                        location: 'bottom'
+                    });
+                }
+            });
+        });
+    }
+
+    function nub(minNum, maxNum) {
+        switch (arguments.length) {
+            case 1:
+                return parseInt(Math.random() * minNum + 1);
+                break;
+            case 2:
+                return parseInt(Math.random() * (maxNum - minNum + 1) + minNum);
+                break;
+            default:
+                return 0;
+                break;
+        }
+
+    }
+    var gender;
+
+    function fnSetGender() {
+        api.actionSheet({
+            title: '选择性别',
+            cancelTitle: '取消',
+            buttons: ['男', '女']
+        }, function(ret, err) {
+            if (ret.buttonIndex >= 3) {
+                return;
+            }
+            gender = ret.buttonIndex === 1 ? 1 : 2;
+            // console.log(gender);
+            var index = ret.buttonIndex;
+            var uri = '/user/edit';
+            api.ajax({
+                url: host + apiUri + uri,
+                method: 'post',
+                dataType: 'json',
+                headers: {
+                    "source": api.systemType,
+                    "version": version,
+                    "session": token,
+                },
+                data: {
+                    values: {
+                        "name": "sex",
+                        "value": gender
+                    }
+                }
+            }, function(ret, err) {
+                // console.log(ret.status);
+                if (ret.status == 200) {
+                    var stylelist12 = $api.byId('sex');
+                    if (gender == 1) {
+                        var html12 = "男";
+                        $api.html(stylelist12, html12);
+
+                    } else if (gender == 2) {
+                        var html12 = "女";
+                        $api.html(stylelist12, html12);
+                    }
+                }
+            });
+
+
+            // fnUpdateUserInfo('gender',gender)
+        });
+    }
+
+
+    // 昵称
+    function fnNickname() {
+
+        var dialogBox = api.require('dialogBox');
+        dialogBox.input({
+            keyboardType: 'default',
+            texts: {
+                title: '你的昵称',
+                placeholder: '输入昵称',
+                leftBtnTitle: '取消',
+                rightBtnTitle: '确定'
+            },
+            styles: {
+                bg: '#fff',
+                corner: 10,
+                w: 300,
+                h: 200,
+                title: {
+                    h: 40,
+                    alignment: 'center',
+                    size: 14,
+                    color: '#000',
+                    marginT: 30,
+                },
+                input: {
+                    h: 30,
+                    y: 30,
+                    marginT: 10,
+                    marginLeft: 10,
+                    marginRight: 10,
+                    textSize: 14,
+                    borderColor: '#ccc',
+                    verticalCenter: true,
+                    borderWidth: 1,
+                    textColor: '#333',
+                },
+                dividingLine: {
+                    width: 1,
+                    color: '#ffffff'
+                },
+                left: {
+                    // bg: 'rgba(0,0,0,0)',
+                    bg: 'rgba(0,0,0,0)',
+                    color: '#000',
+                    size: 12,
+                    h: 60
+                },
+                right: {
+                    bg: 'rgba(0,0,0,0)',
+                    color: '#000',
+                    size: 12,
+                    h: 60
+                },
+                horizontalLine: {
+                    color: '#eeeeee', //（可选项）字符串类型；左右按钮上边横线的颜色，支持rgb、rgba、#；默认：'rgba(245,245,245,0)'
+                    height: 1 //（可选项）数字类型；左右边按钮横线的高度；默认：0
+                },
+                verticalLine: {
+                    color: '#eeeeee', //（可选项）字符串类型；左右按钮中间竖线的颜色，支持rgb、rgba、#；默认：'rgba(245,245,245,0)'
+                    width: 1 //（可选项）数字类型；左右边按钮竖线的高度；默认：0
+                },
+            },
+            tapClose: true
+        }, function(ret) {
+            // api.alert({
+            //     msg: JSON.stringify(ret)
+            // });
+            if (ret.eventType == 'left') {
+                var dialogBox = api.require('dialogBox');
+                dialogBox.close({
+                    dialogName: 'input'
+                });
+            } else if (ret.eventType == 'right') {
+                var uri = '/user/edit';
+                var text = ret.text;
+                api.ajax({
+                    url: host + apiUri + uri,
+                    method: 'post',
+                    dataType: 'json',
+                    headers: {
+                        "source": api.systemType,
+                        "version": version,
+                        "session": token,
+                    },
+                    data: {
+                        values: {
+                            "name": 'nick_name',
+                            "value": text,
+                        }
+                    }
+                }, function(ret, err) {
+                    fninfo();
+                    api.sendEvent({
+                        name: 'netNickName',
+                        extra: {
+                            nickName: text
+                        }
+                    });
+
+                });
+                var dialogBox = api.require('dialogBox');
+                dialogBox.close({
+                    dialogName: 'input'
+                });
+            } else {
+                var dialogBox = api.require('dialogBox');
+                dialogBox.close({
+                    dialogName: 'input'
+                });
+            }
+        });
+    }
+    // 签名
+    function fnSignature() {
+        var dialogBox = api.require('dialogBox');
+        dialogBox.input({
+            keyboardType: 'default',
+            texts: {
+                title: '签名',
+                placeholder: '签名',
+                leftBtnTitle: '取消',
+                rightBtnTitle: '确定'
+            },
+            styles: {
+                bg: '#fff',
+                corner: 10,
+                w: 300,
+                h: 200,
+                title: {
+                    h: 40,
+                    alignment: 'center',
+                    size: 14,
+                    color: '#000',
+                    marginT: 30,
+                },
+                input: {
+                    h: 30,
+                    y: 30,
+                    marginT: 10,
+                    marginLeft: 10,
+                    marginRight: 10,
+                    textSize: 14,
+                    borderColor: '#ccc',
+                    verticalCenter: true,
+                    borderWidth: 1,
+                    textColor: '#333',
+                },
+                dividingLine: {
+                    width: 1,
+                    color: '#ffffff'
+                },
+                left: {
+                    // bg: 'rgba(0,0,0,0)',
+                    bg: 'rgba(0,0,0,0)',
+                    color: '#000',
+                    size: 12,
+                    h: 60
+                },
+                right: {
+                    bg: 'rgba(0,0,0,0)',
+                    color: '#000',
+                    size: 12,
+                    h: 60
+                },
+                horizontalLine: {
+                    color: '#eeeeee', //（可选项）字符串类型；左右按钮上边横线的颜色，支持rgb、rgba、#；默认：'rgba(245,245,245,0)'
+                    height: 1 //（可选项）数字类型；左右边按钮横线的高度；默认：0
+                },
+                verticalLine: {
+                    color: '#eeeeee', //（可选项）字符串类型；左右按钮中间竖线的颜色，支持rgb、rgba、#；默认：'rgba(245,245,245,0)'
+                    width: 1 //（可选项）数字类型；左右边按钮竖线的高度；默认：0
+                },
+            },
+            tapClose: true
+        }, function(ret) {
+            // api.alert({
+            //     msg: JSON.stringify(ret)
+            // });
+            if (ret.eventType == 'left') {
+                var dialogBox = api.require('dialogBox');
+                dialogBox.close({
+                    dialogName: 'input'
+                });
+            } else if (ret.eventType == 'right') {
+                var uri = '/user/edit';
+                var text = ret.text;
+                api.ajax({
+                    url: host + apiUri + uri,
+                    method: 'post',
+                    dataType: 'json',
+                    headers: {
+                        "source": api.systemType,
+                        "version": version,
+                        "session": token,
+                    },
+                    data: {
+                        values: {
+                            "name": 'signature',
+                            "value": text,
+                        }
+                    }
+                }, function(ret, err) {
+                    fninfo();
+                    api.sendEvent({
+                        name: 'netsignature',
+                        extra: {
+                            netsignature: text
+                        }
+                    });
+
+                });
+                var dialogBox = api.require('dialogBox');
+                dialogBox.close({
+                    dialogName: 'input'
+                });
+            } else {
+                var dialogBox = api.require('dialogBox');
+                dialogBox.close({
+                    dialogName: 'input'
+                });
+            }
+        });
+    }
+    // 地区
+    // function fnArea() {
+    //     var citySelector = api.require('citySelector');
+    //     citySelector.open({
+    //         y: api.frameHeight / 1.6,
+    //         fixedOn: api.frameName,
+    //     }, function(ret) {
+    //         if (ret) {
+    //             alert(JSON.stringify(ret));
+    //         }
+    //     });
+    // }
+
+    function fnAlter() {
+        api.prompt({
+            buttons: ['确定', '取消']
+        }, function(ret, err) {
+            var index = ret.buttonIndex;
+            var text = ret.text;
+        });
+    }
+</script>
+<script type="text/javascript">
+    new Mdate("dateShowBtn", {
+        acceptId: "dateSelectorTwo",
+        beginYear: "2010",
+        beginMonth: "10",
+        beginDay: "24",
+        endYear: "2025",
+        endMonth: "1",
+        endDay: "1",
+        format: "-"
+    })
+    new Mdate("fnBirthday", {
+        acceptId: "dateSelectorOneBirthday",
+        beginYear: "2010",
+        beginMonth: "10",
+        beginDay: "24",
+        endYear: "2025",
+        endMonth: "1",
+        endDay: "1",
+        format: "-"
+    })
+</script>
+
+</html>
