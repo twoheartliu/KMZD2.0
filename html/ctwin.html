@@ -453,6 +453,8 @@
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/zepto.js"></script>
 <script type="text/javascript" src="../script/audio2.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/saveUpload.js"></script>
 <script type="text/javascript">
 
     var title;
@@ -463,7 +465,9 @@
     var timestamp;
     var timestamps;
     var jubenid;
+    var token;
     apiready = function() {
+      token = $api.getStorage('token');
         var secHeader = $api.byId('secHeader');
         $api.fixStatusBar(secHeader);
         var headerH = $api.offset(secHeader).h;
@@ -617,7 +621,7 @@
         }, 1000)
 
     }
-    
+
     function goback() {
         api.closeWin({
             name: 'ctwin'

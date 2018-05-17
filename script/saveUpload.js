@@ -1,5 +1,6 @@
 //保存
 function fnLuYinBaoCun() {
+  if(c>9){
     var dialogBox = api.require('dialogBox');
     dialogBox.alert({
         texts: {
@@ -62,7 +63,11 @@ function fnLuYinBaoCun() {
                       newPath: 'fs://caogaoxiang/' + timestamp + jubenid
                     }, function(ret, err) {
                       if (ret.status) {
-                          alert('已保存');
+                          api.toast({              
+                              msg:  '已保存',
+                              duration:  2000,
+                              location:   'middle'          
+                          });
                           fs.rmdir({
                               path: 'fs://luyin'
                           }, function(ret, err) {
@@ -101,7 +106,11 @@ function fnLuYinBaoCun() {
               });
 
             }else{
-              alert("请先录音");
+              api.toast({              
+                  msg:  '请先录音',
+                  duration:  2000,
+                  location:   'middle'          
+              });
             }
 
           }else{
@@ -192,14 +201,27 @@ function fnLuYinBaoCun() {
                                       }, function(ret, err) {
                                         // console.log(JSON.stringify(ret));
                                           if (ret.status == 200) {
-                                          alert('已上传');
+                                          api.toast({              
+                                              msg:  '已上传',
+                                              duration:  2000,
+                                              location:   'middle'          
+                                          });
 
                                           } else {
-
+                                            api.toast({              
+                                                msg:  ret.message,
+                                                duration:  2000,
+                                                location:   'middle'          
+                                            });
                                           }
                                       });
                                   } else {
 
+                                      api.toast({              
+                                          msg:  ret.message,
+                                          duration:  2000,
+                                          location:   'middle'          
+                                      });
                                   }
                               });
 
@@ -214,7 +236,11 @@ function fnLuYinBaoCun() {
                   }
               });
             }else{
-              alert("请先录音");
+              api.toast({              
+                  msg:  '请先录音',
+                  duration:  2000,
+                  location:   'middle'          
+              });
             }
 
           }else{
@@ -226,4 +252,22 @@ function fnLuYinBaoCun() {
           });
         }
     });
+  }else{
+    // alert(JSON.stringify(ret.message));
+    var fs = api.require('fs');
+    api.toast({              
+        msg:  '录制时间较短，请重新录制',
+        duration:  2000,
+        location:   'middle'          
+    });
+    fs.rmdir({
+        path: 'fs://luyin'
+    }, function(ret, err) {
+        if (ret.status) {
+        } else {
+            alert(JSON.stringify(err));
+        }
+    });
+  }
+
 }

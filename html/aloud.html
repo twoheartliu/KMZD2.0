@@ -463,7 +463,7 @@
         });
 
     }
-    
+
     function newluyintxt() {
         var fs = api.require('fs');
         fs.createDir({
@@ -569,9 +569,12 @@
 
     var c = 0;
     var t = '';
-
+    function timeC() {
+      c = 0
+    }
     function timedCount() {
         var stylelist = $api.byId('appTime');
+        // c = 0;
         c = c + 1;
         var temp = c;
         minute = parseInt(temp / 60);
@@ -613,7 +616,7 @@
 
     function stopCount() {
         var stylelist = $api.byId('appTime');
-        c = 0;
+        // c = 0;
         var temp = c;
         minute = parseInt(temp / 60);
         if (c < 10) {
@@ -659,12 +662,17 @@
         });
         // console.log(path);
         timestamps = timestamp;
+        timeC();
         timedCount();
     }
     var a = 2;
 
     function fnAletrssss() {
-        alert("请先暂停播放");
+        api.toast({              
+            msg:  '请先暂停播放',
+            duration:  2000,
+            location:   'middle'          
+        });
     }
     //开始暂停
     function fnOpenPlayCollect() {
