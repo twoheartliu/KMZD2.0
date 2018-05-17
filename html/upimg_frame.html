@@ -346,7 +346,7 @@
                 }
                 var j = i + 1;
                 var mydate = timestampToTime(baby[i].birthday);
-                htmls += '<div class="upimg_div"><div class="fl">宝宝' + j + '</div></div><ul id="baby"><li onclick="fnSetGender();"><div class="fl">性别</div><div class="fr"> > </div><div class="fr" id="sex">' + sex +
+                htmls += '<div class="upimg_div"><div class="fl">宝宝' + j + '</div></div><ul id="baby"><li onclick="fnSetGenderBaby('+ data.baby[i].baby_id + ');"><div class="fl">性别</div><div class="fr"> > </div><div class="fr" id="sexBaby'+ data.baby[i].baby_id + '">' + sex +
                     '</div></li><li id="dateShowBtn"><div class="fl">生日</div><div class="fr"> > </div><div class="fr" id="date"><input type="text" id="dateSelectorTwo" class="dateSelectorOne" placeholder="' + mydate +
                     '" readonly="readonly"></div></li></ul>';
             }
@@ -635,7 +635,50 @@
 
     }
     var gender;
+    function fnSetGenderBaby(id) {
+        api.actionSheet({
+            title: '选择性别',
+            cancelTitle: '取消',
+            buttons: ['男', '女']
+        }, function(ret, err) {
+            if (ret.buttonIndex >= 3) {
+                return;
+            }
+            gender = ret.buttonIndex === 1 ? 1 : 2;
+            var index = ret.buttonIndex;
+            var uri = '/user/update_baby';
+            api.ajax({
+                url: host + apiUri + uri,
+                method: 'post',
+                dataType: 'json',
+                headers: {
+                    "source": api.systemType,
+                    "version": version,
+                    "session": token,
+                },
+                data: {
+                    values: {
+                        "id": id,
+                        "sex": gender,
+                    }
+                },
+            }, function(ret, err) {
+                if (ret.status == 200) {
+                    var stylelist12 = $api.byId('sexBaby'+id);
+                    if (gender == 1) {
+                        console.log(111);
+                        var html12 = "男";
+                        $api.html(stylelist12, html12);
 
+                    } else if (gender == 2) {
+                        console.log(222);
+                        var html12 = "女";
+                        $api.html(stylelist12, html12);
+                    }
+                }
+            });
+    });
+}
     function fnSetGender() {
         api.actionSheet({
             title: '选择性别',
