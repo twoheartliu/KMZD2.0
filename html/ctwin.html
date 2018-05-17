@@ -617,52 +617,7 @@
         }, 1000)
 
     }
-    //保存
-  	function fnLuYinBaoCun(){
-  		//fs 文件管理 删除  拷贝  移除等
-  		//拷贝文件
-  		var fs = api.require('fs');
-  		fs.copyTo({
-  		    oldPath: path,
-  		    newPath: 'fs://caogaoxiang'
-  		}, function(ret, err) {
-  				var paths = 'fs://caogaoxiang/' + timestamps +'';
-  		    if (ret.status) {
-  					var fs = api.require('fs');
-  					fs.rename({
-  						oldPath: paths,
-  						newPath: 'fs://caogaoxiang/' + timestamp +'' + jubenid + ''
-  					}, function(ret, err) {
-  						if (ret.status) {
-  								alert('已保存');
-  						} else {
-  								alert(JSON.stringify(err));
-  						}
-  					});
-  		    } else {
-  		        alert(JSON.stringify(err));
-  		    }
-  		});
-      api.getPrefs({
-          key: 'cgxlist'
-      }, function(ret, err) {
-          if (ret) {
-              var flag = false; //是否增加历史记录
-              var historyUrlText = ret.value;
-              var historyUrlArray = historyUrlText.split('');
-              for (var i = 0; i < historyUrlArray.length; i++) {
-                  historyUrlArray[i] == cgxid && (flag = true);
-              }!flag && historyUrlArray.splice(1, 0, cgxid,title,name,desc);
-              !flag && api.setPrefs({
-                  key: 'cgxlist',
-                  value: historyUrlArray.join(',')
-              });
-              // fnHistoryUrl(id);
-          } else {
-              alert(JSON.stringify(err));
-          }
-      });
-  	}
+    
     function goback() {
         api.closeWin({
             name: 'ctwin'

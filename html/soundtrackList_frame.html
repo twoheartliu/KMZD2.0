@@ -124,38 +124,34 @@
 
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript">
-var jubenid;
-var beiyueid;
-var CompanyInfobeiyue;
-var input;
-var beiyueid;
-var jubenid;
-var jubentitle;
+var token;
 var path;
-var duration;
-var caogaowenjianming;
-var caogaozuozhe;
-var duration;
-var timestamp=new Date().getTime();
-var timestamps;
     apiready = function() {
+      token = $api.getStorage('token');
       var byid = api.pageParam.byid;
+      // console.log(111);
       fnGetBeiJingYinYuelist(byid);
     }
     function fnGetBeiJingYinYuelist(byid) {
 
-  		api.ajax({
-  			url: 'http://47.100.11.38/kongmeng/bgmusic/getbgMusicListByStyle_id.php?page=1&size=500&style_id= ' + byid,
-  			method: 'get',
-  			dataType: 'json',
+      uri = '/recitation/bgm';
+      api.ajax({
+          url: host + apiUri + uri +'?id='+ byid,
+          method: 'get',
+          dataType: 'json',
+          headers: {
+              "source": api.systemType,
+              "version": version,
+              "session": token
+          },
   		}, function(ret, err) {
-  			if (ret) {
+  			if (ret.status == 200) {
   				//alert(ret);
-
   				fnUpdateLyricList(ret);
   			} else {
-  				alert(JSON.stringify(err));
+  				// alert(JSON.stringify(err));
   			}
   		});
   	}
@@ -165,12 +161,12 @@ var timestamps;
   		var stylelist = $api.byId('on');
   		var html = '';
   		 for (var i = 0; i < data_.data.length; i++) {
-  		 	html +='<li onclick="setBeiYue(' + data_.data[i].id + ')"><div class="on_li_divImg fl" ><img src="../image/play/soundtrackList.png" alt="" class="userDeleteA" id = "userDeleteA" ></div><div class="fl"><span>  ' + data_.data[i].title + '  </span>   <span> ' + data_.data[i].name + ' </span>  </div></li>';
+  		 	html +='<li onclick="setBeiYue(\'' + data_.data[i].mp3 + '\')" id=><div class="on_li_divImg fl" ><img src="../image/play/soundtrackList.png" alt="" class="userDeleteA" id = "userDeleteA" ></div><div class="fl"><span>  ' + data_.data[i].title + '  </span> </div></li>';
   		}
       //onclick="fnDeleteUser(' + data_.data[i].id + ');"
   		$api.html(stylelist, html);
   	}
-    function setBeiYue(InfobeiyueId){
+    function setBeiYue(mp3ss){
   		// api.execScript({
   		// 	name: 'luyinplay',
   		// 	frameName: 'luyinplay_body',
@@ -180,7 +176,7 @@ var timestamps;
   		api.sendEvent({
   			name: 'netBeiyueId',
   			extra: {
-  				InfobeiyueId: InfobeiyueId
+  				mp3: mp3ss
   			}
   		});
   		alert('已选择背景乐');
@@ -188,66 +184,6 @@ var timestamps;
   		    name: 'aloud'
   		});
   	}
-    function fnDeleteUser(id) {
 
-        // var userDeleteA = document.getElementById('userDeleteA');
-        // var con = document.getElementById('con');
-        // var userDeleteA = con.getElementsByClassName('userDeleteA');
-        // for (var i = 0; i < userDeleteA.length; i++) {
-        //     userDeleteA[i].index = i;
-        //     userDeleteA[i].onclick = function() {
-        //         var j = this.index;
-        //         if (userDeleteA[j].getAttribute("src", 1) == "../image/soundtrackList.png") {
-        //             userDeleteA[j].src = "../image/soundtrackList1.png";
-        //             fnNetAudiosPlayByID(id);
-        //         } else {
-        //             userDeleteA[j].src = "../image/soundtrackList.png";
-        //             api.stopPlay();
-        //         }
-        //     }
-        // }
-        var player = $api.byId('userDeleteA');
-        if (player.getAttribute("src", 2) == "../image/play/soundtrackList.png") {
-            player.src = "../image/play/soundtrackList1.png";
-            fnNetAudiosPlayByID(id);
-
-        } else {
-            player.src = "../image/play/soundtrackList.png";
-            api.stopPlay();
-        }
-      }
-
-
-
-
-      //播放
-      function fnNetAudiosPlayByID(id) {
-        console.log(id);
-        //id = 74;
-          if (id) {
-              api.ajax({
-                  url: 'http://47.100.11.38/kongmeng/thirdParty/search_songs_by_id.php?id= ' + id,
-                  method: 'get',
-                  dataType: 'json',
-              }, function(ret, err) {
-                  if (ret) {
-                    //console.log(JSON.stringify(ret));
-                    var urlsss = ret.data[0].url;
-                    console.log(urlsss);
-                    api.startPlay({
-                        path: 'http://47.100.11.38/mp3_16g/0062.mp3'
-                    }, function(ret, err) {
-                        if (ret) {
-                            alert('播放完成');
-                        } else {
-                            //alert(JSON.stringify(err));
-                        }
-                    });
-                  } else {
-                      alert(JSON.stringify(err));
-                  }
-              });
-          }
-      }
 
 </script>
