@@ -300,7 +300,13 @@
                     // return Y+M+D+h+m+s;
                     var dates = Y + M + D;
                     if (ret.data[i].re_nick_name) {
-                        html += '<div class="dis-left fl"><div class="sec-img"><img src="' + ret.data[i].photo + '" alt=""></div><div class="sec-txt"><p>' + ret.data[i].nick_name + '</p><p>' + dates +
+                        html += '<div class="dis-left fl"><div class="sec-img">';
+                        if(ret.data[i].photo){
+                          html += '<img src="'+ret.data[i].photo+'" alt="">';
+                        }else{
+                          html += '<img src="../image/KM_tx.png" alt="">';
+                        }
+                        html += '</div><div class="sec-txt"><p>' + ret.data[i].nick_name + '</p><p>' + dates +
                             '</p></div></div><div class="dis-right fr"><div class="fr" id="commentExtraGood'+ret.data[i].comment_id+'"  class="collectmusicFxs">';
                             var commentaAlbumss = $api.getStorage('commentaAlbumBook_cExtraGood'+ret.data[i].comment_id+'');
                             if(!commentaAlbumss){
@@ -318,7 +324,13 @@
                                 i].content + '</div><div class="reply"><div  onclick="fnOpenMessageNotDetail(' + ret.data[i].comment_id + ')">回复</div></div><div class="discuss"><span>' + ret.data[i].re_nick_name + ':' + ret.data[i].re_content +
                             '</span></div>';
                     } else {
-                        html += '<div class="dis-left fl"><div class="sec-img"><img src="' + ret.data[i].photo + '" alt=""></div><div class="sec-txt"><p>' + ret.data[i].nick_name + '</p><p>' + dates +
+                        html += '<div class="dis-left fl"><div class="sec-img">';
+                        if(ret.data[i].photo){
+                          html += '<img src="'+ret.data[i].photo+'" alt="">';
+                        }else{
+                          html += '<img src="../image/KM_tx.png" alt="">';
+                        }
+                        html += '</div><div class="sec-txt"><p>' + ret.data[i].nick_name + '</p><p>' + dates +
                             '</p></div></div><div class="dis-right fr"><div class="fr" id="commentExtraGood'+ret.data[i].comment_id+'"  class="collectmusicFxs">';
                             var commentaAlbumss = $api.getStorage('commentaAlbumBook_cExtraGood'+ret.data[i].comment_id+'');
                             if(!commentaAlbumss){
