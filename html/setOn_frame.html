@@ -8,31 +8,54 @@
     <title>孔孟之道--关于</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
     <style>
-        body,html{
-          background-color: #f2f2f2;
+        body,
+        html {
+            background-color: #f2f2f2;
         }
-        .fl{float: left;}
-        .fr{float: right;}
-        .clr{clear: both;}
-        .currentVersion{
-          width: 100%;
-          height: 200px;
-          text-align: center;
-          /*background: rgba(0,0,0,0.3);*/
+
+        .fl {
+            float: left;
         }
-        .updatedVersion{
-          padding: 5px 10px;
-          height: 40px;
-          line-height: 40px;
-          margin: 5px 0;
-          /*border-top: 1px solid #ccc;*/
-          border-bottom: 1px solid #eee;
-          background-color: #fff;
-          font-size: 14px;
-          color: #000;
+
+        .fr {
+            float: right;
         }
-        .currentVersion_img{width: 100px;height: 100px;margin: 0 auto;padding: 10px 0;}
-        .currentVersion_img img{width: 100%;padding: 15px 0;}
+
+        .clr {
+            clear: both;
+        }
+
+        .currentVersion {
+            width: 100%;
+            height: 200px;
+            text-align: center;
+            /*background: rgba(0,0,0,0.3);*/
+        }
+
+        .updatedVersion {
+            padding: 5px 10px;
+            height: 40px;
+            line-height: 40px;
+            margin: 5px 0;
+            /*border-top: 1px solid #ccc;*/
+            border-bottom: 1px solid #eee;
+            background-color: #fff;
+            font-size: 14px;
+            color: #000;
+        }
+
+        .currentVersion_img {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto;
+            padding: 10px 0;
+        }
+
+        .currentVersion_img img {
+            width: 100%;
+            padding: 15px 0;
+        }
+
         .right_icon img {
             width: 9px;
             /*height: 23px;*/
@@ -43,14 +66,14 @@
 
 <body>
     <div class="currentVersion">
-      <div class="currentVersion_img"><img src="../image/logo.png" alt=""></div>
-      <div class=""  ></div>
+        <div class="currentVersion_img"><img src="../image/logo.png" alt=""></div>
+        <div class=""></div>
     </div>
-    <div class="updatedVersion" >
-      <div class="fl" >当前版本</div>
-      <div class="fr" id="current_version"> </div>
+    <div class="updatedVersion">
+        <div class="fl">当前版本</div>
+        <div class="fr" id="current_version"> </div>
     </div>
-    <div class="updatedVersion" id="updatedVersion" onclick="updatedVersion();">
+    <div class="updatedVersion" id="updatedVersion" onclick="updatedVersionss();">
         <div class="fl">检测新版本</div>
         <div class="fr right_icon"><img src="../image/my/index_y.png" alt=""></div>
         <div class="clr"></div>
@@ -62,100 +85,220 @@
 <script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript" src="../script/swiper.min.js"></script>
 <script type="text/javascript">
-var token;
+    var token;
     apiready = function() {
-      token = $api.getStorage('token');
-      var stylelist = $api.byId('current_version');
-      $api.html(stylelist, version);
+        token = $api.getStorage('token');
+        var stylelist = $api.byId('current_version');
+        $api.html(stylelist, version);
+        updatedVersion();
     }
-    function fnCurrentVersion(){
 
-    }
+
     function updatedVersion() {
-      uri = '/system/latest_version';
-      api.ajax({
-          url: host + apiUri + uri,
-          method: 'get',
-          dataType: 'json',
-          headers: {
-              "source": api.systemType,
-              "version": version,
-              "session": token
-          },
-      }, function(ret, err) {
-          if (ret.status == 200) {
-          console.log(ret.data.version_no);
-          v1 = ret.data.version_no ;
-          v2 = '1.0.1.1';
-          versionCompare(v1,v2);
-          } else {
-
-          }
-      });
-
-      // api.toast({
-      //     msg: '当前版本最新',
-      //     duration: 2000,
-      //     location: 'middle'
-      // });
-    }
-
-    function versionCompare(v1,v2){
-    //去掉收尾空格
-    v1 =v1.replace(/(^\s+)|(\s+$)/gi,"");
-    v2 = v2.replace(/(^\s+)|(\s+$)/gi,"");
-    //空检查
-
-    if(!v1 || !v2){
-        return;
-    }
-    // console.log(v1);
-    // console.log(v2);
-    //截取v1,v2中的版本数字
-    v1 = /\d(\.|\d)*\d/gi.exec(v1)[0];
-    v2 = /\d(\.|\d)*\d/gi.exec(v2)[0];
-    // console.log(v1);
-    // console.log(v2);
-    //版本比较，我们分为三个数组然后比较
-    var arr1 = v1.split('.');
-    console.log(arr1);
-    // arr1 = arr1.map(function(item){
-    //     parseInt(item);
-    // });
-    var arr2 = v2.split('.');
-      console.log(arr2);
-    // arr2 = arr2.map(function(item){
-    //     parseInt(item);
-    // });
-
-// console.log(arr1[0]);
-// console.log(arr2[0]);
-    if(arr1[0]>arr2[0]){
-      console.log('更新版本1');
-        return true;
-    }else if(arr1[0] == arr2[0]){
-      console.log(arr1[0]);
-      console.log(arr2[0]);
-        if(arr1[1]>arr2[1]){
-          console.log('更新版本2');
-            return true;
-        }else if(arr1[1] == arr2[1]){
-            if(arr1[2]>arr2[2]){
-                console.log('更新版本3');
-                return true;
-            }else if(arr1[2] == arr2[2]){
-                if(arr1[3] > arr2[3]){
-                  console.log('更新版本4');
-                  return true;
-                }else if(arr1[3] == arr2[3]){
-                  console.log('已是更新版本');
-                  return false;
-                }
-
+        uri = '/system/latest_version';
+        api.ajax({
+            url: host + apiUri + uri,
+            method: 'get',
+            dataType: 'json',
+            headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token
+            },
+        }, function(ret, err) {
+            if (ret.status == 200) {
+                console.log(ret.data.version_no);
+                v1 = ret.data.version_no;
+                v2 = version;
+                versionCompare(v1, v2);
             }
-        }
+        });
+
+        // api.toast({
+        //     msg: '当前版本最新',
+        //     duration: 2000,
+        //     location: 'middle'
+        // });
     }
-    console.log('已是更新版本');
-    return false;
-}
+
+    function versionCompare(curV, reqV) {
+      if(curV && reqV){
+      //将两个版本号拆成数字
+      var arr1 = curV.split('.'),
+          arr2 = reqV.split('.');
+      var minLength=Math.min(arr1.length,arr2.length),
+          position=0,
+          diff=0;
+          // console.log(minLength);
+      //依次比较版本号每一位大小，当对比得出结果后跳出循环（后文有简单介绍）
+      while(position<minLength && ((diff=parseInt(arr1[position])-parseInt(arr2[position]))==0)){
+          position++;
+      }
+      diff=(diff!=0)?diff:((arr1.length-arr2.length)>0 ? 1 : -1);
+      //若curV大于reqV，则返回true
+      // console.log(diff==0);
+        if(diff>0){
+          api.toast({              
+              msg:  '发现最新版本',
+              duration:  2000,
+              location:   'middle'          
+          });
+        } else if(diff==0){
+          api.toast({              
+              msg:  '已是最新版本',
+              duration:  2000,
+              location:   'middle'          
+          });
+        } else {
+          // fnFeiFa();
+        }
+       }else{
+          //输入为空
+          api.toast({
+              msg: '版本号不能为空',
+              duration: 2000,
+              location: 'middle'
+          });
+          return false;
+       }
+    }
+    function updatedVersionss() {
+        uri = '/system/latest_version';
+        api.ajax({
+            url: host + apiUri + uri,
+            method: 'get',
+            dataType: 'json',
+            headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token
+            },
+        }, function(ret, err) {
+            if (ret.status == 200) {
+                var v1 = ret.data.version_no;
+                var v2 = '2.0.1.0.1';
+                versionComparess(v1, v2);
+            }
+        });
+    }
+    function versionComparess(curV, reqV){
+      if(curV && reqV){
+      //将两个版本号拆成数字
+      var arr1 = curV.split('.'),
+          arr2 = reqV.split('.');
+      var minLength=Math.min(arr1.length,arr2.length),
+          position=0,
+          diff=0;
+          // console.log(minLength);
+      //依次比较版本号每一位大小，当对比得出结果后跳出循环（后文有简单介绍）
+      while(position<minLength && ((diff=parseInt(arr1[position])-parseInt(arr2[position]))==0)){
+          position++;
+      }
+      diff=(diff!=0)?diff:((arr1.length-arr2.length)>0 ? 1 : -1);
+      //若curV大于reqV，则返回true
+      // console.log(diff);
+        if(diff>0){
+          fnGengXin()；
+          // api.toast({              
+          //     msg:  '已是最新版本1',
+          //     duration:  2000,
+          //     location:   'middle'          
+          // });
+        } else if(diff==0){
+          api.toast({              
+              msg:  '已是最新版本',
+              duration:  2000,
+              location:   'middle'          
+          });
+        } else {
+          // api.toast({              
+          //     msg:  '已是最新版本2',
+          //     duration:  2000,
+          //     location:   'middle'          
+          // });
+          fnFeiFa();
+        }
+       }else{
+          //输入为空
+          // console.log("版本号不能为空");
+          api.toast({
+              msg: '版本号不能为空',
+              duration: 2000,
+              location: 'middle'
+          });
+          return false;
+       }
+    }
+
+    function fnGengXin(){
+      dialogBox.alert({
+          texts: {
+              content: '已检测到新版本',
+              leftBtnTitle: '暂不更新',
+              rightBtnTitle: '暂不更新'
+          },
+          styles: {
+              bg: '#fff',
+              w: 300,
+              title: {
+                  marginT: 20,
+                  icon: 'widget://res/gou.png',
+                  iconSize: 40,
+                  titleSize: 14,
+                  titleColor: '#000'
+              },
+              content: {
+                  color: '#000',
+                  size: 14
+              },
+              left: {
+                  marginB: 7,
+                  marginL: 20,
+                  w: 130,
+                  h: 35,
+                  corner: 2,
+                  bg: '#f2f2f2',
+                  color:'#000',
+                  size: 12
+              },
+              right: {
+                  marginB: 7,
+                  marginL: 10,
+                  w: 130,
+                  h: 35,
+                  corner: 2,
+                  bg: '#f2f2f2',
+                  color:'#000',
+                  size: 12
+              }
+          },
+          tapClose: true
+      }, function(ret) {
+          if (ret.eventType == 'left') {
+              var dialogBox = api.require('dialogBox');
+              dialogBox.close({
+                  dialogName: 're'
+              });
+        }
+        if(ret.eventType == 'right'){
+          console.log('已更新');
+          var dialogBox = api.require('dialogBox');
+          dialogBox.close({
+              dialogName: 're'
+          });
+      }
+      });
+    }
+    function fnFeiFa(){
+      api.toast({              
+          msg:  '当前版本不可用',
+          duration:  2000,
+          location:   'middle'          
+      });
+      $api.rmStorage('token');
+      api.openWin({
+          name: 'login',
+          url: '../login.html',
+      });
+    }
 </script>
