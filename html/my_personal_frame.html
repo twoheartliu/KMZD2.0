@@ -39,13 +39,15 @@
 
         .index_header {
             width: 100%;
-            background-color: #fff;
+            /*background-color: #fff;*/
             margin-bottom: 5px;
         }
 
         .index_header_div {
             width: 100%;
             position: relative;
+            background-color: #fff;
+            height: 175px;
         }
 
         .index_header_img {
@@ -98,6 +100,7 @@
             height: 50px;
             line-height: 50px;
             overflow: hidden;
+            padding: 0 10px;
         }
 
         .index_main_img img {
@@ -108,16 +111,16 @@
 
         .index_main_span {
             font-size: 16px;
-            color: #999;
+            color: #000;
         }
 
         .index_main_span span {
             font-size: 16px;
-            color: #999;
+            color: #000;
         }
         /*个性化推荐 */
 
-        .egret-flex-item {
+        /*.egret-flex-item {
             display: -webkit-box;
             -webkit-box-align: center;
             height: 100px;
@@ -127,8 +130,6 @@
         .egret-flex-item-logo {
             max-width: 80px;
             min-width: 80px;
-            /*margin-left: 0.5em;
-            margin-right: 0.2em;*/
             -webkit-box-flex: 1;
             -webkit-box-align: center;
         }
@@ -226,28 +227,6 @@
             border-radius: 1px;
             margin-right: 5px;
             box-sizing: border-box;
-        }
-        /*.fmbtnhover {
-            background: #D8D9DA;
-        }*/
-        /*.message{
-            position: absolute;
-            bottom: 7px;
-            right: 32px;
-            width:40px;
-            height:25px;
-            text-align: center;
-            display: inline-block;
-        }
-        .message>p{
-          width:60px;
-          height:25px;
-          line-height: 25px;
-          border-radius: 8px;
-          background-color: #89211b;
-          color:#fff;
-          font-size: 12px;
-
         }*/
 
         .user_name {
@@ -275,6 +254,119 @@
             height: 20px;
             vertical-align: top;
         }
+
+
+
+
+
+        .wrapper {
+            width: 100%;
+            height:auto;
+        }
+
+        .egret-flex-item {
+            /*display: -webkit-box;
+          -webkit-box-align: center;*/
+            height: 70px;
+            background: #fff;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .egret-flex-items {
+            /*display: -webkit-box;
+            -webkit-box-align: center;*/
+            height: 70px;
+            width: 80%;
+            float: left;
+            padding: 0 10px;
+        }
+
+        .egret-flex-item-shelf {
+            overflow: hidden;
+            /*-webkit-box-flex: 2;
+            -webkit-box-align: center;*/
+        }
+
+        .egret-flex-item-shelf div {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            /*margin-top: 5px;*/
+            height: 35px;
+            line-height: 35px;
+        }
+
+        .egret-flex-item-shelf .egret-flex-item-shelf01 .span1 {
+            /*font-size: 13px;*/
+            font-size: 15px;
+            color: #000;
+        }
+
+        .egret-flex-item-shelf .egret-flex-item-shelf02 .span2 {
+            font-size: 12px;
+            color: #ff3db8;
+            margin: 0 5px;
+        }
+
+        .egret-flex-item-shelf .egret-flex-item-shelf01 .span3 {
+            font-size: 12px;
+            color: #ccc;
+        }
+
+        .egret-flex-item-shelf04 {
+            width: 10%;
+            text-align: right;
+            /*-webkit-box-flex: 1;
+          -webkit-box-align: center;*/
+            /*display: inline-block;*/
+            float: left;
+            height: 70px;
+            padding-right: 10px;
+            padding-top: 8px;
+        }
+
+        .egret-flex-item-shelf04 img {
+            width: 20px;
+            height: 20px;
+        }
+
+        .egret-flex-item-shelf03 {
+            line-height: 20px;
+        }
+
+        .egret-flex-item-shelf03 div {
+            float: left;
+            /*line-height: 20px;
+            margin: 5px 0px;*/
+        }
+
+        .egret-flex-item-shelf03 div img {
+            width: 12px;
+            height: 12px;
+            line-height: 12px;
+            /*margin: 0 2px;*/
+            margin: 0px 2px -2px;
+        }
+
+        .egret-flex-item-shelf03 div span {
+            line-height: 22px;
+            vertical-align: middle;
+            font-size: 11px;
+            color: #b2b2b2;
+        }
+
+        .noHistory {
+            color: #999;
+            font-size: 15px;
+            margin-top: 20px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .hdivider {
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 
@@ -289,7 +381,7 @@
 
             <div class="wode_bg">
                 <div class="index_header_mvp_p">
-                    <div class="user_name" id="username">小小</div>
+                    <div class="user_name" id="username"></div>
                     <div class="index_header_care">
                         <img src="../image/my/care_g.png" alt="" class="indexHeaderCare1">
                         <img src="../image/my/personal_private_a.png" alt="" class="indexHeaderCare1" onclick="fnOpenPersonalPrivate();">
@@ -299,10 +391,9 @@
                 </div>
             </div>
         </div>
-        <div class="index_main">
+        <!-- <div class="index_main">
             <div class="p20px">
                 <div class="index_main_h1">
-                    <!-- <div class="index_main_img fl"><img src="../image/my/index_fbzp.png" alt=""></div> -->
                     <b class="index_main_span fl">发表作品(<span>20</span>)</b>
                 </div>
                 <div class="egret-flex-item" tapmode="fmbtnhover">
@@ -316,7 +407,6 @@
                         </div>
                         <div class="egret-flex-item-shelf03">
                             <div><img src="../image/KM_play.png" alt=""><span>100</span></div>
-                            <!-- <div><img src="../image/KM_dx.png" alt=""><span>100</span></div> -->
                             <div><img src="../image/KM_zf.png" alt=""><span>100</span></div>
                             <div><img src="../image/KM_dz.png" alt=""><span>100</span></div>
                         </div>
@@ -333,81 +423,56 @@
                         </div>
                         <div class="egret-flex-item-shelf03">
                             <div><img src="../image/KM_play.png" alt=""><span>100</span></div>
-                            <!-- <div><img src="../image/KM_dx.png" alt=""><span>100</span></div> -->
-                            <div><img src="../image/KM_zf.png" alt=""><span>100</span></div>
-                            <div><img src="../image/KM_dz.png" alt=""><span>100</span></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="egret-flex-item" tapmode="fmbtnhover">
-                    <div class="egret-flex-item-logo">
-                        <img src="../image/KM_album.png" alt="" class="">
-                    </div>
-                    <div class="egret-flex-item-shelf">
-                        <div class="egret-flex-item-shelf01 row">
-                            <span class="span1 col">《沁园春·雪》</span>
-                            <span class="span3 col" onclick="fnOpenPlayMore()"><img src="../image/KM_list_more.png" alt=""></span>
-                        </div>
-                        <div class="egret-flex-item-shelf03">
-                            <div><img src="../image/KM_play.png" alt=""><span>100</span></div>
-                            <!-- <div><img src="../image/KM_dx.png" alt=""><span>100</span></div> -->
-                            <div><img src="../image/KM_zf.png" alt=""><span>100</span></div>
-                            <div><img src="../image/KM_dz.png" alt=""><span>100</span></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="egret-flex-item" tapmode="fmbtnhover">
-                    <div class="egret-flex-item-logo">
-                        <img src="../image/KM_album.png" alt="" class="">
-                    </div>
-                    <div class="egret-flex-item-shelf">
-                        <div class="egret-flex-item-shelf01 row">
-                            <span class="span1 col">《沁园春·雪》</span>
-                            <span class="span3 col" onclick="fnOpenPlayMore()"><img src="../image/KM_list_more.png" alt=""></span>
-                        </div>
-                        <div class="egret-flex-item-shelf03">
-                            <div><img src="../image/KM_play.png" alt=""><span>100</span></div>
-                            <!-- <div><img src="../image/KM_dx.png" alt=""><span>100</span></div> -->
-                            <div><img src="../image/KM_zf.png" alt=""><span>100</span></div>
-                            <div><img src="../image/KM_dz.png" alt=""><span>100</span></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="egret-flex-item" tapmode="fmbtnhover">
-                    <div class="egret-flex-item-logo">
-                        <img src="../image/KM_album.png" alt="" class="">
-                    </div>
-                    <div class="egret-flex-item-shelf">
-                        <div class="egret-flex-item-shelf01 row">
-                            <span class="span1 col">《沁园春·雪》</span>
-                            <span class="span3 col" onclick="fnOpenPlayMore()"><img src="../image/KM_list_more.png" alt=""></span>
-                        </div>
-                        <div class="egret-flex-item-shelf03">
-                            <div><img src="../image/KM_play.png" alt=""><span>100</span></div>
-                            <!-- <div><img src="../image/KM_dx.png" alt=""><span>100</span></div> -->
-                            <div><img src="../image/KM_zf.png" alt=""><span>100</span></div>
-                            <div><img src="../image/KM_dz.png" alt=""><span>100</span></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="egret-flex-item" tapmode="fmbtnhover">
-                    <div class="egret-flex-item-logo">
-                        <img src="../image/KM_album.png" alt="" class="">
-                    </div>
-                    <div class="egret-flex-item-shelf">
-                        <div class="egret-flex-item-shelf01 row">
-                            <span class="span1 col">《沁园春·雪》</span>
-                            <span class="span3 col" onclick="fnOpenPlayMore()"><img src="../image/KM_list_more.png" alt=""></span>
-                        </div>
-                        <div class="egret-flex-item-shelf03">
-                            <div><img src="../image/KM_play.png" alt=""><span>100</span></div>
-                            <!-- <div><img src="../image/KM_dx.png" alt=""><span>100</span></div> -->
                             <div><img src="../image/KM_zf.png" alt=""><span>100</span></div>
                             <div><img src="../image/KM_dz.png" alt=""><span>100</span></div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div> -->
+        <div class="index_main_h1">
+            <b class="index_main_span fl">发表作品(<span>20</span>)</b>
+        </div>
+        <div class="wrapper" id="wrap">
+            <!-- <div class="noHistory"></div>   -->
+            <div class="egret-flex-item" >
+              <div class="egret-flex-items" tapmode="fmbtnhover" onclick="openFM()">
+                <div class="egret-flex-item-shelf">
+                    <div class="egret-flex-item-shelf01">
+                        <span class="span1 fl">作品：<span>《沁园春·雪》</span></span>
+                    </div>
+
+                    <div class="egret-flex-item-shelf03">
+                        <div><img src="../image/KM_play.png" alt=""><span>100</span></div>
+                        <div><img src="../image/KM_zf.png" alt=""><span>100</span></div>
+                        <div><img src="../image/KM_dz.png" alt=""><span>100</span></div>
+                    </div>
+                </div>
+              </div>
+              <div class="egret-flex-item-shelf04" onclick="fnOpenPlayMore()">
+                <img src="../image/KM_list_more.png" alt="">
+              </div>
+            </div>
+            <div class="hdivider"></div>
+            <div class="egret-flex-item" >
+              <div class="egret-flex-items" tapmode="fmbtnhover" onclick="openFM()">
+                <div class="egret-flex-item-shelf">
+                    <div class="egret-flex-item-shelf01">
+                        <span class="span1 fl">作品：<span>《沁园春·雪》</span></span>
+                    </div>
+
+                    <div class="egret-flex-item-shelf03">
+                        <div><img src="../image/KM_play.png" alt=""><span>100</span></div>
+                        <div><img src="../image/KM_zf.png" alt=""><span>100</span></div>
+                        <div><img src="../image/KM_dz.png" alt=""><span>100</span></div>
+                    </div>
+                </div>
+              </div>
+              <div class="egret-flex-item-shelf04" onclick="fnOpenPlayMore()">
+                <img src="../image/KM_list_more.png" alt="">
+              </div>
+            </div>
+            <div class="hdivider"></div>
         </div>
 </body>
 
@@ -427,6 +492,12 @@
             fnOpenAddCare();
             token = $api.getStorage('token');
             // console.log(token);
+            var userId = api.pageParam.userId;
+            var nickName = api.pageParam.name;
+            // console.log(nickName);
+            var username = $api.byId('username');
+            var html = nickName;
+            $api.html(username, html);
         }
 
     //加关注

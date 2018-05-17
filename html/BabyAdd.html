@@ -5,9 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
     <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
-    <title>孔孟之道--个人主页</title>
+    <title>孔孟之道--添加宝宝</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
     <style>
+
+
         .fr {
             float: right;
         }
@@ -25,7 +27,7 @@
         .header_fr img {
             width: 15px;
             height: 20px;
-            padding: 10px;
+            padding: 5px;
         }
         .header_fl img {
           width: 15px;
@@ -49,16 +51,17 @@
             padding: 10px;
             line-height: 30px;
             font-size: 15px;
-            color: #fff;
+            color: #000;
             /*display: none;*/
         }
     </style>
 </head>
+
 <body>
     <header id="secHeader">
+        <div class="header_fl fl" onclick="goback();"><img src="../image/icon_back.png" alt=""></div>
         <div class="header_fr fr"></div>
-        <div class="header_fl fl"  onclick="goback();"><img src="../image/icon_back.png" alt=""></div>
-        <div class="header_center" id='nickName'></div>
+        <div class="header_center">添加宝宝</div>
     </header>
 </body>
 
@@ -67,50 +70,26 @@
 <script type="text/javascript">
     function goback() {
         api.closeWin({
-            name: 'myPersonal'
+            name: 'BabyAdd'
         });
     }
     apiready = function() {
         var header = $api.byId('secHeader');
-        var nickName1 = $api.byId('nickName');
         $api.fixStatusBar(header);
-        var headerPos = $api.offset(header).h;
-        var userId = api.pageParam.userId;
-        var nickName = api.pageParam.nickName;
-        var html1 = nickName + "的主页";
-        // console.log(nickName);
-        $api.html(nickName1, html1);
+        var headerPos = $api.offset(header);
         api.openFrame({
-            name: 'myPersonalFrame',
-            url: './my_personal_frame.html',
+            name: 'BabyAdd_frame',
+            url: './BabyAdd_frame.html',
             rect: {
                 x: 0,
-                y: headerPos,
+                y: headerPos.h,
                 w: 'auto',
                 h: 'auto'
-
             },
             pageParam: {
-                userId: userId,
-                name: nickName
+                name: 'test'
             },
             bounces: false,
         });
-        // fnOpenFooterFrame();
     }
-    // function fnOpenFooterFrame(){
-    //     api.openFrame({
-    //         name: 'personalFooterFrame',
-    //         url: './personal_footer_frame.html',
-    //         rect: {
-    //             x: 0,
-    //             y: api.frameHeight - 60,
-    //             w: 'auto',
-    //             h: 60
-    //         },
-    //         bounces: false,
-    //         vScrollBarEnabled: false,
-    //         hScrollBarEnabled: false
-    //     });
-    // }
 </script>

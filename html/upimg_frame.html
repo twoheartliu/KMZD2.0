@@ -198,11 +198,11 @@
             <div class="fl">我的宝宝</div>
         </div>
         <div id="111">
-            <div class="upimg_div">
+            <!-- <div class="upimg_div">
                 <div class="fl">宝宝1</div>
-            </div>
+            </div> -->
             <ul id="baby">
-                <li onclick="fnSetGender();">
+                <!-- <li onclick="fnSetGender();">
                     <div class="fl">性别</div>
                     <div class="fr"> > </div>
                     <div class="fr">未填写</div>
@@ -211,7 +211,7 @@
                     <div class="fl">生日</div>
                     <div class="fr"> > </div>
                     <div class="fr"><input type="text" id="dateSelectorTwo" class="dateSelectorOne" placeholder="选择日期" readonly="readonly"></div>
-                </li>
+                </li> -->
 
             </ul>
         </div>
@@ -355,17 +355,25 @@
     }
     //添加宝宝信息
     function fnBabyAdd() {
+        api.openWin({
+            name: 'BabyAdd',
+            url: './BabyAdd.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
+
         // var htmls = '';
         // htmls += '<div class="upimg_div"><div class="fl">宝宝' + j + '</div></div><ul id="baby"><li onclick="fnSetGender();"><div class="fl">性别</div><div class="fr"> > </div><div class="fr" id="sex">' + sex +
         //     '</div></li><li id="dateShowBtn"><div class="fl">生日</div><div class="fr"> > </div><div class="fr" id="date"><input type="text" id="dateSelectorTwo" class="dateSelectorOne" placeholder="' + mydate +
         //     '" readonly="readonly"></div></li></ul>';
-        var id = $api.byId('baby');
-        x += 1;
-        $api.append(id, '<div class="upimg_div">宝宝' + x + '</div>');
-        $api.append(id, '<li onclick="fnSetGender();"><div class="fl">性别</div><div class="fr"> > </div><div class="fr">未填写</div></li>');
-        $api.append(id, '<li><div class="fl" id="">年龄</div><div class="fr"> > </div><div class="fr"><input type="text" readonly="readonly" id="dateSelectorOne' + x + '"	class="dateSelectorOne"  placeholder="选择日期"></div></li>');
-        var dateSelectorOnes = 'dateSelectorOne' + x;
-        new Mdate(dateSelectorOnes);
+        // var id = $api.byId('baby');
+        // x += 1;
+        // $api.append(id, '<div class="upimg_div">宝宝' + x + '</div>');
+        // $api.append(id, '<li onclick="fnSetGender();"><div class="fl">性别</div><div class="fr"> > </div><div class="fr">未填写</div></li>');
+        // $api.append(id, '<li><div class="fl" id="">年龄</div><div class="fr"> > </div><div class="fr"><input type="text" readonly="readonly" id="dateSelectorOne' + x + '"	class="dateSelectorOne"  placeholder="选择日期"></div></li>');
+        // var dateSelectorOnes = 'dateSelectorOne' + x;
+        // new Mdate(dateSelectorOnes);
     }
     // 时间戳转换成年月日
     function timestampToTime(timestamp) {
