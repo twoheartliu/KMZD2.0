@@ -152,6 +152,13 @@
             },function(ret, err){
                 if (ret) {
                   if (ret.status == 200) {
+                    var reload = 1;
+                    api.sendEvent({
+                        name: 'reload',
+                        extra: {
+                            reload: reload
+                        }
+                    });
                     // api.openWin({
                     //     name: 'ListeningList',
                     //     url: './ListeningList.html',

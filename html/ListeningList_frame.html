@@ -153,6 +153,11 @@
       ListenList();
       // console.log(23323);
       api.addEventListener({
+          name: 'reload'
+      }, function(ret, err) {
+          ListenList();
+      });
+      api.addEventListener({
           name: 'newData'
       }, function(ret, err) {
           ListenList();
