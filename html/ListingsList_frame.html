@@ -948,12 +948,13 @@
         });
     };
     //打开评论详情
-    function fnOpenDiscussDetail(liLid) {
+    function fnOpenDiscussDetail() {
+      console.log(ids);
         api.openWin({
             name: 'discussDetail0',
             url: './discuss_detail0.html',
             pageParam: {
-                albumId: liLid,
+                albumId: ids,
                 uris: '/listening/comment/'
             }
         });

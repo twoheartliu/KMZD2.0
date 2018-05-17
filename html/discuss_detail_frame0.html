@@ -314,6 +314,12 @@
         #section {
             margin-bottom: 50px;
         }
+        .collectmusicFxs{
+          width: 20px;
+        }
+        .collectmusicFxs img{
+          width: 100%;
+        }
     </style>
 </head>
 
@@ -462,6 +468,7 @@
                                 i].content+'</div><div class="reply"><div  onclick="fnOpenMessageNotDetail('+ret.data[i].comment_id+')">回复</div></div>';
                     }
                   $api.html(stylelist, html);
+                  console.log(html);
                 }
             } else {
                 alert(JSON.stringify(err));
