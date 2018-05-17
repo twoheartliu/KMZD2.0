@@ -69,19 +69,28 @@
 
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript" src="../script/swiper.min.js"></script>
 <script type="text/javascript">
+var token;
     apiready = function() {
+      token = $api.getStorage('token');
       fnGetBeiJingYinYueTypelist();
 
     }
     function fnGetBeiJingYinYueTypelist() {
-  		api.ajax({
-  			url: 'http://47.100.11.38/kongmeng/bgmusic/getStyleList.php',
-  			method: 'get',
-  			dataType: 'json',
+      uri = '/recitation/bgm_category';
+      api.ajax({
+          url: host + apiUri + uri,
+          method: 'get',
+          dataType: 'json',
+          headers: {
+              "source": api.systemType,
+              "version": version,
+              "session": token
+          },
   		}, function(ret, err) {
-  			if (ret) {
+  			if (ret.status == 200) {
   				//alert(JSON.stringify(ret));
           fnBytitleList(ret);
   			} else {
@@ -90,11 +99,11 @@
   		});
   	}
     function fnBytitleList(data_) {
-      //console.log(JSON.stringify(data_));
+      // console.log(JSON.stringify(data_));
   		var stylelist = $api.byId('con');
   		var html = '';
   		 for (var i = 0; i < data_.data.length; i++) {
-        html += '<ul class="on">  <li onclick="fnSoundtrackList(' + data_.data[i].id + ');"><div class="on_li_divImg fl">  <img src="../image/play/KM_soundtrackBF.png" alt=""></div><div class="fl" id = "title"><span >' + data_.data[i].name + '</span></div></li></ul>';
+        html += '<ul class="on">  <li onclick="fnSoundtrackList(' + data_.data[i].style_id + ');"><div class="on_li_divImg fl">  <img src="../image/play/KM_soundtrackBF.png" alt=""></div><div class="fl" id = "title"><span >' + data_.data[i].name + '</span></div></li></ul>';
   		}
   		$api.html(stylelist, html);
       //aSpan[0].className = 'on';
