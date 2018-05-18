@@ -436,11 +436,10 @@
             });
     }
     function fnDetails(){
-      var uri = '/recitation/script_recommend';
       if(uris == '/listening/comment/'){
-          uri = '/listening/detail/';
+          var uri = '/listening/detail/';
       }else if(uris == '/album/comment/'){
-        uri = '/listening/';
+        var uri = '/listening/';
       }
       api.ajax({
           url: host + apiUri + uri + albumId,
@@ -454,9 +453,10 @@
       }, function(ret, err) {
           // alert(JSON.stringify(ret));
           if (ret.status == 200) {
-              fnRecitationScriptRecommend(ret);
+              // fnRecitationScriptRecommend(ret);
+
           } else {
-              alert(JSON.stringify(err));
+            netMessage();
           }
 
       });
