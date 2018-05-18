@@ -185,7 +185,6 @@ var name;
                     }
                 }
             }, function(ret, err) {
-
                     if (ret.status == 200) {
                       api.sendEvent({
                           name: 'gengXinSingle',
@@ -203,7 +202,7 @@ var name;
                         //     reload: true
                         // });
                     }else{
-                      netMessage();
+                      netMessage(ret);
                     }
             });
 

@@ -1,4 +1,4 @@
-function netMessage(){
+function netMessage(ret){
   if(ret.status == 10101){
     api.toast({              
         msg:  '评论失败,请检测您的网络状态或重试',
@@ -163,4 +163,209 @@ function netMessage(){
         location:   'middle'          
     });
   }
+  if(ret.status == 10408){
+    api.toast({              
+        msg:  '绑定失败，请重试',
+        duration:  2000,
+        location:   'middle'          
+    });
+  }
+  if(ret.status == 10409){
+    api.toast({              
+        msg:  '解除绑定失败',
+        duration:  2000,
+        location:   'middle'          
+    });
+  }
+  if(ret.status == 10410){
+    api.toast({              
+        msg:  '添加宝宝失败',
+        duration:  2000,
+        location:   'middle'          
+    });
+  }
+  if(ret.status == 10411){
+    api.toast({              
+        msg:  '更新宝宝信息失败',
+        duration:  2000,
+        location:   'middle'          
+    });
+  }
+  if(ret.status == 10412){
+    api.toast({              
+        msg:  '删除宝宝信息失败',
+        duration:  2000,
+        location:   'middle'          
+    });
+  }
+  if(ret.status == 10501){
+    api.toast({              
+        msg:  '新建听单失败',
+        duration:  2000,
+        location:   'middle'          
+    });
+  }
+  if(ret.status == 10502){
+    api.toast({              
+        msg:  '修改听单失败',
+        duration:  2000,
+        location:   'middle'          
+    });
+  }
+  if(ret.status == 10503){
+    api.toast({              
+        msg:  '删除听单失败',
+        duration:  2000,
+        location:   'middle'          
+    });
+  }
+  if(ret.status == 10504){
+    api.toast({              
+        msg:  '听单评论失败',
+        duration:  2000,
+        location:   'middle'          
+    });
+  }
+  if(ret.status == 10505){
+    api.toast({              
+        msg:  '添加到听单失败',
+        duration:  2000,
+        location:   'middle'          
+    });
+  }
+  if(ret.status == 10506){
+    api.toast({              
+        msg:  '曲目已存在',
+        duration:  2000,
+        location:   'middle'          
+    });
+  }
+  if(ret.status == 10507){
+    api.toast({              
+        msg:  '删除曲目失败',
+        duration:  2000,
+        location:   'middle'          
+    });
+  }
+  if(ret.status == 10601){
+    api.toast({              
+        msg:  '点赞失败',
+        duration:  2000,
+        location:   'middle'          
+    });
+  }
+  if(ret.status == 10602){
+    api.toast({              
+        msg:  '取消收藏失败',
+        duration:  2000,
+        location:   'middle'          
+    });
+  }
+  if(ret.status == 10603){
+    api.toast({              
+        msg:  '收藏失败',
+        duration:  2000,
+        location:   'middle'          
+    });
+  }
+  if(ret.status == 10801){
+    api.toast({              
+        msg:  '参数错误',
+        duration:  2000,
+        location:   'middle'          
+    });
+  }
+  if(ret.status == 10802){
+    api.toast({              
+        msg:  '上传文件失败',
+        duration:  2000,
+        location:   'middle'          
+    });
+  }
+  if(ret.status == 10803){
+    api.toast({              
+        msg:  '非法操作',
+        duration:  2000,
+        location:   'middle'          
+    });
+  }
+  if(ret.status == 10900){
+    api.toast({              
+        msg:  '缺少源信息或源信息错误',
+        duration:  2000,
+        location:   'middle'          
+    });
+  }
+  if(ret.status == 10901){
+    var dialogBox = api.require('dialogBox');
+    dialogBox.alert({
+        texts: {
+            title: '当前版本不可用，请升级到最新版本',
+            leftBtnTitle: '暂不升级',
+            rightBtnTitle: '立刻升级'
+        },
+        styles: {
+            bg: '#fff',
+            w: 300,
+            title: {
+                marginT: 20,
+                icon: 'widget://res/gou.png',
+                iconSize: 40,
+                titleSize: 14,
+                titleColor: '#666'
+            },
+            content: {
+                color: '#ccc',
+                size: 14
+            },
+            left: {
+                marginB: 7,
+                marginL: 20,
+                w: 130,
+                h: 35,
+                corner: 2,
+                bg: '#ccc',
+                color: '#FFF',
+                size: 12
+            },
+            right: {
+                marginB: 7,
+                marginL: 10,
+                w: 130,
+                h: 35,
+                corner: 2,
+                bg: '#89211b',
+                color: '#fff',
+                size: 12
+            }
+        }
+    }, function(ret) {
+        if (ret.eventType == 'right') {
+
+            dialogBox.close({
+                dialogName: 'alert'
+            });
+        } else if (ret.eventType == 'left') {
+          $api.rmStorage('token');
+          api.openWin({
+              name: 'login',
+              url: '../login.html',
+              pageParam: {
+                  name: 'test'
+              }
+          });
+            dialogBox.close({
+                dialogName: 'alert'
+            });
+        }
+    });
+
+
+    api.toast({              
+        msg:  '当前版本不可用，请升级到最新版本',
+        duration:  2000,
+        location:   'middle'          
+    });
+  }
+
 }
