@@ -205,6 +205,7 @@
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/message.js"></script>
 <script type="text/javascript">
 var albumId;
 var uris;
@@ -259,7 +260,7 @@ var token;
                 }
             }
         }, function(ret, err) {
-            if (ret) {
+
                 if (ret.status == 200) {
                   api.sendEvent({
                       name: 'gengXin',
@@ -276,10 +277,8 @@ var token;
                     //     },
                     //     reload: true
                     // });
-                }
-            } else {
-                alert(JSON.stringify(err));
-                alert(ret.message);
+                } else {
+                netMessage();
                 // $api.rmStorage('token');
                 // api.openWin({
                 //     name: 'login',

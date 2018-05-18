@@ -453,50 +453,50 @@ var token;
         // console.log(html);
         $api.html(stylelist, html);
     }
-    //接口  推荐听单
-    function fnXiMaLaYaTingDan() {
-        var ximalaya = null;
-        var ximalaya = api.require('ximalaya');
-        var param = {
-            appkey: "85fa4ef92fb9ab9ee237146d59b44530",
-            appsecret: "a537faf18f2ba543fbabe3dad47b3511"
-        };
-        ximalaya.initXmly(param, function(ret, err) {
-            // alert(JSON.stringify(ret));
-            if (ret) {
-                alert(JSON.stringify(ret.message));
-            } else {
-                //console.log(JSON.stringify(err));
-                alert(JSON.stringify(err));
-            }
-        });
-
-        function getSearchedTracks() {
-            var param = {
-                keyword: "爱情",
-                categoryid: 1,
-                page: 1,
-                pagesize: 3
-            };
-            ximalaya.getSearchedTracks(param, function(ret, err) {
-                if (ret)
-                    alert(JSON.stringify(ret.total_count));
-                else
-                    alert(JSON.stringify(err));
-            });
-        }
-        // var param = {
-        //     //appkey: "a2bef6e953c529b6ac0b656a32079ecf",
-        //     appsecret: "e1f6e1927fdab1ef1a8de1997557b6db"
-        // };
-        // ximalaya.initXmly(param, function(ret, err) {
-        //     if (ret)
-        //         alert(JSON.stringify(ret));
-        //     else
-        //         alert(JSON.stringify(err));
-        // });
-
-    }
+    // //接口  推荐听单
+    // function fnXiMaLaYaTingDan() {
+    //     var ximalaya = null;
+    //     var ximalaya = api.require('ximalaya');
+    //     var param = {
+    //         appkey: "85fa4ef92fb9ab9ee237146d59b44530",
+    //         appsecret: "a537faf18f2ba543fbabe3dad47b3511"
+    //     };
+    //     ximalaya.initXmly(param, function(ret, err) {
+    //         // alert(JSON.stringify(ret));
+    //         if (ret) {
+    //             alert(JSON.stringify(ret.message));
+    //         } else {
+    //             //console.log(JSON.stringify(err));
+    //             alert(JSON.stringify(err));
+    //         }
+    //     });
+    //
+    //     function getSearchedTracks() {
+    //         var param = {
+    //             keyword: "爱情",
+    //             categoryid: 1,
+    //             page: 1,
+    //             pagesize: 3
+    //         };
+    //         ximalaya.getSearchedTracks(param, function(ret, err) {
+    //             if (ret)
+    //                 alert(JSON.stringify(ret.total_count));
+    //             else
+    //                 alert(JSON.stringify(err));
+    //         });
+    //     }
+    //     // var param = {
+    //     //     //appkey: "a2bef6e953c529b6ac0b656a32079ecf",
+    //     //     appsecret: "e1f6e1927fdab1ef1a8de1997557b6db"
+    //     // };
+    //     // ximalaya.initXmly(param, function(ret, err) {
+    //     //     if (ret)
+    //     //         alert(JSON.stringify(ret));
+    //     //     else
+    //     //         alert(JSON.stringify(err));
+    //     // });
+    //
+    // }
 
     function fnSingLeWin(id) {
 

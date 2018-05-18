@@ -456,12 +456,7 @@ function netPlayLieIdUrl(playlistid) {
         if (ret.status == 200) {
             fnZhuanJiZhanshi(ret);
         } else {
-          alert(ret.message);
-          $api.rmStorage('token');
-          api.openWin({
-              name: 'login',
-              url: '../login.html'
-          });
+          netMessage();
         }
       });
     }

@@ -325,22 +325,22 @@
 
 <body>
     <div class="list_bj" id="container">
-        <div class="p13px">
-            <div class="single">
-                <div class="single_img fl"><img src="../image/index/pic.jpg" alt=""></div>
-                <div class="single_l fl">
-                    <div class="single_h1" id="tingdanliebiaobiaoti"></div>
-                    <div class="single_img_p_span">
-                        <div class="single_div_img fl"><img src="../image/KM_tx.png" alt=""></div>
-                        <div class="single_img_name fl">小许</div>
-                        <!-- <div class="single_LIVE fl"><img src="../image/vip/KM_live.png" alt=""></div> -->
-                        <div class="clear"></div>
+        <div class="p13px" id="details">
+                <div class="single">
+                    <div class="single_img fl"><img src="../image/index/pic.jpg" alt=""></div>
+                    <div class="single_l fl">
+                        <div class="single_h1" id="tingdanliebiaobiaoti"></div>
+                        <div class="single_img_p_span">
+                            <div class="single_div_img fl"><img src="../image/KM_tx.png" alt=""></div>
+                            <div class="single_img_name fl">小许</div>
+                            <!-- <div class="single_LIVE fl"><img src="../image/vip/KM_live.png" alt=""></div> -->
+                            <div class="clear"></div>
+                        </div>
+                        <div class="single_time">2017-1-12更新</div>
                     </div>
-                    <div class="single_time">2017-1-12更新</div>
+                    <div class="clear"></div>
                 </div>
                 <div class="clear"></div>
-            </div>
-            <div class="clear"></div>
         </div>
         <div class="playall">
             <section id="section">
@@ -387,6 +387,7 @@
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/message.js"></script>
 <script type="text/javascript">
     var token;
     var albumId;
@@ -400,6 +401,7 @@
         albumId = api.pageParam.albumId;
         uris = api.pageParam.uris;
         ListenToTheListOfComments();
+        fnDetails();
         api.addEventListener({
             name: 'gengXin'
         }, function(ret, err) {
@@ -433,7 +435,32 @@
                       ListenToTheListOfComments();
             });
     }
+    function fnDetails(){
+      var uri = '/recitation/script_recommend';
+      if(uris == '/listening/comment/'){
+          uri = '/listening/detail/';
+      }else if(uris == '/album/comment/'){
+        uri = '/listening/';
+      }
+      api.ajax({
+          url: host + apiUri + uri + albumId,
+          method: 'get',
+          dataType: 'json',
+          headers: {
+              "source": api.systemType,
+              "version": version,
+              "session": token
+          }
+      }, function(ret, err) {
+          // alert(JSON.stringify(ret));
+          if (ret.status == 200) {
+              fnRecitationScriptRecommend(ret);
+          } else {
+              alert(JSON.stringify(err));
+          }
 
+      });
+    }
     function ListenToTheListOfComments() {
         api.ajax({
             url: host + apiUri + uris + albumId,
