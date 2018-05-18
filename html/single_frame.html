@@ -435,22 +435,22 @@
                         <div class="single_div_img fl">
                             <img src="../image/KM_tx.png" alt="">
                         </div>
-                        <div class="single_img_name fl">' + data_.data[i].title +'</div>
+                        <div class="single_img_name fl"></div>
 
                     </div>
                     <div class="single_time">
                         <div class="single_time_img fl">
                             <img src="../image/KM_sc.png" alt="">
                         </div>
-                        <div class="single_img_num fl">' + data_.data[i].author_name +'</div>
+                        <div class="single_img_num fl"></div>
                         <div class="single_time_img fl">
                             <img src="../image/KM_play.png" alt="">
                         </div>
-                        <div class="single_img_num fl">' + data_.data[i].play_count +'</div>
+                        <div class="single_img_num fl"></div>
                         <div class="single_time_img fl">
                             <img src="../image/read/aloud_py.png" alt="">
                         </div>
-                        <div class="single_img_num fl">' + data_.data[i].total +'</div>
+                        <div class="single_img_num fl"></div>
                     </div>
                 </div>
             </div>
@@ -594,6 +594,34 @@
         // fnExtraGoodssssss();
         // $api.rmStorage('albumExtraGoodHtml');
         // $api.rmStorage('albumExtraGood');
+        api.setCustomRefreshHeaderInfo({
+            bgColor: '#f0f0f0',
+            image: {
+              pull: [
+                  'widget://image/Refresh/dropdown_anim_00.png',
+                  'widget://image/Refresh/dropdown_anim_01.png',
+                  'widget://image/Refresh/dropdown_anim_02.png',
+                  'widget://image/Refresh/dropdown_anim_03.png',
+                  'widget://image/Refresh/dropdown_anim_04.png',
+                  'widget://image/Refresh/dropdown_anim_05.png',
+                  'widget://image/Refresh/dropdown_anim_06.png',
+                  'widget://image/Refresh/dropdown_anim_07.png',
+                  'widget://image/Refresh/dropdown_anim_08.png',
+                  'widget://image/Refresh/dropdown_anim_09.png',
+                  'widget://image/Refresh/dropdown_anim_10.png',
+            ],
+            load: [
+              'widget://image/Refresh/dropdown_loading_00.png',
+              'widget://image/Refresh/dropdown_loading_01.png',
+              'widget://image/Refresh/dropdown_loading_02.png'
+          ]}
+        }, function() {
+                //下拉刷新被触发，自动进入加载状态，使用 api.refreshHeaderLoadDone() 手动结束加载中状态
+                //下拉刷新被触发，使用 api.refreshHeaderLoadDone() 结束加载中状态
+
+                fnAlbumAetails();
+                fnAlbumTrack();
+            });
     }
     function fnExtraGoodssssss(){
       var albumss = $api.getStorage('albumExtraGood'+albumId);
@@ -624,6 +652,9 @@
         }, function(ret, err) {
             if (ret.status == 200) {
                 // fnRecommendedDirectory(ret);
+                setTimeout(function(){
+                    api.refreshHeaderLoadDone()
+                },3000)
                 fnAlbumAetailsList(ret);
             } else {
                 alert(ret.message);
@@ -683,6 +714,9 @@
             }
         }, function(ret, err) {
             if (ret.status == 200) {
+              setTimeout(function(){
+                  api.refreshHeaderLoadDone()
+              },3000)
                 // fnRecommendedDirectory(ret);
                 fnAlbumIdLift(ret);
             } else {
