@@ -335,10 +335,19 @@
 
 </html>
 <script type="text/javascript">
-var token；
+var token;
     apiready = function() {
       token = $api.getStorage('token');
-      if(token){
+      if(!token){
+        $api.rmStorage('token');
+        api.openWin({
+            name: 'login',
+            url: '../login.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
+      }else{
         fnInitSwiper();
         var qqziliao = api.pageParam.qqziliao;
         fnHomePageLayout();
@@ -369,15 +378,7 @@ var token；
 
                       fnHomePageLayout();
             });
-      }else{
-        $api.rmStorage('token');
-        api.openWin({
-            name: 'login',
-            url: '../login.html',
-            pageParam: {
-                name: 'test'
-            }
-        });
+
       }
 
     }

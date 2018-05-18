@@ -512,7 +512,8 @@
                   $api.html(stylelist, html);
                 }
             } else {
-                alert(JSON.stringify(err));
+              netMessage();
+
                 // alert(ret.message);
                 // $api.rmStorage('token');
                 // api.openWin({
@@ -568,6 +569,7 @@
                   $api.setStorage('commentaAlbumExtraGood'+img_id+'','inc');
                   // $api.rmStorage('commentaAlbumExtraGood'+img_id+'');
               } else {
+                netMessage();
               //   api.toast({              
               //       msg:  ret.message,
               //       duration:  2000,
@@ -615,6 +617,7 @@
                   $api.html(stylelist, conner_num);
                   $api.setStorage('commentaAlbumExtraGood'+img_id+'','dec');
               } else {
+                netMessage();
                 // api.toast({              
                 //     msg:  ret.message,
                 //     duration:  2000,

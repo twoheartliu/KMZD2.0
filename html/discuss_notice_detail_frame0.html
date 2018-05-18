@@ -253,6 +253,7 @@
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/message.js"></script>
 <script type="text/javascript">
     function goback() {
         api.closeWin({
@@ -309,7 +310,7 @@
 
     }
     function fnDetails(soundId){
-      
+
     }
     function ListenToTheListOfComments(){
       soundId = api.pageParam.soundId;
@@ -390,6 +391,7 @@
                 }
                 $api.html(stylelist, html);
             } else {
+              netMessage();
               // console.log(111);
                 // alert(ret.message);
                 // $api.rmStorage('token');
@@ -505,7 +507,6 @@
           }
       }
         function fnOpenMessageNotDetail(comment_id,name) {
-          console.log(name);
             api.openWin({
                 name: 'replyDetailSingle',
                 url: './reply_detail_single.html',

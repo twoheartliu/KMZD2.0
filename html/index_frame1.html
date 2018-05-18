@@ -108,12 +108,10 @@
 
 </html>
 <script type="text/javascript">
-var token；
+var token;
     apiready = function() {
       token = $api.getStorage('token');
-      if(token){
-
-      }else{
+      if(!token){
         $api.rmStorage('token');
         api.openWin({
             name: 'login',
