@@ -456,7 +456,7 @@ function netPlayLieIdUrl(playlistid) {
         if (ret.status == 200) {
             fnZhuanJiZhanshi(ret);
         } else {
-          netMessage();
+          netMessage(ret);
         }
       });
     }

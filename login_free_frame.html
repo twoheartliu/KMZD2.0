@@ -163,7 +163,7 @@
 </html>
 <script type="text/javascript" src="script/api.js"></script>
 <script type="text/javascript" src="script/common.js"></script>
-<script type="text/javascript" src="script/message.js"></script>
+<script type="text/javascript" src="script/message1.js"></script>
 <script type="text/javascript">
 var wait = 60;
     apiready = function() {
@@ -276,7 +276,7 @@ var wait = 60;
                          }
                      });
                   }else{
-                    netMessage();
+                    netMessage(ret);
                   }
               });
             }else{
@@ -368,7 +368,7 @@ var wait = 60;
             time(buttons);
             fnGetSmsVerificationCode(phone);
           }else{
-            netMessage();
+            netMessage(ret);
 
           }
       });
@@ -398,7 +398,7 @@ var wait = 60;
               getCode = ret.data.v_code;
               createDateTime = ret.create_date;
             }else{
-              netMessage();
+              netMessage(ret);
             }
         });
     }

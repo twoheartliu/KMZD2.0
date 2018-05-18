@@ -15,7 +15,7 @@ function netMessage(ret){
     $api.rmStorage('token');
     api.openWin({
         name: 'login',
-        url: '../login.html',
+        url: 'login.html',
         pageParam: {
             name: 'test'
         }
@@ -31,7 +31,7 @@ function netMessage(ret){
     $api.rmStorage('token');
     api.openWin({
         name: 'login',
-        url: '../login.html',
+        url: 'login.html',
         pageParam: {
             name: 'test'
         }
@@ -349,7 +349,7 @@ function netMessage(ret){
           $api.rmStorage('token');
           api.openWin({
               name: 'login',
-              url: '../login.html',
+              url: 'login.html',
               pageParam: {
                   name: 'test'
               }
@@ -361,11 +361,11 @@ function netMessage(ret){
     });
 
 
-    // api.toast({              
-    //     msg:  '当前版本不可用，请升级到最新版本',
-    //     duration:  2000,
-    //     location:   'middle'          
-    // });
+    api.toast({              
+        msg:  '当前版本不可用，请升级到最新版本',
+        duration:  2000,
+        location:   'middle'          
+    });
   }
 
 }

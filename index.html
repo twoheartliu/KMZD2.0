@@ -380,6 +380,7 @@
 </html>
 <script type="text/javascript" src="script/api.js"></script>
 <script type="text/javascript" src="script/common.js"></script>
+<script type="text/javascript" src="script/message1.js"></script>
 <script type="text/javascript" src="script/indexCommon.js"></script>
 <script type="text/javascript" src="script/index.js"></script>
 <script type="text/javascript">
@@ -389,7 +390,6 @@
       // $api.clearStorage();
             token = $api.getStorage('token');
             console.log(token);
-            if (token) {
                 var secHeader = $api.byId('secHeader');
                 $api.fixStatusBar(secHeader);
                 var footer = $api.byId('footer');
@@ -403,16 +403,7 @@
 
                 adjust()
                 funIniGroup();
-            } else {
-                $api.rmStorage('token');
-                api.openWin({
-                    name: 'login',
-                    url: './login.html',
-                    pageParam: {
-                        name: 'test'
-                    }
-                });
-            }
+
             var dqian = $api.getStorage('qiandaoshu');
             if(dqian){
               var stylelist = $api.byId('lianxuqiandao');
@@ -565,11 +556,7 @@
                 var html ='已连续签到 '+ ret.data.sign_count +' 天';
                 $api.html(stylelist, html);
             } else {
-                api.toast({
-                    msg: ret.message,
-                    duration: 2000,
-                    location: 'middle'
-                });
+                netMessage(ret);
             }
         });
     }
