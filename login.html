@@ -84,6 +84,7 @@
 </html>
 <script type="text/javascript" src="script/api.js"></script>
 <script type="text/javascript" src="script/common.js"></script>
+<script type="text/javascript" src="script/message.js"></script>
 <!-- <script type="text/javascript" src="script/index.js"></script> -->
 <script type="text/javascript">
     var wx, qq, weibo;
@@ -228,7 +229,7 @@
                   wx.getToken({
                       code: ret.code
                   }, function(ret, err) {
-                      console.log(JSON.stringify(ret));
+                      // console.log(JSON.stringify(ret));
                       if (ret.status) {
                         // openId 字符串类型；授权用户唯一标识
                         //accessToken 字符串类型；接口调用凭证，传给 getUserInfo 接口 获取用户信息；有效期2小时
@@ -276,7 +277,6 @@
                                     "version":version
                                   },
                               }, function(ret, err) {
-
                                   if (ret.status == 200) {
                                     var tokens = ret.data.token;
                                     $api.setStorage('token',tokens);
@@ -285,7 +285,7 @@
                                          url: 'index.html'
                                      });
                                   }else{
-                                    alert(ret.message);
+                                    netMessage();
                                   }
                               });
                             } else {
@@ -350,7 +350,7 @@
                                                url: 'index.html'
                                            });
                                         }else{
-                                          alert(ret.message);
+                                          netMessage();
                                         }
                                     });
                                 } else {

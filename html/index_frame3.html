@@ -469,12 +469,24 @@
     var token;
     apiready = function() {
         token = $api.getStorage('token');
-        // console.log(token);
-        fnInitSwiper();
-        // fnOpenUserButton();
-        // fnInitSwiper1();
-        fnRecommendFriends();
-        fnreadingAloudRecommended();
+
+        if(token){
+          // console.log(token);
+          fnInitSwiper();
+          // fnOpenUserButton();
+          // fnInitSwiper1();
+          fnRecommendFriends();
+          fnreadingAloudRecommended();
+        }else{
+          $api.rmStorage('token');
+          api.openWin({
+              name: 'login',
+              url: '../login.html',
+              pageParam: {
+                  name: 'test'
+              }
+          });
+        }
     }
 
     function fnreadingAloudRecommended() {

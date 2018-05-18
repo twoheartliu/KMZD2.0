@@ -580,6 +580,7 @@
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/message.js"></script>
 <script type="text/javascript">
     var token;
     var albumGoodHtml;
@@ -657,7 +658,7 @@
                 },3000)
                 fnAlbumAetailsList(ret);
             } else {
-                alert(ret.message);
+                netMessage();
                 // $api.rmStorage('token');
                 // api.openWin({
                 //     name: 'login',
@@ -720,7 +721,7 @@
                 // fnRecommendedDirectory(ret);
                 fnAlbumIdLift(ret);
             } else {
-                alert(ret.message);
+                netMessage();
                 // $api.rmStorage('token');
                 // api.openWin({
                 //     name: 'login',
@@ -993,16 +994,7 @@
                     // $api.html(stylelist, html);
                     // $api.setStorage('albumExtraCollection' + albumId + '','inc');
                 } else {
-                  api.toast({              
-                      msg:  ret.message,
-                      duration:  2000,
-                      location:   'middle'          
-                  });
-                    $api.rmStorage('token');
-                    api.openWin({
-                        name: 'login',
-                        url: '../login.html',
-                    });
+                  netMessage();
                 }
             });
         } else {
@@ -1044,16 +1036,7 @@
                     // $api.html(stylelist, html);
                     // $api.setStorage('albumExtraCollection' + albumId + '','dec');
                 } else {
-                  api.toast({              
-                      msg:  ret.message,
-                      duration:  2000,
-                      location:   'middle'          
-                  });
-                    $api.rmStorage('token');
-                    api.openWin({
-                        name: 'login',
-                        url: '../login.html',
-                    });
+                  netMessage();
                 }
             });
         }
@@ -1096,16 +1079,7 @@
                   $api.html(stylelist, goods);
                   $api.setStorage('albumExtraGood'+albumId,'inc');
               } else {
-                api.toast({              
-                    msg:  ret.message,
-                    duration:  2000,
-                    location:   'middle'          
-                });
-                  $api.rmStorage('token');
-                  api.openWin({
-                      name: 'login',
-                      url: '../login.html',
-                  });
+                netMessage();
               }
           });
         } else {
@@ -1144,16 +1118,7 @@
                   $api.html(stylelist, goods);
                   $api.setStorage('albumExtraGood'+albumId,'dec');
               } else {
-                api.toast({              
-                    msg:  ret.message,
-                    duration:  2000,
-                    location:  'middle'          
-                });
-                  $api.rmStorage('token');
-                  api.openWin({
-                      name: 'login',
-                      url: '../login.html',
-                  });
+                netMessage();
               }
           });
         }

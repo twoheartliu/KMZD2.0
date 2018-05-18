@@ -549,6 +549,7 @@
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/message.js"></script>
 <script type="text/javascript" src="../script/swiper.min.js"></script>
 <script type="text/javascript" src="../script/zepto.js"></script>
 <script type="text/javascript" src="../script/audio2.js"></script>
@@ -1187,7 +1188,7 @@
                   }
                 $api.html(stylelistCollectionHtml, bookCollectionHtml);
             } else {
-                alert(ret.message);
+                netMessage();
                 // $api.rmStorage('token');
                 // api.openWin({
                 //     name: 'login',
@@ -1240,7 +1241,7 @@
                 }
               $api.html(stylelistCollectionHtml, bookCollectionHtml);
             } else {
-                alert(ret.message);
+                netMessage();
                 // $api.rmStorage('token');
                 // api.openWin({
                 //     name: 'login',
@@ -1410,11 +1411,7 @@
                   });
                   // $api.setStorage('bookExtraCollection'+bookId+'','inc');
               } else {
-                api.toast({              
-                    msg:  ret.message,
-                    duration:  2000,
-                    location:   'middle'          
-                });
+                netMessage();
                   // $api.rmStorage('token');
                   // api.openWin({
                   //     name: 'login',
@@ -1458,11 +1455,7 @@
                   });
                   // $api.setStorage('bookExtraCollection'+bookId+'','dec');
               } else {
-                api.toast({              
-                    msg:  ret.message,
-                    duration:  2000,
-                    location:   'middle'          
-                });
+                netMessage();
                   // $api.rmStorage('token');
                   // api.openWin({
                   //     name: 'login',
@@ -1516,16 +1509,7 @@
                 // $api.html(stylelist, html);
                 $api.setStorage('bookExtraGood'+bookId,'inc');
             } else {
-              api.toast({              
-                  msg:  ret.message,
-                  duration:  2000,
-                  location:   'middle'          
-              });
-                $api.rmStorage('token');
-                api.openWin({
-                    name: 'login',
-                    url: '../login.html',
-                });
+              netMessage();
             }
         });
       } else {
@@ -1565,16 +1549,7 @@
                 // $api.html(stylelist, html);
                 $api.setStorage('bookExtraGood'+bookId,'dec');
             } else {
-              api.toast({              
-                  msg:  ret.message,
-                  duration:  2000,
-                  location: 'middle'          
-              });
-                $api.rmStorage('token');
-                api.openWin({
-                    name: 'login',
-                    url: '../login.html',
-                });
+              netMessage();
             }
         });
       }

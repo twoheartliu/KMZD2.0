@@ -144,6 +144,7 @@
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/message.js"></script>
 <script type="text/javascript">
 var comment_id;
 var soundId;
@@ -184,7 +185,7 @@ var name;
                     }
                 }
             }, function(ret, err) {
-                if (ret) {
+
                     if (ret.status == 200) {
                       api.sendEvent({
                           name: 'gengXinSingle',
@@ -201,19 +202,9 @@ var name;
                         //     },
                         //     reload: true
                         // });
+                    }else{
+                      netMessage();
                     }
-                } else {
-                    alert(JSON.stringify(err));
-                    alert(ret.message);
-                    // $api.rmStorage('token');
-                    // api.openWin({
-                    //     name: 'login',
-                    //     url: '../login.html',
-                    //     pageParam: {
-                    //         name: 'test'
-                    //     }
-                    // });
-                }
             });
 
 
