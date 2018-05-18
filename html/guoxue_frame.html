@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="../css/swiper.min.css">
     <!-- <link rel="stylesheet" href="../css/iconfont.css"> -->
     <style>
-        div::-webkit-scrollbar {display:none}
+        ::-webkit-scrollbar {display:none}
         body {
             background-color: #f2f2f2;
             overflow-x: hidden;
@@ -180,6 +180,36 @@ var token;
                 }
             });
         }
+
+              api.setCustomRefreshHeaderInfo({
+                  bgColor: '#f0f0f0',
+                  image: {
+                    pull: [
+                        'widget://image/Refresh/dropdown_anim_00.png',
+                        'widget://image/Refresh/dropdown_anim_01.png',
+                        'widget://image/Refresh/dropdown_anim_02.png',
+                        'widget://image/Refresh/dropdown_anim_03.png',
+                        'widget://image/Refresh/dropdown_anim_04.png',
+                        'widget://image/Refresh/dropdown_anim_05.png',
+                        'widget://image/Refresh/dropdown_anim_06.png',
+                        'widget://image/Refresh/dropdown_anim_07.png',
+                        'widget://image/Refresh/dropdown_anim_08.png',
+                        'widget://image/Refresh/dropdown_anim_09.png',
+                        'widget://image/Refresh/dropdown_anim_10.png',
+                  ],
+                  load: [
+                    'widget://image/Refresh/dropdown_loading_00.png',
+                    'widget://image/Refresh/dropdown_loading_01.png',
+                    'widget://image/Refresh/dropdown_loading_02.png'
+                ]}
+              }, function() {
+                      //下拉刷新被触发，自动进入加载状态，使用 api.refreshHeaderLoadDone() 手动结束加载中状态
+                      //下拉刷新被触发，使用 api.refreshHeaderLoadDone() 结束加载中状态
+
+                      fnGetLieBiao();
+                      fnGetDirectory();
+                      fnGetView_history();
+                  });
     }
     //获取最近浏览
     function fnGetView_history(){
@@ -194,6 +224,9 @@ var token;
           },
       }, function(ret, err) {
           if (ret.status == 200) {
+            setTimeout(function(){
+                api.refreshHeaderLoadDone()
+            },3000)
             fnView_history(ret);
           } else {
               alert(ret.message);
@@ -227,6 +260,9 @@ var token;
             },
         }, function(ret, err) {
             if (ret.status == 200) {
+              setTimeout(function(){
+                  api.refreshHeaderLoadDone()
+              },3000)
                 fnRecommendedDirectory(ret);
             } else {
                 alert(ret.message);
@@ -278,6 +314,9 @@ var token;
             },
         }, function(ret, err) {
             if (ret.status == 200) {
+              setTimeout(function(){
+                  api.refreshHeaderLoadDone()
+              },3000)
                 fnDirectory(ret);
             } else {
                 alert(ret.message);
