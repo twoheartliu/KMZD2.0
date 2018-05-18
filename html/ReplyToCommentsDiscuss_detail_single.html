@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="copyright" content="www.apicloud.com" />
     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
-    <title>孔孟之道--回复评论</title>
+    <title>孔孟之道--评论</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
     <style>
         html,
@@ -209,21 +209,25 @@
 var soundId;
 var uris;
 var token;
-
+var name;
     function goback() {
         api.closeWin({
             name: 'ReplyToCommentsDiscussDetail'
         });
     }
     apiready = function() {
+      token = $api.getStorage('token');
         var nHeader = $api.byId('notHeader');
         var nHeaderPos = $api.offset(nHeader);
         var headerH = $api.offset(nHeader).h;
         // var notHeader = $api.byId('notHeader');
         var headerHs = $api.fixStatusBar(nHeader);
         soundId = api.pageParam.soundId;
+        name = api.pageParam.name;
         uris = api.pageParam.uris;
-        token = $api.getStorage('token');
+        if(name){
+          $api.byId('replyValue').placeholder = '评论' + name;
+        }
         // fnOpenMessageNotDetail(liLid);
         // 获取浏览器高度
         if (window.innerHeight)

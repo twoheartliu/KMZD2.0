@@ -260,13 +260,16 @@
     var token;
     var soundId;
     var uris;
+    // var name;
     var commentaAlbumGoodHtml;
     var commentExtraGoods;
     apiready = function() {
       token = $api.getStorage('token');
         soundId = api.pageParam.soundId;
         uris = api.pageParam.uris;
+        // name = api.pageParam.name;
         ListenToTheListOfComments();
+        fnDetails(soundId);
         api.addEventListener({
             name: 'gengXinSingle'
         }, function(ret, err) {
@@ -274,8 +277,12 @@
             ListenToTheListOfComments();
         });
     }
+    function fnDetails(soundId){
 
+    }
     function ListenToTheListOfComments(){
+      soundId = api.pageParam.soundId;
+      uris = api.pageParam.uris;
         api.ajax({
             url: host + apiUri + uris + soundId,
             method: 'get',
@@ -321,7 +328,7 @@
                             }
 
                         html += '</div><div class="fr"><span id="corner_mark'+ret.data[i].comment_id+'">'+ret.data[i].good_total +'</span></div></div><div class="clear"></div><div class="dis-txt">' + ret.data[
-                                i].content + '</div><div class="reply"><div  onclick="fnOpenMessageNotDetail(' + ret.data[i].comment_id + ')">回复</div></div><div class="discuss"><span>' + ret.data[i].re_nick_name + ':' + ret.data[i].re_content +
+                                i].content + '</div><div class="reply"><div  onclick="fnOpenMessageNotDetail(' + ret.data[i].comment_id + ', \'' + ret.data[i].nick_name + '\')">回复</div></div><div class="discuss"><span>' + ret.data[i].re_nick_name + ':' + ret.data[i].re_content +
                             '</span></div>';
                     } else {
                         html += '<div class="dis-left fl"><div class="sec-img">';
@@ -344,12 +351,13 @@
                               }
                             }
                         html += '</div><div class="fr"><span id="corner_mark'+ret.data[i].comment_id+'">'+ret.data[i].good_total +'</span></div></div><div class="clear"></div><div class="dis-txt">' + ret.data[
-                                i].content + '</div><div class="reply"><div  onclick="fnOpenMessageNotDetail(' + ret.data[i].comment_id + ')">回复</div></div>';
+                                i].content + '</div><div class="reply"><div  onclick="fnOpenMessageNotDetail(' + ret.data[i].comment_id + ', \'' + ret.data[i].nick_name + '\')">回复</div></div>';
                     }
                 }
                 $api.html(stylelist, html);
             } else {
-                alert(ret.message);
+              // console.log(111);
+                // alert(ret.message);
                 // $api.rmStorage('token');
                 // api.openWin({
                 //     name: 'login',
@@ -462,14 +470,16 @@
             });
           }
       }
-        function fnOpenMessageNotDetail(comment_id) {
+        function fnOpenMessageNotDetail(comment_id,name) {
+          console.log(name);
             api.openWin({
                 name: 'replyDetailSingle',
                 url: './reply_detail_single.html',
                 pageParam: {
                     comment_id: comment_id,
                     soundId: soundId,
-                    uris: uris
+                    uris: uris,
+                    name: name
                 },
                 bounces: false,
                 vScrollBarEnabled: true,

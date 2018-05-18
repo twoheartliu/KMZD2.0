@@ -107,7 +107,6 @@
             },
         }, function(ret, err) {
             if (ret.status == 200) {
-                console.log(ret.data.version_no);
                 v1 = ret.data.version_no;
                 v2 = version;
                 versionCompare(v1, v2);
@@ -176,7 +175,7 @@
         }, function(ret, err) {
             if (ret.status == 200) {
                 var v1 = ret.data.version_no;
-                var v2 = '2.0.1.0.1';
+                var v2 = version;
                 versionComparess(v1, v2);
             }
         });
@@ -198,7 +197,7 @@
       //若curV大于reqV，则返回true
       // console.log(diff);
         if(diff>0){
-          fnGengXin()；
+          fnGengXin();
           // api.toast({              
           //     msg:  '已是最新版本1',
           //     duration:  2000,
@@ -231,6 +230,7 @@
     }
 
     function fnGengXin(){
+      var dialogBox = api.require('dialogBox');
       dialogBox.alert({
           texts: {
               content: '已检测到新版本',
@@ -275,14 +275,12 @@
           tapClose: true
       }, function(ret) {
           if (ret.eventType == 'left') {
-              var dialogBox = api.require('dialogBox');
               dialogBox.close({
                   dialogName: 're'
               });
         }
         if(ret.eventType == 'right'){
           console.log('已更新');
-          var dialogBox = api.require('dialogBox');
           dialogBox.close({
               dialogName: 're'
           });

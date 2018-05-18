@@ -25,6 +25,7 @@ var desc;
 var singerName;
 var reciter;
 var comment_total;
+var is_collection
 //播放音频信息
 function fnBoFangSouSuoyinpinxinxi() {
     var id = historyUrlArray[play];
@@ -72,7 +73,7 @@ function fnBoFangyinpinxinxiing(play) {
             desc = ret.data.body;
             singerName = ret.data.author_name;
             comment_total = ret.data.comment_total;
-
+            is_collection = ret.data.is_collection;
             api.sendEvent({
                 name: 'jibenxinxi',
                 extra: {
@@ -80,7 +81,8 @@ function fnBoFangyinpinxinxiing(play) {
                     desc: desc,
                     reciter: reciter,
                     singerName: singerName,
-                    comment_total: comment_total
+                    comment_total: comment_total,
+                    collection: is_collection
                 }
             });
 
@@ -126,6 +128,7 @@ function fnBoFangyinpinxinxi() {
             desc = ret.data.body;
             singerName = ret.data.author_name;
             comment_total = ret.data.comment_total;
+            is_collection =ret.data.is_collection;
             api.sendEvent({
                 name: 'jibenxinxi',
                 extra: {
@@ -133,7 +136,8 @@ function fnBoFangyinpinxinxi() {
                     desc: desc,
                     reciter: reciter,
                     singerName: singerName,
-                    comment_total: comment_total
+                    comment_total: comment_total,
+                    collection: is_collection
                 }
             });
 
@@ -215,7 +219,8 @@ function netAudioPlay() {
               titlename: titlename,
               desc: desc,
               singerName: singerName,
-              comment_total:comment_total
+              comment_total:comment_total,
+              collection:is_collection
           }
       });
     }else{
@@ -224,7 +229,8 @@ function netAudioPlay() {
           extra: {
               titlename: titlename,
               desc: desc,
-              singerName: singerName
+              singerName: singerName,
+              collection:is_collection
           }
       });
     }
@@ -635,6 +641,9 @@ function fnBOFangJian(bofangs, aa, playlist) {
     }
 }
 
+function fnCollection(cccc){
+  is_collection = cccc;
+}
 //监听播放模式
 function initEventListennerBoFangMoshi() {
     //监听播放模式
@@ -644,6 +653,13 @@ function initEventListennerBoFangMoshi() {
         if (ret) {
             fnBFMoshi(ret.value.bofangmoshi);
             fnBoFangmoshiid();
+        }
+    });
+    api.addEventListener({
+        name: 'collection'
+    }, function(ret, err) {
+        if (ret) {
+            fnCollection(ret.value.is_collection);
         }
     });
 }

@@ -221,10 +221,12 @@
     }
     var albumId;
     var uris;
+    var name;
     apiready = function() {
         var notHeader = $api.byId('notHeader');
         $api.fixStatusBar(notHeader);
         albumId = api.pageParam.albumId;
+        name = api.pageParam.name;
         uris = api.pageParam.uris;
         fnOpenMessageNotDetail(albumId);
         api.openFrame({
@@ -238,7 +240,8 @@
             },
             pageParam: {
                 albumId: albumId,
-                uris: uris
+                uris: uris,
+                name: name
             },
             bounces: false,
             bgColor: 'rgba(0,0,0,0)',

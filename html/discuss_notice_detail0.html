@@ -214,12 +214,14 @@
     }
     var soundId;
     var uris;
-    apiready = function() {
+    var name;
+    apiready = function(){
         var notHeader = $api.byId('notHeader');
         $api.fixStatusBar(notHeader);
         fnOpenDiscussNotDetail();
         soundId = api.pageParam.soundId;
         uris = api.pageParam.uris;
+        name = api.pageParam.name;
         // fnOpenMessageNotDetail()
         // fnOpenMessageNotDetail1();
         // uris = api.pageParam.uris;
@@ -234,7 +236,8 @@
             },
             pageParam: {
                 soundId: soundId,
-                uris: uris
+                uris: uris,
+                name: name
             },
             bounces: false,
             bgColor: 'rgba(0,0,0,0)',
@@ -246,9 +249,9 @@
     function fnOpenDiscussNotDetail(){
         var nHeader = $api.byId('notHeader');
         var headerH = $api.offset(nHeader).h;
-
-          var soundId = api.pageParam.soundId;
-          var uris = api.pageParam.uris;
+        name = api.pageParam.name;
+          soundId = api.pageParam.soundId;
+          uris = api.pageParam.uris;
         api.openFrame({
             name: 'discussNoticeDetailFrame0',
             url: './discuss_notice_detail_frame0.html',
@@ -261,7 +264,8 @@
 
             pageParam: {
               soundId: soundId,
-              uris: uris
+              uris: uris,
+              name:name
             },
             bounces: false,
             bgColor: 'rgba(0,0,0,0)',
