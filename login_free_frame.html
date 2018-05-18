@@ -163,6 +163,7 @@
 </html>
 <script type="text/javascript" src="script/api.js"></script>
 <script type="text/javascript" src="script/common.js"></script>
+<script type="text/javascript" src="script/message.js"></script>
 <script type="text/javascript">
 var wait = 60;
     apiready = function() {
@@ -275,7 +276,7 @@ var wait = 60;
                          }
                      });
                   }else{
-                    alert(ret.message);
+                    netMessage();
                   }
               });
             }else{
@@ -359,16 +360,16 @@ var wait = 60;
             "version":version
           },
       }, function(ret, err) {
-          if (ret.status == 10209) {
-
-             alert(ret.message);
-          }else{
+          if (ret.status == 200) {
             flag =1;
             var wait = 60;
             var buttons = document.getElementById("button");
             buttons.style.backgroundColor='#cccccc';
             time(buttons);
             fnGetSmsVerificationCode(phone);
+          }else{
+            netMessage();
+
           }
       });
     }
@@ -397,7 +398,7 @@ var wait = 60;
               getCode = ret.data.v_code;
               createDateTime = ret.create_date;
             }else{
-              alert(ret.message);
+              netMessage();
             }
         });
     }

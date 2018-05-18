@@ -112,12 +112,12 @@ var token；
     apiready = function() {
       token = $api.getStorage('token');
       if(token){
-      
+
       }else{
         $api.rmStorage('token');
         api.openWin({
             name: 'login',
-            url: './login.html',
+            url: '../login.html',
             pageParam: {
                 name: 'test'
             }
