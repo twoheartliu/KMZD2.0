@@ -217,21 +217,17 @@
 <body>
     <div id="container">
         <nav>
-            <div class="nav-left fl">
+            <div class="nav-left fl" >
                 <div class="nav-img"><img src="../image/index/pic.jpg" alt=""></div>
-                <div class="nav-txt">
-                    <p class="nav-txt_name">焚身以火</p>
-                    <p class="nav-txt_p">叶倩文</p>
+                <div class="nav-txt" id="details">
+                    <!-- <p class="nav-txt_name">焚身以火</p>
+                    <p class="nav-txt_p">叶倩文</p> -->
                 </div>
             </div>
-            <!-- <div class="nav-right fr"> -->
-                <!-- <img src="../image/cm2_list_icn_arr.png" alt=""> -->
-                <!-- &gt; -->
-            <!-- </div> -->
             <div class="clear"></div>
         </nav>
         <section id="section">
-            <div class="sec-tit">所有评论</div>
+            <div class="sec-tit" id="allcommentS">所有评论</div>
             <div class="sec-discuss" id="comments">
                 <!-- <div class="dis-left fl">
                     <div class="sec-img"><img src="../image/icon-person.png" alt=""></div>
@@ -266,7 +262,7 @@
     var token;
     var soundId;
     var uris;
-    // var name;
+    var name;
     var commentaAlbumGoodHtml;
     var commentExtraGoods;
     apiready = function() {
@@ -307,16 +303,42 @@
         }, function() {
                 //下拉刷新被触发，自动进入加载状态，使用 api.refreshHeaderLoadDone() 手动结束加载中状态
                 //下拉刷新被触发，使用 api.refreshHeaderLoadDone() 结束加载中状态
-
+                        fnDetails();
                       ListenToTheListOfComments();
             });
 
     }
     function fnDetails(soundId){
+      var uri = '/sound/';
+      api.ajax({
+          url: host + apiUri + uri + soundId,
+          method: 'get',
+          dataType: 'json',
+          headers: {
+              "source": api.systemType,
+              "version": version,
+              "session": token
+          }
+      }, function(ret, err) {
+          if (ret.status == 200) {
+              var stylelist = $api.byId('details');
+              var html = '';
+              if (ret.data.author_name) {
+                  html = '<p class="nav-txt_name">'+ret.data.title+'</p><p class="nav-txt_p">作者：'+ret.data.author_name+'</p>';
+              } else {
+                  html = '<p class="nav-txt_name">'+ret.data.title+'</p>';
+              }
 
+              $api.html(stylelist, html);
+          } else {
+            netMessage(ret);
+
+          }
+      });
     }
     function ListenToTheListOfComments(){
       soundId = api.pageParam.soundId;
+      name = api.pageParam.name;
       uris = api.pageParam.uris;
         api.ajax({
             url: host + apiUri + uris + soundId,
@@ -329,6 +351,11 @@
             }
         }, function(ret, err) {
             if (ret.status == 200) {
+              if(ret.data == ''){
+                var stylelist = $api.byId('allcommentS');
+                var html = '暂无评论,<span style="color:blue;" onclick="ReplyToCommentsDiscuss_detail()">去评论</span>';
+                $api.html(stylelist, html);
+              }else{
               setTimeout(function(){
                   api.refreshHeaderLoadDone()
               },3000)
@@ -393,20 +420,24 @@
                     }
                 }
                 $api.html(stylelist, html);
+              }
             } else {
-              netMessage();
-              // console.log(111);
-                // alert(ret.message);
-                // $api.rmStorage('token');
-                // api.openWin({
-                //     name: 'login',
-                //     url: '../login.html',
-                //     pageParam: {
-                //         name: 'test'
-                //     }
-                // });
+              netMessage(ret);
             }
         });
+      }
+      function ReplyToCommentsDiscuss_detail() {
+        api.openWin({
+            name: 'ReplyToCommentsDiscussDetailSingle',
+            url: './ReplyToCommentsDiscuss_detail_single.html',
+            pageParam: {
+                soundId: soundId,
+                uris: uris,
+                name: name
+            },
+            reload : true
+        });
+
       }
       function collectmusicFx(clicktoolitem) {
 
@@ -449,16 +480,7 @@
                     $api.setStorage('commentaAlbumBook_cExtraGood'+img_id+'','inc');
                     // $api.rmStorage('commentaAlbumExtraGood'+img_id+'');
                 } else {
-                //   api.toast({              
-                //       msg:  ret.message,
-                //       duration:  2000,
-                //       location:   'middle'          
-                //   });
-                //     $api.rmStorage('token');
-                //     api.openWin({
-                //         name: 'login',
-                //         url: '../login.html',
-                //     });
+                netMessage(ret);
                 }
             });
           } else {
@@ -495,16 +517,7 @@
                     $api.html(stylelist, conner_num);
                     $api.setStorage('commentaAlbumBook_cExtraGood'+img_id+'','dec');
                 } else {
-                  // api.toast({              
-                  //     msg:  ret.message,
-                  //     duration:  2000,
-                  //     location:  'middle'          
-                  // });
-                    // $api.rmStorage('token');
-                    // api.openWin({
-                    //     name: 'login',
-                    //     url: '../login.html',
-                    // });
+                  netMessage(ret);
                 }
             });
           }
