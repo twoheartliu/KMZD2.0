@@ -208,6 +208,7 @@
 <script type="text/javascript">
 var albumId;
 var uris;
+var name;
 var token;
 
     function goback() {
@@ -216,6 +217,7 @@ var token;
         });
     }
     apiready = function() {
+      token = $api.getStorage('token');
         var nHeader = $api.byId('notHeader');
         var nHeaderPos = $api.offset(nHeader);
         var headerH = $api.offset(nHeader).h;
@@ -223,7 +225,11 @@ var token;
         var headerHs = $api.fixStatusBar(nHeader);
         albumId = api.pageParam.albumId;
         uris = api.pageParam.uris;
-        token = $api.getStorage('token');
+        name = api.pageParam.name;
+        if(name){
+          $api.byId('replyValue').placeholder = '评论' + name;
+        }
+
         // fnOpenMessageNotDetail(liLid);
         // 获取浏览器高度
         if (window.innerHeight)
@@ -237,8 +243,6 @@ var token;
 
     function replySend() {
         var replyValue = $api.byId('replyValue').value;
-        console.log(albumId);
-        console.log(uris);
         api.ajax({
             url: host + apiUri + uris,
             method: 'post',
@@ -251,12 +255,11 @@ var token;
             data: {
                 values: {
                     'id': albumId,
-                    'comment': replyValue
+                    'comment': replyValue,
                 }
             }
         }, function(ret, err) {
             if (ret) {
-              console.log(JSON.stringify(ret));
                 if (ret.status == 200) {
                   api.sendEvent({
                       name: 'gengXin',

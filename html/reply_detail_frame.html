@@ -149,10 +149,15 @@ var comment_id;
 var albumId;
 var uris;
 var token;
+var name;
     apiready = function() {
       token = $api.getStorage('token');
+      name = api.pageParam.name;
       comment_id = api.pageParam.comment_id;
       albumId = api.pageParam.albumId;
+      if(name){
+        $api.byId('replyValue').placeholder = '回复' + name;
+      }
       uris = api.pageParam.uris;
             var mHeader = $api.byId('mesHeader');
             var headerPos = $api.offset(mHeader);
@@ -177,7 +182,7 @@ var token;
                     }
                 }
             }, function(ret, err) {
-              console.log(JSON.stringify(ret));
+              // console.log(JSON.stringify(ret));
                 if (ret) {
                     if (ret.status == 200) {
                       api.sendEvent({

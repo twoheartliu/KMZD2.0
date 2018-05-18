@@ -548,11 +548,11 @@
         <div id="control" class="qx">
             <div id="slider">
                 <span class="s" id="kaishijishi">
-                  00:00
+                  <!-- 00:00 -->
                 </span>
                 <input type="range" id="range" name="range" min="0" max="100" step="1" value="0.01" class="red" />
                 <span class="e" id="zongshichang">
-                  00:00
+                  <!-- 00:00 -->
                 </span>
             </div>
             <ul id="panel">
@@ -785,6 +785,10 @@
                 var stylelist = $api.byId('kaishijishi');
                 var html = ret.value.bofangshijian;
                 $api.html(stylelist, html);
+            }else{
+              var stylelist = $api.byId('kaishijishi');
+              var html = '00:00';
+              $api.html(stylelist, html);
             }
         });
         //总时长
@@ -795,6 +799,10 @@
                 var stylelist = $api.byId('zongshichang');
                 var html = ret.value.html;
                 $api.html(stylelist, html);
+            }else{
+              var stylelist = $api.byId('zongshichang');
+              var html = '00:00';
+              $api.html(stylelist, html);
             }
         });
     }

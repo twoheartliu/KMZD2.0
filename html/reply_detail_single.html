@@ -215,10 +215,12 @@
     var comment_id;
     var soundId;
     var uris;
+    var name;
     apiready = function() {
       comment_id = api.pageParam.comment_id;
       soundId = api.pageParam.soundId;
       uris = api.pageParam.uris;
+      name = api.pageParam.name;
 
         var notHeader = $api.byId('notHeader');
         $api.fixStatusBar(notHeader);
@@ -240,7 +242,8 @@
             pageParam: {
                 comment_id: comment_id,
                 soundId:soundId,
-                uris:uris
+                uris:uris,
+                name: name
             },
             bounces: false,
             bgColor: 'rgba(0,0,0,0)',

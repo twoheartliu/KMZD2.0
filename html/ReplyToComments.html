@@ -20,7 +20,7 @@
 <body onclick="">
     <footer>
       <div class="footer_img" ><img src="../image/read/335551519577750673.png" alt=""></div>
-      <div class="footer_name"  onclick="ReplyToCommentsDiscuss_detail()">发表评论</div>
+      <div class="footer_name"  onclick="ReplyToCommentsDiscuss_detail()" id="discuss_detail">发表评论</div>
 
       <!-- <div class="footer_play"><img id="playCollect" onclick="fnOpenPlayCollect();"src="../image/footer_bf0.png" alt=""></div> -->
     </footer>
@@ -31,9 +31,16 @@
 <script type="text/javascript">
     var albumId;
     var uris;
+    var name;
     apiready = function() {
       albumId = api.pageParam.albumId;
+      name = api.pageParam.name;
       uris = api.pageParam.uris;
+      if(name){
+        var stylelist = $api.byId('discuss_detail');
+        var html = '评论'+name;
+        $api.html(stylelist, html);
+      }
     }
     function ReplyToCommentsDiscuss_detail() {
       api.openWin({
@@ -41,7 +48,8 @@
           url: './ReplyToCommentsDiscuss_detail.html',
           pageParam: {
               albumId: albumId,
-              uris: uris
+              uris: uris,
+              name: name
           },
           reload : true
       });

@@ -215,11 +215,12 @@
     var comment_id;
     var albumId;
     var uris;
+    var name;
     apiready = function() {
       comment_id = api.pageParam.comment_id;
+      name = api.pageParam.name;
       albumId = api.pageParam.albumId;
       uris = api.pageParam.uris;
-
         var notHeader = $api.byId('notHeader');
         $api.fixStatusBar(notHeader);
         fnOpenMessageNotDetail();
@@ -240,7 +241,8 @@
             pageParam: {
                 comment_id: comment_id,
                 albumId:albumId,
-                uris:uris
+                uris:uris,
+                name:name
             },
             bounces: false,
             bgColor: 'rgba(0,0,0,0)',

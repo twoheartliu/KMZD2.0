@@ -149,10 +149,17 @@ var comment_id;
 var soundId;
 var uris;
 var token;
+var name;
     apiready = function() {
       token = $api.getStorage('token');
       comment_id = api.pageParam.comment_id;
       soundId = api.pageParam.soundId;
+      name = api.pageParam.name;
+      if(name){
+        if(name){
+          $api.byId('replyValue').placeholder = '回复' + name;
+        }
+      }
       uris = api.pageParam.uris;
             var mHeader = $api.byId('mesHeader');
             var headerPos = $api.offset(mHeader);
