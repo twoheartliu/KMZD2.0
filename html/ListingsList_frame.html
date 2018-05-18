@@ -500,6 +500,7 @@
     var goodss;
     var wx;
     var ListingsListGoodHtml;
+    var name;
     apiready = function() {
             wx = api.require('wx');
             //fnTingdanTuijianliebiao()
@@ -519,8 +520,11 @@
             }
         }, function(ret, err) {
             if (ret) {
+              console.log(JSON.stringify(ret));
                 if (ret.status == 200) {
                     var single = $api.byId('single');
+                    // 听单的名称
+                    name = ret.data.linstening_info.listening_name
                     // 判断用户头像
                     var photos = ret.data.linstening_info.photo;
                     var photo = photos.substring(0, 4);
@@ -954,7 +958,8 @@
             url: './discuss_detail0.html',
             pageParam: {
                 albumId: ids,
-                uris: '/listening/comment/'
+                uris: '/listening/comment/',
+                name : name
             }
         });
     }
