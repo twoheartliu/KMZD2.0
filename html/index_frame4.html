@@ -359,44 +359,51 @@
 <script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript">
     var token;
-    // var IknowLevel=[0,100,500,2000,5000,10000,30000,100000];
-    //
-    // function G(id){return document.getElementById(id);}
-
     apiready = function() {
       token = $api.getStorage('token');
-      // console.log(token);
-        api.parseTapmode();
-        fnpersonalInfo();
+      if(token){
+          api.parseTapmode();
+          fnpersonalInfo();
 
-        api.addEventListener({
-            name: 'netTitlePhoto',
+          api.addEventListener({
+              name: 'netTitlePhoto',
 
-        }, function(ret, err) {
-          if(ret){
-            var stylelist = $api.byId('imgs');
-            var html4 = ret.value.titlePhoto;
-            $api.html(stylelist, html4);
-          }
+          }, function(ret, err) {
+            if(ret){
+              var stylelist = $api.byId('imgs');
+              var html4 = ret.value.titlePhoto;
+              $api.html(stylelist, html4);
+            }
+          });
+          api.addEventListener({
+              name: "netNickName",
+          }, function(ret, err) {
+            if(ret){
+              var stylelist22 = $api.byId('username');
+              var html22 = ret.value.nickName;
+              $api.html(stylelist22, html22);
+            }
+          });
+          api.addEventListener({
+              name: "netsignature",
+          }, function(ret, err) {
+            if(ret){
+              var stylelist23 = $api.byId('signature');
+              var html23 = ret.value.netsignature;
+              $api.html(stylelist23, html23);
+            }
+          });
+      }else{
+        $api.rmStorage('token');
+        api.openWin({
+            name: 'login',
+            url: './login.html',
+            pageParam: {
+                name: 'test'
+            }
         });
-        api.addEventListener({
-            name: "netNickName",
-        }, function(ret, err) {
-          if(ret){
-            var stylelist22 = $api.byId('username');
-            var html22 = ret.value.nickName;
-            $api.html(stylelist22, html22);
-          }
-        });
-        api.addEventListener({
-            name: "netsignature",
-        }, function(ret, err) {
-          if(ret){
-            var stylelist23 = $api.byId('signature');
-            var html23 = ret.value.netsignature;
-            $api.html(stylelist23, html23);
-          }
-        });
+      }
+
     }
     function fnpersonalInfo(){
       var uri = '/user';

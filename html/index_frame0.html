@@ -335,7 +335,10 @@
 
 </html>
 <script type="text/javascript">
+var token；
     apiready = function() {
+      token = $api.getStorage('token');
+      if(token){
         fnInitSwiper();
         var qqziliao = api.pageParam.qqziliao;
         fnHomePageLayout();
@@ -366,8 +369,19 @@
 
                       fnHomePageLayout();
             });
+      }else{
+        $api.rmStorage('token');
+        api.openWin({
+            name: 'login',
+            url: './login.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
+      }
+
     }
-    var token = $api.getStorage('token');
+
     // console.log(token);
     function fnHomePageLayout() {
         uri = '/index/floor';
