@@ -148,6 +148,7 @@
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/message.js"></script>
 <script type="text/javascript">
     apiready = function() {
       ListenList();
@@ -239,15 +240,7 @@
               });
             }
           } else {
-            alert(ret.message);
-            $api.rmStorage('token');
-            api.openWin({
-                name: 'login',
-                url: '../login.html',
-                pageParam: {
-                    name: 'test'
-                }
-            });
+            netMessage(ret);
           }
       });
 
@@ -280,15 +273,7 @@
               $api.remove(listen_item);
             }
           } else {
-            alert(ret.message);
-            $api.rmStorage('token');
-            api.openWin({
-                name: 'login',
-                url: '../login.html',
-                pageParam: {
-                    name: 'test'
-                }
-            });
+            netMessage(ret);
           }
       });
 

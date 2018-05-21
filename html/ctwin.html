@@ -454,7 +454,9 @@
 <script type="text/javascript" src="../script/zepto.js"></script>
 <script type="text/javascript" src="../script/audio2.js"></script>
 <script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/message.js"></script>
 <script type="text/javascript" src="../script/saveUpload.js"></script>
+
 <script type="text/javascript">
 
     var title;
@@ -466,6 +468,10 @@
     var timestamps;
     var jubenid;
     var token;
+    var a;
+    var c;
+    var body;
+    var jidutiao = 1;
     apiready = function() {
       token = $api.getStorage('token');
         var secHeader = $api.byId('secHeader');
@@ -474,11 +480,14 @@
         title = api.pageParam.title;
         name = api.pageParam.name;
         desc = api.pageParam.desc;
+        body = desc;
         cgxid = api.pageParam.cgxid;
         path = api.pageParam.path;
         jubenid = api.pageParam.jubenid;
         timestamp = api.pageParam.timestamp;
         timestamps = api.pageParam.timestamps;
+        a = api.pageParam.a;
+        c = api.pageParam.c;
         fnGetJubentitle();
         fnGetJubenname();
         fnGetJubenbody();
@@ -560,15 +569,24 @@
   	}
     function fnOpenPlayCollect() {
         var playCollect = $api.byId('playCollect');
-        if (playCollect.getAttribute("src", 2) == "../image/read/63734540119813241.png") {
-            playCollect.src = "../image/read/428129250927140404.png";
-            fnLuYinshiting();
+        if(path){
+          if (playCollect.getAttribute("src", 2) == "../image/read/63734540119813241.png") {
+              playCollect.src = "../image/read/428129250927140404.png";
+              fnLuYinshiting();
 
-        } else {
-            playCollect.src = "../image/read/63734540119813241.png";
-            var myAudio = document.getElementById("myAudio");
-            myAudio.pause();
+          } else {
+              playCollect.src = "../image/read/63734540119813241.png";
+              var myAudio = document.getElementById("myAudio");
+              myAudio.pause();
+          }
+        }else {
+            api.toast({              
+                msg:   '请先录音',
+                duration:  2000,
+                location:   'middle'          
+            });
         }
+
     };
     //调整播放进度
     function adjusts(playTime) {
@@ -607,7 +625,13 @@
         myAudio.loop=true;
 
         jindutiao();
-  		}
+  		}else {
+          api.toast({              
+              msg:   '请先录音',
+              duration:  2000,
+              location:   'middle'          
+          });
+      }
   	}
     //获取当前歌曲的歌长
     function jindutiao() {
