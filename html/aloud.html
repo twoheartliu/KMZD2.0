@@ -388,17 +388,22 @@
     function fnGetJubenlist() {
         var id = api.pageParam.InfojubenType;
         jubenid = api.pageParam.InfojubenType;
+        var uri = '/script/detail/' + jubenid;
         api.ajax({
-            url: 'http://47.100.11.38/kongmeng/scripts/getScriptById.php?id= ' + id,
+            url: host + apiUri + uri,
             method: 'get',
             dataType: 'json',
+            headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token
+            }
         }, function(ret, err) {
-          // console.log(JSON.stringify(ret));
-            if (ret) {
+            if (ret.status == 200) {
 
 
                 title = ret.data[0].title;
-                name = ret.data[0].name;
+                name = ret.data[0].author_name;
                 body = ret.data[0].body;
                 if (!name) {
                     name = '';
@@ -413,7 +418,6 @@
     }
     //赋值剧本标题
     function fnGetJubentitle() {
-      console.log(title);
         var stylelist = $api.byId('jubentitle');
         var html = title;
         $api.html(stylelist, html);

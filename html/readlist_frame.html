@@ -67,22 +67,36 @@
 </body>
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/message.js"></script>
 <script type="text/javascript">
+var token;
     apiready = function() {
+      token = $api.getStorage('token');
       fnGetJubenTypelist();
     };
     function fnGetJubenTypelist() {
-  		api.ajax({
-  			url: 'http://47.100.11.38/kongmeng/scripts/getScriptList.php',
-  			method: 'get',
-  			dataType: 'json',
-  		}, function(ret, err) {
-  			if (ret) {
-  				fnUpdateLyricList(ret);
-  			} else {
-  				alert(JSON.stringify(err));
-  			}
-  		});
+      var id = api.pageParam.id;
+      var uri = '/script/album?c_id=';
+      api.ajax({
+          url: host + apiUri + uri +id,
+          method: 'get',
+          dataType: 'json',
+          headers: {
+              "source": api.systemType,
+              "version": version,
+              "session": token
+          }
+      }, function(ret, err) {
+          // alert(JSON.stringify(ret));
+          if (ret.status == 200) {
+            fnUpdateLyricList(ret);
+          } else {
+              netMessage(ret);
+          }
+
+      });
+
   	}
   	function fnUpdateLyricList(data_) {
 
@@ -90,17 +104,18 @@
   		var html = '';
   		 for (var i = 0; i < data_.data.length; i++) {
          onclick
-  		 	html +='<div  onclick = "fnReadListBodr(' + data_.data[i].type_id + ');"><img src="../image/guoxueguan/readlist.png" alt=""><span>' + data_.data[i].name + '</span></div>';
+  		 	html +='<div  onclick = "fnReadListBodr(' + data_.data[i].type_id + ',\'' + data_.data[i].name + '\');"><img src="../image/guoxueguan/readlist.png" alt=""><span>' + data_.data[i].name + '</span></div>';
         //console.log(data_.data[i].type_id);
       }
   		$api.html(stylelist, html);
   	}
-  	function fnReadListBodr(CompanyInfojubenByID) {
+  	function fnReadListBodr(CompanyInfojubenByID,name) {
   		api.openWin({
   			name: 'readlistbodr',
   			url: './readlistbodr.html',
   			pageParam: {
-  				CompanyInfojubenByID : CompanyInfojubenByID
+  				CompanyInfojubenByID : CompanyInfojubenByID,
+          name: name
   			},
   			delay: 200
   		});
