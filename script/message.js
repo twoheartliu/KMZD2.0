@@ -268,6 +268,13 @@ function netMessage(ret){
         location:   'middle'          
     });
   }
+  if(ret.status == 10604){
+    api.toast({              
+        msg:  '已收藏过',
+        duration:  2000,
+        location:   'middle'          
+    });
+  }
   if(ret.status == 10801){
     api.toast({              
         msg:  '参数错误',

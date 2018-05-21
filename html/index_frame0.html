@@ -437,59 +437,14 @@ var token;
                             data_.data[i].content[s].author_name + '</span></div><div class="egret-flex-item-shelf03"><div><img src="../image/KM_play.png" alt=""><span>' + data_.data[
                                 i].content[s].play_total + '</span></div><div><img src="../image/KM_zf.png" alt=""><span>' + data_.data[i].content[s].share_total +
                             '</span></div><div><img src="../image/KM_dz.png" alt=""><span>' + data_.data[i].content[s].good_total +
-                            '</span></div></div></div>  </div><div class="egret-flex-item-shelf04" onclick="fnOpenPlayMore(' + data_.data[i].content[s].id + ',' + data_.data[i].content[s].is_collection + ')"><img src="../image/KM_list_more.png" alt=""></div></div><div class="hdivider"></div>';
+                            '</span></div></div></div>  </div><div class="egret-flex-item-shelf04" onclick="fnOpenPlayMore(' + data_.data[i].content[s].id + ')"><img src="../image/KM_list_more.png" alt=""></div></div><div class="hdivider"></div>';
                     }
                 }
                 html += '</div></div>';
             }
         }
-        // console.log(html);
         $api.html(stylelist, html);
     }
-    // //接口  推荐听单
-    // function fnXiMaLaYaTingDan() {
-    //     var ximalaya = null;
-    //     var ximalaya = api.require('ximalaya');
-    //     var param = {
-    //         appkey: "85fa4ef92fb9ab9ee237146d59b44530",
-    //         appsecret: "a537faf18f2ba543fbabe3dad47b3511"
-    //     };
-    //     ximalaya.initXmly(param, function(ret, err) {
-    //         // alert(JSON.stringify(ret));
-    //         if (ret) {
-    //             alert(JSON.stringify(ret.message));
-    //         } else {
-    //             //console.log(JSON.stringify(err));
-    //             alert(JSON.stringify(err));
-    //         }
-    //     });
-    //
-    //     function getSearchedTracks() {
-    //         var param = {
-    //             keyword: "爱情",
-    //             categoryid: 1,
-    //             page: 1,
-    //             pagesize: 3
-    //         };
-    //         ximalaya.getSearchedTracks(param, function(ret, err) {
-    //             if (ret)
-    //                 alert(JSON.stringify(ret.total_count));
-    //             else
-    //                 alert(JSON.stringify(err));
-    //         });
-    //     }
-    //     // var param = {
-    //     //     //appkey: "a2bef6e953c529b6ac0b656a32079ecf",
-    //     //     appsecret: "e1f6e1927fdab1ef1a8de1997557b6db"
-    //     // };
-    //     // ximalaya.initXmly(param, function(ret, err) {
-    //     //     if (ret)
-    //     //         alert(JSON.stringify(ret));
-    //     //     else
-    //     //         alert(JSON.stringify(err));
-    //     // });
-    //
-    // }
 
     function fnSingLeWin(id,floor_name) {
 
@@ -588,13 +543,13 @@ var token;
     }
     //打开更多页面
     var collectionImg;
-    function fnOpenPlayMore(id,collection) {
+    function fnOpenPlayMore(id) {
       // console.log(collection);
-      if(collection == 0){
-        collectionImg = 'widget://image/KM_hxs.png';
-      }else{
-        collectionImg = 'widget://image/KM_play_collect_red.png';
-      }
+      // if(collection == 0){
+      //   collectionImg = 'widget://image/KM_hxs.png';
+      // }else{
+      //   collectionImg = 'widget://image/KM_play_collect_red.png';
+      // }
         var dialogBox = api.require('dialogBox');
         dialogBox.actionMenu({
             rect: {
@@ -605,7 +560,7 @@ var token;
             },
             items: [{
                 text: '收藏',
-                icon: collectionImg
+                icon:'widget://image/KM_hxs.png'
             }, {
                 text: '添加到听单',
                 icon: 'widget://image/KM_play_add_gray.png'
@@ -645,54 +600,44 @@ var token;
                 //                   location:   'middle'          
                 // });
 
-                uri = '/extra/collection';
-                api.ajax({
-                    url: host + apiUri + uri + '/' + id,
-                    method: 'post',
-                    dataType: 'json',
-                    headers: {
-                        "source": api.systemType,
-                        "version": version,
-                        "session": token
-                    },
-                    data:{
-                      values:{
-                        "model":'album',
+                  uri = '/extra/list_collection/';
+                  api.ajax({
+                      url: host + apiUri + uri + id,
+                      method: 'post',
+                      dataType: 'json',
+                      timeout:10,
+                      headers: {
+                          "source": api.systemType,
+                          "version": version,
+                          "session": token
+                      },
+                      data:{
+                        values:{
+                          "model":'book',
+                        }
                       }
-                    }
-                }, function(ret, err) {
-                    if (ret.status == 200) {
-                      console.log(ret.status);
-                        // fnRecommendedDirectory(ret);
-                        if(ret.data == "inc"){
+                  }, function(ret, err) {
+                    if(ret){
+                      if (ret.status == 200) {
                           api.toast({              
                               msg:   '已收藏',
                               duration:  2000,
                               location:   'middle'          
                           });
-                          // fnOpenPlayMore(id,1);
-                          // fnAlbumAetails();
-                        }else{
-                          api.toast({              
-                              msg:   '已取消收藏',
-                              duration:  2000,
-                              location:   'middle'          
-                          });
-                          // fnOpenPlayMore(id,0);
-                        }
+                      } else {
+                        netMessage(ret);
+                      }
+                    }else{
 
-                        // collections++;
-                        // var stylelist = $api.byId('collections');
-                        // var html = collections;
-                        // $api.html(stylelist, html);
-                        // $api.setStorage('albumExtraCollection' + albumId + '','inc');
-                    } else {
-                      netMessage(ret);
                     }
-                });
-                dialogBox.close({
-                    dialogName: 'alert'
-                });
+
+                  });
+                  dialogBox.close({
+                      dialogName: 'alert'
+                  });
+
+
+
             } else if (ret.index == "1") {
                 fnOpenAddListening(id);
 

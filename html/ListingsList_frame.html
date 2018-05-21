@@ -488,6 +488,7 @@
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/message.js"></script>
 <script type="text/javascript" src="../script/wxfx.js"></script>
 <script type="text/javascript">
     // 传过来的听单id
@@ -547,7 +548,7 @@
                 "session": token
             }
         }, function(ret, err) {
-            if (ret) {
+
                 if (ret.status == 200) {
                   setTimeout(function(){
                       api.refreshHeaderLoadDone()
@@ -613,24 +614,8 @@
                     $api.html(stylelistCollectionHtml, albumCollectionHtml);
 
                 } else {
-                    api.toast({
-                        msg: '失败',
-                        duration: 2000,
-                        location: 'middle'
-                    });
+                    netMessage(ret);
                 }
-
-            } else {
-                alert(ret.message);
-                $api.rmStorage('token');
-                api.openWin({
-                    name: 'login',
-                    url: '../login.html',
-                    pageParam: {
-                        name: 'test'
-                    }
-                });
-            }
         });
 
     }
@@ -691,16 +676,7 @@
                     // $api.rmStorage('ListingsList',album)
                     $api.setStorage('ListingsList' + ids, 'inc');
                 } else {
-                    api.toast({              
-                        msg:  ret.message,
-                        duration:  2000,
-                        location:   'middle'          
-                    });
-                    // $api.rmStorage('token');
-                    // api.openWin({
-                    //     name: 'login',
-                    //     url: '../login.html',
-                    // });
+                    netMessage(ret);
                 }
             });
         } else {
@@ -739,16 +715,7 @@
                     $api.setStorage('ListingsList' + ids, 'dec');
                     // $api.rmStorage('ListingsList',album)
                 } else {
-                    api.toast({              
-                        msg:  ret.message,
-                        duration:  2000,
-                        location:   'middle'          
-                    });
-                    // $api.rmStorage('token');
-                    // api.openWin({
-                    //     name: 'login',
-                    //     url: '../login.html',
-                    // });
+                    netMessage(ret);
                 }
             });
         }
@@ -803,16 +770,7 @@
                         });
                     }
                 } else {
-                    api.toast({              
-                        msg:  ret.message,
-                        duration:  2000,
-                        location:   'middle'          
-                    });
-                    $api.rmStorage('token');
-                    api.openWin({
-                        name: 'login',
-                        url: '../login.html',
-                    });
+                    netMessage(ret);
                 }
             });
         } else {
@@ -845,16 +803,7 @@
                         });
                     }
                 } else {
-                    api.toast({              
-                        msg:  ret.message,
-                        duration:  2000,
-                        location:   'middle'          
-                    });
-                    $api.rmStorage('token');
-                    api.openWin({
-                        name: 'login',
-                        url: '../login.html',
-                    });
+                    netMessage(ret);
                 }
             });
         }
@@ -908,11 +857,35 @@
                 });
             }
             if (ret.index == "0") {
-                alert('收藏成功');
-                dialogBox.close({
-                    dialogName: 'alert'
-                });
-                // alert(1);
+              uri = '/extra/list_collection/';
+              api.ajax({
+                  url: host + apiUri + uri + songListID,
+                  method: 'post',
+                  dataType: 'json',
+                  headers: {
+                      "source": api.systemType,
+                      "version": version,
+                      "session": token
+                  },
+                  data:{
+                    values:{
+                      "model":'book',
+                    }
+                  }
+              }, function(ret, err) {
+                  if (ret.status == 200) {
+                        api.toast({              
+                            msg:   '已收藏',
+                            duration:  2000,
+                            location:   'middle'          
+                        });
+                  } else {
+                    netMessage(ret);
+                  }
+              });
+              dialogBox.close({
+                  dialogName: 'alert'
+              });
             } else if (ret.index == "1") {
                 fnOpenAddListening(songListID);
                 dialogBox.close({
@@ -944,7 +917,6 @@
     // 删除单曲
     function DeleteSingle(songListID) {
         // console.log(ids);
-        console.log(songListID);
         api.ajax({
             url: host + apiUri + '/listening/del_song/' + songListID,
             method: 'post',
@@ -960,13 +932,13 @@
                 }
             },
         }, function(ret, err) {
-            if (ret) {
+            if (ret.status == 200) {
                 var songListIDs = 'id_' + songListID;
                 var id_items = $api.byId(songListIDs); //找到li标签上的id
                 $api.remove(id_items);
 
             } else {
-                alert(JSON.stringify(err));
+                netMessage(ret);
             }
         });
 
