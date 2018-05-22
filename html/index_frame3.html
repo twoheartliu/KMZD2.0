@@ -562,8 +562,7 @@
                     }
                     var stylelist = $api.byId('friend');
                     html +=
-                        '<div class="friend_list "><div class="user_img" onclick="fnOpenmyPersonal(\'' + userId + '\',\''+ nickName +'\')" ><img src="'+ title +'" alt=""></div><p><span class="name">'+nickName+'</span> <img src="../image/read/care.png" alt="" class="userButton" id="userButton'+ret.data[i].user_id+'" onclick="fnOpenUserButton('+ret.data[i].user_id+')"></p><p class="p">  <span>粉丝</span><span>'+fans+'</span>  <span>作品</span><span>'+product+'</span></p></div>';
-
+                        '<div class="friend_list "><div class="user_img" onclick="fnOpenmyPersonal(\'' + userId + '\',\''+ nickName +'\')" ><img src="'+ title +'" alt=""></div><p><span class="name">'+nickName+'</span> <img src="../image/read/care.png" alt="" class="userButton"  id="userButton'+ret.data[i].user_id+'" onclick="fnOpenUserButton(\'' + ret.data[i].user_id + '\',\''+ ret.data[i].nick_name +'\')"  ></p><p class="p">  <span>粉丝</span><span>'+fans+'</span>  <span>作品</span><span>'+product+'</span></p></div>';
                 }
                 $api.html(stylelist, html);
             } else {
@@ -642,6 +641,9 @@
     // }
     //个人主页
     function fnOpenmyPersonal(id,nickName) {
+      console.log(id);
+      console.log(nickName);
+      console.log(2222);
       // console.log(name);
       // console.log(1111);
         api.openWin({
@@ -649,14 +651,17 @@
             url: './my_personal.html',
             pageParam: {
                 userId: id,
-                nickName:nickName
+                nickName :nickName
             },
         });
     };
     //加关注
 
-    function fnOpenUserButton(id) {
+    function fnOpenUserButton(id,nickname) {
+      // console.log(id);
+      // console.log(nickname);
         var userButton = document.getElementById('userButton' + id);
+        html =
         // var friend = document.getElementById('friend');
         // var friend_lis = friend.getElementsByClassName('userButton');
 
@@ -664,82 +669,103 @@
         //     friend_lis[i].index = i;
         //     friend_lis[i].onclick = function() {
         //         var j = this.index;
-        var dialogBox = api.require('dialogBox');
-        dialogBox.alert({
-            texts: {
-                content: '确定要添加关注吗？',
-                leftBtnTitle: '取消',
-                rightBtnTitle: '确认'
-            },
-            styles: {
-                bg: '#fff',
-                w: 300,
-                content: {
-                    color: '#000',
-                    size: 14
-                },
-                left: {
-                    marginB: 15,
-                    marginL: 20,
-                    w: 100,
-                    h: 35,
-                    corner: 2,
-                    bg: '#ccc',
-                    color: '#fff',
-                    size: 12
-                },
-                right: {
-                    marginB: 15,
-                    marginL: 60,
-                    w: 100,
-                    h: 35,
-                    corner: 2,
-                    bg: '#ccc',
-                    color: '#fff',
-                    size: 12
-                }
-            }
-        }, function(ret) {
-            if (ret.eventType == 'right') {
-                // if(friend_lis[j].getAttribute("src",2)=="../image/read/care.png"){
-                //   friend_lis[j].src="../image/read/care1.png";
-                // }
-                api.ajax({
-                    url: host + apiUri + '/user/follow',
-                    method: 'post',
-                    headers: {
-                        "source": api.systemType,
-                        "version": version,
-                        "session": token
-                    },
-                    data: {
-                        values: {
-                            "follow_id": id,
-                        }
-                    },
-                }, function(ret, err) {
-                    // console.log(JSON.stringify(ret));
-                    if (ret.status == 200) {
-                        if (userButton.getAttribute("src", 2) == "../image/read/care.png") {
-                            userButton.src = "../image/read/care1.png";
-                            var dialogBox = api.require('dialogBox');
-                            dialogBox.close({
-                                dialogName: 'alert'
-                            });
-                        }
-                        var data = ret.data;
-                        // console.log(data);
-                    } else {
+        // var toolbarlist = document.getElementsByClassName('userButton')[0];
+        var click = userButton.getAttribute("data-click");
+        // console.log(click);
+        console.log(userButton.src);
+        var str = userButton.src;
+        var img = str.slice(-8);
+        console.log(str.slice(-8));
+        if(img ==  "are1.png" ){
+          fnOpenmyPersonal(id,nickName);
+          console.log(11);
+          // userButton.setAttribute("data-click", 1);
+        }
+        if(img ==  "care.png"){
+          console.log(111);
+          // userButton.setAttribute("data-click", 0);
+          var dialogBox = api.require('dialogBox');
+          dialogBox.alert({
+              texts: {
+                  content: '确定要添加关注吗？',
+                  leftBtnTitle: '取消',
+                  rightBtnTitle: '确认'
+              },
+              styles: {
+                  bg: '#fff',
+                  w: 300,
+                  content: {
+                      color: '#000',
+                      size: 14
+                  },
+                  left: {
+                      marginB: 15,
+                      marginL: 20,
+                      w: 100,
+                      h: 35,
+                      corner: 2,
+                      bg: '#ccc',
+                      color: '#fff',
+                      size: 12
+                  },
+                  right: {
+                      marginB: 15,
+                      marginL: 60,
+                      w: 100,
+                      h: 35,
+                      corner: 2,
+                      bg: '#ccc',
+                      color: '#fff',
+                      size: 12
+                  }
+              }
+          }, function(ret) {
+              if (ret.eventType == 'right') {
+                  // if(friend_lis[j].getAttribute("src",2)=="../image/read/care.png"){
+                  //   friend_lis[j].src="../image/read/care1.png";
+                  // }
+                  api.ajax({
+                      url: host + apiUri + '/user/follow',
+                      method: 'post',
+                      headers: {
+                          "source": api.systemType,
+                          "version": version,
+                          "session": token
+                      },
+                      data: {
+                          values: {
+                              "follow_id": id,
+                          }
+                      },
+                  }, function(ret, err) {
+                      // console.log(JSON.stringify(ret));
+                      if (ret.status == 200) {
+                          if (userButton.getAttribute("src", 2) == "../image/read/care.png") {
+                              userButton.src = "../image/read/care1.png";
+                              var dialogBox = api.require('dialogBox');
+                              dialogBox.close({
+                                  dialogName: 'alert'
+                              });
+                          }
+                          var data = ret.data;
+                          // console.log(data);
+                      }
 
-                    }
-                })
-            } else if (ret.eventType == 'left') {
-                var dialogBox = api.require('dialogBox');
-                dialogBox.close({
-                    dialogName: 'alert'
-                });
-            }
-        });
+                      // else {
+                      // }
+                  })
+              } else if (ret.eventType == 'left') {
+                  var dialogBox = api.require('dialogBox');
+                  dialogBox.close({
+                      dialogName: 'alert'
+                  });
+              }
+          });
+
+        }
+
+
+
         //     }
         // }
     }
