@@ -71,6 +71,7 @@
         $api.fixStatusBar(header);
         var headerPos = $api.offset(header);
         var name = api.pageParam.name;
+        var id = api.pageParam.id;
         api.openFrame({
             name: 'readlist_frame',
             url: './readlist_frame.html',
@@ -81,7 +82,8 @@
                 h: 'auto'
             },
             pageParam: {
-                name: name
+                name: name,
+                id: id
             },
             bounces: false,
         });

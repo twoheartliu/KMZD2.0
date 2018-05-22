@@ -365,19 +365,19 @@
         </div>
     </div>
     <div class="p20px">
-        <div class="navbar">
+        <div class="navbar" id="scriptCategory">
             <div class="navbar-item " tapmode="navbar-item-hov" onclick="fnReadListWin();"><img src="../image/read/KM_pymf1.png" alt="">小学晨读</div>
             <div class="navbar-item " tapmode="navbar-item-hov" onclick="fnReadListWin();"><img src="../image/read/KM_pymf2.png" alt="">亲子启蒙</div>
             <div class="navbar-item " tapmode="navbar-item-hov" onclick="fnReadListWin();"><img src="../image/read/KM_pymf3.png" alt="">配音模仿</div>
             <div class="navbar-item " tapmode="navbar-item-hov" onclick="fnReadListWin();"><img src="../image/read/KM_pymf4.png" alt="">诗歌美文</div>
         </div>
-        <div class="navbar">
+        <!-- <div class="navbar">
             <div class="navbar-item " tapmode="navbar-item-hov" onclick="fnGouXueJingDIanWin();"><img src="../image/read/KM_pymf5.png" alt="">国学经典</div>
             <div class="navbar-item " tapmode="navbar-item-hov" onclick="fnReadListWin();"><img src="../image/read/KM_pymf6.png" alt="">外语名篇</div>
             <div class="navbar-item " tapmode="navbar-item-hov" onclick="fnReadListWin();"><img src="../image/read/KM_pymf7.png" alt="">玩转汉语</div>
             <div class="navbar-item " tapmode="navbar-item-hov" onclick="fnZyldWin();"><img src="../image/read/KM_pymf8.png" alt="">自由朗读</div>
             <div class="clear"></div>
-        </div>
+        </div> -->
     </div>
     <div class="huise"></div>
     <div class="read_frame_friend">
@@ -465,6 +465,7 @@
 <script type="text/javascript" src="../script/swiper.min.js"></script>
 <script type="text/javascript" src="../script/index1.js"></script>
 <script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/message.js"></script>
 <script type="text/javascript">
     var token;
     apiready = function() {
@@ -477,6 +478,7 @@
           // fnInitSwiper1();
           fnRecommendFriends();
           fnreadingAloudRecommended();
+          fnCategory();
         }else{
           $api.rmStorage('token');
           api.openWin({
@@ -488,7 +490,34 @@
           });
         }
     }
+    function fnCategory(){
+      var uri = '/script/category';
+      api.ajax({
+          url: host + apiUri + uri,
+          method: 'get',
+          dataType: 'json',
+          headers: {
+              "source": api.systemType,
+              "version": version,
+              "session": token
+          }
+      }, function(ret, err) {
+          if (ret.status == 200) {
+              fnCategoryAlbum(ret);
+          } else {
+              netMessage(ret);
+          }
 
+      });
+    }
+    function fnCategoryAlbum(data_){
+      var stylelist = $api.byId('scriptCategory');
+      var html = '';
+      for (var i = 0; i < data_.data.length; i++) {
+        html +='<div class="navbar-item " tapmode="navbar-item-hov" onclick="fnReadListWin(' + data_.data[i].category_id + ');"><img src="http://47.100.11.38/kmzd/public/uploads/recitation/' + data_.data[i].category_icon + '" alt="">' + data_.data[i].category_name + '</div>';
+      }
+      $api.html(stylelist, html);
+    }
     function fnreadingAloudRecommended() {
         var uri = '/recitation/script_recommend';
         api.ajax({
@@ -505,7 +534,7 @@
             if (ret.status == 200) {
                 fnRecitationScriptRecommend(ret);
             } else {
-                alert(JSON.stringify(err));
+                netMessage(ret);
             }
 
         });
@@ -566,18 +595,18 @@
                 }
                 $api.html(stylelist, html);
             } else {
-                alert(JSON.stringify(err));
+                netMessage(ret);
             }
 
         });
     }
 
-    function fnReadListWin() {
+    function fnReadListWin(id) {
         api.openWin({
             name: 'readlist',
             url: './readlist.html',
             pageParam: {
-                name: 'test'
+                id: id
             }
         });
     }
@@ -661,7 +690,7 @@
       // console.log(id);
       // console.log(nickname);
         var userButton = document.getElementById('userButton' + id);
-        html =
+
         // var friend = document.getElementById('friend');
         // var friend_lis = friend.getElementsByClassName('userButton');
 
@@ -764,9 +793,9 @@
 
         }
 
+  // }
+}
 
 
-        //     }
-        // }
-    }
+
 </script>

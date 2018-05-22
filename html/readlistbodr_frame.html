@@ -87,29 +87,43 @@
 </body>
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/message.js"></script>
 <script type="text/javascript">
+var token;
     apiready = function() {
+      token = $api.getStorage('token');
       fnGetJubenlist();
     };
     function fnGetJubenlist() {
+
   		var id = api.pageParam.CompanyInfojubenByID;
-  		api.ajax({
-  			url: 'http://47.100.11.38/kongmeng/scripts/getScriptTitle.php?&type_id= ' + id,
-  			method: 'get',
-  			dataType: 'json',
-  		}, function(ret, err) {
-  			if (ret) {
-  				fnUpdateLyricList(ret);
-  			} else {
-  				alert(JSON.stringify(err));
-  			}
-  		});
+      var uri = '/script/' + id;
+      api.ajax({
+          url: host + apiUri + uri,
+          method: 'get',
+          dataType: 'json',
+          headers: {
+              "source": api.systemType,
+              "version": version,
+              "session": token
+          }
+      }, function(ret, err) {
+          // alert(JSON.stringify(ret));
+          if (ret.status == 200) {
+            fnUpdateLyricList(ret);
+          } else {
+              netMessage(ret);
+          }
+
+      });
+
   	}
   	function fnUpdateLyricList(data_) {
   		var stylelist = $api.byId('jubenlist');
   		var html = '';
   		 for (var i = 0; i < data_.data.length; i++) {
-  		 	html +='<div class="bodyLi" onclick="fnLangdujubenWin(' + data_.data[i].id + ');"> <div class="body_li"><div class="body_li_1">' + data_.data[i].title + ' （' + data_.data[i].name + '）</div><div class="body_li_3"><div class="body_li_2">' + data_.data[i].body + '</div><div class="body_li_4"> > </div></div></div></div>';
+  		 	html +='<div class="bodyLi" onclick="fnLangdujubenWin(' + data_.data[i].id + ');"> <div class="body_li"><div class="body_li_1">' + data_.data[i].title + ' （' + data_.data[i].author_name + '）</div><div class="body_li_3"><div class="body_li_2">' + data_.data[i].body + '</div><div class="body_li_4"> > </div></div></div></div>';
 
       }
   		$api.html(stylelist, html);

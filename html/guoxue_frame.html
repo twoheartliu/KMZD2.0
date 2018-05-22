@@ -10,12 +10,10 @@
     <link rel="stylesheet" href="../css/swiper.min.css">
     <!-- <link rel="stylesheet" href="../css/iconfont.css"> -->
     <style>
-        ::-webkit-scrollbar {display:none}
         body {
             background-color: #f2f2f2;
             overflow-x: hidden;
         }
-
         .fr {
             float: right;
         }
@@ -77,7 +75,8 @@
         }
 
         table {
-            width: 100%;
+
+            width: 99.5%;
             text-align: center;
             overflow-x: hidden;
             /*文本居中*/
@@ -117,12 +116,6 @@
         .img img {
             width: 100%;
         }
-
-
-        .w25 {
-            width: 25%;
-        }
-
         .colspan_img {
             width: 20px;
             padding: 12.5px;
@@ -139,6 +132,8 @@
         .td_bg {
             background: none;
         }
+        #view_history , #RecommendedDirectory,#directory {overflow-x: hidden;}
+
     </style>
 </head>
 
@@ -162,6 +157,7 @@
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/message.js"></script>
 <script type="text/javascript" src="../script/swiper.min.js"></script>
 <script type="text/javascript">
 var token;
@@ -229,7 +225,7 @@ var token;
             },3000)
             fnView_history(ret);
           } else {
-              alert(ret.message);
+              netMessage(ret);
               // $api.rmStorage('token');
               // api.openWin({
               //     name: 'login',
@@ -265,12 +261,7 @@ var token;
               },3000)
                 fnRecommendedDirectory(ret);
             } else {
-                alert(ret.message);
-                $api.rmStorage('token');
-                api.openWin({
-                    name: 'login',
-                    url: '../login.html'
-                });
+                netMessage(ret);
             }
         });
     }
@@ -319,7 +310,7 @@ var token;
               },3000)
                 fnDirectory(ret);
             } else {
-                alert(ret.message);
+                netMessage(ret);
             }
         });
     }

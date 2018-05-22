@@ -513,7 +513,7 @@
                 <p>添加到听单</p>
             </li>
             <li class="collect" id="bookExtraGood">
-                <img src="../image/KM_play_dianzan.png" alt="" id="playDz" onclick="fnOpenPlayDz();" onclick="fnOpenPlayDz(this)" data-click="0">
+                <img src="../image/KM_play_dianzan.png" alt="">
                 <p>点赞</p>
             </li>
             <li class="checkin" tapmode="focus" onclick="fnOpenPlayDiscuss();">
@@ -540,7 +540,7 @@
             <ul id="panel">
                 <li class="list" tapmode="focus" onclick="openRadioList()"></li>
                 <li class="prev" tapmode="focus" onclick="fnOpenPlayershangyi()"></li>
-                <li class="play" tapmode="focus" id="openplayer"></li>
+                <li class="play" tapmode="focus" id="openplayer"><img src="../image/play/ic_play_play.png" alt="" onclick="fnOpenPlayer();" id="player"></li>
                 <li class="next" tapmode="focus" onclick="fnOpenPlayerxiayi()"></li>
                 <li><img src="../image/play/play_change0.png" alt="" id="img"></li>
             </ul>
@@ -588,7 +588,8 @@
         $api.css(messageFrameDiv, 'height:' + winHeightHeader + 'px;');
         $api.fixIos7Bar(header);
         fnBookExtraGoodssssss()
-        var connectionType = api.connectionType;
+
+
         dangqianbofangid = api.pageParam.dangqianbofangid;
         if(dangqianbofangid){
           bookId = dangqianbofangid;
@@ -601,126 +602,140 @@
         }, function(ret, err) {
             fnDangQianbofangid(ret.value.playing);
         });
-        if (connectionType == "wifi") {
-            if (dangqianbofangid) {
+        // alert(connectionType);
+        var connectionType = api.connectionType;
+        if(connectionType == "none"){
+          api.closeWin();
+          api.toast({              
+              msg: '网络未链接',
+              duration:  2000,
+              location:   'middle'          
+          });
 
-                fnJinRuBofangs(dangqianbofangid);
-                bookId == dangqianbofangid;
-                soundId = dangqianbofangid;
-            } else {
-               bookId = api.pageParam.a;
-               if(!bookId){
-                 bookId = 1;
-                 soundId = 1;
-               }
-                api.addEventListener({
-                    name: 'neizhiliebiaoPlaysss'
-                }, function(ret, err) {
-                    listid = ret.value.playlistid;
-                    aa = ret.value.a;
-                    bofangs = ret.value.bofang;
-                    fnA(aa, bofangs, listid);
-                    fnAAaa(aa, bofangs, listid);
-                    return;
-                });
-                fnJinRuBofang();
-            }
-        } else {
-            var dialogBox = api.require('dialogBox');
-            dialogBox.alert({
-                texts: {
-                    title: '您正在使用移动数据网络进行播放，是否继续播放',
-                    leftBtnTitle: '暂不播放',
-                    rightBtnTitle: '继续播放'
-                },
-                styles: {
-                    bg: '#fff',
-                    w: 300,
-                    title: {
-                        marginT: 20,
-                        icon: 'widget://res/gou.png',
-                        iconSize: 40,
-                        titleSize: 14,
-                        titleColor: '#666'
-                    },
-                    content: {
-                        color: '#ccc',
-                        size: 14
-                    },
-                    left: {
-                        marginB: 7,
-                        marginL: 20,
-                        w: 130,
-                        h: 35,
-                        corner: 2,
-                        bg: '#ccc',
-                        color: '#FFF',
-                        size: 12
-                    },
-                    right: {
-                        marginB: 7,
-                        marginL: 10,
-                        w: 130,
-                        h: 35,
-                        corner: 2,
-                        bg: '#89211b',
-                        color: '#fff',
-                        size: 12
-                    }
-                }
-            }, function(ret) {
-                if (ret.eventType == 'right') {
-                    dangqianbofangid = api.pageParam.dangqianbofangid;
-                    if (dangqianbofangid) {
-                      soundId = dangqianbofangid;
-                        fnJinRuBofangs(dangqianbofangid);
-                    } else {
-                        api.addEventListener({
-                            name: 'neizhiliebiaoPlaysss'
-                        }, function(ret, err) {
-                            listid = ret.value.playlistid;
-                            aa = ret.value.a;
-                            bofangs = ret.value.bofang;
-                            fnA(aa, bofangs, listid);
-                            fnAAaa(aa, bofangs, listid);
-                            return;
-                        });
-                        fnJinRuBofang();
-                    }
-                    var dialogBox = api.require('dialogBox');
-                    dialogBox.close({
-                        dialogName: 'alert'
-                    });
-                } else if (ret.eventType == 'left') {
-                    var stylelist = $api.byId('openplayer');
-                    var html = '<img src="../image/play/ic_play_play.png" alt=""  id="player"></div>';
-                    $api.html(stylelist, html);
-                    var dialogBox = api.require('dialogBox');
-                    var stylelistkaishijishi = $api.byId('kaishijishi');
-                    var htmlkaishijishi = '00:00';
-                    $api.html(stylelistkaishijishi, htmlkaishijishi);
-                    var stylelistzongshichang = $api.byId('zongshichang');
-                    var htmlzongshichang = '00:00';
-                    $api.html(stylelistzongshichang, htmlzongshichang);
-                    var stylelistbookExtraGood = $api.byId('bookExtraGood');
-                    var htmlbookExtraGood = '<img src="../image/KM_play_dianzan.png" alt="" class="collectmusicFxssss"><p>点赞</p>';
-                    $api.html(stylelistbookExtraGood, htmlbookExtraGood);
-                    var stylelistbookExtraCollectionHtml = $api.byId('bookExtraCollectionHtml');
-                    var htmlbookExtraCollectionHtml = '<img src="../image/KM_play_collect.png" alt="" class="collectmusicssss" id="playCollect"  onclick="fnOpenPlayCollect(this)" data-click="0"><p>收藏</p>';
-                    $api.html(stylelistbookExtraCollectionHtml, htmlbookExtraCollectionHtml);
-                    var stylelistbookExtraCollectionHtml = $api.byId('bookExtraCollectionHtml');
-                    var htmlbookExtraCollectionHtml = '<img src="../image/KM_play_collect.png" alt="" class="collectmusicssss" id="playCollect"  onclick="fnOpenPlayCollect(this)" data-click="0"><p>收藏</p>';
-                    $api.html(stylelistbookExtraCollectionHtml, htmlbookExtraCollectionHtml);
-                    var stylelistComments = $api.byId('comments');
-                    var htmlComments = '0';
-                    $api.html(stylelistComments, htmlComments);
-                    api.closeWin();
-                    dialogBox.close({
-                        dialogName: 'alert'
-                    });
-                }
-            });
+          return false;
+        }else{
+          if (connectionType == "wifi") {
+              if (dangqianbofangid) {
+
+                  fnJinRuBofangs(dangqianbofangid);
+                  bookId == dangqianbofangid;
+                  soundId = dangqianbofangid;
+              } else {
+                 bookId = api.pageParam.a;
+                 if(!bookId){
+                   bookId = 1;
+                   soundId = 1;
+                 }
+                  api.addEventListener({
+                      name: 'neizhiliebiaoPlaysss'
+                  }, function(ret, err) {
+                      listid = ret.value.playlistid;
+                      aa = ret.value.a;
+                      bofangs = ret.value.bofang;
+                      fnA(aa, bofangs, listid);
+                      fnAAaa(aa, bofangs, listid);
+                      return;
+                  });
+                  fnJinRuBofang();
+              }
+          } else {
+              var dialogBox = api.require('dialogBox');
+              dialogBox.alert({
+                  texts: {
+                      title: '您正在使用移动数据网络进行播放，是否继续播放',
+                      leftBtnTitle: '暂不播放',
+                      rightBtnTitle: '继续播放'
+                  },
+                  styles: {
+                      bg: '#fff',
+                      w: 300,
+                      title: {
+                          marginT: 20,
+                          icon: 'widget://res/gou.png',
+                          iconSize: 40,
+                          titleSize: 14,
+                          titleColor: '#666'
+                      },
+                      content: {
+                          color: '#ccc',
+                          size: 14
+                      },
+                      left: {
+                          marginB: 7,
+                          marginL: 20,
+                          w: 130,
+                          h: 35,
+                          corner: 2,
+                          bg: '#ccc',
+                          color: '#FFF',
+                          size: 12
+                      },
+                      right: {
+                          marginB: 7,
+                          marginL: 10,
+                          w: 130,
+                          h: 35,
+                          corner: 2,
+                          bg: '#89211b',
+                          color: '#fff',
+                          size: 12
+                      }
+                  }
+              }, function(ret) {
+                  if (ret.eventType == 'right') {
+                      dangqianbofangid = api.pageParam.dangqianbofangid;
+                      if (dangqianbofangid) {
+                        soundId = dangqianbofangid;
+                          fnJinRuBofangs(dangqianbofangid);
+                      } else {
+                          api.addEventListener({
+                              name: 'neizhiliebiaoPlaysss'
+                          }, function(ret, err) {
+                              listid = ret.value.playlistid;
+                              aa = ret.value.a;
+                              bofangs = ret.value.bofang;
+                              fnA(aa, bofangs, listid);
+                              fnAAaa(aa, bofangs, listid);
+                              return;
+                          });
+                          fnJinRuBofang();
+                      }
+                      var dialogBox = api.require('dialogBox');
+                      dialogBox.close({
+                          dialogName: 'alert'
+                      });
+                  } else if (ret.eventType == 'left') {
+                      var stylelist = $api.byId('openplayer');
+                      var html = '<img src="../image/play/ic_play_play.png" alt=""  id="player">';
+                      $api.html(stylelist, html);
+                      var dialogBox = api.require('dialogBox');
+                      var stylelistkaishijishi = $api.byId('kaishijishi');
+                      var htmlkaishijishi = '00:00';
+                      $api.html(stylelistkaishijishi, htmlkaishijishi);
+                      var stylelistzongshichang = $api.byId('zongshichang');
+                      var htmlzongshichang = '00:00';
+                      $api.html(stylelistzongshichang, htmlzongshichang);
+                      var stylelistbookExtraGood = $api.byId('bookExtraGood');
+                      var htmlbookExtraGood = '<img src="../image/KM_play_dianzan.png" alt="" class="collectmusicFxssss"><p>点赞</p>';
+                      $api.html(stylelistbookExtraGood, htmlbookExtraGood);
+                      var stylelistbookExtraCollectionHtml = $api.byId('bookExtraCollectionHtml');
+                      var htmlbookExtraCollectionHtml = '<img src="../image/KM_play_collect.png" alt="" class="collectmusicssss" id="playCollect"  onclick="fnOpenPlayCollect(this)" data-click="0"><p>收藏</p>';
+                      $api.html(stylelistbookExtraCollectionHtml, htmlbookExtraCollectionHtml);
+                      var stylelistbookExtraCollectionHtml = $api.byId('bookExtraCollectionHtml');
+                      var htmlbookExtraCollectionHtml = '<img src="../image/KM_play_collect.png" alt="" class="collectmusicssss" id="playCollect"  onclick="fnOpenPlayCollect(this)" data-click="0"><p>收藏</p>';
+                      $api.html(stylelistbookExtraCollectionHtml, htmlbookExtraCollectionHtml);
+                      var stylelistComments = $api.byId('comments');
+                      var htmlComments = '0';
+                      $api.html(stylelistComments, htmlComments);
+                      api.closeWin();
+                      dialogBox.close({
+                          dialogName: 'alert'
+                      });
+                  }
+              });
+          }
         }
+
 
     }
     var bookGoodHtml;
@@ -747,7 +762,7 @@
         var eHeader = $api.byId('header')
         api.parseTapmode();
         var stylelist = $api.byId('openplayer');
-        var html = '<img src="../image/play/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player"></div>';
+        var html = '<img src="../image/play/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player">';
         $api.html(stylelist, html);
         if (id) {
           soundId = id;
@@ -811,7 +826,7 @@
         if (!bofang) {
             var stylelist = $api.byId('openplayer');
             var html = '';
-            html += '<img src="../image/play/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player"></div>';
+            html += '<img src="../image/play/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player">';
             $api.html(stylelist, html);
             bofang = 3;
             api.sendEvent({
@@ -826,12 +841,12 @@
         } else if (bofang == 2) {
             var stylelist = $api.byId('openplayer');
             var html = '';
-            html += '<img src="../image/play/ic_play_play.png" alt="" onclick="fnOpenPlayer();" id="player"></div>';
+            html += '<img src="../image/play/ic_play_play.png" alt="" onclick="fnOpenPlayer();" id="player">';
             $api.html(stylelist, html);
         } else if (bofang == 3) {
             var stylelist = $api.byId('openplayer');
             var html = '';
-            html += '<img src="../image/play/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player"></div>';
+            html += '<img src="../image/play/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player">';
             $api.html(stylelist, html);
             api.sendEvent({
                 name: 'neizhiliebiaoPlay',
@@ -882,7 +897,7 @@
         if (!bofang) {
             var stylelist = $api.byId('openplayer');
             var html = '';
-            html += '<img src="../image/play/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player"></div>';
+            html += '<img src="../image/play/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player">';
             $api.html(stylelist, html);
             bofang = 3;
             api.sendEvent({
@@ -897,12 +912,12 @@
         } else if (bofang == 2) {
             var stylelist = $api.byId('openplayer');
             var html = '';
-            html += '<img src="../image/play/ic_play_play.png" alt="" onclick="fnOpenPlayer();" id="player"></div>';
+            html += '<img src="../image/play/ic_play_play.png" alt="" onclick="fnOpenPlayer();" id="player">';
             $api.html(stylelist, html);
         } else if (bofang == 3) {
             var stylelist = $api.byId('openplayer');
             var html = '';
-            html += '<img src="../image/play/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player"></div>';
+            html += '<img src="../image/play/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player">';
             $api.html(stylelist, html);
             api.sendEvent({
                 name: 'neizhiliebiaoPlay',

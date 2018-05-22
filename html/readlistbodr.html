@@ -54,7 +54,7 @@
     <header id="secHeader">
         <div class="header_fl fl" onclick="goback();"><img src="../image/icon_back.png" alt=""></div>
         <div class="header_fr fr"></div>
-        <div class="header_center">选择剧本</div>
+        <div class="header_center" id="name">选择剧本</div>
     </header>
 </body>
 
@@ -71,6 +71,11 @@
         $api.fixStatusBar(header);
         var headerPos = $api.offset(header);
         var CompanyInfojubenByID = api.pageParam.CompanyInfojubenByID;
+        name = api.pageParam.name;
+        if(name){
+          var stylelist = $api.byId('name');
+          $api.html(stylelist, name);
+        }
         api.openFrame({
           name: 'readlistbodr_frame',
           url: './readlistbodr_frame.html',

@@ -151,6 +151,7 @@ var path;
   				//alert(ret);
   				fnUpdateLyricList(ret);
   			} else {
+          netMessage(ret);
   				// alert(JSON.stringify(err));
   			}
   		});
@@ -161,25 +162,32 @@ var path;
   		var stylelist = $api.byId('on');
   		var html = '';
   		 for (var i = 0; i < data_.data.length; i++) {
-  		 	html +='<li onclick="setBeiYue(\'' + data_.data[i].mp3 + '\')" id=><div class="on_li_divImg fl" ><img src="../image/play/soundtrackList.png" alt="" class="userDeleteA" id = "userDeleteA" ></div><div class="fl"><span>  ' + data_.data[i].title + '  </span> </div></li>';
+  		 	html +='<li onclick="setBeiYue(\'' + data_.data[i].mp3 + '\',\'' + data_.data[i].title + '\')" id=><div class="on_li_divImg fl" ><img src="../image/play/soundtrackList.png" alt="" class="userDeleteA" id = "userDeleteA" ></div><div class="fl"><span>  ' + data_.data[i].title + '  </span> </div></li>';
   		}
       //onclick="fnDeleteUser(' + data_.data[i].id + ');"
   		$api.html(stylelist, html);
   	}
-    function setBeiYue(mp3ss){
+    function setBeiYue(mp3ss,titleName){
   		// api.execScript({
   		// 	name: 'luyinplay',
   		// 	frameName: 'luyinplay_body',
   		// 	script: 'fnBeiYueplay(\"' + a + '\");'
   		// });
   		//alert(CompanyInfobeiyueStyle);
+      api.toast({              
+          msg:   '已选取配乐',
+          duration:  2000,
+          location:   'middle'          
+      });
+      // alert('已选取配乐');
   		api.sendEvent({
   			name: 'netBeiyueId',
   			extra: {
-  				mp3: mp3ss
+  				mp3: mp3ss,
+          titleName:titleName
   			}
   		});
-  		alert('已选择背景乐');
+
   		api.closeToWin({
   		    name: 'aloud'
   		});

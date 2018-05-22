@@ -299,7 +299,7 @@
         </div>
         <div class="aloud_py">
             <div class="p20px">
-                <div class="fl aloud_py_fl">当前没有配乐</div>
+                <div class="fl aloud_py_fl" id='titleName'>当前没有配乐</div>
                 <div class="fr aloud_py_fr" onclick="fnSoundtrackWin();"><span></span>选择配乐</div>
             </div>
         </div>
@@ -315,7 +315,9 @@
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/message.js"></script>
 <script type="text/javascript" src="../script/saveUpload.js"></script>
+
 <script type="text/javascript">
     var token;
     var jubenid;
@@ -347,6 +349,11 @@
                 if (ret) {
                     var inputss = ret.value.mp3;
                     fninputvalue(inputss);
+                    if(ret.value.titleName){
+                      var stylelist = $api.byId('titleName');
+                      var html = '配乐：'+ret.value.titleName;
+                      $api.html(stylelist, html);
+                    }
                 }
             });
 
@@ -381,16 +388,22 @@
     function fnGetJubenlist() {
         var id = api.pageParam.InfojubenType;
         jubenid = api.pageParam.InfojubenType;
+        var uri = '/script/detail/' + jubenid;
         api.ajax({
-            url: 'http://47.100.11.38/kongmeng/scripts/getScriptById.php?id= ' + id,
+            url: host + apiUri + uri,
             method: 'get',
             dataType: 'json',
+            headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token
+            }
         }, function(ret, err) {
-            if (ret) {
-                // console.log(JSON.stringify(ret));
+            if (ret.status == 200) {
+
 
                 title = ret.data[0].title;
-                name = ret.data[0].name;
+                name = ret.data[0].author_name;
                 body = ret.data[0].body;
                 if (!name) {
                     name = '';
@@ -399,7 +412,7 @@
                 fnGetJubenname();
                 fnGetJubenbody();
             } else {
-                alert(JSON.stringify(err));
+                netMessage(ret);
             }
         });
     }
@@ -545,6 +558,7 @@
         // console.log(path);
         if (a == 2) {
             if (path) {
+              if(c > 9){
                 api.openWin({
                     name: 'ctwin',
                     url: './ctwin.html',
@@ -556,9 +570,29 @@
                         jubenid: jubenid,
                         cgxid: cgxid,
                         timestamp: timestamp,
-                        timestamps: timestamps
+                        timestamps: timestamps,
+                        a:a,
+                        c:c
                     }
                 });
+              }else {
+                  // alert(JSON.stringify(ret.message));
+                  timeCsss();
+                  var fs = api.require('fs');
+                  api.toast({              
+                      msg:   '录制时间较短，请重新录制',
+                      duration:  2000,
+                      location:   'middle'          
+                  });
+                  fs.rmdir({
+                      path: 'fs://luyin'
+                  }, function(ret, err) {
+                      if (ret.status) {} else {
+                          // alert(JSON.stringify(err));
+                      }
+                  });
+              }
+
             } else {
                 alert('请先录音');
             }
