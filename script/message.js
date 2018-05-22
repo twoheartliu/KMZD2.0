@@ -376,3 +376,57 @@ function netMessage(ret){
   }
 
 }
+function netWork(err){
+  if(err.code == 0){
+    api.toast({              
+        msg: '网络未连接',
+        duration: 2000,
+        location: 'middle'          
+    });
+  }
+  if(err.code == 1){
+    api.toast({              
+        msg: '网络未连接',
+        duration: 2000,
+        location: 'middle'          
+    });
+  }
+}
+
+function netWorkNone(){
+  // var connectionType = api.connectionType;
+  // if(connectionType == "none"){
+    api.toast({              
+        msg: '网络未连接',
+        duration: 2000,
+        location: 'middle'          
+    });
+    console.log(222222);
+    // api.openWin({
+    //     name: 'oops',
+    //     url: '../oops.html',
+    //     pageParam: {
+    //         name: 'test'
+    //     }
+    // });
+    api.openFrame({
+        name: 'oops',
+        url: './oops.html',
+        rect: {
+            x: 0,
+            y: 0,
+            w: 'auto',
+            h: 'auto'
+        },
+        pageParam: {
+            name: 'test'
+        },
+        bounces: true,
+        bgColor: 'rgba(0,0,0,0)',
+        vScrollBarEnabled: true,
+        hScrollBarEnabled: true
+    });
+
+
+
+}
