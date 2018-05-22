@@ -204,6 +204,7 @@
             }
       },function(ret, err){
           if (ret) {
+            console.log(ret);
             if (ret.status == 200) {
               setTimeout(function(){
                   api.refreshHeaderLoadDone()
@@ -213,6 +214,7 @@
                 for (var i = 0; i < ret.data.length; i++) {
                   var listening_cover = ret.data[i].listening_cover;
                   var sandBox = listening_cover.substring(0,8);
+                  console.log(listening_cover);
                   if (sandBox == 'sand_box') {
                     var sandBoxs = listening_cover.replace(/sand_box/,'..');
                      html += '<li id="listen_' + ret.data[i].l_id + '" class="p20pxs"><div class="egret-flex-item" tapmode="fmbtnhover"><div class="egret-flex-item-logo" onclick="fnOpenPlay('+ ret.data[i].l_id +')"><img src="'+ sandBoxs +'" alt="" class=""></div><div class="egret-flex-item-shelf"> <div class="egret-flex-item-shelf01" onclick="fnOpenPlay('+ ret.data[i].l_id +')"><span class="span1 fl"><span>'+ ret.data[i].listening_name +'</span></span><span class="span3 fr"></span></div><div class="egret-flex-item-shelf03" onclick="fnOpenPlay('+ ret.data[i].l_id +')"><div><img src="../image/KM_play.png" alt=""><span>'
