@@ -75,7 +75,7 @@
 <body>
 
     <div class="Binding_bg"><img src="../image/my/Binding_bg.png" alt=""></div>
-    <div class="Binding_name">15132369635</div>
+    <div class="Binding_name" id="BindingName"></div>
     <div class="p20px">
       <div class="Binding_name2 fr" onclick="();"></div>
       <div class="Binding_name2 fl" onclick="();"></div>
@@ -88,7 +88,6 @@
                 <div class="index_name_div_imgr fr"><img src="../image/my/index_y.png" alt=""></div>
             </div>
             <div class="index_name_div" onclick="Unbinding();">
-                <!-- <div class="index_name_div_img fl"><img src="../image/my/KM_grzx.png" alt=""></div> -->
                 <span class="index_name_div_span fl">解除绑定</span>
                 <div class="index_name_div_imgr fr"><img src="../image/my/index_y.png" alt=""></div>
             </div>
@@ -100,16 +99,26 @@
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
+var mobile;
     apiready = function() {
+        mobile = api.pageParam.mobile;
+        console.log(mobile);
+        sjhaoma();
+    }
+    function sjhaoma() {
+      console.log(mobile);
+      var BindingName = $api.byId('BindingName');
+      BindingName.value = mobile;
+      console.log(BindingName.value);
+      $api.html(BindingName, mobile);
 
     }
-
     function changePassword() {
         api.openWin({
             name: 'changePassword',
             url: './changePassword.html',
             pageParam: {
-                name: 'test'
+                mobile: mobile
             }
         });
 
@@ -119,7 +128,7 @@
             name: 'Unbinding',
             url: './Unbinding.html',
             pageParam: {
-                name: 'test'
+                mobile: mobile
             }
         });
 

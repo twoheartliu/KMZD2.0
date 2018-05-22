@@ -98,31 +98,29 @@
 <body>
     <div class="phonenum">
         <img src="../image/login/login_phone.png" alt="">
-        <input type="text" placeholder="请输入手机号" onblur="" id="phone">
+        <input type="text" placeholder="请输入手机号" id="phone"><!--onblur="fnajaxGet()" -->
     </div>
     <div class="code">
-        <!-- <img src="./image/password.png" alt=""> -->
-        <input type="text" placeholder="请输入验证码">
-        <button id="button">获取验证码</button>
+        <input type="text" placeholder="请输入验证码" id="code">
+        <button id="button" onclick="fnajaxGet()">获取验证码</button>
         <div class="clear"></div>
     </div>
-    <div class="loginbutton" onclick="loginbutton();">
+    <div class="loginbutton" onclick="fnSjyanzheng();">
       <button>完成</button>
     </div>
 </body>
 
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/message.js"></script>
 <script type="text/javascript">
 var wait = 60;
+var token;
+// var typeBindMobile ;
+var mobile
     apiready = function() {
-      var wait = 60;
-      document.getElementById("button").onclick = function() {
-          var buttons = document.getElementById("button");
-          buttons.style.backgroundColor='#cccccc';
-          time(this);
-
-      }
+      token = $api.getStorage('token');
     }
     function time(o) {
         if (wait == 0) {
@@ -137,18 +135,169 @@ var wait = 60;
             wait--;
             setTimeout(function() {
                 time(o);
-
             }, 1000)
         }
     }
-    function loginbutton() {
-      api.openWin({
-          name: 'DetermineTheDinding',
-          url: './DetermineTheDinding.html',
-          pageParam: {
-              name: 'test'
-          }
-      });
+    function fnajaxGet() {
+      var phones = $api.byId('phone');
+      var phone = $api.byId('phone').value;
+      var phoneRegular = /^(13[0-9]|15[012356789]|17[0135678]|18[0-9]|14[579])[0-9]{8}$/;
+      if (phone == '') {
+          api.toast({
+              msg: '手机不能为空',
+              duration: 2000,
+              location: 'bottom'
+          });
+          return;
+      } else if (!phoneRegular.test(phone)) {
+          api.toast({
+              msg: '手机格式不正确',
+              duration: 2000,
+              location: 'bottom'
+          });
+          phones.value = '';
+          return;
+      } else {
+          mobile = $api.byId('phone').value;
+          api.ajax({
+              url: host + apiUri + '/register/is_phone_exist',
+              method: 'get',
+              headers: {
+                  "source": api.systemType,
+                  "version": version,
+                  "session": token
+              },
+              data: {
+                  values: {
+                      mobile: phones.value
+                  }
+              }
+          },function(ret, err){
+            if (ret.status == 10209) {
+              phones.value = ''
+              api.toast({
+                  msg: '手机号已存在',
+                  duration: 2000,
+                  location: 'bottom'
+              });
+            }
+              if (ret.status == 200) {
+                // console.log(JSON.stringify(ret));
+                    fnajaxPost();
+                    flag =1;
+                    var wait = 60;
+                    var buttons = document.getElementById("button");
+                    buttons.style.backgroundColor='#cccccc';
+                    time(buttons);
 
+              } else {
+                  netMessage(ret);
+              }
+          });
+      }
+    }
+    function fnajaxPost() {
+        console.log(mobile);
+        api.ajax({
+            url: host + apiUri + '/sms/get_code',
+            method: 'get',
+            headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token
+            },
+            data: {
+                values: {
+                    mobile : mobile,
+                    'type': 'bind_mobile'
+                }
+            }
+        },function(ret, err){
+                console.log(JSON.stringify(ret));
+                console.log(JSON.stringify(err));
+            if (ret.status == 10302) {
+              console.log(JSON.stringify(ret));
+              api.toast({
+                   msg: '请勿重复发送验证码',
+                   duration: 2000,
+                   location: 'bottom'
+               });
+            }
+            if (ret.status == 10303) {
+              api.toast({
+                   msg: '同一时段内获取次数超限，请稍后再试',
+                   duration: 2000,
+                   location: 'bottom'
+               });
+            }
+            if (ret.status == 200) {
+              // console.log(JSON.stringify(ret));
+              api.toast({
+                   msg: '已发送',
+                   duration: 2000,
+                   location: 'bottom'
+               });
+            } else {
+              // console.log(JSON.stringify(err));
+                netMessage(ret);
+            }
+        });
+    }
+    function fnSjyanzheng() {
+      var typeBindMobile = $api.byId('code').value;
+      console.log(mobile);
+      console.log(typeBindMobile);
+
+        if (mobile == '') {
+          api.toast({
+               msg: '手机号不能为空',
+               duration: 2000,
+               location: 'bottom'
+           });
+        }else if ( mobile == undefined) {
+          api.toast({
+               msg: '请先获取验证码验证码',
+               duration: 2000,
+               location: 'bottom'
+           });
+        } else if (typeBindMobile == '') {
+          api.toast({
+               msg: '验证码不能为空',
+               duration: 2000,
+               location: 'bottom'
+           });
+        }else {
+            // console.log(mobile);
+            api.ajax({
+              url: host + apiUri + '/user/bind_mobile',
+              method: 'post',
+              headers: {
+                  "source": api.systemType,
+                  "version": version,
+                  "session": token
+              },
+                data: {
+                    values: {
+                        mobile: mobile,
+                        captcha : typeBindMobile
+                    }
+                }
+            },function(ret, err){
+                if (ret) {
+                    console.log( JSON.stringify( ret ) );
+                    api.openWin({
+                        name: 'DetermineTheDinding',
+                        url: './DetermineTheDinding.html',
+                        pageParam: {
+                            mobile: mobile
+                        }
+                    });
+                } else {
+                    console.log( JSON.stringify( err ) );
+                }
+            });
+
+
+        }
     }
 </script>

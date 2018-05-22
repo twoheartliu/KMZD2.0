@@ -97,6 +97,8 @@
         });
     }
     apiready = function() {
+      // 手机号
+        var mobile = api.pageParam.mobile;
         // fnframeGroup();
         var header = $api.byId('secHeader');
         $api.fixStatusBar(header);
@@ -111,7 +113,7 @@
                 h: 'auto'
             },
             pageParam: {
-                name: 'test'
+                mobile: mobile
             },
             bounces: false,
         });
