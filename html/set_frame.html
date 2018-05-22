@@ -228,6 +228,16 @@
     }
 
     function dialogBox_alert2() {
+      var connectionType = api.connectionType;
+      if(connectionType == "none"){
+        api.toast({              
+            msg: '网络未链接',
+              duration:  2000,
+              location:   'middle'          
+        });
+
+        return false;
+      }
         api.openWin({
             name: 'setOn',
             url: './setOn.html',
@@ -237,6 +247,16 @@
         });
     }
     function fnConditionsWin() {
+      var connectionType = api.connectionType;
+      if(connectionType == "none"){
+        api.toast({              
+            msg: '网络未链接',
+              duration:  2000,
+              location:   'middle'          
+        });
+
+        return false;
+      }
         api.openWin({
             name: 'Conditions',
             url: './Conditions.html',

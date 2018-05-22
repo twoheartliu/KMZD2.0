@@ -61,7 +61,7 @@
 
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
-
+<script type="text/javascript" src="../script/message.js"></script>
 <script type="text/javascript">
     function goback() {
         api.closeWin({
@@ -69,51 +69,110 @@
         });
     }
     apiready = function() {
-      var albumId = api.pageParam.albumId;
-      var floor_name = api.pageParam.floor_name;
-      if(floor_name){
-        var stylelist = $api.byId('floor_name');
-                var html = floor_name;
-                $api.html(stylelist, html);
-      }
-        var header = $api.byId('secHeader');
-        $api.fixStatusBar(header);
-        var headerPos = $api.offset(header);
-        var DangQianbofangid = api.pageParam.DangQianbofangid;
-        if(DangQianbofangid){
-          api.openFrame({
-              name: 'single_frame',
-              url: './single_frame.html',
-              rect: {
-                  x: 0,
-                  y: headerPos.h,
-                  w: 'auto',
-                  h: 'auto'
-              },
-              pageParam: {
-                  DangQianbofangid: DangQianbofangid,
-                  albumId:albumId
-              },
-              customRefreshHeader: 'UIPullRefreshFlash',
-              bounces: true,
-          });
-        }else{
-          api.openFrame({
-              name: 'single_frame',
-              url: './single_frame.html',
-              rect: {
-                  x: 0,
-                  y: headerPos.h,
-                  w: 'auto',
-                  h: 'auto'
-              },
-              pageParam: {
-                  albumId:albumId
-              },
-              customRefreshHeader: 'UIPullRefreshFlash',
-              bounces: true,
-          });
+      api.addEventListener({
+          name: 'ok'
+      }, function(ret, err) {
+          if(ret.value.wangluo){
+            var albumId = api.pageParam.albumId;
+            var floor_name = api.pageParam.floor_name;
+            if(floor_name){
+              var stylelist = $api.byId('floor_name');
+                      var html = floor_name;
+                      $api.html(stylelist, html);
+            }
+              var header = $api.byId('secHeader');
+              $api.fixStatusBar(header);
+              var headerPos = $api.offset(header);
+              var DangQianbofangid = api.pageParam.DangQianbofangid;
+              if(DangQianbofangid){
+                api.openFrame({
+                    name: 'single_frame',
+                    url: './single_frame.html',
+                    rect: {
+                        x: 0,
+                        y: headerPos.h,
+                        w: 'auto',
+                        h: 'auto'
+                    },
+                    pageParam: {
+                        DangQianbofangid: DangQianbofangid,
+                        albumId:albumId
+                    },
+                    customRefreshHeader: 'UIPullRefreshFlash',
+                    bounces: true,
+                });
+              }else{
+                api.openFrame({
+                    name: 'single_frame',
+                    url: './single_frame.html',
+                    rect: {
+                        x: 0,
+                        y: headerPos.h,
+                        w: 'auto',
+                        h: 'auto'
+                    },
+                    pageParam: {
+                        albumId:albumId
+                    },
+                    customRefreshHeader: 'UIPullRefreshFlash',
+                    bounces: true,
+                });
+              }
+          }
+          return false;
+      });
+      var connectionType = api.connectionType;
+      if(connectionType == "none"){
+        netWorkNone();
+
+      }else{
+        var albumId = api.pageParam.albumId;
+        var floor_name = api.pageParam.floor_name;
+        if(floor_name){
+          var stylelist = $api.byId('floor_name');
+                  var html = floor_name;
+                  $api.html(stylelist, html);
         }
+          var header = $api.byId('secHeader');
+          $api.fixStatusBar(header);
+          var headerPos = $api.offset(header);
+          var DangQianbofangid = api.pageParam.DangQianbofangid;
+          if(DangQianbofangid){
+            api.openFrame({
+                name: 'single_frame',
+                url: './single_frame.html',
+                rect: {
+                    x: 0,
+                    y: headerPos.h,
+                    w: 'auto',
+                    h: 'auto'
+                },
+                pageParam: {
+                    DangQianbofangid: DangQianbofangid,
+                    albumId:albumId
+                },
+                customRefreshHeader: 'UIPullRefreshFlash',
+                bounces: true,
+            });
+          }else{
+            api.openFrame({
+                name: 'single_frame',
+                url: './single_frame.html',
+                rect: {
+                    x: 0,
+                    y: headerPos.h,
+                    w: 'auto',
+                    h: 'auto'
+                },
+                pageParam: {
+                    albumId:albumId
+                },
+                customRefreshHeader: 'UIPullRefreshFlash',
+                bounces: true,
+            });
+          }
+      }
+
 
 
     }

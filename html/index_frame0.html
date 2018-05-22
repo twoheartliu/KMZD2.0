@@ -499,12 +499,14 @@
             url: host + apiUri + uri,
             method: 'get',
             dataType: 'json',
+            timeout:10,
             headers: {
                 "source": api.systemType,
                 "version": version,
                 "session": token
             },
         }, function(ret, err) {
+          if(ret){
             if (ret.status == 200) {
 
                 // fnRecommendedDirectory(ret);
@@ -523,6 +525,10 @@
                     }
                 });
             }
+          }else{
+            netWork(err);
+          }
+
         });
     }
 

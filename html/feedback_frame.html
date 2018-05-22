@@ -174,7 +174,7 @@
     </div>
 
     <div class="textarea">
-      <textarea placeholder="长按粘贴文本" class="replyValue" type="text" id="bar" spellcheck="false"></textarea>
+      <textarea placeholder="长按粘贴文本" class="replyValue" type="text" id="bar" spellcheck="false" id="commentarea" onKeyDown="LimitTextArea(this)" onKeyUp="LimitTextArea(this)" onkeypress="LimitTextArea(this)" ></textarea>
       <div class="Cover" onclick="fnSettings();">
         <div class="Cover_img">+</div>
         <!-- <div class="Cover_img"></div>
@@ -204,6 +204,11 @@
 <script type="text/javascript">
     apiready = function() {
 
+    }
+    function LimitTextArea(field){
+        maxlimit=200;
+        if (field.value.length > maxlimit)
+            field.value = field.value.substring(0, maxlimit);
     }
     function common() {
       api.openWin({
