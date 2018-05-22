@@ -419,7 +419,7 @@
                     var title = ret.data[i].title;
                     var img = ret.data[i].img;
                     var description = ret.data[i].description;
-                    var type = ret.data[i].type;
+                    var banner_types = ret.data[i].type;
                     var content = ret.data[i].content;
                     // swiper-wrapper
                     if(img == null ){
@@ -427,18 +427,19 @@
                     }else{
                       var img_header = 'http://47.100.11.38/kmzd/public/uploads/banner/'
                       imgs = img_header + img
-                      console.log(imgs)
+                    //   console.log(imgs)
                     }
                     var stylelist = $api.byId('id-banner');
                     // <div class="swiper-wrapper"></div>
-                    banners += '<div class="swiper-slide" onclick="fnOpenBanners('+ret.data[i].content+')"><img src="'+ imgs +'" alt=""></div>';
+                    banners += '<div class="swiper-slide" onclick="fnOpenBanners(\'' + banner_id + '\',\''+ title +'\',\''+ description +'\',\''+ banner_types +'\',\''+ content +'\')"><img src="'+ imgs +'" alt=""></div>';
                                 // <div class="swiper-slide" onclick=""><img src="../image/index/KM_swiper1.jpg" alt=""></div>
+                                // \'' + banner_id + '\',\''+ title +'\',\''+ description +'\',\''+ banner_types +'\',\''+ content +'\'
                                 // <img src="http://47.100.11.38/kmzd/public/uploads/banner/banner_2.jpg" alt="">
                 }
                 $api.html(stylelist, banners);
 
                 // console.log(banners);
-                console.log(JSON.stringify( ret ));
+                // console.log(JSON.stringify( ret ));
                 // alert( JSON.stringify( ret ) );
                 fnInitSwiper();
             } else {
@@ -447,10 +448,49 @@
         });
 
     }
-    // function fnOpenBanners(content) {
-    //     console.log(content);
-    //     console.log(1);
-    // }
+    function fnOpenBanners(banner_id, title, description, banner_types, content) {
+        // console.log(banner_id);
+        // console.log('banner_id');
+        // console.log(banner_types);
+        // console.log('banner_types');
+        var lujing;
+        var song_id;
+        if (banner_types == 1) {
+            lujing = content;
+            // console.log(lujing);
+        } else if (banner_types == 2) {
+            lujing = './play.html';
+            song_id = content;
+        } else if (banner_types == 3) {
+            lujing = './single.html';
+            song_id = content;
+        } else if (banner_types == 4) {
+            lujing = './single.html';
+            song_id = content;
+        } else if (banner_types == 5) {
+            lujing = content;
+        }
+        // } else if (banner_types == 3) {
+        //
+        // } else if (banner_types == 4) {
+        //
+        // } else if (banner_types == 5) {
+        //
+        // }
+        api.openWin({
+            name: 'openBanner',
+            url: lujing,
+            // console.log('lujing');
+            pageParam: {
+                title: title,
+                description: description,
+                type: banner_types,
+                content: content,
+                song_id: song_id,
+            }
+        });
+
+    }
 
     // console.log(token);
     function fnHomePageLayout() {
@@ -819,7 +859,7 @@
     }
     //添加到听单
     function fnOpenAddListening(id) {
-      console.log(id);
+    //   console.log(id);
         api.openWin({
             name: 'addListening',
             url: './add_listening.html',
