@@ -118,116 +118,6 @@
             font-size: 16px;
             color: #000;
         }
-        /*个性化推荐 */
-
-        /*.egret-flex-item {
-            display: -webkit-box;
-            -webkit-box-align: center;
-            height: 100px;
-            border-bottom: 1px solid #f2f2f2;
-        }
-
-        .egret-flex-item-logo {
-            max-width: 80px;
-            min-width: 80px;
-            -webkit-box-flex: 1;
-            -webkit-box-align: center;
-        }
-
-        .egret-flex-item-logo img {
-            height: 80px;
-            width: 80px;
-            -webkit-box-align: center;
-            vertical-align: top;
-        }
-
-        .egret-flex-item-shelf {
-            overflow: hidden;
-            -webkit-box-flex: 2;
-            -webkit-box-align: center;
-        }
-
-        .egret-flex-item-shelf div {
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            overflow: hidden;
-            margin-top: 5px;
-            line-height: 35px;
-        }
-
-        .egret-flex-item-shelf01 span {
-            font-size: 15px;
-            color: #000;
-            width: 100px;
-        }
-
-        .egret-flex-item-shelf01 .span1 {
-            text-align: left;
-            width: 100px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        .egret-flex-item-shelf01 .span3 {
-            text-align: right;
-        }
-
-        .egret-flex-item-shelf01 .span3 img {
-            width: 20px;
-            height: 20px;
-        }
-
-        .egret-flex-item-shelf .egret-flex-item-shelf01 .span4 {
-            width: 50px;
-            height: 18px;
-            border: 1px solid red;
-            font-size: 14px;
-            color: red;
-            line-height: 18px;
-            border-radius: 5px;
-            text-align: center;
-        }
-
-        .egret-flex-item-shelf .egret-flex-item-shelf02 {
-            font-size: 15px;
-            color: #666;
-        }
-
-        .egret-flex-item-shelf .egret-flex-item-shelf02 span {
-            font-size: 15px;
-            color: #000;
-        }
-
-        .egret-flex-item-shelf03 div {
-            float: left;
-            line-height: 20px;
-            margin: 5px 2px;
-        }
-
-        .egret-flex-item-shelf03 div img {
-            width: 15px;
-            height: 15px;
-            line-height: 15px;
-            margin: 0 3px;
-        }
-
-        .egret-flex-item-shelf03 div span {
-            line-height: 18px;
-            vertical-align: top;
-            font-size: 14px;
-            color: #b2b2b2;
-        }
-
-        .egret-flex-item-shelf .egret-flex-item-redclassify {
-            color: #E03F40;
-            border: 1px solid #E03F40;
-            font-size: inherit;
-            padding: 0 0.1em;
-            border-radius: 1px;
-            margin-right: 5px;
-            box-sizing: border-box;
-        }*/
 
         .user_name {
             display: inline-block;
@@ -255,13 +145,9 @@
             vertical-align: top;
         }
 
-
-
-
-
         .wrapper {
             width: 100%;
-            height:auto;
+            height: auto;
         }
 
         .egret-flex-item {
@@ -374,7 +260,7 @@
     <div class="index_header" id="indexHeader">
         <div class="index_header_div">
             <div class="index_header_bor">
-                <div class="index_header_img" ><img src="../image/KM_tx.png" alt="" /></div>
+                <div class="index_header_img" id="headerImg"></div>
                 <!-- <div class="index_header_care"><img src="../image/care.png" alt="" class="indexHeaderCare1"></div>
             <div class="message"><p>发私信</p></div> -->
             </div>
@@ -382,12 +268,11 @@
             <div class="wode_bg">
                 <div class="index_header_mvp_p">
                     <div class="user_name" id="username"></div>
-                    <div class="index_header_care">
-                        <img src="../image/my/care_g.png" alt="" class="indexHeaderCare1">
-                        <img src="../image/my/personal_private_a.png" alt="" class="indexHeaderCare1" onclick="fnOpenPersonalPrivate();">
+                    <div class="index_header_care" id="headerCare">
+
                     </div>
                     <!-- <div class="message"><p>发私信</p></div></div> -->
-                    <div class="index_header_mvp_span" id="signature"><b>签名：</b>我是一个狠辣狠辣的辣椒，哈哈哈哈</div>
+                    <div class="index_header_mvp_span" id="signature"></div>
                 </div>
             </div>
         </div>
@@ -431,56 +316,56 @@
             </div>
         </div> -->
         <div class="index_main_h1">
-            <b class="index_main_span fl">发表作品(<span>20</span>)</b>
+            <b class="index_main_span fl">发表作品(<span id="productNum"></span>)</b>
         </div>
         <div class="wrapper" id="wrap">
-            <!-- <div class="noHistory"></div>   -->
-            <div class="egret-flex-item" >
-              <div class="egret-flex-items" tapmode="fmbtnhover" onclick="openFM()">
-                <div class="egret-flex-item-shelf">
-                    <div class="egret-flex-item-shelf01">
-                        <span class="span1 fl">作品：<span>《沁园春·雪》</span></span>
-                    </div>
-
-                    <div class="egret-flex-item-shelf03">
-                        <div><img src="../image/KM_play.png" alt=""><span>100</span></div>
-                        <div><img src="../image/KM_zf.png" alt=""><span>100</span></div>
-                        <div><img src="../image/KM_dz.png" alt=""><span>100</span></div>
-                    </div>
-                </div>
-              </div>
-              <div class="egret-flex-item-shelf04" onclick="fnOpenPlayMore()">
-                <img src="../image/KM_list_more.png" alt="">
-              </div>
-            </div>
-            <div class="hdivider"></div>
-            <div class="egret-flex-item" >
-              <div class="egret-flex-items" tapmode="fmbtnhover" onclick="openFM()">
-                <div class="egret-flex-item-shelf">
-                    <div class="egret-flex-item-shelf01">
-                        <span class="span1 fl">作品：<span>《沁园春·雪》</span></span>
-                    </div>
-
-                    <div class="egret-flex-item-shelf03">
-                        <div><img src="../image/KM_play.png" alt=""><span>100</span></div>
-                        <div><img src="../image/KM_zf.png" alt=""><span>100</span></div>
-                        <div><img src="../image/KM_dz.png" alt=""><span>100</span></div>
+            <!-- <div class="noHistory">您还没有作品</div>
+            <div class="egret-flex-item">
+                <div class="egret-flex-items" tapmode="fmbtnhover" onclick="openFM()">
+                    <div class="egret-flex-item-shelf">
+                        <div class="egret-flex-item-shelf01">
+                            <span class="span1 fl">《沁园春·雪》</span>
+                        </div>
+                        <div class="egret-flex-item-shelf03">
+                            <div><img src="../image/KM_play.png" alt=""><span>100</span></div>
+                            <div><img src="../image/KM_zf.png" alt=""><span>100</span></div>
+                            <div><img src="../image/KM_dz.png" alt=""><span>100</span></div>
+                        </div>
                     </div>
                 </div>
-              </div>
-              <div class="egret-flex-item-shelf04" onclick="fnOpenPlayMore()">
-                <img src="../image/KM_list_more.png" alt="">
-              </div>
+                <div class="egret-flex-item-shelf04" onclick="fnOpenPlayMore()">
+                    <img src="../image/KM_list_more.png" alt="">
+                </div>
             </div>
             <div class="hdivider"></div>
+            <div class="egret-flex-item">
+                <div class="egret-flex-items" tapmode="fmbtnhover" onclick="openFM()">
+                    <div class="egret-flex-item-shelf">
+                        <div class="egret-flex-item-shelf01">
+                            <span class="span1 fl">《沁园春·雪》</span>
+                        </div>
+                        <div class="egret-flex-item-shelf03">
+                            <div><img src="../image/KM_play.png" alt=""><span>100</span></div>
+                            <div><img src="../image/KM_zf.png" alt=""><span>100</span></div>
+                            <div><img src="../image/KM_dz.png" alt=""><span>100</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="egret-flex-item-shelf04" onclick="fnOpenPlayMore()">
+                    <img src="../image/KM_list_more.png" alt="">
+                </div>
+            </div>
+            <div class="hdivider"></div> -->
         </div>
 </body>
 
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/message.js"></script>
 <script type="text/javascript">
     var token;
+    var relation;
     // var isFirst = true;
     // function doS(){
     //     if(isFirst){
@@ -489,189 +374,276 @@
     //     }
     // }
     apiready = function() {
-            fnOpenAddCare();
-            token = $api.getStorage('token');
-            // console.log(token);
-            var userId = api.pageParam.userId;
-            var nickName = api.pageParam.name;
-            // console.log(nickName);
-            var username = $api.byId('username');
-            var html = nickName;
-            $api.html(username, html);
-        }
+        // fnOpenAddCare();
+        token = $api.getStorage('token');
+        // console.log(token);
+        var userId = api.pageParam.userId;
+        var nickName = api.pageParam.name;
+        // console.log(userId);
+        openInfo ();
+
+    }
+    //调接口
+    function openInfo (){
+      var userId = api.pageParam.userId;
+      var nickName = api.pageParam.name;
+      //用户名
+      var username = $api.byId('username');
+      var html = nickName;
+      $api.html(username, html);
+      //调接口
+      api.ajax({
+          url: host + apiUri + '/user/personal_page/' + userId,
+          method: 'get',
+          headers: {
+              "source": api.systemType,
+              "version": version,
+              "session": token
+          }
+      }, function(ret, err) {
+          // console.log(JSON.stringify(ret));
+          if (ret.status == 200) {
+              //关注
+              var headerCare = $api.byId('headerCare');
+              if(ret.data.relation == false){
+                html6 = '<img src="../image/my/care_a.png" alt="" class="indexHeaderCare1" id="indexHeaderCare11" onclick="fnOpenAddCare('+ret.data.relation+');"><img src="../image/my/personal_private_a.png" alt="" class="indexHeaderCare1" onclick="fnOpenPersonalPrivate();">';
+              }else if(ret.data.relation == true){
+                html6 = '<img src="../image/my/care_g.png" alt="" class="indexHeaderCare1" id="indexHeaderCare11" onclick="fnOpenAddCare('+ret.data.relation+');"><img src="../image/my/personal_private_a.png" alt="" class="indexHeaderCare1" onclick="fnOpenPersonalPrivate();">';
+              }
+
+              $api.html(headerCare, html6);
+              // relation = ret.data.relation;
+              // console.log(ret.data.relation);
+              //头像
+              var title = ret.data.user_info.photo;
+              var headerImg = $api.byId('headerImg');
+              var html4;
+              // console.log(JSON.stringify(ret.data.user_records));
+              if (title == null) {
+                  html4 = '<img src="../image/KM_tx.png" alt="" />';
+              } else {
+                  var photo = title.substring(0, 4);
+                  if (photo == 'http') {
+                      html4 = '<img src="' + ret.data.user_info.photo + '" alt="" />';
+                  }
+                  if (photo != 'http') {
+                      html4 = '<img src="' + updatePhotoUrl + ret.data.user_info.photo + '" alt="" />';
+                  }
+              }
+              $api.html(headerImg, html4);
+              //签名
+              var stylelist1 = $api.byId('signature');
+              if (ret.data.user_info.signature == null) {
+                  var html1 = '您还没有填写签名';
+                  $api.html(stylelist1, html1);
+              } else {
+                  var html1 = ret.data.user_info.signature;
+                  $api.html(stylelist1, html1);
+              }
+              //作品数量
+              var productNum = $api.byId('productNum');
+              if (ret.data.user_records.length == 0) {
+                  var html2 = '0';
+                  $api.html(productNum, html2);
+              } else {
+                  var html2 = ret.data.user_records.length;
+                  $api.html(productNum, html2);
+              }
+              //作品列表
+              var wrap = $api.byId('wrap');
+              if (ret.data.user_records.length == 0) {
+                  var html13 = '<div class="noHistory">还没有作品</div>';
+                  $api.html(wrap, html13);
+              } else {
+                  var html13 = '';
+                  for (var i = 0; i < ret.data.user_records.length; i++) {
+                      html13 += '<div class="egret-flex-item" ><div class="egret-flex-items" onclick="openFM('+ret.data.user_records[1].id+')"> <div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 fl">'+ret.data.user_records[1].title+'</span></div><div class="egret-flex-item-shelf03"><div><img src="../image/KM_play.png" alt=""><span>'+ret.data.user_records[1].play_total+'</span></div><div><img src="../image/KM_zf.png" alt=""><span>'+ret.data.user_records[1].share_total+'</span></div><div><img src="../image/KM_dz.png" alt=""><span>'+ret.data.user_records[1].good_total+'</span></div></div></div></div><div class="egret-flex-item-shelf04" onclick="fnOpenPlayMore()"><img src="../image/KM_list_more.png" alt=""></div></div><div class="hdivider"></div>';
+                  }
+                  $api.html(wrap, html13);
+              }
+          } else {
+              netMessage(ret);
+          }
+      });
+
+    }
 
     //加关注
-    //  isFirst = true;
-    var care = 1;
-    function fnOpenAddCare() {
-        var indexHeader = document.getElementById('indexHeader');
-        var indexHeaderCare1 = indexHeader.getElementsByClassName('indexHeaderCare1');
-        indexHeaderCare1[0].onclick = function() {
-          if(care == 0){
-            var dialogBox = api.require('dialogBox');
-            dialogBox.alert({
-                texts: {
-                    content: '确定要添加关注吗？',
-                    leftBtnTitle: '取消',
-                    rightBtnTitle: '确认'
-                },
-                styles: {
-                    bg: '#fff',
-                    w: 300,
-                    content: {
-                        color: '#000',
-                        size: 14
+    function fnOpenAddCare(relation) {
+        var userId = api.pageParam.userId;
+            if (relation == false) {
+                var dialogBox = api.require('dialogBox');
+                dialogBox.alert({
+                    texts: {
+                        content: '确定要添加关注吗？',
+                        leftBtnTitle: '取消',
+                        rightBtnTitle: '确认'
                     },
-                    left: {
-                        marginB: 15,
-                        marginL: 20,
-                        w: 100,
-                        h: 35,
-                        corner: 2,
-                        bg: '#ccc',
-                        color: '#fff',
-                        size: 12,
-                    },
-                    right: {
-                        marginB: 15,
-                        marginL: 60,
-                        w: 100,
-                        h: 35,
-                        corner: 2,
-                        bg: '#ccc',
-                        color: '#fff',
-                        size: 12,
+                    styles: {
+                        bg: '#fff',
+                        w: 300,
+                        content: {
+                            color: '#000',
+                            size: 14
+                        },
+                        left: {
+                            marginB: 15,
+                            marginL: 20,
+                            w: 100,
+                            h: 35,
+                            corner: 2,
+                            bg: '#ccc',
+                            color: '#fff',
+                            size: 12,
+                        },
+                        right: {
+                            marginB: 15,
+                            marginL: 60,
+                            w: 100,
+                            h: 35,
+                            corner: 2,
+                            bg: '#ccc',
+                            color: '#fff',
+                            size: 12,
+                        }
                     }
-                }
-            }, function(ret) {
-            if (ret.eventType == 'right') {
-              api.ajax({
-                url: host + apiUri + '/user/follow',
-                method: 'post',
-                headers: {
-                    "source": api.systemType,
-                    "version": version,
-                    "session": token
-                },
-                data: {
-                    values: {
-                        "follow_id": 2,
-                    }
-                },
-            }, function(ret, err) {
-                      // console.log(JSON.stringify(ret));
-                if (ret.status == 200) {
-                    // if (indexHeaderCare1[0].getAttribute("src", 2) == "../image/my/care_a.png") {
-                    //     indexHeaderCare1[0].src = "../image/my/care_g.png";
-                      indexHeaderCare1[0].src = "../image/my/care_g.png";
+                }, function(ret) {
+                    if (ret.eventType == 'right') {
+                        api.ajax({
+                            url: host + apiUri + '/user/follow',
+                            method: 'post',
+                            headers: {
+                                "source": api.systemType,
+                                "version": version,
+                                "session": token
+                            },
+                            data: {
+                                values: {
+                                    "follow_id": userId,
+
+                                }
+                            },
+                        }, function(ret, err) {
+                            // console.log(JSON.stringify(ret));
+                            var indexHeaderCare11 = $api.byId('indexHeaderCare11');
+                            if (ret.status == 200) {
+                                indexHeaderCare11.src = "../image/my/care_g.png";
+                                openInfo();
+                                var dialogBox = api.require('dialogBox');
+                                dialogBox.close({
+                                    dialogName: 'alert'
+                                });
+                                // var data = ret.data;
+                                // console.log(data);
+                                // return relation == true;
+                            } else {
+
+                            }
+                        })
+                    } else if (ret.eventType == 'left') {
                         var dialogBox = api.require('dialogBox');
                         dialogBox.close({
                             dialogName: 'alert'
                         });
-                        var data = ret.data;
-                        // console.log(data);
-                        return care = 1;
-
-                    // }
-                    // else {
-                    //   indexHeaderCare1[0].src = "../image/my/care_a.png";
-                    // }
-                } else{
-
-                }
-              })
-            } else if (ret.eventType == 'left') {
-                var dialogBox = api.require('dialogBox');
-                dialogBox.close({
-                    dialogName: 'alert'
+                    }
                 });
-              }
-          });
-        }else if(care == 1){
-          var dialogBox = api.require('dialogBox');
-          dialogBox.alert({
-              texts: {
-                  content: '确定要取消关注吗？',
-                  leftBtnTitle: '取消',
-                  rightBtnTitle: '确认'
-              },
-              styles: {
-                  bg: '#fff',
-                  w: 300,
-                  content: {
-                      color: '#000',
-                      size: 14
-                  },
-                  left: {
-                      marginB: 15,
-                      marginL: 20,
-                      w: 100,
-                      h: 35,
-                      corner: 2,
-                      bg: '#ccc',
-                      color: '#fff',
-                      size: 12,
-                  },
-                  right: {
-                      marginB: 15,
-                      marginL: 60,
-                      w: 100,
-                      h: 35,
-                      corner: 2,
-                      bg: '#ccc',
-                      color: '#fff',
-                      size: 12,
-                  }
-              }
-          }, function(ret) {
-          if (ret.eventType == 'right') {
-            api.ajax({
-              url: host + apiUri + '/user/follow',
-              method: 'post',
-              headers: {
-                  "source": api.systemType,
-                  "version": version,
-                  "session": token
-              },
-              data: {
-                  values: {
-                      "follow_id": 2,
-                  }
-              },
-          }, function(ret, err) {
-                    // console.log(JSON.stringify(ret));
-              if (ret.status == 200) {
-                  indexHeaderCare1[0].src = "../image/my/care_a.png";
-                  care = 0;
-                  var dialogBox = api.require('dialogBox');
-                  dialogBox.close({
-                      dialogName: 'alert'
-                  });
-                  var data = ret.data;
-                  // console.log(data);
-              } else {
+            } ;
+             if (relation == true) {
+                var dialogBox = api.require('dialogBox');
+                dialogBox.alert({
+                    texts: {
+                        content: '确定要取消关注吗？',
+                        leftBtnTitle: '取消',
+                        rightBtnTitle: '确认'
+                    },
+                    styles: {
+                        bg: '#fff',
+                        w: 300,
+                        content: {
+                            color: '#000',
+                            size: 14
+                        },
+                        left: {
+                            marginB: 15,
+                            marginL: 20,
+                            w: 100,
+                            h: 35,
+                            corner: 2,
+                            bg: '#ccc',
+                            color: '#fff',
+                            size: 12,
+                        },
+                        right: {
+                            marginB: 15,
+                            marginL: 60,
+                            w: 100,
+                            h: 35,
+                            corner: 2,
+                            bg: '#ccc',
+                            color: '#fff',
+                            size: 12,
+                        }
+                    }
+                }, function(ret) {
+                    if (ret.eventType == 'right') {
+                        api.ajax({
+                            url: host + apiUri + '/user/follow',
+                            method: 'post',
+                            headers: {
+                                "source": api.systemType,
+                                "version": version,
+                                "session": token
+                            },
+                            data: {
+                                values: {
+                                    "follow_id": userId,
+                                }
+                            },
+                        }, function(ret, err) {
+                            // console.log(JSON.stringify(ret));
+                            var indexHeaderCare11 = $api.byId('indexHeaderCare11');
+                            if (ret.status == 200) {
+                                indexHeaderCare11.src = "../image/my/care_a.png";
+                                var dialogBox = api.require('dialogBox');
+                                dialogBox.close({
+                                    dialogName: 'alert'
+                                });
+                                var data = ret.data;
+                                relation == false;
+                                // console.log(data);
+                            } else {
 
-              }
-            })
-          } else if (ret.eventType == 'left') {
-              var dialogBox = api.require('dialogBox');
-              dialogBox.close({
-                  dialogName: 'alert'
-              });
+                            }
+                        })
+                    } else if (ret.eventType == 'left') {
+                        var dialogBox = api.require('dialogBox');
+                        dialogBox.close({
+                            dialogName: 'alert'
+                        });
+                    }
+                });
             }
-        });
-        }
-        }
-      }
+    }
 
-    function fnOpenPersonalPrivate() {
+    function fnOpenPersonalPrivate( ) {
         api.openWin({
             name: 'personalPrivate',
             url: './personal_private.html',
             pageParam: {
-                name: 'test'
+                name: 'text'
             }
         });
+    }
+    //打开播放
+    function openFM(id){
+      console.log(id);
+      api.openWin({
+          name: 'playsousuo',
+          url: './playsousuo.html',
+          pageParam: {
+              id: id
+          }
+      });
     }
     //打开更多
     function fnOpenPlayMore() {
