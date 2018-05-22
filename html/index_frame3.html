@@ -339,6 +339,11 @@
         .clear {
             clear: both;
         }
+        .userButton{
+          /*display: inline-block;*/
+          width: 16px;
+          line-height: 16px;
+        }
     </style>
 </head>
 
@@ -387,7 +392,7 @@
     <div class="friend " id="friend">
         <!-- <div class="friend_list ">
         <div class="user_img" onclick="fnOpenmyPersonal();"><img src="../image/icon-person.png" alt=""></div>
-        <p><span class="name">小小小小小小小小小小小小</span> <img src="../image/read/care.png" alt="" class="userButton" ></p>
+        <p><span class="name">小小小小小小小小小小小小</span><span> <img src="../image/read/care.png" alt="" class="userButton" ></span></p>
         <p class="p">
           <span>粉丝</span><span>180</span>
           <span>作品</span><span>180</span>
@@ -427,7 +432,7 @@
       </div>
       <div class="friend_list ">
         <div class="user_img" onclick="fnOpenmyPersonal();"><img src="../image/icon-person.png" alt=""></div>
-        <p>小小 <img src="../image/read/care.png" alt="" class="userButton" ></p>
+        <p><span class='name'>小小</span> <span><img src="../image/read/care.png" alt="" class="userButton" ></span></p>
         <p class="p">
           <span>粉丝</span><span>180</span>
           <span>作品</span><span>180</span>
@@ -572,7 +577,7 @@
                 var html = '';
                 for (var i = 0; i < len; i++) {
                     var userId = ret.data[i].user_id;
-                    var nickName = ret.data[i].nick_name;
+                    var nickname = ret.data[i].nick_name;
                     var product = ret.data[i].record_total;
                     var fans = ret.data[i].fans_total;
                     var title = ret.data[i].photo;
@@ -591,7 +596,20 @@
                     }
                     var stylelist = $api.byId('friend');
                     html +=
-                        '<div class="friend_list "><div class="user_img" onclick="fnOpenmyPersonal(\'' + userId + '\',\''+ nickName +'\')" ><img src="'+ title +'" alt=""></div><p><span class="name">'+nickName+'</span> <img src="../image/read/care.png" alt="" class="userButton"  id="userButton'+ret.data[i].user_id+'" onclick="fnOpenUserButton(\'' + ret.data[i].user_id + '\',\''+ ret.data[i].nick_name +'\')"  ></p><p class="p">  <span>粉丝</span><span>'+fans+'</span>  <span>作品</span><span>'+product+'</span></p></div>';
+                        '<div class="friend_list ">' +
+                          '<input type="hidden" id="user_'+userId+'" value="1"/>'+
+                            '<div class="user_img" onclick="fnOpenmyPersonal(\'' + userId + '\',\''+ nickname +'\')" >'+
+                                '<img src="'+ title +'" alt="">'+
+                            '</div>'+
+                            '<p>'+
+                              '<span class="name">'+nickname+'</span>'+
+                              '<span  > <img src="../image/read/care.png" alt="" class="userButton" id="userButton'+ret.data[i].user_id+'" onclick="fnOpenUserButton(\'' + ret.data[i].user_id + '\',\''+ ret.data[i].nick_name +'\')" ></span>'+
+                            '</p>'+
+                            '<p class="p">  '+
+                              '<span>粉丝</span><span>'+fans+'</span>  '+
+                              '<span>作品</span><span>'+product+'</span>'+
+                            '</p>'+
+                          '</div>';
                 }
                 $api.html(stylelist, html);
             } else {
@@ -668,51 +686,14 @@
     //     });
     //
     // }
-    //个人主页
-    function fnOpenmyPersonal(id,nickName) {
-      console.log(id);
-      console.log(nickName);
-      console.log(2222);
-      // console.log(name);
-      // console.log(1111);
-        api.openWin({
-            name: 'myPersonal',
-            url: './my_personal.html',
-            pageParam: {
-                userId: id,
-                nickName :nickName
-            },
-        });
-    };
+
     //加关注
-
     function fnOpenUserButton(id,nickname) {
-      // console.log(id);
-      // console.log(nickname);
-        var userButton = document.getElementById('userButton' + id);
 
-        // var friend = document.getElementById('friend');
-        // var friend_lis = friend.getElementsByClassName('userButton');
-
-        // for (var i = 0; i < friend_lis.length; i++) {
-        //     friend_lis[i].index = i;
-        //     friend_lis[i].onclick = function() {
-        //         var j = this.index;
-        // var toolbarlist = document.getElementsByClassName('userButton')[0];
-        var click = userButton.getAttribute("data-click");
-        // console.log(click);
-        console.log(userButton.src);
-        var str = userButton.src;
-        var img = str.slice(-8);
-        console.log(str.slice(-8));
-        if(img ==  "are1.png" ){
-          fnOpenmyPersonal(id,nickName);
-          console.log(11);
-          // userButton.setAttribute("data-click", 1);
-        }
-        if(img ==  "care.png"){
-          console.log(111);
-          // userButton.setAttribute("data-click", 0);
+      var userFollowType = document.getElementById('user_'+id).value;
+      var userButton = document.getElementById('userButton' + id);
+      if(userFollowType == 1){
+          userFollowType = document.getElementById('user_'+id).value = 0;
           var dialogBox = api.require('dialogBox');
           dialogBox.alert({
               texts: {
@@ -750,9 +731,6 @@
               }
           }, function(ret) {
               if (ret.eventType == 'right') {
-                  // if(friend_lis[j].getAttribute("src",2)=="../image/read/care.png"){
-                  //   friend_lis[j].src="../image/read/care1.png";
-                  // }
                   api.ajax({
                       url: host + apiUri + '/user/follow',
                       method: 'post',
@@ -776,12 +754,7 @@
                                   dialogName: 'alert'
                               });
                           }
-                          var data = ret.data;
-                          // console.log(data);
                       }
-
-                      // else {
-                      // }
                   })
               } else if (ret.eventType == 'left') {
                   var dialogBox = api.require('dialogBox');
@@ -791,11 +764,26 @@
               }
           });
 
-        }
+      }else{
+          //说明已关注，执行页面跳转
+          fnOpenmyPersonal(id,nickname);
 
-  // }
+      }
+
+
+
 }
 
-
+//个人主页
+function fnOpenmyPersonal(id,nickname) {
+    api.openWin({
+        name: 'myPersonal',
+        url: './my_personal.html',
+        pageParam: {
+            'userId': id,
+            'nickName':nickname
+        },
+    });
+};
 
 </script>
