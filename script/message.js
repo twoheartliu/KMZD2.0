@@ -12,15 +12,36 @@ function netMessage(ret){
         duration:  2000,
         location:   'middle'          
     });
+    api.toast({              
+        msg:  '2222222',
+        duration:  2000,
+        location:   'middle'          
+    });
     $api.rmStorage('token');
-    api.openWin({
+    // api.openWin({
+    //     name: 'login',
+    //     url: '../login.html',
+    //     pageParam: {
+    //         name: 'test'
+    //     }
+    // });
+    api.openFrame({
         name: 'login',
         url: '../login.html',
+        rect: {
+            x: 0,
+            y: 0,
+            w: 'auto',
+            h: 'auto'
+        },
         pageParam: {
             name: 'test'
-        }
+        },
+        bounces: true,
+        bgColor: 'rgba(0,0,0,0)',
+        vScrollBarEnabled: true,
+        hScrollBarEnabled: true
     });
-
   }
   if(ret.status == 10202){
     api.toast({              
@@ -29,12 +50,29 @@ function netMessage(ret){
         location:   'middle'          
     });
     $api.rmStorage('token');
-    api.openWin({
+    // api.openWin({
+    //     name: 'login',
+    //     url: '../login.html',
+    //     pageParam: {
+    //         name: 'test'
+    //     }
+    // });
+    api.openFrame({
         name: 'login',
         url: '../login.html',
+        rect: {
+            x: 0,
+            y: 0,
+            w: 'auto',
+            h: 'auto'
+        },
         pageParam: {
             name: 'test'
-        }
+        },
+        bounces: true,
+        bgColor: 'rgba(0,0,0,0)',
+        vScrollBarEnabled: true,
+        hScrollBarEnabled: true
     });
   }
   if(ret.status == 10203){
@@ -354,12 +392,22 @@ function netMessage(ret){
             });
         } else if (ret.eventType == 'left') {
           $api.rmStorage('token');
-          api.openWin({
+          api.openFrame({
               name: 'login',
               url: '../login.html',
+              rect: {
+                  x: 0,
+                  y: 0,
+                  w: 'auto',
+                  h: 'auto'
+              },
               pageParam: {
                   name: 'test'
-              }
+              },
+              bounces: true,
+              bgColor: 'rgba(0,0,0,0)',
+              vScrollBarEnabled: true,
+              hScrollBarEnabled: true
           });
             dialogBox.close({
                 dialogName: 'alert'
@@ -391,27 +439,31 @@ function netWork(err){
         location: 'middle'          
     });
   }
-}
-
-function netWorkNone(){
-  // var connectionType = api.connectionType;
-  // if(connectionType == "none"){
+  if(err.code == 2){
     api.toast({              
         msg: '网络未连接',
         duration: 2000,
         location: 'middle'          
     });
-    console.log(222222);
-    // api.openWin({
-    //     name: 'oops',
-    //     url: '../oops.html',
-    //     pageParam: {
-    //         name: 'test'
-    //     }
-    // });
+  }
+  if(err.code == 3){
+    api.toast({              
+        msg: '网络未连接',
+        duration: 2000,
+        location: 'middle'          
+    });
+  }
+}
+
+function netWorkNone(){
+    api.toast({              
+        msg: '网络未连接',
+        duration: 2000,
+        location: 'middle'          
+    });
     api.openFrame({
         name: 'oops',
-        url: './oops.html',
+        url: '../oops.html',
         rect: {
             x: 0,
             y: 0,
