@@ -590,11 +590,9 @@
     var goods;
     apiready = function() {
         token = $api.getStorage('token');
+
         fnAlbumAetails();
         fnAlbumTrack();
-        // fnExtraGoodssssss();
-        // $api.rmStorage('albumExtraGoodHtml');
-        // $api.rmStorage('albumExtraGood');
         api.setCustomRefreshHeaderInfo({
             bgColor: '#f0f0f0',
             image: {
@@ -619,9 +617,36 @@
         }, function() {
                 //下拉刷新被触发，自动进入加载状态，使用 api.refreshHeaderLoadDone() 手动结束加载中状态
                 //下拉刷新被触发，使用 api.refreshHeaderLoadDone() 结束加载中状态
-
-                fnAlbumAetails();
-                fnAlbumTrack();
+                api.addEventListener({
+                    name: 'neizhiliebiaoPlaysss'
+                }, function(ret, err) {
+                    if(ret.value.wangluo){
+                      fnAlbumAetails();
+                      fnAlbumTrack();
+                    }
+                    return false;
+                });
+                if(connectionType == "none"){
+                  api.toast({              
+                      msg: '网络未链接',
+                      duration:  2000,
+                      location:   'middle'          
+                  });
+                  api.openWin({
+                      name: 'oops',
+                      url: '../oops.html',
+                      pageParam: {
+                          name: 'test'
+                      }
+                  });
+                  return false;
+                }else{
+                  fnAlbumAetails();
+                  fnAlbumTrack();
+                  // fnExtraGoodssssss();
+                  // $api.rmStorage('albumExtraGoodHtml');
+                  // $api.rmStorage('albumExtraGood');
+                }
             });
     }
     function fnExtraGoodssssss(){
@@ -645,26 +670,26 @@
             url: host + apiUri + uri + '/' + albumId,
             method: 'get',
             dataType: 'json',
+            timeout:10,
             headers: {
                 "source": api.systemType,
                 "version": version,
                 "session": token
             }
         }, function(ret, err) {
+          if(ret){
             if (ret.status == 200) {
-                // fnRecommendedDirectory(ret);
                 setTimeout(function(){
                     api.refreshHeaderLoadDone()
                 },3000)
                 fnAlbumAetailsList(ret);
             } else {
                 netMessage(ret);
-                // $api.rmStorage('token');
-                // api.openWin({
-                //     name: 'login',
-                //     url: '../login.html',
-                // });
             }
+          }else{
+            netWork(err);
+          }
+
         });
 
     }
@@ -708,12 +733,14 @@
             url: host + apiUri + uri + '/' + albumId + '?p=' + page,
             method: 'get',
             dataType: 'json',
+            timeout:10,
             headers: {
                 "source": api.systemType,
                 "version": version,
                 "session": token
             }
         }, function(ret, err) {
+          if(ret){
             if (ret.status == 200) {
               setTimeout(function(){
                   api.refreshHeaderLoadDone()
@@ -722,12 +749,11 @@
                 fnAlbumIdLift(ret);
             } else {
                 netMessage(ret);
-                // $api.rmStorage('token');
-                // api.openWin({
-                //     name: 'login',
-                //     url: '../login.html',
-                // });
             }
+          }else{
+            netWork(err);
+          }
+
         });
 
     }
@@ -780,46 +806,26 @@
         });
         var playlistid = api.pageParam.albumId;
         if (Dqbofangid == a) {
-          var connectionType = api.connectionType;
-          if(connectionType == "none"){
-            api.toast({              
-                msg: '网络未链接',
-                duration:  2000,
-                location:   'middle'          
-            });
 
-            return false;
-          }else{
-            api.openWin({
-                name: 'play',
-                url: './play.html',
-                pageParam: {
-                    playlistid: playlistid,
-                    a: a,
-                    dangqianbofangid: Dqbofangid
-                }
-            });
-          }
+          api.openWin({
+              name: 'play',
+              url: './play.html',
+              pageParam: {
+                  playlistid: playlistid,
+                  a: a,
+                  dangqianbofangid: Dqbofangid
+              }
+          });
         } else {
-          var connectionType = api.connectionType;
-          if(connectionType == "none"){
-            api.toast({              
-                msg: '网络未链接',
-                duration:  2000,
-                location:   'middle'          
-            });
 
-            return false;
-          }else{
-            api.openWin({
-                name: 'play',
-                url: './play.html',
-                pageParam: {
-                    a: a,
-                    playlistid: playlistid
-                }
-            });
-          }
+          api.openWin({
+              name: 'play',
+              url: './play.html',
+              pageParam: {
+                  a: a,
+                  playlistid: playlistid
+              }
+          });
 
         }
         // api.openWin({
@@ -893,6 +899,7 @@
                     }
                   }
               }, function(ret, err) {
+                if(ret){
                   if (ret.status == 200) {
 
                         api.toast({              
@@ -905,6 +912,10 @@
                   } else {
                     netMessage(ret);
                   }
+                }else{
+                  netWork(err);
+                }
+
               });
               dialogBox.close({
                   dialogName: 'alert'

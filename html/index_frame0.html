@@ -262,6 +262,7 @@
 <body>
     <!-- 轮播图 -->
     <div class="swiper-container" >
+
         <div class="swiper-wrapper" id="id-banner">
             <!-- <div class="swiper-slide" onclick="">
                 <img src="../image/index/KM_swiper1.jpg" alt="">
@@ -326,18 +327,26 @@
             <div class="hdivider"></div>
         </div> -->
     </div>
+
 </body>
+<script type="text/javascript">
+</script>
+
 
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript" src="../script/index.js"></script>
 <script type="text/javascript" src="../script/swiper.min.js"></script>
 
+
 </html>
 <script type="text/javascript">
-var token;
+
+
+    var token;
     apiready = function() {
       token = $api.getStorage('token');
+      fnBanners();
       if(!token){
         $api.rmStorage('token');
         api.openWin({
@@ -348,8 +357,6 @@ var token;
             }
         });
       }else{
-        fnBanners()
-        fnInitSwiper();
         var qqziliao = api.pageParam.qqziliao;
         fnHomePageLayout();
         api.setCustomRefreshHeaderInfo({
@@ -381,10 +388,7 @@ var token;
             });
 
       }
-
-
-
-
+    //   fnInitSwiper();
     }
     //  banner 接口
     function fnBanners() {
@@ -428,9 +432,15 @@ var token;
                     var stylelist = $api.byId('id-banner');
                     // <div class="swiper-wrapper"></div>
                     banners += '<div class="swiper-slide" onclick="fnOpenBanners('+ret.data[i].content+')"><img src="'+ imgs +'" alt=""></div>';
+                                // <div class="swiper-slide" onclick=""><img src="../image/index/KM_swiper1.jpg" alt=""></div>
+                                // <img src="http://47.100.11.38/kmzd/public/uploads/banner/banner_2.jpg" alt="">
                 }
                 $api.html(stylelist, banners);
-                alert( JSON.stringify( ret ) );
+
+                // console.log(banners);
+                console.log(JSON.stringify( ret ));
+                // alert( JSON.stringify( ret ) );
+                fnInitSwiper();
             } else {
                 alert( JSON.stringify( err ) );
             }
@@ -449,12 +459,14 @@ var token;
             url: host + apiUri + uri,
             method: 'get',
             dataType: 'json',
+            timeout:10,
             headers: {
                 "source": api.systemType,
                 "version": version,
                 "session": token
             },
         }, function(ret, err) {
+          if(ret){
             if (ret.status == 200) {
 
                 // fnRecommendedDirectory(ret);
@@ -473,6 +485,10 @@ var token;
                     }
                 });
             }
+          }else{
+            netWork(err);
+          }
+
         });
     }
 
@@ -581,11 +597,16 @@ var token;
 
     function fnInitSwiper() {
         var mySwiper = new Swiper('.swiper-container', {
-            autoplay: 2000, //可选选项，自动滑动
+            autoplay: true, //可选选项，自动滑动
             loop: true
         });
     };
-
+    // function fnInitSwiper() {
+    //     var mySwiper = new Swiper('.swiper-container', {
+    //         autoplay: true,//可选选项，自动滑动
+    //         loop: true
+    //     });
+    // };
     function fnGuoxueWin() {
         api.openWin({
             name: 'guoxue',
@@ -813,4 +834,11 @@ var token;
             }
         });
     }
+
 </script>
+<!-- <script type="text/javascript">
+
+
+    fnInitSwiper()
+
+</script> -->

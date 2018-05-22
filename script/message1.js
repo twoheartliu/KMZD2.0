@@ -369,3 +369,47 @@ function netMessage(ret){
   }
 
 }
+function netWork(err){
+  if(err.code == 0){
+//     api.toast({              
+//         msg: '连接错误，请检察网络是否连接',
+//         duration:  2000,
+//         location:   'middle'          
+//     });
+    api.openWin({
+        name: 'oops',
+        url: '../html/oops.html',
+        pageParam: {
+            name: 'test'
+        }
+    });
+  }
+  if(err.code == 1){
+    api.openWin({
+        name: 'oops',
+        url: '../html/oops.html',
+        pageParam: {
+            name: 'test'
+        }
+    });
+  }
+}
+
+function netWorkNone(){
+  var connectionType = api.connectionType;
+  if(connectionType == "none"){
+    api.toast({              
+        msg: '网络未链接',
+              duration:  2000,
+              location:   'middle'          
+    });
+    api.openWin({
+        name: 'oops',
+        url: '../html/oops.html',
+        pageParam: {
+            name: 'test'
+        }
+    });
+    return false;
+  }
+}
