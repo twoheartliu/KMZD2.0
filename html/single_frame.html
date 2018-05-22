@@ -471,7 +471,7 @@
                     <div class="info" onclick="fnExtraGood()" id="extraGood" >
                         <img src="../image/KM_ListingsListDzs.png" alt="" class="collectmusicFxs">
                     </div>
-                    <p id="goods">20</p>
+                    <p id="goods">0</p>
                 </div>
                 <div class="userinfocol" tapmode="toolhover" >
                     <div class="info" id="extraCollectionHtml">
@@ -490,7 +490,7 @@
                     <p>预置频道</p>
                 </div>
                 <div class="userinfocol" tapmode="toolhover"   id="comments">
-
+                  <div  onclick="fnOpenDiscussDetail(' + id + ',\'' + name + '\');"><div class="info" ><img src="../image/KM_ListingsListSx.png" alt=""><!-- <i>20</i> --></div><p >0</p></div>
                 </div>
                 <div class="userinfocol" tapmode="toolhover" onclick="fnOpenPlayShare();">
                     <div class="info">
@@ -743,13 +743,13 @@
                     '</span>  </div><div class="on_playall_img"><div class="on_playall_div fl"><div class="on_playall_div_img fl"> <img src="../image/KM_play.png" alt=""></div> <div class="on_playall_div_span fl"><span>' + data_.data[i].play_total +
                     '</span> </div></div> <div class="on_playall_div fl"> <div class="on_playall_div_img fl"> <img src="../image/KM_zf.png" alt=""> </div><div class="on_playall_div_span fl"> <span>' + data_.data[i].share_total +
                     '</span> </div>  </div><div class="on_playall_div fl">  <div class="on_playall_div_img fl"><img src="../image/KM_dz.png" alt="">  </div><div class="on_playall_div_span fl"><span>' + data_.data[i].good_total +
-                    '</span></div></div></div></div><div class="on_playall_more_imgs fr" onclick="fnOpenPlayMore('+ data_.data[i].id +','+ data_.data[i].id +');"><img src="../image/KM_list_more.png" alt=""></div></li>'
+                    '</span></div></div></div></div><div class="on_playall_more_imgs fr" onclick="fnOpenPlayMore('+ data_.data[i].id +');"><img src="../image/KM_list_more.png" alt=""></div></li>'
             } else {
                 html += '<li  class="items"><div class="on_play" onclick="fnOpenPlay(' + data_.data[i].id + ' );"><div class="on_playall"><span class="fl on_playall_name">' + data_.data[i].title +
                     '</span></div><div class="on_playall_img"><div class="on_playall_div fl"><div class="on_playall_div_img fl"> <img src="../image/KM_play.png" alt=""></div> <div class="on_playall_div_span fl"><span>' + data_.data[i].play_total +
                     '</span> </div></div> <div class="on_playall_div fl"> <div class="on_playall_div_img fl"> <img src="../image/KM_zf.png" alt=""> </div><div class="on_playall_div_span fl"> <span>' + data_.data[i].share_total +
                     '</span> </div>  </div><div class="on_playall_div fl">  <div class="on_playall_div_img fl"><img src="../image/KM_dz.png" alt="">  </div><div class="on_playall_div_span fl"><span>' + data_.data[i].good_total +
-                    '</span></div></div></div></div><div class="on_playall_more_imgs fr" onclick="fnOpenPlayMore('+ data_.data[i].id +','+ data_.data[i].id +');"><img src="../image/KM_list_more.png" alt=""></div></li>'
+                    '</span></div></div></div></div><div class="on_playall_more_imgs fr" onclick="fnOpenPlayMore('+ data_.data[i].id +');"><img src="../image/KM_list_more.png" alt=""></div></li>'
             }
 
         }
@@ -780,6 +780,16 @@
         });
         var playlistid = api.pageParam.albumId;
         if (Dqbofangid == a) {
+          var connectionType = api.connectionType;
+          if(connectionType == "none"){
+            api.toast({              
+                msg: '网络未链接',
+                duration:  2000,
+                location:   'middle'          
+            });
+
+            return false;
+          }else{
             api.openWin({
                 name: 'play',
                 url: './play.html',
@@ -789,7 +799,18 @@
                     dangqianbofangid: Dqbofangid
                 }
             });
+          }
         } else {
+          var connectionType = api.connectionType;
+          if(connectionType == "none"){
+            api.toast({              
+                msg: '网络未链接',
+                duration:  2000,
+                location:   'middle'          
+            });
+
+            return false;
+          }else{
             api.openWin({
                 name: 'play',
                 url: './play.html',
@@ -798,6 +819,8 @@
                     playlistid: playlistid
                 }
             });
+          }
+
         }
         // api.openWin({
         //     name: 'play',
@@ -854,14 +877,38 @@
                 });
             }
             if (ret.index == "0") {
-                api.toast({              
-                    msg:   '收藏成功',
-                    duration:  2000,
-                    location:   'middle'          
-                });
-                dialogBox.close({
-                    dialogName: 'alert'
-                });
+              uri = '/extra/list_collection/';
+              api.ajax({
+                  url: host + apiUri + uri + id,
+                  method: 'post',
+                  dataType: 'json',
+                  headers: {
+                      "source": api.systemType,
+                      "version": version,
+                      "session": token
+                  },
+                  data:{
+                    values:{
+                      "model":'book',
+                    }
+                  }
+              }, function(ret, err) {
+                  if (ret.status == 200) {
+
+                        api.toast({              
+                            msg:   '已收藏',
+                            duration:  2000,
+                            location:   'middle'          
+                        });
+
+
+                  } else {
+                    netMessage(ret);
+                  }
+              });
+              dialogBox.close({
+                  dialogName: 'alert'
+              });
             } else if (ret.index == "1") {
                 fnOpenAddListening(id);
                 dialogBox.close({
