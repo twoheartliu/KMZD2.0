@@ -78,14 +78,6 @@
         <div class="header_fr fr"></div>
         <div class="header_center">绑定手机号</div>
     </header>
-    <!-- <nav id="nav">
-      <div class="nav">
-        <div class="row nav_div" id="title">
-          <div class="nav_divs"  onclick="fnSelectTab(0,this)">发表的作品</div>
-          <div class="" onclick="fnSelectTab(1,this)">我的草稿箱</div>
-        </div>
-      </div>
-    </nav> -->
 </body>
 
 </html>
@@ -97,7 +89,7 @@
         });
     }
     apiready = function() {
-        // fnframeGroup();
+        var mobile = api.pageParam.mobile;
         var header = $api.byId('secHeader');
         $api.fixStatusBar(header);
         var headerPos = $api.offset(header);
@@ -111,7 +103,7 @@
                 h: 'auto'
             },
             pageParam: {
-                name: 'test'
+                mobile: mobile
             },
             bounces: false,
         });
