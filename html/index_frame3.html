@@ -357,8 +357,8 @@
         </div>
     </div>
     <div class="swiper-container">
-        <div class="swiper-wrapper">
-            <div class="swiper-slide">
+        <div class="swiper-wrapper" id="id-banner">
+            <!-- <div class="swiper-slide">
                 <img src="../image/read/KM_tp.jpg" alt="">
             </div>
             <div class="swiper-slide">
@@ -366,8 +366,9 @@
             </div>
             <div class="swiper-slide">
                 <img src="../image/read/KM_tp.jpg" alt="">
-            </div>
+            </div> -->
         </div>
+        <!-- "../image/read/KM_tp.jpg" -->
     </div>
     <div class="p20px">
         <div class="navbar" id="scriptCategory">
@@ -475,10 +476,11 @@
     var token;
     apiready = function() {
         token = $api.getStorage('token');
+        fnBanners();
 
         if(token){
           // console.log(token);
-          fnInitSwiper();
+        //   fnInitSwiper();
           // fnOpenUserButton();
           // fnInitSwiper1();
           fnRecommendFriends();
@@ -495,6 +497,108 @@
           });
         }
     }
+    //  banner 接口
+    function fnBanners() {
+        var uri = '/extra/banner';
+        // var position = 'index'
+        api.ajax({
+            url: host + apiUri + uri,
+            method: 'get',
+            dataType: 'json',
+            headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token,
+            },
+            data: {
+                values: {
+                    position: 'recitation',
+                },
+
+            }
+        },function(ret, err){
+            if (ret.status == 200) {
+                var data = ret.data;
+                var len = ret.data.length;
+                var banners = '';
+                for (var i = 0; i < len; i++) {
+                    var banner_id = ret.data[i].banner_id;
+                    var title = ret.data[i].title;
+                    var img = ret.data[i].img;
+                    var description = ret.data[i].description;
+                    var banner_types = ret.data[i].type;
+                    var content = ret.data[i].content;
+                    // swiper-wrapper
+                    if(img == null ){
+                      imgs =  "../image/read/KM_tp.jpg";
+                    }else{
+                      var img_header = 'http://47.100.11.38/kmzd/public/uploads/banner/'
+                      imgs = img_header + img
+                    //   console.log(imgs)
+                    }
+                    var stylelist = $api.byId('id-banner');
+                    // <div class="swiper-wrapper"></div>
+                    banners += '<div class="swiper-slide" onclick="fnOpenBanners(\'' + banner_id + '\',\''+ title +'\',\''+ description +'\',\''+ banner_types +'\',\''+ content +'\')"><img src="'+ imgs +'" alt=""></div>';
+                                // <div class="swiper-slide" onclick=""><img src="../image/index/KM_swiper1.jpg" alt=""></div>
+                                // \'' + banner_id + '\',\''+ title +'\',\''+ description +'\',\''+ banner_types +'\',\''+ content +'\'
+                                // <img src="http://47.100.11.38/kmzd/public/uploads/banner/banner_2.jpg" alt="">
+                }
+                $api.html(stylelist, banners);
+
+                // console.log(banners);
+                // console.log(JSON.stringify( ret ));
+                // alert( JSON.stringify( ret ) );
+                fnInitSwiper();
+            } else {
+                alert( JSON.stringify( err ) );
+            }
+        });
+
+    }
+    function fnOpenBanners(banner_id, title, description, banner_types, content) {
+        // console.log(banner_id);
+        // console.log('banner_id');
+        // console.log(banner_types);
+        // console.log('banner_types');
+        var lujing;
+        var song_id;
+        if (banner_types == 1) {
+            lujing = content;
+            // console.log(lujing);
+        } else if (banner_types == 2) {
+            lujing = './play.html';
+            song_id = content;
+        } else if (banner_types == 3) {
+            lujing = './single.html';
+            song_id = content;
+        } else if (banner_types == 4) {
+            lujing = './single.html';
+            song_id = content;
+        } else if (banner_types == 5) {
+            lujing = content;
+        }
+        // } else if (banner_types == 3) {
+        //
+        // } else if (banner_types == 4) {
+        //
+        // } else if (banner_types == 5) {
+        //
+        // }
+        api.openWin({
+            name: 'openBanner',
+            url: lujing,
+            // console.log('lujing');
+            pageParam: {
+                title: title,
+                description: description,
+                type: banner_types,
+                content: content,
+                song_id: song_id,
+            }
+        });
+
+    }
+
     function fnCategory(){
       var uri = '/script/category';
       api.ajax({
