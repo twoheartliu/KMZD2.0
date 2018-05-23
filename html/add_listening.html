@@ -216,8 +216,13 @@
         var headerPos = $api.offset(header);
         var headerPosH = $api.offset(header).h;
         songListID = api.pageParam.songListID;
-        console.log(songListID);
+        // console.log(songListID);
         fnAddTrackToList();
+        api.addEventListener({
+            name: 'reload'
+        }, function(ret, err) {
+            fnAddTrackToList();
+        });
 
         // 获取浏览器高度
         if (window.innerHeight)
