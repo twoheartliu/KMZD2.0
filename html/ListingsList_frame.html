@@ -795,13 +795,23 @@
         var reciter;
         var html = '';
         for (var i = 0; i < ret.data.song_list.length; i++) {
+
             author_name = ((ret.data.song_list[i].author_name == null) ? "" : ret.data.song_list[i].author_name);
             reciter = ((ret.data.song_list[i].reciter == null) ? "" : ret.data.song_list[i].reciter);
-            html += '<li id="id_' + ret.data.song_list[i].id + '"><div class="on_playall"><span class="fl on_playall_name">' + ret.data.song_list[i].title + '</span><span></span></div><div class="author fl">作者：' + author_name +
-                '</div><div class="author fl">朗读者：' + reciter + '</div><div class="fr on_playall_img" onclick="fnOpenPlayMore(' + ret.data.song_list[i].id + ');"><img src="../image/KM_list_more.png" alt=""></div></li>';
+            html += '<li id="id_' + ret.data.song_list[i].id + '"><div class="on_playall" onclick="fnPlay('+ ret.data.song_list[i].id +');"><span class="fl on_playall_name">' + ret.data.song_list[i].title + '</span><span></span></div><div class="author fl"  onclick="fnPlay('+ ret.data.song_list[i].id +');">作者：' + author_name +
+                '</div><div class="author fl"  onclick="fnPlay('+ ret.data.song_list[i].id +');">朗读者：' + reciter + '</div><div class="fr on_playall_img" onclick="fnOpenPlayMore(' + ret.data.song_list[i].id + ');"><img src="../image/KM_list_more.png" alt=""></div></li>';
         }
         $api.html(tuijianliebiaogequ, html);
-        console.log(html);
+    }
+    function fnPlay(id) {
+      api.openWin({
+          name: 'play',
+          url: './play.html',
+          pageParam: {
+              id: id
+          }
+      });
+
     }
     // 收藏成功
     function collectmusic(clicktoolitem) {
@@ -1115,4 +1125,5 @@
 
         });
     }
+
 </script>

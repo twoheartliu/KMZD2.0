@@ -152,6 +152,11 @@
             },function(ret, err){
                 if (ret) {
                   if (ret.status == 200) {
+                    api.toast({
+                        msg: '新建成功',
+                        duration: 2000,
+                        location: 'bottom'
+                    });
                     var reload = 1;
                     api.sendEvent({
                         name: 'reload',
@@ -168,7 +173,10 @@
                     //     reload:true
                     //
                     // });
-                    api.closeWin();
+                    setTimeout(function(){
+                        api.closeWin();
+                    },2000)
+
                   }
 
                 } else {
