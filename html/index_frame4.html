@@ -361,6 +361,7 @@
     var token;
     apiready = function() {
       token = $api.getStorage('token');
+
       if(token){
           api.parseTapmode();
           fnpersonalInfo();
@@ -393,6 +394,33 @@
               $api.html(stylelist23, html23);
             }
           });
+          api.setCustomRefreshHeaderInfo({
+              bgColor: '#f0f0f0',
+              image: {
+                pull: [
+                    'widget://image/Refresh/dropdown_anim_00.png',
+                    'widget://image/Refresh/dropdown_anim_01.png',
+                    'widget://image/Refresh/dropdown_anim_02.png',
+                    'widget://image/Refresh/dropdown_anim_03.png',
+                    'widget://image/Refresh/dropdown_anim_04.png',
+                    'widget://image/Refresh/dropdown_anim_05.png',
+                    'widget://image/Refresh/dropdown_anim_06.png',
+                    'widget://image/Refresh/dropdown_anim_07.png',
+                    'widget://image/Refresh/dropdown_anim_08.png',
+                    'widget://image/Refresh/dropdown_anim_09.png',
+                    'widget://image/Refresh/dropdown_anim_10.png',
+              ],
+              load: [
+                'widget://image/Refresh/dropdown_loading_00.png',
+                'widget://image/Refresh/dropdown_loading_01.png',
+                'widget://image/Refresh/dropdown_loading_02.png'
+            ]}
+          }, function() {
+                  //下拉刷新被触发，自动进入加载状态，使用 api.refreshHeaderLoadDone() 手动结束加载中状态
+                  //下拉刷新被触发，使用 api.refreshHeaderLoadDone() 结束加载中状态
+
+                        fnpersonalInfo();
+              });
       }else{
         $api.rmStorage('token');
         api.openWin({
@@ -403,7 +431,7 @@
             }
         });
       }
-      
+
     }
     function fnpersonalInfo(){
       var uri = '/user';
@@ -419,6 +447,9 @@
             }
       },function(ret, err){
           if (ret.status == 200 ) {
+            setTimeout(function(){
+                api.refreshHeaderLoadDone()
+            },0)
               //头像
               var title1 = $api.byId("imgs");
               var html4 = '';

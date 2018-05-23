@@ -104,19 +104,11 @@
               "version": version,
               "session": token
           }
-          // data: {
-          //     values: {
-          //         name: 'haha'
-          //     },
-          //     files: {
-          //         file: 'fs://a.gif'
-          //     }
-          // }
       },function(ret, err){
           if (ret.status == 200) {
             setTimeout(function(){
                 api.refreshHeaderLoadDone()
-            },3000)
+            },0)
             if (ret.data == '') {
                 var attentionsss = $api.byId('attention');
                 htmlss = '<li class="attention1">当前你还未添加关注过人</li>';
@@ -222,9 +214,6 @@
                 }
             }, function(ret) {
                 if (ret.eventType == 'right') {
-                    // console.log(id);
-
-
                     api.ajax({
                         url: host + apiUri + '/user/follow',
                         method: 'post',
@@ -232,17 +221,13 @@
                             "source": api.systemType,
                             "version": version,
                             "session": token
-                        },
-                        data: {
-                            values: {
-                                follow_id: img_id
-                            }
                         }
                     }, function(ret, err) {
                         // console.log(JSON.stringify(ret));
                         // var user = $api.byId('userDelete_' + id + '');
                         // html = ''
                         if (ret.status == 200) {
+                          console.log(JSON.stringify(ret));
                           toolbarlist.setAttribute("data-click", 1);
                           toolbarlist.src = "../image/my/attention_j.png";
                             // fnAttention();
@@ -314,11 +299,6 @@
                           "source": api.systemType,
                           "version": version,
                           "session": token
-                      },
-                      data: {
-                          values: {
-                              follow_id: img_id
-                          }
                       }
                   }, function(ret, err) {
                       // console.log(JSON.stringify(ret));
