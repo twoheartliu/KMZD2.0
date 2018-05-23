@@ -125,12 +125,12 @@
                 <li onclick="fnSetGender();">
                     <div class="fl">性别</div>
                     <div class="fr"> > </div>
-                    <div class="fr">未填写</div>
+                    <div class="fr" id="id-setGender">未填写</div>
                 </li>
-                <li id="dateShowBtn">
+                <li id="fnBirthday">
                     <div class="fl">生日</div>
                     <div class="fr"> > </div>
-                    <div class="fr"><input type="text" id="dateSelectorTwo" class="dateSelectorOne" placeholder="选择日期" readonly="readonly"></div>
+                    <div class="fr"><input type="text" id="dateSelectorOneBirthday" onclick='Timestamp()' class="dateSelectorOneBirthday" placeholder='选择日期' value="" readonly="readonly"></div>
                 </li>
 
             </ul>
@@ -141,8 +141,6 @@
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/common.js"></script>
-<script src="../script/select/iScroll.js"></script>
-<script src="../script/select/MdatePost.js"></script>
 <script type="text/javascript">
     var token;
     apiready = function() {
@@ -162,8 +160,10 @@
         // return Y+M+D+h+m+s;
         return Y + M + D;
     }
-    var gender;
-    function fnSetGender() {
+    var gender = '';
+
+    //  选择性别
+    function fnSetGender(id) {
         api.actionSheet({
             title: '选择性别',
             cancelTitle: '取消',
@@ -172,66 +172,109 @@
             if (ret.buttonIndex >= 3) {
                 return;
             }
+
+            var idSetGender = $api.byId('id-setGender');
             gender = ret.buttonIndex === 1 ? 1 : 2;
-            // console.log(gender);
+            if (gender == 1) {
+                // idSetGender.value = '男';
+                $api.html(idSetGender, '男');
+            } else {
+                $api.html(idSetGender, '女');
+            }
             var index = ret.buttonIndex;
-            var uri = '/user/edit';
-            api.ajax({
-                url: host + apiUri + uri,
-                method: 'post',
-                dataType: 'json',
-                headers: {
-                    "source": api.systemType,
-                    "version": version,
-                    "session": token,
-                },
-                data: {
-                    values: {
-                        "name": "sex",
-                        "value": gender
-                    }
-                }
-            }, function(ret, err) {
-                // console.log(ret.status);
-                if (ret.status == 200) {
-                    var stylelist12 = $api.byId('sex');
-                    if (gender == 1) {
-                        var html12 = "男";
-                        $api.html(stylelist12, html12);
-
-                    } else if (gender == 2) {
-                        var html12 = "女";
-                        $api.html(stylelist12, html12);
-                    }
-                }
-            });
-
-
-            // fnUpdateUserInfo('gender',gender)
+            console.log(JSON.stringify(ret.buttonIndex));
         });
     }
+    // 选择生日
+    var html4 = '';
+
+    function Timestamp() {
+        api.openPicker({
+            type: 'date',
+            date: '2014-05-01',
+            // date: year + '年' + month + '月01日',
+            title: '选择时间'
+        }, function(ret, err) {
+            if (ret) {
+                var inputsssss = $api.byId('dateSelectorOneBirthday');
+                //    inputsssss.value = html3;
+                //  console.log( JSON.stringify( ret ));
+                html4 = ret.year + '-' + ret.month + '-' + ret.day;
+                // console.log(html4);
+                // $api.html(inputsssss, html4)
+                inputsssss.value = html4;
+
+            } else {
+                alert(JSON.stringify(err));
+            }
+        });
+    }
+    // 确认
+    function fnBabyAdd() {
+        // console.log(html4);
+        // console.log(gender);
+        if (html4 == '' && gender == '') {
+            api.toast({              
+                msg:   '生日或性别未填写',
+                duration:  2000,
+                location:   'middle'          
+            });
+        } else {
+            if (html4 == '') {
+                api.toast({              
+                    msg:   '生日未填写',
+                    duration:  2000,
+                    location:   'middle'          
+                });
+            } else if (gender == '') {
+                api.toast({              
+                    msg:   '性别未填写',
+                    duration:  2000,
+                    location:   'middle'          
+                });
+            } else {
+                var uri = '/user/baby';
+                api.ajax({
+                    url: host + apiUri + uri,
+                    method: 'post',
+                    dataType: 'json',
+                    headers: {
+                        "source": api.systemType,
+                        "version": version,
+                        "session": token,
+                    },
+                    data: {
+                        values: {
+                            sex: gender,
+                            birth: html4,
+                        },
+                    }
+                }, function(ret, err) {
+                    if (ret.status == 200) {
+                        api.toast({              
+                            msg:   '添加成功',
+                            duration:  2000,
+                            location:   'middle'          
+                        });
+                        var addbaby = 1;
+                        api.sendEvent({
+                            name: 'addbaby',
+                            extra: {
+                                addbaby: addbaby
+                            }
+                        });
+                        setTimeout(function() {
+                            api.closeWin();
+                        }, 2000)
+                    }
+                })
+
+            }
+        }
+
+
+    }
 </script>
-<script type="text/javascript">
-    new Mdate("dateShowBtn", {
-        acceptId: "dateSelectorTwo",
-        beginYear: "2010",
-        beginMonth: "10",
-        beginDay: "24",
-        endYear: "2025",
-        endMonth: "1",
-        endDay: "1",
-        format: "-"
-    })
-    new Mdate("fnBirthday", {
-        acceptId: "dateSelectorOneBirthday",
-        beginYear: "2010",
-        beginMonth: "10",
-        beginDay: "24",
-        endYear: "2025",
-        endMonth: "1",
-        endDay: "1",
-        format: "-"
-    })
-</script>
+
 
 </html>
