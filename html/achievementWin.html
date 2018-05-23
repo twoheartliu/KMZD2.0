@@ -66,7 +66,7 @@
 
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
-
+<script type="text/javascript" src="../script/message.js"></script>;
 <script type="text/javascript">
     function goback() {
         api.closeWin({
@@ -75,6 +75,10 @@
     }
 
     apiready = function() {
+          api.addEventListener({
+        name: 'ok'
+    }, function(ret, err) {
+      if(ret.value.wangluo){
         var header = $api.byId('secHeader');
         $api.fixStatusBar(header);
         var headerPos = $api.offset(header);
@@ -92,6 +96,37 @@
             },
             bounces: false,
         });
+
+      }
+    });
+
+    var connectionType = api.connectionType;
+    if(connectionType == "none"){
+    	netWorkNone();
+
+    }else{
+
+
+      var header = $api.byId('secHeader');
+      $api.fixStatusBar(header);
+      var headerPos = $api.offset(header);
+      api.openFrame({
+          name: 'achievementWin_frame',
+          url: './achievementWin_frame.html',
+          rect: {
+              x: 0,
+              y: headerPos.h,
+              w: 'auto',
+              h: 'auto'
+          },
+          pageParam: {
+              name: 'test'
+          },
+          bounces: false,
+      });
+
+    }
+
 
     }
 </script>

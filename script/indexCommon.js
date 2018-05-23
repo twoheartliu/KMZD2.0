@@ -55,6 +55,7 @@ function fnBoFangyinpinxinxiing(play) {
           "session": token
       }
     }, function(ret, err) {
+      if(ret){
       if(ret.status == 200){
 
             if (playlistid) {
@@ -88,13 +89,10 @@ function fnBoFangyinpinxinxiing(play) {
 
       }else{
         netRecordingModuleing(playgedan);
-        // alert(ret.message);
-        // $api.rmStorage('token');
-        // api.openWin({
-        //     name: 'login',
-        //     url: '../login.html'
-        // });
       }
+    }else{
+       netWork(err);
+    }
     });
 }
 //播放歌单音频
@@ -111,6 +109,9 @@ function fnBoFangyinpinxinxi() {
           "session": token
       }
     }, function(ret, err) {
+      if(ret){
+
+
       if(ret.status == 200){
             if (playlistid) {
                 api.sendEvent({
@@ -143,14 +144,10 @@ function fnBoFangyinpinxinxi() {
 
       }else{
         netRecordingModule(playgedan);
-        // alert(ret.message);
-        // $api.rmStorage('token');
-        // api.openWin({
-        //     name: 'login',
-        //     url: '../login.html'
-        // });
       }
-
+    }else{
+      netWork(err);
+    }
     });
 }
 
@@ -452,12 +449,15 @@ function netPlayLieIdUrl(playlistid) {
               "session": token
           }
       }, function(ret, err) {
-
+       if(ret){
         if (ret.status == 200) {
             fnZhuanJiZhanshi(ret);
         } else {
           netMessage(ret);
         }
+      }else{
+        netWork(err);
+      }
       });
     }
 }
