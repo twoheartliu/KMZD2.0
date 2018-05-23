@@ -303,7 +303,14 @@
         },function(ret, err){
             if (ret) {
                 if (ret.status == 200) {
-                  api.closeWin();
+                  api.toast({
+                      msg: '添加成功',
+                      duration: 2000,
+                      location: 'bottom'
+                  });
+                  setTimeout(function(){
+                      api.closeWin();
+                  },2000)
                 }else {
                   var retr = ret.message;
                   console.log(retr);

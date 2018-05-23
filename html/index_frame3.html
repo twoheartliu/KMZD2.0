@@ -275,14 +275,21 @@
         }
 
         .friend_list .user_img {
-            width: 100%;
+            /*width: 100%;*/
+            width: 70px;
+            height: 70px;
+            border-radius: 35px;
+            overflow: hidden;
+            margin: 0 auto;
+
             text-align: center;
         }
 
         .friend_list .user_img>img {
-            width: 70px;
-            height: 70px;
+            width: 100%;
+            /*height: 70px;*/
             line-height: 70px;
+
         }
 
         .friend_list p {
@@ -371,11 +378,12 @@
         <!-- "../image/read/KM_tp.jpg" -->
     </div>
     <div class="p20px">
-        <div class="navbar" id="scriptCategory">
-            <div class="navbar-item " tapmode="navbar-item-hov" onclick="fnReadListWin();"><img src="../image/read/KM_pymf1.png" alt="">小学晨读</div>
+        <div id="scriptCategory">
+
+            <!-- <div class="navbar-item " tapmode="navbar-item-hov" onclick="fnReadListWin();"><img src="../image/read/KM_pymf1.png" alt="">小学晨读</div>
             <div class="navbar-item " tapmode="navbar-item-hov" onclick="fnReadListWin();"><img src="../image/read/KM_pymf2.png" alt="">亲子启蒙</div>
             <div class="navbar-item " tapmode="navbar-item-hov" onclick="fnReadListWin();"><img src="../image/read/KM_pymf3.png" alt="">配音模仿</div>
-            <div class="navbar-item " tapmode="navbar-item-hov" onclick="fnReadListWin();"><img src="../image/read/KM_pymf4.png" alt="">诗歌美文</div>
+            <div class="navbar-item " tapmode="navbar-item-hov" onclick="fnReadListWin();"><img src="../image/read/KM_pymf4.png" alt="">诗歌美文</div> -->
         </div>
         <!-- <div class="navbar">
             <div class="navbar-item " tapmode="navbar-item-hov" onclick="fnGouXueJingDIanWin();"><img src="../image/read/KM_pymf5.png" alt="">国学经典</div>
@@ -621,10 +629,17 @@
     }
     function fnCategoryAlbum(data_){
       var stylelist = $api.byId('scriptCategory');
-      var html = '';
+      var html = '<div class="navbar">';
       for (var i = 0; i < data_.data.length; i++) {
-        html +='<div class="navbar-item " tapmode="navbar-item-hov" onclick="fnReadListWin(' + data_.data[i].category_id + ');"><img src="http://47.100.11.38/kmzd/public/uploads/recitation/' + data_.data[i].category_icon + '" alt="">' + data_.data[i].category_name + '</div>';
+
+        if (i == 3) {
+          html += '<div class="navbar-item " tapmode="navbar-item-hov" onclick="fnReadListWin(' + data_.data[i].category_id + ');"><img src="http://47.100.11.38/kmzd/public/uploads/recitation/' + data_.data[i].category_icon + '" alt="">' + data_.data[i].category_name + '</div></div><div class="navbar">'
+        }else {
+          html +='<div class="navbar-item " tapmode="navbar-item-hov" onclick="fnReadListWin(' + data_.data[i].category_id + ');"><img src="http://47.100.11.38/kmzd/public/uploads/recitation/' + data_.data[i].category_icon + '" alt="">' + data_.data[i].category_name + '</div>';
+        }
+
       }
+      html += '</div>'
       $api.html(stylelist, html);
     }
     function fnreadingAloudRecommended() {

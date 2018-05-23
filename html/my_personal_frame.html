@@ -457,7 +457,7 @@
               } else {
                   var html13 = '';
                   for (var i = 0; i < ret.data.user_records.length; i++) {
-                      html13 += '<div class="egret-flex-item" ><div class="egret-flex-items" onclick="openFM('+ret.data.user_records[1].id+')"> <div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 fl">'+ret.data.user_records[1].title+'</span></div><div class="egret-flex-item-shelf03"><div><img src="../image/KM_play.png" alt=""><span>'+ret.data.user_records[1].play_total+'</span></div><div><img src="../image/KM_zf.png" alt=""><span>'+ret.data.user_records[1].share_total+'</span></div><div><img src="../image/KM_dz.png" alt=""><span>'+ret.data.user_records[1].good_total+'</span></div></div></div></div><div class="egret-flex-item-shelf04" onclick="fnOpenPlayMore()"><img src="../image/KM_list_more.png" alt=""></div></div><div class="hdivider"></div>';
+                      html13 += '<div class="egret-flex-item" ><div class="egret-flex-items" onclick="openFM('+ret.data.user_records[i].id+')"> <div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 fl">'+ret.data.user_records[i].title+'</span></div><div class="egret-flex-item-shelf03"><div><img src="../image/KM_play.png" alt=""><span>'+ret.data.user_records[i].play_total+'</span></div><div><img src="../image/KM_zf.png" alt=""><span>'+ret.data.user_records[i].share_total+'</span></div><div><img src="../image/KM_dz.png" alt=""><span>'+ret.data.user_records[i].good_total+'</span></div></div></div></div><div class="egret-flex-item-shelf04" onclick="fnOpenPlayMore(' +ret.data.user_records[i].id+ ')"><img src="../image/KM_list_more.png" alt=""></div></div><div class="hdivider"></div>';
                   }
                   $api.html(wrap, html13);
               }
@@ -646,7 +646,7 @@
       });
     }
     //打开更多
-    function fnOpenPlayMore() {
+    function fnOpenPlayMore(id) {
         var dialogBox = api.require('dialogBox');
         dialogBox.actionMenu({
             rect: {
@@ -701,7 +701,7 @@
                 });
                 // alert(1);
             } else if (ret.index == "1") {
-                fnOpenAddListening()
+                fnOpenAddListening(id)
                 dialogBox.close({
                     dialogName: 'alert'
                 });
@@ -797,12 +797,12 @@
         });
     }
     //添加到听单
-    function fnOpenAddListening() {
+    function fnOpenAddListening(id) {
         api.openWin({
             name: 'addListening',
             url: './add_listening.html',
             pageParam: {
-                name: 'test'
+                songListID: id
             }
         });
     }

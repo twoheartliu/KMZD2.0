@@ -403,7 +403,7 @@
             }
         });
       }
-
+      
     }
     function fnpersonalInfo(){
       var uri = '/user';
@@ -411,6 +411,7 @@
           url: host + apiUri + uri,
           method: 'get',
           dataType: 'json',
+          cache: false,
           headers: {
                 "source": api.systemType,
                 "version": version,
@@ -597,6 +598,7 @@
           url: host + apiUri + '/user/info',
           method: 'get',
           dataType: 'json',
+          cache: false,
           headers: {
                 "source": api.systemType,
                 "version": version,
