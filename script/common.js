@@ -8,7 +8,6 @@ var updatePhotoUrl = 'http://47.100.11.38/kmzd/public/uploads/photo/';
 // if(token){
 //   tokens = token;
 // }
-
 // var fs = api.require('fs');
 // fs.open({
 //     path: 'fs://token/token.txt',
