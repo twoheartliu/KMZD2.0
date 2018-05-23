@@ -118,22 +118,26 @@
         .nav-right {
             line-height: 65px;
             font-size: 32px;
-            color: #666
+            color: #666;
         }
 
-        ;
         .nav-tit {
             height: 32px;
             padding-left: 8px;
             line-height: 32px;
         }
-
+        .nav-txt{
+          color: #535354;
+          font-size: 14px;
+        }
         .nav-txt>p {
             color: #535354;
+            font-size: 14px;
         }
 
         .nav-txt>p: nth-child(2) {
             color: #ccc;
+            font-size: 13px;
         }
 
         .sec-tit {
@@ -145,12 +149,16 @@
         .sec-discuss {
             background-color: #fff;
             padding: 8px;
-            border-bottom: 1px solid #e0e0e0;
+            border-bottom: 3px solid #e0e0e0;
         }
 
         .sec-img {
             display: inline-block;
             vertical-align: top;
+            width: 45px;
+            height: 45px;
+            border-radius: 22.5px;
+            overflow: hidden;
         }
 
         .sec-img img {
@@ -172,19 +180,21 @@
             font-size: 13px;
         }
 
-        .dis-right>span {
+        .dis-right>div {
             color: #ccc;
-            font-size: 12px;
+            font-size: 14px;
         }
-
-        .dis-right>img {
-            width: 18px;
-            height: 18px;
+        .dis-right{
+          padding-top:10px;
+        }
+        .dis-right img {
+            width: 16px;
+            height: 16px;
             vertical-align: top;
         }
 
         .dis-txt {
-            margin-left: 40px;
+            margin-left: 45px;
             padding-bottom: 10px;
             color: #535354;
         }
@@ -206,6 +216,7 @@
             color: #ccc;
             font-size: 14px;
             padding-right: 10px;
+            margin-bottom: 5px;
         }
         .collectmusicFxs{width: 25px;}
         .collectmusicFxs img{width: 100%;}
@@ -228,7 +239,8 @@
         </nav>
         <section id="section">
             <div class="sec-tit" id="allcommentS">所有评论</div>
-            <div class="sec-discuss" id="comments">
+
+            <div id="comments">
                 <!-- <div class="dis-left fl">
                     <div class="sec-img"><img src="../image/icon-person.png" alt=""></div>
                     <div class="sec-txt">
@@ -372,7 +384,7 @@
                     // return Y+M+D+h+m+s;
                     var dates = Y + M + D;
                     if (ret.data[i].re_nick_name) {
-                        html += '<div class="dis-left fl"><div class="sec-img">';
+                        html += '<div class="sec-discuss"><div class="dis-left fl"><div class="sec-img">';
                         if(ret.data[i].photo){
                           html += '<img src="'+ret.data[i].photo+'" alt="">';
                         }else{
@@ -394,9 +406,9 @@
 
                         html += '</div><div class="fr"><span id="corner_mark'+ret.data[i].comment_id+'">'+ret.data[i].good_total +'</span></div></div><div class="clear"></div><div class="dis-txt">' + ret.data[
                                 i].content + '</div><div class="reply"><div  onclick="fnOpenMessageNotDetail(' + ret.data[i].comment_id + ', \'' + ret.data[i].nick_name + '\')">回复</div></div><div class="discuss"><span>' + ret.data[i].re_nick_name + ':' + ret.data[i].re_content +
-                            '</span></div>';
+                            '</span></div></div>';
                     } else {
-                        html += '<div class="dis-left fl"><div class="sec-img">';
+                        html += '<div class="sec-discuss"><div class="dis-left fl"><div class="sec-img">';
                         if(ret.data[i].photo){
                           html += '<img src="'+ret.data[i].photo+'" alt="">';
                         }else{
@@ -416,7 +428,7 @@
                               }
                             }
                         html += '</div><div class="fr"><span id="corner_mark'+ret.data[i].comment_id+'">'+ret.data[i].good_total +'</span></div></div><div class="clear"></div><div class="dis-txt">' + ret.data[
-                                i].content + '</div><div class="reply"><div  onclick="fnOpenMessageNotDetail(' + ret.data[i].comment_id + ', \'' + ret.data[i].nick_name + '\')">回复</div></div>';
+                                i].content + '</div><div class="reply"><div  onclick="fnOpenMessageNotDetail(' + ret.data[i].comment_id + ', \'' + ret.data[i].nick_name + '\')">回复</div></div></div>';
                     }
                 }
                 $api.html(stylelist, html);

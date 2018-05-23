@@ -685,14 +685,13 @@
                     var product = ret.data[i].record_total;
                     var fans = ret.data[i].fans_total;
                     var title = ret.data[i].photo;
-
                     // console.log(title);
                     if(title == null ){
                       title =  "../image/KM_tx.png";
                     }else{
                       var photo =  title.substring(0, 4);
                       if(photo == 'http' ){
-                        title =   ret.data[i].photo;
+                        title = ret.data[i].photo;
                       }
                       if(photo != 'http' ){
                         title =  updatePhotoUrl + ret.data[i].photo;

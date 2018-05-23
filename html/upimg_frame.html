@@ -319,7 +319,14 @@
                     html4 = '<img src="../image/KM_tx.png" alt="" />';
                     $api.html(title1, html4);
                 } else {
+                  var photo =  ret.data.photo.substring(0, 4);
+                  if(photo == 'http' ){
+                    // title = ret.data[i].photo;
+                    html4 = '<img src="' + ret.data.photo + '" alt="" />';
+                  }
+                  if(photo != 'http' ){
                     html4 = '<img src="' + updatePhotoUrl + ret.data.photo + '" alt="" />';
+                  }
                     $api.html(title1, html4);
                 }
                 fn222222(ret.data);
