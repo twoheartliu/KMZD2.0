@@ -149,6 +149,7 @@
 
         #fnBirthday .dateSelectorOneBirthday {
             text-align: right;
+            height: 45px;
             font-size: 14px;
             line-height: 45px;
             color: #ccc;
@@ -187,7 +188,7 @@
             <li id="fnBirthday">
                 <div class="fl">生日</div>
                 <div class="fr"> > </div>
-                <div class="fr"><input type="text" id="dateSelectorOneBirthday" class="dateSelectorOneBirthday" placeholder='' value="" readonly="readonly"> </div>
+                <div class="fr"><input type="text" id="dateSelectorOneBirthday" onclick='Timestamp()' class="dateSelectorOneBirthday" placeholder='选择日期' value="" readonly="readonly"></div>
             </li>
             <!-- <li onclick="fnArea();">
                 <div class="fl">地区</div>
@@ -231,7 +232,7 @@
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/common.js"></script>
 <script src="../script/select/iScroll.js"></script>
-<script src="../script/select/Mdate.js"></script>
+<!-- <script src="../script/select/Mdate.js"></script> -->
 <script type="text/javascript">
     var x = 1;
     var token;
@@ -254,11 +255,116 @@
         }, function(ret, err) {
             goback();
         });
+        api.addEventListener({
+            name: 'addbaby'
+        }, function(ret, err) {
+            fninfo();
+        });
         // var periodSelector = api.require('periodSelector');
         fninfo();
 
     };
+    // 设置用户出生日期
+    var html4;
+    function Timestamp() {
+        api.openPicker({
+            type: 'date',
+            date: '2014-05-01',
+            // date: year + '年' + month + '月01日',
+            title: '选择时间'
+        }, function(ret, err){
+            if( ret ){
+                var inputsssss = $api.byId('dateSelectorOneBirthday').value;
+             //    inputsssss.value = html3;
+            //  console.log(inputsssss);
+                //  console.log( JSON.stringify( ret ));
+                 html4 = ret.year + '-' + ret.month + '-' + ret.day;
+                //  console.log(html4);
+                 $api.html(inputsssss, html4);
+                 var uri = '/user/edit';
+                 api.ajax({
+                     url: host + apiUri + uri,
+                     method: 'post',
+                     dataType: 'json',
+                     headers: {
+                         "source": api.systemType,
+                         "version": version,
+                         "session": token,
+                     },
+                     data: {
+                         values: {
+                             name: 'birth',
+                             value: html4,
+                         },
+                     }
+                 },function(ret, err){
 
+                    //  console.log(JSON.stringify( ret ));
+                    //  console.log(JSON.stringify( err ));
+                     if (ret.status == 200) {
+                         fninfo()
+                        //  alert( JSON.stringify( ret ) );
+                     } else {
+                         alert( JSON.stringify( err ) );
+                     }
+                 });
+
+            }else{
+                 alert( JSON.stringify( err ) );
+            }
+        });
+    }
+    // 修改宝宝出生日期
+    var babyBirth;
+    function fnSetBabyBirth(id) {
+        // console.log(id);
+        // console.log(ret);
+        api.openPicker({
+            type: 'date',
+            date: '2014-05-01',
+            // date: year + '年' + month + '月01日',
+            title: '选择时间'
+        }, function(ret, err){
+            if( ret ){
+                var inputsssss = $api.byId('dateSelectorTwo');
+             //    inputsssss.value = html3;
+                //  console.log( JSON.stringify( ret ));
+                 babyBirth = ret.year + '-' + ret.month + '-' + ret.day;
+                //  console.log(babyBirth);
+                 $api.html(inputsssss, html4);
+                 var uri = '/user/update_baby';
+                 api.ajax({
+                     url: host + apiUri + uri,
+                     method: 'post',
+                     dataType: 'json',
+                     headers: {
+                         "source": api.systemType,
+                         "version": version,
+                         "session": token,
+                     },
+                     data: {
+                         values: {
+                             birth: babyBirth,
+                             id: id,
+                         },
+                     }
+                 },function(ret, err){
+                     if (ret.status == 200) {
+                        //   console.log( JSON.stringify( ret ) );
+                         fninfo()
+                     } else {
+                         console.log( JSON.stringify( err ) );
+                     }
+                 });
+
+            }else{
+                 alert( JSON.stringify( err ) );
+            }
+        });
+    }
+    // 获取用户信息
+    var html3;
+    var baby_id
     function fninfo() {
         var uri = '/user/info';
         api.ajax({
@@ -271,6 +377,7 @@
                 "session": token,
             },
         }, function(ret, err) {
+            // console.log(JSON.stringify(ret));
             if (ret.status == 200) {
                 //昵称
                 var stylelist = $api.byId('nickName');
@@ -299,34 +406,29 @@
                     $api.html(stylelist2, html2);
                 }
                 //年龄
-                // var stylelist3 = $api.byId('date');
-                var html3;
+                var stylelist3 = $api.byId('date');
+
                 if (ret.data.birth == null) {
                     html3 = '选择日期';
                     var inputsssss = $api.byId('dateSelectorOneBirthday');
                     inputsssss.value = html3;
                     // $api.html(stylelist3, html3);
+
                 } else {
                     html3 = timestampToTime(ret.data.birth);
                     var inputsssss = $api.byId('dateSelectorOneBirthday');
                     inputsssss.value = html3;
+                    // $api.html(inputsssss, html3);
                 }
                 //头像
                 var title1 = $api.byId("tx");
                 var html4 = '';
                 if (ret.data.photo == null) {
-                  // console.log(ret.data.photo);
+                    // console.log(ret.data.photo);
                     html4 = '<img src="../image/KM_tx.png" alt="" />';
                     $api.html(title1, html4);
                 } else {
-                  var photo =  ret.data.photo.substring(0, 4);
-                  if(photo == 'http' ){
-                    // title = ret.data[i].photo;
-                    html4 = '<img src="' + ret.data.photo + '" alt="" />';
-                  }
-                  if(photo != 'http' ){
                     html4 = '<img src="' + updatePhotoUrl + ret.data.photo + '" alt="" />';
-                  }
                     $api.html(title1, html4);
                 }
                 fn222222(ret.data);
@@ -335,6 +437,7 @@
         });
     }
 
+// 显示宝宝信息
     function fn222222(data) {
         var aaaa = data.baby.length;
         var baby = data.baby;
@@ -354,8 +457,9 @@
                 }
                 var j = i + 1;
                 var mydate = timestampToTime(baby[i].birthday);
-                htmls += '<div class="upimg_div"><div class="fl">宝宝' + j + '</div></div><ul id="baby"><li onclick="fnSetGenderBaby('+ data.baby[i].baby_id + ');"><div class="fl">性别</div><div class="fr"> > </div><div class="fr" id="sexBaby'+ data.baby[i].baby_id + '">' + sex +
-                    '</div></li><li id="dateShowBtn"><div class="fl">生日</div><div class="fr"> > </div><div class="fr" id="date"><input type="text" id="dateSelectorTwo" class="dateSelectorOne" placeholder="' + mydate +
+                htmls += '<div class="upimg_div"><div class="fl">宝宝' + j + '</div></div><ul id="baby"><li onclick="fnSetGenderBaby(' + data.baby[i].baby_id + ');"><div class="fl">性别</div><div class="fr"> > </div><div class="fr" id="sexBaby' + data.baby[
+                        i].baby_id + '">' + sex +
+                    '</div></li><li id="dateShowBtn"><div class="fl">生日</div><div class="fr"> > </div><div class="fr" id="date"><input onclick="fnSetBabyBirth('+ data.baby[i].baby_id +');" type="text" id="dateSelectorTwo" class="dateSelectorOne" placeholder="' + mydate +
                     '" readonly="readonly"></div></li></ul>';
             }
             $api.html(stylelists, htmls);
@@ -520,8 +624,7 @@
                                 appearance: 'rectangle'
                             }
                         },
-                    }, function(ret, err) {
-                    });
+                    }, function(ret, err) {});
                 }
 
             });
@@ -556,67 +659,67 @@
             }, function(ret, err) {
                 if (ret.status == 200) {
 
-                  api.ajax({
-                      url: host + apiUri + '/user/edit',
-                      method: 'post',
-                      headers: {
-                          "source": api.systemType,
-                          "version": version,
-                          "session": token
-                      },
-                      data: {
-                          values: {
-                              "name": 'photo',
-                              "value": ret.data,
-                          }
-                      }
-                  }, function(ret, err) {
-                    // console.log(ret.status);
-                      if (ret.status == 200) {
+                    api.ajax({
+                        url: host + apiUri + '/user/edit',
+                        method: 'post',
+                        headers: {
+                            "source": api.systemType,
+                            "version": version,
+                            "session": token
+                        },
+                        data: {
+                            values: {
+                                "name": 'photo',
+                                "value": ret.data,
+                            }
+                        }
+                    }, function(ret, err) {
+                        // console.log(ret.status);
+                        if (ret.status == 200) {
 
-                          // $api.byId('tx').innerHTML = '<img src=" ' + updatePhotoUrl + ret.data. + ' ">';
+                            // $api.byId('tx').innerHTML = '<img src=" ' + updatePhotoUrl + ret.data. + ' ">';
 
-                          api.ajax({
-                              url: host + apiUri + '/user/info',
-                              method: 'get',
-                              headers: {
-                                  "source": api.systemType,
-                                  "version": version,
-                                  "session": token
-                              },
-                          }, function(ret, err) {
-                              if (ret.status == 200) {
-                                  // $api.byId('tx').innerHTML = '<img src=" ' + updatePhotoUrl + ret.data.photo + ' ">';
-                                  var stylelist = $api.byId('tx');
-                                  var html = '<img src=" ' + updatePhotoUrl + ret.data.photo + '">';
-                                  $api.html(stylelist, html);
-                                  api.sendEvent({
-                                      name: 'netTitlePhoto',
-                                      extra: {
-                                          titlePhoto: '<img src=" ' + updatePhotoUrl + ret.data.photo + '">'
-                                      }
-                                  });
-                                  api.toast({
-                                      msg: '上传成功',
-                                      duration: 3000,
-                                      location: 'bottom'
-                                  });
-                              } else {
-                                  // api.toast({
-                                  //     msg: '上传失败，请重试',
-                                  //     duration: 3000,
-                                  //     location: 'bottom'
-                                  // });
-                              }
-                          });
-                      } else {
-                          api.toast({
-                              msg: '上传失败，请重试',
-                              duration: 3000,
-                              location: 'bottom'
-                          });
-                      }
-                  });
+                            api.ajax({
+                                url: host + apiUri + '/user/info',
+                                method: 'get',
+                                headers: {
+                                    "source": api.systemType,
+                                    "version": version,
+                                    "session": token
+                                },
+                            }, function(ret, err) {
+                                if (ret.status == 200) {
+                                    // $api.byId('tx').innerHTML = '<img src=" ' + updatePhotoUrl + ret.data.photo + ' ">';
+                                    var stylelist = $api.byId('tx');
+                                    var html = '<img src=" ' + updatePhotoUrl + ret.data.photo + '">';
+                                    $api.html(stylelist, html);
+                                    api.sendEvent({
+                                        name: 'netTitlePhoto',
+                                        extra: {
+                                            titlePhoto: '<img src=" ' + updatePhotoUrl + ret.data.photo + '">'
+                                        }
+                                    });
+                                    api.toast({
+                                        msg: '上传成功',
+                                        duration: 3000,
+                                        location: 'bottom'
+                                    });
+                                } else {
+                                    // api.toast({
+                                    //     msg: '上传失败，请重试',
+                                    //     duration: 3000,
+                                    //     location: 'bottom'
+                                    // });
+                                }
+                            });
+                        } else {
+                            api.toast({
+                                msg: '上传失败，请重试',
+                                duration: 3000,
+                                location: 'bottom'
+                            });
+                        }
+                    });
                 } else {
                     api.toast({
                         msg: '上传失败，请重试',
@@ -643,6 +746,7 @@
 
     }
     var gender;
+
     function fnSetGenderBaby(id) {
         api.actionSheet({
             title: '选择性别',
@@ -672,21 +776,22 @@
                 },
             }, function(ret, err) {
                 if (ret.status == 200) {
-                    var stylelist12 = $api.byId('sexBaby'+id);
+                    var stylelist12 = $api.byId('sexBaby' + id);
                     if (gender == 1) {
-                        console.log(111);
+                        // console.log(111);
                         var html12 = "男";
                         $api.html(stylelist12, html12);
 
                     } else if (gender == 2) {
-                        console.log(222);
+                        // console.log(222);
                         var html12 = "女";
                         $api.html(stylelist12, html12);
                     }
                 }
             });
-    });
-}
+        });
+    }
+
     function fnSetGender() {
         api.actionSheet({
             title: '选择性别',
@@ -981,27 +1086,6 @@
         });
     }
 </script>
-<script type="text/javascript">
-    new Mdate("dateShowBtn", {
-        acceptId: "dateSelectorTwo",
-        beginYear: "2010",
-        beginMonth: "10",
-        beginDay: "24",
-        endYear: "2025",
-        endMonth: "1",
-        endDay: "1",
-        format: "-"
-    })
-    new Mdate("fnBirthday", {
-        acceptId: "dateSelectorOneBirthday",
-        beginYear: "2010",
-        beginMonth: "10",
-        beginDay: "24",
-        endYear: "2025",
-        endMonth: "1",
-        endDay: "1",
-        format: "-"
-    })
-</script>
+
 
 </html>
