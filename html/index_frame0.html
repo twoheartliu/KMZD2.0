@@ -515,15 +515,7 @@
                 },3000)
                 fnPageLayoutAssignment(ret);
             } else {
-                alert(ret.message);
-                $api.rmStorage('token');
-                api.openWin({
-                    name: 'login',
-                    url: '../login.html',
-                    pageParam: {
-                        name: 'test'
-                    }
-                });
+                netMessage(ret);
             }
           }else{
             netWork(err);
@@ -614,12 +606,13 @@
     // }
 
     function fnSingLeWin(id) {
-
+        var ok = 'single';
         api.openWin({
             name: 'single',
             url: './single.html',
             pageParam: {
-                albumId: id
+                albumId: id,
+                ok:ok
             }
         });
     }

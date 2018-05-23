@@ -68,9 +68,12 @@
             name: 'single'
         });
     }
+    var ok;
     apiready = function() {
+      ok = api.pageParam.ok;
+      var oks = 'ok'+ok;
       api.addEventListener({
-          name: 'ok'
+          name: oks,
       }, function(ret, err) {
           if(ret.value.wangluo){
             var albumId = api.pageParam.albumId;
@@ -123,7 +126,7 @@
       });
       var connectionType = api.connectionType;
       if(connectionType == "none"){
-        netWorkNone();
+        netWorkNone(ok);
 
       }else{
         var albumId = api.pageParam.albumId;
