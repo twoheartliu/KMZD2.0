@@ -91,23 +91,28 @@
             border-radius: 10px;
             box-shadow: 0px 0px 5px #bbb;
             margin-top: 5px;
+            width:100%;
         }
 
         .single_img {
-            width: 130px;
-            height: 130px;
+            /*width: 130px;*/
+            /*height: 130px;*/
             padding: 10px;
+            width: 30%;
+            height:auto;
+            margin-top:8px;
         }
 
         .single_img img {
-            width: 100%;
+            width: 100px;
         }
 
         .single_l {
             padding: 10px 0;
             position: relative;
             height: 130px;
-            width: 184px;
+            /*width: 184px;*/
+            width: 62%;
         }
 
         .single_h1 {
@@ -144,9 +149,18 @@
         }
 
         .single_time {
-            font-size: 11px;
+            font-size: 12px;
             overflow: hidden;
-            height: 75px;
+            height: 25px;
+            margin-left: 6px;
+        }
+        .single_times {
+            font-size: 11px;
+            /*overflow: hidden;*/
+            width:100%;
+            height: 50px;
+            margin-left: 6px;
+            text-indent: 11px;
         }
 
         .playall {
@@ -250,12 +264,17 @@
         .sec-discuss {
             background-color: #fff;
             padding: 8px;
-            border-bottom: 1px solid #e0e0e0;
+            border-bottom: 3px solid #e0e0e0;
         }
 
         .sec-img {
             display: inline-block;
             vertical-align: top;
+            width: 45px;
+            height: 45px;
+            border-radius: 22.5px;
+            /*border: 1px solid red;*/
+            overflow: hidden;
         }
 
         .sec-img img {
@@ -276,20 +295,24 @@
             color: #ccc;
             font-size: 13px;
         }
-
-        .dis-right>span {
+        .dis-right{
+          color: #ccc;
+          font-size: 14px;
+          padding-top: 10px;
+        }
+        .dis-right>div {
             color: #ccc;
-            font-size: 12px;
+            font-size: 14px;
         }
 
-        .dis-right>img {
-            width: 18px;
-            height: 18px;
-            vertical-align: middle;
+        .dis-right img {
+            width: 16px;
+            height: 16px;
+            vertical-align: top;
         }
 
         .dis-txt {
-            margin-left: 40px;
+            margin-left: 45px;
             padding-bottom: 10px;
             color: #535354;
         }
@@ -306,10 +329,13 @@
         .reply {
             width: 100%;
             overflow: hidden;
+            margin-bottom: 5px;
         }
 
         .reply div {
             float: right;
+            font-size: 14px;
+            color:#999;
         }
 
         #section {
@@ -334,19 +360,21 @@
                 <div class="single_l fl">
                     <div class="single_h1" id="tingdanliebiaobiaoti">我是名称</div>
                     <div class="single_img_p_span">
-                        <div class="single_img_name fl">小许</div>
+                        <div class="single_img_name fl">作者：小许</div>
                         <div class="clear"></div>
                     </div>
-                    <div class="single_time">我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容</div>
+                    <div class="single_time">我是</div>
+                    <div class="single_times">我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容</div>
                 </div>
                 <div class="clear"></div>
-            </div>
-            <div class="clear"></div> -->
+            </div> -->
+            <div class="clear"></div>
         </div>
         <div class="playall">
             <section id="section">
                 <div class="sec-tit" id="allcommentS">所有评论</div>
-                <div class="sec-discuss" id="comments">
+                <div id="comments"></div>
+
 
                 </div>
                 <!-- <div class="sec-discuss">
@@ -462,20 +490,20 @@
                     if (ret.data.author_name != null) {
                           if(ret.data.brief){
                             html = '<div class="single"><div class="single_img fl"><img src="../image/index/pic.jpg" alt=""></div><div class="single_l fl"><div class="single_h1" id="tingdanliebiaobiaoti"> ' + ret.data.title +
-                                ' </div><div class="single_img_p_span"><div class="single_img_name fl">作者：  ' + ret.data.author_name + '</div><div class="clear"></div></div><div class="single_time">简介</div><div class="single_time">' + ret.data.brief +
+                                ' </div><div class="single_img_p_span"><div class="single_img_name fl">作者：  ' + ret.data.author_name + '</div><div class="clear"></div></div><div class="single_time">简介</div><div class="single_times">' + ret.data.brief +
                                 '</div></div><div class="clear"></div></div><div class="clear"></div>';
                           }else{
                             html = '<div class="single"><div class="single_img fl"><img src="../image/index/pic.jpg" alt=""></div><div class="single_l fl"><div class="single_h1" id="tingdanliebiaobiaoti"> ' + ret.data.title +
-                                ' </div><div class="single_img_p_span"><div class="single_img_name fl">作者：  ' + ret.data.author_name + '</div><div class="clear"></div></div><div class="single_time">简介</div><div class="single_time"></div></div><div class="clear"></div></div><div class="clear"></div>';
+                                ' </div><div class="single_img_p_span"><div class="single_img_name fl">作者：  ' + ret.data.author_name + '</div><div class="clear"></div></div><div class="single_time">简介</div><div class="single_times"></div></div><div class="clear"></div></div><div class="clear"></div>';
                           }
                     } else {
                       if(ret.data.brief){
                         html = '<div class="single"><div class="single_img fl"><img src="../image/index/pic.jpg" alt=""></div><div class="single_l fl"><div class="single_h1" id="tingdanliebiaobiaoti"> ' + ret.data.title +
-                            ' </div><div class="single_img_p_span"><div class="single_img_name fl">作者：</div><div class="clear"></div></div><div class="single_time">简介</div><div class="single_time">' + ret.data.brief +
+                            ' </div><div class="single_img_p_span"><div class="single_img_name fl">作者：</div><div class="clear"></div></div><div class="single_time">简介</div><div class="single_times">' + ret.data.brief +
                             '</div></div><div class="clear"></div></div><div class="clear"></div>';
                       }else{
                         html = '<div class="single"><div class="single_img fl"><img src="../image/index/pic.jpg" alt=""></div><div class="single_l fl"><div class="single_h1" id="tingdanliebiaobiaoti"> ' + ret.data.title +
-                            ' </div><div class="single_img_p_span"><div class="single_img_name fl">作者：</div><div class="clear"></div></div><div class="single_time">简介</div><div class="single_time"></div></div><div class="clear"></div></div><div class="clear"></div>';
+                            ' </div><div class="single_img_p_span"><div class="single_img_name fl">作者：</div><div class="clear"></div></div><div class="single_time">简介</div><div class="single_times"></div></div><div class="clear"></div></div><div class="clear"></div>';
                       }
                     }
                 }
@@ -537,7 +565,7 @@
                     var dates = Y + M + D;
                     commentExtraGoods = ret.data[i].good_total;
                     if (ret.data[i].re_nick_name) {
-                        html += '<div class="dis-left fl"><div class="sec-img">';
+                        html += '  <div class="sec-discuss" ><div class="dis-left fl"><div class="sec-img">';
                         if (ret.data[i].photo) {
                             html += '<img src="' + ret.data[i].photo + '" alt="">';
                         } else {
@@ -560,9 +588,9 @@
                         html += '</div><div class="fr"><span id="corner_mark' + ret.data[i].comment_id + '">' + ret.data[i].good_total + '</span></div></div><div class="clear"></div><div class="dis-txt">' + ret.data[
                                 i].content + '</div><div class="reply"><div  onclick="fnOpenMessageNotDetail(' + ret.data[i].comment_id + ', \'' + ret.data[i].nick_name + '\')">回复</div></div><div class="discuss"><span>' + ret.data[i].re_nick_name +
                             ':' + ret.data[i].re_content +
-                            '</span></div>';
+                            '</span></div></div>';
                     } else {
-                        html += '<div class="dis-left fl"><div class="sec-img">';
+                        html += '  <div class="sec-discuss" ><div class="dis-left fl"><div class="sec-img">';
                         if (ret.data[i].photo) {
                             html += '<img src="' + ret.data[i].photo + '" alt="">';
                         } else {
@@ -582,7 +610,7 @@
                             }
                         }
                         html += '</div><div class="fr"><span id="corner_mark' + ret.data[i].comment_id + '">' + ret.data[i].good_total + '</span></div></div><div class="clear"></div><div class="dis-txt">' + ret.data[
-                            i].content + '</div><div class="reply"><div  onclick="fnOpenMessageNotDetail(' + ret.data[i].comment_id + ', \'' + ret.data[i].nick_name + '\')">回复</div></div>';
+                            i].content + '</div><div class="reply"><div  onclick="fnOpenMessageNotDetail(' + ret.data[i].comment_id + ', \'' + ret.data[i].nick_name + '\')">回复</div></div></div>';
                     }
                     $api.html(stylelist, html);
                 }
