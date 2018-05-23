@@ -13,6 +13,7 @@ function netMessage(ret){
         duration:  timeOut,
         location:   'middle'          
     });
+    
     setTimeout("turn_login()",timeOut);
     // $api.rmStorage('token');
     // // api.openWin({
