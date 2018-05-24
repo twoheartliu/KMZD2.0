@@ -265,6 +265,7 @@ var wait = 60;
                     "version":version
                   },
               }, function(ret, err) {
+                if(ret){
                   if (ret.status == 200) {
                     var tokens = ret.data.token;
                     $api.setStorage('token',tokens);
@@ -278,6 +279,9 @@ var wait = 60;
                   }else{
                     netMessage(ret);
                   }
+                }else{
+                  netWork(err);
+                }
               });
             }else{
               api.toast({
@@ -360,6 +364,7 @@ var wait = 60;
             "version":version
           },
       }, function(ret, err) {
+        if(ret){
           if (ret.status == 200) {
             flag =1;
             var wait = 60;
@@ -369,8 +374,10 @@ var wait = 60;
             fnGetSmsVerificationCode(phone);
           }else{
             netMessage(ret);
-
           }
+        }else{
+          netWork(err);
+        }
       });
     }
     var getCode ;
@@ -394,12 +401,16 @@ var wait = 60;
               }
             }
         }, function(ret, err) {
+          if(ret){
             if (ret.status == 200) {
               getCode = ret.data.v_code;
               createDateTime = ret.create_date;
             }else{
               netMessage(ret);
             }
+          }else{
+            netWork(err);
+          }
         });
     }
     function time(o) {

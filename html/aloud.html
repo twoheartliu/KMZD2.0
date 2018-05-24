@@ -399,6 +399,7 @@
                 "session": token
             }
         }, function(ret, err) {
+          if(ret){
             if (ret.status == 200) {
 
 
@@ -414,6 +415,9 @@
             } else {
                 netMessage(ret);
             }
+          }else{
+            netWork(err);
+          }
         });
     }
     //赋值剧本标题
