@@ -75,8 +75,10 @@
     }
 
     apiready = function() {
+      ok = api.pageParam.ok;
+      var oks = 'ok'+ok;
           api.addEventListener({
-        name: 'ok'
+        name: 'oks'
     }, function(ret, err) {
       if(ret.value.wangluo){
         var header = $api.byId('secHeader');
@@ -102,7 +104,7 @@
 
     var connectionType = api.connectionType;
     if(connectionType == "none"){
-    	netWorkNone();
+    	netWorkNone(ok);
 
     }else{
 

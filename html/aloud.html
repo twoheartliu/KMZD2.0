@@ -371,7 +371,7 @@
             if (ret) {
 
             } else {
-                alert(JSON.stringify(err));
+                // alert(JSON.stringify(err));
             }
         });
     }
@@ -401,8 +401,6 @@
         }, function(ret, err) {
           if(ret){
             if (ret.status == 200) {
-
-
                 title = ret.data[0].title;
                 name = ret.data[0].author_name;
                 body = ret.data[0].body;
@@ -514,11 +512,11 @@
                     if (ret.status) {
 
                     } else {
-                        alert(JSON.stringify(err));
+                        // alert(JSON.stringify(err));
                     }
                 });
             } else {
-                alert(JSON.stringify(err));
+                // alert(JSON.stringify(err));
             }
         });
     }
@@ -551,7 +549,12 @@
                     }
                 });
             } else {
-                alert('请先录音');
+              api.toast({              
+                  msg:  '请先录音',
+                  duration:  2000,
+                  location:   'middle'          
+              });
+
             }
         } else {
             fnAletrssss();
@@ -599,7 +602,11 @@
               }
 
             } else {
-                alert('请先录音');
+                api.toast({              
+                    msg:  '请先录音',
+                    duration:  2000,
+                    location:   'middle'          
+                });
             }
         } else {
             fnAletrssss();
