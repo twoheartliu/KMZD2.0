@@ -15,6 +15,7 @@
         body {
             min-height: 100%;
             position: relative;
+            margin-bottom: 50px;
         }
 
         .fr {
@@ -94,8 +95,13 @@
             color: #D43C33;
         }
         /* 听单推荐 */
-
-        .hot>.hotC {
+        .hot{    width: 100%;
+                /* margin: 0 auto; */
+                text-align: center;
+                overflow: hidden;
+              }
+        .hotC {
+            width: 33%;
             position: relative;
             float: left;
             border-radius: 5px;
@@ -126,15 +132,17 @@
             margin-top: 10px;
         }
 
-        .hotC>img {
+        .hotC img {
             /*border-radius: 10px;*/
             width: 100%;
-            height: auto;
         }
 
         .listtitle {
             font-size: 12px;
             color: #000;
+            width: 100%;
+            height: 20px;
+
         }
         /*个性化推荐 */
 
@@ -255,6 +263,8 @@
             margin-right: 5px;
             box-sizing: border-box;
         }
+        .w100{width: 100%;}
+        #floorId{width: 100%;margin: 0 auto;}
         /*.fmbtnhover { background: #D8D9DA; }*/
     </style>
 </head>
@@ -283,50 +293,53 @@
         <!-- <div class="clear"></div> -->
     </div>
     <!-- 2 热门推荐 -->
-    <div id="floorId">
-        <!-- <div class="p20px">
-            <div class="sectionTitle">
-                <span class="TD_div fl">专辑推荐</span>
-                <span class="fr more" onclick="fnRecommendWin();">更多</span>
-                <div class="clear"></div>
-            </div>
-            <div class="hot" id="hot">
+    <div class="w100">
+      <div id="floorId">
+          <!-- <div class="p20px">
+              <div class="sectionTitle">
+                  <span class="TD_div fl">专辑推荐</span>
+                  <span class="fr more" onclick="fnRecommendWin();">更多</span>
+                  <div class="clear"></div>
+              </div>
+              <div class="hot" id="hot">
 
 
-            </div>
-        </div>
+              </div>
+          </div>
 
-        <div class="p20px">
-            <div class="sectionTitle mt20" onclick="">
-                <span class="TD_div fl">优秀作品</span>
-                <span class="fr more" onclick="fnOpenExcellentWorks();">更多</span>
-                <div class="clear"></div>
-            </div>
-            <div class="egret-flex-item">
-                <div class="egret-flex-items" tapmode="fmbtnhover" onclick="fnOpenPlay()">
-                    <div class="egret-flex-item-logo">
-                        <img src="../image/KM_album.png" alt="" class="">
-                    </div>
-                    <div class="egret-flex-item-shelf">
-                        <div class="egret-flex-item-shelf01">
-                            <span class="span1 fl">作品：<span>《沁园春·雪》</span></span>
-                        </div>
-                        <div class="egret-flex-item-shelf02"><span>唐嫣</span>
-                        </div>
-                        <div class="egret-flex-item-shelf03">
-                            <div><img src="../image/KM_play.png" alt=""><span>100</span></div>
-                            <div><img src="../image/KM_zf.png" alt=""><span>100</span></div>
-                            <div><img src="../image/KM_dz.png" alt=""><span>100</span></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="egret-flex-item-shelf04" onclick="fnOpenPlayMore()">
-                    <img src="../image/KM_list_more.png" alt="">
-                </div>
-            </div>
-            <div class="hdivider"></div>
-        </div> -->
+          <div class="p20px">
+              <div class="sectionTitle mt20" onclick="">
+                  <span class="TD_div fl">优秀作品</span>
+                  <span class="fr more" onclick="fnOpenExcellentWorks();">更多</span>
+                  <div class="clear"></div>
+              </div>
+              <div class="egret-flex-item">
+                  <div class="egret-flex-items" tapmode="fmbtnhover" onclick="fnOpenPlay()">
+                      <div class="egret-flex-item-logo">
+                          <img src="../image/KM_album.png" alt="" class="">
+                      </div>
+                      <div class="egret-flex-item-shelf">
+                          <div class="egret-flex-item-shelf01">
+                              <span class="span1 fl">作品：<span>《沁园春·雪》</span></span>
+                          </div>
+                          <div class="egret-flex-item-shelf02"><span>唐嫣</span>
+                          </div>
+                          <div class="egret-flex-item-shelf03">
+                              <div><img src="../image/KM_play.png" alt=""><span>100</span></div>
+                              <div><img src="../image/KM_zf.png" alt=""><span>100</span></div>
+                              <div><img src="../image/KM_dz.png" alt=""><span>100</span></div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="egret-flex-item-shelf04" onclick="fnOpenPlayMore()">
+                      <img src="../image/KM_list_more.png" alt="">
+                  </div>
+              </div>
+              <div class="hdivider"></div>
+          </div> -->
+      </div>
     </div>
+
 
 </body>
 <script type="text/javascript">
@@ -345,42 +358,45 @@
 
     var token;
     apiready = function() {
-      token = $api.getStorage('token');
-      fnBanners();
-      if(!token){
-        $api.rmStorage('token');
-        api.openWin({
-            name: 'login',
-            url: '../login.html',
-            pageParam: {
-                name: 'test'
-            }
-        });
-      }else{
-        var qqziliao = api.pageParam.qqziliao;
-        fnHomePageLayout();
-        api.setCustomRefreshHeaderInfo({
-            bgColor: '#f0f0f0',
-            image: {
-              pull: [
-                  'widget://image/Refresh/dropdown_anim_00.png',
-                  'widget://image/Refresh/dropdown_anim_01.png',
-                  'widget://image/Refresh/dropdown_anim_02.png',
-                  'widget://image/Refresh/dropdown_anim_03.png',
-                  'widget://image/Refresh/dropdown_anim_04.png',
-                  'widget://image/Refresh/dropdown_anim_05.png',
-                  'widget://image/Refresh/dropdown_anim_06.png',
-                  'widget://image/Refresh/dropdown_anim_07.png',
-                  'widget://image/Refresh/dropdown_anim_08.png',
-                  'widget://image/Refresh/dropdown_anim_09.png',
-                  'widget://image/Refresh/dropdown_anim_10.png',
-            ],
-            load: [
-              'widget://image/Refresh/dropdown_loading_00.png',
-              'widget://image/Refresh/dropdown_loading_01.png',
-              'widget://image/Refresh/dropdown_loading_02.png'
-          ]}
-        }, function() {
+          token = $api.getStorage('token');
+          fnBanners();
+          if(!token){
+            $api.rmStorage('token');
+            api.openWin({
+                name: 'login',
+                url: '../login.html',
+                pageParam: {
+                    name: 'test'
+                }
+            });
+          }else{
+            var qqziliao = api.pageParam.qqziliao;
+            fnHomePageLayout();
+            api.setCustomRefreshHeaderInfo({
+                bgColor: '#f0f0f0',
+                image: {
+                  pull: [
+                      'widget://image/Refresh/dropdown_anim_00.png',
+                      'widget://image/Refresh/dropdown_anim_01.png',
+                      'widget://image/Refresh/dropdown_anim_02.png',
+                      'widget://image/Refresh/dropdown_anim_03.png',
+                      'widget://image/Refresh/dropdown_anim_04.png',
+                      'widget://image/Refresh/dropdown_anim_05.png',
+                      'widget://image/Refresh/dropdown_anim_06.png',
+                      'widget://image/Refresh/dropdown_anim_07.png',
+                      'widget://image/Refresh/dropdown_anim_08.png',
+                      'widget://image/Refresh/dropdown_anim_09.png',
+                      'widget://image/Refresh/dropdown_anim_10.png',
+                ],
+                load: [
+                      'widget://image/Refresh/dropdown_anim_00.png',
+                      'widget://image/Refresh/dropdown_anim_01.png',
+                      'widget://image/Refresh/dropdown_anim_02.png',
+                      'widget://image/Refresh/dropdown_anim_03.png',
+                      'widget://image/Refresh/dropdown_anim_04.png',
+                      'widget://image/Refresh/dropdown_anim_05.png',
+              ]}
+            }, function() {
                 //下拉刷新被触发，自动进入加载状态，使用 api.refreshHeaderLoadDone() 手动结束加载中状态
                 //下拉刷新被触发，使用 api.refreshHeaderLoadDone() 结束加载中状态
 
@@ -470,13 +486,6 @@
         } else if (banner_types == 5) {
             lujing = content;
         }
-        // } else if (banner_types == 3) {
-        //
-        // } else if (banner_types == 4) {
-        //
-        // } else if (banner_types == 5) {
-        //
-        // }
         api.openWin({
             name: 'openBanner',
             url: lujing,
@@ -540,9 +549,10 @@
                 for (var s = 0; s < column * row; s++) {
                     if (data_.data[i].floor_type == "block") {
                         var cccc = column;
-                        var ssss = frameWidth - 50
+                        var ssss = frameWidth - 50;
                         var xxxx = ssss / cccc;
-                        html += '<div class="hotC" style="width:' + xxxx + 'px;" onclick="fnSingLeWin(' + data_.data[i].content[s].id + ');"><img src=" ' + host + '/' + data_.data[i].content[s].sma + '" alt=""><div class="listtitle"> ' + data_.data[
+                        // style="width:' + xxxx + 'px;"
+                        html += '<div class="hotC"  onclick="fnSingLeWin(' + data_.data[i].content[s].id + ');"><img src=" ' + host + '/' + data_.data[i].content[s].sma + '" alt=""><div class="listtitle"> ' + data_.data[
                             i].content[s].title + '</div></div>';
                     } else if (data_.data[i].floor_type == "list") {
                         html += '<div class="egret-flex-item"><div class="egret-flex-items" tapmode="fmbtnhover" onclick="fnOpenPlay(' + data_.data[i].content[s].id + ')"><div class="egret-flex-item-logo"><img src="' + host + '/' + data_.data[i].content[
@@ -557,7 +567,6 @@
                 html += '</div></div>';
             }
         }
-        // console.log(html);
         $api.html(stylelist, html);
     }
     // //接口  推荐听单
