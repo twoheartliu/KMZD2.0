@@ -62,10 +62,7 @@
     var userDeleteHtml;
     apiready = function() {
       token = $api.getStorage('token');
-      // fnDeleteUser();
       fnOpenUserButton();
-
-
       api.setCustomRefreshHeaderInfo({
           bgColor: '#f0f0f0',
           image: {
@@ -90,11 +87,9 @@
       }, function() {
               //下拉刷新被触发，自动进入加载状态，使用 api.refreshHeaderLoadDone() 手动结束加载中状态
               //下拉刷新被触发，使用 api.refreshHeaderLoadDone() 结束加载中状态
-
                     fnOpenUserButton();
           });
     };
-
     function fnOpenUserButton() {
       api.ajax({
           url: host + apiUri + '/user/fans',
@@ -108,7 +103,7 @@
           if (ret.status == 200) {
             setTimeout(function(){
                 api.refreshHeaderLoadDone()
-            },0)
+            },1000)
             if (ret.data == '') {
                 var attentionsss = $api.byId('attention');
                 htmlss = '<li class="attention1">当前你还未添加关注过人</li>';
@@ -121,9 +116,7 @@
                 html = '';
                 for (var i = 0; i < ret.data.fans_list.length; i++) {
                     var userDelete = $api.byId('userDelete');
-
                     var user_id = ret.data.fans_list[i].user_id;
-
                     if (ret.data.relation[user_id] == 2) {
                         userDeleteHtml = '<img src="../image/my/personal_care_a.png"   alt="'+ret.data.relation[user_id]+'"  class="userDeleteA" onclick="collectmusicFx(this)" data-click="0" id="' + user_id + '">'
                     } else if (ret.data.relation[user_id] == 1) {
@@ -143,7 +136,7 @@
                         }
                     }
                     html +=
-                        '<li class="item"><div class="user-detail" onclick="fnOpenmyPersonal();"><div class="user-img"><img src="' + follow_list_photo + '" alt=""></div><div class="user-name" ><p id="userName">' + ret.data.fans_list[i]
+                        '<li class="item"><div class="user-detail" onclick="fnOpenmyPersonal('+ret.data.fans_list[i].user_id+',\''+ret.data.fans_list[i].nick_name+'\');"><div class="user-img"><img src="' + follow_list_photo + '" alt=""></div><div class="user-name" ><p id="userName">' + ret.data.fans_list[i]
                         .nick_name +
                         '</p><p class="p">' + ret.data.fans_list[i].signature +
                         '</p></div></div><div id="userDelete" id="userDelete_' + ret.data.fans_list[i].user_id + ' " class="userDelete" >' + userDeleteHtml + '</div></li>'
@@ -159,12 +152,13 @@
       });
 
     }
-    function fnOpenmyPersonal(){
+    function fnOpenmyPersonal(id , nickname){
       api.openWin({
           name: 'myPersonal',
           url: './my_personal.html',
           pageParam: {
-              name: 'test'
+            'userId': id,
+            'nickName':nickname
           }
       });
 
@@ -227,7 +221,6 @@
                         // var user = $api.byId('userDelete_' + id + '');
                         // html = ''
                         if (ret.status == 200) {
-                          console.log(JSON.stringify(ret));
                           toolbarlist.setAttribute("data-click", 1);
                           toolbarlist.src = "../image/my/attention_j.png";
                             // fnAttention();

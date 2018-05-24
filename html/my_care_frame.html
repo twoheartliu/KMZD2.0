@@ -183,7 +183,7 @@
         }, function(ret, err) {
           setTimeout(function(){
               api.refreshHeaderLoadDone()
-          },3000)
+          },3000);
             if (ret.status == 200) {
                 if (ret.data == '') {
                     var attentionsss = $api.byId('attention');
@@ -194,6 +194,7 @@
                     var total = $api.byId('total');
                     var totalHtml = ret.data.follow_list.length;
                     $api.html(total, totalHtml);
+
                     html = '';
                     for (var i = 0; i < ret.data.follow_list.length; i++) {
                         var userDelete = $api.byId('userDelete');
@@ -219,15 +220,15 @@
                             }
                         }
                         html +=
-                            '<li class="item"><div class="user-detail" onclick="fnOpenmyPersonal();"><div class="user-img"><img src="' + follow_list_photo + '" alt=""></div><div class="user-name" ><p id="userName">' + ret.data.follow_list[i]
+                            '<li class="item"><div class="user-detail" onclick="fnOpenmyPersonal('+ret.data.follow_list[i].user_id+',\''+ret.data.follow_list[i].nick_name+'\');"><div class="user-img"><img src="' + follow_list_photo + '" alt=""></div><div class="user-name" ><p id="userName">' + ret.data.follow_list[i]
                             .nick_name +
                             '</p><p class="p">' + ret.data.follow_list[i].signature +
                             '</p></div></div><div id="userDelete" id="userDelete_' + ret.data.follow_list[i].user_id + ' " class="userDelete" >' + userDeleteHtml + '</div></li>'
 
                     }
                     $api.html(attention, html);
-                }
 
+                }
 
 
             } else {
@@ -236,21 +237,6 @@
         });
 
     }
-
-
-
-
-    function fnOpenmyPersonal() {
-        api.openWin({
-            name: 'myPersonal',
-            url: './my_personal.html',
-            pageParam: {
-                name: 'test'
-            }
-        });
-
-    };
-
     function collectmusicFx(clicktoolitem) {
       var img_id = clicktoolitem.getAttribute("id");
         var img_alt = clicktoolitem.getAttribute("alt");
@@ -429,5 +415,17 @@
               }
           });
         }
+
     }
+
+    function fnOpenmyPersonal(id , nickname) {
+        api.openWin({
+            name: 'myPersonal',
+            url: './my_personal.html',
+            pageParam: {
+              'userId': id,
+              'nickName':nickname
+            }
+        });
+    };
 </script>
