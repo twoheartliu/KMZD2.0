@@ -91,6 +91,7 @@
 </html>
 <script type="text/javascript" src="script/api.js"></script>
 <script type="text/javascript">
+var ok;
     function fnFanHui() {
         api.closeFrame();
     }
@@ -105,8 +106,10 @@
             });
             return false;
         } else {
+          ok = api.pageParam.ok;
+          var oks = 'ok'+ok;
             api.sendEvent({
-                name: 'ok',
+                name: oks,
                 extra: {
                     wangluo: 1111,
                 }

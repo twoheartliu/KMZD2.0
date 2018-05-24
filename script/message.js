@@ -1,5 +1,6 @@
+var timeOut = 2000;
 function netMessage(ret){
-  var timeOut = 2000;
+
   if(ret.status == 10101){
     api.toast({              
         msg:  '评论失败,请检测您的网络状态或重试',
@@ -13,7 +14,7 @@ function netMessage(ret){
         duration:  timeOut,
         location:   'middle'          
     });
-    
+
     setTimeout("turn_login()",timeOut);
     // $api.rmStorage('token');
     // // api.openWin({
@@ -457,7 +458,7 @@ function netWork(err){
   }
 }
 
-function netWorkNone(){
+function netWorkNone(ok){
     api.toast({              
         msg: '网络未连接',
         duration: timeOut,
@@ -473,7 +474,7 @@ function netWorkNone(){
             h: 'auto'
         },
         pageParam: {
-            name: 'test'
+            ok: ok
         },
         bounces: true,
         bgColor: 'rgba(0,0,0,0)',
