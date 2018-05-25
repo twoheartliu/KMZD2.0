@@ -172,7 +172,7 @@
                       fnAttention();
             });
     };
-
+    var totalHtml;
     function fnAttention() {
 
         api.ajax({
@@ -190,14 +190,19 @@
             if (ret.status == 200) {
                 if (ret.data == '') {
                     var attentionsss = $api.byId('attention');
-                    htmlss = '<li class="attention1">当前你还未添加关注过人</li>';
+                    htmlss = '<li class="attention1">你还没有关注任何人</li>';
                     $api.html(attentionsss, htmlss);
                 } else {
                     var attention = $api.byId('attention');
+                    totalHtml = ret.data.follow_list.length;
                     var total = $api.byId('total');
-                    var totalHtml = ret.data.follow_list.length;
                     $api.html(total, totalHtml);
-
+                    api.sendEvent({
+                        name: 'netNums',
+                        extra: {
+                            productNum: totalHtml
+                        }
+                    });
                     html = '';
                     for (var i = 0; i < ret.data.follow_list.length; i++) {
                         var userDelete = $api.byId('userDelete');
@@ -232,10 +237,8 @@
                     $api.html(attention, html);
 
                 }
-
-
             } else {
-                alert(JSON.stringify(err));
+                // alert(JSON.stringify(err));
             }
         });
 
@@ -307,13 +310,22 @@
                         if (ret.status == 200) {
                           toolbarlist.setAttribute("data-click", 1);
                           toolbarlist.src = "../image/my/attention_j.png";
+                          totalHtml --;
+                          var total = $api.byId('total');
+                          $api.html(total, totalHtml);
+                          api.sendEvent({
+                              name: 'netNums',
+                              extra: {
+                                  productNum: totalHtml
+                              }
+                          });
                             // fnAttention();
 
                             // var userDelete = $api.byId('userDelete');
                             // var userDeleteID = userDelete + ret;
                             // html += '<img src="../image/my/attention_j.png" alt="" class="userDeleteA">';
                         } else {
-                            alert(JSON.stringify(err));
+                            // alert(JSON.stringify(err));
                         }
                         // $api.html(user, html);
                         // console.log(html);
@@ -390,9 +402,27 @@
                         if (img_alt == 1) {
                           toolbarlist.setAttribute("data-click", 0);
                           toolbarlist.src = "../image/my/personal_care.png";
+                          totalHtml ++;
+                          var total = $api.byId('total');
+                          $api.html(total, totalHtml);
+                          api.sendEvent({
+                              name: 'netNums',
+                              extra: {
+                                  productNum: totalHtml
+                              }
+                          });
                         }else if (img_alt == 2) {
                           toolbarlist.setAttribute("data-click", 0);
                           toolbarlist.src = "../image/my/personal_care_a.png";
+                          totalHtml ++;
+                          var total = $api.byId('total');
+                          $api.html(total, totalHtml);
+                          api.sendEvent({
+                              name: 'netNums',
+                              extra: {
+                                  productNum: totalHtml
+                              }
+                          });
                         }
                           // fnAttention();
 
