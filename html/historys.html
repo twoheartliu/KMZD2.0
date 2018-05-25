@@ -405,7 +405,7 @@
     </div>
     <div class="footer active">
         <div class="selectAll"><input class="hy-radio" type="checkbox" id="ckb" name="selectAll" onclick="selectAll();"><span>全选</span></div>
-        <div class="delete">
+        <div class="delete" onclick="fndeleteMore()">
             删除
         </div>
     </div>
@@ -441,16 +441,16 @@
         var winHeightHeader = winHeight - headerPosH - 51;
         $api.css(messageFrameDiv, 'height:' + winHeightHeader + 'px;');
         // 删除图标并隐藏
-        var ul = document.getElementById('test');
-        var ul_lis = ul.getElementsByClassName('message_frame_cycle_div_3fl_img');
-        var ul_lisdiv = ul.getElementsByClassName('message_frame_cycle')
-        for (var i = 0; i < ul_lis.length; i++) {
-            ul_lis[i].index = i;
-            ul_lis[i].onclick = function() {
-                var j = this.index;
-                $api.addCls(ul_lisdiv[j], 'active');
-            }
-        }
+        // var ul = document.getElementById('test');
+        // var ul_lis = ul.getElementsByClassName('message_frame_cycle_div_3fl_img');
+        // var ul_lisdiv = ul.getElementsByClassName('message_frame_cycle')
+        // for (var i = 0; i < ul_lis.length; i++) {
+        //     ul_lis[i].index = i;
+        //     ul_lis[i].onclick = function() {
+        //         var j = this.index;
+        //         $api.addCls(ul_lisdiv[j], 'active');
+        //     }
+        // }
         // ccg();
         fnPlayHistory();
 
@@ -486,6 +486,7 @@
         }
     };
     // 全选按钮
+    var alls;
     function selectAll() {
         var chckBoxSign = document.getElementById("ckb"); //ckb 全选/反选的选择框id
         var chckBox = document.getElementsByName("chckBox");
@@ -493,9 +494,11 @@
         if (chckBoxSign.checked) {
             for (var index = 0; index < num; index++)
                 chckBox[index].checked = true;
+                alls = true;
         } else {
             for (var index = 0; index < num; index++)
                 chckBox[index].checked = false;
+                alls = false;
         }
     }
     // 编辑按钮点击切换复选框
@@ -510,6 +513,8 @@
             $api.html(playButton, html);
             fnEdit();
             fnFooterActive();
+
+
         } else if (playButtons === "取消") {
             var html = playButton.value = '编辑';
             var playButton = document.getElementById('btnhref');
@@ -590,29 +595,129 @@
                         var itemName = ret.data[i].item_name;
                         var author = ret.data[i].author;
                         var reciter = ret.data[i].reciter;
-                        // console.log(data1);
+                        // console.log(ret.data[i].history_id);
                         var stylelist1 = $api.byId('test');
                         if(!author){
                           author = ' ';
                         }
                         if(reciter){
                           html1 +=
-                              '<li><div class="message_frame_cycle" ><div class="message_frame_cycle_imgs hy-checkk"><input class="hy-radio" type="checkbox" ng-model="item.checked1" value="" name="chckBox" /></div><div class="message_frame_cycle_div fl" ><div class="message" onclick="fnPlayWin();"><div class="message_frame_cycle_div_1 col">' +
+                              '<li id="id_'+ret.data[i].history_id+'"><div class="message_frame_cycle" ><div class="message_frame_cycle_imgs hy-checkk"><input class="hy-radio" type="checkbox" ng-model="item.checked1" value="'+ret.data[i].history_id+'" name="chckBox"  /></div><div class="message_frame_cycle_div fl" ><div class="message" onclick="fnPlayWin();"><div class="message_frame_cycle_div_1 col">' +
                               itemName + '</div><div class="message_frame_cycle_div_2 col">作者:<span>' + author + '</span>&nbsp;&nbsp;&nbsp;&nbsp; 朗诵者:<span>' + reciter+
-                              '</span></div></div><div class="message_frame_cycle_div_3 fl"> <div class="message_frame_cycle_div_3fl "><span class="message_frame_cycle_div_3fl_img fr">×</span></div></div></div></div></li>';
+                              '</span></div></div><div class="message_frame_cycle_div_3 fl" onclick=" fndelete('+ret.data[i].history_id+')"> <div class="message_frame_cycle_div_3fl " ><span class="message_frame_cycle_div_3fl_img fr">×</span></div></div></div></div></li>';
 
                         }else{
                           html1 +=
-                              '<li><div class="message_frame_cycle" ><div class="message_frame_cycle_imgs hy-checkk"><input class="hy-radio" type="checkbox" ng-model="item.checked1" value="" name="chckBox" /></div><div class="message_frame_cycle_div fl"><div class="message" onclick="fnPlayWin();"><div class="message_frame_cycle_div_1 col">' +
-                              itemName + '</div><div class="message_frame_cycle_div_2 col"><span>作者:' + author + '</span></div></div><div class="message_frame_cycle_div_3 fl"> <div class="message_frame_cycle_div_3fl "><span class="message_frame_cycle_div_3fl_img fr">×</span></div></div></div></div></li>';
+                              '<li id="id_'+ret.data[i].history_id+'"><div class="message_frame_cycle" ><div class="message_frame_cycle_imgs hy-checkk"><input class="hy-radio" type="checkbox" ng-model="item.checked1" value="'+ret.data[i].history_id+'" name="chckBox"  /></div><div class="message_frame_cycle_div fl"><div class="message" onclick="fnPlayWin();"><div class="message_frame_cycle_div_1 col">' +
+                              itemName + '</div><div class="message_frame_cycle_div_2 col"><span>作者:' + author + '</span></div></div><div class="message_frame_cycle_div_3 fl" onclick=" fndelete('+ret.data[i].history_id+')"> <div class="message_frame_cycle_div_3fl "><span class="message_frame_cycle_div_3fl_img fr">×</span></div></div></div></div></li>';
                         }
                         $api.html(stylelist1, html1);
+
                     }
                 }
             } else {
-                alert(JSON.stringify(err));
+                // alert(JSON.stringify(err));
             }
 
         });
+    }
+    //单条删除
+    function fndelete(id){
+      // console.log(id);
+      api.ajax({
+          url: host + apiUri +"/user/del_history",
+          method: 'post',
+          dataType: 'json',
+          headers: {
+              "source": api.systemType,
+              "version": version,
+              "session": token,
+          },
+          data: {
+              values: {
+                  id: id,
+              },
+          }
+      },function(ret, err){
+          // console.log(JSON.stringify(ret));
+          // console.log(JSON.stringify(err));
+        if (ret.status == 200) {
+            // alert( JSON.stringify( ret ));
+            var playListIDs = 'id_' + id;
+            var id_items = $api.byId(playListIDs); //找到li标签上的id
+                $api.remove(id_items);
+          } else {
+           //  alert( JSON.stringify( err ) );
+        }
+      });
+    }
+    function fndeleteMore(){
+      if(alls == true ){
+        api.ajax({
+            url: host + apiUri +"/user/del_history",
+            method: 'post',
+            dataType: 'json',
+            headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token,
+            },
+            data: {
+                values: {
+                    id: 'all',
+                },
+            }
+        },function(ret, err){
+            // console.log(JSON.stringify(ret));
+            // console.log(JSON.stringify(err));
+          if (ret.status == 200) {
+              fnPlayHistory();
+            } else {
+             //  alert( JSON.stringify( err ) );
+          }
+        });
+      }else{
+        var str=document.getElementsByName("chckBox");
+        var objarray=str.length;
+        var chestr="";
+        for (var i = 0; i< objarray; i++){
+            if(str[i].checked == true){
+             chestr += str[i].value+",";
+            }
+        }
+        if(chestr == ""){
+          api.toast({
+                msg: '请先选择一个想要删除的记录～！',
+                duration: 2000,
+                location: 'middle'
+            });
+        } else  {
+          // alert("您先择的是："+chestr);
+          api.ajax({
+              url: host + apiUri +"/user/del_history",
+              method: 'post',
+              dataType: 'json',
+              headers: {
+                  "source": api.systemType,
+                  "version": version,
+                  "session": token,
+              },
+              data: {
+                  values: {
+                      id: chestr,
+                  },
+              }
+          },function(ret, err){
+              // console.log(JSON.stringify(ret));
+              // console.log(JSON.stringify(err));
+            if (ret.status == 200) {
+                fnPlayHistory();
+              } else {
+               //  alert( JSON.stringify( err ) );
+            }
+          });
+        }
+      }
+
     }
 </script>
