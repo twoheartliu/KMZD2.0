@@ -128,6 +128,7 @@
       //将两个版本号拆成数字
       var arr1 = curV.split('.'),
           arr2 = reqV.split('.');
+
       var minLength=Math.min(arr1.length,arr2.length),
           position=0,
           diff=0;
@@ -136,9 +137,8 @@
       while(position<minLength && ((diff=parseInt(arr1[position])-parseInt(arr2[position]))==0)){
           position++;
       }
-      diff=(diff!=0)?diff:((arr1.length-arr2.length)>0 ? 1 : -1);
+      diff=(diff!=0)?diff:arr1.length-arr2.length;
       //若curV大于reqV，则返回true
-      // console.log(diff==0);
         if(diff>0){
           api.toast({              
               msg:  '发现最新版本',
@@ -198,9 +198,8 @@
       while(position<minLength && ((diff=parseInt(arr1[position])-parseInt(arr2[position]))==0)){
           position++;
       }
-      diff=(diff!=0)?diff:((arr1.length-arr2.length)>0 ? 1 : -1);
+      diff=(diff!=0)?diff:arr1.length-arr2.length;
       //若curV大于reqV，则返回true
-      // console.log(diff);
         if(diff>0){
           fnGengXin();
           // api.toast({              
@@ -285,7 +284,6 @@
               });
         }
         if(ret.eventType == 'right'){
-          console.log('已更新');
           dialogBox.close({
               dialogName: 're'
           });
