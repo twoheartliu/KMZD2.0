@@ -274,6 +274,7 @@
             }
         }, function(ret, err) {
             // alert(JSON.stringify(ret));
+            var len = ret.data.length;
             if (ret.status == 200) {
               setTimeout(function(){
                   api.refreshHeaderLoadDone()
@@ -308,9 +309,15 @@
                   }
                   $api.html(stylelists, htmls);
                 }
+                api.sendEvent({
+                    name: 'netNum',
+                    extra: {
+                        productNum: len
+                    }
+                });
 
             } else {
-                alert(JSON.stringify(err));
+                // alert(JSON.stringify(err));
             }
 
         });
