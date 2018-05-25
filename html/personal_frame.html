@@ -274,7 +274,6 @@
             }
         }, function(ret, err) {
             // alert(JSON.stringify(ret));
-            var len = ret.data.length;
             if (ret.status == 200) {
               setTimeout(function(){
                   api.refreshHeaderLoadDone()
@@ -308,13 +307,14 @@
 
                   }
                   $api.html(stylelists, htmls);
+                  api.sendEvent({
+                      name: 'netNum',
+                      extra: {
+                          productNum: len
+                      }
+                  });
                 }
-                api.sendEvent({
-                    name: 'netNum',
-                    extra: {
-                        productNum: len
-                    }
-                });
+
 
             } else {
                 // alert(JSON.stringify(err));
@@ -443,27 +443,19 @@
                 dialogBox.close({
                     dialogName: 'alert'
                 });
-                // alert(1);
             } else if (ret.index == "1") {
                 dialogBox.close({
                     dialogName: 'alert'
                 });
-                // alert(2);
             } else if (ret.index == "2") {
                 dialogBox.close({
                     dialogName: 'alert'
                 });
-                // alert(3);
             } else {
                 dialogBox.close({
                     dialogName: 'alert'
                 });
             }
-            // dialogBox.close({
-            //     dialogName: 'alert'
-            // })
-            // alert(JSON.stringify(ret))
-
         });
     }
     //添加到听单

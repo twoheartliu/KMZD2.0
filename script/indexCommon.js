@@ -19,13 +19,15 @@ var caogaoId;
 var caogaoTitle;
 var caogaoName;
 var caogaoBody;
+var author_id;
 var DangQianbofangid;
 var titlename;
 var desc;
 var singerName;
 var reciter;
 var comment_total;
-var is_collection
+var is_collection;
+var caogaoAuthor_id;
 //播放音频信息
 function fnBoFangSouSuoyinpinxinxi() {
     var id = historyUrlArray[play];
@@ -55,6 +57,7 @@ function fnBoFangyinpinxinxiing(play) {
           "session": token
       }
     }, function(ret, err) {
+
       if(ret){
       if(ret.status == 200){
 
@@ -91,7 +94,7 @@ function fnBoFangyinpinxinxiing(play) {
         netRecordingModuleing(playgedan);
       }
     }else{
-       netWork(err);
+       netRecordingModuleing(playgedan);
     }
     });
 }
@@ -109,9 +112,8 @@ function fnBoFangyinpinxinxi() {
           "session": token
       }
     }, function(ret, err) {
+      console.log(333);
       if(ret){
-
-
       if(ret.status == 200){
             if (playlistid) {
                 api.sendEvent({
@@ -143,10 +145,12 @@ function fnBoFangyinpinxinxi() {
             });
 
       }else{
+        console.log(444);
         netRecordingModule(playgedan);
       }
     }else{
-      netWork(err);
+      console.log(444);
+      netRecordingModule(playgedan);
     }
     });
 }
@@ -160,12 +164,14 @@ function netRecordingModule(playgedan) {
     titlename = rets.data[play].name;
     desc = rets.data[play].desc;
     singerName = rets.data[play].singerName;
+    author_id = rets.data[play].author_id;
     api.sendEvent({
         name: 'jibenxinxi',
         extra: {
             titlename: titlename,
             desc: desc,
-            singerName: singerName
+            singerName: singerName,
+            author_id: author_id,
         }
     });
 }
@@ -179,12 +185,14 @@ function netRecordingModuleing(playgedan) {
     titlename = rets.data[play].name;
     desc = rets.data[play].desc;
     singerName = rets.data[play].singerName;
+    author_id = rets.data[play].author_id;
     api.sendEvent({
         name: 'jibenxinxi',
         extra: {
             titlename: titlename,
             desc: desc,
-            singerName: singerName
+            singerName: singerName,
+            author_id: author_id,
         }
     });
 }
@@ -332,7 +340,8 @@ function addtime() {
             extra: {
                 titlename: titlename,
                 desc: desc,
-                singerName: singerName
+                singerName: singerName,
+                author_id: author_id
             }
         });
     }, 1000);
@@ -487,24 +496,27 @@ function cgxPlay(cgxnewid) {
     var cgxnewids = cgxnewid - 1;
     ret = '';
     var length = historyUrlArray.length - 1;
-    for (var i = 0; i < length / 4 + 1; i++) {
+    for (var i = 0; i < length / 5 + 1; i++) {
         if (historyUrlArray[i].length == 0)
             continue;
         caogaoId = '';
-        caogaoId += historyUrlArray[i * 4 - 3];
+        caogaoId += historyUrlArray[i * 5 - 4];
         caogaoTitle = '';
-        caogaoTitle += historyUrlArray[i * 4 - 2];
+        caogaoTitle += historyUrlArray[i * 5 - 3];
         caogaoName = '';
-        caogaoName += historyUrlArray[i * 4 - 1];
+        caogaoName += historyUrlArray[i * 5 - 2];
         caogaoBody = '';
-        caogaoBody += historyUrlArray[i * 4];
+        caogaoBody += historyUrlArray[i * 5 - 1];
+        caogaoAuthor_id = '';
+        caogaoAuthor_id += historyUrlArray[i * 5];
         clearInterval(timer2);
         clearInterval(timer1);
         dataArray.push({
             "id": caogaoId,
             "name": caogaoTitle,
             "singerName": caogaoName,
-            "desc": caogaoBody
+            "desc": caogaoBody,
+            "author_id":caogaoAuthor_id
         });
         rets = {
             "data": dataArray

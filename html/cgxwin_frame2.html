@@ -278,7 +278,6 @@ var jubenid;
       fnGetBeiJingYinYueTypelist();
     }
     function fnGetBeiJingYinYueTypelist() {
-
       api.getPrefs({
           key: 'cgxlist'
       }, function(ret, err) {
@@ -302,7 +301,7 @@ var jubenid;
               var desc = historyUrlArray[i*5-1];
               var author_id = historyUrlArray[i*5];
                 if(historyUrlArray[i*5-1]){
-                  html +='<div class="egret-flex-item" tapmode="fmbtnhover"><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 col fl" >' + historyUrlArray[i*5-3] + '</span><span class="span2 col fl" onclick="opencaogaoyinyue(' + i + ');">&nbsp; &nbsp; &nbsp;作者：' + historyUrlArray[i*5-2] + '</span><span class="span3 col fl" onclick="opencaogaoyinyue(' + i + ');"></span><img class="span4 col fr" onclick="dialogBox_actionMenu(' + i + ');" src="../image/KM_list_more.png"alt=""/></div></div></div>';
+                  html +='<div class="egret-flex-item" tapmode="fmbtnhover"><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 col fl" >' + historyUrlArray[i*5-3] + '</span><span class="span2 col fl" onclick="opencaogaoyinyue(' + i + ');">&nbsp; &nbsp; &nbsp;作者：' + historyUrlArray[i*5-2] + '</span><img class="span4 col fr" onclick="dialogBox_actionMenu(' + i + ');" src="../image/KM_list_more.png"alt=""/></div></div></div>';
                 }else{
                   html +='<div class="egret-flex-item" tapmode="fmbtnhover"><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 col fl">' + historyUrlArray[i*5-3] + '</span><span class="span3 col fl" onclick="opencaogaoyinyue(' + i + ');"></span><img class="span4 col fr" onclick="dialogBox_actionMenu(' + i + ');"src="../image/KM_list_more.png" alt=""/></div></div></div>';
                 }
@@ -478,9 +477,9 @@ var jubenid;
                                                     path: 'fs://caogaoxiang/'+historyUrlArray[s*5-4]
                                                 }, function(ret, err) {
                                                     if (ret.status) {
-                                                        alert(JSON.stringify(ret));
+                                                        // alert(JSON.stringify(ret));
                                                     } else {
-                                                        alert(JSON.stringify(err));
+                                                        // alert(JSON.stringify(err));
                                                     }
                                                 });
                                                 fs.rmdir({
