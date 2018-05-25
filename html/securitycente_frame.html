@@ -182,12 +182,14 @@
                 "session": token
             }
         }, function(ret, err) {
+          console.log(JSON.stringify(ret));
             if (ret.status == 200) {
-                var html = '';
+
+                var html = ''
                 var htmls = ''
                 var changePassword = $api.byId('changePassword');
                 var securitycente_BangDin = $api.byId('securitycente_BangDin');
-                  // console.log(ret.data.register_way);
+                  console.log(ret.data.register_way);
                 if (ret.data.register_way == 'qq') {
                       html += '<div class="securitycente_div"><div class="securitycente_Img1 fl"><img src="../image/qq.png" alt=""></div><div class="securitycente_Name fl"><div class="securitycente_name1">QQ</div></div></div>'
                 }else if (ret.data.register_way == 'wechat') {
@@ -197,7 +199,7 @@
                       html +=
                           '<div class="securitycente_div"><div class="securitycente_Img1 fl"><img src="../image/phoneNumber.png" alt=""></div><div class="securitycente_Name fl"><div class="securitycente_name1">'+ret.data.mobile+'</div></div></div>'
                 }
-
+                $api.html(changePassword, html);
                 if(ret.data.register_way == 'qq'){
                   htmls +=
                       '<div class="securitycente_div"><div class="securitycente_Img1 fl"><img src="../image/weixin.png" alt=""></div><div class="securitycente_Name fl"><div class="securitycente_name1">微信</div></div><div class="securitycente_Img fr" onclick="collectmusicWX(this)" data-click="0"><img src="../image/my/Binding.png" alt="" class="collectmusicWX"></div></div>'
@@ -216,9 +218,7 @@
                   htmls +=
                       '<div class="securitycente_div"><div class="securitycente_Img1 fl"><img src="../image/weixin.png" alt=""></div><div class="securitycente_Name fl"><div class="securitycente_name1">微信</div></div><div class="securitycente_Img fr" id="securitycente_ImgWeixin"></div></div>'
                 }
-                $api.html(changePassword, html);
                 $api.html(securitycente_BangDin, htmls);
-
                 if (ret.data.is_mobile == 1) {
                     is_mobileImg = 1;
                     mobile = ret.data.mobile
