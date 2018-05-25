@@ -84,7 +84,7 @@ function fnLuYinBaoCun() {
                                         });
                                         path = '';
                                         timeCsss();
-                                        
+
                                     } else {
                                         alert(JSON.stringify(err));
                                     }
@@ -103,7 +103,7 @@ function fnLuYinBaoCun() {
                                 var historyUrlArray = historyUrlText.split(',');
                                 for (var i = 0; i < historyUrlArray.length; i++) {
                                     historyUrlArray[i] == cgxid && (flag = true);
-                                }!flag && historyUrlArray.splice(1, 0, cgxid, title, name, body);
+                                }!flag && historyUrlArray.splice(1, 0, cgxid, title, name, body, author_id);
                                 !flag && api.setPrefs({
                                     key: 'cgxlist',
                                     value: historyUrlArray.join(',')
@@ -118,106 +118,126 @@ function fnLuYinBaoCun() {
                         });
                     }
                     if (ret.eventType == 'right') {
-                        var fs = api.require('fs');
-                        fs.copyTo({
-                            oldPath: path,
-                            newPath: 'fs://shangchuanxiang'
-                        }, function(ret, err) {
-                            var paths = 'fs://shangchuanxiang/' + timestamps + jubenid;
-                            if (ret.status) {
-                                fs.rename({
-                                    oldPath: paths,
-                                    newPath: 'fs://shangchuanxiang/' + timestamp + jubenid + '.amr'
-                                }, function(ret, err) {
-                                    if (ret.status) {
-                                        // alert('已上传');
-                                        uri = '/upload/user_records';
-                                        api.ajax({
-                                            url: host + apiUri + uri,
-                                            method: 'post',
-                                            dataType: 'json',
-                                            headers: {
-                                                "source": api.systemType,
-                                                "version": version,
-                                                "session": token
-                                            },
-                                            data: {
-                                                files: {
-                                                    records: 'fs://shangchuanxiang/' + timestamp + jubenid + '.amr'
-                                                }
-                                            }
-                                        }, function(ret, err) {
-                                            // console.log('fs://shangchuanxiang/' + timestamp + jubenid + '.amr');
-                                            if (ret.status == 200) {
-                                                // console.log(ret.status);
-                                                fs.rmdir({
-                                                    path: 'fs://shangchuanxiang'
-                                                }, function(ret, err) {
-                                                    if (ret.status) {} else {
-                                                        alert(JSON.stringify(err));
-                                                    }
-                                                });
-                                                fs.rmdir({
-                                                    path: 'fs://luyin'
-                                                }, function(ret, err) {
-                                                    if (ret.status) {} else {
-                                                        alert(JSON.stringify(err));
-                                                    }
-                                                });
-                                                path = '';
-                                                timeCsss();
+                      var connectionType = api.connectionType;
+                      	if(connectionType == "none"){
+                          api.toast({              
+                              msg: '请先连接网络',
+                              duration:  2000,
+                              location:   'middle'          
+                          });
+                      	}else{
+                          var fs = api.require('fs');
+                          fs.copyTo({
+                              oldPath: path,
+                              newPath: 'fs://shangchuanxiang'
+                          }, function(ret, err) {
+                              var paths = 'fs://shangchuanxiang/' + timestamps + jubenid;
+                              if (ret.status) {
+                                  fs.rename({
+                                      oldPath: paths,
+                                      newPath: 'fs://shangchuanxiang/' + timestamp + jubenid + '.amr'
+                                  }, function(ret, err) {
+                                      if (ret.status) {
+                                          // alert('已上传');
+                                          uri = '/upload/user_records';
+                                          api.ajax({
+                                              url: host + apiUri + uri,
+                                              method: 'post',
+                                              dataType: 'json',
+                                              timeout:10,
+                                              headers: {
+                                                  "source": api.systemType,
+                                                  "version": version,
+                                                  "session": token
+                                              },
+                                              data: {
+                                                  files: {
+                                                      records: 'fs://shangchuanxiang/' + timestamp + jubenid + '.amr'
+                                                  }
+                                              }
+                                          }, function(ret, err) {
+                                            if(ret){
+                                              if (ret.status == 200) {
+                                                  // console.log(ret.status);
+                                                  fs.rmdir({
+                                                      path: 'fs://shangchuanxiang'
+                                                  }, function(ret, err) {
+                                                      if (ret.status) {} else {
+                                                          alert(JSON.stringify(err));
+                                                      }
+                                                  });
+                                                  fs.rmdir({
+                                                      path: 'fs://luyin'
+                                                  }, function(ret, err) {
+                                                      if (ret.status) {} else {
+                                                          alert(JSON.stringify(err));
+                                                      }
+                                                  });
+                                                  path = '';
+                                                  timeCsss();
 
-                                                uri = '/user/records';
-                                                api.ajax({
-                                                    url: host + apiUri + uri,
-                                                    method: 'post',
-                                                    dataType: 'json',
-                                                    headers: {
-                                                        "source": api.systemType,
-                                                        "version": version,
-                                                        "session": token
-                                                    },
-                                                    data: {
-                                                        values: {
-                                                            "script_id": jubenid,
-                                                            "title": name,
-                                                            "author_id": 5177,
-                                                            "lyric": body,
-                                                            "records": ret.data.records,
-                                                            "format": ret.data.formate,
-                                                            "size": ret.data.size,
-                                                            "time": ret.data.time,
+                                                  uri = '/user/records';
+                                                  api.ajax({
+                                                      url: host + apiUri + uri,
+                                                      method: 'post',
+                                                      dataType: 'json',
+                                                      timeout:10,
+                                                      headers: {
+                                                          "source": api.systemType,
+                                                          "version": version,
+                                                          "session": token
+                                                      },
+                                                      data: {
+                                                          values: {
+                                                              "script_id": jubenid,
+                                                              "title": name,
+                                                              "author_id": author_id,
+                                                              "lyric": body,
+                                                              "records": ret.data.records,
+                                                              "format": ret.data.formate,
+                                                              "size": ret.data.size,
+                                                              "time": ret.data.time,
+                                                          }
+                                                      }
+                                                  }, function(ret, err) {
+                                                      // console.log(JSON.stringify(ret));
+                                                      if(ret){
+                                                        if (ret.status == 200) {
+                                                            api.toast({              
+                                                                msg:   '已上传',
+                                                                duration:  2000,
+                                                                location:   'middle'          
+                                                            });
+
+                                                        } else {
+                                                            netMessage(ret);
                                                         }
-                                                    }
-                                                }, function(ret, err) {
-                                                    // console.log(JSON.stringify(ret));
-                                                    if (ret.status == 200) {
-                                                        api.toast({              
-                                                            msg:   '已上传',
-                                                            duration:  2000,
-                                                            location:   'middle'          
-                                                        });
+                                                      }else{
+                                                        netWork(err);
+                                                      }
+                                                  });
+                                              } else {
 
-                                                    } else {
-                                                        netMessage(ret);
-                                                    }
-                                                });
-                                            } else {
-
-                                                netMessage(ret);
+                                                  netMessage(ret);
+                                              }
+                                            }else{
+                                              netWork(err);
                                             }
-                                        });
+                                          });
 
 
 
-                                    } else {
-                                        alert(JSON.stringify(err));
-                                    }
-                                });
-                            } else {
-                                alert(JSON.stringify(err));
-                            }
-                        });
+                                      } else {
+                                        console.log(111);
+                                          alert(JSON.stringify(err));
+                                      }
+                                  });
+                              } else {
+                                console.log(222);
+                                  alert(JSON.stringify(err));
+                              }
+                          });
+                      	}
                         var dialogBox = api.require('dialogBox');
                         dialogBox.close({
                             dialogName: 're'

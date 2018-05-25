@@ -85,6 +85,7 @@
 
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/message.js"></script>;
 <script type="text/javascript">
     function goback() {
         api.closeWin({
@@ -102,28 +103,53 @@
       });
 
     }
+    var ok;
     apiready = function() {
       var header = $api.byId('secHeader');
       $api.fixStatusBar(header);
       var headerPos = $api.offset(header);
+      ok = api.pageParam.ok;
+      var oks = 'ok'+ok;
+      api.addEventListener({
+          name: 'oks'
+      }, function(ret, err) {
+        if(ret.value.wangluo){
+          api.openFrame({
+              name: 'soundtrack_frame',
+              url: './soundtrack_frame.html',
+              rect: {
+                  x: 0,
+                  y: headerPos.h,
+                  w: 'auto',
+                  h: 'auto'
+              },
+              pageParam: {
+                  name: 'test'
+              },
+              bounces: false,
+          });
+        }
+      });
+      var connectionType = api.connectionType;
+      	if(connectionType == "none"){
+      		netWorkNone(ok);
+      	}else{
+          api.openFrame({
+              name: 'soundtrack_frame',
+              url: './soundtrack_frame.html',
+              rect: {
+                  x: 0,
+                  y: headerPos.h,
+                  w: 'auto',
+                  h: 'auto'
+              },
+              pageParam: {
+                  name: 'test'
+              },
+              bounces: false,
+          });
+      	}
 
-      // var footer = $api.byId('footer')
-      // $api.fixStatusBar(footer);
-      // var footerPos = $api.offset(footer);
-        api.openFrame({
-            name: 'soundtrack_frame',
-            url: './soundtrack_frame.html',
-            rect: {
-                x: 0,
-                y: headerPos.h,
-                w: 'auto',
-                h: 'auto'
-            },
-            pageParam: {
-                name: 'test'
-            },
-            bounces: false,
-        });
 
     }
 </script>
