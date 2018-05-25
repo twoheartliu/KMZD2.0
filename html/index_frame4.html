@@ -394,6 +394,15 @@
               $api.html(stylelist23, html23);
             }
           });
+          api.addEventListener({
+              name: "netNum",
+          }, function(ret, err) {
+            if(ret){
+              var stylelist50 = $api.byId('product');
+              var html50 = ret.data.record_total;
+              $api.html(stylelist50, html50);
+            }
+          });
           api.setCustomRefreshHeaderInfo({
               bgColor: '#f0f0f0',
               image: {
