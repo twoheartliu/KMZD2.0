@@ -55,7 +55,7 @@
     <header id="secHeader">
         <div class="header_fl fl" onclick="goback();"><img src="../image/icon_back.png" alt=""></div>
         <div class="header_fr fr"></div>
-        <div class="header_center" id="floor_name">听单</div>
+        <div class="header_center" id="floor_name"></div>
     </header>
 </body>
 
@@ -64,9 +64,7 @@
 <script type="text/javascript" src="../script/message.js"></script>
 <script type="text/javascript">
     function goback() {
-        api.closeWin({
-            name: 'single'
-        });
+        api.closeWin();
     }
     var ok;
     apiready = function() {

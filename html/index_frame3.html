@@ -588,29 +588,29 @@
         // console.log('banner_types');
         var lujing;
         var song_id;
+        var titles;
         if (banner_types == 1) {
             lujing = openBrowser(content);
             // console.log(lujing);
             // console.log(lujing);
         } else if (banner_types == 2) {
+            // 播放器
             lujing = './play.html';
             song_id = content;
         } else if (banner_types == 3) {
+            // 专辑
             lujing = './single.html';
             song_id = content;
+            titles = '专辑';
         } else if (banner_types == 4) {
+            //听单
             lujing = './single.html';
             song_id = content;
+            titles = '听单';
         } else if (banner_types == 5) {
             lujing = content;
         }
-        // } else if (banner_types == 3) {
-        //
-        // } else if (banner_types == 4) {
-        //
-        // } else if (banner_types == 5) {
-        //
-        // }
+
         api.openWin({
             name: 'openBanner',
             url: lujing,
@@ -621,6 +621,9 @@
                 type: banner_types,
                 content: content,
                 song_id: song_id,
+                albumId: song_id,
+                floor_name: titles,
+                a: song_id,
             }
         });
 
