@@ -50,7 +50,7 @@ function fnLuYinBaoCun() {
                     },
                     tapClose: true
                 }, function(ret) {
-
+                    var timestampssss = new Date().getTime();
                     if (ret.eventType == 'left') {
                         var fs = api.require('fs');
                         fs.copyTo({
@@ -61,12 +61,14 @@ function fnLuYinBaoCun() {
                             var paths = 'fs://caogaoxiang/' + timestamps + jubenid;
                             if (ret.status) {
                                 var fs = api.require('fs');
+
                                 fs.rename({
                                     oldPath: paths,
-                                    newPath: 'fs://caogaoxiang/' + timestamp + jubenid
+                                    newPath: 'fs://caogaoxiang/' + timestampssss + jubenid
                                 }, function(ret, err) {
                                   // console.log(222);
                                     if (ret.status) {
+                                      console.log(666666);
                                         api.toast({              
                                             msg:   '已保存',
                                             duration:  2000,
@@ -77,6 +79,7 @@ function fnLuYinBaoCun() {
                                             path: 'fs://luyin'
                                         }, function(ret, err) {
                                             if (ret.status) {
+                                              console.log(8888);
                                                 // alert(JSON.stringify(ret));
                                             } else {
                                                 alert(JSON.stringify(err));
@@ -93,7 +96,7 @@ function fnLuYinBaoCun() {
                                 alert(JSON.stringify(err));
                             }
                         });
-                        cgxid = '' + timestamp + '' + jubenid + '';
+                        cgxid = '' + timestampssss + '' + jubenid + '';
                         api.getPrefs({
                             key: 'cgxlist'
                         }, function(ret, err) {
@@ -109,7 +112,7 @@ function fnLuYinBaoCun() {
                                     value: historyUrlArray.join(',')
                                 });
                             } else {
-                                alert(JSON.stringify(err));
+                                // alert(JSON.stringify(err));
                             }
                         });
                         var dialogBox = api.require('dialogBox');
@@ -127,17 +130,26 @@ function fnLuYinBaoCun() {
                           });
                       	}else{
                           var fs = api.require('fs');
+                          console.log(path);
+                          console.log(timestamps);
                           fs.copyTo({
                               oldPath: path,
                               newPath: 'fs://shangchuanxiang'
                           }, function(ret, err) {
                               var paths = 'fs://shangchuanxiang/' + timestamps + jubenid;
+                              console.log(JSON.stringify(ret));
+                              console.log(JSON.stringify(err));
+                              console.log(path);
+                              console.log(timestamps);
                               if (ret.status) {
                                   fs.rename({
                                       oldPath: paths,
                                       newPath: 'fs://shangchuanxiang/' + timestamp + jubenid + '.amr'
                                   }, function(ret, err) {
+                                    console.log(JSON.stringify(ret));
+                                    console.log(JSON.stringify(err));
                                       if (ret.status) {
+
                                           // alert('已上传');
                                           uri = '/upload/user_records';
                                           api.ajax({
@@ -156,6 +168,8 @@ function fnLuYinBaoCun() {
                                                   }
                                               }
                                           }, function(ret, err) {
+                                            console.log(JSON.stringify(ret));
+                                            console.log(JSON.stringify(err));
                                             if(ret){
                                               if (ret.status == 200) {
                                                   // console.log(ret.status);

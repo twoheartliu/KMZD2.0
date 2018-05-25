@@ -61,9 +61,10 @@ function fnLuYinBaoCun() {
                             var paths = 'fs://caogaoxiang/' + timestamps + jubenid;
                             if (ret.status) {
                                 var fs = api.require('fs');
+                                var timestampssss = new Date().getTime();
                                 fs.rename({
                                     oldPath: paths,
-                                    newPath: 'fs://caogaoxiang/' + timestamp + jubenid
+                                    newPath: 'fs://caogaoxiang/' + timestampssss + jubenid
                                 }, function(ret, err) {
                                   // console.log(222);
                                     if (ret.status) {
