@@ -253,6 +253,7 @@ var wait = 60;
                   url: host + apiUri + '/register/phone',
                   method: 'post',
                   dataType: 'json',
+                  timeout:10,
                   data: {
                     values:{
                       "mobile":	phone,
@@ -359,6 +360,7 @@ var wait = 60;
           url: host + apiUri + '/register/is_phone_exist?mobile=' + phone,
           method: 'get',
           dataType: 'json',
+          timeout:10,
           headers: {
             "source":api.systemType,
             "version":version
@@ -390,6 +392,7 @@ var wait = 60;
             url: host + apiUri + '/sms/get_code',
             method: 'get',
             dataType: 'json',
+            timeout:10,
             headers: {
               "source":api.systemType,
               "version":version

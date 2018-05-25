@@ -84,7 +84,10 @@ function fnLuYinBaoCun() {
                                         });
                                         path = '';
                                         timeCsss();
-                                        
+                                        if(jidutiao){
+                                          var myAudio = document.getElementById("myAudio");
+                                          myAudio.currentTime = 0;
+                                        }
                                     } else {
                                         alert(JSON.stringify(err));
                                     }
@@ -166,7 +169,10 @@ function fnLuYinBaoCun() {
                                                 });
                                                 path = '';
                                                 timeCsss();
-
+                                                if(jidutiao){
+                                                  var myAudio = document.getElementById("myAudio");
+                                                  myAudio.currentTime = 0;
+                                                }
                                                 uri = '/user/records';
                                                 api.ajax({
                                                     url: host + apiUri + uri,

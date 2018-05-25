@@ -128,7 +128,7 @@
         .egret-flex-item {
             display: -webkit-box;
             -webkit-box-align: center;
-            height: 100px;
+            height: 50px;
             border-bottom: 1px solid #f2f2f2;
         }
 
@@ -298,9 +298,9 @@ var jubenid;
               var name = historyUrlArray[i*4-1];
               var desc = historyUrlArray[i*4];
               if(historyUrlArray[i*4-1]){
-                html +='<div class="egret-flex-item" tapmode="fmbtnhover"><div class="egret-flex-item-logo"  onclick="opencaogaoyinyue(' + i + ');"><img src="../image/frame0101cover/frame0101cover16.png" alt="" class=""></div><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 col fl" >' + historyUrlArray[i*4-2] + '</span><span class="span2 col fl" onclick="opencaogaoyinyue(' + i + ');">' + historyUrlArray[i*4-1] + '</span><span class="span3 col fl" onclick="opencaogaoyinyue(' + i + ');"></span><img class="span4 col fr" onclick="dialogBox_actionMenu(' + i + ');" src="../image/KM_list_more.png"alt=""/></div><div class="egret-flex-item-shelf03" onclick="opencaogaoyinyue(' + i + ');"><div ><img src="../image/play_icon.png" alt=""><span>100</span></div><div><img src="../image/KM_zf.png" alt=""><span>100</span></div><div ><img src="../image/KM_dz.png" alt=""><span>100</span></div></div></div></div>';
+                html +='<div class="egret-flex-item" tapmode="fmbtnhover"><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 col fl" >' + historyUrlArray[i*4-2] + '</span><span class="span2 col fl" onclick="opencaogaoyinyue(' + i + ');">&nbsp; &nbsp; &nbsp;作者：' + historyUrlArray[i*4-1] + '</span><span class="span3 col fl" onclick="opencaogaoyinyue(' + i + ');"></span><img class="span4 col fr" onclick="dialogBox_actionMenu(' + i + ');" src="../image/KM_list_more.png"alt=""/></div></div></div>';
               }else{
-                html +='<div class="egret-flex-item" tapmode="fmbtnhover"><div class="egret-flex-item-logo"" onclick="opencaogaoyinyue(' + i + ');"><img src="../image/frame0101cover/frame0101cover16.png" alt="" class=""></div><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 col fl">' + historyUrlArray[i*4-2] + '</span><span class="span3 col fl" onclick="opencaogaoyinyue(' + i + ');"></span><img class="span4 col fr" onclick="dialogBox_actionMenu(' + i + ');"src="../image/KM_list_more.png" alt=""/></div><div class="egret-flex-item-shelf03" onclick="opencaogaoyinyue(' + i + ');"><div><img src="../image/play_icon.png" alt=""><span>100</span></div><div><img src="../image/KM_zf.png" alt=""><span>100</span></div><div><img src="../image/KM_dz.png" alt=""><span>100</span></div></div></div></div>';
+                html +='<div class="egret-flex-item" tapmode="fmbtnhover"><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 col fl">' + historyUrlArray[i*4-2] + '</span><span class="span3 col fl" onclick="opencaogaoyinyue(' + i + ');"></span><img class="span4 col fr" onclick="dialogBox_actionMenu(' + i + ');"src="../image/KM_list_more.png" alt=""/></div></div></div>';
               }
               $api.html(stylelist, html);
           }
@@ -351,7 +351,7 @@ var jubenid;
                 cancel: '取消'
             },
             items: [{
-                text: '公开',
+                text: '发布',
                 icon: 'widget://image/bb_play_share.png'
             }, {
                 text: '删除',

@@ -334,6 +334,7 @@
     var duration;
     var timestamp = new Date().getTime();
     var timestamps;
+    var author_id;
     var Guid = new Array();
     apiready = function() {
             token = $api.getStorage('token');
@@ -404,6 +405,7 @@
                 title = ret.data[0].title;
                 name = ret.data[0].author_name;
                 body = ret.data[0].body;
+                author_id = ret.data[0].author_id;
                 if (!name) {
                     name = '';
                 }
