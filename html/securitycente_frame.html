@@ -166,7 +166,7 @@
 <script type="text/javascript" src="../script/message.js"></script>
 <script type="text/javascript">
     var token;
-    var is_mobileImg , is_wechatImg , is_qqImg;
+    var is_mobileImg , is_wechatImg , is_qqImg , is_set_password;
     var mobile;
     apiready = function() {
        token = $api.getStorage('token');
@@ -182,7 +182,7 @@
                 "session": token
             }
         }, function(ret, err) {
-          console.log(JSON.stringify(ret));
+          // console.log(JSON.stringify(ret));
             if (ret.status == 200) {
 
                 var html = ''
@@ -221,7 +221,9 @@
                 $api.html(securitycente_BangDin, htmls);
                 if (ret.data.is_mobile == 1) {
                     is_mobileImg = 1;
-                    mobile = ret.data.mobile
+                    mobile = ret.data.mobile;
+                    // console.log(ret.data.is_set_password);
+                    is_set_password = ret.data.is_set_password
                 }else {
                   is_mobileImg = 0;
                 }
@@ -273,7 +275,8 @@
               name: 'DetermineTheDinding',
               url: './DetermineTheDinding.html',
               pageParam: {
-                  mobile: mobile
+                  mobile: mobile,
+                  is_set_password: is_set_password
               }
           });
         }

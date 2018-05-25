@@ -399,8 +399,28 @@
           }, function(ret, err) {
             if(ret){
               var stylelist50 = $api.byId('product');
-              var html50 = ret.data.record_total;
-              $api.html(stylelist50, html50);
+              var rets = JSON.stringify(ret.value.productNum);
+              // var html50 = ret.data.record_total;
+              $api.html(stylelist50, rets);
+            }
+          });
+          api.addEventListener({
+              name: "netNums",
+          }, function(ret, err) {
+            if(ret){
+              var rets = JSON.stringify(ret.value.productNum);
+              var stylelist6 = $api.byId('care');
+              $api.html(stylelist6, rets);
+            }
+          });
+          api.addEventListener({
+              name: "netFans",
+          }, function(ret, err) {
+            if(ret){
+              var rets = JSON.stringify(ret.value.productNum);
+              var stylelist7 = $api.byId('fans');
+              // var html7 = ret.data.fans_total;
+              $api.html(stylelist7, rets);
             }
           });
           api.setCustomRefreshHeaderInfo({

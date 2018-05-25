@@ -104,12 +104,12 @@
           }
       },function(ret, err){
           if (ret.status == 200) {
-            setTimeout(function(){
+            // setTimeout(function(){
                 api.refreshHeaderLoadDone()
-            },1000)
+            // },1000)
             if (ret.data == '') {
                 var attentionsss = $api.byId('attention');
-                htmlss = '<li class="attention1">当前你还未添加关注过人</li>';
+                htmlss = '<li class="attention1">你还没有任何粉丝</li>';
                 $api.html(attentionsss, htmlss);
             } else {
                 var attention = $api.byId('attention');
@@ -146,11 +146,10 @@
 
                 }
                 $api.html(attention, html);
-
             }
 
           } else {
-              alert( JSON.stringify( err ) );
+              // alert( JSON.stringify( err ) );
           }
       });
 
@@ -170,7 +169,6 @@
     function collectmusicFx(clicktoolitem) {
       var img_id = clicktoolitem.getAttribute("id");
         var img_alt = clicktoolitem.getAttribute("alt");
-
         var toolbarlist = document.getElementById(img_id);
         var click = toolbarlist.getAttribute("data-click");
         if (click == 0) {
@@ -211,6 +209,7 @@
                 }
             }, function(ret) {
                 if (ret.eventType == 'right') {
+                  console.log();
                     api.ajax({
                         url: host + apiUri + '/user/follow',
                         method: 'post',
@@ -218,6 +217,11 @@
                             "source": api.systemType,
                             "version": version,
                             "session": token
+                        },
+                        data:{
+                          values: {
+                              follow_id: img_id
+                          }
                         }
                     }, function(ret, err) {
                         // console.log(JSON.stringify(ret));
@@ -232,7 +236,7 @@
                             // var userDeleteID = userDelete + ret;
                             // html += '<img src="../image/my/attention_j.png" alt="" class="userDeleteA">';
                         } else {
-                            alert(JSON.stringify(err));
+                            // alert(JSON.stringify(err));
                         }
                         // $api.html(user, html);
                         // console.log(html);
