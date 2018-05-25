@@ -128,7 +128,7 @@
         .egret-flex-item {
             display: -webkit-box;
             -webkit-box-align: center;
-            height: 100px;
+            height: 50px;
             border-bottom: 1px solid #f2f2f2;
         }
 
@@ -284,24 +284,28 @@ var jubenid;
       }, function(ret, err) {
           var historyUrlText = '' || ret.value;
           historyUrlArray = historyUrlText.split(',');
-          // console.log(historyUrlArray);
+          if(historyUrlArray == ''){
+            var stylelist = $api.byId('lists');
+            var html ='<div style="height:100%; width:100%; background-color:#fff;"><p style="margin:0 auto;">暂无数据<p></div>';
+            $api.html(stylelist, html);
+          }
           var length = historyUrlArray.length-1;
           var stylelist = $api.byId('lists');
           var html = '';
-          for (var i = 0; i < length/4+1; i++) {
-
+          for (var i = 0; i < length/5+1; i++) {
               if (historyUrlArray[i].length == 0)
                   continue;
-              var cgxid = historyUrlArray[i*4-3];
+              var cgxid = historyUrlArray[i*5-4];
               // console.log(cgxid);
-              var title = historyUrlArray[i*4-2];
-              var name = historyUrlArray[i*4-1];
-              var desc = historyUrlArray[i*4];
-              if(historyUrlArray[i*4-1]){
-                html +='<div class="egret-flex-item" tapmode="fmbtnhover"><div class="egret-flex-item-logo"  onclick="opencaogaoyinyue(' + i + ');"><img src="../image/frame0101cover/frame0101cover16.png" alt="" class=""></div><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 col fl" >' + historyUrlArray[i*4-2] + '</span><span class="span2 col fl" onclick="opencaogaoyinyue(' + i + ');">' + historyUrlArray[i*4-1] + '</span><span class="span3 col fl" onclick="opencaogaoyinyue(' + i + ');"></span><img class="span4 col fr" onclick="dialogBox_actionMenu(' + i + ');" src="../image/KM_list_more.png"alt=""/></div><div class="egret-flex-item-shelf03" onclick="opencaogaoyinyue(' + i + ');"><div ><img src="../image/play_icon.png" alt=""><span>100</span></div><div><img src="../image/KM_zf.png" alt=""><span>100</span></div><div ><img src="../image/KM_dz.png" alt=""><span>100</span></div></div></div></div>';
-              }else{
-                html +='<div class="egret-flex-item" tapmode="fmbtnhover"><div class="egret-flex-item-logo"" onclick="opencaogaoyinyue(' + i + ');"><img src="../image/frame0101cover/frame0101cover16.png" alt="" class=""></div><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 col fl">' + historyUrlArray[i*4-2] + '</span><span class="span3 col fl" onclick="opencaogaoyinyue(' + i + ');"></span><img class="span4 col fr" onclick="dialogBox_actionMenu(' + i + ');"src="../image/KM_list_more.png" alt=""/></div><div class="egret-flex-item-shelf03" onclick="opencaogaoyinyue(' + i + ');"><div><img src="../image/play_icon.png" alt=""><span>100</span></div><div><img src="../image/KM_zf.png" alt=""><span>100</span></div><div><img src="../image/KM_dz.png" alt=""><span>100</span></div></div></div></div>';
-              }
+              var title = historyUrlArray[i*5-3];
+              var name = historyUrlArray[i*5-2];
+              var desc = historyUrlArray[i*5-1];
+              var author_id = historyUrlArray[i*5];
+                if(historyUrlArray[i*5-1]){
+                  html +='<div class="egret-flex-item" tapmode="fmbtnhover"><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 col fl" >' + historyUrlArray[i*5-3] + '</span><span class="span2 col fl" onclick="opencaogaoyinyue(' + i + ');">&nbsp; &nbsp; &nbsp;作者：' + historyUrlArray[i*5-2] + '</span><span class="span3 col fl" onclick="opencaogaoyinyue(' + i + ');"></span><img class="span4 col fr" onclick="dialogBox_actionMenu(' + i + ');" src="../image/KM_list_more.png"alt=""/></div></div></div>';
+                }else{
+                  html +='<div class="egret-flex-item" tapmode="fmbtnhover"><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 col fl">' + historyUrlArray[i*5-3] + '</span><span class="span3 col fl" onclick="opencaogaoyinyue(' + i + ');"></span><img class="span4 col fr" onclick="dialogBox_actionMenu(' + i + ');"src="../image/KM_list_more.png" alt=""/></div></div></div>';
+                }
               $api.html(stylelist, html);
           }
       });
@@ -351,7 +355,7 @@ var jubenid;
                 cancel: '取消'
             },
             items: [{
-                text: '公开',
+                text: '发布',
                 icon: 'widget://image/bb_play_share.png'
             }, {
                 text: '删除',
@@ -392,14 +396,14 @@ var jubenid;
                     historyUrlArray = historyUrlText.split(',');
                     var fs = api.require('fs');
                     fs.copyTo({
-                        oldPath: 'fs://caogaoxiang/'+historyUrlArray[s*4-3],
+                        oldPath: 'fs://caogaoxiang/'+historyUrlArray[s*5-4],
                         newPath: 'fs://shangchuanxiang'
                     }, function(ret, err) {
-                        var paths = 'fs://shangchuanxiang/'+historyUrlArray[s*4-3];
+                        var paths = 'fs://shangchuanxiang/'+historyUrlArray[s*5-4];
                         if (ret.status) {
                             fs.rename({
                                 oldPath: paths,
-                                newPath: 'fs://shangchuanxiang/'+historyUrlArray[s*4-3] + '.amr'
+                                newPath: 'fs://shangchuanxiang/'+historyUrlArray[s*5-4] + '.amr'
                             }, function(ret, err) {
                                 if (ret.status) {
                                     // alert('已上传');
@@ -408,6 +412,7 @@ var jubenid;
                                         url: host + apiUri + uri,
                                         method: 'post',
                                         dataType: 'json',
+                                        timeout:10,
                                         headers: {
                                             "source": api.systemType,
                                             "version": version,
@@ -415,23 +420,13 @@ var jubenid;
                                         },
                                         data: {
                                             files: {
-                                                records: 'fs://shangchuanxiang/' + historyUrlArray[s*4-3] + '.amr'
+                                                records: 'fs://shangchuanxiang/' + historyUrlArray[s*5-4] + '.amr'
                                             }
                                         }
                                     }, function(ret, err) {
-                                        // console.log('fs://shangchuanxiang/' + timestamp + jubenid + '.amr');
-                                        // console.log(JSON.stringify(ret));
+                                      if(ret){
                                         if (ret.status == 200) {
-                                            // console.log(ret.status);
-                                            // fs.rmdir({
-                                            //     path: 'fs://shangchuanxiang'
-                                            // }, function(ret, err) {
-                                            //     if (ret.status) {
-                                            //     } else {
-                                            //         alert(JSON.stringify(err));
-                                            //     }
-                                            // });
-                                            var aaaa = historyUrlArray[s*4-3];
+                                            var aaaa = historyUrlArray[s*5-4];
                                             var aaaa = aaaa.substring(12);
                                             uri = '/user/records';
                                             api.ajax({
@@ -446,9 +441,9 @@ var jubenid;
                                                 data: {
                                                     values: {
                                                         "script_id":aaaa,
-                                                        "title": historyUrlArray[s*4-2],
-                                                        "author_id":5177,
-                                                        "lyric": historyUrlArray[s*4],
+                                                        "title": historyUrlArray[s*5-3],
+                                                        "author_id":historyUrlArray[s*5],
+                                                        "lyric": historyUrlArray[s*5-1],
                                                         "records": ret.data.records,
                                                         "format": ret.data.formate,
                                                         "size": ret.data.size,
@@ -456,8 +451,13 @@ var jubenid;
                                                     }
                                                 }
                                             }, function(ret, err) {
+                                              if(ret){
                                                 if (ret.status == 200) {
-                                                alert('已上传');
+                                                  api.toast({              
+                                                      msg:   '已上传',
+                                                      duration:  2000,
+                                                      location:   'middle'          
+                                                  });
 
                                                 api.getPrefs({
                                                     key: 'cgxlist'
@@ -465,8 +465,8 @@ var jubenid;
                                                     var flag = false;
                                                     var historyUrlText = '' || ret.value;
                                                     var historyUrlArray = historyUrlText.split(',');
-                                                    var ccc = s*4-3;
-                                                    historyUrlArray.splice(ccc,4);
+                                                    var ccc = s*5-4;
+                                                    historyUrlArray.splice(ccc,5);
                                                     !flag && api.setPrefs({
                                                         key: 'cgxlist',
                                                         value: historyUrlArray.join(',')
@@ -475,7 +475,7 @@ var jubenid;
 
                                                 });
                                                 fs.remove({
-                                                    path: 'fs://caogaoxiang/'+historyUrlArray[s*4-3]
+                                                    path: 'fs://caogaoxiang/'+historyUrlArray[s*5-4]
                                                 }, function(ret, err) {
                                                     if (ret.status) {
                                                         alert(JSON.stringify(ret));
@@ -500,12 +500,18 @@ var jubenid;
                                                     }
                                                 });
                                                 } else {
-
+                                                  netMessage(ret);
                                                 }
+                                              }else{
+                                                netWork(err);
+                                              }
                                             });
                                         } else {
-
+                                          netMessage(ret);
                                         }
+                                      }else{
+                                        netWork(err);
+                                      }
                                     });
 
 
@@ -529,8 +535,8 @@ var jubenid;
                   var flag = false;
                   var historyUrlText = '' || ret.value;
                   var historyUrlArray = historyUrlText.split(',');
-                  var ccc = s*4-3;
-                  historyUrlArray.splice(ccc,4);
+                  var ccc = s*5-4;
+                  historyUrlArray.splice(ccc,5);
                   !flag && api.setPrefs({
                       key: 'cgxlist',
                       value: historyUrlArray.join(',')
@@ -540,7 +546,7 @@ var jubenid;
               });
               var fs = api.require('fs');
               fs.remove({
-                  path: 'fs://caogaoxiang/'+historyUrlArray[s*4-3]
+                  path: 'fs://caogaoxiang/'+historyUrlArray[s*5-4]
               }, function(ret, err) {
                   if (ret.status) {
                       // alert(JSON.stringify(ret));

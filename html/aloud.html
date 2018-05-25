@@ -334,6 +334,7 @@
     var duration;
     var timestamp = new Date().getTime();
     var timestamps;
+    var author_id;
     var Guid = new Array();
     apiready = function() {
             token = $api.getStorage('token');
@@ -362,19 +363,29 @@
 
     //播放背景音乐
     function fnBeiYueplay() {
-        var mp3 = input;
-        var paths = 'http://47.100.11.38/bgmp3/'+mp3;
-        var netAudio = api.require('netAudio');
-        netAudio.play({
-            path: paths
-        }, function(ret, err) {
-            if (ret) {
+      var connectionType = api.connectionType;
+      	if(connectionType == "none"){
+          api.toast({              
+              msg:   '检测不到网络，配乐无法播放',
+              duration:  2000,
+              location:   'middle'          
+          });
+      	}else{
+          var mp3 = input;
+          var paths = 'http://47.100.11.38/bgmp3/'+mp3;
+          var netAudio = api.require('netAudio');
+          netAudio.play({
+              path: paths
+          }, function(ret, err) {
+              if (ret) {
 
-            } else {
-                // alert(JSON.stringify(err));
-            }
-        });
-    }
+              } else {
+                  // alert(JSON.stringify(err));
+              }
+          });
+      	}
+      }
+
     //隐藏域存值
     function fninputvalue(text) {
         input = text;
@@ -404,6 +415,7 @@
                 title = ret.data[0].title;
                 name = ret.data[0].author_name;
                 body = ret.data[0].body;
+                author_id = ret.data[0].author_id;
                 if (!name) {
                     name = '';
                 }
@@ -578,6 +590,7 @@
                         cgxid: cgxid,
                         timestamp: timestamp,
                         timestamps: timestamps,
+                        author_id: author_id,
                         a:a,
                         c:c,
                         ok:"ctwin"

@@ -241,17 +241,19 @@
                           wx.refreshToken({
                               dynamicToken: ret.dynamicToken
                           }, function(ret, err) {
+
                               if (ret.status) {
-                                // $api.setStorage('dynamicToken',ret.dynamicToken);
-                                // $api.setStorage('expires',ret.expires);
-                                // $api.setStorage('accessToken',ret.accessToken);
-                                // $api.setStorage('openId',ret.openId);
                                 accessToken = ret.accessToken;
                                 openId = ret.openId;
 
                               } else {
-                                  alert(err.code);
+                                api.toast({              
+                                    msg:  err.code,
+                                    duration:  2000,
+                                    location:   'middle'          
+                                });
                               }
+
                           });
                         }
                         wx.getUserInfo({
@@ -263,6 +265,7 @@
                                   url: host + apiUri + '/login/wechat',
                                   method: 'post',
                                   dataType: 'json',
+                                  timeout:10,
                                   data: {
                                     values:{
                                       "openid":	ret.openid,
@@ -277,6 +280,7 @@
                                     "version":version
                                   },
                               }, function(ret, err) {
+                                if(ret){
                                   if (ret.status == 200) {
                                     var tokens = ret.data.token;
                                     $api.setStorage('token',tokens);
@@ -287,9 +291,16 @@
                                   }else{
                                     netMessage(ret);
                                   }
+                                }else{
+                                  netWork(err);
+                                }
                               });
                             } else {
-                                alert(err.code);
+                              api.toast({              
+                                  msg:  err.code,
+                                  duration:  2000,
+                                  location:   'middle'          
+                              });
                             }
                         });
                           // alert(JSON.stringify(ret));
@@ -329,6 +340,7 @@
                                         url: host + apiUri + '/login/qq',
                                         method: 'post',
                                         dataType: 'json',
+                                        timeout:10,
                                         data: {
                                           values:{
                                             "openid":	openid,
@@ -355,11 +367,11 @@
                                     });
                                 } else {
 
-                                    alert(JSON.stringify(err));
+                                    // alert(JSON.stringify(err));
                                 }
                             });
                         } else {
-                            alert(JSON.stringify(err));
+                            // alert(JSON.stringify(err));
                         }
                     });
                 } else {

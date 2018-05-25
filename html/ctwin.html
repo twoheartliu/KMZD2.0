@@ -455,7 +455,7 @@
 <script type="text/javascript" src="../script/audio2.js"></script>
 <script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript" src="../script/message.js"></script>
-<script type="text/javascript" src="../script/saveUpload.js"></script>
+<script type="text/javascript" src="../script/saveUpload1.js"></script>
 <script type="text/javascript">
     var title;
     var name;
@@ -469,6 +469,7 @@
     var a;
     var c;
     var body;
+    var author_id;
     var jidutiao = 1;
     apiready = function() {
       token = $api.getStorage('token');
@@ -482,6 +483,7 @@
           title = api.pageParam.title;
           name = api.pageParam.name;
           desc = api.pageParam.desc;
+          author_id= api.pageParam.author_id;
           body = desc;
           cgxid = api.pageParam.cgxid;
           path = api.pageParam.path;
@@ -511,6 +513,7 @@
         title = api.pageParam.title;
         name = api.pageParam.name;
         desc = api.pageParam.desc;
+        author_id= api.pageParam.author_id;
         body = desc;
         cgxid = api.pageParam.cgxid;
         path = api.pageParam.path;

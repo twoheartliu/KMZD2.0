@@ -95,11 +95,14 @@
             color: #D43C33;
         }
         /* 听单推荐 */
-        .hot{    width: 100%;
-                /* margin: 0 auto; */
-                text-align: center;
-                overflow: hidden;
-              }
+
+        .hot {
+            width: 100%;
+            /* margin: 0 auto; */
+            text-align: center;
+            overflow: hidden;
+        }
+
         .hotC {
             width: 33%;
             position: relative;
@@ -142,7 +145,6 @@
             color: #000;
             width: 100%;
             height: 20px;
-
         }
         /*个性化推荐 */
 
@@ -263,15 +265,22 @@
             margin-right: 5px;
             box-sizing: border-box;
         }
-        .w100{width: 100%;}
-        #floorId{width: 100%;margin: 0 auto;}
+
+        .w100 {
+            width: 100%;
+        }
+
+        #floorId {
+            width: 100%;
+            margin: 0 auto;
+        }
         /*.fmbtnhover { background: #D8D9DA; }*/
     </style>
 </head>
 
 <body>
     <!-- 轮播图 -->
-    <div class="swiper-container" >
+    <div class="swiper-container">
 
         <div class="swiper-wrapper" id="id-banner">
             <!-- <div class="swiper-slide" onclick="">
@@ -294,8 +303,8 @@
     </div>
     <!-- 2 热门推荐 -->
     <div class="w100">
-      <div id="floorId">
-          <!-- <div class="p20px">
+        <div id="floorId">
+            <!-- <div class="p20px">
               <div class="sectionTitle">
                   <span class="TD_div fl">专辑推荐</span>
                   <span class="fr more" onclick="fnRecommendWin();">更多</span>
@@ -337,7 +346,7 @@
               </div>
               <div class="hdivider"></div>
           </div> -->
-      </div>
+        </div>
     </div>
 
 
@@ -355,59 +364,58 @@
 
 </html>
 <script type="text/javascript">
-
-
     var token;
     apiready = function() {
-          token = $api.getStorage('token');
-          fnBanners();
-          if(!token){
-            $api.rmStorage('token');
-            api.openWin({
-                name: 'login',
-                url: '../login.html',
-                pageParam: {
-                    name: 'test'
-                }
-            });
-          }else{
-            var qqziliao = api.pageParam.qqziliao;
-            fnHomePageLayout();
-            api.setCustomRefreshHeaderInfo({
-                bgColor: '#f0f0f0',
-                image: {
-                  pull: [
-                      'widget://image/Refresh/dropdown_anim_00.png',
-                      'widget://image/Refresh/dropdown_anim_01.png',
-                      'widget://image/Refresh/dropdown_anim_02.png',
-                      'widget://image/Refresh/dropdown_anim_03.png',
-                      'widget://image/Refresh/dropdown_anim_04.png',
-                      'widget://image/Refresh/dropdown_anim_05.png',
-                      'widget://image/Refresh/dropdown_anim_06.png',
-                      'widget://image/Refresh/dropdown_anim_07.png',
-                      'widget://image/Refresh/dropdown_anim_08.png',
-                      'widget://image/Refresh/dropdown_anim_09.png',
-                      'widget://image/Refresh/dropdown_anim_10.png',
-                ],
-                load: [
-                      'widget://image/Refresh/dropdown_anim_00.png',
-                      'widget://image/Refresh/dropdown_anim_01.png',
-                      'widget://image/Refresh/dropdown_anim_02.png',
-                      'widget://image/Refresh/dropdown_anim_03.png',
-                      'widget://image/Refresh/dropdown_anim_04.png',
-                      'widget://image/Refresh/dropdown_anim_05.png',
-              ]}
-            }, function() {
-                //下拉刷新被触发，自动进入加载状态，使用 api.refreshHeaderLoadDone() 手动结束加载中状态
-                //下拉刷新被触发，使用 api.refreshHeaderLoadDone() 结束加载中状态
+            token = $api.getStorage('token');
+            fnBanners();
+            if (!token) {
+                $api.rmStorage('token');
+                api.openWin({
+                    name: 'login',
+                    url: '../login.html',
+                    pageParam: {
+                        name: 'test'
+                    }
+                });
+            } else {
+                var qqziliao = api.pageParam.qqziliao;
+                fnHomePageLayout();
+                api.setCustomRefreshHeaderInfo({
+                    bgColor: '#f0f0f0',
+                    image: {
+                        pull: [
+                            'widget://image/Refresh/dropdown_anim_00.png',
+                            'widget://image/Refresh/dropdown_anim_01.png',
+                            'widget://image/Refresh/dropdown_anim_02.png',
+                            'widget://image/Refresh/dropdown_anim_03.png',
+                            'widget://image/Refresh/dropdown_anim_04.png',
+                            'widget://image/Refresh/dropdown_anim_05.png',
+                            'widget://image/Refresh/dropdown_anim_06.png',
+                            'widget://image/Refresh/dropdown_anim_07.png',
+                            'widget://image/Refresh/dropdown_anim_08.png',
+                            'widget://image/Refresh/dropdown_anim_09.png',
+                            'widget://image/Refresh/dropdown_anim_10.png',
+                        ],
+                        load: [
+                            'widget://image/Refresh/dropdown_anim_00.png',
+                            'widget://image/Refresh/dropdown_anim_01.png',
+                            'widget://image/Refresh/dropdown_anim_02.png',
+                            'widget://image/Refresh/dropdown_anim_03.png',
+                            'widget://image/Refresh/dropdown_anim_04.png',
+                            'widget://image/Refresh/dropdown_anim_05.png',
+                        ]
+                    }
+                }, function() {
+                    //下拉刷新被触发，自动进入加载状态，使用 api.refreshHeaderLoadDone() 手动结束加载中状态
+                    //下拉刷新被触发，使用 api.refreshHeaderLoadDone() 结束加载中状态
 
-                      fnHomePageLayout();
-            });
+                    fnHomePageLayout();
+                });
 
-      }
-    //   fnInitSwiper();
-    }
-    //  banner 接口
+            }
+            //   fnInitSwiper();
+        }
+        //  banner 接口
     function fnBanners() {
         var uri = '/extra/banner';
         // var position = 'index'
@@ -426,7 +434,7 @@
                 },
 
             }
-        },function(ret, err){
+        }, function(ret, err) {
             if (ret.status == 200) {
                 var data = ret.data;
                 var len = ret.data.length;
@@ -439,19 +447,19 @@
                     var banner_types = ret.data[i].type;
                     var content = ret.data[i].content;
                     // swiper-wrapper
-                    if(img == null ){
-                      imgs =  "../image/index/KM_swiper1.jpg";
-                    }else{
-                      var img_header = 'http://47.100.11.38/kmzd/public/uploads/banner/'
-                      imgs = img_header + img
-                    //   console.log(imgs)
+                    if (img == null) {
+                        imgs = "../image/index/KM_swiper1.jpg";
+                    } else {
+                        var img_header = 'http://47.100.11.38/kmzd/public/uploads/banner/'
+                        imgs = img_header + img
+                            //   console.log(imgs)
                     }
                     var stylelist = $api.byId('id-banner');
                     // <div class="swiper-wrapper"></div>
-                    banners += '<div class="swiper-slide" onclick="fnOpenBanners(\'' + banner_id + '\',\''+ title +'\',\''+ description +'\',\''+ banner_types +'\',\''+ content +'\')"><img src="'+ imgs +'" alt=""></div>';
-                                // <div class="swiper-slide" onclick=""><img src="../image/index/KM_swiper1.jpg" alt=""></div>
-                                // \'' + banner_id + '\',\''+ title +'\',\''+ description +'\',\''+ banner_types +'\',\''+ content +'\'
-                                // <img src="http://47.100.11.38/kmzd/public/uploads/banner/banner_2.jpg" alt="">
+                    banners += '<div class="swiper-slide" onclick="fnOpenBanners(\'' + banner_id + '\',\'' + title + '\',\'' + description + '\',\'' + banner_types + '\',\'' + content + '\')"><img src="' + imgs + '" alt=""></div>';
+                    // <div class="swiper-slide" onclick=""><img src="../image/index/KM_swiper1.jpg" alt=""></div>
+                    // \'' + banner_id + '\',\''+ title +'\',\''+ description +'\',\''+ banner_types +'\',\''+ content +'\'
+                    // <img src="http://47.100.11.38/kmzd/public/uploads/banner/banner_2.jpg" alt="">
                 }
                 $api.html(stylelist, banners);
 
@@ -465,6 +473,26 @@
         });
 
     }
+
+
+
+    // 打开浏览器
+    function openBrowser(s) {
+        api.openApp({
+            androidPkg: 'android.intent.action.VIEW',
+            mimeType: 'text/html',
+            uri: s,
+            iosUrl: s,
+        }, function(ret, err) {
+            if (ret) {
+                // alert(JSON.stringify(ret));
+            } else {
+                alert(JSON.stringify(err));
+            }
+        });
+
+    }
+
     function fnOpenBanners(banner_id, title, description, banner_types, content) {
         // console.log(banner_id);
         // console.log('banner_id');
@@ -472,18 +500,23 @@
         // console.log('banner_types');
         var lujing;
         var song_id;
+        var titles;
         if (banner_types == 1) {
-            lujing = content;
+            lujing = openBrowser(content);
             // console.log(lujing);
         } else if (banner_types == 2) {
             lujing = './play.html';
             song_id = content;
         } else if (banner_types == 3) {
+            // 专辑
             lujing = './single.html';
             song_id = content;
+            titles = '专辑';
         } else if (banner_types == 4) {
+            //听单
             lujing = './single.html';
             song_id = content;
+            titles = '听单';
         } else if (banner_types == 5) {
             lujing = content;
         }
@@ -497,6 +530,9 @@
                 type: banner_types,
                 content: content,
                 song_id: song_id,
+                albumId: song_id,
+                floor_name: titles,
+                a: song_id,
             }
         });
 
@@ -509,27 +545,27 @@
             url: host + apiUri + uri,
             method: 'get',
             dataType: 'json',
-            timeout:10,
+            timeout: 10,
             headers: {
                 "source": api.systemType,
                 "version": version,
                 "session": token
             },
         }, function(ret, err) {
-          if(ret){
-            if (ret.status == 200) {
+            if (ret) {
+                if (ret.status == 200) {
 
-                // fnRecommendedDirectory(ret);
-                setTimeout(function(){
-                    api.refreshHeaderLoadDone()
-                },3000)
-                fnPageLayoutAssignment(ret);
+                    // fnRecommendedDirectory(ret);
+                    setTimeout(function() {
+                        api.refreshHeaderLoadDone()
+                    }, 3000)
+                    fnPageLayoutAssignment(ret);
+                } else {
+                    netMessage(ret);
+                }
             } else {
-                netMessage(ret);
+                netWork(err);
             }
-          }else{
-            netWork(err);
-          }
 
         });
     }
@@ -622,7 +658,7 @@
             url: './single.html',
             pageParam: {
                 albumId: id,
-                ok:ok
+                ok: ok
             }
         });
     }
@@ -868,7 +904,7 @@
     }
     //添加到听单
     function fnOpenAddListening(id) {
-    //   console.log(id);
+        //   console.log(id);
         api.openWin({
             name: 'addListening',
             url: './add_listening.html',
@@ -877,7 +913,6 @@
             }
         });
     }
-
 </script>
 <!-- <script type="text/javascript">
 

@@ -281,7 +281,6 @@
             border-radius: 35px;
             overflow: hidden;
             margin: 0 auto;
-
             text-align: center;
         }
 
@@ -289,7 +288,6 @@
             width: 100%;
             /*height: 70px;*/
             line-height: 70px;
-
         }
 
         .friend_list p {
@@ -297,7 +295,7 @@
             color: #000;
             width: 100%;
             /*width:150px;*/
-            height:16px;
+            height: 16px;
             line-height: 16px;
             text-align: center;
             overflow: hidden;
@@ -308,14 +306,16 @@
             width: 16px;
             line-height: 16px;
         }
-        p .name{
-          display: inline-block;
-          width:70%;
-          text-align:center;
-          height: 16px;
-          line-height: 16px;
-          overflow: hidden;
+
+        p .name {
+            display: inline-block;
+            width: 70%;
+            text-align: center;
+            height: 16px;
+            line-height: 16px;
+            overflow: hidden;
         }
+
         p:nth-child(2) {
             margin-top: 5px;
             /*color: #ccc;*/
@@ -346,16 +346,17 @@
         .clear {
             clear: both;
         }
-        .userButton{
-          /*display: inline-block;*/
-          width: 16px;
-          line-height: 16px;
+
+        .userButton {
+            /*display: inline-block;*/
+            width: 16px;
+            line-height: 16px;
         }
     </style>
 </head>
 
 <body>
-    <div class="egret-header-box">
+    <div class="egret-header-box" id="id-header-box">
         <div class="p20px">
             <div class="egret-header-search" onclick="OpenSearch()">
                 <img src="../image/read/header_search.png" alt="">
@@ -456,8 +457,8 @@
 
     <div class="p20px clr">
 
-    <div id="reading_aloud_recommended">
-        <!-- <div class="p20px clr">
+        <div id="reading_aloud_recommended">
+            <!-- <div class="p20px clr">
           <div class="clr read_frame_LD">
               <div class="fl read_frame_LDh1">今天天气很好</div>
               <div class="fr read_frame_LDld" onclick="fnLangduWin()"><img src="../image/read/KM_ld.png" alt=""><span>朗读</span></div>
@@ -471,7 +472,7 @@
       </div>
       <div class="huise"></div> -->
 
-    </div>
+        </div>
 </body>
 
 </html>
@@ -483,29 +484,29 @@
 <script type="text/javascript">
     var token;
     apiready = function() {
-        token = $api.getStorage('token');
-        fnBanners();
+            token = $api.getStorage('token');
+            fnBanners();
 
-        if(token){
-          // console.log(token);
-        //   fnInitSwiper();
-          // fnOpenUserButton();
-          // fnInitSwiper1();
-          fnRecommendFriends();
-          fnreadingAloudRecommended();
-          fnCategory();
-        }else{
-          $api.rmStorage('token');
-          api.openWin({
-              name: 'login',
-              url: '../login.html',
-              pageParam: {
-                  name: 'test'
-              }
-          });
+            if (token) {
+                // console.log(token);
+                //   fnInitSwiper();
+                // fnOpenUserButton();
+                // fnInitSwiper1();
+                fnRecommendFriends();
+                fnreadingAloudRecommended();
+                fnCategory();
+            } else {
+                $api.rmStorage('token');
+                api.openWin({
+                    name: 'login',
+                    url: '../login.html',
+                    pageParam: {
+                        name: 'test'
+                    }
+                });
+            }
         }
-    }
-    //  banner 接口
+        //  banner 接口
     function fnBanners() {
         var uri = '/extra/banner';
         // var position = 'index'
@@ -524,7 +525,7 @@
                 },
 
             }
-        },function(ret, err){
+        }, function(ret, err) {
             if (ret.status == 200) {
                 var data = ret.data;
                 var len = ret.data.length;
@@ -537,19 +538,19 @@
                     var banner_types = ret.data[i].type;
                     var content = ret.data[i].content;
                     // swiper-wrapper
-                    if(img == null ){
-                      imgs =  "../image/read/KM_tp.jpg";
-                    }else{
-                      var img_header = 'http://47.100.11.38/kmzd/public/uploads/banner/'
-                      imgs = img_header + img
-                    //   console.log(imgs)
+                    if (img == null) {
+                        imgs = "../image/read/KM_tp.jpg";
+                    } else {
+                        var img_header = 'http://47.100.11.38/kmzd/public/uploads/banner/'
+                        imgs = img_header + img
+                            //   console.log(imgs)
                     }
                     var stylelist = $api.byId('id-banner');
                     // <div class="swiper-wrapper"></div>
-                    banners += '<div class="swiper-slide" onclick="fnOpenBanners(\'' + banner_id + '\',\''+ title +'\',\''+ description +'\',\''+ banner_types +'\',\''+ content +'\')"><img src="'+ imgs +'" alt=""></div>';
-                                // <div class="swiper-slide" onclick=""><img src="../image/index/KM_swiper1.jpg" alt=""></div>
-                                // \'' + banner_id + '\',\''+ title +'\',\''+ description +'\',\''+ banner_types +'\',\''+ content +'\'
-                                // <img src="http://47.100.11.38/kmzd/public/uploads/banner/banner_2.jpg" alt="">
+                    banners += '<div class="swiper-slide" onclick="fnOpenBanners(\'' + banner_id + '\',\'' + title + '\',\'' + description + '\',\'' + banner_types + '\',\'' + content + '\')"><img src="' + imgs + '" alt=""></div>';
+                    // <div class="swiper-slide" onclick=""><img src="../image/index/KM_swiper1.jpg" alt=""></div>
+                    // \'' + banner_id + '\',\''+ title +'\',\''+ description +'\',\''+ banner_types +'\',\''+ content +'\'
+                    // <img src="http://47.100.11.38/kmzd/public/uploads/banner/banner_2.jpg" alt="">
                 }
                 $api.html(stylelist, banners);
 
@@ -558,11 +559,28 @@
                 // alert( JSON.stringify( ret ) );
                 fnInitSwiper();
             } else {
-                alert( JSON.stringify( err ) );
+                alert(JSON.stringify(err));
             }
         });
 
     }
+    // 打开浏览器
+    function openBrowser(s) {
+        api.openApp({
+            androidPkg: 'android.intent.action.VIEW',
+            mimeType: 'text/html',
+            uri: s,
+            iosUrl: s,
+        }, function(ret, err) {
+            if (ret) {
+                // alert(JSON.stringify(ret));
+            } else {
+                alert(JSON.stringify(err));
+            }
+        });
+
+    }
+
     function fnOpenBanners(banner_id, title, description, banner_types, content) {
         // console.log(banner_id);
         // console.log('banner_id');
@@ -570,28 +588,29 @@
         // console.log('banner_types');
         var lujing;
         var song_id;
+        var titles;
         if (banner_types == 1) {
-            lujing = content;
+            lujing = openBrowser(content);
+            // console.log(lujing);
             // console.log(lujing);
         } else if (banner_types == 2) {
+            // 播放器
             lujing = './play.html';
             song_id = content;
         } else if (banner_types == 3) {
+            // 专辑
             lujing = './single.html';
             song_id = content;
+            titles = '专辑';
         } else if (banner_types == 4) {
+            //听单
             lujing = './single.html';
             song_id = content;
+            titles = '听单';
         } else if (banner_types == 5) {
             lujing = content;
         }
-        // } else if (banner_types == 3) {
-        //
-        // } else if (banner_types == 4) {
-        //
-        // } else if (banner_types == 5) {
-        //
-        // }
+
         api.openWin({
             name: 'openBanner',
             url: lujing,
@@ -602,46 +621,53 @@
                 type: banner_types,
                 content: content,
                 song_id: song_id,
+                albumId: song_id,
+                floor_name: titles,
+                a: song_id,
             }
         });
 
     }
 
-    function fnCategory(){
-      var uri = '/script/category';
-      api.ajax({
-          url: host + apiUri + uri,
-          method: 'get',
-          dataType: 'json',
-          headers: {
-              "source": api.systemType,
-              "version": version,
-              "session": token
-          }
-      }, function(ret, err) {
-          if (ret.status == 200) {
-              fnCategoryAlbum(ret);
-          } else {
-              netMessage(ret);
-          }
+    function fnCategory() {
+        var uri = '/script/category';
+        api.ajax({
+            url: host + apiUri + uri,
+            method: 'get',
+            dataType: 'json',
+            headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token
+            }
+        }, function(ret, err) {
+            if (ret.status == 200) {
+                fnCategoryAlbum(ret);
+            } else {
+                netMessage(ret);
+            }
 
-      });
+        });
     }
-    function fnCategoryAlbum(data_){
-      var stylelist = $api.byId('scriptCategory');
-      var html = '<div class="navbar">';
-      for (var i = 0; i < data_.data.length; i++) {
 
-        if (i == 3) {
-          html += '<div class="navbar-item " tapmode="navbar-item-hov" onclick="fnReadListWin(' + data_.data[i].category_id + ');"><img src="http://47.100.11.38/kmzd/public/uploads/recitation/' + data_.data[i].category_icon + '" alt="">' + data_.data[i].category_name + '</div></div><div class="navbar">'
-        }else {
-          html +='<div class="navbar-item " tapmode="navbar-item-hov" onclick="fnReadListWin(' + data_.data[i].category_id + ');"><img src="http://47.100.11.38/kmzd/public/uploads/recitation/' + data_.data[i].category_icon + '" alt="">' + data_.data[i].category_name + '</div>';
+    function fnCategoryAlbum(data_) {
+        var stylelist = $api.byId('scriptCategory');
+        var html = '<div class="navbar">';
+        for (var i = 0; i < data_.data.length; i++) {
+
+            if (i == 3) {
+                html += '<div class="navbar-item " tapmode="navbar-item-hov" onclick="fnReadListWin(' + data_.data[i].category_id + ');"><img src="http://47.100.11.38/kmzd/public/uploads/recitation/' + data_.data[i].category_icon + '" alt="">' +
+                    data_.data[i].category_name + '</div></div><div class="navbar">'
+            } else {
+                html += '<div class="navbar-item " tapmode="navbar-item-hov" onclick="fnReadListWin(' + data_.data[i].category_id + ');"><img src="http://47.100.11.38/kmzd/public/uploads/recitation/' + data_.data[i].category_icon + '" alt="">' +
+                    data_.data[i].category_name + '</div>';
+            }
+
         }
-
-      }
-      html += '</div>'
-      $api.html(stylelist, html);
+        html += '</div>'
+        $api.html(stylelist, html);
     }
+
     function fnreadingAloudRecommended() {
         var uri = '/recitation/script_recommend';
         api.ajax({
@@ -701,33 +727,33 @@
                     var fans = ret.data[i].fans_total;
                     var title = ret.data[i].photo;
                     // console.log(title);
-                    if(title == null ){
-                      title =  "../image/KM_tx.png";
-                    }else{
-                      var photo =  title.substring(0, 4);
-                      if(photo == 'http' ){
-                        title = ret.data[i].photo;
-                      }
-                      if(photo != 'http' ){
-                        title =  updatePhotoUrl + ret.data[i].photo;
-                      }
+                    if (title == null) {
+                        title = "../image/KM_tx.png";
+                    } else {
+                        var photo = title.substring(0, 4);
+                        if (photo == 'http') {
+                            title = ret.data[i].photo;
+                        }
+                        if (photo != 'http') {
+                            title = updatePhotoUrl + ret.data[i].photo;
+                        }
                     }
                     var stylelist = $api.byId('friend');
                     html +=
                         '<div class="friend_list ">' +
-                          '<input type="hidden" id="user_'+userId+'" value="1"/>'+
-                            '<div class="user_img" onclick="fnOpenmyPersonal(\'' + userId + '\',\''+ nickname +'\')" >'+
-                                '<img src="'+ title +'" alt="">'+
-                            '</div>'+
-                            '<p>'+
-                              '<span class="name">'+nickname+'</span>'+
-                              '<span  > <img src="../image/read/care.png" alt="" class="userButton" id="userButton'+ret.data[i].user_id+'" onclick="fnOpenUserButton(\'' + ret.data[i].user_id + '\',\''+ ret.data[i].nick_name +'\')" ></span>'+
-                            '</p>'+
-                            '<p class="p">  '+
-                              '<span>粉丝</span><span>'+fans+'</span>  '+
-                              '<span>作品</span><span>'+product+'</span>'+
-                            '</p>'+
-                          '</div>';
+                        '<input type="hidden" id="user_' + userId + '" value="1"/>' +
+                        '<div class="user_img" onclick="fnOpenmyPersonal(\'' + userId + '\',\'' + nickname + '\')" >' +
+                        '<img src="' + title + '" alt="">' +
+                        '</div>' +
+                        '<p>' +
+                        '<span class="name">' + nickname + '</span>' +
+                        '<span  > <img src="../image/read/care.png" alt="" class="userButton" id="userButton' + ret.data[i].user_id + '" onclick="fnOpenUserButton(\'' + ret.data[i].user_id + '\',\'' + ret.data[i].nick_name + '\')" ></span>' +
+                        '</p>' +
+                        '<p class="p">  ' +
+                        '<span>粉丝</span><span>' + fans + '</span>  ' +
+                        '<span>作品</span><span>' + product + '</span>' +
+                        '</p>' +
+                        '</div>';
                 }
                 $api.html(stylelist, html);
             } else {
@@ -806,102 +832,101 @@
     // }
 
     //加关注
-    function fnOpenUserButton(id,nickname) {
+    function fnOpenUserButton(id, nickname) {
 
-      var userFollowType = document.getElementById('user_'+id).value;
-      var userButton = document.getElementById('userButton' + id);
-      if(userFollowType == 1){
-          userFollowType = document.getElementById('user_'+id).value = 0;
-          var dialogBox = api.require('dialogBox');
-          dialogBox.alert({
-              texts: {
-                  content: '确定要添加关注吗？',
-                  leftBtnTitle: '取消',
-                  rightBtnTitle: '确认'
-              },
-              styles: {
-                  bg: '#fff',
-                  w: 300,
-                  content: {
-                      color: '#000',
-                      size: 14
-                  },
-                  left: {
-                      marginB: 15,
-                      marginL: 20,
-                      w: 100,
-                      h: 35,
-                      corner: 2,
-                      bg: '#ccc',
-                      color: '#fff',
-                      size: 12
-                  },
-                  right: {
-                      marginB: 15,
-                      marginL: 60,
-                      w: 100,
-                      h: 35,
-                      corner: 2,
-                      bg: '#ccc',
-                      color: '#fff',
-                      size: 12
-                  }
-              }
-          }, function(ret) {
-              if (ret.eventType == 'right') {
-                  api.ajax({
-                      url: host + apiUri + '/user/follow',
-                      method: 'post',
-                      headers: {
-                          "source": api.systemType,
-                          "version": version,
-                          "session": token
-                      },
-                      data: {
-                          values: {
-                              "follow_id": id,
-                          }
-                      },
-                  }, function(ret, err) {
-                      // console.log(JSON.stringify(ret));
-                      if (ret.status == 200) {
-                          if (userButton.getAttribute("src", 2) == "../image/read/care.png") {
-                              userButton.src = "../image/read/care1.png";
-                              var dialogBox = api.require('dialogBox');
-                              dialogBox.close({
-                                  dialogName: 'alert'
-                              });
-                          }
-                      }
-                  })
-              } else if (ret.eventType == 'left') {
-                  var dialogBox = api.require('dialogBox');
-                  dialogBox.close({
-                      dialogName: 'alert'
-                  });
-              }
-          });
+        var userFollowType = document.getElementById('user_' + id).value;
+        var userButton = document.getElementById('userButton' + id);
+        if (userFollowType == 1) {
+            userFollowType = document.getElementById('user_' + id).value = 0;
+            var dialogBox = api.require('dialogBox');
+            dialogBox.alert({
+                texts: {
+                    content: '确定要添加关注吗？',
+                    leftBtnTitle: '取消',
+                    rightBtnTitle: '确认'
+                },
+                styles: {
+                    bg: '#fff',
+                    w: 300,
+                    content: {
+                        color: '#000',
+                        size: 14
+                    },
+                    left: {
+                        marginB: 15,
+                        marginL: 20,
+                        w: 100,
+                        h: 35,
+                        corner: 2,
+                        bg: '#ccc',
+                        color: '#fff',
+                        size: 12
+                    },
+                    right: {
+                        marginB: 15,
+                        marginL: 60,
+                        w: 100,
+                        h: 35,
+                        corner: 2,
+                        bg: '#ccc',
+                        color: '#fff',
+                        size: 12
+                    }
+                }
+            }, function(ret) {
+                if (ret.eventType == 'right') {
+                    api.ajax({
+                        url: host + apiUri + '/user/follow',
+                        method: 'post',
+                        headers: {
+                            "source": api.systemType,
+                            "version": version,
+                            "session": token
+                        },
+                        data: {
+                            values: {
+                                "follow_id": id,
+                            }
+                        },
+                    }, function(ret, err) {
+                        // console.log(JSON.stringify(ret));
+                        if (ret.status == 200) {
+                            if (userButton.getAttribute("src", 2) == "../image/read/care.png") {
+                                userButton.src = "../image/read/care1.png";
+                                var dialogBox = api.require('dialogBox');
+                                dialogBox.close({
+                                    dialogName: 'alert'
+                                });
+                            }
+                        }
+                    })
+                } else if (ret.eventType == 'left') {
+                    var dialogBox = api.require('dialogBox');
+                    dialogBox.close({
+                        dialogName: 'alert'
+                    });
+                }
+            });
 
-      }else{
-          //说明已关注，执行页面跳转
-          fnOpenmyPersonal(id,nickname);
+        } else {
+            //说明已关注，执行页面跳转
+            fnOpenmyPersonal(id, nickname);
 
-      }
+        }
 
 
 
-}
+    }
 
-//个人主页
-function fnOpenmyPersonal(id,nickname) {
-    api.openWin({
-        name: 'myPersonal',
-        url: './my_personal.html',
-        pageParam: {
-            'userId': id,
-            'nickName':nickname
-        },
-    });
-};
-
+    //个人主页
+    function fnOpenmyPersonal(id, nickname) {
+        api.openWin({
+            name: 'myPersonal',
+            url: './my_personal.html',
+            pageParam: {
+                'userId': id,
+                'nickName': nickname
+            },
+        });
+    };
 </script>

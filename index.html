@@ -345,7 +345,7 @@
 
                             <div class="egret-img-a egret-img-a-my" tapmode onclick="fnDenglu();"><img class="right_img" src="./image/index/KM_qiandao.png" alt="">
                                 <span id="lianxuqiandao">
-                              暂无签到
+                              <!-- 暂无签到 -->
                             </span>
                             </div>
 
@@ -404,12 +404,13 @@
                 adjust()
                 funIniGroup();
 
-            var dqian = $api.getStorage('qiandaoshu');
-            if(dqian){
-              var stylelist = $api.byId('lianxuqiandao');
-              var html ='已连续签到 '+ dqian +' 天';
-              $api.html(stylelist, html);
-            }
+            // var dqian = $api.getStorage('qiandaoshu');
+            // if(dqian){
+            //   var stylelist = $api.byId('lianxuqiandao');
+            //   var html ='已连续签到 '+ dqian +' 天';
+            //   $api.html(stylelist, html);
+            // }
+            fuLianXuQianDao();
         }
         // 底部导航播放按钮；
     function fnOpenCenterFrame() {
@@ -541,28 +542,58 @@
             url: host + apiUri + uri,
             method: 'post',
             dataType: 'json',
+            timeout:10,
             headers: {
                 "source": api.systemType,
                 "version": version,
                 "session": token,
             },
         }, function(ret, err) {
+          if(ret){
             if (ret.status == 200) {
                 api.toast({
                     msg: '签到成功',
                     duration: 2000,
                     location: 'middle'
                 });
-                $api.setStorage('qiandaoshu',ret.data.sign_count);
                 var stylelist = $api.byId('lianxuqiandao');
                 var html ='已连续签到 '+ ret.data.sign_count +' 天';
                 $api.html(stylelist, html);
             } else {
                 netMessage(ret);
             }
+          }else{
+            netWork(err);
+
+            }
         });
     }
-
+    function fuLianXuQianDao(){
+      var  uri = '/user';
+        api.ajax({
+            url: host + apiUri + uri,
+            method: 'get',
+            dataType: 'json',
+            timeout:10,
+            headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token,
+            },
+        }, function(ret, err) {
+          if(ret){
+            if (ret.status == 200) {
+                var stylelist = $api.byId('lianxuqiandao');
+                var html ='已连续签到 '+ ret.data.sign_count +' 天';
+                $api.html(stylelist, html);
+            } else {
+                netMessage(ret);
+            }
+          }else{
+            netWork(err);
+          }
+        });
+    }
 
     // 初始化事件监听
     function initEventListenner() {

@@ -84,7 +84,10 @@ function fnLuYinBaoCun() {
                                         });
                                         path = '';
                                         timeCsss();
-
+                                        if(jidutiao){
+                                          var myAudio = document.getElementById("myAudio");
+                                          myAudio.currentTime = 0;
+                                        }
                                     } else {
                                         alert(JSON.stringify(err));
                                     }
@@ -103,7 +106,7 @@ function fnLuYinBaoCun() {
                                 var historyUrlArray = historyUrlText.split(',');
                                 for (var i = 0; i < historyUrlArray.length; i++) {
                                     historyUrlArray[i] == cgxid && (flag = true);
-                                }!flag && historyUrlArray.splice(1, 0, cgxid, title, name, body, author_id);
+                                }!flag && historyUrlArray.splice(1, 0, cgxid, title, name, body,author_id);
                                 !flag && api.setPrefs({
                                     key: 'cgxlist',
                                     value: historyUrlArray.join(',')
@@ -137,14 +140,15 @@ function fnLuYinBaoCun() {
                                       oldPath: paths,
                                       newPath: 'fs://shangchuanxiang/' + timestamp + jubenid + '.amr'
                                   }, function(ret, err) {
+                                    if(ret){
                                       if (ret.status) {
                                           // alert('已上传');
                                           uri = '/upload/user_records';
                                           api.ajax({
                                               url: host + apiUri + uri,
                                               method: 'post',
-                                              dataType: 'json',
                                               timeout:10,
+                                              dataType: 'json',
                                               headers: {
                                                   "source": api.systemType,
                                                   "version": version,
@@ -175,13 +179,15 @@ function fnLuYinBaoCun() {
                                                   });
                                                   path = '';
                                                   timeCsss();
-
+                                                  if(jidutiao){
+                                                    var myAudio = document.getElementById("myAudio");
+                                                    myAudio.currentTime = 0;
+                                                  }
                                                   uri = '/user/records';
                                                   api.ajax({
                                                       url: host + apiUri + uri,
                                                       method: 'post',
                                                       dataType: 'json',
-                                                      timeout:10,
                                                       headers: {
                                                           "source": api.systemType,
                                                           "version": version,
@@ -201,19 +207,15 @@ function fnLuYinBaoCun() {
                                                       }
                                                   }, function(ret, err) {
                                                       // console.log(JSON.stringify(ret));
-                                                      if(ret){
-                                                        if (ret.status == 200) {
-                                                            api.toast({              
-                                                                msg:   '已上传',
-                                                                duration:  2000,
-                                                                location:   'middle'          
-                                                            });
+                                                      if (ret.status == 200) {
+                                                          api.toast({              
+                                                              msg:   '已上传',
+                                                              duration:  2000,
+                                                              location:   'middle'          
+                                                          });
 
-                                                        } else {
-                                                            netMessage(ret);
-                                                        }
-                                                      }else{
-                                                        netWork(err);
+                                                      } else {
+                                                          netMessage(ret);
                                                       }
                                                   });
                                               } else {
@@ -228,16 +230,18 @@ function fnLuYinBaoCun() {
 
 
                                       } else {
-                                        console.log(111);
-                                          alert(JSON.stringify(err));
+                                          netMessage(ret);
                                       }
+                                    }else{
+                                      netWork(err);
+                                    }
                                   });
                               } else {
-                                console.log(222);
-                                  alert(JSON.stringify(err));
+                                  // alert(JSON.stringify(err));
                               }
                           });
                       	}
+
                         var dialogBox = api.require('dialogBox');
                         dialogBox.close({
                             dialogName: 're'
