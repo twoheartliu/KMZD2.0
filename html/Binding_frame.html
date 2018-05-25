@@ -146,14 +146,14 @@ var mobile
           api.toast({
               msg: '手机不能为空',
               duration: 2000,
-              location: 'bottom'
+              location: 'middle'
           });
           return;
       } else if (!phoneRegular.test(phone)) {
           api.toast({
               msg: '手机格式不正确',
               duration: 2000,
-              location: 'bottom'
+              location: 'middle'
           });
           phones.value = '';
           return;
@@ -178,7 +178,7 @@ var mobile
               api.toast({
                   msg: '手机号已存在',
                   duration: 2000,
-                  location: 'bottom'
+                  location: 'middle'
               });
             }
               if (ret.status == 200) {
@@ -220,14 +220,14 @@ var mobile
               api.toast({
                    msg: '请勿重复发送验证码',
                    duration: 2000,
-                   location: 'bottom'
+                   location: 'middle'
                });
             }
             if (ret.status == 10303) {
               api.toast({
                    msg: '同一时段内获取次数超限，请稍后再试',
                    duration: 2000,
-                   location: 'bottom'
+                   location: 'middle'
                });
             }
             if (ret.status == 200) {
@@ -235,7 +235,7 @@ var mobile
               api.toast({
                    msg: '已发送',
                    duration: 2000,
-                   location: 'bottom'
+                   location: 'middle'
                });
             } else {
               // console.log(JSON.stringify(err));
@@ -252,19 +252,19 @@ var mobile
           api.toast({
                msg: '手机号不能为空',
                duration: 2000,
-               location: 'bottom'
+               location: 'middle'
            });
         }else if ( mobile == undefined) {
           api.toast({
                msg: '请先获取验证码验证码',
                duration: 2000,
-               location: 'bottom'
+               location: 'middle'
            });
         } else if (typeBindMobile == '') {
           api.toast({
                msg: '验证码不能为空',
                duration: 2000,
-               location: 'bottom'
+               location: 'middle'
            });
         }else {
             // console.log(mobile);

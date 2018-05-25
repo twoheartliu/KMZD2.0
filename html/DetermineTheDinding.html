@@ -89,7 +89,8 @@
         });
     }
     apiready = function() {
-        var mobile = api.pageParam.mobile;
+      var mobile = api.pageParam.mobile;
+      var is_set_password = api.pageParam.is_set_password;
         var header = $api.byId('secHeader');
         $api.fixStatusBar(header);
         var headerPos = $api.offset(header);
@@ -103,7 +104,8 @@
                 h: 'auto'
             },
             pageParam: {
-                mobile: mobile
+                mobile: mobile,
+                is_set_password:is_set_password
             },
             bounces: false,
         });

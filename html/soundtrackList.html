@@ -85,29 +85,58 @@
 
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/message.js"></script>;
 <script type="text/javascript">
+var ok;
     apiready = function() {
       var header = $api.byId('secHeader');
       $api.fixStatusBar(header);
       var headerPos = $api.offset(header);
+      api.addEventListener({
+        name: 'oks'
+      }, function(ret, err) {
+        if(ret.value.wangluo){
+          api.openFrame({
+              name: 'soundtrackList_frame',
+              url: './soundtrackList_frame.html',
+              rect: {
+                  x: 0,
+                  y: headerPos.h,
+                  w: 'auto',
+                  h: 'auto'
+              },
+              pageParam: {
+                  byid: api.pageParam.byid,
+              },
+              bounces: false,
+          });
+        }
+      });
 
+      var connectionType = api.connectionType;
+      	if(connectionType == "none"){
+      		netWorkNone(ok);
+      	}else{
+          api.openFrame({
+              name: 'soundtrackList_frame',
+              url: './soundtrackList_frame.html',
+              rect: {
+                  x: 0,
+                  y: headerPos.h,
+                  w: 'auto',
+                  h: 'auto'
+              },
+              pageParam: {
+                  byid: api.pageParam.byid,
+              },
+              bounces: false,
+          });
+      	}
+      }
       // var footer = $api.byId('footer')
       // $api.fixStatusBar(footer);
       // var footerPos = $api.offset(footer);
-        api.openFrame({
-            name: 'soundtrackList_frame',
-            url: './soundtrackList_frame.html',
-            rect: {
-                x: 0,
-                y: headerPos.h,
-                w: 'auto',
-                h: 'auto'
-            },
-            pageParam: {
-                byid: api.pageParam.byid
-            },
-            bounces: false,
-        });
+
 
     }
     function goback() {
