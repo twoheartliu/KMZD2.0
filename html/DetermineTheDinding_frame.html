@@ -76,8 +76,8 @@
     <div class="Binding_bg"><img src="../image/my/Binding_bg.png" alt=""></div>
     <div class="Binding_name" id="BindingName"></div>
     <div class="p20px">
-      <div class="Binding_name2 fr" onclick="();"></div>
-      <div class="Binding_name2 fl" onclick="();"></div>
+      <div class="Binding_name2 fr" onclick=""></div>
+      <div class="Binding_name2 fl" onclick=""></div>
     </div>
     <div class="p20px">
         <div class="index_name_li1">
@@ -128,13 +128,72 @@ var mobile , is_set_password;
 
     }
     function Unbinding() {
-        api.openWin({
-            name: 'Unbinding',
-            url: './Unbinding.html',
-            pageParam: {
-                mobile: mobile
-            }
-        });
+      var dialogBox = api.require('dialogBox');
+      dialogBox.alert({
+          texts: {
+              title: '确认',
+              content: '确认解绑手机号？',
+              leftBtnTitle: '取消',
+              rightBtnTitle: '确认'
+          },
+          styles: {
+              bg: '#fff',
+              w: 300,
+              title: {
+                  marginT: 20,
+                  icon: 'widget://res/gou.png',
+                  iconSize: 40,
+                  titleSize: 14,
+                  titleColor: '#000'
+              },
+              content: {
+                  color: '#000',
+                  size: 14
+              },
+              left: {
+                  marginB: 7,
+                  marginL: 20,
+                  w: 130,
+                  h: 35,
+                  corner: 2,
+                  color: '#000',
+                  bg: '#ccc',
+                  size: 12
+              },
+              right: {
+                  marginB: 7,
+                  marginL: 10,
+                  w: 130,
+                  h: 35,
+                  corner: 2,
+                  color: '#000',
+                  bg: '#ccc',
+                  size: 12
+              }
+          },
+
+          tapClose: true
+      }, function(ret) {
+          if (ret.eventType == 'right') {
+              var dialogBox = api.require('dialogBox');
+              dialogBox.close({
+                  dialogName: 'alert'
+              });
+              api.openWin({
+                  name: 'Unbinding',
+                  url: './Unbinding.html',
+                  pageParam: {
+                      mobile: mobile
+                  }
+              });
+          } else {
+              var dialogBox = api.require('dialogBox');
+              dialogBox.close({
+                  dialogName: 'alert'
+              });
+          }
+      });
+
 
     }
 </script>
