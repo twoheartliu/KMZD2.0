@@ -656,10 +656,10 @@
         for (var i = 0; i < data_.data.length; i++) {
 
             if (i == 3) {
-                html += '<div class="navbar-item " tapmode="navbar-item-hov" onclick="fnReadListWin(' + data_.data[i].category_id + ');"><img src="http://47.100.11.38/kmzd/public/uploads/recitation/' + data_.data[i].category_icon + '" alt="">' +
+                html += '<div class="navbar-item " tapmode="navbar-item-hov" onclick="fnReadListWin(' + data_.data[i].category_id + ',\''+ data_.data[i].category_name + '\');"><img src="http://47.100.11.38/kmzd/public/uploads/recitation/' + data_.data[i].category_icon + '" alt="">' +
                     data_.data[i].category_name + '</div></div><div class="navbar">'
             } else {
-                html += '<div class="navbar-item " tapmode="navbar-item-hov" onclick="fnReadListWin(' + data_.data[i].category_id + ');"><img src="http://47.100.11.38/kmzd/public/uploads/recitation/' + data_.data[i].category_icon + '" alt="">' +
+                html += '<div class="navbar-item " tapmode="navbar-item-hov" onclick="fnReadListWin(' + data_.data[i].category_id + ',\''+ data_.data[i].category_name + '\');"><img src="http://47.100.11.38/kmzd/public/uploads/recitation/' + data_.data[i].category_icon + '" alt="">' +
                     data_.data[i].category_name + '</div>';
             }
 
@@ -763,12 +763,14 @@
         });
     }
 
-    function fnReadListWin(id) {
+    function fnReadListWin(id,category_name) {
         api.openWin({
             name: 'readlist',
             url: './readlist.html',
             pageParam: {
-                id: id
+                id: id,
+                category_name:category_name,
+                ok:'readlist'
             }
         });
     }
@@ -911,11 +913,7 @@
         } else {
             //说明已关注，执行页面跳转
             fnOpenmyPersonal(id, nickname);
-
         }
-
-
-
     }
 
     //个人主页
@@ -924,8 +922,9 @@
             name: 'myPersonal',
             url: './my_personal.html',
             pageParam: {
-                'userId': id,
-                'nickName': nickname
+                userId: id,
+                nickName: nickname,
+                ok:'myPersonal'
             },
         });
     };

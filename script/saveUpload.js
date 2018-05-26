@@ -51,6 +51,11 @@ function fnLuYinBaoCun() {
                     tapClose: true
                 }, function(ret) {
                     var timestampssss = new Date().getTime();
+                    var systemType = api.systemType;
+                    if(systemType == "ios"){
+                      var pathAdd = path.substring(39,76);
+                      $api.setStorage('pathAdd',pathAdd);
+                    }
                     if (ret.eventType == 'left') {
                         var fs = api.require('fs');
                         fs.copyTo({
@@ -61,39 +66,37 @@ function fnLuYinBaoCun() {
                             var paths = 'fs://caogaoxiang/' + timestamps + jubenid;
                             if (ret.status) {
                                 var fs = api.require('fs');
-
                                 fs.rename({
                                     oldPath: paths,
                                     newPath: 'fs://caogaoxiang/' + timestampssss + jubenid
                                 }, function(ret, err) {
-                                  // console.log(222);
                                     if (ret.status) {
-                                      console.log(666666);
                                         api.toast({              
                                             msg:   '已保存',
                                             duration:  2000,
                                             location:   'middle'          
                                         });
-
+                                        path = '';
+                                        timeCsss();
+                                        var dialogBox = api.require('dialogBox');
+                                        dialogBox.close({
+                                            dialogName: 'alert'
+                                        });
                                         fs.rmdir({
                                             path: 'fs://luyin'
                                         }, function(ret, err) {
                                             if (ret.status) {
-                                              console.log(8888);
                                                 // alert(JSON.stringify(ret));
                                             } else {
-                                                alert(JSON.stringify(err));
+                                                // alert(JSON.stringify(err));
                                             }
                                         });
-                                        path = '';
-                                        timeCsss();
-
                                     } else {
-                                        alert(JSON.stringify(err));
+                                        // alert(JSON.stringify(err));
                                     }
                                 });
                             } else {
-                                alert(JSON.stringify(err));
+                                // alert(JSON.stringify(err));
                             }
                         });
                         cgxid = '' + timestampssss + '' + jubenid + '';
@@ -111,13 +114,17 @@ function fnLuYinBaoCun() {
                                     key: 'cgxlist',
                                     value: historyUrlArray.join(',')
                                 });
+                                var dialogBox = api.require('dialogBox');
+                                dialogBox.close({
+                                    dialogName: 'alert'
+                                });
                             } else {
                                 // alert(JSON.stringify(err));
                             }
                         });
                         var dialogBox = api.require('dialogBox');
                         dialogBox.close({
-                            dialogName: 're'
+                            dialogName: 'alert'
                         });
                     }
                     if (ret.eventType == 'right') {
@@ -130,24 +137,16 @@ function fnLuYinBaoCun() {
                           });
                       	}else{
                           var fs = api.require('fs');
-                          console.log(path);
-                          console.log(timestamps);
                           fs.copyTo({
                               oldPath: path,
                               newPath: 'fs://shangchuanxiang'
                           }, function(ret, err) {
                               var paths = 'fs://shangchuanxiang/' + timestamps + jubenid;
-                              console.log(JSON.stringify(ret));
-                              console.log(JSON.stringify(err));
-                              console.log(path);
-                              console.log(timestamps);
                               if (ret.status) {
                                   fs.rename({
                                       oldPath: paths,
                                       newPath: 'fs://shangchuanxiang/' + timestamp + jubenid + '.amr'
                                   }, function(ret, err) {
-                                    console.log(JSON.stringify(ret));
-                                    console.log(JSON.stringify(err));
                                       if (ret.status) {
 
                                           // alert('已上传');
@@ -168,8 +167,6 @@ function fnLuYinBaoCun() {
                                                   }
                                               }
                                           }, function(ret, err) {
-                                            console.log(JSON.stringify(ret));
-                                            console.log(JSON.stringify(err));
                                             if(ret){
                                               if (ret.status == 200) {
                                                   // console.log(ret.status);
@@ -238,23 +235,18 @@ function fnLuYinBaoCun() {
                                               netWork(err);
                                             }
                                           });
-
-
-
                                       } else {
-                                        console.log(111);
-                                          alert(JSON.stringify(err));
+                                          // alert(JSON.stringify(err));
                                       }
                                   });
                               } else {
-                                console.log(222);
-                                  alert(JSON.stringify(err));
+                                  // alert(JSON.stringify(err));
                               }
                           });
                       	}
                         var dialogBox = api.require('dialogBox');
                         dialogBox.close({
-                            dialogName: 're'
+                            dialogName: 'alert'
                         });
                     }
                 });

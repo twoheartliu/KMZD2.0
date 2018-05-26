@@ -70,32 +70,69 @@
             name: 'myPersonal'
         });
     }
+    var ok;
     apiready = function() {
         var header = $api.byId('secHeader');
         var nickName1 = $api.byId('nickName');
         $api.fixStatusBar(header);
         var headerPos = $api.offset(header).h;
-        var userId = api.pageParam.userId;
-        var nickName = api.pageParam.nickName;
-        var html1 = nickName + "的主页";
-        // console.log(nickName);
-        $api.html(nickName1, html1);
-        api.openFrame({
-            name: 'myPersonalFrame',
-            url: './my_personal_frame.html',
-            rect: {
-                x: 0,
-                y: headerPos,
-                w: 'auto',
-                h: 'auto'
 
-            },
-            pageParam: {
-                userId: userId,
-                nickName: nickName
-            },
-            bounces: false,
+        // console.log(nickName);
+        ok = api.pageParam.ok;
+        var oks = 'ok'+ok;
+        api.addEventListener({
+            name: 'oks'
+        }, function(ret, err) {
+          if(ret.value.wangluo){
+            var userId = api.pageParam.userId;
+            var nickName = api.pageParam.nickName;
+            var html1 = nickName + "的主页";
+            $api.html(nickName1, html1);
+            api.openFrame({
+                name: 'myPersonalFrame',
+                url: './my_personal_frame.html',
+                rect: {
+                    x: 0,
+                    y: headerPos,
+                    w: 'auto',
+                    h: 'auto'
+
+                },
+                pageParam: {
+                    userId: userId,
+                    nickName: nickName
+                },
+                bounces: false,
+            });
+          }
         });
+
+        var connectionType = api.connectionType;
+        	if(connectionType == "none"){
+        		netWorkNone(ok);
+        	}else{
+            var userId = api.pageParam.userId;
+            var nickName = api.pageParam.nickName;
+            var html1 = nickName + "的主页";
+            $api.html(nickName1, html1);
+            api.openFrame({
+                name: 'myPersonalFrame',
+                url: './my_personal_frame.html',
+                rect: {
+                    x: 0,
+                    y: headerPos,
+                    w: 'auto',
+                    h: 'auto'
+
+                },
+                pageParam: {
+                    userId: userId,
+                    nickName: nickName
+                },
+                bounces: false,
+            });
+        	}
+
         // fnOpenFooterFrame();
     }
     // function fnOpenFooterFrame(){

@@ -151,7 +151,7 @@
         .egret-flex-item {
             display: -webkit-box;
             -webkit-box-align: center;
-            height: 100px;
+            height: 100px; 
         }
 
         .egret-flex-items {
@@ -589,16 +589,26 @@
                         var ssss = frameWidth - 50;
                         var xxxx = ssss / cccc;
                         // style="width:' + xxxx + 'px;"
-                        html += '<div class="hotC"  onclick="fnSingLeWin(' + data_.data[i].content[s].id + ');"><img src=" ' + host + '/' + data_.data[i].content[s].sma + '" alt=""><div class="listtitle"> ' + data_.data[
+                        html += '<div class="hotC"  onclick="fnSingLeWin(' + data_.data[i].content[s].id + ',\'' + data_.data[i].floor_name + '\');"><img src=" ' + host + '/' + data_.data[i].content[s].sma + '" alt=""><div class="listtitle"> ' + data_.data[
                             i].content[s].title + '</div></div>';
                     } else if (data_.data[i].floor_type == "list") {
+                      if(data_.data[i].content[s].author_name){
                         html += '<div class="egret-flex-item"><div class="egret-flex-items" tapmode="fmbtnhover" onclick="fnOpenPlay(' + data_.data[i].content[s].id + ')"><div class="egret-flex-item-logo"><img src="' + host + '/' + data_.data[i].content[
-                                s].mid + '" alt="" class=""></div><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 fl">作品：<span>' + data_.data[i].content[s].title +
-                            '</span></span><!-- <span class="span2 iconfont icon-nv fl"></span> --><!-- <img src="../image/js.png" alt="" class="fl"> --><!-- <span class="span3 fr">昨天21.30</span> --></div><div class="egret-flex-item-shelf02"><span>' +
-                            data_.data[i].content[s].author_name + '</span><!-- <span><img src="../image/js.png" alt="" class="fl"></span> --></div><div class="egret-flex-item-shelf03"><div><img src="../image/KM_play.png" alt=""><span>' + data_.data[
-                                i].content[s].play_total + '</span></div><!-- <div><img src="../image/KM_dx.png" alt=""><span>100</span></div> --><div><img src="../image/KM_zf.png" alt=""><span>' + data_.data[i].content[s].share_total +
+                                s].mid + '" alt="" class=""></div><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 fl"><span>' + data_.data[i].content[s].title +
+                            '</span></span></div><div class="egret-flex-item-shelf02"><span>' +
+                            data_.data[i].content[s].author_name + '</span></div><div class="egret-flex-item-shelf03"><div><img src="../image/KM_play.png" alt=""><span>' + data_.data[
+                                i].content[s].play_total + '</span></div><div><img src="../image/KM_zf.png" alt=""><span>' + data_.data[i].content[s].share_total +
                             '</span></div><div><img src="../image/KM_dz.png" alt=""><span>' + data_.data[i].content[s].good_total +
                             '</span></div></div></div>  </div><div class="egret-flex-item-shelf04" onclick="fnOpenPlayMore(' + data_.data[i].content[s].id + ')"><img src="../image/KM_list_more.png" alt=""></div></div><div class="hdivider"></div>';
+
+                      }else{
+                        html += '<div class="egret-flex-item"><div class="egret-flex-items" tapmode="fmbtnhover" onclick="fnOpenPlay(' + data_.data[i].content[s].id + ')"><div class="egret-flex-item-logo"><img src="' + host + '/' + data_.data[i].content[
+                                s].mid + '" alt="" class=""></div><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 fl"><span>' + data_.data[i].content[s].title +
+                            '</span></span></div><div class="egret-flex-item-shelf02"><span></span></div><div class="egret-flex-item-shelf03"><div><img src="../image/KM_play.png" alt=""><span>' + data_.data[
+                                i].content[s].play_total + '</span></div><div><img src="../image/KM_zf.png" alt=""><span>' + data_.data[i].content[s].share_total +
+                            '</span></div><div><img src="../image/KM_dz.png" alt=""><span>' + data_.data[i].content[s].good_total +
+                            '</span></div></div></div>  </div><div class="egret-flex-item-shelf04" onclick="fnOpenPlayMore(' + data_.data[i].content[s].id + ')"><img src="../image/KM_list_more.png" alt=""></div></div><div class="hdivider"></div>';
+                        }
                     }
                 }
                 html += '</div></div>';
@@ -651,14 +661,15 @@
     //
     // }
 
-    function fnSingLeWin(id) {
+    function fnSingLeWin(id,name) {
         var ok = 'single';
         api.openWin({
             name: 'single',
             url: './single.html',
             pageParam: {
                 albumId: id,
-                ok: ok
+                ok: ok,
+                floor_name:name
             }
         });
     }
@@ -797,14 +808,44 @@
                 });
             }
             if (ret.index == "0") {
-                api.toast({              
-                    msg:   '收藏成功',
-                                  duration:  2000,
-                                  location:   'middle'          
-                });
-                dialogBox.close({
-                    dialogName: 'alert'
-                });
+              uri = '/extra/list_collection/';
+              api.ajax({
+                  url: host + apiUri + uri + id,
+                  method: 'post',
+                  dataType: 'json',
+                  timeout:10,
+                  headers: {
+                      "source": api.systemType,
+                      "version": version,
+                      "session": token
+                  },
+                  data:{
+                    values:{
+                      "model":'book',
+                    }
+                  }
+              }, function(ret, err) {
+                if(ret){
+                  if (ret.status == 200) {
+
+                        api.toast({              
+                            msg:   '已收藏',
+                            duration:  2000,
+                            location:   'middle'          
+                        });
+
+
+                  } else {
+                    netMessage(ret);
+                  }
+                }else{
+                  netWork(err);
+                }
+
+              });
+              dialogBox.close({
+                  dialogName: 'alert'
+              });
             } else if (ret.index == "1") {
                 fnOpenAddListening(id);
 

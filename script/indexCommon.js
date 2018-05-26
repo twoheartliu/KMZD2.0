@@ -112,7 +112,6 @@ function fnBoFangyinpinxinxi() {
           "session": token
       }
     }, function(ret, err) {
-      console.log(333);
       if(ret){
       if(ret.status == 200){
             if (playlistid) {
@@ -145,21 +144,26 @@ function fnBoFangyinpinxinxi() {
             });
 
       }else{
-        console.log(444);
         netRecordingModule(playgedan);
       }
     }else{
-      console.log(444);
       netRecordingModule(playgedan);
     }
     });
 }
 
 function netRecordingModule(playgedan) {
-    var appIds = api.appId;
+    var appIds=api.appId;
+    var bbbbb = api.systemType;
+    var pathAdd = $api.getStorage('pathAdd');
     var uelr = '/storage/emulated/0/UZMap/';
-    var appid = appIds;
-    url = '' + uelr + '' + appid + '/caogaoxiang/' + playgedan + '';
+    if(bbbbb == "ios"){
+       uelr ='/var/mobile/Containers/Data/Application'+pathAdd+'/Documents/uzfs/';
+    }
+
+    var appid=appIds;
+    url = uelr+appid+'/caogaoxiang/'+playgedan ;
+
     fnFuZhiAudio(url);
     titlename = rets.data[play].name;
     desc = rets.data[play].desc;
@@ -177,11 +181,18 @@ function netRecordingModule(playgedan) {
 }
 
 function netRecordingModuleing(playgedan) {
-    var appIds = api.appId;
+    var appIds=api.appId;
+    var bbbbb = api.systemType;
+    var pathAdd = $api.getStorage('pathAdd');
     var uelr = '/storage/emulated/0/UZMap/';
-    var appid = appIds;
-    url = '' + uelr + '' + appid + '/caogaoxiang/' + playgedan + '';
+    if(bbbbb == "ios"){
+      uelr ='/var/mobile/Containers/Data/Application'+pathAdd+'/Documents/uzfs/';
+    }
+
+    var appid=appIds;
+    url=uelr+appid+'/caogaoxiang/'+playgedan;
     fnFuZhiAudio(url);
+
     titlename = rets.data[play].name;
     desc = rets.data[play].desc;
     singerName = rets.data[play].singerName;
@@ -199,7 +210,7 @@ function netRecordingModuleing(playgedan) {
 //audio标签赋值
 function fnFuZhiAudio(url) {
     var stylelist = $api.byId('yinpin');
-    var html = '<audio id="myAudio" ><source src=  "' + url + '" type="audio/mpeg"></audio>';
+    var html = '<audio id="myAudio" ><source src="' + url + '" type="audio/mp3"></audio>';
     $api.html(stylelist, html);
     if (html) {
         kaishibofang();
@@ -215,6 +226,7 @@ function kaishibofang() {
 function netAudioPlay() {
     var myAudio = document.getElementById("myAudio");
     myAudio.play();
+    // console.log(222);
     fnBoFangmoshiid();
     initEventListennerBoFangMoshi();
     if(comment_total){
@@ -256,7 +268,6 @@ function jindutiao() {
         lenth = myAudio.duration;
         lenths = parseInt(myAudio.duration);
         temps = lenths;
-
         minutes = parseInt(temps / 60);
         if (lenths % 60 < 10) {
             if (minutes < 10) {
@@ -625,15 +636,13 @@ function fnBFMoshi(MoShiId) {
 
 //判断播放模式
 function fnBoFangmoshiid() {
-
-
-        if (bofangmoshiid == '0') {
-            shunxu();
-        } else if (bofangmoshiid == '1') {
-            suiji();
-        } else if (bofangmoshiid == '2') {
-            bfdanqu();
-        }
+    if (bofangmoshiid == '0') {
+        shunxu();
+    } else if (bofangmoshiid == '1') {
+        suiji();
+    } else if (bofangmoshiid == '2') {
+        bfdanqu();
+    }
 
 }
 
@@ -722,7 +731,7 @@ function initEventListennerBofang() {
     });
     //监听暂停音频
     api.addEventListener({
-        name: 'netAudioPause'
+        name: 'netAudiopauseSss'
     }, function(ret, err) {
         if (ret) {
             netAudioPause();

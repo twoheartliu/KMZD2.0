@@ -428,7 +428,7 @@
     <div class="list_bj" >
         <div class="p13px">
             <div class="single">
-                <div class="single_img fl"><img src="../image/index/pic.jpg" alt=""></div>
+                <div class="single_img fl" id="imgssss"></div>
                 <div class="single_l fl" id="aetails">
                     <div class="single_h1" id="tingdanliebiaobiaoti"></div>
                     <div class="single_img_p_span">
@@ -698,8 +698,20 @@
     }
     //接口  听单展示
     function fnAlbumAetailsList(data_) {
+      //专辑图片
+      if(data_.data.big){
+        var imgstylelistss = $api.byId('imgssss');
+        var imghtmls = '<img src="http://47.100.11.38/' + data_.data.big + '" alt="">';
+        $api.html(imgstylelistss, imghtmls);
+      }else{
+        var imgstylelistss = $api.byId('imgssss');
+        var imghtmls = '<img src="../image/index/pic.jpg" alt="">';
+        $api.html(imgstylelistss, imghtmls);
+      }
+
+      //专辑参数
         var stylelist = $api.byId('aetails');
-        var html = '<div class="single_h1" id="tingdanliebiaobiaoti"></div><div class="single_img_p_span"><div class="single_div_img fl"><img src="../image/KM_tx.png" alt=""></div><div class="single_img_name fl">' + data_.data.title +
+        var html = '<div class="single_h1" id="tingdanliebiaobiaoti"></div><div class="single_img_p_span"><div class="single_img_name fl">' + data_.data.title +
                 '</div>  </div><div class="single_time"><div class="single_time_img fl"><img src="../image/KM_sc.png" alt=""></div><div class="single_img_num fl" id="collections">' + data_.data.collection_total +
                 '</div><div class="single_time_img fl"><img src="../image/KM_play.png" alt=""></div><div class="single_img_num fl">' + data_.data.play_count +
                 '</div><div class="single_time_img fl"><img src="../image/read/aloud_py.png" alt=""></div><div class="single_img_num fl">' + data_.data.total + '</div></div>'
@@ -891,6 +903,7 @@
                   url: host + apiUri + uri + id,
                   method: 'post',
                   dataType: 'json',
+                  timeout:10,
                   headers: {
                       "source": api.systemType,
                       "version": version,

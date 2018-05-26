@@ -16,31 +16,6 @@ function netMessage(ret){
     });
 
     setTimeout("turn_login()",timeOut);
-    // $api.rmStorage('token');
-    // // api.openWin({
-    // //     name: 'login',
-    // //     url: '../login.html',
-    // //     pageParam: {
-    // //         name: 'test'
-    // //     }
-    // // });
-    // api.openFrame({
-    //     name: 'login',
-    //     url: '../login.html',
-    //     rect: {
-    //         x: 0,
-    //         y: 0,
-    //         w: 'auto',
-    //         h: 'auto'
-    //     },
-    //     pageParam: {
-    //         name: 'test'
-    //     },
-    //     bounces: true,
-    //     bgColor: 'rgba(0,0,0,0)',
-    //     vScrollBarEnabled: true,
-    //     hScrollBarEnabled: true
-    // });
   }
   if(ret.status == 10202){
     api.toast({              
@@ -49,31 +24,6 @@ function netMessage(ret){
         location:   'middle'          
     });
     setTimeout("turn_login()",timeOut);
-    // $api.rmStorage('token');
-    // // api.openWin({
-    // //     name: 'login',
-    // //     url: '../login.html',
-    // //     pageParam: {
-    // //         name: 'test'
-    // //     }
-    // // });
-    // api.openFrame({
-    //     name: 'login',
-    //     url: '../login.html',
-    //     rect: {
-    //         x: 0,
-    //         y: 0,
-    //         w: 'auto',
-    //         h: 'auto'
-    //     },
-    //     pageParam: {
-    //         name: 'test'
-    //     },
-    //     bounces: true,
-    //     bgColor: 'rgba(0,0,0,0)',
-    //     vScrollBarEnabled: true,
-    //     hScrollBarEnabled: true
-    // });
   }
   if(ret.status == 10203){
     api.toast({              
@@ -394,36 +344,12 @@ function netMessage(ret){
             });
         } else if (ret.eventType == 'left') {
           setTimeout("turn_login()",2100);
-          // $api.rmStorage('token');
-          // api.openFrame({
-          //     name: 'login',
-          //     url: '../login.html',
-          //     rect: {
-          //         x: 0,
-          //         y: 0,
-          //         w: 'auto',
-          //         h: 'auto'
-          //     },
-          //     pageParam: {
-          //         name: 'test'
-          //     },
-          //     bounces: true,
-          //     bgColor: 'rgba(0,0,0,0)',
-          //     vScrollBarEnabled: true,
-          //     hScrollBarEnabled: true
-          // });
             dialogBox.close({
                 dialogName: 'alert'
             });
         }
     });
 
-
-    // api.toast({              
-    //     msg:  '当前版本不可用，请升级到最新版本',
-    //     duration:  timeOut,
-    //     location:   'middle'          
-    // });
   }
 
 }

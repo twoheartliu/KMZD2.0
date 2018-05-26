@@ -919,6 +919,7 @@
 
 
     }
+    //1233
     var bookGoodHtml;
     function fnBookExtraGoodssssss(){
       var bookss = $api.getStorage('bookExtraGood'+bookId);
@@ -1191,8 +1192,9 @@
 
                 }
                 if(ret.value.comment_total){
-                  var html = ret.value.comment_total;
                   var stylelist = $api.byId('comments');
+                  var html = ret.value.comment_total;
+
                   $api.html(stylelist, html);
                 }
                 //赋值标题
@@ -1247,12 +1249,19 @@
             });
             fnOpenChangeImg();
         } else {
+
             player.src = "../image/play/ic_play_play.png";
-            var netAudiopausess = '';
+
+            // api.sendEvent({
+            //     name: 'netAudiopause',
+            //     extra: {
+            //         netAudiopauses: 222
+            //     }
+            // });
             api.sendEvent({
-                name: 'netAudiopause',
+                name: 'netAudiopauseSss',
                 extra: {
-                    netAudiopauses: netAudiopausess
+                    netAudiopauses: 222
                 }
             });
             var bofang = 2;

@@ -96,13 +96,13 @@ var token;
       fnGetJubenlist();
     };
     function fnGetJubenlist() {
-
   		var id = api.pageParam.CompanyInfojubenByID;
       var uri = '/script/' + id;
       api.ajax({
           url: host + apiUri + uri,
           method: 'get',
           dataType: 'json',
+          timeout:10,
           headers: {
               "source": api.systemType,
               "version": version,
@@ -110,23 +110,31 @@ var token;
           }
       }, function(ret, err) {
           // alert(JSON.stringify(ret));
+          if(ret){
           if (ret.status == 200) {
             fnUpdateLyricList(ret);
           } else {
               netMessage(ret);
           }
-
+        }else{
+          netWork(err);
+        }
       });
 
   	}
   	function fnUpdateLyricList(data_) {
-  		var stylelist = $api.byId('jubenlist');
-  		var html = '';
-  		 for (var i = 0; i < data_.data.length; i++) {
-  		 	html +='<div class="bodyLi" onclick="fnLangdujubenWin(' + data_.data[i].id + ');"> <div class="body_li"><div class="body_li_1">' + data_.data[i].title + ' （' + data_.data[i].author_name + '）</div><div class="body_li_3"><div class="body_li_2">' + data_.data[i].body + '</div><div class="body_li_4"> > </div></div></div></div>';
-
-      }
-  		$api.html(stylelist, html);
+      if(data_.data){
+      		var stylelist = $api.byId('jubenlist');
+      		var html = '';
+      		 for (var i = 0; i < data_.data.length; i++) {
+      		 	html +='<div class="bodyLi" onclick="fnLangdujubenWin(' + data_.data[i].id + ');"> <div class="body_li"><div class="body_li_1">' + data_.data[i].title + ' （' + data_.data[i].author_name + '）</div><div class="body_li_3"><div class="body_li_2">' + data_.data[i].body + '</div><div class="body_li_4"><img src="../image/my/index_y.png" alt=""></div></div></div></div>';
+          }
+      		$api.html(stylelist, html);
+        }else{
+          var stylelists = $api.byId('jubenlist');
+      		var htmls ='<div><p>暂无数据</p></div>';
+      		$api.html(stylelists, htmls);
+        }
   	}
   	function fnLangdujubenWin(InfojubenType){
   		// api.sendEvent({
@@ -140,7 +148,8 @@ var token;
   			url: './aloud.html',
   			delay: 200,
         pageParam: {
-  				InfojubenType : InfojubenType
+  				InfojubenType : InfojubenType,
+          ok:'aloud'
   			},
   		});
   	}

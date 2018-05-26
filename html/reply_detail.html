@@ -216,14 +216,37 @@
     var albumId;
     var uris;
     var name;
+    var ok;
     apiready = function() {
-      comment_id = api.pageParam.comment_id;
-      name = api.pageParam.name;
-      albumId = api.pageParam.albumId;
-      uris = api.pageParam.uris;
-        var notHeader = $api.byId('notHeader');
-        $api.fixStatusBar(notHeader);
-        fnOpenMessageNotDetail();
+      ok = api.pageParam.ok;
+            var oks = 'ok'+ok;
+      api.addEventListener({
+          name: 'oks'
+      }, function(ret, err) {
+        if(ret.value.wangluo){
+          comment_id = api.pageParam.comment_id;
+          name = api.pageParam.name;
+          albumId = api.pageParam.albumId;
+          uris = api.pageParam.uris;
+            var notHeader = $api.byId('notHeader');
+            $api.fixStatusBar(notHeader);
+            fnOpenMessageNotDetail();
+        }
+      });
+
+      var connectionType = api.connectionType;
+      if(connectionType == "none"){
+      	netWorkNone(ok);
+      }else{
+        comment_id = api.pageParam.comment_id;
+        name = api.pageParam.name;
+        albumId = api.pageParam.albumId;
+        uris = api.pageParam.uris;
+          var notHeader = $api.byId('notHeader');
+          $api.fixStatusBar(notHeader);
+          fnOpenMessageNotDetail();
+      }
+
     }
 
     function fnOpenMessageNotDetail() {

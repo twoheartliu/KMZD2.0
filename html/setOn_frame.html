@@ -91,7 +91,7 @@
         token = $api.getStorage('token');
         var stylelist = $api.byId('current_version');
         $api.html(stylelist, version);
-        updatedVersion();
+        // updatedVersion();
     }
 
 
@@ -116,11 +116,6 @@
             }
         });
 
-        // api.toast({
-        //     msg: '当前版本最新',
-        //     duration: 2000,
-        //     location: 'middle'
-        // });
     }
 
     function versionCompare(curV, reqV) {
@@ -202,11 +197,6 @@
       //若curV大于reqV，则返回true
         if(diff>0){
           fnGengXin();
-          // api.toast({              
-          //     msg:  '已是最新版本1',
-          //     duration:  2000,
-          //     location:   'middle'          
-          // });
         } else if(diff==0){
           api.toast({              
               msg:  '已是最新版本',
@@ -214,22 +204,8 @@
               location:   'middle'          
           });
         } else {
-          // api.toast({              
-          //     msg:  '已是最新版本2',
-          //     duration:  2000,
-          //     location:   'middle'          
-          // });
           fnFeiFa();
         }
-       }else{
-          //输入为空
-          // console.log("版本号不能为空");
-          api.toast({
-              msg: '版本号不能为空',
-              duration: 2000,
-              location: 'middle'
-          });
-          return false;
        }
     }
 
@@ -296,10 +272,10 @@
           duration:  2000,
           location:   'middle'          
       });
-      $api.rmStorage('token');
-      api.openWin({
-          name: 'login',
-          url: '../login.html',
-      });
+      // $api.rmStorage('token');
+      // api.openWin({
+      //     name: 'login',
+      //     url: '../login.html',
+      // });
     }
 </script>
