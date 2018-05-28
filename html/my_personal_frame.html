@@ -379,7 +379,6 @@
         // console.log(token);
         var userId = api.pageParam.userId;
         var nickName = api.pageParam.nickName;
-        console.log(nickName);
         openInfo ();
 
     }
@@ -691,14 +690,44 @@
                 });
             }
             if (ret.index == "0") {
-                api.toast({              
-                    msg:   '收藏成功',
-                                  duration:  2000,
-                                  location:   'middle'          
-                });
-                dialogBox.close({
-                    dialogName: 'alert'
-                });
+              uri = '/extra/list_collection/';
+              api.ajax({
+                  url: host + apiUri + uri + id,
+                  method: 'post',
+                  dataType: 'json',
+                  timeout:10,
+                  headers: {
+                      "source": api.systemType,
+                      "version": version,
+                      "session": token
+                  },
+                  data:{
+                    values:{
+                      "model":'book',
+                    }
+                  }
+              }, function(ret, err) {
+                if(ret){
+                  if (ret.status == 200) {
+
+                        api.toast({              
+                            msg:   '已收藏',
+                            duration:  2000,
+                            location:   'middle'          
+                        });
+
+
+                  } else {
+                    netMessage(ret);
+                  }
+                }else{
+                  netWork(err);
+                }
+
+              });
+              dialogBox.close({
+                  dialogName: 'alert'
+              });
                 // alert(1);
             } else if (ret.index == "1") {
                 fnOpenAddListening(id)

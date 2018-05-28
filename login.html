@@ -322,6 +322,7 @@
         qq = api.require('qq');
         var login = function() {
             qq.login(function(ret, err) {
+              console.log(111);
                 if (ret.status) {
                   var openId = ret.openId;
                   var accessToken = ret.accessToken;

@@ -168,6 +168,7 @@
 
         .sec-txt {
             display: inline-block;
+            padding:  0 0 0 10px;
         }
 
         .sec-txt>p {
@@ -197,6 +198,7 @@
             margin-left: 45px;
             padding-bottom: 10px;
             color: #535354;
+            padding: 0 0 0 10px;
         }
 
         .discuss {
@@ -320,6 +322,18 @@
             });
 
     }
+    //个人主页
+    function fnOpenmyPersonal(id, nickname) {
+        api.openWin({
+            name: 'myPersonal',
+            url: './my_personal.html',
+            pageParam: {
+                userId: id,
+                nickName: nickname,
+                ok:'myPersonals'
+            },
+        });
+    };
     function fnDetails(soundId){
       var uri = '/sound/';
       api.ajax({
@@ -386,9 +400,14 @@
                     if (ret.data[i].re_nick_name) {
                         html += '<div class="sec-discuss"><div class="dis-left fl"><div class="sec-img">';
                         if(ret.data[i].photo){
-                          html += '<img src="'+ret.data[i].photo+'" alt="">';
+                          var photoss = ret.data[i].photo.substring(0,4);
+                          if(photoss == 'http'){
+                            html += '<img src="'+ret.data[i].photo+'" alt="" onclick="fnOpenmyPersonal(' + ret.data[i].user_id + ', \'' + ret.data[i].nick_name + '\');">';
+                          }else{
+                            html += '<img src="'+updatePhotoUrl+ret.data[i].photo+'" alt="" onclick="fnOpenmyPersonal(' + ret.data[i].user_id + ', \'' + ret.data[i].nick_name + '\');">';
+                          }
                         }else{
-                          html += '<img src="../image/KM_tx.png" alt="">';
+                          html += '<img src="../image/KM_tx.png" alt="" onclick="fnOpenmyPersonal(' + ret.data[i].user_id + ', \'' + ret.data[i].nick_name + '\');">';
                         }
                         html += '</div><div class="sec-txt"><p>' + ret.data[i].nick_name + '</p><p>' + dates +
                             '</p></div></div><div class="dis-right fr"><div class="fr" id="commentExtraGood'+ret.data[i].comment_id+'"  class="collectmusicFxs">';
@@ -405,14 +424,21 @@
                             }
 
                         html += '</div><div class="fr"><span id="corner_mark'+ret.data[i].comment_id+'">'+ret.data[i].good_total +'</span></div></div><div class="clear"></div><div class="dis-txt">' + ret.data[
-                                i].content + '</div><div class="reply"><div  onclick="fnOpenMessageNotDetail(' + ret.data[i].comment_id + ', \'' + ret.data[i].nick_name + '\')">回复</div></div><div class="discuss"><span>' + ret.data[i].re_nick_name + ':' + ret.data[i].re_content +
+                                i].content + '</div><div class="reply"><div  onclick="fnOpenMessageNotDetail(' + ret.data[i].comment_id + ', \'' + ret.data[i].nick_name + '\')">回复</div></div><div class="discuss"><span ><span style="color:#538da4">' + ret.data[i].re_nick_name + '</span>:' + ret.data[i].re_content +
                             '</span></div></div>';
                     } else {
                         html += '<div class="sec-discuss"><div class="dis-left fl"><div class="sec-img">';
                         if(ret.data[i].photo){
-                          html += '<img src="'+ret.data[i].photo+'" alt="">';
+                          var photoss = ret.data[i].photo.substring(0,4);
+                          if(photoss == 'http'){
+                            html += '<img src="'+ret.data[i].photo+'" alt="" onclick="fnOpenmyPersonal(' + ret.data[i].user_id + ', \'' + ret.data[i].nick_name + '\');">';
+                          }else{
+                            html += '<img src="'+updatePhotoUrl+ret.data[i].photo+'" alt="" onclick="fnOpenmyPersonal(' + ret.data[i].user_id + ', \'' + ret.data[i].nick_name + '\');">';
+                          }
+
+
                         }else{
-                          html += '<img src="../image/KM_tx.png" alt="">';
+                          html += '<img src="../image/KM_tx.png" alt="" onclick="fnOpenmyPersonal(' + ret.data[i].user_id + ', \'' + ret.data[i].nick_name + '\');">';
                         }
                         html += '</div><div class="sec-txt"><p>' + ret.data[i].nick_name + '</p><p>' + dates +
                             '</p></div></div><div class="dis-right fr"><div class="fr" id="commentExtraGood'+ret.data[i].comment_id+'"  class="collectmusicFxs">';

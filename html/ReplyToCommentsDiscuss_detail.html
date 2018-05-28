@@ -211,7 +211,7 @@ var albumId;
 var uris;
 var name;
 var token;
-
+var ok;
     function goback() {
         api.closeWin({
             name: 'ReplyToCommentsDiscussDetail'
@@ -224,22 +224,52 @@ var token;
         var headerH = $api.offset(nHeader).h;
         // var notHeader = $api.byId('notHeader');
         var headerHs = $api.fixStatusBar(nHeader);
-        albumId = api.pageParam.albumId;
-        uris = api.pageParam.uris;
-        name = api.pageParam.name;
-        if(name){
-          $api.byId('replyValue').placeholder = '评论' + name;
-        }
+        ok = api.pageParam.ok;
+          var oks = 'ok'+ok;
+        api.addEventListener({
+            name: 'oks'
+        }, function(ret, err) {
+          if(ret.value.wangluo){
+            albumId = api.pageParam.albumId;
+            uris = api.pageParam.uris;
+            name = api.pageParam.name;
+            if(name){
+              $api.byId('replyValue').placeholder = '评论' + name;
+            }
 
-        // fnOpenMessageNotDetail(liLid);
-        // 获取浏览器高度
-        if (window.innerHeight)
-            winHeight = window.innerHeight;
-        else if ((document.body) && (document.body.clientHeight))
-            winHeight = document.body.clientHeight;
-        var reply = $api.byId('reply');
-        var winHeightHeader = winHeight - headerH - headerHs;
-        $api.css(reply, 'height:' + winHeightHeader + 'px;');
+            // fnOpenMessageNotDetail(liLid);
+            // 获取浏览器高度
+            if (window.innerHeight)
+                winHeight = window.innerHeight;
+            else if ((document.body) && (document.body.clientHeight))
+                winHeight = document.body.clientHeight;
+            var reply = $api.byId('reply');
+            var winHeightHeader = winHeight - headerH - headerHs;
+            $api.css(reply, 'height:' + winHeightHeader + 'px;');
+          }
+        });
+
+        var connectionType = api.connectionType;
+        	if(connectionType == "none"){
+        		netWorkNone(ok);
+        	}else{
+            albumId = api.pageParam.albumId;
+            uris = api.pageParam.uris;
+            name = api.pageParam.name;
+            if(name){
+              $api.byId('replyValue').placeholder = '评论' + name;
+            }
+
+            // fnOpenMessageNotDetail(liLid);
+            // 获取浏览器高度
+            if (window.innerHeight)
+                winHeight = window.innerHeight;
+            else if ((document.body) && (document.body.clientHeight))
+                winHeight = document.body.clientHeight;
+            var reply = $api.byId('reply');
+            var winHeightHeader = winHeight - headerH - headerHs;
+            $api.css(reply, 'height:' + winHeightHeader + 'px;');
+        	}
     }
 
     function replySend() {
@@ -257,10 +287,11 @@ var token;
                 values: {
                     'id': albumId,
                     'comment': replyValue,
+
                 }
             }
         }, function(ret, err) {
-
+                if(ret){
                 if (ret.status == 200) {
                   api.sendEvent({
                       name: 'gengXin',
@@ -269,28 +300,13 @@ var token;
                       }
                   });
                   api.closeWin();
-                    // api.openWin({
-                    //     name: 'discussDetail0',
-                    //     url: './discuss_detail0.html',
-                    //     pageParam: {
-                    //         albumId: albumId
-                    //     },
-                    //     reload: true
-                    // });
                 } else {
                 netMessage(ret);
-                // $api.rmStorage('token');
-                // api.openWin({
-                //     name: 'login',
-                //     url: '../login.html',
-                //     pageParam: {
-                //         name: 'test'
-                //     }
-                // });
-            }
+                }
+              }else{
+                netWork(err);
+              }
         });
-
-
     }
 </script>
 

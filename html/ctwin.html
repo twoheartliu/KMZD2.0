@@ -394,6 +394,7 @@
         <!-- <audio id="myAudio" >
     </audio> -->
     </div>
+
     <div class="name_bg">
         <div class="name">
             <div class="name_name">
@@ -473,40 +474,6 @@
     var jidutiao = 1;
     apiready = function() {
       token = $api.getStorage('token');
-      api.addEventListener({
-          name: 'ok'
-      }, function(ret, err) {
-        if(ret.value.wangluo){
-          var secHeader = $api.byId('secHeader');
-          $api.fixStatusBar(secHeader);
-          var headerH = $api.offset(secHeader).h;
-          title = api.pageParam.title;
-          name = api.pageParam.name;
-          desc = api.pageParam.desc;
-          author_id= api.pageParam.author_id;
-          body = desc;
-          cgxid = api.pageParam.cgxid;
-          path = api.pageParam.path;
-          jubenid = api.pageParam.jubenid;
-          timestamp = api.pageParam.timestamp;
-          timestamps = api.pageParam.timestamps;
-          a = api.pageParam.a;
-          c = api.pageParam.c;
-          fnGetJubentitle();
-          fnGetJubenname();
-          fnGetJubenbody();
-          fnFuZhiAudio();
-
-        }
-      });
-
-      var connectionType = api.connectionType;
-      if(connectionType == "none"){
-      	netWorkNone();
-
-      }else{
-
-
         var secHeader = $api.byId('secHeader');
         $api.fixStatusBar(secHeader);
         var headerH = $api.offset(secHeader).h;
@@ -526,14 +493,12 @@
         fnGetJubenname();
         fnGetJubenbody();
         fnFuZhiAudio();
-
-      }
-
     }
     function fnFuZhiAudio() {
         var stylelist = $api.byId('yinpin');
-        var html = '<audio id="myAudio" ><source src="' + path + '" type="audio/mpeg"></audio>';
+        var html = '<audio id="myAudio" ><source src="' + path + '" type="audio/mp3"></audio>';
         $api.html(stylelist, html);
+        console.log(html);
     }
 
     //赋值播放时间

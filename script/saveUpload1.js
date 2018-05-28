@@ -50,6 +50,13 @@ function fnLuYinBaoCun() {
                     },
                     tapClose: true
                 }, function(ret) {
+                    var pathurl;
+                    var timestampssss = new Date().getTime();
+                    var systemType = api.systemType;
+                    if(systemType == "ios"){
+                      var pathAdd = path.substring(39,76);
+                      $api.setStorage('pathAdd',pathAdd);
+                    }
 
                     if (ret.eventType == 'left') {
                         var fs = api.require('fs');
@@ -61,7 +68,7 @@ function fnLuYinBaoCun() {
                             var paths = 'fs://caogaoxiang/' + timestamps + jubenid;
                             if (ret.status) {
                                 var fs = api.require('fs');
-                                var timestampssss = new Date().getTime();
+
                                 fs.rename({
                                     oldPath: paths,
                                     newPath: 'fs://caogaoxiang/' + timestampssss + jubenid
@@ -97,7 +104,7 @@ function fnLuYinBaoCun() {
                                 alert(JSON.stringify(err));
                             }
                         });
-                        cgxid = '' + timestamp + '' + jubenid + '';
+                        cgxid = '' + timestampssss + '' + jubenid + '';
                         api.getPrefs({
                             key: 'cgxlist'
                         }, function(ret, err) {
@@ -118,7 +125,7 @@ function fnLuYinBaoCun() {
                         });
                         var dialogBox = api.require('dialogBox');
                         dialogBox.close({
-                            dialogName: 're'
+                            dialogName: 'alert'
                         });
                     }
                     if (ret.eventType == 'right') {
@@ -220,16 +227,12 @@ function fnLuYinBaoCun() {
                                                       }
                                                   });
                                               } else {
-
                                                   netMessage(ret);
                                               }
                                             }else{
                                               netWork(err);
                                             }
                                           });
-
-
-
                                       } else {
                                           netMessage(ret);
                                       }
@@ -245,7 +248,7 @@ function fnLuYinBaoCun() {
 
                         var dialogBox = api.require('dialogBox');
                         dialogBox.close({
-                            dialogName: 're'
+                            dialogName: 'alert'
                         });
                     }
                 });

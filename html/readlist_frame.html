@@ -102,6 +102,7 @@ var token;
           url: host + apiUri + uri +id,
           method: 'get',
           dataType: 'json',
+          timeout:10,
           headers: {
               "source": api.systemType,
               "version": version,
@@ -109,25 +110,33 @@ var token;
           }
       }, function(ret, err) {
           // alert(JSON.stringify(ret));
-          if (ret.status == 200) {
-            fnUpdateLyricList(ret);
-          } else {
-              netMessage(ret);
+          if(ret){
+            if (ret.status == 200) {
+              fnUpdateLyricList(ret);
+            } else {
+                netMessage(ret);
+            }
+          }else{
+            netWork(err);
           }
 
       });
 
   	}
   	function fnUpdateLyricList(data_) {
-
-  		var stylelist = $api.byId('typejubenlist');
-  		var html = '';
-  		 for (var i = 0; i < data_.data.length; i++) {
-         onclick
-  		 	html +='<div class="div" onclick = "fnReadListBodr(' + data_.data[i].type_id + ',\'' + data_.data[i].name + '\');"><img src="../image/guoxueguan/readlist.png" alt="" class="index_name_div_img fl"><span class="index_name_div_span fl">' + data_.data[i].name + '</span><div class="index_name_div_imgr fr"><img src="../image/my/index_y.png" alt=""></div></div><div class="clr"></div>';
-        //console.log(data_.data[i].type_id);
-      }
-  		$api.html(stylelist, html);
+      if(data_.data){
+    		var stylelist = $api.byId('typejubenlist');
+    		var html = '';
+    		 for (var i = 0; i < data_.data.length; i++) {
+    		 	html +='<div class="div" onclick = "fnReadListBodr(' + data_.data[i].type_id + ',\'' + data_.data[i].name + '\');"><img src="../image/guoxueguan/readlist.png" alt="" class="index_name_div_img fl"><span class="index_name_div_span fl">' + data_.data[i].name + '</span><div class="index_name_div_imgr fr"><img src="../image/my/index_y.png" alt=""></div></div><div class="clr"></div>';
+          //console.log(data_.data[i].type_id);
+          }
+      		$api.html(stylelist, html);
+        }else{
+          var stylelist = $api.byId('typejubenlist');
+      		var htmls ='<div><p>暂无数据</p></div>';
+      		$api.html(stylelist, htmls);
+        }
   	}
   	function fnReadListBodr(CompanyInfojubenByID,name) {
   		api.openWin({
@@ -135,7 +144,8 @@ var token;
   			url: './readlistbodr.html',
   			pageParam: {
   				CompanyInfojubenByID : CompanyInfojubenByID,
-          name: name
+          name: name,
+          ok:'readlistbodr'
   			},
   			delay: 200
   		});

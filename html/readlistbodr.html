@@ -60,37 +60,75 @@
 
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/message.js"></script>;
 <script type="text/javascript">
     function goback() {
         api.closeWin({
             name: 'readlistbodr'
         });
     }
+    var ok;
     apiready = function() {
         var header = $api.byId('secHeader');
         $api.fixStatusBar(header);
         var headerPos = $api.offset(header);
-        var CompanyInfojubenByID = api.pageParam.CompanyInfojubenByID;
-        name = api.pageParam.name;
-        if(name){
-          var stylelist = $api.byId('name');
-          $api.html(stylelist, name);
-        }
-        api.openFrame({
-          name: 'readlistbodr_frame',
-          url: './readlistbodr_frame.html',
-          bounces: false,
-          opaque: false,
-          pageParam : {
-            CompanyInfojubenByID : CompanyInfojubenByID
-          },
-          rect: {
-            x: 0,
-            y: headerPos.h,
-            w: 'auto',
-            h: 'auto'
-          }
+        ok = api.pageParam.ok;
+        var oks = 'ok'+ok;
+          api.addEventListener({
+              name: 'oks'
+          }, function(ret, err) {
+            if(ret.value.wangluo){
+              var CompanyInfojubenByID = api.pageParam.CompanyInfojubenByID;
+              var name = api.pageParam.name;
+              if(name){
+                var stylelist = $api.byId('name');
+                $api.html(stylelist, name);
+              }
+              api.openFrame({
+                name: 'readlistbodr_frame',
+                url: './readlistbodr_frame.html',
+                bounces: false,
+                opaque: false,
+                pageParam : {
+                  CompanyInfojubenByID : CompanyInfojubenByID
+                },
+                rect: {
+                  x: 0,
+                  y: headerPos.h,
+                  w: 'auto',
+                  h: 'auto'
+                }
 
-        });
-    }
+              });
+            }
+          });
+
+          var connectionType = api.connectionType;
+          	if(connectionType == "none"){
+          		netWorkNone(ok);
+          	}else{
+              var CompanyInfojubenByID = api.pageParam.CompanyInfojubenByID;
+              var name = api.pageParam.name;
+              if(name){
+                var stylelist = $api.byId('name');
+                $api.html(stylelist, name);
+              }
+              api.openFrame({
+                name: 'readlistbodr_frame',
+                url: './readlistbodr_frame.html',
+                bounces: false,
+                opaque: false,
+                pageParam : {
+                  CompanyInfojubenByID : CompanyInfojubenByID
+                },
+                rect: {
+                  x: 0,
+                  y: headerPos.h,
+                  w: 'auto',
+                  h: 'auto'
+                }
+              });
+          	}
+      }
+
 </script>

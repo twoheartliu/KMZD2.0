@@ -284,6 +284,7 @@
 
         .sec-txt {
             display: inline-block;
+            padding: 0 0 0 10px;
         }
 
         .sec-txt>p {
@@ -315,6 +316,7 @@
             margin-left: 45px;
             padding-bottom: 10px;
             color: #535354;
+            padding: 0 0 0 10px;
         }
 
         .discuss {
@@ -467,7 +469,18 @@
             ListenToTheListOfComments();
         });
     }
-
+    //个人主页
+    function fnOpenmyPersonal(id, nickname) {
+        api.openWin({
+            name: 'myPersonal',
+            url: './my_personal.html',
+            pageParam: {
+                userId: id,
+                nickName: nickname,
+                ok:'myPersonal'
+            },
+        });
+    };
     function fnDetails() {
         if (uris == '/listening/comment/') {
             var uri = '/listening/detail/';
@@ -478,6 +491,7 @@
             url: host + apiUri + uri + albumId,
             method: 'get',
             dataType: 'json',
+            timeout:10,
             headers: {
                 "source": api.systemType,
                 "version": version,
@@ -485,6 +499,7 @@
             }
         }, function(ret, err) {
             // alert(JSON.stringify(ret));
+            if(ret){
             if (ret.status == 200) {
               var stylelist = $api.byId('details');
                 var html = '';
@@ -529,6 +544,9 @@
             } else {
                 netMessage(ret);
             }
+          }else{
+            netWork(err);
+          }
 
         });
     }
@@ -538,12 +556,14 @@
             url: host + apiUri + uris + albumId,
             method: 'get',
             dataType: 'json',
+            timeout:10,
             headers: {
                 "source": api.systemType,
                 "version": version,
                 "session": token
             }
         }, function(ret, err) {
+          if(ret){
             if (ret.status == 200) {
               if(ret.data == ''){
                 var stylelist = $api.byId('allcommentS');
@@ -569,9 +589,14 @@
                     if (ret.data[i].re_nick_name) {
                         html += '  <div class="sec-discuss" ><div class="dis-left fl"><div class="sec-img">';
                         if (ret.data[i].photo) {
-                            html += '<img src="' + ret.data[i].photo + '" alt="">';
+                          var photoss = ret.data[i].photo.substring(0,4);
+                          if(photoss == 'http'){
+                            html += '<img src="'+ret.data[i].photo+'" alt="" onclick="fnOpenmyPersonal(' + ret.data[i].user_id + ', \'' + ret.data[i].nick_name + '\');">';
+                          }else{
+                            html += '<img src="'+updatePhotoUrl+ret.data[i].photo+'" alt="" onclick="fnOpenmyPersonal(' + ret.data[i].user_id + ', \'' + ret.data[i].nick_name + '\');">';
+                          }
                         } else {
-                            html += '<img src="../image/KM_tx.png" alt="">';
+                            html += '<img src="../image/KM_tx.png" alt="" onclick="fnOpenmyPersonal(' + ret.data[i].user_id + ', \'' + ret.data[i].nick_name + '\');">';
                         }
                         html += '</div><div class="sec-txt"><p>' + ret.data[i].nick_name + '</p><p>' + dates +
                             '</p></div></div><div class="dis-right fr"><div class="fr" id="commentExtraGood' + ret.data[i].comment_id + '"  class="collectmusicFxs">';
@@ -588,15 +613,20 @@
                             }
                         }
                         html += '</div><div class="fr"><span id="corner_mark' + ret.data[i].comment_id + '">' + ret.data[i].good_total + '</span></div></div><div class="clear"></div><div class="dis-txt">' + ret.data[
-                                i].content + '</div><div class="reply"><div  onclick="fnOpenMessageNotDetail(' + ret.data[i].comment_id + ', \'' + ret.data[i].nick_name + '\')">回复</div></div><div class="discuss"><span>' + ret.data[i].re_nick_name +
-                            ':' + ret.data[i].re_content +
+                                i].content + '</div><div class="reply"><div  onclick="fnOpenMessageNotDetail(' + ret.data[i].comment_id + ', \'' + ret.data[i].nick_name + '\')">回复</div></div><div class="discuss"><span ><span style="color:#538da4">' + ret.data[i].re_nick_name +
+                            '</span>:' + ret.data[i].re_content +
                             '</span></div></div>';
                     } else {
                         html += '  <div class="sec-discuss" ><div class="dis-left fl"><div class="sec-img">';
                         if (ret.data[i].photo) {
-                            html += '<img src="' + ret.data[i].photo + '" alt="">';
+                          var photoss = ret.data[i].photo.substring(0,4);
+                          if(photoss == 'http'){
+                            html += '<img src="'+ret.data[i].photo+'" alt="" onclick="fnOpenmyPersonal(' + ret.data[i].user_id + ', \'' + ret.data[i].nick_name + '\');">';
+                          }else{
+                            html += '<img src="'+updatePhotoUrl+ret.data[i].photo+'" alt="" onclick="fnOpenmyPersonal(' + ret.data[i].user_id + ', \'' + ret.data[i].nick_name + '\');">';
+                          }
                         } else {
-                            html += '<img src="../image/KM_tx.png" alt="">';
+                            html += '<img src="../image/KM_tx.png" alt="" onclick="fnOpenmyPersonal(' + ret.data[i].user_id + ', \'' + ret.data[i].nick_name + '\');">';
                         }
                         html += '</div><div class="sec-txt"><p>' + ret.data[i].nick_name + '</p><p>' + dates +
                             '</p></div></div><div class="dis-right fr"><div class="fr" id="commentExtraGood' + ret.data[i].comment_id + '" class="collectmusicFxs">';
@@ -619,17 +649,10 @@
               }
             } else {
                 netMessage(ret);
-
-                // alert(ret.message);
-                // $api.rmStorage('token');
-                // api.openWin({
-                //     name: 'login',
-                //     url: '../login.html',
-                //     pageParam: {
-                //         name: 'test'
-                //     }
-                // });
             }
+          }else{
+            netWork(err);
+          }
         });
     }
     function ReplyToCommentsDiscuss_detail() {
@@ -639,7 +662,8 @@
           pageParam: {
               albumId: albumId,
               uris: uris,
-              name: name
+              name: name,
+              ok:'ReplyToCommentsDiscussDetail'
           },
           reload : true
       });
@@ -661,6 +685,7 @@
                 url: host + apiUri + uri + '/' + img_id,
                 method: 'post',
                 dataType: 'json',
+                timeout:10,
                 headers: {
                     "source": api.systemType,
                     "version": version,
@@ -673,6 +698,7 @@
                     },
                 },
             }, function(ret, err) {
+              if(ret){
                 if (ret.status == 200) {
                     toolbarlist.setAttribute("data-click", 1);
                     toolbarlist.src = "../image/KM_play_dianzan_red.png";
@@ -689,6 +715,9 @@
                 } else {
                     netMessage(ret);
                 }
+              }else{
+                netWork(err);
+              }
             });
         } else {
             // 关闭
@@ -698,6 +727,7 @@
                 url: host + apiUri + uri + '/' + img_id,
                 method: 'post',
                 dataType: 'json',
+                timeout:10,
                 headers: {
                     "source": api.systemType,
                     "version": version,
@@ -710,6 +740,7 @@
                     }
                 }
             }, function(ret, err) {
+              if(ret){
                 if (ret.status == 200) {
                     toolbarlist.setAttribute("data-click", 0);
                     toolbarlist.src = "../image/KM_ListingsListDzs.png";
@@ -727,6 +758,9 @@
                 } else {
                     netMessage(ret);
                 }
+              }else{
+                netWork(err);
+              }
             });
         }
     }
@@ -739,7 +773,8 @@
                 comment_id: comment_id,
                 albumId: albumId,
                 uris: uris,
-                name: name
+                name: name,
+                ok:'replyDetail'
             },
             bounces: false,
             vScrollBarEnabled: true,
