@@ -272,7 +272,7 @@
                 var author;
                 var container = $api.byId('id-container');
                 if (listenList == []) {
-                    lists = '您还没有收藏任何专辑'
+                    lists = '您还没有收藏任何听单'
                     $api.html(container, lists);
                 }
                 for (var i = 0; i < listenList.length; i++) {
@@ -299,11 +299,11 @@
                     }
 
 
-                    lists += '<li id="listen_' + id + '"><div class="message_frame_cycle" >' +
+                    lists += '<li id="listen_' + l_id + '"><div class="message_frame_cycle" >' +
                         '<div class="message_frame_cycle_img"><img src=" ' + imgs + ' " onclick=fnOpenList(' + l_id + ') alt=""></div><div class="message_frame_cycle_div fl">' +
                         '<div class="message_frame_cycle_div_1 col" onclick=fnOpenList(' + l_id + ')>' + listenName + '</div><div class="message_frame_cycle_div_3 fl">' +
                         '<div class="message_frame_cycle_div_3fl"><div class="pos collection_frame fl" onclick=fnOpenList(' + l_id + ') >作者：' + nickName +
-                        '</div><div class="pos collection_frame_img3 fr"><img src="../image/shanchu.png" onclick=fnDeleteList(' + id + ') alt=""></div></div></div></div></div></li>'
+                        '</div><div class="pos collection_frame_img3 fr"><img src="../image/shanchu.png" onclick=fnDeleteList(' + l_id + ') alt=""></div></div></div></div></div></li>'
                 }
                 $api.html(container, lists);
                 // console.log(lists);
@@ -317,7 +317,7 @@
 
     // 打开列表
     function fnOpenList(l_id) {
-        lujing = './single.html';
+        lujing = './ListingsList.html';
         titles = '听单';
 
         api.openWin({
@@ -325,15 +325,15 @@
             url: lujing,
             // console.log('lujing');
             pageParam: {
-                song_id: l_id,
+                ids: l_id,
                 floor_name: titles,
             }
         });
     }
     // 删除列表
     function fnDeleteList(l_id) {
-        // console.log('wawaawaaw');
-        // console.log(id);
+        console.log('wawaawaaw');
+        console.log(l_id);
         api.ajax({
             url: host + apiUri + '/user/del_collection',
             method: 'post',
@@ -344,15 +344,15 @@
             },
             data: {
                 values: {
-                    l_id: l_id,
+                    id: l_id,
                     type: 3,
                 }
             },
         }, function(ret, err) {
             if (ret) {
                 if (ret.status == 200) {
-                    // console.log('haaaaa');
-                    var ids = 'listen_' + id
+                    console.log('haaaaa');
+                    var ids = 'listen_' + l_id
                     var item = $api.byId(ids);
                     // console.log(item);
                     $api.remove(item);
