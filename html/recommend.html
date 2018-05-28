@@ -66,33 +66,71 @@
             name: 'recommend'
         });
     }
+    var ok;
     apiready = function() {
         var header = $api.byId('secHeader');
         $api.fixStatusBar(header);
         var headerPos = $api.offset(header);
-        var id = api.pageParam.id;
-        var stylelist = $api.byId('header');
-        if(id == 1){
-          var html = '推荐专辑';
-        }else if (id == 2){
-          var html = '优秀作品';
-        }
-        $api.html(stylelist, html);
-        api.openFrame({
-            name: 'recommend_frame',
-            url: './recommend_frame.html',
-            rect: {
-                x: 0,
-                y: headerPos.h,
-                w: 'auto',
-                h: 'auto'
-            },
-            pageParam: {
-                id: id
-            },
-            customRefreshHeader: 'UIPullRefreshFlash',
-            bounces: true,
+
+        ok = api.pageParam.ok;
+        var oks = 'ok'+ok;
+        api.addEventListener({
+            name: 'oks'
+        }, function(ret, err) {
+          if(ret.value.wangluo){
+            var id = api.pageParam.id;
+            var name = api.pageParam.name;
+            if(name){
+              var stylelist = $api.byId('header');
+              $api.html(stylelist, name);
+            }
+
+            api.openFrame({
+                name: 'recommend_frame',
+                url: './recommend_frame.html',
+                rect: {
+                    x: 0,
+                    y: headerPos.h,
+                    w: 'auto',
+                    h: 'auto'
+                },
+                pageParam: {
+                    id: id
+                },
+                customRefreshHeader: 'UIPullRefreshFlash',
+                bounces: true,
+            });	
+          }
         });
+
+        var connectionType = api.connectionType;
+        if(connectionType == "none"){
+        	netWorkNone(ok);
+        }else{
+          var id = api.pageParam.id;
+          var name = api.pageParam.name;
+          if(name){
+            var stylelist = $api.byId('header');
+            $api.html(stylelist, name);
+          }
+
+          api.openFrame({
+              name: 'recommend_frame',
+              url: './recommend_frame.html',
+              rect: {
+                  x: 0,
+                  y: headerPos.h,
+                  w: 'auto',
+                  h: 'auto'
+              },
+              pageParam: {
+                  id: id
+              },
+              customRefreshHeader: 'UIPullRefreshFlash',
+              bounces: true,
+          });
+        }
+
 
 
     }

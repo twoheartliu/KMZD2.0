@@ -491,47 +491,7 @@
 
     }
 
-    function newluyintxt() {
-        var fs = api.require('fs');
-        fs.createDir({
-            path: 'fs://luyintxtss',
-        }, function(ret, err) {
 
-            if (ret.status) {
-                newLuyinWenjian();
-            } else {
-                alert(JSON.stringify(err));
-            }
-        });
-    }
-    //创建录音文件；
-    function newLuyinWenjian() {
-        var fs = api.require('fs');
-        fs.createFile({
-            path: 'fs://luyintxtss/' + timestamp + '' + jubenid + '.txt'
-        }, function(ret, err) {
-            if (ret.status) {
-                var fs = api.require('fs');
-                var aaaa = JSON.stringify(Guid);
-                fs.writeByLength({
-                    path: 'fs://luyintxtss/' + timestamp + '' + jubenid + '.txt',
-                    content: aaaa,
-                    place: {
-                        start: 0
-                    }
-                }, function(ret, err) {
-
-                    if (ret.status) {
-
-                    } else {
-                        // alert(JSON.stringify(err));
-                    }
-                });
-            } else {
-                // alert(JSON.stringify(err));
-            }
-        });
-    }
     //是否重新录制
     function fnAletr() {
         if (a == 2) {
@@ -574,7 +534,7 @@
     }
     //试听
     function fnLuYinshiting() {
-        // console.log(path);
+        console.log(path);
         if (a == 2) {
             if (path) {
               if(c > 9){
@@ -598,7 +558,7 @@
                 });
               }else {
                   // alert(JSON.stringify(ret.message));
-                  timeCsss();
+                  // timeCsss();
                   var fs = api.require('fs');
                   api.toast({              
                       msg:   '录制时间较短，请重新录制',
@@ -716,9 +676,13 @@
         if (input) {
             fnBeiYueplay();
         }
+        console.log(11111);
+        console.log(timestamp);
+        console.log(jubenid);
         api.startRecord({
-            path: 'fs://luyin/' + timestamp + jubenid
+            path: 'fs://luyin/' + timestamp + jubenid+'.amr'
         });
+        console.log(2222);
         // console.log(path);
         timestamps = timestamp;
         timeC();
@@ -749,9 +713,12 @@
             stopCount();
             //暂停录音
             api.stopRecord(function(ret, err) {
+              console.log(JSON.stringify(ret));
+              console.log(JSON.stringify(err));
                 if (ret) {
                     // console.log(ret.path);
                     path = ret.path;
+                    console.log(path);
                     duration = ret.duration;
                 }
             });

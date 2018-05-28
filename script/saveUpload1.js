@@ -148,7 +148,6 @@ function fnLuYinBaoCun() {
                                       oldPath: paths,
                                       newPath: 'fs://shangchuanxiang/' + timestamp + jubenid + '.amr'
                                   }, function(ret, err) {
-                                    if(ret){
                                       if (ret.status) {
                                           // alert('已上传');
                                           uri = '/upload/user_records';
@@ -236,9 +235,7 @@ function fnLuYinBaoCun() {
                                       } else {
                                           netMessage(ret);
                                       }
-                                    }else{
-                                      netWork(err);
-                                    }
+
                                   });
                               } else {
                                   // alert(JSON.stringify(err));

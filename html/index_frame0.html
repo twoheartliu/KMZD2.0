@@ -581,7 +581,7 @@
         for (var i = 0; i < data_.data.length; i++) {
             if (data_.data[i].floor_id) {
                 html += '<div class="p20px"  id="ret.data[i].floor_id"><div class="sectionTitle mt20"><span class="TD_div fl">' + data_.data[i].floor_name + '</span><span class="fr more" onclick="fnRecommendWin(' + data_.data[i].floor_id +
-                    ');">更多</span><div class="clear"></div><div class="clear"></div></div><div class="hot" id="hot">';
+                    ',\'' + data_.data[i].floor_name + '\');">更多</span><div class="clear"></div><div class="clear"></div></div><div class="hot" id="hot">';
                 var column = data_.data[i].floor_column;
                 var row = data_.data[i].floor_row;
                 if (column == 0) {
@@ -678,12 +678,14 @@
         });
     }
 
-    function fnRecommendWin(id) {
+    function fnRecommendWin(id,name) {
         api.openWin({
             name: 'recommend',
             url: './recommend.html',
             pageParam: {
-                id: id
+                id: id,
+                name:name,
+                ok:'recommend'
             }
         });
 

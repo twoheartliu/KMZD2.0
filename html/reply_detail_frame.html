@@ -160,9 +160,9 @@ var name;
         $api.byId('replyValue').placeholder = '回复' + name;
       }
       uris = api.pageParam.uris;
-            var mHeader = $api.byId('mesHeader');
-            var headerPos = $api.offset(mHeader);
-            replySend();
+      var mHeader = $api.byId('mesHeader');
+      var headerPos = $api.offset(mHeader);
+      // replySend();
         }
         function replySend() {
             var replyValue = $api.byId('replyValue').value;
@@ -183,8 +183,6 @@ var name;
                     }
                 }
             }, function(ret, err) {
-              // console.log(JSON.stringify(ret));
-
                     if (ret.status == 200) {
                       api.sendEvent({
                           name: 'gengXin',
