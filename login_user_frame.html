@@ -61,7 +61,7 @@
         }
 
         .code>input {
-            width: 85%;
+            width: 70%;
             height: 36px;
             line-height: 36px;
             padding-left: 10px;
@@ -137,6 +137,12 @@
 					/*text-align: right;*/
 					text-align: center;
 				}
+        #password{
+         padding: 0;
+         position: relative;
+         top: -3px;
+       }
+       .code_img{margin-top: 10px;margin-right: 10px;}
     </style>
 </head>
 
@@ -150,9 +156,10 @@
             <input type="text" placeholder="请输入手机号" onblur="fnSjyanzheng();" id="phone">
         </div>
         <div class="code">
-            <img src="./image/login/login_password.png" onblur="fnSjyanzheng();" state="off" id="img">
-            <input type="password" placeholder="请输入密码" id="password">
-            <div class="clear"></div>
+          <img src="./image/login/login_password.png" class="code_img">
+          <input type="password" placeholder="请输入密码" id="password">
+          <img src="./image/my/visible.png" onblur="fnPswordYanZheng();" state="off" id="img" class="fr code_img">
+          <div class="clear"></div>
         </div>
 
         <div class="loginbutton" onclick="fnIndexOpenWin();">
@@ -191,10 +198,10 @@
                 img.style.opacity = 1;
             }
             // var playCollect = $api.byId('playCollect');
-            if (img.getAttribute("src", 2) == "./image/login/login_password.png") {
-                img.src = "./image/login/login_password2.png";
+            if (img.getAttribute("src", 2) == "./image/my/visible.png") {
+                img.src = "./image/my/Invisible.png";
             } else {
-                img.src = "./image/login/login_password.png";
+                img.src = "./image/my/visible.png";
             }
         }
     }
