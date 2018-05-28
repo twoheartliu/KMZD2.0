@@ -219,7 +219,7 @@
         // console.log(songListID);
         fnAddTrackToList();
         api.addEventListener({
-            name: 'reload'
+            name: 'reloads'
         }, function(ret, err) {
             fnAddTrackToList();
         });
@@ -235,6 +235,7 @@
         // console.log(winHeight);
     }
     function fnAddTrackToList() {
+      console.log(11111);
       var token = $api.getStorage('token');
       api.ajax({
           url: host + apiUri +'/listening',
@@ -248,27 +249,30 @@
       },function(ret, err){
           if (ret) {
             var id = $api.byId('ListeningListFrame');
+             var html = ''
               for (var i = 0; i < ret.data.length; i++) {
                 var listening_cover = ret.data[i].listening_cover;
                 var sandBox = listening_cover.substring(0,8);
 
                 if (sandBox == 'sand_box') {
                   var sandBoxs = listening_cover.replace(/sand_box/,'..');
-                   $api.append(id, '<li id="listen_' + ret.data[i].l_id + '" onclick="AddTrack('+ ret.data[i].l_id +');" class="p20pxs"><div class="egret-flex-item" tapmode="fmbtnhover"><div class="egret-flex-item-logo"><img src="'+ sandBoxs +'" alt="" class=""></div><div class="egret-flex-item-shelf"> <div class="egret-flex-item-shelf01"><span class="span1 fl">作品：<span>《'+ ret.data[i].listening_name +'》</span></span><span class="span3 fr"></span></div><div class="egret-flex-item-shelf03"><div><img src="../image/KM_play.png" alt=""><span>'
+                   html += '<li id="listen_' + ret.data[i].l_id + '" onclick="AddTrack('+ ret.data[i].l_id +');" class="p20pxs"><div class="egret-flex-item" tapmode="fmbtnhover"><div class="egret-flex-item-logo"><img src="'+ sandBoxs +'" alt="" class=""></div><div class="egret-flex-item-shelf"> <div class="egret-flex-item-shelf01"><span class="span1 fl">作品：<span>《'+ ret.data[i].listening_name +'》</span></span><span class="span3 fr"></span></div><div class="egret-flex-item-shelf03"><div><img src="../image/KM_play.png" alt=""><span>'
                     + ret.data[i].play_total + '</span></div><div><img src="../image/KM_zf.png" alt=""><span>'+ ret.data[i].share_total +'</span></div><div><img src="../image/KM_dz.png" alt=""><span>'
-                   + ret.data[i].good_total +'</span></div></div></div><div class="egret-flex-item-under"></div></div></li>');
+                   + ret.data[i].good_total +'</span></div></div></div><div class="egret-flex-item-under"></div></div></li>';
                 }else if (listening_cover == '') {
-                   $api.append(id, '<li id="listen_' + ret.data[i].l_id + '" onclick="AddTrack('+ ret.data[i].l_id +');" class="p20pxs"><div class="egret-flex-item" tapmode="fmbtnhover"><div class="egret-flex-item-logo"><img src="../image/my/fnShareImg.jpg" alt="" class=""></div><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 fl">作品：<span>《'+ ret.data[i].listening_name +'》</span></span><span class="span3 fr"></span></div><div class="egret-flex-item-shelf03"><div><img src="../image/KM_play.png" alt=""><span>'
+                   html += '<li id="listen_' + ret.data[i].l_id + '" onclick="AddTrack('+ ret.data[i].l_id +');" class="p20pxs"><div class="egret-flex-item" tapmode="fmbtnhover"><div class="egret-flex-item-logo"><img src="../image/my/fnShareImg.jpg" alt="" class=""></div><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 fl">作品：<span>《'+ ret.data[i].listening_name +'》</span></span><span class="span3 fr"></span></div><div class="egret-flex-item-shelf03"><div><img src="../image/KM_play.png" alt=""><span>'
                    + ret.data[i].play_total +  '</span></div><div><img src="../image/KM_zf.png" alt=""><span>'+ ret.data[i].share_total +'</span></div><div><img src="../image/KM_dz.png" alt=""><span>'
-                   + ret.data[i].good_total +'</span></div></div></div><div class="egret-flex-item-under"></div></div></li>');
+                   + ret.data[i].good_total +'</span></div></div></div><div class="egret-flex-item-under"></div></div></li>';
                 }else {
                   var listening = 'listening/';
                   var listening_covers = http + listening + listening_cover;
-                   $api.append(id, '<li id="listen_' + ret.data[i].l_id + '" onclick="AddTrack('+ ret.data[i].l_id +');" class="p20pxs"><div class="egret-flex-item" tapmode="fmbtnhover"><div class="egret-flex-item-logo"><img src="'+ listening_covers +'" alt="" class=""></div><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 fl">作品：<span>《'+ ret.data[i].listening_name +'》</span></span><span class="span3 fr"></span></div><div class="egret-flex-item-shelf03"><div><img src="../image/KM_play.png" alt=""><span>'
+                   html += '<li id="listen_' + ret.data[i].l_id + '" onclick="AddTrack('+ ret.data[i].l_id +');" class="p20pxs"><div class="egret-flex-item" tapmode="fmbtnhover"><div class="egret-flex-item-logo"><img src="'+ listening_covers +'" alt="" class=""></div><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 fl">作品：<span>《'+ ret.data[i].listening_name +'》</span></span><span class="span3 fr"></span></div><div class="egret-flex-item-shelf03"><div><img src="../image/KM_play.png" alt=""><span>'
                    + ret.data[i].play_total +  '</span></div><div><img src="../image/KM_zf.png" alt=""><span>'+ ret.data[i].share_total +'</span></div><div><img src="../image/KM_dz.png" alt=""><span>'
-                   + ret.data[i].good_total +'</span></div></div></div><div class="egret-flex-item-under"></div></div></li>');
+                   + ret.data[i].good_total +'</span></div></div></div><div class="egret-flex-item-under"></div></div></li>';
                 }
               }
+              $api.html(id, html);
+
           } else {
             alert(ret.message);
             // $api.rmStorage('token');

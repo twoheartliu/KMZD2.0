@@ -59,7 +59,7 @@
 <body>
     <header id="secHeader">
         <div class="header_fl fl" onclick="goback();"><img src="../image/icon_back.png" alt=""></div>
-        <div class="header_fr fr" onclick="fnOkWin();">确定</div>
+        <div class="header_fr fr" onclick="fnOkWin();" id="bt">确定</div>
         <div class="header_center">我的听单</div>
     </header>
 </body>
@@ -95,6 +95,10 @@
             reload: true
         });
         CoverDivInputImgBar();
+
+
+
+
     }
 
     var CoverDivInput;
@@ -132,26 +136,30 @@
                 location: 'middle'
             });
         } else {
+            fnAjaxCreate();
+        }
+    }
 
-            var token = $api.getStorage('token');
-            api.ajax({
-                url: host + apiUri + '/listening/create',
-                method: 'post',
-                headers: {
-                        "source": api.systemType,
-                        "version": version,
-                        "session": token
-                    },
-                    data: {
-                      values : {
-                        'name': CoverDivInput,
-                        'cover': CoverImg,
-                        'description': bar
-                      }
-                    }
-            },function(ret, err){
-                if (ret) {
-                  if (ret.status == 200) {
+    function fnAjaxCreate() {
+        var token = $api.getStorage('token');
+        api.ajax({
+            url: host + apiUri + '/listening/create',
+            method: 'post',
+            headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token
+            },
+            data: {
+                values: {
+                    'name': CoverDivInput,
+                    'cover': CoverImg,
+                    'description': bar
+                }
+            }
+        }, function(ret, err) {
+            if (ret) {
+                if (ret.status == 200) {
                     api.toast({
                         msg: '新建成功',
                         duration: 2000,
@@ -164,6 +172,13 @@
                             reload: reload
                         }
                     });
+                    var reloads = 1;
+                    api.sendEvent({
+                        name: 'reloads',
+                        extra: {
+                            reloads: reloads
+                        }
+                    });
                     // api.openWin({
                     //     name: 'ListeningList',
                     //     url: './ListeningList.html',
@@ -173,25 +188,63 @@
                     //     reload:true
                     //
                     // });
-                    setTimeout(function(){
+                    setTimeout(function() {
                         api.closeWin();
-                    },2000)
+                    }, 2000)
 
-                  }
-
-                } else {
-                  alert(ret.message);
-                  $api.rmStorage('token');
-                  api.openWin({
-                      name: 'login',
-                      url: '../login.html',
-                      pageParam: {
-                          name: 'test'
-                      }
-                  });
                 }
-            });
 
+            } else {
+                alert(ret.message);
+                $api.rmStorage('token');
+                api.openWin({
+                    name: 'login',
+                    url: '../login.html',
+                    pageParam: {
+                        name: 'test'
+                    }
+                });
+            }
+        });
+    }
+    window.onload = function() { //规定文档内容完全加载完毕再去执行函数中的代码。
+        // var odiv = document.getElementById("thediv");
+        var obt = document.getElementById("bt");
+        var count = 0; //用来存储间隔时间
+        var flag = null; //用来存储定时器函数的返回值
+        function done() { //被定时器函数不断的调用，来对count进行递减。
+            if (count == 0) { //如果count==0，则停止定时器函数的执行。
+                clearInterval(flag);
+            } else { //如果不等于0，则进行减一操作
+                count = count - 1;
+            }
+            //（函数自身调用setTimeout，相当于setInterval）
+            flag = setTimeout(done, 1000); //每隔1s执行一次done()函数
+        }
+        obt.onclick = function() { //为按钮注册点击事件处理函数
+            // var val = parseInt(odiv.innerHTML); //获取div中的内容，并转换为整数
+            if (CoverDivInput == undefined || CoverDivInput == '') {
+              api.toast({
+                  msg: '用户名不能为空',
+                  duration: 2000,
+                  location: 'middle'
+              });
+
+            }else {
+              if (count == 0) {
+                  //如果count等于0,将div中的内容加1，并且将count设置为10，同时开起定时器函数的执行。
+                  // odiv.innerHTML = val + 1;
+                  fnOkWin();
+                  count = 3; //每个10s可点击一次
+                  flag = setTimeout(done, 1000); //延迟1s执行一次done()函数
+              } else { //如果count不等于零，那么弹出还差多长时间可以点击。
+                api.toast({
+                    msg: '新建成功',
+                    duration: 2000,
+                    location: 'middle'
+                });
+              }
+            }
 
         }
     }
