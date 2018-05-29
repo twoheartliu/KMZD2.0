@@ -292,14 +292,14 @@
                   for (var i = 0; i < ret.data.length; i++) {
                     if(ret.data[i].author_name = "null"){
                       htmls += '<div class="egret-flex-item" id="' + ret.data[i].id +
-                          '"><div class="egret-flex-items" tapmode="fmbtnhover" onclick="openFM()"><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf001"><span class="span1 fl"><span>' + ret.data[i].title +
+                          '"><div class="egret-flex-items" tapmode="fmbtnhover" onclick="openFM('+ ret.data[i].id +')"><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf001"><span class="span1 fl"><span>' + ret.data[i].title +
                           '</span></span></div><div class="egret-flex-item-shelf03"><div><img src="../image/KM_play.png" alt=""><span>' + ret.data[i].play_total +
                           '</span></div><div><img src="../image/KM_zf.png" alt=""><span>' + ret.data[i].share_total + '</span></div>  <div><img src="../image/KM_dz.png" alt=""><span>' + ret.data[i].good_total +
                           '</span></div></div></div></div><div class="egret-flex-item-shelf004" onclick="fnOpenPlayMore('+ ret.data[i].id +')"><img src="../image/KM_list_more.png" alt=""></div></div><div class="hdivider"></div>';
 
                     }else{
                       htmls += '<div class="egret-flex-item" id="' + ret.data[i].id +
-                          '"><div class="egret-flex-items" tapmode="fmbtnhover" onclick="openFM()"><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 fl"><span>' + ret.data[i].title +
+                          '"><div class="egret-flex-items" tapmode="fmbtnhover" onclick="openFM('+ ret.data[i].id +')"><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 fl"><span>' + ret.data[i].title +
                           '</span></span></div><div class="egret-flex-item-shelf02"><span>' + ret.data[i].author_name + '</span></div><div class="egret-flex-item-shelf03"><div><img src="../image/KM_play.png" alt=""><span>' + ret.data[i].play_total +
                           '</span></div><div><img src="../image/KM_zf.png" alt=""><span>' + ret.data[i].share_total + '</span></div>  <div><img src="../image/KM_dz.png" alt=""><span>' + ret.data[i].good_total +
                           '</span></div></div></div></div><div class="egret-flex-item-shelf04" onclick="fnOpenPlayMore('+ ret.data[i].id +')"><img src="../image/KM_list_more.png" alt=""></div></div><div class="hdivider"></div>';
@@ -469,10 +469,14 @@
         });
     }
 
-    function openFM() {
+    function openFM(id) {
         api.openWin({
-            name: 'play',
-            url: './play.html',
+            name: 'playDanQu',
+            url: './playDanQu.html',
+            pageParam: {
+                a: id,
+                ok:'playDanQu'
+            }
         });
     }
 </script>

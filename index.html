@@ -382,10 +382,42 @@
 <script type="text/javascript" src="script/common.js"></script>
 <script type="text/javascript" src="script/message1.js"></script>
 <script type="text/javascript" src="script/indexCommon.js"></script>
+<script type="text/javascript" src="script/indexDanQuCommon.js"></script>
 <script type="text/javascript" src="script/index.js"></script>
 <script type="text/javascript">
     var token;
     var a;
+
+
+    var play;
+    var timer2;
+    var timer1;
+    var historyUrlArray;
+    var y;
+    var rets;
+    var shunxuplays;
+    var danquplays;
+    var suijiplays;
+    var bofangmoshiid;
+    var playTime;
+    var a;
+    var bofang;
+    var playlistid;
+    var dataArray = new Array();
+    var caogaoId;
+    var caogaoTitle;
+    var caogaoName;
+    var caogaoBody;
+    var author_id;
+    var DangQianbofangid;
+    var titlename;
+    var desc;
+    var singerName;
+    var reciter;
+    var comment_total;
+    var is_collection;
+    var caogaoAuthor_id;
+    var danQu;
     apiready = function() {
       // $api.clearStorage();
             token = $api.getStorage('token');
@@ -403,6 +435,8 @@
                 initEventListenner();
                 initEventListennerBofang();
                 initEventListennerBoFangMoshi();
+                initEventListennerBofangDanQu();
+                initEventListennerBoFangMoshiDanQu();
                 //
                 adjust();
                 funIniGroup();
