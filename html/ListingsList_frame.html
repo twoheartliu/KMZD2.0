@@ -592,15 +592,6 @@
 
                 });
             }
-
-
-
-
-
-
-
-
-
         }
         // 调取用户基本信息
     function ListenToTheDetails() {
@@ -671,7 +662,7 @@
                   $api.html(stylelistss, goodss);
                   songList(ret);
                   var stylelistCollectionHtml = $api.byId('extraCollectionHtml');
-                  if (ret.data.linstening_info.collection_total == 0) {
+                  if (ret.data.linstening_info.is_collection == 0) {
                       albumCollectionHtml = '<img src="../image/KM_hxs.png" alt="" class="collectmusic" onclick="collectmusic(this)" data-click="0">';
                   } else {
                       albumCollectionHtml = '<img src="../image/KM_play_collect_red.png" alt="" class="collectmusic" onclick="collectmusic(this)" data-click="1">';
