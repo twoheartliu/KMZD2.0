@@ -251,85 +251,108 @@
         选择反馈类型
     </div>
     <div class="Single row">
-        <div class="col"><input class="hy-radio" type="radio" name="radio" />产品建议</div>
-        <div class="col"><input class="hy-radio" type="radio" name="radio" />程序错误</div>
-        <div class="col"><input class="hy-radio" type="radio" name="radio" />缺少内容</div>
+        <div class="col"><input class="hy-radio" type="radio" name="radio" value="1" checked='checked' onclick="getValue(this.value)" />产品建议</div>
+        <div class="col"><input class="hy-radio" type="radio" name="radio" value="2" onclick="getValue(this.value)" />程序错误</div>
+        <div class="col"><input class="hy-radio" type="radio" name="radio" value="3" onclick="getValue(this.value)" />缺少内容</div>
     </div>
     <div class="description">
         描述
     </div>
 
     <div class="textarea">
-        <textarea placeholder="长按粘贴文本" class="replyValue" type="text" id="bar" spellcheck="false" id="commentarea" onKeyDown="LimitTextArea(this)" onKeyUp="LimitTextArea(this)" onkeypress="LimitTextArea(this)"></textarea>
+        <textarea placeholder="长按粘贴文本" class="replyValue" type="text" id="bar" spellcheck="false" id="commentarea" onblur="LimitTextArea()"></textarea>
         <div class="Cover" onclick="fnSettings();">
-            <div class="Cover_img">+</div>
+            <div class="Cover_img" id="id-img">+</div>
             <!-- <div class="Cover_img"></div>
           <div class="Cover_img"></div>
           <div class="Cover_img"><img src="../image/my/fnShareImg.jpg" alt="CoverDivInput"></div> -->
             <!-- <div class="Cover_title">封面</div> -->
         </div>
     </div>
-    <div class="textarea_input"><input type="text" placeholder="填写您的手机或者邮箱"></div>
-    <!-- <div class="clr opinion" onclick="opinion()"><div class="fl opinion_name">意见反馈</div><div class="fr opinion_img"><img src="../image/my/index_bzyfk.png" alt=""></div></div> -->
-    <!-- <div class="clr"></div> -->
-    <div class="common">
-        <div class="common_name">常见问题</div>
+    <div class="textarea_input">
+        <input type="text" placeholder="填写您的手机或者邮箱" onblur="LimitTextArea()" id="id-contact"></div>
+    <!-- <div class="clr opinion " onclick="opinion() "><div class="fl opinion_name ">意见反馈</div><div class="fr opinion_img "><img src="../image/my/index_bzyfk.png " alt=" "></div></div> -->
+    <!-- <div class="clr "></div> -->
+    <!-- <div class="common ">
+        <div class="common_name ">常见问题</div>
         <ul>
-            <li onclick="common();">1我是问题一</li>
-            <li onclick="common();">2我是问题二</li>
-            <li onclick="common();">3我是问题三</li>
-            <li onclick="common();">4我是问题四</li>
-            <li onclick="common();">5我是问题五</li>
+            <li onclick="common(); ">1我是问题一</li>
+            <li onclick="common(); ">2我是问题二</li>
+            <li onclick="common(); ">3我是问题三</li>
+            <li onclick="common(); ">4我是问题四</li>
+            <li onclick="common(); ">5我是问题五</li>
         </ul>
-    </div>
+    </div> -->
 </body>
 
 </html>
-<script type="text/javascript" src="../script/api.js"></script>
-<script type="text/javascript" src="../script/common.js"></script>
-<script type="text/javascript" src="../script/swiper.min.js"></script>
-<script type="text/javascript">
+<script type="text/javascript " src="../script/api.js "></script>
+<script type="text/javascript " src="../script/common.js "></script>
+<script type="text/javascript " src="../script/swiper.min.js "></script>
+<script type="text/javascript ">
     var token;
     apiready = function() {
         $api.rmStorage('token');
+        // fnfeedback()
     }
 
-    function fncallBack() {
-        var uri = '/system/feedback';
-        api.ajax({
-            url: host + apiUri + uri,
-            method: 'post',
-            headers: {
-                "source": api.systemType,
-                "version": version,
-                "session": token
-            },
-            data: {
-                values: {
-                    contact: '',
-                    type: '',
-                    content: '',
-                    img: '',
-                }
-            },
-        }, function(ret, err) {
-            if (ret) {
-                if (ret.status == 200) {
-                    // console.log('haaaaa');
-                    
-                } else {
-                    // netMessage(ret);
-                }
-            } else {
-                netWork(err);
+    function getValue(value) {
+        // alert(value);
+        // return value;
+        var radios = value;
+        //alert(radios)
+        api.sendEvent({
+            name: 'fnchoice',
+            extra: {
+                type: radios,
             }
         });
     }
 
-    function LimitTextArea(field) {
-        maxlimit = 200;
-        if (field.value.length > maxlimit)
-            field.value = field.value.substring(0, maxlimit);
+    function fnContact() {
+        var contact = $api.byId('id-contact').value;
+        if (contact !== '') {
+            api.sendEvent({
+                name: 'fnContact',
+                extra: {
+                    contact: contact,
+                }
+            });
+    }
+}
+
+    function fntext() {
+        var text = $api.byId('commentarea').value;
+        if (text !== '') {
+            api.toast({
+                msg: '请输入您要反馈的问题',
+                duration: 2000,
+                location: 'middle'
+            });
+        } else {
+            api.sendEvent({
+                name: 'fntext',
+                extra: {
+                    content: text,
+                }
+            });
+        }
+    }
+
+    function fnimg() {
+        var img = $api.byId('id-img').value;
+        if (img !== '') {
+            api.sendEvent({
+                name: 'fnimg',
+                extra: {
+                    img: img,
+                }
+            });
+        }
+    }
+
+    function LimitTextArea() {
+        console.log(1111);
     }
 
     function common() {
@@ -397,7 +420,7 @@
 
             var texts = ret.eventType;
             var index = ret.index;
-            if (texts == "cancel") {
+            if (texts == "cancel ") {
                 dialogBox.close({
                     dialogName: 'alert'
                 });
