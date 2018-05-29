@@ -672,6 +672,10 @@
         $api.html(stylelist, html);
     }
     //点击播放并录音
+    var r = null,
+            t = 0,
+            ri = null,
+            rt = null;
     function fnNetAudiosLuYinByID() {
         if (input) {
             fnBeiYueplay();
@@ -679,9 +683,31 @@
         console.log(11111);
         console.log(timestamp);
         console.log(jubenid);
-        api.startRecord({
-            path: 'fs://luyin/' + timestamp + jubenid+'.amr'
-        });
+        // api.startRecord({
+        //     path: 'fs://luyin/' + timestamp + jubenid+'.amr'
+        // });
+        // r = plus.audio.getRecorder();
+        //     if(r == null) {
+        //         console.log('录音对象未获取')
+        //         outLine('录音对象未获取');
+        //         return;
+        //     }
+        //     r.record({
+        //         filename: '_doc/audio/'
+        //         //format: '3gp'
+        //     }, function(p) {
+        //         console.log('录音完成：' + p)
+        //         outLine('录音完成：' + p);
+        //         plus.io.resolveLocalFileSystemURL(p, function(entry) {
+        //             //createItem(entry);
+        //             addVoice(p, entry);
+        //         }, function(e) {
+        //             outLine('读取录音文件错误：' + e.message);
+        //         });
+        //
+        //     }, function(e) {
+        //         outLine('录音失败：' + e.message);
+        //     });
         console.log(2222);
         // console.log(path);
         timestamps = timestamp;
