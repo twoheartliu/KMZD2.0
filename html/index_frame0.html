@@ -750,12 +750,43 @@
         });
 
     }
+    var Dqbofangid;
+    function fnDangQianbofangid(id) {
+        Dqbofangid = id;
+    }
     //作品列表进入播放页面
-    function fnOpenPlay() {
-        api.openWin({
-            name: 'play',
-            url: './play.html',
+    function fnOpenPlay(a) {
+      api.addEventListener({
+            name: 'netPlaying'
+        }, function(ret, err) {
+            if (a == ret.value.playing) {
+                fnDangQianbofangid(ret.value.playing);
+            }
         });
+        var playlistid = api.pageParam.albumId;
+        if (Dqbofangid == a) {
+
+          api.openWin({
+              name: 'playDanQu',
+              url: './playDanQu.html',
+              pageParam: {
+                  a: a,
+                  // danQu:'danQu',
+                  dangqianbofangid: Dqbofangid
+              }
+          });
+        } else {
+
+          api.openWin({
+              name: 'playDanQu',
+              url: './playDanQu.html',
+              pageParam: {
+                  a: a,
+                  // danQu:'danQu',
+              }
+          });
+
+        }
     }
 
     function fnMachineXiangqingWin() {

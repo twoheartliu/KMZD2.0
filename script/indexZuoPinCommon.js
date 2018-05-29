@@ -1,6 +1,33 @@
 //index
 
-
+var play;
+var timer2;
+var timer1;
+var historyUrlArray;
+var y;
+var rets;
+var shunxuplays;
+var danquplays;
+var suijiplays;
+var bofangmoshiid;
+var playTime;
+var a;
+var bofang;
+var playlistid;
+var dataArray = new Array();
+var caogaoId;
+var caogaoTitle;
+var caogaoName;
+var caogaoBody;
+var author_id;
+var DangQianbofangid;
+var titlename;
+var desc;
+var singerName;
+var reciter;
+var comment_total;
+var is_collection;
+var caogaoAuthor_id;
 //播放音频信息
 function fnBoFangSouSuoyinpinxinxi() {
     var id = historyUrlArray[play];
@@ -124,58 +151,7 @@ function fnBoFangyinpinxinxi() {
     }
     });
 }
-//播放歌单音频(单曲)
-function fnBoFangyinpinxinxis(id) {
 
-    api.ajax({
-      url: host + apiUri + '/sound/' + id,
-      method: 'get',
-      dataType: 'json',
-      headers: {
-          "source": api.systemType,
-          "version": version,
-          "session": token
-      }
-    }, function(ret, err) {
-      if(ret){
-      if(ret.status == 200){
-            if (playlistid) {
-                api.sendEvent({
-                    name: 'netbofangsssssss',
-                    extra: {
-                        a: playgedan,
-                        playlistid: playlistid,
-                        bofang: bofang
-                    }
-                });
-            }
-            fnFuZhiAudio(host+'/'+ret.data.url);
-            titlename = ret.data.title;
-            reciter = ret.data.reciter;
-            desc = ret.data.body;
-            singerName = ret.data.author_name;
-            comment_total = ret.data.comment_total;
-            is_collection =ret.data.is_collection;
-            api.sendEvent({
-                name: 'jibenxinxi',
-                extra: {
-                    titlename: titlename,
-                    desc: desc,
-                    reciter: reciter,
-                    singerName: singerName,
-                    comment_total: comment_total,
-                    collection: is_collection
-                }
-            });
-
-      }else{
-        netMessage(ret);
-      }
-    }else{
-      netWork(err);
-    }
-    });
-}
 function netRecordingModule(playgedan) {
     var appIds=api.appId;
     var bbbbb = api.systemType;
@@ -680,13 +656,7 @@ function fnBOFangJian(bofangs, aa, playlist) {
         bofang = bofangs;
     }
 }
-function fnBOFangJianss(bofangs, aa, danQus) {
 
-        a = aa;
-        bofang = bofangs;
-        danQu = danQus;
-
-}
 function fnCollection(cccc){
   is_collection = cccc;
 }
@@ -718,6 +688,7 @@ function initEventListennerBofang() {
             fnBFid(ret.value.id);
         }
     });
+
     //监听url
     api.addEventListener({
         name: 'netUrl'
