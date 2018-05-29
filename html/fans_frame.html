@@ -20,7 +20,7 @@
           .user-detail{display: inline-block;width:80%;}
 
           /*section ul li:nth-last-child(1){border-bottom: 1px solid #ccc;}*/
-          .user-img{width:50px;height: 60px;line-height: 60px;display: inline-block;margin-left: 10px;vertical-align: top;}
+          .user-img{width:50px;height: 50px;line-height: 60px;display: inline-block;margin-left: 10px;vertical-align: top;border-radius: 25px;overflow: hidden;}
           .user-img img {
               width: 100%;
           }
@@ -138,14 +138,23 @@
                             follow_list_photo = updatePhotoUrl + photossss;
                         }
                     }
+                    var signature = ret.data.fans_list[i].signature;
+                    var signatures;
+                    if (signature == null) {
+                      signatures = '';
+
+                    }else {
+                      signatures = ret.data.fans_list[i].signature;
+                    }
                     html +=
                         '<li class="item"><div class="user-detail" onclick="fnOpenmyPersonal('+ret.data.fans_list[i].user_id+',\''+ret.data.fans_list[i].nick_name+'\');"><div class="user-img"><img src="' + follow_list_photo + '" alt=""></div><div class="user-name" ><p id="userName">' + ret.data.fans_list[i]
                         .nick_name +
-                        '</p><p class="p">' + ret.data.fans_list[i].signature +
+                        '</p><p class="p">' + signatures +
                         '</p></div></div><div id="userDelete" id="userDelete_' + ret.data.fans_list[i].user_id + ' " class="userDelete" >' + userDeleteHtml + '</div></li>'
 
                 }
                 $api.html(attention, html);
+
             }
 
           } else {
