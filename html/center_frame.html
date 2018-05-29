@@ -126,6 +126,16 @@
             var html = '';
             html += '<div onclick="fnOpenPlay( ' + bofang + ',' + a + ',' + playlistid + ');"><img src="../image/footer_bf' + bofang + '.png" alt=""></div>';
             $api.html(stylelist, html);
+        } else if (bofang == 6) {
+            var stylelist = $api.byId('centerVedeo');
+            var html = '';
+            html += '<div onclick="fnOpenPlay( ' + bofang + ',' + a + ');"><img src="../image/footer_bf' + bofang + '.png" alt=""></div>';
+            $api.html(stylelist, html);
+        } else if (bofang == 7) {
+            var stylelist = $api.byId('centerVedeo');
+            var html = '';
+            html += '<div onclick="fnOpenPlay( ' + bofang + ',' + a + ');"><img src="../image/footer_bf' + bofang + '.png" alt=""></div>';
+            $api.html(stylelist, html);
         }
         if (playlistid) {
             api.sendEvent({
@@ -234,16 +244,50 @@
                     playid: playlistid
                 },
             });
-        } else {
+        } else if (bofang == 6) {
+          if (Dqbofangid == a) {
+              api.openWin({
+                  name: 'playDanQu',
+                  url: './playDanQu.html',
+                  pageParam: {
+                      bofang: bofang,
+                      a: a,
+                      DangQianbofangid: Dqbofangid
+                  }
+              });
+          } else {
             api.openWin({
-                name: 'play',
-                url: './play.html',
-                // pageParam: {
-                //   bofang: 2,
-                //   a: 1,
-                //   playid: 1
-                // },
+                name: 'playDanQu',
+                url: './playDanQu.html',
+                pageParam: {
+                    bofang: bofang,
+                    a: a,
+                },
             });
+          }
+
+        } else if (bofang == 7) {
+          if (Dqbofangid == a) {
+              api.openWin({
+                  name: 'playDanQu',
+                  url: './playDanQu.html',
+                  pageParam: {
+                      bofang: bofang,
+                      a: a,
+                      DangQianbofangid: Dqbofangid
+                  }
+              });
+          }else {
+              api.openWin({
+                  name: 'play',
+                  url: './play.html',
+                  // pageParam: {
+                  //   bofang: 2,
+                  //   a: 1,
+                  //   playid: 1
+                  // },
+              });
+          }
         }
     }
 </script>
