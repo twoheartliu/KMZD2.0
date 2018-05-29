@@ -322,7 +322,7 @@
               var section = $api.byId('section');
               for(var i = 0; i < len; i++){
                 html1 += '<div class="egret-flex-item" >'+
-                  '<div class="egret-flex-items" tapmode="fmbtnhover" onclick="fnOpenPlay()">'+
+                  '<div class="egret-flex-items" tapmode="fmbtnhover" onclick="fnOpenPlay('+ret.data[i].id+')">'+
                     '<div class="egret-flex-item-shelf">'+
                         '<div class="egret-flex-item-shelf01">'+
                             '<span class="span1 fl"><span>'+ret.data[i].title+'</span></span>'+
@@ -349,12 +349,13 @@
       });
     }
     //打开播放
-    function fnOpenPlay() {
+    function fnOpenPlay(id) {
       api.openWin({
-          name: 'play',
-          url: './play.html',
+          name: 'playDanQu',
+          url: './playDanQu.html',
           pageParam: {
-              name: 'test'
+            a: id,
+            ok: 'playDanQu'
           }
       });
     }

@@ -970,14 +970,11 @@
               bofang = 3;
               if (id) {
                 soundId = id;
-                console.log(2222);
-                console.log(id);
                   api.sendEvent({
                       name: 'netPlayUrlDanQu',
                       extra: {
                         bofang: bofang,
-                          id: id,
-                          danQu:'danQu'
+                          id: id
                       }
                   });
               }
@@ -1004,7 +1001,6 @@
               }
               fnNetAudiosPlayByID(id);
           }
-          AddHistory(id);
           fnbofangshijian();
           fnJiBenXinXi();
           jindutiao();
@@ -1088,7 +1084,6 @@
             });
             fnNetAudiosPlayByID(id);
         }
-        AddHistory(id);
         fnbofangshijian();
         fnJiBenXinXi();
         jindutiao();
@@ -1160,7 +1155,6 @@
             });
             fnNetAudiosPlayByID(id);
         }
-        AddHistory(id);
         fnbofangshijian();
         fnJiBenXinXi();
         jindutiao();
@@ -1287,26 +1281,9 @@
                     playlistid: playlistid
                 }
             });
-            var zaicibf
-            api.sendEvent({
-                name: 'zaicibf',
-                extra: {
-                    zaicibf: zaicibf,
-                    a: a,
-                    playlistid: playlistid
-                }
-            });
             fnOpenChangeImg();
         } else {
-
             player.src = "../image/play/ic_play_play.png";
-
-            // api.sendEvent({
-            //     name: 'netAudiopause',
-            //     extra: {
-            //         netAudiopauses: 222
-            //     }
-            // });
             api.sendEvent({
                 name: 'netAudiopauseSss',
                 extra: {
@@ -1412,13 +1389,6 @@
           }, function(ret, err) {
             if(ret){
             if (ret.status == 200) {
-                netAudioss = ret;
-                api.sendEvent({
-                    name: 'netAudioplay',
-                    extra: {
-                        netAudios: netAudioss
-                    }
-                });
                 var bofang = 3;
                 var a = id;
                 api.sendEvent({
@@ -1433,7 +1403,6 @@
                 fnbofangshijian();
                 var title = ret.data.title;
                 var author_name = ret.data.author_name;
-                AddHistoryTitle(title, author_name);
                 fnBookExtraGoodssssss();
                 var stylelistCollectionHtml = $api.byId('bookExtraCollectionHtml');
                   if(ret.data.is_collection == 0){
@@ -1464,13 +1433,6 @@
             }, function(ret, err) {
               if(ret){
             if (ret.status == 200) {
-              netAudioss = ret;
-              api.sendEvent({
-                  name: 'netAudioplay',
-                  extra: {
-                      netAudios: netAudioss
-                  }
-              });
               var bofang = 3;
               var a = api.pageParam.a;
               api.sendEvent({
@@ -1485,7 +1447,6 @@
               fnbofangshijian();
               var title = ret.data.title;
               var author_name = ret.data.author_name;
-              AddHistoryTitle(title, author_name);
               fnBookExtraGoodssssss();
               var stylelistCollectionHtml = $api.byId('bookExtraCollectionHtml');
                 if(ret.data.is_collection == 0){
@@ -1845,69 +1806,6 @@
         }
     }
 
-    function AddHistory(id) {
-        api.getPrefs({
-            key: 'sousuohistory'
-        }, function(ret, err) {
-            if (ret) {
-                var flag = false; //是否增加历史记录
-                var historyText = ret.value;
-                var historyArray = historyText.split(','); //console.log(JSON.stringify(historyArray));
-                for (var i = 0; i < historyArray.length; i++) {
-                    historyArray[i] == id && (flag = true);
-                }!flag && historyArray.splice(1, 0, id);
-                !flag && api.setPrefs({
-                    key: 'sousuohistory',
-                    value: historyArray.join(',')
-                });
-            } else {
-                alert(JSON.stringify(err));
-            }
-        });
-    }
-
-    function AddHistoryTitle(title, singerName) {
-        api.getPrefs({
-            key: 'sousuohistorytitle'
-        }, function(ret, err) {
-            if (ret) {
-                var flag = false; //是否增加历史记录
-                var historyText = ret.value;
-                var historyArray = historyText.split(',');
-                for (var i = 0; i < historyArray.length; i++) {
-                    historyArray[i] == title && (flag = true);
-                }!flag && historyArray.splice(1, 0, title, singerName);
-                !flag && api.setPrefs({
-                    key: 'sousuohistorytitle',
-                    value: historyArray.join(',')
-                });
-            } else {
-                alert(JSON.stringify(err));
-            }
-        });
-        fnHistorysingerName();
-    }
-
-    function fnHistorysingerName() {
-        api.getPrefs({
-            key: 'sousuohistorytitle'
-        }, function(ret, err) {
-            var historyText = '' || ret.value;
-            var historyArray = historyText.split(',');
-            for (var i = 0; i < historyArray.length; i++) {
-                if (historyArray[i].length == 0)
-                    continue;
-                var stylelist = $api.byId('sousuoliebiao');
-                var html = '';
-                for (var s = 1; s < historyArray.length; s++) {
-                    if (historyArray[2 * s - 1]) {
-                        html += '<p>' + historyArray[2 * s - 1] + '  ' + historyArray[2 * s] + '</p>';
-                    }
-                }
-                $api.html(stylelist, html);
-            }
-        });
-    }
 </script>
 <script>
     var change = function($input) {

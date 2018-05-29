@@ -236,6 +236,7 @@ function fnFuZhiAudio(url) {
     var stylelist = $api.byId('yinpin');
     var html = '<audio id="myAudio" ><source src="' + url + '" type="audio/mp3"></audio>';
     $api.html(stylelist, html);
+    console.log(html);
     if (html) {
         kaishibofang();
     }
@@ -249,10 +250,28 @@ function kaishibofang() {
 //音频播放模块
 function netAudioPlay() {
     var myAudio = document.getElementById("myAudio");
-    myAudio.play();
+    var readyState = myAudio.readyState;
+    console.log(readyState);
+    // if (readyState == 0) {
+    //   kaishibofangs();
+    // }
+    myAudio.controls=false;
+    myAudio.load();
+     if (readyState == 2) {
+      kaishibofangs();
+    } else {
+
+        myAudio.play();
+        myAudio.volume=1.0;
+
+    }
+
     // console.log(222);
-    fnBoFangmoshiid();
-    initEventListennerBoFangMoshi();
+    // console.log(myAudio.networkState);
+    // // console.log(myAudio.error.code);
+    // console.log();
+    fnBoFangmoshiids();
+    initEventListennerBoFangMoshiDanQu();
     if(comment_total){
       api.sendEvent({
           name: 'jibenxinxi',
@@ -275,7 +294,6 @@ function netAudioPlay() {
           }
       });
     }
-
 }
 
 //关闭音频
