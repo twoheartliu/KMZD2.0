@@ -260,7 +260,7 @@
     </div>
 
     <div class="textarea">
-        <textarea placeholder="长按粘贴文本" class="replyValue" type="text" id="bar" spellcheck="false" id="commentarea" onblur="LimitTextArea()"></textarea>
+        <textarea placeholder="长按粘贴文本" class="replyValue" type="text" id="bar" spellcheck="false" id="commentarea" onKeyDown="LimitTextArea(this)" onKeyUp="LimitTextArea(this)" onkeypress="LimitTextArea(this)" ></textarea>
         <div class="Cover" onclick="fnSettings();">
             <div class="Cover_img" id="id-img">+</div>
             <!-- <div class="Cover_img"></div>
@@ -270,7 +270,7 @@
         </div>
     </div>
     <div class="textarea_input">
-        <input type="text" placeholder="填写您的手机或者邮箱" onblur="LimitTextArea()" id="id-contact"></div>
+        <input type="text" placeholder="填写您的手机或者邮箱"  id="id-contact" onblur="LimitTell()"></div>
     <!-- <div class="clr opinion " onclick="opinion() "><div class="fl opinion_name ">意见反馈</div><div class="fr opinion_img "><img src="../image/my/index_bzyfk.png " alt=" "></div></div> -->
     <!-- <div class="clr "></div> -->
     <!-- <div class="common ">
@@ -311,6 +311,7 @@
 
     function fnContact() {
         var contact = $api.byId('id-contact').value;
+        // console.log(contact);
         if (contact !== '') {
             api.sendEvent({
                 name: 'fnContact',
@@ -320,24 +321,6 @@
             });
     }
 }
-
-    function fntext() {
-        var text = $api.byId('commentarea').value;
-        if (text !== '') {
-            api.toast({
-                msg: '请输入您要反馈的问题',
-                duration: 2000,
-                location: 'middle'
-            });
-        } else {
-            api.sendEvent({
-                name: 'fntext',
-                extra: {
-                    content: text,
-                }
-            });
-        }
-    }
 
     function fnimg() {
         var img = $api.byId('id-img').value;
@@ -351,10 +334,31 @@
         }
     }
 
-    function LimitTextArea() {
-        console.log(1111);
-    }
+    function LimitTextArea(field){
+          var maxlimit=200;
+          if (field.value.length > maxlimit)
+              field.value = field.value.substring(0, maxlimit);
+                //   console.log(field.value);
+                  api.sendEvent({
+                      name: 'fntext',
+                      extra: {
+                          content: field.value,
+                      }
+                  });
+        }
 
+    function LimitTell() {
+        var tell = $api.byId('id-contact');
+        var tells = tell.value;
+        api.sendEvent({
+            name: 'fnContact',
+            extra: {
+                contact: tells,
+            }
+        });
+
+
+    }
     function common() {
         api.openWin({
             name: 'common',
