@@ -216,12 +216,16 @@
     var uris;
     var name;
     apiready = function(){
+
         var notHeader = $api.byId('notHeader');
         $api.fixStatusBar(notHeader);
         fnOpenDiscussNotDetail();
         soundId = api.pageParam.soundId;
         uris = api.pageParam.uris;
         name = api.pageParam.name;
+        console.log(soundId);
+        console.log(uris);
+        console.log(name);
         // fnOpenMessageNotDetail()
         // fnOpenMessageNotDetail1();
         // uris = api.pageParam.uris;
@@ -246,7 +250,7 @@
             hScrollBarEnabled: false
         });
     }
-    
+
     function fnOpenDiscussNotDetail(){
         var nHeader = $api.byId('notHeader');
         var headerH = $api.offset(nHeader).h;

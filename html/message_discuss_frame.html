@@ -60,15 +60,10 @@
 <script type="text/javascript">
 var token;
 var photo;
-var dataType;
-var dataName;
-var id;
-var name;
-var uris;
-apiready = function() {
-        token = $api.getStorage('token');
-        fnAjaxPinLun();
-
+var data_type;
+  apiready = function() {
+            token = $api.getStorage('token');
+            fnAjaxPinLun();
   }
   function fnAjaxPinLun() {
     api.ajax({
@@ -90,67 +85,12 @@ apiready = function() {
               var sections = $api.byId('sections');
               var html ='';
               for (var i = 0; i < ret.data.list.length; i++) {
-                id = ret.data.list[i].data_id;
                 if (ret.data.list[i].data_type == 'album') {
-                    dataType = './discuss_detail0.html';
-                    dataName = 'discussDetail0';
-                    api.ajax({
-                        url: host + apiUri + '/album/' + ret.data.list[i].data_id,
-                        method: 'get',
-                        headers: {
-                            "source": api.systemType,
-                            "version": version,
-                            "session": token
-                        },
-                        data: {
-                            values: {
-                                id: ret.data.list[i].data_id
-                            }
-                        }
-                    },function(ret, err){
-                        if (ret) {
-                            // console.log( JSON.stringify( ret ) );
-                            name = ret.data.title;
-                            uris = '/album/comment/';
-                            console.log(name);
-                        } else {
-                            console.log( JSON.stringify( err ) );
-                        }
-                    });
-
-                    // id = ret.data.list[i].data_id;
-                    // console.log(JSON.stringify());
+                    data_type = 'album';
                 }else if (ret.data.list[i].data_type == 'book') {
-                    // 单曲
-                    dataType = './playDanQu.html';
-                    dataName = 'playDanQu';
-
-                    // id = ret.data.list[i].data_id;
+                    data_type = 'book';
                 }else if (ret.data.list[i].data_type == 'listening') {
-
-                  // 听单
-                    dataType = './discuss_detail0.html';
-                    dataName = 'discussDetail0';
-                    uris = '/listening/comment/'
-                    // id = ret.data.list[i].data_id;
-                    api.ajax({
-                        url:  host + apiUri + '/listening/detail/' + ret.data.list[i].data_id,
-                        method: 'get',
-                        headers: {
-                            "source": api.systemType,
-                            "version": version,
-                            "session": token
-                        },
-                    },function(ret, err){
-                        if (ret) {
-                            name = ret.data.linstening_info.listening_name;
-                        } else {
-                            console.log( JSON.stringify( err ) );
-                        }
-                    });
-
-
-
+                    data_type = 'listening';
                 }
                 var photos = ret.data.list[i].photo;
                 var photo = photos.substring(0, 4);
@@ -169,11 +109,10 @@ apiready = function() {
                     return Y+M+D;
                 }
                 var timestampToTimess =  timestampToTime(ret.data.list[i].create_date);
-
                 html +=
                 '<li>'+
                   '<div class="user-img"><img src="'+ photo +'" alt=""></div>'+
-                  '<div class="userName" onclick="fnOpenUserButton();"><p>'+ret.data.list[i].nick_name +'</p>'+
+                  '<div class="userName" onclick="fnOpenUserButton(\'' + data_type + '\','+ret.data.list[i].data_id+');"><p>'+ret.data.list[i].nick_name +'</p>'+
                     '<p class="replyCont" >回复我：'+ ret.data.list[i].content +'</p>'+
                     '<div class="discuss">'+
                       '<span>'+ ret.data.list[i].origin_content  +'</span>'+
@@ -186,7 +125,6 @@ apiready = function() {
                 $api.html(sections , html);
                 // fnAjaxDetail(id);
             }
-
             // console.log( JSON.stringify( ret ) );
         } else {
             console.log( JSON.stringify( err ) );
@@ -194,8 +132,7 @@ apiready = function() {
     });
 
   }
-
-  function fnOpenUserButton() {
+  function fnOpenUserButton(data_type,id) {
             var dialogBox = api.require('dialogBox');
             dialogBox.actionMenu({
                 rect: {
@@ -244,7 +181,14 @@ apiready = function() {
                         dialogName: 'alert'
                     });
                 } else if (index == 1) {
-                  fnOpenMessageNotDetail();
+                  if (data_type == 'album') {
+                      fnOpenMessageNotAlbum(id);
+                  }else if (data_type == 'book') {
+                      fnOpenMessageNotBook(id)
+                  }else if (data_type == 'listening') {
+                      fnOpenMessageNotListening(id);
+                  }
+                  // fnOpenMessageNotDetail();
 
                     dialogBox.close({
                         dialogName: 'alert'
@@ -262,55 +206,106 @@ apiready = function() {
         }
     });
   }
-  function fnOpenMessageNotDetail(){
-    console.log(id);
-    console.log(uris);
-    console.log(name);
-
-    api.openWin({
-        name: dataName,
-        url: dataType,
-        pageParam: {
-          albumId: id,
-          uris: uris,
-          name: name
+  function fnOpenMessageNotAlbum(id) {
+    var dataType = './discuss_detail0.html';
+    var dataName = 'discussDetail0';
+    api.ajax({
+        url: host + apiUri + '/album/' +id,
+        method: 'get',
+        headers: {
+            "source": api.systemType,
+            "version": version,
+            "session": token
         },
-        bounces: false,
-        vScrollBarEnabled: true,
-        hScrollBarEnabled: true
+        data: {
+            values: {
+                id: id
+            }
+        }
+    },function(ret, err){
+        if (ret) {
+            var name = ret.data.title;
+            var uris = '/album/comment/';
+            console.log(name);
+            console.log(uris);
+            api.openWin({
+                name: dataName,
+                url: dataType,
+                pageParam: {
+                    name: name,
+                    uris:uris,
+                    albumId:id
+                }
+            });
+        } else {
+            console.log( JSON.stringify( err ) );
+        }
     });
   }
-  // function fnOpensendFrame(){
-  //   var section = document.getElementById('section');
-  //   var replyValue = section.getElementsByClassName('replyValue');
-  //   var reply = section.getElementsByClassName('reply');
-  //   var replySend = section.getElementsByClassName('replySend');
-  //   for (var i = 0; i < replySend.length; i++) {
-  //       replySend[i].index = i;
-  //       replySend[i].onclick = function() {
-  //           var j = this.index;
-  //           reply[j].style.display='none';
-  //           replyValue[j].value= " ";
-  //           // $api.addCls(ul_lis[j], 'active');
-  //           // ul_lis[j].innerHTML="已关注"
-  //       }
-  //   }
-  //   ereply = $api.byId('reply');
-  //   replyValue = $api.byId('replyValue');
-  //   ereply.style.display='none';
-  //   replyValue.value= " ";
-  //  }
-  // function fnOpendiscussFrame(){
-  //
-  //   ereply = $api.byId('reply');
-  //   ereply.style.display='block';
-  //
-  // }
-  // function fnOpensendFrame(){
-  //   ereply = $api.byId('reply');
-  //   replyValue = $api.byId('replyValue');
-  //   ereply.style.display='none';
-  //   replyValue.value= " ";
-  // }
+  function fnOpenMessageNotBook(id) {
+    var dataType = './discuss_notice_detail0.html';
+    var dataName = 'discussNoticeDetail0';
+    var uris = '/sound/comment/';
+    api.ajax({
+        url: host + apiUri +'/sound/' + id,
+        method: 'get',
+        headers: {
+            "source": api.systemType,
+            "version": version,
+            "session": token
+        },
+        data: {
+            values: {
+                id: id
+            }
+        }
+    },function(ret, err){
+        if (ret) {
+            var name = ret.data.title;
+            api.openWin({
+                name: dataName,
+                url: dataType,
+                pageParam: {
+                    name: name,
+                    uris: uris,
+                    soundId: id
+                }
+            });
+
+        } else {
+            console.log( JSON.stringify( err ) );
+        }
+    });
+  }
+  function fnOpenMessageNotListening(id) {
+    var dataType = './discuss_detail0.html';
+    var dataName = 'discussDetail0';
+    var uris = '/listening/comment/'
+    // id = ret.data.list[i].data_id;
+    api.ajax({
+        url:  host + apiUri + '/listening/detail/' + id,
+        method: 'get',
+        headers: {
+            "source": api.systemType,
+            "version": version,
+            "session": token
+        },
+    },function(ret, err){
+        if (ret) {
+            var name = ret.data.linstening_info.listening_name;
+            api.openWin({
+                name: dataName,
+                url: dataType,
+                pageParam: {
+                    name: name,
+                    uris: uris,
+                    soundId: id
+                }
+            });
+        } else {
+            console.log( JSON.stringify( err ) );
+        }
+    });
+  }
 </script>
 </html>
