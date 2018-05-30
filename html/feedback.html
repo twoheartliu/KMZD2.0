@@ -53,15 +53,18 @@
 <body>
     <header id="secHeader">
         <div class="header_fl fl" onclick="goback();"><img src="../image/icon_back.png" alt=""></div>
-        <div class="header_fr fr">提交</div>
+        <div class="header_fr fr" onclick="fnAjaxCreate();">提交</div>
         <div class="header_center">帮助与反馈</div>
     </header>
 </body>
 
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
 
 <script type="text/javascript">
+    var token = $api.getStorage('token');
+
     function goback() {
         api.closeWin({
             name: 'feedback'
@@ -69,6 +72,9 @@
     }
     apiready = function() {
         var header = $api.byId('secHeader');
+
+        feedbackFromFrame()
+
         $api.fixStatusBar(header);
         var headerPos = $api.offset(header);
         api.openFrame({
@@ -86,5 +92,97 @@
             bounces: false,
         });
 
+    }
+    var type;
+    var contact;
+    var content;
+    var img;
+
+    function feedbackFromFrame() {
+        console.log(1111);
+        api.addEventListener({
+            name: 'fnchoice'
+        }, function(ret, err) {
+            if (ret) {
+                //  alert( JSON.stringify( ret ) );
+                var types = JSON.stringify(ret.value.type)
+                if (types == '') {
+                    type = 1
+                } else {
+                    type = types
+                }
+            } else {
+                alert(JSON.stringify(err));
+            }
+        });
+
+        api.addEventListener({
+            name: 'fnContact'
+        }, function(ret, err) {
+            if (ret) {
+                alert(JSON.stringify(ret.value.contact));
+                contact = JSON.stringify(ret.value.contact)
+            } else {
+                alert(JSON.stringify(err));
+            }
+        });
+
+        api.addEventListener({
+            name: 'fntext'
+        }, function(ret, err) {
+            if (ret) {
+                //  alert( JSON.stringify( ret ) );
+                content = JSON.stringify(ret.value.content)
+            } else {
+                alert(JSON.stringify(err));
+            }
+        });
+
+        api.addEventListener({
+            name: 'fnimg'
+        }, function(ret, err) {
+            if (ret) {
+                //  alert( JSON.stringify( ret ) );
+                img = JSON.stringify(ret.value.img)
+            } else {
+                alert(JSON.stringify(err));
+            }
+        });
+    }
+
+    function fnAjaxCreate() {
+        console.log(contact);
+        api.ajax({
+            url: host + apiUri + '/system/feedback',
+            method: 'post',
+            headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token
+            },
+            data: {
+                values: {
+                    'contact': contact,
+                    'type': type,
+                    'content': content,
+                    'img': img,
+                }
+            }
+        }, function(ret, err) {
+            if (ret) {
+                console.log('sss')
+                alert(JSON.stringify(ret))
+                if (ret.status == 200) {
+                    api.toast({
+                        msg: '提交成功',
+                        duration: 2000,
+                        location: 'middle'
+                    });
+                    setTimeout(function() {
+                        api.closeWin();
+                    }, 2000)
+                }
+            }
+        });
     }
 </script>
