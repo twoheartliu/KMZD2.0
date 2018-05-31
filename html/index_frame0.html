@@ -108,7 +108,6 @@
         }
 
         .hotC {
-            width: 33%;
             position: relative;
             float: left;
             border-radius: 5px;
@@ -147,7 +146,6 @@
         .listtitle {
             font-size: 12px;
             color: #000;
-            width: 100%;
             height: 20px;
         }
         /*个性化推荐 */
@@ -499,11 +497,6 @@
     }
 
     function fnOpenBanners(banner_id, title, description, banner_types, content) {
-      console.log(content);
-        // console.log(banner_id);
-        // console.log('banner_id');
-        // console.log(banner_types);
-        // console.log('banner_types');
         var lujing;
         var song_id;
         var titles;
@@ -593,21 +586,20 @@
                 }
                 s_length = (data_.data[i].content.length < column * row) ? data_.data[i].content.length : column * row;
                 for (var s = 0; s < s_length; s++) {
-                  var cccc = column;
-                  var ssss = frameWidth - 50;
-                  var xxxx = ssss / cccc;
+
                     if (data_.data[i].floor_type == "block") {
                         if (data_.data[i].content_type == "album") {
-
-
+                          var cccc = column;
+                          var ssss = frameWidth - 50;
+                          var xxxx = ssss / cccc;
                             // style="width:' + xxxx + 'px;"
                             html += '<div class="hotC" style="width:' + xxxx + 'px;" onclick="fnSingLeWin(' + data_.data[i].content[s].id + ',\'' + data_.data[i].floor_name + '\',\'' + data_.data[i].content_type + '\');"><img src=" ' + host + '/' +
                                 data_.data[i].content[s].sma + '" alt=""><div class="listtitle" style="width:' + xxxx + 'px;"> ' + data_.data[
                                     i].content[s].title + '</div></div>';
                         } else if (data_.data[i].content_type == "listening") {
-                            // var cccc = column;
-                            // var ssss = frameWidth - 50;
-                            // var xxxx = ssss / cccc;
+                            var cccc = column;
+                            var ssss = frameWidth - 50;
+                            var xxxx = ssss / cccc;
                             // style = "width:' + xxxx + 'px;"
                             html += '<div class="hotC" style="width:' + xxxx + 'px;" onclick="fnSingLeWin(' + data_.data[i].content[s].id + ',\'' + data_.data[i].floor_name + '\',\'' + data_.data[i].content_type + '\');"><img src=" ' + listeningImg +
                                 '/' + data_.data[i].content[s].sma + '" alt=""><div class="listtitle" style="width:' + xxxx + 'px;"> ' + data_.data[
@@ -697,8 +689,6 @@
     // }
 
     function fnSingLeWin(id, name, urlNames) {
-        console.log(id);
-        console.log(name);
         if (urlNames == 'listening') {
             urlName = 'ListingsList';
         } else if (urlNames == 'album') {

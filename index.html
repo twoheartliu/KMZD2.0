@@ -417,6 +417,7 @@
     var comment_total;
     var is_collection;
     var caogaoAuthor_id;
+    var bookId;
     var danQu;
     apiready = function() {
       // $api.clearStorage();
@@ -427,6 +428,9 @@
             // });
             var secHeader = $api.byId('secHeader');
             $api.fixStatusBar(secHeader);
+            var headeris = document.querySelector('#secHeader');
+            $api.fixIos7Bar(headeris);
+            $api.fixStatusBar(headeris);
             var footer = $api.byId('footer');
             var headerH = $api.offset(secHeader).h;
             var footerH = $api.offset(footer).h;

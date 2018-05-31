@@ -40,14 +40,18 @@ function fnBoFangyinpinxinxis(id) {
               comment_total = ret.data.comment_total;
               is_collection =ret.data.is_collection;
               api.sendEvent({
+                  name: 'neiJianTingGood',
+                  extra: {
+                      bookId:ret.data.id
+                  }
+              });
+              api.sendEvent({
                   name: 'jibenxinxi',
                   extra: {
                       titlename: titlename,
                       desc: desc,
                       reciter: reciter,
                       singerName: singerName,
-                      comment_total: comment_total,
-                      collection: is_collection
                   }
               });
 
