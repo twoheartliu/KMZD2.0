@@ -52,7 +52,7 @@
 
         .index_header_img {
             width: 70px;
-            /*margin: 7.5px auto;*/
+            margin: 1em auto;
             border-radius: 37.5px;
             overflow: hidden;
             z-index: 0;
@@ -186,6 +186,7 @@
 
         .egret-flex-item-shelf .egret-flex-item-shelf01 .span1 {
             /*font-size: 13px;*/
+            margin-top: 8px;
             font-size: 15px;
             color: #000;
         }
@@ -248,11 +249,77 @@
             font-size: 15px;
             margin-top: 20px;
             width: 100%;
-            text-align: center;
         }
 
         .hdivider {
             margin-bottom: 10px;
+        }
+        /*
+        我的听单 css
+        */
+        .message_frame {
+            padding: 0 10px;
+        }
+
+        .message_frame_period {
+            color: #000;
+            height: 50px;
+            line-height: 50px;
+            font-size: 30px;
+        }
+
+        .message_frame_cycle {
+            display: flex;
+            padding: 5px 0;
+            background: #fff;
+            border-bottom: 1px solid #f2f2f2;
+            text-align: center;
+        }
+
+        .message_frame_cycle_img {
+            max-width: 80px;
+            min-width: 80px;
+            margin-left: 1em;
+            margin-right: 0.4em;
+            padding-left: 0.2em;
+        }
+
+
+        .message_frame_cycle_div_1 {
+            margin-left: 1em;
+            font-size: 14px;
+            max-width: 100px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .message_frame_cycle_img img {
+            height: 80px;
+            width: 80px;
+            -webkit-box-align: center;
+            vertical-align: top;
+            /*border-radius: 5px;*/
+        }
+
+        .message_frame_cycle_div {
+            overflow: hidden;
+            padding-left: 10px;
+            text-align: center;
+        }
+
+        .message_frame_cycle_div div {
+            line-height: 30px;
+            position: relative;
+        }
+
+
+        .listen-more {
+            text-align: right;
+        }
+
+        .zopn-more {
+            text-align: right;
         }
     </style>
 </head>
@@ -317,7 +384,41 @@
             </div>
         </div> -->
         <div class="index_main_h1">
-            <b class="index_main_span fl">发表作品(<span id="productNum"></span>)</b>
+            <b class="index_main_span fl">听单(<span id="listenlist">3</span>)</b>
+            <div class="listen-more">更多</div>
+        </div>
+        <ul id="test">
+            <ul id='id-container' class="message_frame_cycle">
+                <li>
+                    <div>
+                        <div class="message_frame_cycle_div fl">
+                        <div class="message_frame_cycle_img"><img src="../image/KM_album.png" alt=""></div>
+                        <div class="message_frame_cycle_div_1 col">《沁园春·雪》</div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <div class="message_frame_cycle_div fl">
+                        <div class="message_frame_cycle_img"><img src="../image/KM_album.png" alt=""></div>
+                        <div class="message_frame_cycle_div_1 col">《沁园春·雨》</div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <div class="message_frame_cycle_div fl">
+                        <div class="message_frame_cycle_img"><img src="../image/KM_album.png" alt=""></div>
+                        <div class="message_frame_cycle_div_1 col">《沁园春·夏》</div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </ul>
+
+        <div class="index_main_h1">
+            <b class="index_main_span fl">作品(<span id="productNum"></span>)</b>
+            <div class="zopn-more">更多</div>
         </div>
         <div class="wrapper" id="wrap">
             <!-- <div class="noHistory">您还没有作品</div>
