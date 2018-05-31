@@ -429,6 +429,12 @@
         .items {
             position: relative;
         }
+        #footer {
+            width: 100%;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -484,6 +490,9 @@
         <ul class="on" id="tuijianliebiaogequ">
 
         </ul>
+        <div id="footer" class="disnone">
+            正在加载更多
+        </div>
     </div>
 </body>
 
@@ -504,6 +513,7 @@
     var wx;
     var ListingsListGoodHtml;
     var name;
+    var p = 1;
     apiready = function() {
             api.addEventListener({
                 name: 'ok'
@@ -514,7 +524,7 @@
                     //fnTingdanTuijianliebiao()
                     ids = api.pageParam.ids;
                     ListenToTheDetails();
-
+                    songList();
                     api.setCustomRefreshHeaderInfo({
                         bgColor: '#f0f0f0',
                         image: {
@@ -543,8 +553,27 @@
                         //下拉刷新被触发，自动进入加载状态，使用 api.refreshHeaderLoadDone() 手动结束加载中状态
                         //下拉刷新被触发，使用 api.refreshHeaderLoadDone() 结束加载中状态
                         ListenToTheDetails();
-
                     });
+                    api.addEventListener({
+                        name: 'scrolltobottom',
+                        extra: {
+                            threshold: -20 //设置距离底部多少距离时触发，默认值为0，数字类型
+                        }
+                    }, function(ret, err) {
+                        //
+                        // console.log(1111);
+                        // $api.toggleCls(footer, 'disblok');
+                      //  setTimeout(function() {
+                      //    console.log(333);
+                        //  $api.toggleCls(footer, 'disnone');
+                      //  }, 3000);
+                      var footer = $api.byId('footer');
+                      $api.html(footer, '正在加载更多');
+                      p ++;
+                      console.log(p);
+                      songList();
+                    });
+
                 }
             });
 
@@ -560,7 +589,7 @@
                 //fnTingdanTuijianliebiao()
                 ids = api.pageParam.ids;
                 ListenToTheDetails();
-
+                songList();
                 api.setCustomRefreshHeaderInfo({
                     bgColor: '#f0f0f0',
                     image: {
@@ -589,7 +618,24 @@
                     //下拉刷新被触发，自动进入加载状态，使用 api.refreshHeaderLoadDone() 手动结束加载中状态
                     //下拉刷新被触发，使用 api.refreshHeaderLoadDone() 结束加载中状态
                     ListenToTheDetails();
-
+                });
+                api.addEventListener({
+                    name: 'scrolltobottom',
+                    extra: {
+                        threshold: -20 //设置距离底部多少距离时触发，默认值为0，数字类型
+                    }
+                }, function(ret, err) {
+                    //
+                    // console.log(1111);
+                    // $api.toggleCls(footer, 'disblok');
+                  //  setTimeout(function() {
+                  //    console.log(333);
+                    //  $api.toggleCls(footer, 'disnone');
+                  //  }, 3000);
+                  var footer = $api.byId('footer');
+                  $api.html(footer, '正在加载更多');
+                  p ++;
+                  songList();
                 });
             }
         }
@@ -663,7 +709,6 @@
                   // console.log(goods);
                   var stylelistss = $api.byId('goods');
                   $api.html(stylelistss, goodss);
-                  songList(ret);
                   var stylelistCollectionHtml = $api.byId('extraCollectionHtml');
                   if (ret.data.linstening_info.is_collection == 0) {
                       albumCollectionHtml = '<img src="../image/KM_hxs.png" alt="" class="collectmusic" onclick="collectmusic(this)" data-click="0">';
@@ -786,20 +831,47 @@
         }
     }
     // 调取用户听单单曲列表
-    function songList(ret) {
+    function songList() {
+        api.ajax({
+          url: host + apiUri + '/listening/song_list/' + ids,
+          method: 'get',
+          headers: {
+              "source": api.systemType,
+              "version": version,
+              "session": token
+          },
+            data: {
+                values: {
+                    id: ids,
+                    p: p
+                }
+            }
+        },function(ret, err){
+            if (ret) {
+              if (ret.status == 200) {
+                var tuijianliebiaogequ = $api.byId('tuijianliebiaogequ');
+                var author_name;
+                var reciter;
+                if (ret.data == '') {
+                  var footer = $api.byId('footer');
+                  $api.html(footer, '无更多数据');
+                }else {
+                  for (var i = 0; i < ret.data.length; i++) {
+                    // console.log(ret.data[i].title);
+                      author_name = ((ret.data[i].author_name == null) ? "" : ret.data[i].author_name);
+                      reciter = ((ret.data[i].reciter == null) ? "" : ret.data[i].reciter);
+                      $api.append(tuijianliebiaogequ,'<li id="id_' + ret.data[i].id + '"><div class="on_playall" onclick="fnPlay('+ ret.data[i].id +');"><span class="fl on_playall_name">' + ret.data[i].title + '</span><span></span></div><div class="author fl"  onclick="fnPlay('+ ret.data[i].id +');">作者：' + author_name +
+                          '</div><div class="author fl"  onclick="fnPlay('+ ret.data[i].id +');">朗读者：' + reciter + '</div><div class="fr on_playall_img" onclick="fnOpenPlayMore(' + ret.data[i].id + ');"><img src="../image/KM_list_more.png" alt=""></div></li>');
+                  }
+                }
+              }
+                // console.log( JSON.stringify( ret ) );
+            } else {
+                // console.log( JSON.stringify( err ) );
+            }
+        });
 
-        var tuijianliebiaogequ = $api.byId('tuijianliebiaogequ');
-        var author_name;
-        var reciter;
-        var html = '';
-        for (var i = 0; i < ret.data.song_list.length; i++) {
 
-            author_name = ((ret.data.song_list[i].author_name == null) ? "" : ret.data.song_list[i].author_name);
-            reciter = ((ret.data.song_list[i].reciter == null) ? "" : ret.data.song_list[i].reciter);
-            html += '<li id="id_' + ret.data.song_list[i].id + '"><div class="on_playall" onclick="fnPlay('+ ret.data.song_list[i].id +');"><span class="fl on_playall_name">' + ret.data.song_list[i].title + '</span><span></span></div><div class="author fl"  onclick="fnPlay('+ ret.data.song_list[i].id +');">作者：' + author_name +
-                '</div><div class="author fl"  onclick="fnPlay('+ ret.data.song_list[i].id +');">朗读者：' + reciter + '</div><div class="fr on_playall_img" onclick="fnOpenPlayMore(' + ret.data.song_list[i].id + ');"><img src="../image/KM_list_more.png" alt=""></div></li>';
-        }
-        $api.html(tuijianliebiaogequ, html);
     }
     var Dqbofangid;
     function fnDangQianbofangid(id) {
