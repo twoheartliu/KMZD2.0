@@ -187,6 +187,7 @@
         .egret-flex-item-shelf .egret-flex-item-shelf01 .span1 {
             /*font-size: 13px;*/
             margin-top: 8px;
+            margin-left: 1em;
             font-size: 15px;
             color: #000;
         }
@@ -221,6 +222,7 @@
 
         .egret-flex-item-shelf03 {
             line-height: 20px;
+            margin-left: 0.8em;
         }
 
         .egret-flex-item-shelf03 div {
@@ -249,6 +251,7 @@
             font-size: 15px;
             margin-top: 20px;
             width: 100%;
+            text-align: center;
         }
 
         .hdivider {
@@ -321,6 +324,13 @@
         .zopn-more {
             text-align: right;
         }
+
+        .noList {
+            color: #999;
+            font-size: 15px;
+            /*margin-top: 20px;*/
+            width: 100%;
+        }
     </style>
 </head>
 
@@ -384,12 +394,12 @@
             </div>
         </div> -->
         <div class="index_main_h1">
-            <b class="index_main_span fl">听单(<span id="listenlist">3</span>)</b>
+            <b class="index_main_span fl">听单(<span id="listenlist"></span>)</b>
             <div class="listen-more">更多</div>
         </div>
         <ul id="test">
             <ul id='id-container' class="message_frame_cycle">
-                <li>
+                <!-- <li>
                     <div>
                         <div class="message_frame_cycle_div fl">
                         <div class="message_frame_cycle_img"><img src="../image/KM_album.png" alt=""></div>
@@ -412,7 +422,7 @@
                         <div class="message_frame_cycle_div_1 col">《沁园春·夏》</div>
                         </div>
                     </div>
-                </li>
+                </li> -->
             </ul>
         </ul>
 
@@ -481,8 +491,67 @@
         // console.log(token);
         var userId = api.pageParam.userId;
         var nickName = api.pageParam.nickName;
-        openInfo ();
+        openInfo();
+        listenList();
 
+    }
+
+    // 听单相关
+    function listenList() {
+        var userId = api.pageParam.userId;
+        api.ajax({
+            url: host + apiUri + '/user/personal_page/' + userId,
+            method: 'get',
+            headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token
+            }
+        },function(ret, err){
+            if (ret.status == 200) {
+                var listenlist = $api.byId('listenlist');
+                //作品数量
+                if (ret.data.user_listening.length == 0) {
+                    var nums = '0';
+                    $api.html(listenlist, nums);
+                } else {
+                    var nums = ret.data.user_listening.length;
+                    $api.html(listenlist, nums);
+                }
+
+                //听单列表
+                var container = $api.byId('id-container');
+                var listenCover = listeningImg
+                if (ret.data.user_listening.length == 0) {
+                    var nolist = '<div class="noList">还未创建听单</div>';
+                    $api.html(container, nolist);
+                    $api.css(container, 'background:none');
+
+                } else {
+                    var nolist = '';
+                    for (var i = 0; i < ret.data.user_listening.length; i++) {
+                        // console.log(JSON.stringify( ret.data.user_listening[i]));
+
+                        nolist += '<li><div onclick="openListen('+ret.data.user_listening[i].l_id+')"><div class="message_frame_cycle_div fl"><div class="message_frame_cycle_img"><img src="'+listenCover+''+ret.data.user_listening[i].listening_cover+'" alt=""></div><div class="message_frame_cycle_div_1 col">'+ret.data.user_listening[i].listening_name+'</div></div></div></li>';
+                    }
+                    $api.html(container, nolist);
+                }
+                // alert( JSON.stringify( ret ) );
+            } else {
+                alert( JSON.stringify( err ) );
+            }
+        });
+
+    }
+
+    function openListen(s) {
+        api.openWin({
+            name: 'tingdan',
+            url: './ListingsList.html',
+            pageParam: {
+                ids: s,
+            }
+        });
     }
     //调接口
     function openInfo (){
@@ -553,7 +622,7 @@
               //作品列表
               var wrap = $api.byId('wrap');
               if (ret.data.user_records.length == 0) {
-                  var html13 = '<div class="noHistory">还没有作品</div>';
+                  var html13 = '<div class="noHistory">还未上传作品</div>';
                   $api.html(wrap, html13);
               } else {
                   var html13 = '';

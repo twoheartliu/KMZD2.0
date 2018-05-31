@@ -235,33 +235,34 @@
         api.setCustomRefreshHeaderInfo({
             bgColor: '#f0f0f0',
             image: {
-              pull: [
-                  'widget://image/Refresh/dropdown_anim_00.png',
-                  'widget://image/Refresh/dropdown_anim_01.png',
-                  'widget://image/Refresh/dropdown_anim_02.png',
-                  'widget://image/Refresh/dropdown_anim_03.png',
-                  'widget://image/Refresh/dropdown_anim_04.png',
-                  'widget://image/Refresh/dropdown_anim_05.png',
-                  'widget://image/Refresh/dropdown_anim_06.png',
-                  'widget://image/Refresh/dropdown_anim_07.png',
-                  'widget://image/Refresh/dropdown_anim_08.png',
-                  'widget://image/Refresh/dropdown_anim_09.png',
-                  'widget://image/Refresh/dropdown_anim_10.png',
-            ],
-            load: [
-                  'widget://image/Refresh/dropdown_anim_00.png',
-                  'widget://image/Refresh/dropdown_anim_01.png',
-                  'widget://image/Refresh/dropdown_anim_02.png',
-                  'widget://image/Refresh/dropdown_anim_03.png',
-                  'widget://image/Refresh/dropdown_anim_04.png',
-                  'widget://image/Refresh/dropdown_anim_05.png',
-          ]}
+                pull: [
+                    'widget://image/Refresh/dropdown_anim_00.png',
+                    'widget://image/Refresh/dropdown_anim_01.png',
+                    'widget://image/Refresh/dropdown_anim_02.png',
+                    'widget://image/Refresh/dropdown_anim_03.png',
+                    'widget://image/Refresh/dropdown_anim_04.png',
+                    'widget://image/Refresh/dropdown_anim_05.png',
+                    'widget://image/Refresh/dropdown_anim_06.png',
+                    'widget://image/Refresh/dropdown_anim_07.png',
+                    'widget://image/Refresh/dropdown_anim_08.png',
+                    'widget://image/Refresh/dropdown_anim_09.png',
+                    'widget://image/Refresh/dropdown_anim_10.png',
+                ],
+                load: [
+                    'widget://image/Refresh/dropdown_anim_00.png',
+                    'widget://image/Refresh/dropdown_anim_01.png',
+                    'widget://image/Refresh/dropdown_anim_02.png',
+                    'widget://image/Refresh/dropdown_anim_03.png',
+                    'widget://image/Refresh/dropdown_anim_04.png',
+                    'widget://image/Refresh/dropdown_anim_05.png',
+                ]
+            }
         }, function() {
-                //下拉刷新被触发，自动进入加载状态，使用 api.refreshHeaderLoadDone() 手动结束加载中状态
-                //下拉刷新被触发，使用 api.refreshHeaderLoadDone() 结束加载中状态
+            //下拉刷新被触发，自动进入加载状态，使用 api.refreshHeaderLoadDone() 手动结束加载中状态
+            //下拉刷新被触发，使用 api.refreshHeaderLoadDone() 结束加载中状态
 
-                      fnGengDuo();
-            });
+            fnGengDuo();
+        });
     }
 
     function fnGengDuo() {
@@ -280,16 +281,16 @@
         }, function(ret, err) {
             // alert(JSON.stringify(ret));
             if (ret.status == 200) {
-              setTimeout(function(){
-                  api.refreshHeaderLoadDone()
-              },3000)
+                setTimeout(function() {
+                    api.refreshHeaderLoadDone()
+                }, 3000)
                 if (ret.data.fllor_info.floor_type == "block") {
                     var stylelist = $api.byId('ListOfExcellentWorks');
                     var html = '';
                     html += '<div class="hot" id="hot">';
                     for (var i = 0; i < ret.data.list.length; i++) {
-                        html += '<div class="hotC" onclick="fnSingleWin(' + ret.data.list[i].id + ');"><img src=" ' + host + '/' + ret.data.list[i].big + '" alt=""><div class="listtitle"> ' + ret.data.list[i].title + '</div></div>';
-
+                        html += '<div class="hotC" onclick="fnSingleWin(' + ret.data.list[i].id + ',\'' + ret.data.list[i].title + '\',\'' + ret.data.fllor_info.content_type + '\');"><img src=" ' + host + '/' + ret.data.list[i].big +
+                            '" alt=""><div class="listtitle"> ' + ret.data.list[i].title + '</div></div>';
                     }
                     html += '</div>';
                     $api.html(stylelist, html);
@@ -308,11 +309,10 @@
                                 i].mid + '" alt="" class=""></div><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 fl">作品：<span>' + ret.data.list[i].title +
                             '</span></span><!-- <span class="span2 iconfont icon-nv fl"></span> --><!-- <img src="../image/js.png" alt="" class="fl"> --><!-- <span class="span3 fr">昨天21.30</span> --></div><div class="egret-flex-item-shelf02"><span>' +
                             ret.data.list[i].author_name +
-                            '</span><!-- <span><img src="../image/js.png" alt="" class="fl"></span> --></div><div class="egret-flex-item-shelf03"><div><img src="../image/KM_play.png" alt=""><span>' + ret.data.list[i].play_total + '</span></div><div><img src="../image/KM_zf.png" alt=""><span>' + ret.data.list[i].share_total + '</span></div><div><img src="../image/KM_dz.png" alt=""><span>' + ret.data.list[i].good_total +
+                            '</span><!-- <span><img src="../image/js.png" alt="" class="fl"></span> --></div><div class="egret-flex-item-shelf03"><div><img src="../image/KM_play.png" alt=""><span>' + ret.data.list[i].play_total +
+                            '</span></div><div><img src="../image/KM_zf.png" alt=""><span>' + ret.data.list[i].share_total + '</span></div><div><img src="../image/KM_dz.png" alt=""><span>' + ret.data.list[i].good_total +
                             '</span></div></div></div></div><div class="egret-flex-item-shelf04" onclick="fnOpenPlayMore()"><img src="../image/KM_list_more.png" alt=""></div></div><div class="hdivider"></div>';
-
                     }
-
                     $api.html(stylelist, html);
                 }
                 // fnRecommendedDirectory(ret);
@@ -372,14 +372,22 @@
     //
     // }
 
-    function fnSingleWin(id) {
+    function fnSingleWin(id, name, urlNames) {
+        if (urlNames == 'listening') {
+            urlName = 'ListingsList';
+        } else if (urlNames == 'album') {
+            urlName = 'single';
+        }
         api.openWin({
-            name: 'single',
-            url: './single.html',
+            name: urlName,
+            url: './' + urlName + '.html',
             pageParam: {
-                albumId: id
+                albumId: id,
+                ok: urlName,
+                floor_name: name
             }
         });
+
     }
     //打开更多页面
     function fnOpenPlayMore() {
