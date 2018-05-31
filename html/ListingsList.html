@@ -58,7 +58,7 @@
     <header id="secHeader">
         <div class="header_fl fl" onclick="goback();"><img src="../image/icon_back.png" alt=""></div>
         <div class="header_fr fr" onclick=""></div>
-        <div class="header_center">听单</div>
+        <div class="header_center" id="floor_name">听单</div>
     </header>
 </body>
 
@@ -69,8 +69,21 @@
         api.closeWin({
         });
     }
+    var ok;
     apiready = function() {
-        var ids = api.pageParam.ids;
+      ok = api.pageParam.ok;
+      var oks = 'ok'+ok;
+      api.addEventListener({
+        name: 'oks'
+      }, function(ret, err) {
+      if(ret.value.wangluo){
+        var albumId = api.pageParam.albumId;
+        var floor_name = api.pageParam.floor_name;
+        if(floor_name){
+          var stylelist = $api.byId('floor_name');
+          var html = floor_name;
+          $api.html(stylelist, html);
+        }
         var header = $api.byId('secHeader');
         $api.fixStatusBar(header);
         var headerPos = $api.offset(header);
@@ -84,10 +97,46 @@
                 h: 'auto'
             },
             pageParam: {
-                ids: ids
+                ids: albumId
             },
             customRefreshHeader: 'UIPullRefreshFlash',
             bounces: true,
         });
+      }
+      });
+
+      var connectionType = api.connectionType;
+      if(connectionType == "none"){
+        netWorkNone(ok);
+      }else{
+        var albumId = api.pageParam.albumId;
+        var floor_name = api.pageParam.floor_name;
+        if(floor_name){
+          var stylelist = $api.byId('floor_name');
+          var html = floor_name;
+          $api.html(stylelist, html);
+        }
+        var header = $api.byId('secHeader');
+        $api.fixStatusBar(header);
+        var headerPos = $api.offset(header);
+        api.openFrame({
+            name: 'ListingsList_frame',
+            url: './ListingsList_frame.html',
+            rect: {
+                x: 0,
+                y: headerPos.h,
+                w: 'auto',
+                h: 'auto'
+            },
+            pageParam: {
+                ids: albumId
+            },
+            customRefreshHeader: 'UIPullRefreshFlash',
+            bounces: true,
+        });
+      }
+
+
+
     }
 </script>

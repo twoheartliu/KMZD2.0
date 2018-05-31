@@ -53,11 +53,15 @@
             var bofang = JSON.stringify(ret.value.bofang);
             a = ret.value.a;
             var playlistid = ret.value.playlistid;
+            var playUrli = ret.value.playUrli;
             if (playlistid) {
                 fnBOFangJian(bofang, a, playlistid);
+                return false;
             } else {
                 fnBOFangJian(bofang, a);
+                return false;
             }
+            return false;
         });
         api.addEventListener({
             name: 'netPlaying'
@@ -71,13 +75,15 @@
             var bofang = JSON.stringify(ret.value.bofang);
             a = ret.value.a;
             var playlistid = ret.value.playlistid;
+            var playUrli = ret.value.playUrli;
             if (playlistid) {
                 fnBOFangJian(bofang, a, playlistid);
-                return;
+                return false;
             } else {
                 fnBOFangJian(bofang, a);
-                return;
+                return false;
             }
+            return false;
         });
         // if(!bofang){
         //   bofang = 2;
@@ -96,6 +102,71 @@
     }
 
     function fnBOFangJian(bofang, a, playlistid) {
+      api.addEventListener({
+          name: 'netBoFangId'
+      }, function(ret, err) {
+          var bofang = JSON.stringify(ret.value.bofang);
+          if (bofang == 0) {
+              var stylelist = $api.byId('centerVedeo');
+              var html = '';
+              html += '<div onclick="fnOpenPlay( ' + bofang + ',' + a + ');"><img src="../image/footer_bf' + bofang + '.png" alt=""></div>';
+              $api.html(stylelist, html);
+          } else if (bofang == 1) {
+              var stylelist = $api.byId('centerVedeo');
+              var html = '';
+              html += '<div onclick="fnOpenPlay( ' + bofang + ',' + a + ');"><img src="../image/footer_bf' + bofang + '.png" alt=""></div>';
+              $api.html(stylelist, html);
+          } else if (bofang == 2) {
+              var stylelist = $api.byId('centerVedeo');
+              var html = '';
+              html += '<div onclick="fnOpenPlay( ' + bofang + ',' + a + ',' + playlistid + ');"><img src="../image/footer_bf' + bofang + '.png" alt=""></div>';
+              $api.html(stylelist, html);
+          } else if (bofang == 3) {
+              var stylelist = $api.byId('centerVedeo');
+              var html = '';
+              html += '<div onclick="fnOpenPlay( ' + bofang + ',' + a + ',' + playlistid + ');"><img src="../image/footer_bf' + bofang + '.png" alt=""></div>';
+              $api.html(stylelist, html);
+          } else if (bofang == 4) {
+              var stylelist = $api.byId('centerVedeo');
+              var html = '';
+              html += '<div onclick="fnOpenPlay( ' + bofang + ',' + a + ',' + playlistid + ');"><img src="../image/footer_bf' + bofang + '.png" alt=""></div>';
+              $api.html(stylelist, html);
+          } else if (bofang == 5) {
+              var stylelist = $api.byId('centerVedeo');
+              var html = '';
+              html += '<div onclick="fnOpenPlay( ' + bofang + ',' + a + ',' + playlistid + ');"><img src="../image/footer_bf' + bofang + '.png" alt=""></div>';
+              $api.html(stylelist, html);
+          } else if (bofang == 6) {
+              var stylelist = $api.byId('centerVedeo');
+              var html = '';
+              html += '<div onclick="fnOpenPlay( ' + bofang + ',' + a + ');"><img src="../image/footer_bf' + bofang + '.png" alt=""></div>';
+              $api.html(stylelist, html);
+          } else if (bofang == 7) {
+              var stylelist = $api.byId('centerVedeo');
+              var html = '';
+              html += '<div onclick="fnOpenPlay( ' + bofang + ',' + a + ');"><img src="../image/footer_bf' + bofang + '.png" alt=""></div>';
+              $api.html(stylelist, html);
+          }
+          if (playlistid) {
+              api.sendEvent({
+                  name: 'netbofangs',
+                  extra: {
+                      bofang: bofang,
+                      a: a,
+                      playid: playlistid,
+                  }
+              });
+          } else {
+              api.sendEvent({
+                  name: 'netbofangs',
+                  extra: {
+                      bofang: bofang,
+                      a: a
+                  }
+              });
+          }
+          return false;
+      });
         if (bofang == 0) {
             var stylelist = $api.byId('centerVedeo');
             var html = '';
@@ -143,14 +214,14 @@
                 extra: {
                     bofang: bofang,
                     a: a,
-                    playid: playlistid
+                    playid:playlistid,
                 }
             });
         } else {
             api.sendEvent({
                 name: 'netbofangs',
                 extra: {
-                    bofang: bofang,
+                    bofang:bofang,
                     a: a
                 }
             });
@@ -179,6 +250,7 @@
             });
         } else if (bofang == 2) {
           if (Dqbofangid == a) {
+            console.log(4444);
               api.openWin({
                   name: 'play',
                   url: './play.html',
@@ -186,7 +258,7 @@
                       bofang: bofang,
                       playid: playlistid,
                       a: a,
-                      DangQianbofangid: Dqbofangid
+                      DangQianbofangid: Dqbofangid,
                   }
               });
           } else {
@@ -196,13 +268,14 @@
                 pageParam: {
                     bofang: bofang,
                     a: a,
-                    playid: playlistid
+                    playid: playlistid,
                 },
             });
           }
 
         } else if (bofang == 3) {
           if (Dqbofangid == a) {
+            console.log(Dqbofangid);
               api.openWin({
                   name: 'play',
                   url: './play.html',
@@ -210,7 +283,7 @@
                       bofang: bofang,
                       playid: playlistid,
                       a: a,
-                      DangQianbofangid: Dqbofangid
+                      DangQianbofangid: Dqbofangid,
                   }
               });
           } else {
@@ -220,39 +293,68 @@
                 pageParam: {
                     bofang: bofang,
                     a: a,
-                    playid: playlistid
+                    playid: playlistid,
                 },
             });
           }
         } else if (bofang == 4) {
+          if (Dqbofangid == a) {
             api.openWin({
                 name: 'caogaoplay',
                 url: './caogaoplay.html',
                 pageParam: {
                     bofang: bofang,
                     a: a,
-                    playid: playlistid
+                    playid: playlistid,
+                    DangQianbofangid: Dqbofangid,
                 },
             });
+
+          } else {
+            api.openWin({
+                name: 'caogaoplay',
+                url: './caogaoplay.html',
+                pageParam: {
+                    bofang: bofang,
+                    a: a,
+                    playid: playlistid,
+                },
+            });
+          }
         } else if (bofang == 5) {
+          if (Dqbofangid == a) {
             api.openWin({
                 name: 'caogaoplay',
                 url: './caogaoplay.html',
                 pageParam: {
                     bofang: bofang,
                     a: a,
-                    playid: playlistid
+                    playid: playlistid,
+                    DangQianbofangid: Dqbofangid,
                 },
             });
+
+          } else {
+            api.openWin({
+                name: 'caogaoplay',
+                url: './caogaoplay.html',
+                pageParam: {
+                    bofang: bofang,
+                    a: a,
+                    playid: playlistid,
+                },
+            });
+          }
         } else if (bofang == 6) {
           if (Dqbofangid == a) {
+            console.log(1111);
               api.openWin({
                   name: 'playDanQu',
                   url: './playDanQu.html',
                   pageParam: {
                       bofang: bofang,
                       a: a,
-                      DangQianbofangid: Dqbofangid
+                      DangQianbofangid: Dqbofangid,
                   }
               });
           } else {
@@ -277,19 +379,126 @@
                       DangQianbofangid: Dqbofangid
                   }
               });
-          }else {
-              api.openWin({
-                  name: 'play',
-                  url: './play.html',
-                  // pageParam: {
-                  //   bofang: 2,
-                  //   a: 1,
-                  //   playid: 1
-                  // },
-              });
+          } else {
+            api.openWin({
+                name: 'playDanQu',
+                url: './playDanQu.html',
+                pageParam: {
+                    bofang: bofang,
+                    a: a,
+                },
+            });
           }
+
+        }else {
+            // api.openWin({
+            //     name: 'play',
+            //     url: './play.html',
+            //     // pageParam: {
+            //     //   bofang: 2,
+            //     //   a: 1,
+            //     //   playid: 1
+            //     // },
+            // });
         }
     }
+    // function fnOpenPlay(bofang, a, playlistid) {
+    //     if (bofang == 0) {
+    //         api.openWin({
+    //             name: 'playsousuo',
+    //             url: './playsousuo.html',
+    //             pageParam: {
+    //                 bofang: bofang,
+    //                 a: a
+    //             },
+    //         });
+    //     } else if (bofang == 1) {
+    //         api.openWin({
+    //             name: 'playsousuo',
+    //             url: './playsousuo.html',
+    //             pageParam: {
+    //                 bofang: bofang,
+    //                 a: a
+    //             },
+    //         });
+    //     } else if (bofang == 2) {
+    //         api.openWin({
+    //             name: 'play',
+    //             url: './play.html',
+    //             pageParam: {
+    //                 bofang: bofang,
+    //                 a: a,
+    //                 playid: playlistid
+    //             },
+    //         });
+    //     } else if (bofang == 3) {
+    //         api.openWin({
+    //             name: 'play',
+    //             url: './play.html',
+    //             pageParam: {
+    //                 bofang: bofang,
+    //                 a: a,
+    //                 playid: playlistid
+    //             },
+    //         });
+    //
+    //     } else if (bofang == 4) {
+    //
+    //         api.openWin({
+    //             name: 'caogaoplay',
+    //             url: './caogaoplay.html',
+    //             pageParam: {
+    //                 bofang: bofang,
+    //                 a: a,
+    //                 playid: playlistid
+    //             },
+    //         });
+    //     } else if (bofang == 5) {
+    //
+    //         api.openWin({
+    //             name: 'caogaoplay',
+    //             url: './caogaoplay.html',
+    //             pageParam: {
+    //                 bofang: bofang,
+    //                 a: a,
+    //                 playid: playlistid
+    //             },
+    //         });
+    //     } else if (bofang == 6) {
+    //
+    //         api.openWin({
+    //             name: 'playDanQu',
+    //             url: './playDanQu.html',
+    //             pageParam: {
+    //                 bofang: bofang,
+    //                 a: a,
+    //             },
+    //         });
+    //
+    //     } else if (bofang == 7) {
+    //
+    //         api.openWin({
+    //             name: 'playDanQu',
+    //             url: './playDanQu.html',
+    //             pageParam: {
+    //                 bofang: bofang,
+    //                 a: a,
+    //             },
+    //         });
+    //
+    //
+    //     }else {
+    //         api.openWin({
+    //             name: 'play',
+    //             url: './play.html',
+    //             // pageParam: {
+    //             //   bofang: 2,
+    //             //   a: 1,
+    //             //   playid: 1
+    //             // },
+    //         });
+    //     }
+    // }
 </script>
 
 </html>

@@ -591,8 +591,8 @@
           var winHeightHeader = winHeight - headerPosH;
           $api.css(messageFrameDiv, 'height:' + winHeightHeader + 'px;');
           $api.fixIos7Bar(header);
-          fnBookExtraGoodssssss()
-          dangqianbofangid = api.pageParam.dangqianbofangid;
+          fnBookExtraGoodssssss();
+          dangqianbofangid = api.pageParam.DangQianbofangid;
           if(dangqianbofangid){
             fnBookExtraGoodssssss();
           }
@@ -606,9 +606,16 @@
             if (connectionType == "wifi") {
                 if (dangqianbofangid) {
 
-                    fnJinRuBofangs(dangqianbofangid);
-                    bookId == dangqianbofangid;
+                  bofang = api.pageParam.bofang;
+                  if(bofang){
+                    fnJinRuBofangs(dangqianbofangid,bofang);
                     soundId = dangqianbofangid;
+                    bookId == dangqianbofangid;
+                  }else{
+                    fnJinRuBofangs(dangqianbofangid);
+                    soundId = dangqianbofangid;
+                    bookId == dangqianbofangid;
+                  }
                 } else {
                    bookId = api.pageParam.a;
                    soundId = api.pageParam.a;
@@ -659,10 +666,18 @@
                     }
                 }, function(ret) {
                     if (ret.eventType == 'right') {
-                        dangqianbofangid = api.pageParam.dangqianbofangid;
+                        dangqianbofangid = api.pageParam.DangQianbofangid;
                         if (dangqianbofangid) {
-                          soundId = dangqianbofangid;
+                          bofang = api.pageParam.bofang;
+                          if(bofang){
+                            fnJinRuBofangs(dangqianbofangid,bofang);
+                            soundId = dangqianbofangid;
+                            bookId == dangqianbofangid;
+                          }else{
                             fnJinRuBofangs(dangqianbofangid);
+                            soundId = dangqianbofangid;
+                            bookId == dangqianbofangid;
+                          }
                         } else {
                             fnJinRuBofang();
                         }
@@ -724,10 +739,10 @@
         var winHeightHeader = winHeight - headerPosH;
         $api.css(messageFrameDiv, 'height:' + winHeightHeader + 'px;');
         $api.fixIos7Bar(header);
-        fnBookExtraGoodssssss()
+        fnBookExtraGoodssssss();
 
 
-        dangqianbofangid = api.pageParam.dangqianbofangid;
+        dangqianbofangid = api.pageParam.DangQianbofangid;
         if(dangqianbofangid){
           bookId = dangqianbofangid;
           soundId = dangqianbofangid;
@@ -741,9 +756,16 @@
         });
           if (connectionType == "wifi") {
               if (dangqianbofangid) {
-                  fnJinRuBofangs(dangqianbofangid);
-                  bookId == dangqianbofangid;
+                bofang = api.pageParam.bofang;
+                if(bofang){
+                  fnJinRuBofangs(dangqianbofangid,bofang);
                   soundId = dangqianbofangid;
+                  bookId == dangqianbofangid;
+                }else{
+                  fnJinRuBofangs(dangqianbofangid);
+                  soundId = dangqianbofangid;
+                  bookId == dangqianbofangid;
+                }
               } else {
                  bookId = api.pageParam.a;
                   soundId = api.pageParam.a;
@@ -794,10 +816,18 @@
                   }
               }, function(ret) {
                   if (ret.eventType == 'right') {
-                      dangqianbofangid = api.pageParam.dangqianbofangid;
+                      dangqianbofangid = api.pageParam.DangQianbofangid;
                       if (dangqianbofangid) {
-                        soundId = dangqianbofangid;
+                        bofang = api.pageParam.bofang;
+                        if(bofang){
+                          fnJinRuBofangs(dangqianbofangid,bofang);
+                          soundId = dangqianbofangid;
+                          bookId == dangqianbofangid;
+                        }else{
                           fnJinRuBofangs(dangqianbofangid);
+                          soundId = dangqianbofangid;
+                          bookId == dangqianbofangid;
+                        }
                       } else {
                           fnJinRuBofang();
                       }
@@ -836,8 +866,6 @@
               });
           }
       }
-
-
     }
     //1233
     var bookGoodHtml;
@@ -860,20 +888,36 @@
         Dqbofangid = id;
     }
 
-    function fnJinRuBofangs(id) {
+    function fnJinRuBofangs(id,bofang) {
         var eHeader = $api.byId('header')
         api.parseTapmode();
-        var stylelist = $api.byId('openplayer');
-        var html = '<img src="../image/play/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player">';
-        $api.html(stylelist, html);
-        if (id) {
-          soundId = id;
-            api.sendEvent({
-                name: 'netPlayingUrl',
-                extra: {
-                    id: id
-                }
-            });
+        if(bofang == 7){
+          var stylelist = $api.byId('openplayer');
+          var html = '<img src="../image/play/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player">';
+          $api.html(stylelist, html);
+          if (id) {
+            soundId = id;
+              api.sendEvent({
+                  name: 'netPlayingUrl',
+                  extra: {
+                      id: id
+                  }
+              });
+          }
+        }else{
+          var stylelist = $api.byId('openplayer');
+          var html = '<img src="../image/play/ic_play_play.png" alt="" onclick="fnOpenPlayer();" id="player">';
+          // var html = '<img src="../image/play/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player">';
+          $api.html(stylelist, html);
+          // if (id) {
+          //   soundId = id;
+          //     api.sendEvent({
+          //         name: 'netPauseingUrl',
+          //         extra: {
+          //             id: id
+          //         }
+          //     });
+          // }
         }
 
         fnInitSwiper();
@@ -1120,7 +1164,7 @@
     function fnOpenPlayershangyi() {
         var player = $api.byId('player');
         player.src = "../image/play/ic_play_pause.png";
-        var c = 1;
+        var c = api.pageParam.a;
         api.sendEvent({
             name: 'GeDanshangyis',
             extra: {
@@ -1131,7 +1175,7 @@
     }
     //下一曲
     function fnOpenPlayerxiayi() {
-        var c = 2;
+        var c = api.pageParam.a;
         api.sendEvent({
             name: 'GeDanxiayis',
             extra: {
@@ -1547,10 +1591,11 @@
     //打开播放列表
     function openRadioList() {
         var height = api.frameHeight;
+        var playId = api.pageParam.a;
         if (Dqbofangid) {
             api.openFrame({
-                name: 'play_radiolist',
-                url: './play_radiolist.html',
+                name: 'playDanQu_radiolist',
+                url: './playDanQu_radiolist.html',
                 bounces: false,
                 bgColor: 'rgba(0,0,0,0.6)',
                 rect: {
@@ -1560,13 +1605,14 @@
                     h: height
                 },
                 pageParam: {
-                    Dqbofangid: Dqbofangid
+                    Dqbofangid: Dqbofangid,
+                    id:playId
                 }
             });
         } else {
             api.openFrame({
-                name: 'play_radiolist',
-                url: './play_radiolist.html',
+                name: 'playDanQu_radiolist',
+                url: './playDanQu_radiolist.html',
                 bounces: false,
                 bgColor: 'rgba(0,0,0,0.6)',
                 rect: {
@@ -1574,6 +1620,9 @@
                     y: 0,
                     w: api.frameWidth,
                     h: height
+                },
+                pageParam: {
+                    id:playId
                 }
             });
         }

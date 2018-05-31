@@ -323,13 +323,13 @@
                 <input type="range" id="range" name="range" min="0" max="100" step="1" value="0" class="red"/>
                 <span class="e">14:00:00</span> -->
 
-            <span class="playTime">00:01:46</span>
+            <span class="playTime" id="kaishijishi">00:01:46</span>
             <input type="range" id="range" name="range" min="0" max="100" step="1" value="0" class="red"/>
             <!-- <span id="slider"></span> -->
             <!-- <img src="../image/KM_play.png" alt="" > -->
             <!--外层容器-->
             <!-- <progress max="100" value="0" id="pg"></progress> -->
-            <span class="playTime">00:03:46</span>
+            <span class="playTime" id="zongshichang">00:03:46</span>
           </div>
         <!-- <div id="slider">
       		<span class="s">13:00:00</span>
@@ -340,16 +340,16 @@
           <div class="item-sort item-sorts">
             <img src="../image/play/delete.png" alt="">
           </div>
-          <div class="item-sort item-sorts">
+          <div class="item-sort item-sorts" id="bookExtraCollectionHtml">
             <img src="../image/KM_play_collect.png" alt=""  onclick="fnOpenCollect();" id="collect">
           </div>
-          <div class="item-sort">
+          <div class="item-sort" id="openplayer">
             <img src="../image/footer_bf0.png" alt="" onclick="fnOpenPlayButton();" id="playButton">
           </div>
-          <div class="item-sort item-sorts">
+          <div class="item-sort item-sorts" >
             <img src="../image/play/ic_play_next.png" alt="">
           </div>
-          <div class="item-sort item-sorts">
+          <div class="item-sort item-sorts" id="comments">
             <img src="../image/KM_play_discuss.png" alt="" onclick="fnOpenPlayDiscuss();">
             <i>20</i>
           </div>
@@ -365,22 +365,307 @@
       api.closeWin({name:'listenTo'});
     }
     apiready = function(){
-      var eHeader = $api.byId('header')
-      $api.fixStatusBar(eHeader);
-      var headerH = $api.offset(eHeader).h;
-      var header = document.querySelector('header');
-      $api.fixIos7Bar(header);
-      // 获取浏览器高度
-      if (window.innerHeight)
-          winHeight = window.innerHeight;
-      else if ((document.body) && (document.body.clientHeight))
-          winHeight = document.body.clientHeight;
-      var messageFrameDiv = $api.byId('wrap');
-      var winHeightHeader = winHeight - headerH;
-      $api.css(messageFrameDiv, 'height:' + winHeightHeader + 'px;');
+      api.addEventListener({
+          name: 'ok'
+      }, function(ret, err) {
+        if(ret.value.wangluo){
+          var secHeader = $api.byId('secHeader');
+          $api.fixStatusBar(secHeader);
+          var headerH = $api.offset(secHeader).h;
+          var headerPosH = $api.offset(secHeader).h;
+          var header = document.querySelector('header');
+          // 获取浏览器高度
+          if (window.innerHeight)
+              winHeight = window.innerHeight;
+          else if ((document.body) && (document.body.clientHeight))
+              winHeight = document.body.clientHeight;
+          var messageFrameDiv = $api.byId('wrap');
+          var winHeightHeader = winHeight - headerPosH;
+          $api.css(messageFrameDiv, 'height:' + winHeightHeader + 'px;');
+          $api.fixIos7Bar(header);
+          fnBookExtraGoodssssss();
+          dangqianbofangid = api.pageParam.DangQianbofangid;
+          if(dangqianbofangid){
+            fnBookExtraGoodssssss();
+          }
+          api.addEventListener({
+              name: 'netPlaying'
+          }, function(ret, err) {
+              fnDangQianbofangid(ret.value.playing);
+          });
+          // alert(connectionType);
+          var connectionType = api.connectionType;
+            if (connectionType == "wifi") {
+                if (dangqianbofangid) {
+
+                  bofang = api.pageParam.bofang;
+                  if(bofang){
+                    fnJinRuBofangs(dangqianbofangid,bofang);
+                    soundId = dangqianbofangid;
+                    bookId == dangqianbofangid;
+                  }else{
+                    fnJinRuBofangs(dangqianbofangid);
+                    soundId = dangqianbofangid;
+                    bookId == dangqianbofangid;
+                  }
+                } else {
+                   bookId = api.pageParam.a;
+                   soundId = api.pageParam.a;
+                    fnJinRuBofang();
+                }
+            } else {
+                var dialogBox = api.require('dialogBox');
+                dialogBox.alert({
+                    texts: {
+                        title: '您正在使用移动数据网络进行播放，是否继续播放',
+                        leftBtnTitle: '暂不播放',
+                        rightBtnTitle: '继续播放'
+                    },
+                    styles: {
+                        bg: '#fff',
+                        w: 300,
+                        title: {
+                            marginT: 20,
+                            icon: 'widget://res/gou.png',
+                            iconSize: 40,
+                            titleSize: 14,
+                            titleColor: '#666'
+                        },
+                        content: {
+                            color: '#ccc',
+                            size: 14
+                        },
+                        left: {
+                            marginB: 7,
+                            marginL: 20,
+                            w: 130,
+                            h: 35,
+                            corner: 2,
+                            bg: '#ccc',
+                            color: '#FFF',
+                            size: 12
+                        },
+                        right: {
+                            marginB: 7,
+                            marginL: 10,
+                            w: 130,
+                            h: 35,
+                            corner: 2,
+                            bg: '#89211b',
+                            color: '#fff',
+                            size: 12
+                        }
+                    }
+                }, function(ret) {
+                    if (ret.eventType == 'right') {
+                        dangqianbofangid = api.pageParam.DangQianbofangid;
+                        if (dangqianbofangid) {
+                          bofang = api.pageParam.bofang;
+                          if(bofang){
+                            fnJinRuBofangs(dangqianbofangid,bofang);
+                            soundId = dangqianbofangid;
+                            bookId == dangqianbofangid;
+                          }else{
+                            fnJinRuBofangs(dangqianbofangid);
+                            soundId = dangqianbofangid;
+                            bookId == dangqianbofangid;
+                          }
+                        } else {
+                            fnJinRuBofang();
+                        }
+                        var dialogBox = api.require('dialogBox');
+                        dialogBox.close({
+                            dialogName: 'alert'
+                        });
+                    } else if (ret.eventType == 'left') {
+                        var stylelist = $api.byId('openplayer');
+                        var html = '<img src="../image/play/ic_play_play.png" alt=""  id="player">';
+                        $api.html(stylelist, html);
+                        var dialogBox = api.require('dialogBox');
+                        var stylelistkaishijishi = $api.byId('kaishijishi');
+                        var htmlkaishijishi = '00:00';
+                        $api.html(stylelistkaishijishi, htmlkaishijishi);
+                        var stylelistzongshichang = $api.byId('zongshichang');
+                        var htmlzongshichang = '00:00';
+                        $api.html(stylelistzongshichang, htmlzongshichang);
+                        var stylelistbookExtraGood = $api.byId('bookExtraGood');
+                        var htmlbookExtraGood = '<img src="../image/KM_play_dianzan.png" alt="" class="collectmusicFxssss"><p>点赞</p>';
+                        $api.html(stylelistbookExtraGood, htmlbookExtraGood);
+                        var stylelistbookExtraCollectionHtml = $api.byId('bookExtraCollectionHtml');
+                        var htmlbookExtraCollectionHtml = '<img src="../image/KM_play_collect.png" alt="" class="collectmusicssss" id="playCollect"  onclick="fnOpenPlayCollect(this)" data-click="0"><p>收藏</p>';
+                        $api.html(stylelistbookExtraCollectionHtml, htmlbookExtraCollectionHtml);
+                        // var stylelistbookExtraCollectionHtml = $api.byId('bookExtraCollectionHtml');
+                        // var htmlbookExtraCollectionHtml = '<img src="../image/KM_play_collect.png" alt="" class="collectmusicssss" id="playCollect"  onclick="fnOpenPlayCollect(this)" data-click="0"><p>收藏</p>';
+                        // $api.html(stylelistbookExtraCollectionHtml, htmlbookExtraCollectionHtml);
+                        var stylelistComments = $api.byId('comments');
+                        var htmlComments = '0';
+                        $api.html(stylelistComments, htmlComments);
+                        api.closeWin();
+                        dialogBox.close({
+                            dialogName: 'alert'
+                        });
+                    }
+                });
+            }
+        }
+      });
+
+      var connectionType = api.connectionType;
+      if(connectionType == "none"){
+      	netWorkNone();
+
+      }else{
+
+
+        var secHeader = $api.byId('secHeader');
+        $api.fixStatusBar(secHeader);
+        var headerH = $api.offset(secHeader).h;
+        var headerPosH = $api.offset(secHeader).h;
+        var header = document.querySelector('header');
+        // 获取浏览器高度
+        if (window.innerHeight)
+            winHeight = window.innerHeight;
+        else if ((document.body) && (document.body.clientHeight))
+            winHeight = document.body.clientHeight;
+        var messageFrameDiv = $api.byId('wrap');
+        var winHeightHeader = winHeight - headerPosH;
+        $api.css(messageFrameDiv, 'height:' + winHeightHeader + 'px;');
+        $api.fixIos7Bar(header);
+        fnBookExtraGoodssssss();
+
+
+        dangqianbofangid = api.pageParam.DangQianbofangid;
+        if(dangqianbofangid){
+          bookId = dangqianbofangid;
+          soundId = dangqianbofangid;
+          fnBookExtraGoodssssss();
+
+        }
+        api.addEventListener({
+            name: 'netPlaying'
+        }, function(ret, err) {
+            fnDangQianbofangid(ret.value.playing);
+        });
+          if (connectionType == "wifi") {
+              if (dangqianbofangid) {
+                bofang = api.pageParam.bofang;
+                if(bofang){
+                  fnJinRuBofangs(dangqianbofangid,bofang);
+                  soundId = dangqianbofangid;
+                  bookId == dangqianbofangid;
+                }else{
+                  fnJinRuBofangs(dangqianbofangid);
+                  soundId = dangqianbofangid;
+                  bookId == dangqianbofangid;
+                }
+              } else {
+                 bookId = api.pageParam.a;
+                  soundId = api.pageParam.a;
+                  fnJinRuBofang();
+              }
+          } else {
+              var dialogBox = api.require('dialogBox');
+              dialogBox.alert({
+                  texts: {
+                      title: '您正在使用移动数据网络进行播放，是否继续播放',
+                      leftBtnTitle: '暂不播放',
+                      rightBtnTitle: '继续播放'
+                  },
+                  styles: {
+                      bg: '#fff',
+                      w: 300,
+                      title: {
+                          marginT: 20,
+                          icon: 'widget://res/gou.png',
+                          iconSize: 40,
+                          titleSize: 14,
+                          titleColor: '#666'
+                      },
+                      content: {
+                          color: '#ccc',
+                          size: 14
+                      },
+                      left: {
+                          marginB: 7,
+                          marginL: 20,
+                          w: 130,
+                          h: 35,
+                          corner: 2,
+                          bg: '#ccc',
+                          color: '#FFF',
+                          size: 12
+                      },
+                      right: {
+                          marginB: 7,
+                          marginL: 10,
+                          w: 130,
+                          h: 35,
+                          corner: 2,
+                          bg: '#89211b',
+                          color: '#fff',
+                          size: 12
+                      }
+                  }
+              }, function(ret) {
+                  if (ret.eventType == 'right') {
+                      dangqianbofangid = api.pageParam.DangQianbofangid;
+                      if (dangqianbofangid) {
+                        bofang = api.pageParam.bofang;
+                        if(bofang){
+                          fnJinRuBofangs(dangqianbofangid,bofang);
+                          soundId = dangqianbofangid;
+                          bookId == dangqianbofangid;
+                        }else{
+                          fnJinRuBofangs(dangqianbofangid);
+                          soundId = dangqianbofangid;
+                          bookId == dangqianbofangid;
+                        }
+                      } else {
+                          fnJinRuBofang();
+                      }
+                      var dialogBox = api.require('dialogBox');
+                      dialogBox.close({
+                          dialogName: 'alert'
+                      });
+                  } else if (ret.eventType == 'left') {
+                      var stylelist = $api.byId('openplayer');
+                      var html = '<img src="../image/play/ic_play_play.png" alt=""  id="player">';
+                      $api.html(stylelist, html);
+                      var dialogBox = api.require('dialogBox');
+                      var stylelistkaishijishi = $api.byId('kaishijishi');
+                      var htmlkaishijishi = '00:00';
+                      $api.html(stylelistkaishijishi, htmlkaishijishi);
+                      var stylelistzongshichang = $api.byId('zongshichang');
+                      var htmlzongshichang = '00:00';
+                      $api.html(stylelistzongshichang, htmlzongshichang);
+                      var stylelistbookExtraGood = $api.byId('bookExtraGood');
+                      var htmlbookExtraGood = '<img src="../image/KM_play_dianzan.png" alt="" class="collectmusicFxssss"><p>点赞</p>';
+                      $api.html(stylelistbookExtraGood, htmlbookExtraGood);
+                      var stylelistbookExtraCollectionHtml = $api.byId('bookExtraCollectionHtml');
+                      var htmlbookExtraCollectionHtml = '<img src="../image/KM_play_collect.png" alt="" class="collectmusicssss" id="playCollect"  onclick="fnOpenPlayCollect(this)" data-click="0"><p>收藏</p>';
+                      $api.html(stylelistbookExtraCollectionHtml, htmlbookExtraCollectionHtml);
+                      var stylelistbookExtraCollectionHtml = $api.byId('bookExtraCollectionHtml');
+                      var htmlbookExtraCollectionHtml = '<img src="../image/KM_play_collect.png" alt="" class="collectmusicssss" id="playCollect"  onclick="fnOpenPlayCollect(this)" data-click="0"><p>收藏</p>';
+                      $api.html(stylelistbookExtraCollectionHtml, htmlbookExtraCollectionHtml);
+                      var stylelistComments = $api.byId('comments');
+                      var htmlComments = '0';
+                      $api.html(stylelistComments, htmlComments);
+                      api.closeWin();
+                      dialogBox.close({
+                          dialogName: 'alert'
+                      });
+                  }
+              });
+          }
+      }
 
       // fnOpenListenFrame();
     };
+
+
+
+
+
     function fnOpenListenFrame(){
       var eHeader = $api.byId('header')
       var headerH = $api.offset(eHeader).h;

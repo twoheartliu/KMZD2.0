@@ -56,8 +56,9 @@
             height: 1px;
             background-color: #b2b2b2;
         }
-        .hdivider:last-child{
-          display: none;
+
+        .hdivider:last-child {
+            display: none;
         }
         /*轮播图 */
 
@@ -400,12 +401,12 @@
                             'widget://image/Refresh/dropdown_anim_10.png',
                         ],
                         load: [
-                          'widget://image/Refresh/dropdown_anim_00.png',
-                          'widget://image/Refresh/dropdown_anim_01.png',
-                          'widget://image/Refresh/dropdown_anim_02.png',
-                          'widget://image/Refresh/dropdown_anim_03.png',
-                          'widget://image/Refresh/dropdown_anim_04.png',
-                          'widget://image/Refresh/dropdown_anim_05.png',
+                            'widget://image/Refresh/dropdown_anim_00.png',
+                            'widget://image/Refresh/dropdown_anim_01.png',
+                            'widget://image/Refresh/dropdown_anim_02.png',
+                            'widget://image/Refresh/dropdown_anim_03.png',
+                            'widget://image/Refresh/dropdown_anim_04.png',
+                            'widget://image/Refresh/dropdown_anim_05.png',
 
                         ]
                     }
@@ -578,40 +579,69 @@
         var stylelist = $api.byId('floorId');
         var frameWidth = api.frameWidth;
         var html = '';
+        var s_length = '';
         for (var i = 0; i < data_.data.length; i++) {
             if (data_.data[i].floor_id) {
                 html += '<div class="p20px"  id="ret.data[i].floor_id"><div class="sectionTitle mt20"><span class="TD_div fl">' + data_.data[i].floor_name + '</span><span class="fr more" onclick="fnRecommendWin(' + data_.data[i].floor_id +
-                    ',\'' + data_.data[i].floor_name + '\');">更多</span><div class="clear"></div><div class="clear"></div></div><div class="hot" id="hot">';
+                    ',\'' + data_.data[i].floor_name + '\',' + data_.data[i].content_type + ');">更多</span><div class="clear"></div><div class="clear"></div></div><div class="hot" id="hot">';
                 var column = data_.data[i].floor_column;
                 var row = data_.data[i].floor_row;
+                var urlName = data_.data[i].content_type;
                 if (column == 0) {
                     column = 1;
                 }
-                for (var s = 0; s < column * row; s++) {
+                s_length = (data_.data[i].content.length < column * row) ? data_.data[i].content.length : column * row;
+                for (var s = 0; s < s_length; s++) {
+                  var cccc = column;
+                  var ssss = frameWidth - 50;
+                  var xxxx = ssss / cccc;
                     if (data_.data[i].floor_type == "block") {
-                        var cccc = column;
-                        var ssss = frameWidth - 50;
-                        var xxxx = ssss / cccc;
-                        // style="width:' + xxxx + 'px;"
-                        html += '<div class="hotC"  onclick="fnSingLeWin(' + data_.data[i].content[s].id + ',\'' + data_.data[i].floor_name + '\');"><img src=" ' + host + '/' + data_.data[i].content[s].sma + '" alt=""><div class="listtitle"> ' + data_.data[
-                            i].content[s].title + '</div></div>';
-                    } else if (data_.data[i].floor_type == "list") {
-                      if(data_.data[i].content[s].author_name){
-                        html += '<div class="egret-flex-item"><div class="egret-flex-items" tapmode="fmbtnhover" onclick="fnOpenPlay(' + data_.data[i].content[s].id + ')"><div class="egret-flex-item-logo"><img src="' + host + '/' + data_.data[i].content[
-                                s].mid + '" alt="" class=""></div><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 fl"><span>' + data_.data[i].content[s].title +
-                            '</span></span></div><div class="egret-flex-item-shelf02"><span>' +
-                            data_.data[i].content[s].author_name + '</span></div><div class="egret-flex-item-shelf03"><div><img src="../image/KM_play.png" alt=""><span>' + data_.data[
-                                i].content[s].play_total + '</span></div><div><img src="../image/KM_zf.png" alt=""><span>' + data_.data[i].content[s].share_total +
-                            '</span></div><div><img src="../image/KM_dz.png" alt=""><span>' + data_.data[i].content[s].good_total +
-                            '</span></div></div></div>  </div><div class="egret-flex-item-shelf04" onclick="fnOpenPlayMore(' + data_.data[i].content[s].id + ')"><img src="../image/KM_list_more.png" alt=""></div></div><div class="hdivider"></div>';
+                        if (data_.data[i].content_type == "album") {
 
-                      }else{
-                        html += '<div class="egret-flex-item"><div class="egret-flex-items" tapmode="fmbtnhover" onclick="fnOpenPlay(' + data_.data[i].content[s].id + ')"><div class="egret-flex-item-logo"><img src="' + host + '/' + data_.data[i].content[
-                                s].mid + '" alt="" class=""></div><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 fl"><span>' + data_.data[i].content[s].title +
-                            '</span></span></div><div class="egret-flex-item-shelf02"><span></span></div><div class="egret-flex-item-shelf03"><div><img src="../image/KM_play.png" alt=""><span>' + data_.data[
-                                i].content[s].play_total + '</span></div><div><img src="../image/KM_zf.png" alt=""><span>' + data_.data[i].content[s].share_total +
-                            '</span></div><div><img src="../image/KM_dz.png" alt=""><span>' + data_.data[i].content[s].good_total +
-                            '</span></div></div></div>  </div><div class="egret-flex-item-shelf04" onclick="fnOpenPlayMore(' + data_.data[i].content[s].id + ')"><img src="../image/KM_list_more.png" alt=""></div></div><div class="hdivider"></div>';
+
+                            // style="width:' + xxxx + 'px;"
+                            html += '<div class="hotC" style="width:' + xxxx + 'px;" onclick="fnSingLeWin(' + data_.data[i].content[s].id + ',\'' + data_.data[i].floor_name + '\',\'' + data_.data[i].content_type + '\');"><img src=" ' + host + '/' +
+                                data_.data[i].content[s].sma + '" alt=""><div class="listtitle" style="width:' + xxxx + 'px;"> ' + data_.data[
+                                    i].content[s].title + '</div></div>';
+                        } else if (data_.data[i].content_type == "listening") {
+                            // var cccc = column;
+                            // var ssss = frameWidth - 50;
+                            // var xxxx = ssss / cccc;
+                            // style = "width:' + xxxx + 'px;"
+                            html += '<div class="hotC" style="width:' + xxxx + 'px;" onclick="fnSingLeWin(' + data_.data[i].content[s].id + ',\'' + data_.data[i].floor_name + '\',\'' + data_.data[i].content_type + '\');"><img src=" ' + listeningImg +
+                                '/' + data_.data[i].content[s].sma + '" alt=""><div class="listtitle" style="width:' + xxxx + 'px;"> ' + data_.data[
+                                    i].content[s].title + '</div></div>';
+                        }
+                        // var cccc = column;
+                        // var ssss = frameWidth - 50;
+                        // var xxxx = ssss / cccc;
+                        //
+                        // // style="width:' + xxxx + 'px;"
+                        // html += '<div class="hotC" style="width:' + xxxx + 'px;" onclick="fnSingLeWin(' + data_.data[i].content[s].id + ',\'' + data_.data[i].floor_name + '\',\'' + data_.data[i].content_type + '\');"><img src=" ' + host + '/' + data_.data[i].content[s].sma + '" alt=""><div class="listtitle" style="width:' + xxxx + 'px;"> ' + data_.data[
+                        //     i].content[s].title + '</div></div>';
+
+
+                    } else if (data_.data[i].floor_type == "list") {
+                        if (data_.data[i].content[s].author_name) {
+                            html += '<div class="egret-flex-item"><div class="egret-flex-items" tapmode="fmbtnhover" onclick="fnOpenPlay(' + data_.data[i].content[s].id + ')"><div class="egret-flex-item-logo"><img src="' + host + '/' + data_.data[i]
+                                .content[
+                                    s].mid + '" alt="" class=""></div><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 fl"><span>' + data_.data[i].content[s].title +
+                                '</span></span></div><div class="egret-flex-item-shelf02"><span>' +
+                                data_.data[i].content[s].author_name + '</span></div><div class="egret-flex-item-shelf03"><div><img src="../image/KM_play.png" alt=""><span>' + data_.data[
+                                    i].content[s].play_total + '</span></div><div><img src="../image/KM_zf.png" alt=""><span>' + data_.data[i].content[s].share_total +
+                                '</span></div><div><img src="../image/KM_dz.png" alt=""><span>' + data_.data[i].content[s].good_total +
+                                '</span></div></div></div>  </div><div class="egret-flex-item-shelf04" onclick="fnOpenPlayMore(' + data_.data[i].content[s].id +
+                                ')"><img src="../image/KM_list_more.png" alt=""></div></div><div class="hdivider"></div>';
+
+                        } else {
+                            html += '<div class="egret-flex-item"><div class="egret-flex-items" tapmode="fmbtnhover" onclick="fnOpenPlay(' + data_.data[i].content[s].id + ')"><div class="egret-flex-item-logo"><img src="' + host + '/' + data_.data[i]
+                                .content[
+                                    s].mid + '" alt="" class=""></div><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 fl"><span>' + data_.data[i].content[s].title +
+                                '</span></span></div><div class="egret-flex-item-shelf02"><span></span></div><div class="egret-flex-item-shelf03"><div><img src="../image/KM_play.png" alt=""><span>' + data_.data[
+                                    i].content[s].play_total + '</span></div><div><img src="../image/KM_zf.png" alt=""><span>' + data_.data[i].content[s].share_total +
+                                '</span></div><div><img src="../image/KM_dz.png" alt=""><span>' + data_.data[i].content[s].good_total +
+                                '</span></div></div></div>  </div><div class="egret-flex-item-shelf04" onclick="fnOpenPlayMore(' + data_.data[i].content[s].id +
+                                ')"><img src="../image/KM_list_more.png" alt=""></div></div><div class="hdivider"></div>';
                         }
                     }
                 }
@@ -665,27 +695,34 @@
     //
     // }
 
-    function fnSingLeWin(id,name) {
-        var ok = 'single';
+    function fnSingLeWin(id, name, urlNames) {
+        console.log(id);
+        console.log(name);
+        if (urlNames == 'listening') {
+            urlName = 'ListingsList';
+        } else if (urlNames == 'album') {
+            urlName = 'single';
+        }
         api.openWin({
-            name: 'single',
-            url: './single.html',
+            name: urlName,
+            url: './' + urlName + '.html',
             pageParam: {
                 albumId: id,
-                ok: ok,
-                floor_name:name
+                ok: urlName,
+                floor_name: name
             }
         });
+
     }
 
-    function fnRecommendWin(id,name) {
+    function fnRecommendWin(id, name) {
         api.openWin({
             name: 'recommend',
             url: './recommend.html',
             pageParam: {
                 id: id,
-                name:name,
-                ok:'recommend'
+                name: name,
+                ok: 'recommend'
             }
         });
 
@@ -751,12 +788,13 @@
 
     }
     var Dqbofangid;
+
     function fnDangQianbofangid(id) {
         Dqbofangid = id;
     }
     //作品列表进入播放页面
     function fnOpenPlay(a) {
-      api.addEventListener({
+        api.addEventListener({
             name: 'netPlaying'
         }, function(ret, err) {
             if (a == ret.value.playing) {
@@ -766,25 +804,25 @@
         var playlistid = api.pageParam.albumId;
         if (Dqbofangid == a) {
 
-          api.openWin({
-              name: 'playDanQu',
-              url: './playDanQu.html',
-              pageParam: {
-                  a: a,
-                  // danQu:'danQu',
-                  dangqianbofangid: Dqbofangid
-              }
-          });
+            api.openWin({
+                name: 'playDanQu',
+                url: './playDanQu.html',
+                pageParam: {
+                    a: a,
+                    // danQu:'danQu',
+                    dangqianbofangid: Dqbofangid
+                }
+            });
         } else {
 
-          api.openWin({
-              name: 'playDanQu',
-              url: './playDanQu.html',
-              pageParam: {
-                  a: a,
-                  // danQu:'danQu',
-              }
-          });
+            api.openWin({
+                name: 'playDanQu',
+                url: './playDanQu.html',
+                pageParam: {
+                    a: a,
+                    // danQu:'danQu',
+                }
+            });
 
         }
     }
@@ -845,44 +883,44 @@
                 });
             }
             if (ret.index == "0") {
-              uri = '/extra/list_collection/';
-              api.ajax({
-                  url: host + apiUri + uri + id,
-                  method: 'post',
-                  dataType: 'json',
-                  timeout:10,
-                  headers: {
-                      "source": api.systemType,
-                      "version": version,
-                      "session": token
-                  },
-                  data:{
-                    values:{
-                      "model":'book',
+                uri = '/extra/list_collection/';
+                api.ajax({
+                    url: host + apiUri + uri + id,
+                    method: 'post',
+                    dataType: 'json',
+                    timeout: 10,
+                    headers: {
+                        "source": api.systemType,
+                        "version": version,
+                        "session": token
+                    },
+                    data: {
+                        values: {
+                            "model": 'book',
+                        }
                     }
-                  }
-              }, function(ret, err) {
-                if(ret){
-                  if (ret.status == 200) {
+                }, function(ret, err) {
+                    if (ret) {
+                        if (ret.status == 200) {
 
-                        api.toast({              
-                            msg:   '已收藏',
-                            duration:  2000,
-                            location:   'middle'          
-                        });
+                            api.toast({              
+                                msg:   '已收藏',
+                                duration:  2000,
+                                location:   'middle'          
+                            });
 
 
-                  } else {
-                    netMessage(ret);
-                  }
-                }else{
-                  netWork(err);
-                }
+                        } else {
+                            netMessage(ret);
+                        }
+                    } else {
+                        netWork(err);
+                    }
 
-              });
-              dialogBox.close({
-                  dialogName: 'alert'
-              });
+                });
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
             } else if (ret.index == "1") {
                 fnOpenAddListening(id);
 

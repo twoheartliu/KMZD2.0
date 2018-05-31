@@ -5,6 +5,7 @@ var apiUri = '/kmzd/2.0';
 var http = 'http://47.100.11.38/kmzd/public/uploads/';
 //用户头像
 var updatePhotoUrl = 'http://47.100.11.38/kmzd/public/uploads/photo/';
+var listeningImg = 'http://47.100.11.38/kmzd/public/uploads/listening/';
 // 用户作品
 var userRecord = 'http://47.100.11.38//kmzd/public/uploads/records/';
 //

@@ -798,14 +798,45 @@
         }
         $api.html(tuijianliebiaogequ, html);
     }
-    function fnPlay(id) {
-      api.openWin({
-          name: 'play',
-          url: './play.html',
-          pageParam: {
-              id: id
-          }
-      });
+    var Dqbofangid;
+    function fnDangQianbofangid(id) {
+        Dqbofangid = id;
+    }
+    function fnPlay(a) {
+      api.addEventListener({
+            name: 'netPlaying'
+        }, function(ret, err) {
+            if (a == ret.value.playing) {
+                fnDangQianbofangid(ret.value.playing);
+            }
+        });
+        var playlistid = api.pageParam.ids;
+        var playUrli = '/listening/song_list/';
+        if (Dqbofangid == a) {
+
+          api.openWin({
+              name: 'play',
+              url: './play.html',
+              pageParam: {
+                  playlistid: playlistid,
+                  a: a,
+                  dangqianbofangid: Dqbofangid,
+                  playUrli:playUrli
+              }
+          });
+        } else {
+
+          api.openWin({
+              name: 'play',
+              url: './play.html',
+              pageParam: {
+                  a: a,
+                  playlistid: playlistid,
+                  playUrli:playUrli
+              }
+          });
+
+        }
 
     }
     // 收藏成功
