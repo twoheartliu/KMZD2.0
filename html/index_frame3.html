@@ -567,18 +567,39 @@
     }
     // 打开浏览器
     function openBrowser(s) {
-        api.openApp({
-            androidPkg: 'android.intent.action.VIEW',
-            mimeType: 'text/html',
-            uri: s,
-            iosUrl: s,
-        }, function(ret, err) {
-            if (ret) {
-                // alert(JSON.stringify(ret));
-            } else {
-                alert(JSON.stringify(err));
-            }
+        // api.openApp({
+        //     androidPkg: 'android.intent.action.VIEW',
+        //     mimeType: 'text/html',
+        //     uri: s,
+        //     iosUrl: s,
+        // }, function(ret, err) {
+        //     if (ret) {
+        //         // alert(JSON.stringify(ret));
+        //     } else {
+        //         alert(JSON.stringify(err));
+        //     }
+        // });
+        api.openFrame({
+            // var headers = $api.byId('id-header-box');
+            // var headerPos = $api.offset(headers);
+
+            name: 'webs',
+            url: s,
+            rect: {
+                x: 0,
+                y: 0,
+                w: 'auto',
+                h: 'auto',
+            },
+            pageParam: {
+                name: 'test'
+            },
+            bounces: true,
+            bgColor: 'rgba(0,0,0,0)',
+            vScrollBarEnabled: true,
+            hScrollBarEnabled: true
         });
+
 
     }
 
@@ -591,7 +612,7 @@
         var song_id;
         var titles;
         if (banner_types == 1) {
-            lujing = openBrowser(content);
+            lujing = content;
             // console.log(lujing);
             // console.log(lujing);
         } else if (banner_types == 2) {

@@ -229,15 +229,14 @@
 
 <body>
     <div id="container">
-        <nav>
-            <div class="nav-left fl" >
+        <nav  id="details">
+            <!-- <div class="nav-left fl" onclick="">
                 <div class="nav-img"><img src="../image/index/pic.jpg" alt=""></div>
-                <div class="nav-txt" id="details">
-                    <!-- <p class="nav-txt_name">焚身以火</p>
-                    <p class="nav-txt_p">叶倩文</p> -->
+                <div class="nav-txt">
+
                 </div>
             </div>
-            <div class="clear"></div>
+            <div class="clear"></div> -->
         </nav>
         <section id="section">
             <div class="sec-tit" id="allcommentS">所有评论</div>
@@ -280,7 +279,7 @@
     var commentaAlbumGoodHtml;
     var commentExtraGoods;
     apiready = function() {
-      token = $api.getStorage('token');
+        token = $api.getStorage('token');
         soundId = api.pageParam.soundId;
         uris = api.pageParam.uris;
         // name = api.pageParam.name;
@@ -346,13 +345,31 @@
               "session": token
           }
       }, function(ret, err) {
+        // console.log(JSON.stringify(ret));
           if (ret.status == 200) {
               var stylelist = $api.byId('details');
               var html = '';
               if (ret.data.author_name) {
-                  html = '<p class="nav-txt_name">'+ret.data.title+'</p><p class="nav-txt_p">作者：'+ret.data.author_name+'</p>';
+              html =
+              '  <div class="nav-left fl"  onclick="fnPlayHTML('+ret.data.id+');">'+
+                    '<div class="nav-img"><img src="../image/index/pic.jpg" alt=""></div>'+
+                    '<div class="nav-txt">'+
+                        '<p class="nav-txt_name">'+ret.data.title+'</p>'+
+                        '<p class="nav-txt_p">'+ret.data.author_name+'</p> '+
+                    '</div>'+
+              '  </div>'+
+                '<div class="clear"></div>'
+                  // html = '<p class="nav-txt_name">''</p><p class="nav-txt_p">作者：</p>';
               } else {
-                  html = '<p class="nav-txt_name">'+ret.data.title+'</p>';
+                html = '  <div class="nav-left fl"  onclick="fnPlayHTML('+ret.data.id+');">'+
+                      '<div class="nav-img"><img src="../image/index/pic.jpg" alt=""></div>'+
+                      '<div class="nav-txt">'+
+                          '<p class="nav-txt_name">'+ret.data.title+'</p>'+
+                          // '<p class="nav-txt_p">'+ret.data.author_name+'</p> '+
+                      '</div>'+
+                '  </div>'+
+                  '<div class="clear"></div>'
+                  // html = '<p class="nav-txt_name">'+ret.data.title+'</p>';
               }
 
               $api.html(stylelist, html);
@@ -361,6 +378,16 @@
 
           }
       });
+    }
+    function fnPlayHTML(id) {
+      api.openWin({
+          name: 'playDanQu',
+          url: './playDanQu.html',
+          pageParam: {
+              a: id
+          }
+      });
+
     }
     function ListenToTheListOfComments(){
       soundId = api.pageParam.soundId;
@@ -392,10 +419,6 @@
                     Y = date.getFullYear() + '年';
                     M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '月';
                     D = (date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate()) + '日';
-                    // h = date.getHours() + ':';
-                    // m = date.getMinutes() + ':';
-                    // s = date.getSeconds();
-                    // return Y+M+D+h+m+s;
                     var dates = Y + M + D;
                     if (ret.data[i].re_nick_name) {
                         html += '<div class="sec-discuss"><div class="dis-left fl"><div class="sec-img">';
