@@ -829,7 +829,8 @@
               pageParam: {
                   playlistid: playlistid,
                   a: a,
-                  dangqianbofangid: Dqbofangid
+                  dangqianbofangid: Dqbofangid,
+                  playUrli:'/album/song_list/'
               }
           });
         } else {
@@ -839,7 +840,8 @@
               url: './play.html',
               pageParam: {
                   a: a,
-                  playlistid: playlistid
+                  playlistid: playlistid,
+                  playUrli:'/album/song_list/'
               }
           });
 
@@ -895,7 +897,7 @@
         }, function(ret) {
             if (ret.eventType == 'cancel') {
                 dialogBox.close({
-                    dialogName: 'discount'
+                    dialogName: 'actionMenu'
                 });
             }
             if (ret.index == "0") {
@@ -935,20 +937,21 @@
 
               });
               dialogBox.close({
-                  dialogName: 'alert'
+                  dialogName: 'actionMenu'
               });
             } else if (ret.index == "1") {
                 fnOpenAddListening(id);
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'actionMenu'
                 });
             } else if (ret.index == "2") {
                 fnOpenPlayShare();
             } else {
-                dialogBox.close({
-                    dialogName: 'alert'
-                });
+              dialogBox.close({
+                  dialogName: 'actionMenu'
+              });
             }
+
 
         });
     }

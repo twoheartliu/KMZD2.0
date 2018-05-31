@@ -387,8 +387,8 @@
 <script type="text/javascript">
     var token;
     var a;
-
-
+    var playUrli;
+    var playgedan;
     var play;
     var timer2;
     var timer1;
@@ -425,21 +425,21 @@
             // api.removePrefs({
             //     key: 'cgxlist'
             // });
-                var secHeader = $api.byId('secHeader');
-                $api.fixStatusBar(secHeader);
-                var footer = $api.byId('footer');
-                var headerH = $api.offset(secHeader).h;
-                var footerH = $api.offset(footer).h;
-                fnOpenCenterFrame();
-                api.parseTapmode();
-                initEventListenner();
-                initEventListennerBofang();
-                initEventListennerBoFangMoshi();
-                initEventListennerBofangDanQu();
-                initEventListennerBoFangMoshiDanQu();
-                //
-                adjust();
-                funIniGroup();
+            var secHeader = $api.byId('secHeader');
+            $api.fixStatusBar(secHeader);
+            var footer = $api.byId('footer');
+            var headerH = $api.offset(secHeader).h;
+            var footerH = $api.offset(footer).h;
+            fnOpenCenterFrame();
+            api.parseTapmode();
+            initEventListenner();
+            initEventListennerBofang();
+            initEventListennerBoFangMoshi();
+            initEventListennerBofangDanQu();
+            initEventListennerBoFangMoshiDanQu();
+            //
+            adjust();
+            funIniGroup();
 
             // var dqian = $api.getStorage('qiandaoshu');
             // if(dqian){

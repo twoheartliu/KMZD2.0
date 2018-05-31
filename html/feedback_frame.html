@@ -292,7 +292,7 @@
 <script type="text/javascript ">
     var token;
     apiready = function() {
-        $api.rmStorage('token');
+        token = $api.getStorage('token');
         // fnfeedback()
     }
 
@@ -386,74 +386,50 @@
 
     function fnSettings() {
         var dialogBox = api.require('dialogBox');
-        dialogBox.actionMenu({
-            rect: {
-                h: 150
-            },
-            texts: {
-                cancel: '取消'
-            },
-            items: [{
-                text: '相机',
-                icon: 'widget://image/New_Xj.png'
-            }, {
-                text: '相册',
-                icon: 'widget://image/New_Xc.png'
-            }],
-            styles: {
-                bg: '#FFF',
-                corner: 6,
-                column: 2,
-                itemText: {
-                    color: '#000',
-                    size: 12,
-                    marginT: 10
-                },
-                itemIcon: {
-                    size: 30
-                },
-                cancel: {
-                    bg: '#fff',
-                    color: '#333',
-                    h: 55,
-                    size: 14
-                }
-            },
-            tapClose: true
-        }, function(ret) {
-
-            var texts = ret.eventType;
-            var index = ret.index;
-            if (texts == "cancel ") {
-                dialogBox.close({
-                    dialogName: 'alert'
-                });
-            } else if (index == 0) {
-                dialogBox.close({
-                    dialogName: 'alert'
-                });
-                api.getPicture({
-                    sourceType: 'camera',
-                    encodingType: 'jpg',
-                    mediaValue: 'pic',
-                    destinationType: 'url',
-                    allowEdit: true,
-                    quality: 50,
-                    targetWidth: 100,
-                    targetHeight: 100,
-                    saveToPhotoAlbum: false
-                }, function(ret, err) {
-                    if (ret) {
-                        alert(JSON.stringify(ret));
-                    } else {
-                        alert(JSON.stringify(err));
-                    }
-                });
-            } else if (index == 1) {
-                alert('相册')
-                dialogBox.close({
-                    dialogName: 'alert'
-                });
+        // dialogBox.actionMenu({
+        //     rect: {
+        //         h: 150
+        //     },
+        //     texts: {
+        //         cancel: '取消'
+        //     },
+        //     items: [{
+        //         text: '相册',
+        //         icon: 'widget://image/New_Xc.png'
+        //     }],
+        //     styles: {
+        //         bg: '#FFF',
+        //         corner: 6,
+        //         column: 2,
+        //         itemText: {
+        //             color: '#000',
+        //             size: 12,
+        //             marginT: 10
+        //         },
+        //         itemIcon: {
+        //             size: 30
+        //         },
+        //         cancel: {
+        //             bg: '#fff',
+        //             color: '#333',
+        //             h: 55,
+        //             size: 14
+        //         }
+        //     },
+        //     tapClose: true
+        // }, function(ret) {
+        //
+        //     var texts = ret.eventType;
+        //     var index = ret.index;
+        //     if (texts == "cancel ") {
+        //         dialogBox.close({
+        //             dialogName: 'alert'
+        //         });
+        //     } else if (index == 0) {
+                // alert('相册');
+                // dialogBox.close({
+                //     dialogName: 'alert'
+                // });
                 api.getPicture({
                     sourceType: 'album',
                     encodingType: 'jpg',
@@ -466,13 +442,58 @@
                     saveToPhotoAlbum: false
                 }, function(ret, err) {
                     if (ret) {
-                        alert(JSON.stringify(ret));
+                        // alert(JSON.stringify(ret));
+                        var uri = '/upload/feedback';
+                        var urls = ret.data;
+                        // console.log(urls);
+                        api.ajax({
+                            url: host + apiUri + uri,
+                            method: 'post',
+                            dataType: 'json',
+                            headers: {
+                                "source": api.systemType,
+                                "version": version,
+                                "session": token,
+                            },
+                            data: {
+                                files: {
+                                    img: urls,
+                                }
+                            },
+                        },function(ret, err){
+                            // console.log(ret.status);
+                            if (ret) {
+                                // alert( JSON.stringify( ret ) );
+                                if (ret.status == 200) {
+                                    var imgs = ret.data;
+                                    var header = 'http://47.100.11.38/kmzd/public/uploads/feedback/'
+                                    var img = $api.byId('id-img');
+                                    html = '<img src="'+ header + imgs +'" alt="" />'
+
+                                    $api.html(img, html);
+                                    // console.log(html);
+                                    // console.log(imgs);
+                                    api.toast({
+                                        msg: '上传成功',
+                                        duration: 2000,
+                                        location: 'middle'
+                                    });
+                                }
+                            } else {
+                                // console.log(111);
+                                // alert( JSON.stringify( err ) );
+                            }
+                        });
+
                     } else {
-                        alert(JSON.stringify(err));
+                        // alert(JSON.stringify(err));
                     }
                 });
 
-            }
-        });
+            // }
+        // });
     }
+
+
+
 </script>

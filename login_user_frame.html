@@ -274,8 +274,13 @@
                     },
                 }, function(ret, err) {
                     if (ret.status == 200) {
+
                       var tokens = ret.data.token;
                       $api.setStorage('token',tokens);
+                      // api.closeWin();
+                      // api.closeWin({
+                      //   name: 'login'
+                      //   });
                        api.openWin({
                            name: 'index',
                            url: 'index.html',

@@ -62,7 +62,7 @@ function fnBoFangyinpinxinxis(id) {
 
 
 //歌单上一首
-function fnGeDanShangYis() {
+function fnGeDanShangYis(a) {
     var myAudio = document.getElementById("myAudio");
     netAudioPause();
     myAudio.currentTime = 0;
@@ -71,7 +71,7 @@ function fnGeDanShangYis() {
     fnBoFangyinpinxinxis(a);
 }
 //歌单下一首
-function fnGeDanxiaYis() {
+function fnGeDanxiaYis(a) {
     var myAudio = document.getElementById("myAudio");
     netAudioPause();
     myAudio.currentTime = 0;
@@ -200,6 +200,7 @@ function initEventListennerBofangDanQu() {
         name: 'netPlayUrlDanQu'
     }, function(ret, err) {
         if (ret) {
+          console.log(1111);
             var bofang = ret.value.bofang;
             var id = ret.value.id;
             fnBFids(id);
@@ -212,7 +213,7 @@ function initEventListennerBofangDanQu() {
         name: 'GeDanshangyis'
     }, function(ret, err) {
         if (ret) {
-            fnGeDanShangYis();
+            fnGeDanShangYis(ret.value.c);
         }
     });
     //GeDan下一首
@@ -220,7 +221,7 @@ function initEventListennerBofangDanQu() {
         name: 'GeDanxiayis'
     }, function(ret, err) {
         if (ret) {
-            fnGeDanxiaYis();
+            fnGeDanxiaYis(ret.value.c);
         }
     });
     api.addEventListener({
