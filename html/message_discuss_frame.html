@@ -64,6 +64,35 @@ var data_type;
   apiready = function() {
             token = $api.getStorage('token');
             fnAjaxPinLun();
+            api.setCustomRefreshHeaderInfo({
+                bgColor: '#f0f0f0',
+                image: {
+                  pull: [
+                      'widget://image/Refresh/dropdown_anim_00.png',
+                      'widget://image/Refresh/dropdown_anim_01.png',
+                      'widget://image/Refresh/dropdown_anim_02.png',
+                      'widget://image/Refresh/dropdown_anim_03.png',
+                      'widget://image/Refresh/dropdown_anim_04.png',
+                      'widget://image/Refresh/dropdown_anim_05.png',
+                      'widget://image/Refresh/dropdown_anim_06.png',
+                      'widget://image/Refresh/dropdown_anim_07.png',
+                      'widget://image/Refresh/dropdown_anim_08.png',
+                      'widget://image/Refresh/dropdown_anim_09.png',
+                      'widget://image/Refresh/dropdown_anim_10.png',
+                ],
+                load: [
+                      'widget://image/Refresh/dropdown_anim_00.png',
+                      'widget://image/Refresh/dropdown_anim_01.png',
+                      'widget://image/Refresh/dropdown_anim_02.png',
+                      'widget://image/Refresh/dropdown_anim_03.png',
+                      'widget://image/Refresh/dropdown_anim_04.png',
+                      'widget://image/Refresh/dropdown_anim_05.png',
+              ]}
+            }, function() {
+                    //下拉刷新被触发，自动进入加载状态，使用 api.refreshHeaderLoadDone() 手动结束加载中状态
+                    //下拉刷新被触发，使用 api.refreshHeaderLoadDone() 结束加载中状态
+                          fnAjaxPinLun();
+                });
   }
   function fnAjaxPinLun() {
     api.ajax({
@@ -82,6 +111,7 @@ var data_type;
     },function(ret, err){
         if (ret) {
             if (ret.status == 200) {
+              api.refreshHeaderLoadDone();
               var sections = $api.byId('sections');
               var html ='';
               for (var i = 0; i < ret.data.list.length; i++) {
@@ -112,7 +142,7 @@ var data_type;
                 html +=
                 '<li>'+
                   '<div class="user-img"><img src="'+ photo +'" alt=""></div>'+
-                  '<div class="userName" onclick="fnOpenUserButton(\'' + data_type + '\','+ret.data.list[i].data_id+');"><p>'+ret.data.list[i].nick_name +'</p>'+
+                  '<div class="userName" onclick="fnOpenUserButton(\'' + data_type + '\','+ret.data.list[i].data_id+','+ret.data.list[i].send_user_id+',\''+ret.data.list[i].nick_name+'\','+ret.data.list[i].comment_id+');"><p>'+ret.data.list[i].nick_name +'</p>'+
                     '<p class="replyCont" >回复我：'+ ret.data.list[i].content +'</p>'+
                     '<div class="discuss">'+
                       '<span>'+ ret.data.list[i].origin_content  +'</span>'+
@@ -132,7 +162,8 @@ var data_type;
     });
 
   }
-  function fnOpenUserButton(data_type,id) {
+  // data_type == 判断是那种类型// id== data_id// userId==send_user_id// name == 对方用户名// ids ==comment_id回复的id
+  function fnOpenUserButton(data_type,id,userId,name,ids) {
             var dialogBox = api.require('dialogBox');
             dialogBox.actionMenu({
                 rect: {
@@ -176,7 +207,16 @@ var data_type;
                         dialogName: 'alert'
                     });
                 } else if (index == 0) {
-                  fnOpendiscuss();
+                  if (data_type == 'album') {
+                      // 评论专辑
+                      fnOpendiscussAlbum(id,name,ids);
+                  }else if (data_type == 'book') {
+                      // 单曲
+                      fnOpendiscussBook(id,name,ids);
+                  }else if (data_type == 'listening') {
+                      // 评论听单
+                      fnOpendiscussListening(id,name,ids);
+                  }
                     dialogBox.close({
                         dialogName: 'alert'
                     });
@@ -197,12 +237,48 @@ var data_type;
                 }
             });
     }
-  function fnOpendiscuss(){
+  function fnOpendiscussAlbum(id,name,ids){
+    var uris = '/album/comment';
+    var ok = 'messageDiscussFrameDetail';
     api.openWin({
-        name: 'discussNoticeDetail',
-        url: './discuss_notice_detail.html',
+        name: 'messageDiscussFrameDetail',
+        url: './message_discuss_frame_detail.html',
         pageParam: {
-            name: 'test'
+            uris: uris,
+            albumId: id,
+            name : name,
+            ok:ok,
+            ids: ids
+        }
+    });
+  }
+  function fnOpendiscussBook(id,name,ids) {
+    var uris = '/sound/comment';
+    var ok = 'messageDiscussFrameDetail';
+    api.openWin({
+        name: 'messageDiscussFrameDetail',
+        url: './message_discuss_frame_detail.html',
+        pageParam: {
+            uris: uris,
+            albumId: id,
+            name : name,
+            ok: ok,
+            ids: ids
+        }
+    });
+  }
+  function fnOpendiscussListening(id,name,ids) {
+    var uris = '/listening/comment';
+    var ok = 'messageDiscussFrameDetail';
+    api.openWin({
+        name: 'messageDiscussFrameDetail',
+        url: './message_discuss_frame_detail.html',
+        pageParam: {
+            uris: uris,
+            albumId: id,
+            name : name,
+            ok:ok,
+            ids: ids
         }
     });
   }

@@ -282,6 +282,7 @@
         token = $api.getStorage('token');
         soundId = api.pageParam.soundId;
         uris = api.pageParam.uris;
+        console.log(uris);
         // name = api.pageParam.name;
         ListenToTheListOfComments();
         fnDetails(soundId);
@@ -488,6 +489,7 @@
         });
       }
       function ReplyToCommentsDiscuss_detail() {
+
         api.openWin({
             name: 'ReplyToCommentsDiscussDetailSingle',
             url: './ReplyToCommentsDiscuss_detail_single.html',
@@ -583,7 +585,7 @@
             });
           }
       }
-        function fnOpenMessageNotDetail(comment_id,name) {
+      function fnOpenMessageNotDetail(comment_id,name) {
             api.openWin({
                 name: 'replyDetailSingle',
                 url: './reply_detail_single.html',

@@ -64,6 +64,35 @@
   apiready = function() {
     token = $api.getStorage('token');
     fnAjaxNotice();
+    api.setCustomRefreshHeaderInfo({
+        bgColor: '#f0f0f0',
+        image: {
+          pull: [
+              'widget://image/Refresh/dropdown_anim_00.png',
+              'widget://image/Refresh/dropdown_anim_01.png',
+              'widget://image/Refresh/dropdown_anim_02.png',
+              'widget://image/Refresh/dropdown_anim_03.png',
+              'widget://image/Refresh/dropdown_anim_04.png',
+              'widget://image/Refresh/dropdown_anim_05.png',
+              'widget://image/Refresh/dropdown_anim_06.png',
+              'widget://image/Refresh/dropdown_anim_07.png',
+              'widget://image/Refresh/dropdown_anim_08.png',
+              'widget://image/Refresh/dropdown_anim_09.png',
+              'widget://image/Refresh/dropdown_anim_10.png',
+        ],
+        load: [
+              'widget://image/Refresh/dropdown_anim_00.png',
+              'widget://image/Refresh/dropdown_anim_01.png',
+              'widget://image/Refresh/dropdown_anim_02.png',
+              'widget://image/Refresh/dropdown_anim_03.png',
+              'widget://image/Refresh/dropdown_anim_04.png',
+              'widget://image/Refresh/dropdown_anim_05.png',
+      ]}
+    }, function() {
+            //下拉刷新被触发，自动进入加载状态，使用 api.refreshHeaderLoadDone() 手动结束加载中状态
+            //下拉刷新被触发，使用 api.refreshHeaderLoadDone() 结束加载中状态
+                  fnAjaxNotice();
+        });
   }
   function fnAjaxNotice() {
     api.ajax({
@@ -81,68 +110,69 @@
         }
     },function(ret, err){
         if (ret) {
-          var html = '';
-          for (var i = 0; i < ret.data.list.length; i++) {
-            var photos = ret.data.list[i].photo;
-            var photo = photos.substring(0, 4);
-            if (photo == '') {
-                photo = '../image/KM_tx.png'
-            }else if (photo == 'http') {
-                photo = ret.data.list[i].photo;
-            }else if (photo != 'http') {
-              photo = updatePhotoUrl + photos;
-            }
-            if (ret.data.list[i].data_type == 'album') {
-                listenings = '<p>'+ret.data.list[i].content+'</p>';
-            }else if (ret.data.list[i].data_type == 'listening') {
-                listenings = '<p>「'+ret.data.list[i].content+'」</p>';
-            }else if (ret.data.list[i].data_type == 'book') {
-                listenings = '<p>'+ret.data.list[i].content+'</p>';;
-            }
-            function timestampToTime(timestamp) {
-                var date = new Date(timestamp * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
-                Y = date.getFullYear() + '年';
-                M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '月';
-                D = date.getDate() + '日';
-                return Y+M+D;
-            }
-            var timestampToTimess =  timestampToTime(ret.data.list[i].create_date);
-            var section = $api.byId('section');
-            // console.log(ret.data.list[i].type);
-            if (ret.data.list[i].type == 'good_comment') {
-              var TypesOf = 'good_comment';
-              html +=
-              '<li onclick="fnOpennotDetail(\''+TypesOf+'\')">'+
-                '<div class="user-img"><img src="'+photo+'" alt=""></div>'+
-                '<div class="user-name"><p><span class="user-tit">'+ret.data.list[i].nick_name+'</span><span>赞了你的评论</span></p>'+listenings+'<p>'+timestampToTimess+'</p>'+
-                '</div>'+
-              '</li>'
-            }else if (ret.data.list[i].type == 'good_listeinig') {
-              var TypesOf = 'good_listeinig';
-              html +=
-              '<li onclick="fnOpennotDetail(\''+TypesOf+'\')">'+
-                '<div class="user-img"><img src="'+photo+'" alt=""></div>'+
-                '<div class="user-name"><p><span class="user-tit">'+ret.data.list[i].nick_name+'</span><span>赞了你的听单</span></p>'+listenings+'<p>'+timestampToTimess+'</p>'+
-                '</div>'+
-              '</li>'
-            }else if (ret.data.list[i].type == 'collection') {
-                var TypesOf = 'collection';
-              html +=
-              '<li onclick="fnOpennotDetail(\''+TypesOf+'\')">'+
-                '<div class="user-img"><img src="'+photo+'" alt=""></div>'+
-                '<div class="user-name"><p><span class="user-tit" >'+ret.data.list[i].nick_name+'</span><span>收藏了你的听单</span></p>'+  listenings + '<p>'+timestampToTimess+'</p>'+
-                '</div>'+
-              '</li>'
-            }
+          // console.log(JSON.stringify(ret));
+            if (ret.status == 200) {
+              api.refreshHeaderLoadDone();
+
+              for (var i = 0; i < ret.data.list.length; i++) {
+                var photos = ret.data.list[i].photo;
+                var photo = photos.substring(0, 4);
+                if (photo == '') {
+                    photo = '../image/KM_tx.png'
+                }else if (photo == 'http') {
+                    photo = ret.data.list[i].photo;
+                }else if (photo != 'http') {
+                  photo = updatePhotoUrl + photos;
+                }
+                if (ret.data.list[i].data_type == 'album') {
+                    listenings = '<p>'+ret.data.list[i].content+'</p>';
+                }else if (ret.data.list[i].data_type == 'listening') {
+                    listenings = '<p>「'+ret.data.list[i].content+'」</p>';
+                }else if (ret.data.list[i].data_type == 'book') {
+                    listenings = '<p>'+ret.data.list[i].content+'</p>';;
+                }
+                function timestampToTime(timestamp) {
+                    var date = new Date(timestamp * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+                    Y = date.getFullYear() + '年';
+                    M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '月';
+                    D = date.getDate() + '日';
+                    return Y+M+D;
+                }
+                var timestampToTimess =  timestampToTime(ret.data.list[i].create_date);
+                var section = $api.byId('section');
+                var html = '';
+                // console.log(ret.data.list[i].type);
+                if (ret.data.list[i].type == 'good_comment') {
+                  var TypesOf = 'good_comment';
+                  html +='<li onclick="fnOpennotDetail(\''+TypesOf+'\')">'+
+                    '<div class="user-img"><img src="'+photo+'" alt=""></div>'+
+                    '<div class="user-name"><p><span class="user-tit">'+ret.data.list[i].nick_name+'</span><span>赞了你的评论</span></p>'+listenings+'<p>'+timestampToTimess+'</p>'+
+                    '</div>'+
+                  '</li>'
+                }else if (ret.data.list[i].type == 'good_listeinig') {
+                  var TypesOf = 'good_listeinig';
+                  html +='<li onclick="fnOpennotDetail(\''+TypesOf+'\')">'+
+                    '<div class="user-img"><img src="'+photo+'" alt=""></div>'+
+                    '<div class="user-name"><p><span class="user-tit">'+ret.data.list[i].nick_name+'</span><span>赞了你的听单</span></p>'+listenings+'<p>'+timestampToTimess+'</p>'+
+                    '</div>'+
+                  '</li>'
+                }else if (ret.data.list[i].type == 'collection') {
+                    var TypesOf = 'collection';
+                  html +='<li onclick="fnOpennotDetail(\''+TypesOf+'\')">'+
+                    '<div class="user-img"><img src="'+photo+'" alt=""></div>'+
+                    '<div class="user-name"><p><span class="user-tit" >'+ret.data.list[i].nick_name+'</span><span>收藏了你的听单</span></p>'+  listenings + '<p>'+timestampToTimess+'</p>'+
+                    '</div>'+
+                  '</li>'
+                }
+                  // console.log(ret.data.list[i].nick_name);
+                // ret.data[i]
+                $api.html(section, html);
+                console.log(html);
+              }
+                // console.log( JSON.stringify( ret ) );
 
 
-
-              // console.log(ret.data.list[i].nick_name);
-            // ret.data[i]
-          }
-            // console.log( JSON.stringify( ret ) );
-            $api.html(section, html);
-
+            }
         } else {
             console.log( JSON.stringify( err ) );
         }
