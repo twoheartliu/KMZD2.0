@@ -20,6 +20,7 @@ function fnBoFangSouSuoyinpinxinxi() {
 //再次播放歌单音频
 function fnBoFangyinpinxinxiing(play) {
     playgedan = rets.data[play].id;
+
     fnBFid(playgedan);
     api.ajax({
       url: host + apiUri + '/sound/' + playgedan,
@@ -46,13 +47,17 @@ function fnBoFangyinpinxinxiing(play) {
                     }
                 });
             }
+            api.sendEvent({
+                name: 'neiJianTingGood',
+                extra: {
+                    bookId:ret.data.id
+                }
+            });
             netAudioPlay(host+'/'+ret.data.url);
             titlename = ret.data.title;
             reciter = ret.data.reciter;
             desc = ret.data.body;
             singerName = ret.data.author_name;
-            comment_total = ret.data.comment_total;
-            is_collection = ret.data.is_collection;
             api.sendEvent({
                 name: 'jibenxinxi',
                 extra: {
@@ -101,13 +106,17 @@ function fnBoFangyinpinxinxi() {
                     }
                 });
             }
+            api.sendEvent({
+                name: 'neiJianTingGood',
+                extra: {
+                    bookId:ret.data.id
+                }
+            });
             fnFuZhiAudio(host+'/'+ret.data.url);
             titlename = ret.data.title;
             reciter = ret.data.reciter;
             desc = ret.data.body;
             singerName = ret.data.author_name;
-            comment_total = ret.data.comment_total;
-            is_collection =ret.data.is_collection;
             api.sendEvent({
                 name: 'jibenxinxi',
                 extra: {
@@ -221,28 +230,14 @@ function netAudioPlay() {
     myAudio.play();
     fnBoFangmoshiid();
     initEventListennerBoFangMoshi();
-    if(comment_total){
-      api.sendEvent({
-          name: 'jibenxinxi',
-          extra: {
-              titlename: titlename,
-              desc: desc,
-              singerName: singerName,
-              comment_total:comment_total,
-              collection:is_collection
-          }
-      });
-    }else{
-      api.sendEvent({
-          name: 'jibenxinxi',
-          extra: {
-              titlename: titlename,
-              desc: desc,
-              singerName: singerName,
-              collection:is_collection
-          }
-      });
-    }
+    api.sendEvent({
+        name: 'jibenxinxi',
+        extra: {
+            titlename: titlename,
+            desc: desc,
+            singerName: singerName,
+        }
+    });
     if(bofang == 6){
       bofang = 7;
     }else if (bofang == 4) {
@@ -355,12 +350,15 @@ function addtime() {
                 html = "" + minute + ":" + curs % 60 + "";
             }
         }
-        api.sendEvent({
-            name: 'bofangshijian',
-            extra: {
-                bofangshijian: html,
-            }
-        });
+
+          api.sendEvent({
+              name: 'bofangshijian',
+              extra: {
+                  bofangshijian: html,
+              }
+          });
+
+
         if(lenth > 0){
           api.sendEvent({
               name: 'zongJinDu',
@@ -371,15 +369,17 @@ function addtime() {
           });
         }
 
-        api.sendEvent({
-            name: 'jibenxinxi',
-            extra: {
-                titlename: titlename,
-                desc: desc,
-                singerName: singerName,
-                author_id: author_id
-            }
-        });
+          api.sendEvent({
+              name: 'jibenxinxi',
+              extra: {
+                  titlename: titlename,
+                  desc: desc,
+                  singerName: singerName,
+                  author_id: author_id
+              }
+          });
+
+
     }, 1000);
 }
 
@@ -484,8 +484,6 @@ function fnGeDanxiaYi() {
 function netPlayLieIdUrl(playlistid,playUrli) {
     if(playlistid){
       uri = playUrli;
-      console.log(uri);
-
         api.ajax({
             url: host + apiUri + uri + playlistid,
             method: 'get',
