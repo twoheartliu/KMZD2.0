@@ -584,6 +584,8 @@
       var headerH = $api.offset(secHeader).h;
       var headerPosH = $api.offset(secHeader).h;
       header = document.querySelector('header');
+      fnJianTingGood();
+      fnJianTingPingLunShu();
       api.addEventListener({
           name: 'ok'
       }, function(ret, err) {
@@ -598,44 +600,33 @@
           $api.css(messageFrameDiv, 'height:' + winHeightHeader + 'px;');
           $api.fixIos7Bar(header);
           fnBookExtraGoodssssss();
-          dangqianbofangid = api.pageParam.DangQianbofangid;
-          if(dangqianbofangid){
-            bookId = dangqianbofangid;
-            soundId = dangqianbofangid;
-            fnBookExtraGoodssssss();
-
-          }
           api.addEventListener({
               name: 'netPlaying'
           }, function(ret, err) {
               fnDangQianbofangid(ret.value.playing);
           });
-          // alert(connectionType);
           var connectionType = api.connectionType;
 
             if (connectionType == "wifi") {
               bofang = api.pageParam.bofang;
               if(bofang){
                 fnJinRuBofangs();
-              }
                 if (dangqianbofangid) {
-
                   if(bofang){
                     fnJinRuBofangs(dangqianbofangid,bofang);
                     soundId = dangqianbofangid;
                     bookId == dangqianbofangid;
+                    fnBookExtraGoodssssss(bookId);
+                    fnJianTingBookCollection(bookId);
                   }else{
                     fnJinRuBofangs(dangqianbofangid);
                     soundId = dangqianbofangid;
                     bookId == dangqianbofangid;
+                    fnBookExtraGoodssssss(bookId);
+                    fnJianTingBookCollection(bookId);
                   }
-
                 } else {
                    bookId = api.pageParam.a;
-                   if(!bookId){
-                     bookId = 1;
-                     soundId = 1;
-                   }
                     api.addEventListener({
                         name: 'neizhiliebiaoPlaysss'
                     }, function(ret, err) {
@@ -645,6 +636,9 @@
                         bofangs = ret.value.bofang;
                         fnA(aa, bofangs, listid,playUrlis);
                         fnAAaa(aa, bofangs, listid,playUrlis);
+                        bookId == aa;
+                        fnBookExtraGoodssssss(bookId);
+                        fnJianTingBookCollection(bookId);
                         return;
                     });
                     fnJinRuBofang();
@@ -700,10 +694,14 @@
                             fnJinRuBofangs(dangqianbofangid,bofang);
                             soundId = dangqianbofangid;
                             bookId == dangqianbofangid;
+                            fnBookExtraGoodssssss(bookId);
+                            fnJianTingBookCollection(bookId);
                           }else{
                             fnJinRuBofangs(dangqianbofangid);
                             soundId = dangqianbofangid;
                             bookId == dangqianbofangid;
+                            fnBookExtraGoodssssss(bookId);
+                            fnJianTingBookCollection(bookId);
                           }
                         } else {
                             api.addEventListener({
@@ -715,6 +713,9 @@
                                 bofangs = ret.value.bofang;
                                 fnA(aa, bofangs, listid,playUrlis);
                                 fnAAaa(aa, bofangs, listid,playUrlis);
+                                bookId == aa;
+                                fnBookExtraGoodssssss(bookId);
+                                fnJianTingBookCollection(bookId);
                                 return;
                             });
                             fnJinRuBofang();
@@ -740,9 +741,6 @@
                         var stylelistbookExtraCollectionHtml = $api.byId('bookExtraCollectionHtml');
                         var htmlbookExtraCollectionHtml = '<img src="../image/KM_play_collect.png" alt="" class="collectmusicssss" id="playCollect"  onclick="fnOpenPlayCollect(this)" data-click="0"><p>收藏</p>';
                         $api.html(stylelistbookExtraCollectionHtml, htmlbookExtraCollectionHtml);
-                        var stylelistbookExtraCollectionHtml = $api.byId('bookExtraCollectionHtml');
-                        var htmlbookExtraCollectionHtml = '<img src="../image/KM_play_collect.png" alt="" class="collectmusicssss" id="playCollect"  onclick="fnOpenPlayCollect(this)" data-click="0"><p>收藏</p>';
-                        $api.html(stylelistbookExtraCollectionHtml, htmlbookExtraCollectionHtml);
                         var stylelistComments = $api.byId('comments');
                         var htmlComments = '0';
                         $api.html(stylelistComments, htmlComments);
@@ -764,9 +762,6 @@
       	netWorkNone();
 
       }else{
-
-
-
         // 获取浏览器高度
         if (window.innerHeight)
             winHeight = window.innerHeight;
@@ -777,15 +772,7 @@
         $api.css(messageFrameDiv, 'height:' + winHeightHeader + 'px;');
         $api.fixIos7Bar(header);
         fnBookExtraGoodssssss();
-
-
         dangqianbofangid = api.pageParam.DangQianbofangid;
-        if(dangqianbofangid){
-          bookId = dangqianbofangid;
-          soundId = dangqianbofangid;
-          fnBookExtraGoodssssss();
-
-        }
         api.addEventListener({
             name: 'netPlaying'
         }, function(ret, err) {
@@ -799,18 +786,18 @@
                   fnJinRuBofangs(dangqianbofangid,bofang);
                   soundId = dangqianbofangid;
                   bookId == dangqianbofangid;
+                  fnBookExtraGoodssssss(bookId);
+                  fnJianTingBookCollection(bookId);
                 }else{
                   fnJinRuBofangs(dangqianbofangid);
                   soundId = dangqianbofangid;
                   bookId == dangqianbofangid;
+                  fnBookExtraGoodssssss(bookId);
+                  fnJianTingBookCollection(bookId);
                 }
 
               } else {
                  bookId = api.pageParam.a;
-                 if(!bookId){
-                   bookId = 1;
-                   soundId = 1;
-                 }
                   api.addEventListener({
                       name: 'neizhiliebiaoPlaysss'
                   }, function(ret, err) {
@@ -820,6 +807,9 @@
                       bofangs = ret.value.bofang;
                       fnA(aa, bofangs, listid,playUrlis);
                       fnAAaa(aa, bofangs, listid,playUrlis);
+                      bookId == aa;
+                      fnBookExtraGoodssssss(bookId);
+                      fnJianTingBookCollection(bookId);
                       return;
                   });
                   fnJinRuBofang();
@@ -872,14 +862,19 @@
                       dangqianbofangid = api.pageParam.DangQianbofangid;
                       if (dangqianbofangid) {
                         bofang = api.pageParam.bofang;
+
                         if(bofang){
                           fnJinRuBofangs(dangqianbofangid,bofang);
                           soundId = dangqianbofangid;
                           bookId == dangqianbofangid;
+                          fnBookExtraGoodssssss(bookId);
+                          fnJianTingBookCollection(bookId);
                         }else{
                           fnJinRuBofangs(dangqianbofangid);
                           soundId = dangqianbofangid;
                           bookId == dangqianbofangid;
+                          fnBookExtraGoodssssss(bookId);
+                          fnJianTingBookCollection(bookId);
                         }
                       } else {
                           api.addEventListener({
@@ -891,6 +886,9 @@
                               bofangs = ret.value.bofang;
                               fnA(aa, bofangs, listid,playUrlis);
                               fnAAaa(aa, bofangs, listid,playUrlis);
+                              bookId == aa;
+                              fnBookExtraGoodssssss(bookId);
+                              fnJianTingBookCollection(bookId);
                               return;
                           });
                           fnJinRuBofang();
@@ -916,9 +914,6 @@
                       var stylelistbookExtraCollectionHtml = $api.byId('bookExtraCollectionHtml');
                       var htmlbookExtraCollectionHtml = '<img src="../image/KM_play_collect.png" alt="" class="collectmusicssss" id="playCollect"  onclick="fnOpenPlayCollect(this)" data-click="0"><p>收藏</p>';
                       $api.html(stylelistbookExtraCollectionHtml, htmlbookExtraCollectionHtml);
-                      var stylelistbookExtraCollectionHtml = $api.byId('bookExtraCollectionHtml');
-                      var htmlbookExtraCollectionHtml = '<img src="../image/KM_play_collect.png" alt="" class="collectmusicssss" id="playCollect"  onclick="fnOpenPlayCollect(this)" data-click="0"><p>收藏</p>';
-                      $api.html(stylelistbookExtraCollectionHtml, htmlbookExtraCollectionHtml);
                       var stylelistComments = $api.byId('comments');
                       var htmlComments = '0';
                       $api.html(stylelistComments, htmlComments);
@@ -931,10 +926,84 @@
           }
       }
     }
+    function fnJianTingGood(){
+      api.addEventListener({
+          name: 'neiJianTingGood'
+      }, function(ret, err) {
+          bookId = ret.value.bookId;
+          soundId = ret.value.bookId;
+          fnBookExtraGoodssssss(bookId);
+          fnJianTingBookCollection(bookId);
+          // if(){
+          //   var stylelistComments = $api.byId('comments');
+          //   var htmlComments = '0';
+          //   $api.html(stylelistComments, htmlComments);
+          // }
+          return;
+      });
+    }
+    //评论完成回调评论数；
+    function fnJianTingPingLunShu(){
+      api.addEventListener({
+          name: 'gengXinSingle'
+      }, function(ret, err) {
+          fnJianTingBookCollection(bookId);
+          // if(){
+          //   var stylelistComments = $api.byId('comments');
+          //   var htmlComments = '0';
+          //   $api.html(stylelistComments, htmlComments);
+          // }
+          return;
+      });
+    }
+    //监听收藏，评论数；
+    function fnJianTingBookCollection(bookId){
+      api.ajax({
+          url: host + apiUri + uri + '/' + bookId,
+          method: 'get',
+          dataType: 'json',
+          headers: {
+              "source": api.systemType,
+              "version": version,
+              "session": token
+          }
+      }, function(ret, err) {
+        if(ret){
+        if (ret.status == 200) {
+            var stylelistCollectionHtml = $api.byId('bookExtraCollectionHtml');
+              if(ret.data.is_collection){
+                bookCollectionHtml = '<img src="../image/KM_play_collect_red.png" alt="" class="collectmusicssss" id="playCollect" onclick="fnOpenPlayCollect(this)" data-click="1"><p>收藏</p>';
+              }else{
+                bookCollectionHtml = '<img src="../image/KM_play_collect.png" alt="" class="collectmusicssss" id="playCollect"  onclick="fnOpenPlayCollect(this)" data-click="0"><p>收藏</p>';
+              }
+            $api.html(stylelistCollectionHtml, bookCollectionHtml);
+            if(ret.data.comment_total){
+                var html = ret.data.comment_total;
+                var stylelist = $api.byId('comments');
+                $api.html(stylelist, html);
+            }else{
+              var html = 0;
+              var stylelist = $api.byId('comments');
+              $api.html(stylelist, html);
+            }
+        } else {
+            netMessage(ret);
+        }
+      }else{
+        netWork(err);
+      }
+      });
+    }
     //1233
-    var bookGoodHtml;
-    function fnBookExtraGoodssssss(){
-      var bookss = $api.getStorage('bookExtraGood'+bookId);
+
+    var  bookGoodHtml;
+    function fnBookExtraGoodssssss(bookIds){
+      if(bookIds){
+        var bookss = $api.getStorage('bookExtraGood'+bookIds);
+      }else{
+        var bookss = $api.getStorage('bookExtraGood'+bookId);
+      }
+
       var bookg = 'inc';
       if(bookss){
         if(bookss != bookg){
@@ -953,6 +1022,7 @@
     }
 
     function fnJinRuBofangs(ids,bofang) {
+
       id =ids;
         var eHeader = $api.byId('header')
         api.parseTapmode();
@@ -1213,22 +1283,20 @@
 
                 }
                 // console.log(ret.value.is_collection);
-                if (ret.value.collection) {
-
-                  var stylelistCollectionHtml = $api.byId('bookExtraCollectionHtml');
-                    if(ret.value.collection == 0){
-                      bookCollectionHtml = '<img src="../image/KM_play_collect.png" alt="" class="collectmusicssss" id="playCollect"  onclick="fnOpenPlayCollect(this)" data-click="0"><p>收藏</p>';
-                    }else{
-                      bookCollectionHtml = '<img src="../image/KM_play_collect_red.png" alt="" class="collectmusicssss" id="playCollect" onclick="fnOpenPlayCollect(this)" data-click="1"><p>收藏</p>';
-                    }
-                  $api.html(stylelistCollectionHtml, bookCollectionHtml);
-
-                }
-                if(ret.value.comment_total){
-                  var html = ret.value.comment_total;
-                  var stylelist = $api.byId('comments');
-                  $api.html(stylelist, html);
-                }
+                    // console.log(ret.value.collection);
+                  // var stylelistCollectionHtml = $api.byId('bookExtraCollectionHtml');
+                  //   if(ret.value.collection){
+                  //     bookCollectionHtml = '<img src="../image/KM_play_collect_red.png" alt="" class="collectmusicssss" id="playCollect" onclick="fnOpenPlayCollect(this)" data-click="1"><p>收藏</p>';
+                  //
+                  //   }else{
+                  //     bookCollectionHtml = '<img src="../image/KM_play_collect.png" alt="" class="collectmusicssss" id="playCollect"  onclick="fnOpenPlayCollect(this)" data-click="0"><p>收藏</p>';
+                  //   }
+                  // $api.html(stylelistCollectionHtml, bookCollectionHtml);
+                // if(ret.value.comment_total){
+                //   var html = ret.value.comment_total;
+                //   var stylelist = $api.byId('comments');
+                //   $api.html(stylelist, html);
+                // }
                 //赋值标题
                 if (ret.value.titlename) {
                     var stylelist = $api.byId('title');
@@ -1407,14 +1475,14 @@
                 fnbofangshijian();
                 var title = ret.data.title;
                 var author_name = ret.data.author_name;
-                fnBookExtraGoodssssss();
-                var stylelistCollectionHtml = $api.byId('bookExtraCollectionHtml');
-                  if(ret.data.is_collection == 0){
-                    bookCollectionHtml = '<img src="../image/KM_play_collect.png" alt="" class="collectmusicssss" id="playCollect"  onclick="fnOpenPlayCollect(this)" data-click="0"><p>收藏</p>';
-                  }else{
-                    bookCollectionHtml = '<img src="../image/KM_play_collect_red.png" alt="" class="collectmusicssss" id="playCollect" onclick="fnOpenPlayCollect(this)" data-click="1"><p>收藏</p>';
-                  }
-                $api.html(stylelistCollectionHtml, bookCollectionHtml);
+                // fnBookExtraGoodssssss();
+                // var stylelistCollectionHtml = $api.byId('bookExtraCollectionHtml');
+                //   if(ret.data.is_collection == 0){
+                //     bookCollectionHtml = '<img src="../image/KM_play_collect.png" alt="" class="collectmusicssss" id="playCollect"  onclick="fnOpenPlayCollect(this)" data-click="0"><p>收藏</p>';
+                //   }else{
+                //     bookCollectionHtml = '<img src="../image/KM_play_collect_red.png" alt="" class="collectmusicssss" id="playCollect" onclick="fnOpenPlayCollect(this)" data-click="1"><p>收藏</p>';
+                //   }
+                // $api.html(stylelistCollectionHtml, bookCollectionHtml);
             } else {
                 netMessage(ret);
             }
@@ -1459,14 +1527,14 @@
               fnbofangshijian();
               var title = ret.data.title;
               var author_name = ret.data.author_name;
-              fnBookExtraGoodssssss();
-              var stylelistCollectionHtml = $api.byId('bookExtraCollectionHtml');
-                if(ret.data.is_collection == 0){
-                  bookCollectionHtml = '<img src="../image/KM_play_collect.png" alt="" class="collectmusicssss" id="playCollect"  onclick="fnOpenPlayCollect(this)" data-click="0"><p>收藏</p>';
-                }else{
-                  bookCollectionHtml = '<img src="../image/KM_play_collect_red.png" alt="" class="collectmusicssss" id="playCollect" onclick="fnOpenPlayCollect(this)" data-click="1"><p>收藏</p>';
-                }
-              $api.html(stylelistCollectionHtml, bookCollectionHtml);
+              // fnBookExtraGoodssssss();
+              // var stylelistCollectionHtml = $api.byId('bookExtraCollectionHtml');
+              //   if(ret.data.is_collection == 0){
+              //     bookCollectionHtml = '<img src="../image/KM_play_collect.png" alt="" class="collectmusicssss" id="playCollect"  onclick="fnOpenPlayCollect(this)" data-click="0"><p>收藏</p>';
+              //   }else{
+              //     bookCollectionHtml = '<img src="../image/KM_play_collect_red.png" alt="" class="collectmusicssss" id="playCollect" onclick="fnOpenPlayCollect(this)" data-click="1"><p>收藏</p>';
+              //   }
+              // $api.html(stylelistCollectionHtml, bookCollectionHtml);
             } else {
                 netMessage(ret);
             }
