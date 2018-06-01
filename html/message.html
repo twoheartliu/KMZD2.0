@@ -35,10 +35,10 @@
         padding: 15px;}
     .egret-header-title {position: absolute;width: 100%;text-align: center;line-height: 50px;color: #fff;font-size: 20px;}
      /* 航*/
-    #nav{height:35px;width:100%;display: flex;display: -webkit-flex;display: -webkit-box;background-color: #fff;}
-    #nav>.tab{line-height: 35px;font-size: 14px;color: #535354;flex:1;-webkit-flex:1;-webkit-box-flex:1;
-      text-align: center;border-right: 1px solid #e0e0e0;}
+    #nav{height:35px;width:100%;display: flex;display: -webkit-flex;display: -webkit-box;background-color: #fff;clear: both;}
+    #nav>.tab{line-height: 35px;font-size: 14px;color: #535354;width: 33.3%;float: left;text-align: center;border-right: 1px solid #e0e0e0;position: relative;}
     #nav>.tab.active{background-color: #9EA1AC;color: #fff; border-radius: 0px;}
+    #nav>.tab div{ position: absolute; width: 20px; height: 20px; background: rgba(0,0,0,0); top: 0; right: 0;color: red;line-height: 20px;text-align: center;font-size: 10px;}
 </style>
 </head>
 <body>
@@ -49,14 +49,16 @@
     </header>
     <!-- 导航-->
     <nav id="nav">
-      <div class="tab active" onclick="fnSelectTab(0,this)" tapmode="active">私信</div>
-      <div class="tab" onclick="fnSelectTab(1,this)" tapmode="active">评论</div>
-      <div class="tab" onclick="fnSelectTab(2,this)" tapmode="active">通知</div>
+      <div class="tab active" onclick="fnSelectTab(0,this)">私信<div class="" id="message"></div></div>
+      <div class="tab" onclick="fnSelectTab(1,this)">评论<div class="" id="comment"></div></div>
+      <div class="tab" onclick="fnSelectTab(2,this)">通知<div class="" id="notify"></div></div>
     </nav>
     <div class="bb"></div>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript">
+    // var token;
     function goback () {
     	api.closeWin({name:'message'});
     }
@@ -105,25 +107,43 @@
         });
     }
     apiready = function (){
+      // token = $api.getStorage('token');
     	var eHeader = $api.byId('secHeader');
          $api.fixStatusBar(eHeader);  //状态栏
-
       var headerPos = $api.offset(eHeader);
         fnOpenFrameGroup();
-    	// api.openFrame({
-    	// 	name: 'message_body',
-    	// 	url: './message_body.html',
-    	// 	bounces: false,
-    	// 	opaque: false,
-    	// 	rect: {
-    	// 		x: 0,
-    	// 		y: headerPos.h,
-    	// 		w: 'auto',
-    	// 		h: 'auto'
-    	// 	}
+        fnmessageGet();
+    }
+    function fnmessageGet() {
 
-    	// });
+      api.addEventListener({
+          name: 'unread'
+      }, function(ret, err) {
+        console.log(JSON.stringify(ret.value));
+          var message = $api.byId('message');
+          var comment = $api.byId('comment');
+          var notify = $api.byId('notify');
+          var messages , comments , notify;
+          if (ret.value.message < 100) {
+            messages = ret.value.message;
+          }else {
+            messages = '99+';
+          }
+          if (ret.value.comment < 100) {
+            comments = ret.value.comment;
+          }else {
+            comments = '99+';
+          }
+          if (ret.value.notify < 100) {
+            notifys = ret.value.notify;
+          }else {
+            notifys = '99+';
+          }
+          $api.html(message, messages);
+          $api.html(comment, comments);
+          $api.html(notify, notifys);
 
+      });
     }
 </script>
 </html>
