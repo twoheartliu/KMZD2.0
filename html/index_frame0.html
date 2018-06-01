@@ -619,7 +619,7 @@
                             html += '<div class="egret-flex-item"><div class="egret-flex-items" tapmode="fmbtnhover" onclick="fnOpenPlay(' + data_.data[i].content[s].id + ')"><div class="egret-flex-item-logo"><img src="' + host + '/' + data_.data[i]
                                 .content[
                                     s].mid + '" alt="" class=""></div><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 fl"><span>' + data_.data[i].content[s].title +
-                                '</span></span></div><div class="egret-flex-item-shelf02"><span>' +
+                                '</span></span></div><div class="egret-flex-item-shelf02"><span>作者：' +
                                 data_.data[i].content[s].author_name + '</span></div><div class="egret-flex-item-shelf03"><div><img src="../image/KM_play.png" alt=""><span>' + data_.data[
                                     i].content[s].play_total + '</span></div><div><img src="../image/KM_zf.png" alt=""><span>' + data_.data[i].content[s].share_total +
                                 '</span></div><div><img src="../image/KM_dz.png" alt=""><span>' + data_.data[i].content[s].good_total +
@@ -630,7 +630,7 @@
                             html += '<div class="egret-flex-item"><div class="egret-flex-items" tapmode="fmbtnhover" onclick="fnOpenPlay(' + data_.data[i].content[s].id + ')"><div class="egret-flex-item-logo"><img src="' + host + '/' + data_.data[i]
                                 .content[
                                     s].mid + '" alt="" class=""></div><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 fl"><span>' + data_.data[i].content[s].title +
-                                '</span></span></div><div class="egret-flex-item-shelf02"><span></span></div><div class="egret-flex-item-shelf03"><div><img src="../image/KM_play.png" alt=""><span>' + data_.data[
+                                '</span></span></div><div class="egret-flex-item-shelf02"><span>作者：</span></div><div class="egret-flex-item-shelf03"><div><img src="../image/KM_play.png" alt=""><span>' + data_.data[
                                     i].content[s].play_total + '</span></div><div><img src="../image/KM_zf.png" alt=""><span>' + data_.data[i].content[s].share_total +
                                 '</span></div><div><img src="../image/KM_dz.png" alt=""><span>' + data_.data[i].content[s].good_total +
                                 '</span></div></div></div>  </div><div class="egret-flex-item-shelf04" onclick="fnOpenPlayMore(' + data_.data[i].content[s].id +
@@ -895,7 +895,7 @@
                         if (ret.status == 200) {
 
                             api.toast({              
-                                msg:   '已收藏',
+                                msg:   '收藏成功',
                                 duration:  2000,
                                 location:   'middle'          
                             });

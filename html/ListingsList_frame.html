@@ -524,6 +524,15 @@
                     //fnTingdanTuijianliebiao()
                     ids = api.pageParam.ids;
                     ListenToTheDetails();
+                    api.addEventListener({
+                        name: 'gengXin'
+                    }, function(ret, err) {
+
+                        if(ret){
+                          ListenToTheDetails();
+                        }
+                        return;
+                    });
                     songList();
                     api.setCustomRefreshHeaderInfo({
                         bgColor: '#f0f0f0',
@@ -589,6 +598,15 @@
                 //fnTingdanTuijianliebiao()
                 ids = api.pageParam.ids;
                 ListenToTheDetails();
+                api.addEventListener({
+                    name: 'gengXin'
+                }, function(ret, err) {
+
+                    if(ret){
+                      ListenToTheDetails();
+                    }
+                    return;
+                });
                 songList();
                 api.setCustomRefreshHeaderInfo({
                     bgColor: '#f0f0f0',
@@ -870,8 +888,14 @@
                     // console.log(ret.data[i].title);
                       author_name = ((ret.data[i].author_name == null) ? "" : ret.data[i].author_name);
                       reciter = ((ret.data[i].reciter == null) ? "" : ret.data[i].reciter);
-                      $api.append(tuijianliebiaogequ,'<li id="id_' + ret.data[i].id + '"><div class="on_playall" onclick="fnPlay('+ ret.data[i].id +');"><span class="fl on_playall_name">' + ret.data[i].title + '</span><span></span></div><div class="author fl"  onclick="fnPlay('+ ret.data[i].id +');">作者：' + author_name +
-                          '</div><div class="author fl"  onclick="fnPlay('+ ret.data[i].id +');">朗读者：' + reciter + '</div><div class="fr on_playall_img" onclick="fnOpenPlayMore(' + ret.data[i].id + ');"><img src="../image/KM_list_more.png" alt=""></div></li>');
+                      if(ret.data[i].reciter){
+                        $api.append(tuijianliebiaogequ,'<li id="id_' + ret.data[i].id + '"><div class="on_playall" onclick="fnPlay('+ ret.data[i].id +');"><span class="fl on_playall_name">' + ret.data[i].title + '</span><span></span></div><div class="author fl"  onclick="fnPlay('+ ret.data[i].id +');">作者：' + author_name +
+                            '</div><div class="author fl"  onclick="fnPlay('+ ret.data[i].id +');">朗读者：' + reciter + '</div><div class="fr on_playall_img" onclick="fnOpenPlayMore(' + ret.data[i].id + ');"><img src="../image/KM_list_more.png" alt=""></div></li>');
+                      }else{
+                        $api.append(tuijianliebiaogequ,'<li id="id_' + ret.data[i].id + '"><div class="on_playall" onclick="fnPlay('+ ret.data[i].id +');"><span class="fl on_playall_name">' + ret.data[i].title + '</span><span></span></div><div class="author fl"  onclick="fnPlay('+ ret.data[i].id +');">作者：' + author_name +
+                            '</div><div class="author fl"  onclick="fnPlay('+ ret.data[i].id +');"></div><div class="fr on_playall_img" onclick="fnOpenPlayMore(' + ret.data[i].id + ');"><img src="../image/KM_list_more.png" alt=""></div></li>');
+                      }
+
                   }
                 }
               }
@@ -952,7 +976,7 @@
                     // fnRecommendedDirectory(ret);
                     if (ret.data == "inc") {
                         api.toast({              
-                            msg:   '已收藏',
+                            msg:   '收藏成功',
                             duration:  2000,
                             location:   'middle'          
                         });
