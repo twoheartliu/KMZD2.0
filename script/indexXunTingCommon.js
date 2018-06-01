@@ -2,6 +2,7 @@
 
 //播放歌单音频
 function fnXunTingXinXi() {
+  fnUserFollow();
   clearInterval(timer2);
   clearInterval(timer1);
   api.ajax({
@@ -81,6 +82,7 @@ function fnXunTingXinXi() {
 }
 //播放歌单音频
 function fnXunTingXinXis() {
+  fnUserFollow();
   clearInterval(timer2);
   clearInterval(timer1);
   api.ajax({
@@ -214,6 +216,7 @@ function fnXiaYiXunHuan(){
   setInterval(function() {
     if(myAudio){
       if (myAudio.ended == true) {
+        fnUserFollow();
         myAudio.currentTime = 0;
         clearInterval(timer2);
         clearInterval(timer1);
@@ -226,10 +229,13 @@ function fnXiaYiXunHuan(){
 //当前播放id
 function fnBFids(id) {
     DangQianbofangid = id;
+
+
     api.sendEvent({
         name: 'netPlaying',
         extra: {
             playing: DangQianbofangid,
+            bofang:bofang
         }
     });
 }

@@ -2,6 +2,7 @@
 
 //播放歌单音频
 function fnBoFangyinpinxinxis(id) {
+  fnUserFollow();
   clearInterval(timer2);
   clearInterval(timer1);
     api.ajax({
@@ -69,6 +70,7 @@ function fnBoFangyinpinxinxis(id) {
 function fnGeDanShangYis(a) {
     var myAudio = document.getElementById("myAudio");
     netAudioPause();
+    fnUserFollow();
     myAudio.currentTime = 0;
     clearInterval(timer2);
     clearInterval(timer1);
@@ -78,6 +80,7 @@ function fnGeDanShangYis(a) {
 function fnGeDanxiaYis(a) {
     var myAudio = document.getElementById("myAudio");
     netAudioPause();
+    fnUserFollow();
     myAudio.currentTime = 0;
     myAudio.load();
     clearInterval(timer2);
@@ -107,6 +110,7 @@ function suijis() {
     suijiplays = setInterval(function() {
         if (myAudio.ended) {
           netAudioPause();
+          fnUserFollow();
         }
     }, 1000);
     bofangmoshiid = 1;
@@ -121,6 +125,7 @@ function shunxus() {
       if(myAudio){
         if (myAudio.ended) {
           netAudioPause();
+          fnUserFollow();
           myAudio.currentTime = 0;
           clearInterval(timer1);
           clearInterval(timer2);
@@ -147,6 +152,7 @@ function bfdanqus() {
 //单曲循环播放更新
 function fndanqubofangmoshis() {
     netAudiopauseSssDanqu();
+    fnUserFollow();
     myAudio.currentTime = 0;
     clearInterval(timer1);
     clearInterval(timer2);
@@ -204,7 +210,6 @@ function initEventListennerBofangDanQu() {
         name: 'netPlayUrlDanQu'
     }, function(ret, err) {
         if (ret) {
-          console.log(1111);
             var bofang = ret.value.bofang;
             var id = ret.value.id;
             fnBFids(id);
