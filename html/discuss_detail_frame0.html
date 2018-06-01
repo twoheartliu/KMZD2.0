@@ -474,6 +474,7 @@
     var commentaAlbumGoodHtml;
     var commentExtraGoods;
     var name;
+    var p = 1;
     apiready = function() {
             token = $api.getStorage('token');
             name = api.pageParam.name;
@@ -516,6 +517,16 @@
             //     fnDetails()
             //     ListenToTheListOfComments();
             // });
+            api.addEventListener({
+                name: 'scrolltobottom',
+                extra: {
+                    threshold: -20 //设置距离底部多少距离时触发，默认值为0，数字类型
+                }
+            }, function(ret, err) {
+              p ++;
+            //   console.log(p);
+              ListenToTheListOfComments();
+            });
         }
         //个人主页
     function fnOpenmyPersonal(id, nickname) {
@@ -547,7 +558,7 @@
                 "session": token
             }
         }, function(ret, err) {
-            // alert(JSON.stringify(ret));
+            console.log(JSON.stringify(ret));
             if (ret) {
                 if (ret.status == 200) {
                     var stylelist = $api.byId('details');
@@ -604,6 +615,7 @@
     }
 
     function ListenToTheListOfComments() {
+
         api.ajax({
             url: host + apiUri + uris + albumId,
             method: 'get',
@@ -613,10 +625,17 @@
                 "source": api.systemType,
                 "version": version,
                 "session": token
+            },
+            data: {
+                values: {
+                    p: p
+                },
+
             }
         }, function(ret, err) {
             if (ret) {
                 if (ret.status == 200) {
+
                     if (ret.data == '') {
                         var stylelist = $api.byId('allcommentS');
                         var html = '暂无评论,<span style="color:blue;" onclick="ReplyToCommentsDiscuss_detail()">去评论</span>';
