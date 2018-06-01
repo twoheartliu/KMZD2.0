@@ -683,22 +683,9 @@
         console.log(11111);
         console.log(timestamp);
         console.log(jubenid);
-        api.startRecord({
-            path: 'fs://luyin/' + timestamp + jubenid+'.amr'
-        });
-
-
-        // var audioRecorder = api.require('audioRecorder');
-        // audioRecorder.startRecord({
-        //   savePath:'fs://luyin/' + timestamp + jubenid+'.pcm',
-        //   format:'pcm'
-        // }, function(ret, err){
-        //   // alert(JSON.stringify(ret));
-        //   console.log(JSON.stringify(ret));
+        // api.startRecord({
+        //     path: 'fs://luyin/' + timestamp + jubenid+'.amr'
         // });
-
-
-
         // r = plus.audio.getRecorder();
         //     if(r == null) {
         //         console.log('录音对象未获取')
@@ -753,21 +740,14 @@
             //暂停录音
             api.stopRecord(function(ret, err) {
               console.log(JSON.stringify(ret));
-              console.log(8888);
               console.log(JSON.stringify(err));
                 if (ret) {
                     // console.log(ret.path);
                     path = ret.path;
-                    console.log(999);
                     console.log(path);
                     duration = ret.duration;
                 }
             });
-            // var audioRecorder = api.require('audioRecorder');
-            // audioRecorder.stopRecord(function(ret){
-            //     // alert(JSON.stringify(ret));
-            //     console.log(JSON.stringify(ret));
-            // });
 
         }
 

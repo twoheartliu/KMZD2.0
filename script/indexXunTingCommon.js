@@ -229,8 +229,6 @@ function fnXiaYiXunHuan(){
 //当前播放id
 function fnBFids(id) {
     DangQianbofangid = id;
-
-
     api.sendEvent({
         name: 'netPlaying',
         extra: {

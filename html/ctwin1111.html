@@ -753,30 +753,30 @@
       //     netWork(err);
       //   }
       // });
-      // path = api.pageParam.path;
-      // var audioStreamer = api.require('audioStreamer');
-      // audioStreamer.openPlayer({
-      //     // path: 'fs:/'+path,
-      //     path: path,
-      // }, function(ret) {
-      //     if (ret.status) {
-      //       console.log(JSON.stringify(ret));
-      //         // api.alert({ msg: JSON.stringify(ret) });
-      //     }
-      // });
-  		if(path){
-        var myAudio = document.getElementById("myAudio");
-        myAudio.play();
-        myAudio.loop=true;
-
-        jindutiao();
-  		}else {
-          api.toast({              
-              msg:   '请先录音',
-              duration:  2000,
-              location:   'middle'          
-          });
-      }
+      path = api.pageParam.path;
+      var audioStreamer = api.require('audioStreamer');
+      audioStreamer.openPlayer({
+          // path: 'fs:/'+path,
+          path: path,
+      }, function(ret) {
+          if (ret.status) {
+            console.log(JSON.stringify(ret));
+              // api.alert({ msg: JSON.stringify(ret) });
+          }
+      });
+  		// if(path){
+      //   var myAudio = document.getElementById("myAudio");
+      //   myAudio.play();
+      //   myAudio.loop=true;
+      //
+      //   jindutiao();
+  		// }else {
+      //     api.toast({              
+      //         msg:   '请先录音',
+      //         duration:  2000,
+      //         location:   'middle'          
+      //     });
+      // }
   	}
     //获取当前歌曲的歌长
     function jindutiao() {
