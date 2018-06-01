@@ -517,6 +517,7 @@
             //     fnDetails()
             //     ListenToTheListOfComments();
             // });
+
             api.addEventListener({
                 name: 'scrolltobottom',
                 extra: {
@@ -527,6 +528,7 @@
             //   console.log(p);
               ListenToTheListOfComments();
             });
+
         }
         //个人主页
     function fnOpenmyPersonal(id, nickname) {
@@ -558,7 +560,7 @@
                 "session": token
             }
         }, function(ret, err) {
-            console.log(JSON.stringify(ret));
+
             if (ret) {
                 if (ret.status == 200) {
                     var stylelist = $api.byId('details');
@@ -635,7 +637,10 @@
         }, function(ret, err) {
             if (ret) {
                 if (ret.status == 200) {
+<<<<<<< HEAD
+=======
 
+>>>>>>> 2c16c402dc854cfa7985fc606fb03f76c733743f
                     if (ret.data == '') {
                         var stylelist = $api.byId('allcommentS');
                         var html = '暂无评论,<span style="color:blue;" onclick="ReplyToCommentsDiscuss_detail()">去评论</span>';

@@ -373,40 +373,16 @@
       	}else{
           var mp3 = input;
           var paths = 'http://47.100.11.38/bgmp3/'+mp3;
-          // var netAudio = api.require('netAudio');
-          // netAudio.play({
-          //     path: paths
-          // }, function(ret, err) {
-          //     if (ret) {
-          //       console.log(2225222);
-          //
-          //       api.startRecord({
-          //           path: 'fs://luyin/' + timestamp + jubenid+'.amr'
-          //       });
-          //       timestamps = timestamp;
-          //       timeC();
-          //       timedCount();
-          //       console.log(898789);
-          //     } else {
-          //         // alert(JSON.stringify(err));
-          //     }
-          // });
-          var audioStreamer = api.require('audioStreamer');
-          audioStreamer.openPlayer({
-              path: paths,
-          }, function(ret) {
-              if (ret.status) {
-                  // api.alert({ msg: JSON.stringify(ret) });
-                  api.startRecord({
-                            path: 'fs://luyin/' + timestamp + jubenid+'.amr'
-                        });
-                        timestamps = timestamp;
-                        timeC();
-                        timedCount();
+          var netAudio = api.require('netAudio');
+          netAudio.play({
+              path: paths
+          }, function(ret, err) {
+              if (ret) {
+
+              } else {
+                  // alert(JSON.stringify(err));
               }
           });
-          console.log(123321);
-
       	}
       }
 
@@ -703,25 +679,13 @@
     function fnNetAudiosLuYinByID() {
         if (input) {
             fnBeiYueplay();
-            return false;
         }
-        console.log(111115);
-        api.startRecord({
-            path: 'fs://luyin/' + timestamp + jubenid+'.amr'
-        });
-
-
-        // var audioRecorder = api.require('audioRecorder');
-        // audioRecorder.startRecord({
-        //   savePath:'fs://luyin/' + timestamp + jubenid+'.pcm',
-        //   format:'pcm'
-        // }, function(ret, err){
-        //   // alert(JSON.stringify(ret));
-        //   console.log(JSON.stringify(ret));
+        console.log(11111);
+        console.log(timestamp);
+        console.log(jubenid);
+        // api.startRecord({
+        //     path: 'fs://luyin/' + timestamp + jubenid+'.amr'
         // });
-
-
-
         // r = plus.audio.getRecorder();
         //     if(r == null) {
         //         console.log('录音对象未获取')
@@ -770,30 +734,20 @@
             playCollect.src = "../image/read/recording.png";
             a = 2;
             //暂停播放
-            // var netAudio = api.require('netAudio');
-            // netAudio.stop();
-            var audioStreamer = api.require('audioStreamer');
-audioStreamer.pause();
+            var netAudio = api.require('netAudio');
+            netAudio.stop();
             stopCount();
             //暂停录音
-            console.log(235656532);
             api.stopRecord(function(ret, err) {
               console.log(JSON.stringify(ret));
-              console.log(8888);
               console.log(JSON.stringify(err));
                 if (ret) {
                     // console.log(ret.path);
                     path = ret.path;
-                    console.log(999);
                     console.log(path);
                     duration = ret.duration;
                 }
             });
-            // var audioRecorder = api.require('audioRecorder');
-            // audioRecorder.stopRecord(function(ret){
-            //     // alert(JSON.stringify(ret));
-            //     console.log(JSON.stringify(ret));
-            // });
 
         }
 

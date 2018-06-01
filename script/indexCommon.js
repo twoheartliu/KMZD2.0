@@ -228,6 +228,7 @@ function netAudioPlay() {
     var myAudio = document.getElementById("myAudio");
     myAudio.play();
     fnBoFangmoshiid();
+    // fnBoFangmoshiid()
     initEventListennerBoFangMoshi();
     api.sendEvent({
         name: 'jibenxinxi',
@@ -391,7 +392,6 @@ function addtime() {
 function fnGeDanShangYi() {
     var myAudio = document.getElementById("myAudio");
     netAudioPause();
-    fnUserFollow();
     myAudio.currentTime = 0;
     clearInterval(timer2);
     clearInterval(timer1);
@@ -405,7 +405,6 @@ function fnGeDanShangYi() {
 function fnGeDanxiaYi() {
     var myAudio = document.getElementById("myAudio");
     netAudioPause();
-    fnUserFollow();
     myAudio.currentTime = 0;
     myAudio.load();
     clearInterval(timer2);
@@ -562,9 +561,12 @@ function fnZhuanJiZhanshi(data_) {
 //随机播放歌曲
 function suiji() {
     clearInterval(shunxuplays);
+
     var Range = 0 - rets.data.length;
+    // console.log(Range);
     var Rand = Math.random();
-    var n = rets.data.length + Math.floor(Rand * Range);
+    // console.log(Rand);
+    var n = rets.data.length + Math.floor((Math.random()) * (0 - rets.data.length));
     suijiplays = setInterval(function() {
         if (myAudio.ended) {
             if (n == rets.data.length) {
@@ -602,6 +604,7 @@ function bfdanqu() {
             fndanqubofangmoshi();
         }
     }, 1000);
+
     bofangmoshiid = 2;
     fnBFMoshi(bofangmoshiid);
 }
@@ -610,7 +613,8 @@ function fnSuiJiBoFangMoShiGeQuid(n) {
     play = n;
     var myAudio = document.getElementById("myAudio");
     netAudioPause();
-    fnUserFollow();
+    bofangmoshiid = 1;
+    fnBFMoshi(bofangmoshiid);
     myAudio.currentTime = 0;
     clearInterval(timer2);
     clearInterval(timer1);
@@ -619,7 +623,6 @@ function fnSuiJiBoFangMoShiGeQuid(n) {
 //单曲循环播放更新
 function fndanqubofangmoshi() {
     netAudioPause();
-    fnUserFollow();
     myAudio.currentTime = 0;
     clearInterval(timer1);
     clearInterval(timer2);
@@ -633,14 +636,13 @@ function fnBFMoshi(MoShiId) {
 
 //判断播放模式
 function fnBoFangmoshiid() {
-    if (bofangmoshiid == '0') {
-        shunxu();
-    } else if (bofangmoshiid == '1') {
+    if (bofangmoshiid == 1) {
         suiji();
-    } else if (bofangmoshiid == '2') {
+    } else if (bofangmoshiid == 2) {
         bfdanqu();
+    }else{
+      shunxu();
     }
-
 }
 
 function fnBOFangJian(bofangs, aa, playlist,playUrlis) {

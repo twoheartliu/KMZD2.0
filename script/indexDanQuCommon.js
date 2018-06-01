@@ -70,7 +70,6 @@ function fnBoFangyinpinxinxis(id) {
 function fnGeDanShangYis(a) {
     var myAudio = document.getElementById("myAudio");
     netAudioPause();
-    fnUserFollow();
     myAudio.currentTime = 0;
     clearInterval(timer2);
     clearInterval(timer1);
@@ -80,7 +79,6 @@ function fnGeDanShangYis(a) {
 function fnGeDanxiaYis(a) {
     var myAudio = document.getElementById("myAudio");
     netAudioPause();
-    fnUserFollow();
     myAudio.currentTime = 0;
     myAudio.load();
     clearInterval(timer2);
@@ -151,7 +149,7 @@ function bfdanqus() {
 }
 //单曲循环播放更新
 function fndanqubofangmoshis() {
-    netAudiopauseSssDanqu();
+    netAudioPause();
     fnUserFollow();
     myAudio.currentTime = 0;
     clearInterval(timer1);
