@@ -304,35 +304,84 @@
     function fnDeleteList(id) {
         // console.log('wawaawaaw');
         // console.log(id);
-        api.ajax({
-            url: host + apiUri + '/user/del_collection',
-            method: 'post',
-            headers: {
-                "source": api.systemType,
-                "version": version,
-                "session": token
+
+        var dialogBox = api.require('dialogBox');
+        dialogBox.alert({
+            texts: {
+                content: '确定要删除吗？',
+                leftBtnTitle: '取消',
+                rightBtnTitle: '确认'
             },
-            data: {
-                values: {
-                    id: id,
-                    type: 1,
+            styles: {
+                bg: '#fff',
+                w: 300,
+                content: {
+                    color: '#000',
+                    size: 14
+                },
+                left: {
+                    marginB: 15,
+                    marginL: 20,
+                    w: 100,
+                    h: 35,
+                    corner: 2,
+                    bg: '#ccc',
+                    color: '#fff',
+                    size: 12
+                },
+                right: {
+                    marginB: 15,
+                    marginL: 60,
+                    w: 100,
+                    h: 35,
+                    corner: 2,
+                    bg: '#ccc',
+                    color: '#fff',
+                    size: 12
                 }
-            },
-        }, function(ret, err) {
-            if (ret) {
-                if (ret.status == 200) {
-                    // console.log('haaaaa');
-                    var ids = 'single_' + id
-                    var item = $api.byId(ids);
-                    // console.log(item);
-                    $api.remove(item);
-                } else {
-                    // netMessage(ret);
-                }
-            } else {
-                netWork(err);
+            }
+        }, function(ret) {
+            if (ret.eventType == 'right') {
+                api.ajax({
+                    url: host + apiUri + '/user/del_collection',
+                    method: 'post',
+                    headers: {
+                        "source": api.systemType,
+                        "version": version,
+                        "session": token
+                    },
+                    data: {
+                        values: {
+                            id: id,
+                            type: 1,
+                        }
+                    },
+                }, function(ret, err) {
+                    if (ret) {
+                        if (ret.status == 200) {
+                            // console.log('haaaaa');
+                            var ids = 'single_' + id
+                            var item = $api.byId(ids);
+                            // console.log(item);
+                            $api.remove(item);
+                            
+                            var dialogBox = api.require('dialogBox');
+                            dialogBox.close({
+                                dialogName: 'alert'
+                            });
+                        } else {
+                            // netMessage(ret);
+                        }
+                    } else {
+                        netWork(err);
+                    }
+                });
+            } else if (ret.eventType == 'left') {
+                var dialogBox = api.require('dialogBox');
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
             }
         });
-
     }
 </script>
