@@ -823,7 +823,7 @@
               pageParam: {
                   playlistid: playlistid,
                   a: a,
-                  dangqianbofangid: Dqbofangid,
+                  DangQianbofangid: Dqbofangid,
                   playUrli:'/album/song_list/'
               }
           });
@@ -916,7 +916,7 @@
                   if (ret.status == 200) {
 
                         api.toast({              
-                            msg:   '已收藏',
+                            msg:   '收藏成功',
                             duration:  2000,
                             location:   'middle'          
                         });
@@ -1051,20 +1051,13 @@
                 }
             }, function(ret, err) {
                 if (ret.status == 200) {
-                    // fnRecommendedDirectory(ret);
                     if(ret.data == "inc"){
                       api.toast({              
                           msg:   '收藏成功',
                           duration:  2000,
                           location:   'middle'          
                       });
-                      // fnAlbumAetails();
                     }
-                    // collections++;
-                    // var stylelist = $api.byId('collections');
-                    // var html = collections;
-                    // $api.html(stylelist, html);
-                    // $api.setStorage('albumExtraCollection' + albumId + '','inc');
                 } else {
                   netMessage(ret);
                 }
@@ -1091,7 +1084,6 @@
                 }
             }, function(ret, err) {
                 if (ret.status == 200) {
-                    // fnRecommendedDirectory(ret);
                     if(ret.data == "dec"){
                       api.toast({              
                           msg:   '已取消收藏',
@@ -1099,14 +1091,6 @@
                           location:   'middle'          
                       });
                     }
-                    // collections--;
-                    // if(collections<0){
-                    //   collections = 0;
-                    // }
-                    // var stylelist = $api.byId('collections');
-                    // var html = collections;
-                    // $api.html(stylelist, html);
-                    // $api.setStorage('albumExtraCollection' + albumId + '','dec');
                 } else {
                   netMessage(ret);
                 }
@@ -1203,9 +1187,6 @@
     function fnOpenDiscussDetail(id,name) {
       // var albumId = id;
       var uris = '/album/comment/';
-      console.log(id);
-      console.log(name);
-      console.log(albumId);
         api.openWin({
             name: 'discussDetail0',
             url: './discuss_detail0.html',
