@@ -242,8 +242,10 @@
                 var securitycente_Imgqq = $api.byId('securitycente_Imgqq');
                 var isImgQQ = '';
                 if (is_qqImg == 1) {
+                  alert(1);
                     isImgQQ = '<img src="../image/my/Bindings.png" alt="" class="collectmusicQQ" onclick="collectmusicQQ(this)" data-click="1">'
                 } else {
+                  alert(2);
                     isImgQQ = '<img src="../image/my/Binding.png" alt="" class="collectmusicQQ" onclick="collectmusicQQ(this)" data-click="0">'
                 }
                 $api.html(securitycente_Imgqq, isImgQQ);
@@ -304,6 +306,7 @@
                                     var nickname = ret.info.nickname;
                                     var gender = ret.info.gender;
                                     var figureurl_qq_2 = ret.info.figureurl_qq_2;
+                                    console.log(figureurl_qq_2);
                                     var token = $api.getStorage('token');
                                     api.ajax({
                                         url: host + apiUri + '/user/bind_qq',
@@ -319,6 +322,7 @@
                                             }
                                         }
                                     }, function(ret, err) {
+                                      console.log(JSON.stringify(ret));
                                         if (ret.status == 10407) {
                                             api.toast({
                                                 msg: '您已绑定过QQ',
