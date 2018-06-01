@@ -211,6 +211,7 @@ function fnFuZhiAudio(url) {
     var stylelist = $api.byId('yinpin');
     var html = '<audio id="myAudio" ><source src="' + url + '" type="audio/mp3"></audio>';
     $api.html(stylelist, html);
+    console.log(html);
     if (html) {
         kaishibofang();
     }
@@ -235,7 +236,9 @@ function netAudioPlay() {
             singerName: singerName,
         }
     });
-    if(bofang == 6){
+    if(bofang == 8){
+      bofang = 9;
+    }else if(bofang == 6){
       bofang = 7;
     }else if (bofang == 4) {
       bofang = 5;
@@ -261,7 +264,9 @@ function netAudioPlay() {
 function netAudioPause() {
     var myAudio = document.getElementById("myAudio");
     myAudio.pause();
-    if(bofang == 7){
+    if (bofang == 9) {
+      bofang = 8;
+    }else if(bofang == 7){
       bofang = 6;
     }else if (bofang == 5) {
       bofang = 4;

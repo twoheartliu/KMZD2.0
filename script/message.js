@@ -266,11 +266,11 @@ function netMessage(ret){
     });
   }
   if(ret.status == 10801){
-    api.toast({              
-        msg:  '参数错误',
-        duration:  timeOut,
-        location:   'middle'          
-    });
+    // api.toast({              
+    //     msg:  '参数错误',
+    //     duration:  timeOut,
+    //     location:   'middle'          
+    // });
   }
   if(ret.status == 10802){
     api.toast({              

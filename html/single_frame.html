@@ -593,6 +593,15 @@
 
         fnAlbumAetails();
         fnAlbumTrack();
+        api.addEventListener({
+            name: 'gengXin'
+        }, function(ret, err) {
+
+            if(ret){
+              fnAlbumAetails();
+            }
+            return;
+        });
         api.setCustomRefreshHeaderInfo({
             bgColor: '#f0f0f0',
             image: {
@@ -620,38 +629,23 @@
         }, function() {
                 //下拉刷新被触发，自动进入加载状态，使用 api.refreshHeaderLoadDone() 手动结束加载中状态
                 //下拉刷新被触发，使用 api.refreshHeaderLoadDone() 结束加载中状态
-                api.addEventListener({
-                    name: 'neizhiliebiaoPlaysss'
-                }, function(ret, err) {
-                    if(ret.value.wangluo){
-                      fnAlbumAetails();
-                      fnAlbumTrack();
-                    }
-                    return false;
-                });
-                var connectionType = api.connectionType;
-                if(connectionType == "none"){
-                  api.toast({              
-                      msg: '网络未链接',
-                      duration:  2000,
-                      location:   'middle'          
-                  });
-                  api.openWin({
-                      name: 'oops',
-                      url: '../oops.html',
-                      pageParam: {
-                          name: 'test'
-                      }
-                  });
-                  return false;
-                }else{
-                  fnAlbumAetails();
-                  fnAlbumTrack();
-                  // fnExtraGoodssssss();
-                  // $api.rmStorage('albumExtraGoodHtml');
-                  // $api.rmStorage('albumExtraGood');
-                }
-            });
+          api.addEventListener({
+              name: 'neizhiliebiaoPlaysss'
+          }, function(ret, err) {
+              if(ret.value.wangluo){
+                fnAlbumAetails();
+                fnAlbumTrack();
+              }
+              return false;
+          });
+
+            fnAlbumAetails();
+            fnAlbumTrack();
+            // fnExtraGoodssssss();
+            // $api.rmStorage('albumExtraGoodHtml');
+            // $api.rmStorage('albumExtraGood');
+
+      });
     }
     function fnExtraGoodssssss(){
       var albumss = $api.getStorage('albumExtraGood'+albumId);
@@ -1060,7 +1054,7 @@
                     // fnRecommendedDirectory(ret);
                     if(ret.data == "inc"){
                       api.toast({              
-                          msg:   '已收藏',
+                          msg:   '收藏成功',
                           duration:  2000,
                           location:   'middle'          
                       });

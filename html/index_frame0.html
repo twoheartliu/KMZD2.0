@@ -15,7 +15,7 @@
         body {
             min-height: 100%;
             position: relative;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
 
         .fr {
@@ -118,6 +118,7 @@
             font-size: 20px;
             padding-top: 10px;
             padding-bottom: 10px;
+            word-break: break-all;
         }
 
         .sectionTitle {
@@ -146,8 +147,10 @@
         .listtitle {
             font-size: 12px;
             color: #000;
-            height: 20px;
+            height: 24px;
+            line-height: 12px;
         }
+        .listtitle div{word-wrap: break-word;}
         /*个性化推荐 */
 
         .egret-flex-item {
@@ -594,7 +597,7 @@
                           var xxxx = ssss / cccc;
                             // style="width:' + xxxx + 'px;"
                             html += '<div class="hotC" style="width:' + xxxx + 'px;" onclick="fnSingLeWin(' + data_.data[i].content[s].id + ',\'' + data_.data[i].floor_name + '\',\'' + data_.data[i].content_type + '\');"><img src=" ' + host + '/' +
-                                data_.data[i].content[s].big + '" alt=""><div class="listtitle" style="width:' + xxxx + 'px;"> ' + data_.data[
+                                data_.data[i].content[s].big + '" alt=""><div class="listtitle" style=""> ' + data_.data[
                                     i].content[s].title + '</div></div>';
                         } else if (data_.data[i].content_type == "listening") {
                             var cccc = column;
@@ -602,7 +605,7 @@
                             var xxxx = ssss / cccc;
                             // style = "width:' + xxxx + 'px;"
                             html += '<div class="hotC" style="width:' + xxxx + 'px;" onclick="fnSingLeWin(' + data_.data[i].content[s].id + ',\'' + data_.data[i].floor_name + '\',\'' + data_.data[i].content_type + '\');"><img src=" ' + listeningImg +
-                                '/' + data_.data[i].content[s].sma + '" alt=""><div class="listtitle" style="width:' + xxxx + 'px;"> ' + data_.data[
+                                '/' + data_.data[i].content[s].sma + '" alt=""><div class="listtitle" style="">' + data_.data[
                                     i].content[s].title + '</div></div>';
                         }
                         // var cccc = column;
@@ -619,7 +622,7 @@
                             html += '<div class="egret-flex-item"><div class="egret-flex-items" tapmode="fmbtnhover" onclick="fnOpenPlay(' + data_.data[i].content[s].id + ')"><div class="egret-flex-item-logo"><img src="' + host + '/' + data_.data[i]
                                 .content[
                                     s].mid + '" alt="" class=""></div><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 fl"><span>' + data_.data[i].content[s].title +
-                                '</span></span></div><div class="egret-flex-item-shelf02"><span>' +
+                                '</span></span></div><div class="egret-flex-item-shelf02"><span>作者：' +
                                 data_.data[i].content[s].author_name + '</span></div><div class="egret-flex-item-shelf03"><div><img src="../image/KM_play.png" alt=""><span>' + data_.data[
                                     i].content[s].play_total + '</span></div><div><img src="../image/KM_zf.png" alt=""><span>' + data_.data[i].content[s].share_total +
                                 '</span></div><div><img src="../image/KM_dz.png" alt=""><span>' + data_.data[i].content[s].good_total +
@@ -630,7 +633,7 @@
                             html += '<div class="egret-flex-item"><div class="egret-flex-items" tapmode="fmbtnhover" onclick="fnOpenPlay(' + data_.data[i].content[s].id + ')"><div class="egret-flex-item-logo"><img src="' + host + '/' + data_.data[i]
                                 .content[
                                     s].mid + '" alt="" class=""></div><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 fl"><span>' + data_.data[i].content[s].title +
-                                '</span></span></div><div class="egret-flex-item-shelf02"><span></span></div><div class="egret-flex-item-shelf03"><div><img src="../image/KM_play.png" alt=""><span>' + data_.data[
+                                '</span></span></div><div class="egret-flex-item-shelf02"><span>作者：</span></div><div class="egret-flex-item-shelf03"><div><img src="../image/KM_play.png" alt=""><span>' + data_.data[
                                     i].content[s].play_total + '</span></div><div><img src="../image/KM_zf.png" alt=""><span>' + data_.data[i].content[s].share_total +
                                 '</span></div><div><img src="../image/KM_dz.png" alt=""><span>' + data_.data[i].content[s].good_total +
                                 '</span></div></div></div>  </div><div class="egret-flex-item-shelf04" onclick="fnOpenPlayMore(' + data_.data[i].content[s].id +
@@ -895,7 +898,7 @@
                         if (ret.status == 200) {
 
                             api.toast({              
-                                msg:   '已收藏',
+                                msg:   '收藏成功',
                                 duration:  2000,
                                 location:   'middle'          
                             });

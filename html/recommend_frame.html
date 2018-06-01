@@ -289,8 +289,14 @@
                     var html = '';
                     html += '<div class="hot" id="hot">';
                     for (var i = 0; i < ret.data.list.length; i++) {
+                      if(ret.data.fllor_info.content_type == 'album'){
                         html += '<div class="hotC" onclick="fnSingleWin(' + ret.data.list[i].id + ',\'' + ret.data.list[i].title + '\',\'' + ret.data.fllor_info.content_type + '\');"><img src=" ' + host + '/' + ret.data.list[i].big +
                             '" alt=""><div class="listtitle"> ' + ret.data.list[i].title + '</div></div>';
+                      }else if(ret.data.fllor_info.content_type == 'listening'){
+                        html += '<div class="hotC" onclick="fnSingleWin(' + ret.data.list[i].id + ',\'' + ret.data.list[i].title + '\',\'' + ret.data.fllor_info.content_type + '\');"><img src=" ' + listeningImg + '/' + ret.data.list[i].big +
+                            '" alt=""><div class="listtitle"> ' + ret.data.list[i].title + '</div></div>';
+                      }
+
                     }
                     html += '</div>';
                     $api.html(stylelist, html);
