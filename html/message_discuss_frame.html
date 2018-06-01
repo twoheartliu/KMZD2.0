@@ -174,7 +174,16 @@ var p = 1;
                 // console.log(ret.data.list[i].photo);
               }
                 $api.html(sections , html);
+
                 // fnAjaxDetail(id);
+                api.sendEvent({
+                    name: 'unread',
+                    extra: {
+                        message: ret.data.unread.message,
+                        comment:ret.data.unread.comment,
+                        notify:ret.data.unread.notify
+                    }
+                });
             }
             // console.log( JSON.stringify( ret ) );
         } else {
@@ -199,7 +208,6 @@ var p = 1;
             }
         }
     },function(ret, err){
-        console.log(JSON.stringify(ret.data.list.length));
         if (ret) {
             if (ret.status == 200) {
               api.refreshHeaderLoadDone();
@@ -233,14 +241,11 @@ var p = 1;
                   var footer = $api.byId('footer');
                   $api.html(footer, '无更多数据');
                 }else {
-                  console.log(ret.data.length);
                   if (ret.data.list.length < 10) {
                     var footer = $api.byId('footer');
-                    // $api.css(footer, 'display:none');
                     $api.html(footer, '无更多数据');
                   }else {
                     var footer = $api.byId('footer');
-                    // $api.css(footer, 'display:block');
                     $api.html(footer, '正在加载更多');
                   }
                   $api.append(sections,
@@ -258,6 +263,7 @@ var p = 1;
 
                 // console.log(ret.data.list[i].photo);
               }
+
                 // fnAjaxDetail(id);
             }
             // console.log( JSON.stringify( ret ) );
