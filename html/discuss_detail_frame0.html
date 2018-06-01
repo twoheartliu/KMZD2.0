@@ -11,7 +11,8 @@
         html,
         body {
             min-height: 100%;
-            background: #f2f2f2
+            background: #ffffff;
+            padding-bottom: 40px;
         }
 
         .fr {
@@ -49,15 +50,15 @@
         .hdivider {
             width: 100%;
             height: 1px;
-            background-color: #f2f2f2;
+            /*background-color: #f2f2f2;*/
         }
 
         .br {
-            border-right: 1px solid #f2f2f2;
+            /*border-right: 1px solid #f2f2f2;*/
         }
 
         .bb {
-            border-bottom: 1px solid #f2f2f2;
+            /*border-bottom: 1px solid #f2f2f2;*/
             height: 1px;
         }
 
@@ -91,7 +92,7 @@
             border-radius: 10px;
             box-shadow: 0px 0px 5px #bbb;
             margin-top: 5px;
-            width:100%;
+            width: 100%;
         }
 
         .single_img {
@@ -99,8 +100,8 @@
             /*height: 130px;*/
             padding: 10px;
             width: 30%;
-            height:auto;
-            margin-top:8px;
+            height: auto;
+            margin-top: 8px;
         }
 
         .single_img img {
@@ -154,10 +155,11 @@
             height: 25px;
             margin-left: 6px;
         }
+
         .single_times {
             font-size: 11px;
             /*overflow: hidden;*/
-            width:100%;
+            width: 100%;
             height: 50px;
             margin-left: 6px;
             text-indent: 11px;
@@ -165,7 +167,7 @@
 
         .playall {
             width: 100%;
-            background-color: #eee;
+            background-color: #fff;
             margin-top: 20px;
         }
 
@@ -226,7 +228,7 @@
 
         .discuss {
             height: auto;
-            background-color: #f2f2f3;
+            background-color: #fff;
             color: #999;
             line-height: 20px;
         }
@@ -263,9 +265,42 @@
 
         .sec-discuss {
             background-color: #fff;
-            padding: 8px;
-            border-bottom: 3px solid #e0e0e0;
+            /*padding: 8px;*/
+            margin:  10px;
+            padding: 10px;
+            border-bottom: 1px solid #BCBCBF;
+
         }
+        .sec-discuss:last-child {
+            background-color: #fff;
+            margin:  10px;
+            padding: 10px;
+            border-bottom: 1px solid #fff;
+        }
+
+        #footer {
+            display: block;
+            width: 100%;
+            height: 20px;
+            line-height: 20px;
+            text-align: center;
+            margin-bottom: 40px;
+            /*background-color: red;*/
+
+        }
+
+
+        /*hr {
+            display: block;
+            border-style: inset;
+            border-width: 1px;
+            margin: 0 10px;
+            background-color: #fff;
+        }*/
+
+        /*hr:last-child {
+            display: none;
+        }*/
 
         .sec-img {
             display: inline-block;
@@ -296,11 +331,13 @@
             color: #ccc;
             font-size: 13px;
         }
-        .dis-right{
-          color: #ccc;
-          font-size: 14px;
-          padding-top: 10px;
+
+        .dis-right {
+            color: #ccc;
+            font-size: 14px;
+            padding-top: 10px;
         }
+
         .dis-right>div {
             color: #ccc;
             font-size: 14px;
@@ -337,7 +374,7 @@
         .reply div {
             float: right;
             font-size: 14px;
-            color:#999;
+            color: #999;
         }
 
         #section {
@@ -351,6 +388,7 @@
         .collectmusicFxs img {
             width: 100%;
         }
+        #allcommentS{background: #eee;}
     </style>
 </head>
 
@@ -376,44 +414,54 @@
             <section id="section">
                 <div class="sec-tit" id="allcommentS">所有评论</div>
                 <div id="comments"></div>
+        <!-- </div> -->
 
-
+        <!-- <div class="sec-discuss">
+            <div class="dis-left fl">
+                <div class="sec-img"><img src="../image/icon-person.png" alt=""></div>
+                <div class="sec-txt">
+                    <p>燕赵门</p>
+                    <p>2017年9月19日</p>
                 </div>
-                <!-- <div class="sec-discuss">
-                    <div class="dis-left fl">
-                        <div class="sec-img"><img src="../image/icon-person.png" alt=""></div>
-                        <div class="sec-txt">
-                            <p>燕赵门</p>
-                            <p>2017年9月19日</p>
-                        </div>
-                    </div>
-                    <div class="dis-right fr" >
-                        <div class="fr" ><img src="../image/KM_ListingsListDzs.png" alt="" class="zan01"></div><div class="fr"><span>3</span></div>
-                    </div>
-                    <div class="clear"></div>
-                    <div class="dis-txt">海中月是天上月，眼前人是心上人。向来心是看客心，奈何人是剧中人</div>
-                    <div class="reply"><div  onclick="fnOpenMessageNotDetail()">回复</div></div>
-                </div>
-                <div class="sec-discuss">
-                    <div class="dis-left fl">
-                        <div class="sec-img"><img src="../image/icon-person.png" alt=""></div>
-                        <div class="sec-txt">
-                            <p>燕赵门</p>
-                            <p>2017年9月19日</p>
-                        </div>
-                    </div>
-                    <div class="dis-right fr">
-                        <span>3</span><img src="../image/KM_ListingsListDzs.png" alt="" class="zan01">
-                    </div>
-                    <div class="clear"></div>
-                    <div class="dis-txt">海中月是天上月，眼前人是心上人。向来心是看客心，奈何人是剧中人</div>
-                    <div class="reply"><div  onclick="fnOpenMessageNotDetail()">回复</div></div>
-                    <div class="discuss">
-                        <span>我的评论：不知道为什么分开，很多喜欢以为永远会喜欢，到最后才发现任何事情都抵不过时过境迁。</span>
-                    </div> -->
-
-            </section>
+            </div>
+            <div class="dis-right fr">
+                <div class="fr"><img src="../image/KM_ListingsListDzs.png" alt="" class="zan01"></div>
+                <div class="fr"><span>3</span></div>
+            </div>
+            <div class="clear"></div>
+            <div class="dis-txt">海中月是天上月，眼前人是心上人。向来心是看客心，奈何人是剧中人</div>
+            <div class="reply">
+                <div onclick="fnOpenMessageNotDetail()">回复</div>
+            </div>
+            <hr>
         </div>
+        <div class="sec-discuss">
+            <div class="dis-left fl">
+                <div class="sec-img"><img src="../image/icon-person.png" alt=""></div>
+                <div class="sec-txt">
+                    <p>燕赵门</p>
+                    <p>2017年9月19日</p>
+                </div>
+            </div>
+            <div class="dis-right fr">
+                <span>3</span><img src="../image/KM_ListingsListDzs.png" alt="" class="zan01">
+            </div>
+            <div class="clear"></div>
+            <div class="dis-txt">海中月是天上月，眼前人是心上人。向来心是看客心，奈何人是剧中人</div>
+            <div class="reply">
+                <div onclick="fnOpenMessageNotDetail()">回复</div>
+            </div>
+            <div class="discuss">
+                <span>我的评论：不知道为什么分开，很多喜欢以为永远会喜欢，到最后才发现任何事情都抵不过时过境迁。</span>
+            </div>
+            <hr>
+        </div> -->
+        <div id="footer" class="disnone">
+            没有更多评论了
+        </div>
+        </section>
+
+    </div>
     </div>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
@@ -427,49 +475,49 @@
     var commentExtraGoods;
     var name;
     apiready = function() {
-        token = $api.getStorage('token');
-        name = api.pageParam.name;
-        albumId = api.pageParam.albumId;
-        uris = api.pageParam.uris;
-        ListenToTheListOfComments();
-        fnDetails();
-        api.addEventListener({
-            name: 'gengXin'
-        }, function(ret, err) {
+            token = $api.getStorage('token');
+            name = api.pageParam.name;
+            albumId = api.pageParam.albumId;
+            uris = api.pageParam.uris;
             ListenToTheListOfComments();
-        });
-        // api.setCustomRefreshHeaderInfo({
-        //     bgColor: '#f0f0f0',
-        //     image: {
-        //       pull: [
-        //           'widget://image/Refresh/dropdown_anim_00.png',
-        //           'widget://image/Refresh/dropdown_anim_01.png',
-        //           'widget://image/Refresh/dropdown_anim_02.png',
-        //           'widget://image/Refresh/dropdown_anim_03.png',
-        //           'widget://image/Refresh/dropdown_anim_04.png',
-        //           'widget://image/Refresh/dropdown_anim_05.png',
-        //           'widget://image/Refresh/dropdown_anim_06.png',
-        //           'widget://image/Refresh/dropdown_anim_07.png',
-        //           'widget://image/Refresh/dropdown_anim_08.png',
-        //           'widget://image/Refresh/dropdown_anim_09.png',
-        //           'widget://image/Refresh/dropdown_anim_10.png',
-        //     ],
-        //     load: [
-        //           'widget://image/Refresh/dropdown_anim_00.png',
-        //           'widget://image/Refresh/dropdown_anim_01.png',
-        //           'widget://image/Refresh/dropdown_anim_02.png',
-        //           'widget://image/Refresh/dropdown_anim_03.png',
-        //           'widget://image/Refresh/dropdown_anim_04.png',
-        //           'widget://image/Refresh/dropdown_anim_05.png',
-        //   ]}
-        // }, function() {
-        //     //下拉刷新被触发，自动进入加载状态，使用 api.refreshHeaderLoadDone() 手动结束加载中状态
-        //     //下拉刷新被触发，使用 api.refreshHeaderLoadDone() 结束加载中状态
-        //     fnDetails()
-        //     ListenToTheListOfComments();
-        // });
-    }
-    //个人主页
+            fnDetails();
+            api.addEventListener({
+                name: 'gengXin'
+            }, function(ret, err) {
+                ListenToTheListOfComments();
+            });
+            // api.setCustomRefreshHeaderInfo({
+            //     bgColor: '#f0f0f0',
+            //     image: {
+            //       pull: [
+            //           'widget://image/Refresh/dropdown_anim_00.png',
+            //           'widget://image/Refresh/dropdown_anim_01.png',
+            //           'widget://image/Refresh/dropdown_anim_02.png',
+            //           'widget://image/Refresh/dropdown_anim_03.png',
+            //           'widget://image/Refresh/dropdown_anim_04.png',
+            //           'widget://image/Refresh/dropdown_anim_05.png',
+            //           'widget://image/Refresh/dropdown_anim_06.png',
+            //           'widget://image/Refresh/dropdown_anim_07.png',
+            //           'widget://image/Refresh/dropdown_anim_08.png',
+            //           'widget://image/Refresh/dropdown_anim_09.png',
+            //           'widget://image/Refresh/dropdown_anim_10.png',
+            //     ],
+            //     load: [
+            //           'widget://image/Refresh/dropdown_anim_00.png',
+            //           'widget://image/Refresh/dropdown_anim_01.png',
+            //           'widget://image/Refresh/dropdown_anim_02.png',
+            //           'widget://image/Refresh/dropdown_anim_03.png',
+            //           'widget://image/Refresh/dropdown_anim_04.png',
+            //           'widget://image/Refresh/dropdown_anim_05.png',
+            //   ]}
+            // }, function() {
+            //     //下拉刷新被触发，自动进入加载状态，使用 api.refreshHeaderLoadDone() 手动结束加载中状态
+            //     //下拉刷新被触发，使用 api.refreshHeaderLoadDone() 结束加载中状态
+            //     fnDetails()
+            //     ListenToTheListOfComments();
+            // });
+        }
+        //个人主页
     function fnOpenmyPersonal(id, nickname) {
         api.openWin({
             name: 'myPersonal',
@@ -477,10 +525,11 @@
             pageParam: {
                 userId: id,
                 nickName: nickname,
-                ok:'myPersonal'
+                ok: 'myPersonal'
             },
         });
     };
+
     function fnDetails() {
         if (uris == '/listening/comment/') {
             var uri = '/listening/detail/';
@@ -491,7 +540,7 @@
             url: host + apiUri + uri + albumId,
             method: 'get',
             dataType: 'json',
-            timeout:10,
+            timeout: 10,
             headers: {
                 "source": api.systemType,
                 "version": version,
@@ -499,54 +548,57 @@
             }
         }, function(ret, err) {
             // alert(JSON.stringify(ret));
-            if(ret){
-            if (ret.status == 200) {
-              var stylelist = $api.byId('details');
-                var html = '';
-                if(ret.data.title) {
-                    if (ret.data.author_name != null) {
-                          if(ret.data.brief){
-                            html = '<div class="single"><div class="single_img fl"><img src="../image/index/pic.jpg" alt=""></div><div class="single_l fl"><div class="single_h1" id="tingdanliebiaobiaoti"> ' + ret.data.title +
-                                ' </div><div class="single_img_p_span"><div class="single_img_name fl">作者：  ' + ret.data.author_name + '</div><div class="clear"></div></div><div class="single_time">简介：</div><div class="single_times">' + ret.data.brief +
+            if (ret) {
+                if (ret.status == 200) {
+                    var stylelist = $api.byId('details');
+                    var html = '';
+                    if (ret.data.title) {
+                        if (ret.data.author_name != null) {
+                            if (ret.data.brief) {
+                                html = '<div class="single"><div class="single_img fl"><img src="../image/index/pic.jpg" alt=""></div><div class="single_l fl"><div class="single_h1" id="tingdanliebiaobiaoti"> ' + ret.data.title +
+                                    ' </div><div class="single_img_p_span"><div class="single_img_name fl">作者：  ' + ret.data.author_name + '</div><div class="clear"></div></div><div class="single_time">简介：</div><div class="single_times">' +
+                                    ret.data.brief +
+                                    '</div></div><div class="clear"></div></div><div class="clear"></div>';
+                            } else {
+                                html = '<div class="single"><div class="single_img fl"><img src="../image/index/pic.jpg" alt=""></div><div class="single_l fl"><div class="single_h1" id="tingdanliebiaobiaoti"> ' + ret.data.title +
+                                    ' </div><div class="single_img_p_span"><div class="single_img_name fl">作者：  ' + ret.data.author_name +
+                                    '</div><div class="clear"></div></div><div class="single_time">简介：</div><div class="single_times"></div></div><div class="clear"></div></div><div class="clear"></div>';
+                            }
+                        } else {
+                            if (ret.data.brief) {
+                                html = '<div class="single"><div class="single_img fl"><img src="../image/index/pic.jpg" alt=""></div><div class="single_l fl"><div class="single_h1" id="tingdanliebiaobiaoti"> ' + ret.data.title +
+                                    ' </div><div class="single_img_p_span"><div class="single_img_name fl">作者：</div><div class="clear"></div></div><div class="single_time">简介：</div><div class="single_times">' + ret.data.brief +
+                                    '</div></div><div class="clear"></div></div><div class="clear"></div>';
+                            } else {
+                                html = '<div class="single"><div class="single_img fl"><img src="../image/index/pic.jpg" alt=""></div><div class="single_l fl"><div class="single_h1" id="tingdanliebiaobiaoti"> ' + ret.data.title +
+                                    ' </div><div class="single_img_p_span"><div class="single_img_name fl">作者：</div><div class="clear"></div></div><div class="single_time">简介：</div><div class="single_times"></div></div><div class="clear"></div></div><div class="clear"></div>';
+                            }
+                        }
+                    }
+                    var ssss = ret.data.linstening_info;
+                    if (ssss) {
+                        if (ret.data.linstening_info.listening_description) {
+                            html = '<div class="single"><div class="single_img fl"><img src="../image/index/pic.jpg" alt=""></div><div class="single_l fl"><div class="single_h1" id="tingdanliebiaobiaoti"> ' + ret.data.linstening_info.listening_name +
+                                ' </div><div class="single_img_p_span"><div class="single_img_name fl">' + ret.data.linstening_info.nick_name +
+                                '</div><div class="clear"></div></div><div class="single_time">简介：</div><div class="single_time">' + ret.data.linstening_info.listening_description +
                                 '</div></div><div class="clear"></div></div><div class="clear"></div>';
-                          }else{
-                            html = '<div class="single"><div class="single_img fl"><img src="../image/index/pic.jpg" alt=""></div><div class="single_l fl"><div class="single_h1" id="tingdanliebiaobiaoti"> ' + ret.data.title +
-                                ' </div><div class="single_img_p_span"><div class="single_img_name fl">作者：  ' + ret.data.author_name + '</div><div class="clear"></div></div><div class="single_time">简介：</div><div class="single_times"></div></div><div class="clear"></div></div><div class="clear"></div>';
-                          }
-                    } else {
-                      if(ret.data.brief){
-                        html = '<div class="single"><div class="single_img fl"><img src="../image/index/pic.jpg" alt=""></div><div class="single_l fl"><div class="single_h1" id="tingdanliebiaobiaoti"> ' + ret.data.title +
-                            ' </div><div class="single_img_p_span"><div class="single_img_name fl">作者：</div><div class="clear"></div></div><div class="single_time">简介：</div><div class="single_times">' + ret.data.brief +
-                            '</div></div><div class="clear"></div></div><div class="clear"></div>';
-                      }else{
-                        html = '<div class="single"><div class="single_img fl"><img src="../image/index/pic.jpg" alt=""></div><div class="single_l fl"><div class="single_h1" id="tingdanliebiaobiaoti"> ' + ret.data.title +
-                            ' </div><div class="single_img_p_span"><div class="single_img_name fl">作者：</div><div class="clear"></div></div><div class="single_time">简介：</div><div class="single_times"></div></div><div class="clear"></div></div><div class="clear"></div>';
-                      }
-                    }
-                }
-                var ssss = ret.data.linstening_info;
-                if (ssss) {
-                    if (ret.data.linstening_info.listening_description) {
-                        html = '<div class="single"><div class="single_img fl"><img src="../image/index/pic.jpg" alt=""></div><div class="single_l fl"><div class="single_h1" id="tingdanliebiaobiaoti"> ' + ret.data.linstening_info.listening_name +
-                            ' </div><div class="single_img_p_span"><div class="single_img_name fl">' + ret.data.linstening_info.nick_name + '</div><div class="clear"></div></div><div class="single_time">简介：</div><div class="single_time">' + ret.data.linstening_info.listening_description +
-                            '</div></div><div class="clear"></div></div><div class="clear"></div>';
-                    } else {
-                        html = '<div class="single"><div class="single_img fl"><img src="../image/index/pic.jpg" alt=""></div><div class="single_l fl"><div class="single_h1" id="tingdanliebiaobiaoti"> ' + ret.data.linstening_info.listening_name +
-                            ' </div><div class="single_img_p_span"><div class="single_img_name fl">' + ret.data.linstening_info.nick_name +
-                            '</div><div class="clear"></div></div><div class="single_time">简介：</div><div class="single_time"></div></div><div class="clear"></div></div><div class="clear"></div>';
+                        } else {
+                            html = '<div class="single"><div class="single_img fl"><img src="../image/index/pic.jpg" alt=""></div><div class="single_l fl"><div class="single_h1" id="tingdanliebiaobiaoti"> ' + ret.data.linstening_info.listening_name +
+                                ' </div><div class="single_img_p_span"><div class="single_img_name fl">' + ret.data.linstening_info.nick_name +
+                                '</div><div class="clear"></div></div><div class="single_time">简介：</div><div class="single_time"></div></div><div class="clear"></div></div><div class="clear"></div>';
+                        }
+
+
                     }
 
-
+                    // fnRecitationScriptRecommend(ret);
+                    $api.html(stylelist, html);
+                } else {
+                    netMessage(ret);
                 }
-
-                // fnRecitationScriptRecommend(ret);
-              $api.html(stylelist, html);
             } else {
-                netMessage(ret);
+                netWork(err);
             }
-          }else{
-            netWork(err);
-          }
 
         });
     }
@@ -556,124 +608,128 @@
             url: host + apiUri + uris + albumId,
             method: 'get',
             dataType: 'json',
-            timeout:10,
+            timeout: 10,
             headers: {
                 "source": api.systemType,
                 "version": version,
                 "session": token
             }
         }, function(ret, err) {
-          if(ret){
-            if (ret.status == 200) {
-              if(ret.data == ''){
-                var stylelist = $api.byId('allcommentS');
-                var html = '暂无评论,<span style="color:blue;" onclick="ReplyToCommentsDiscuss_detail()">去评论</span>';
-                $api.html(stylelist, html);
-              }else{
-                var allcommentS = $api.byId('allcommentS');
-                var allcommentShtmls = '所有评论';
-                $api.html(allcommentS, allcommentShtmls);
-                // setTimeout(function() {
-                    api.refreshHeaderLoadDone()
-                // }, 3000)
-
-                var stylelist = $api.byId('comments');
-                var html = '';
-                for (var i = 0; i < ret.data.length; i++) {
-                    var date = new Date(ret.data[i].create_date * 1000); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
-                    Y = date.getFullYear() + '年';
-                    M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '月';
-                    D = (date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate()) + '日';
-                    // h = date.getHours() + ':';
-                    // m = date.getMinutes() + ':';
-                    // s = date.getSeconds();
-                    // return Y+M+D+h+m+s;
-                    var dates = Y + M + D;
-                    commentExtraGoods = ret.data[i].good_total;
-                    if (ret.data[i].re_nick_name) {
-                        html += '  <div class="sec-discuss" ><div class="dis-left fl"><div class="sec-img">';
-                        if (ret.data[i].photo) {
-                          var photoss = ret.data[i].photo.substring(0,4);
-                          if(photoss == 'http'){
-                            html += '<img src="'+ret.data[i].photo+'" alt="" onclick="fnOpenmyPersonal(' + ret.data[i].user_id + ', \'' + ret.data[i].nick_name + '\');">';
-                          }else{
-                            html += '<img src="'+updatePhotoUrl+ret.data[i].photo+'" alt="" onclick="fnOpenmyPersonal(' + ret.data[i].user_id + ', \'' + ret.data[i].nick_name + '\');">';
-                          }
-                        } else {
-                            html += '<img src="../image/KM_tx.png" alt="" onclick="fnOpenmyPersonal(' + ret.data[i].user_id + ', \'' + ret.data[i].nick_name + '\');">';
-                        }
-                        html += '</div><div class="sec-txt"><p>' + ret.data[i].nick_name + '</p><p>' + dates +
-                            '</p></div></div><div class="dis-right fr"><div class="fr" id="commentExtraGood' + ret.data[i].comment_id + '"  class="collectmusicFxs">';
-                        var commentaAlbumss = $api.getStorage('commentaAlbumExtraGood' + ret.data[i].comment_id + '');
-                        // console.log(commentaAlbumss);
-                        if (!commentaAlbumss) {
-                            html += '<img src="../image/KM_ListingsListDzs.png" alt="" id="' + ret.data[i].comment_id + '" class="collectmusicFxs" onclick="collectmusicFx(this)" data-click="0">';
-
-                        } else {
-                            if (commentaAlbumss != 'inc') {
-                                html += '<img src="../image/KM_ListingsListDzs.png" alt="" id="' + ret.data[i].comment_id + '" class="collectmusicFxs" onclick="collectmusicFx(this)" data-click="0">';
-                            } else {
-                                html += '<img src="../image/KM_play_dianzan_red.png" alt="" id="' + ret.data[i].comment_id + '" class="collectmusicFxs" onclick="collectmusicFx(this)" data-click="1">';
-                            }
-                        }
-                        html += '</div><div class="fr"><span id="corner_mark' + ret.data[i].comment_id + '">' + ret.data[i].good_total + '</span></div></div><div class="clear"></div><div class="dis-txt">' + ret.data[
-                                i].content + '</div><div class="reply"><div  onclick="fnOpenMessageNotDetail(' + ret.data[i].comment_id + ', \'' + ret.data[i].nick_name + '\')">回复</div></div><div class="discuss"><span ><span style="color:#538da4">' + ret.data[i].re_nick_name +
-                            '</span>:' + ret.data[i].re_content +
-                            '</span></div></div>';
+            if (ret) {
+                if (ret.status == 200) {
+                    if (ret.data == '') {
+                        var stylelist = $api.byId('allcommentS');
+                        var html = '暂无评论,<span style="color:blue;" onclick="ReplyToCommentsDiscuss_detail()">去评论</span>';
+                        $api.html(stylelist, html);
                     } else {
-                        html += '  <div class="sec-discuss" ><div class="dis-left fl"><div class="sec-img">';
-                        if (ret.data[i].photo) {
-                          var photoss = ret.data[i].photo.substring(0,4);
-                          if(photoss == 'http'){
-                            html += '<img src="'+ret.data[i].photo+'" alt="" onclick="fnOpenmyPersonal(' + ret.data[i].user_id + ', \'' + ret.data[i].nick_name + '\');">';
-                          }else{
-                            html += '<img src="'+updatePhotoUrl+ret.data[i].photo+'" alt="" onclick="fnOpenmyPersonal(' + ret.data[i].user_id + ', \'' + ret.data[i].nick_name + '\');">';
-                          }
-                        } else {
-                            html += '<img src="../image/KM_tx.png" alt="" onclick="fnOpenmyPersonal(' + ret.data[i].user_id + ', \'' + ret.data[i].nick_name + '\');">';
-                        }
-                        html += '</div><div class="sec-txt"><p>' + ret.data[i].nick_name + '</p><p>' + dates +
-                            '</p></div></div><div class="dis-right fr"><div class="fr" id="commentExtraGood' + ret.data[i].comment_id + '" class="collectmusicFxs">';
-                        var commentaAlbumss = $api.getStorage('commentaAlbumExtraGood' + ret.data[i].comment_id + '');
-                        // console.log(commentaAlbumss);
-                        if (!commentaAlbumss) {
-                            html += '<img src="../image/KM_ListingsListDzs.png" alt="" id="' + ret.data[i].comment_id + '" class="collectmusicFxs" onclick="collectmusicFx(this)" data-click="0">';
-                        } else {
-                            if (commentaAlbumss != 'inc') {
-                                html += '<img src="../image/KM_ListingsListDzs.png" alt="" id="' + ret.data[i].comment_id + '" class="collectmusicFxs" onclick="collectmusicFx(this)" data-click="0">';
-                            } else {
-                                html += '<img src="../image/KM_play_dianzan_red.png" alt="" id="' + ret.data[i].comment_id + '" class="collectmusicFxs" onclick="collectmusicFx(this)" data-click="1">';
-                            }
-                        }
-                        html += '</div><div class="fr"><span id="corner_mark' + ret.data[i].comment_id + '">' + ret.data[i].good_total + '</span></div></div><div class="clear"></div><div class="dis-txt">' + ret.data[
-                            i].content + '</div><div class="reply"><div  onclick="fnOpenMessageNotDetail(' + ret.data[i].comment_id + ', \'' + ret.data[i].nick_name + '\')">回复</div></div></div>';
-                    }
-                    $api.html(stylelist, html);
+                        var allcommentS = $api.byId('allcommentS');
+                        var allcommentShtmls = '所有评论';
+                        $api.html(allcommentS, allcommentShtmls);
+                        // setTimeout(function() {
+                        api.refreshHeaderLoadDone()
+                            // }, 3000)
 
+                        var stylelist = $api.byId('comments');
+                        var html = '';
+                        for (var i = 0; i < ret.data.length; i++) {
+                            var date = new Date(ret.data[i].create_date * 1000); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
+                            Y = date.getFullYear() + '年';
+                            M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '月';
+                            D = (date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate()) + '日';
+                            // h = date.getHours() + ':';
+                            // m = date.getMinutes() + ':';
+                            // s = date.getSeconds();
+                            // return Y+M+D+h+m+s;
+                            var dates = Y + M + D;
+                            commentExtraGoods = ret.data[i].good_total;
+                            if (ret.data[i].re_nick_name) {
+                                html += '  <div class="sec-discuss" ><div class="dis-left fl"><div class="sec-img">';
+                                if (ret.data[i].photo) {
+                                    var photoss = ret.data[i].photo.substring(0, 4);
+                                    if (photoss == 'http') {
+                                        html += '<img src="' + ret.data[i].photo + '" alt="" onclick="fnOpenmyPersonal(' + ret.data[i].user_id + ', \'' + ret.data[i].nick_name + '\');">';
+                                    } else {
+                                        html += '<img src="' + updatePhotoUrl + ret.data[i].photo + '" alt="" onclick="fnOpenmyPersonal(' + ret.data[i].user_id + ', \'' + ret.data[i].nick_name + '\');">';
+                                    }
+                                } else {
+                                    html += '<img src="../image/KM_tx.png" alt="" onclick="fnOpenmyPersonal(' + ret.data[i].user_id + ', \'' + ret.data[i].nick_name + '\');">';
+                                }
+                                html += '</div><div class="sec-txt"><p>' + ret.data[i].nick_name + '</p><p>' + dates +
+                                    '</p></div></div><div class="dis-right fr"><div class="fr" id="commentExtraGood' + ret.data[i].comment_id + '"  class="collectmusicFxs">';
+                                var commentaAlbumss = $api.getStorage('commentaAlbumExtraGood' + ret.data[i].comment_id + '');
+                                // console.log(commentaAlbumss);
+                                if (!commentaAlbumss) {
+                                    html += '<img src="../image/KM_ListingsListDzs.png" alt="" id="' + ret.data[i].comment_id + '" class="collectmusicFxs" onclick="collectmusicFx(this)" data-click="0">';
+
+                                } else {
+                                    if (commentaAlbumss != 'inc') {
+                                        html += '<img src="../image/KM_ListingsListDzs.png" alt="" id="' + ret.data[i].comment_id + '" class="collectmusicFxs" onclick="collectmusicFx(this)" data-click="0">';
+                                    } else {
+                                        html += '<img src="../image/KM_play_dianzan_red.png" alt="" id="' + ret.data[i].comment_id + '" class="collectmusicFxs" onclick="collectmusicFx(this)" data-click="1">';
+                                    }
+                                }
+                                html += '</div><div class="fr"><span id="corner_mark' + ret.data[i].comment_id + '">' + ret.data[i].good_total + '</span></div></div><div class="clear"></div><div class="dis-txt">' + ret.data[
+                                        i].content + '</div><div class="reply"><div  onclick="fnOpenMessageNotDetail(' + ret.data[i].comment_id + ', \'' + ret.data[i].nick_name +
+                                    '\')">回复</div></div><div class="discuss"><span ><span style="color:#538da4">' + ret.data[i].re_nick_name +
+                                    '</span>:' + ret.data[i].re_content +
+                                    '</span></div></div>';
+                            } else {
+                                html += '  <div class="sec-discuss" ><div class="dis-left fl"><div class="sec-img">';
+                                if (ret.data[i].photo) {
+                                    var photoss = ret.data[i].photo.substring(0, 4);
+                                    if (photoss == 'http') {
+                                        html += '<img src="' + ret.data[i].photo + '" alt="" onclick="fnOpenmyPersonal(' + ret.data[i].user_id + ', \'' + ret.data[i].nick_name + '\');">';
+                                    } else {
+                                        html += '<img src="' + updatePhotoUrl + ret.data[i].photo + '" alt="" onclick="fnOpenmyPersonal(' + ret.data[i].user_id + ', \'' + ret.data[i].nick_name + '\');">';
+                                    }
+                                } else {
+                                    html += '<img src="../image/KM_tx.png" alt="" onclick="fnOpenmyPersonal(' + ret.data[i].user_id + ', \'' + ret.data[i].nick_name + '\');">';
+                                }
+                                html += '</div><div class="sec-txt"><p>' + ret.data[i].nick_name + '</p><p>' + dates +
+                                    '</p></div></div><div class="dis-right fr"><div class="fr" id="commentExtraGood' + ret.data[i].comment_id + '" class="collectmusicFxs">';
+                                var commentaAlbumss = $api.getStorage('commentaAlbumExtraGood' + ret.data[i].comment_id + '');
+                                // console.log(commentaAlbumss);
+                                if (!commentaAlbumss) {
+                                    html += '<img src="../image/KM_ListingsListDzs.png" alt="" id="' + ret.data[i].comment_id + '" class="collectmusicFxs" onclick="collectmusicFx(this)" data-click="0">';
+                                } else {
+                                    if (commentaAlbumss != 'inc') {
+                                        html += '<img src="../image/KM_ListingsListDzs.png" alt="" id="' + ret.data[i].comment_id + '" class="collectmusicFxs" onclick="collectmusicFx(this)" data-click="0">';
+                                    } else {
+                                        html += '<img src="../image/KM_play_dianzan_red.png" alt="" id="' + ret.data[i].comment_id + '" class="collectmusicFxs" onclick="collectmusicFx(this)" data-click="1">';
+                                    }
+                                }
+                                html += '</div><div class="fr"><span id="corner_mark' + ret.data[i].comment_id + '">' + ret.data[i].good_total + '</span></div></div><div class="clear"></div><div class="dis-txt">' + ret.data[
+                                    i].content + '</div><div class="reply"><div  onclick="fnOpenMessageNotDetail(' + ret.data[i].comment_id + ', \'' + ret.data[i].nick_name + '\')">回复</div></div></div>';
+                            }
+                            $api.html(stylelist, html);
+                            // console.log(html);
+
+                        }
+                    }
+                } else {
+                    netMessage(ret);
                 }
-              }
             } else {
-                netMessage(ret);
+                netWork(err);
             }
-          }else{
-            netWork(err);
-          }
         });
     }
+
     function ReplyToCommentsDiscuss_detail() {
-      api.openWin({
-          name: 'ReplyToCommentsDiscussDetail',
-          url: './ReplyToCommentsDiscuss_detail.html',
-          pageParam: {
-              albumId: albumId,
-              uris: uris,
-              name: name,
-              ok:'ReplyToCommentsDiscussDetail'
-          },
-          reload : true
-      });
+        api.openWin({
+            name: 'ReplyToCommentsDiscussDetail',
+            url: './ReplyToCommentsDiscuss_detail.html',
+            pageParam: {
+                albumId: albumId,
+                uris: uris,
+                name: name,
+                ok: 'ReplyToCommentsDiscussDetail'
+            },
+            reload: true
+        });
 
     }
+
     function collectmusicFx(clicktoolitem) {
 
         var img_id = clicktoolitem.getAttribute("id");
@@ -690,7 +746,7 @@
                 url: host + apiUri + uri + '/' + img_id,
                 method: 'post',
                 dataType: 'json',
-                timeout:10,
+                timeout: 10,
                 headers: {
                     "source": api.systemType,
                     "version": version,
@@ -703,26 +759,26 @@
                     },
                 },
             }, function(ret, err) {
-              if(ret){
-                if (ret.status == 200) {
-                    toolbarlist.setAttribute("data-click", 1);
-                    toolbarlist.src = "../image/KM_play_dianzan_red.png";
-                    api.toast({              
-                        msg:   '已点赞',
-                        duration:  2000,
-                        location:   'middle'          
-                    });
+                if (ret) {
+                    if (ret.status == 200) {
+                        toolbarlist.setAttribute("data-click", 1);
+                        toolbarlist.src = "../image/KM_play_dianzan_red.png";
+                        api.toast({              
+                            msg:   '已点赞',
+                            duration:  2000,
+                            location:   'middle'          
+                        });
 
-                    conner_num++;
-                    $api.html(stylelist, conner_num);
-                    $api.setStorage('commentaAlbumExtraGood' + img_id + '', 'inc');
-                    // $api.rmStorage('commentaAlbumExtraGood'+img_id+'');
+                        conner_num++;
+                        $api.html(stylelist, conner_num);
+                        $api.setStorage('commentaAlbumExtraGood' + img_id + '', 'inc');
+                        // $api.rmStorage('commentaAlbumExtraGood'+img_id+'');
+                    } else {
+                        netMessage(ret);
+                    }
                 } else {
-                    netMessage(ret);
+                    netWork(err);
                 }
-              }else{
-                netWork(err);
-              }
             });
         } else {
             // 关闭
@@ -732,7 +788,7 @@
                 url: host + apiUri + uri + '/' + img_id,
                 method: 'post',
                 dataType: 'json',
-                timeout:10,
+                timeout: 10,
                 headers: {
                     "source": api.systemType,
                     "version": version,
@@ -745,27 +801,27 @@
                     }
                 }
             }, function(ret, err) {
-              if(ret){
-                if (ret.status == 200) {
-                    toolbarlist.setAttribute("data-click", 0);
-                    toolbarlist.src = "../image/KM_ListingsListDzs.png";
-                    api.toast({              
-                        msg:   '已取消点赞',
-                        duration:  2000,
-                        location:   'middle'          
-                    });
-                    conner_num--;
-                    if (conner_num < 0) {
-                        conner_num = 0;
+                if (ret) {
+                    if (ret.status == 200) {
+                        toolbarlist.setAttribute("data-click", 0);
+                        toolbarlist.src = "../image/KM_ListingsListDzs.png";
+                        api.toast({              
+                            msg:   '已取消点赞',
+                            duration:  2000,
+                            location:   'middle'          
+                        });
+                        conner_num--;
+                        if (conner_num < 0) {
+                            conner_num = 0;
+                        }
+                        $api.html(stylelist, conner_num);
+                        $api.setStorage('commentaAlbumExtraGood' + img_id + '', 'dec');
+                    } else {
+                        netMessage(ret);
                     }
-                    $api.html(stylelist, conner_num);
-                    $api.setStorage('commentaAlbumExtraGood' + img_id + '', 'dec');
                 } else {
-                    netMessage(ret);
+                    netWork(err);
                 }
-              }else{
-                netWork(err);
-              }
             });
         }
     }
@@ -779,7 +835,7 @@
                 albumId: albumId,
                 uris: uris,
                 name: name,
-                ok:'replyDetail'
+                ok: 'replyDetail'
             },
             bounces: false,
             vScrollBarEnabled: true,
