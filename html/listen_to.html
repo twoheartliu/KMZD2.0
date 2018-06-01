@@ -346,17 +346,17 @@
             <img src="../image/play/delete.png" alt="">
           </div>
           <div class="item-sort item-sorts" id="bookExtraCollectionHtml">
-            <img src="../image/KM_play_collect.png" alt=""  onclick="fnOpenCollect();" id="collect">
+            <!-- <img src="../image/KM_play_collect.png" alt=""  onclick="fnOpenCollect();" id="collect"> -->
           </div>
           <div class="item-sort" id="openplayer">
             <img src="../image/footer_bf0.png" alt="" onclick="fnOpenPlayButton();" id="playButton">
           </div>
-          <div class="item-sort item-sorts" >
+          <div class="item-sort item-sorts" onclick="fnOpenPlayerxiayi();">
             <img src="../image/play/ic_play_next.png" alt="">
           </div>
-          <div class="item-sort item-sorts" id="comments">
+          <div class="item-sort item-sorts" >
             <img src="../image/KM_play_discuss.png" alt="" onclick="fnOpenPlayDiscuss();">
-            <i>20</i>
+            <i id="comments">0</i>
           </div>
         </section>
       </div>
@@ -369,7 +369,6 @@
   <script type="text/javascript" src="../script/message.js"></script>
   <script type="text/javascript">
   var radios = ['see_you_again', 'new_soul', 'i_am_you'];
-  var playlistid;
   var dqbfid;
   var zongJindu;
   var dangqianbofangid;
@@ -379,10 +378,8 @@
   var Dqbofangid;
   var token;
   var bookId;
-  var bookGoodHtml;
   var bookCollectionHtml;
   var collections;
-  var goods;
   var soundId;
   var namesss;
     function goback () {
@@ -395,6 +392,8 @@
       var headerH = $api.offset(header).h;
       var headerPosH = $api.offset(header).h;
       var header = document.querySelector('header');
+      fnJianTingGood();
+      fnJianTingPingLunShu();
       api.addEventListener({
           name: 'ok'
       }, function(ret, err) {
@@ -509,7 +508,7 @@
                         var htmlzongshichang = '00:00';
                         $api.html(stylelistzongshichang, htmlzongshichang);
                         var stylelistbookExtraCollectionHtml = $api.byId('bookExtraCollectionHtml');
-                        var htmlbookExtraCollectionHtml = '<img src="../image/KM_play_collect.png" alt="" class="collectmusicssss" id="playCollect"  onclick="fnOpenPlayCollect(this)" data-click="0"><p>收藏</p>';
+                        var htmlbookExtraCollectionHtml = '<img src="../image/KM_play_collect.png" alt="" class="collectmusicssssssss" id="playCollect"  onclick="fnOpenPlayCollect(this)" data-click="0">';
                         $api.html(stylelistbookExtraCollectionHtml, htmlbookExtraCollectionHtml);
                         var stylelistComments = $api.byId('comments');
                         var htmlComments = '0';
@@ -642,7 +641,7 @@
                       var htmlzongshichang = '00:00';
                       $api.html(stylelistzongshichang, htmlzongshichang);
                       var stylelistbookExtraCollectionHtml = $api.byId('bookExtraCollectionHtml');
-                      var htmlbookExtraCollectionHtml = '<img src="../image/KM_play_collect.png" alt="" class="collectmusicssss" id="playCollect"  onclick="fnOpenPlayCollect(this)" data-click="0"><p>收藏</p>';
+                      var htmlbookExtraCollectionHtml = '<img src="../image/KM_play_collect.png" alt="" class="collectmusicssssssss" id="playCollect"  onclick="fnOpenPlayCollect(this)" data-click="0">';
                       $api.html(stylelistbookExtraCollectionHtml, htmlbookExtraCollectionHtml);
                       var stylelistComments = $api.byId('comments');
                       var htmlComments = '0';
@@ -661,6 +660,7 @@
 
     function fnDangQianbofangid(id) {
         Dqbofangid = id;
+        dangqianbofangid = id;
     }
 
     function fnJianTingGood(){
@@ -684,8 +684,9 @@
     }
     //监听收藏，评论数；
     function fnJianTingBookCollection(bookId){
+      soundId = bookId;
       api.ajax({
-          url: host + apiUri + uri + '/' + bookId,
+          url: host + apiUri + '/sound/' + bookId,
           method: 'get',
           dataType: 'json',
           headers: {
@@ -698,9 +699,10 @@
         if (ret.status == 200) {
             var stylelistCollectionHtml = $api.byId('bookExtraCollectionHtml');
             if(ret.data.is_collection){
-              bookCollectionHtml = '<img src="../image/KM_play_collect_red.png" alt="" class="collectmusicssss" id="playCollect" onclick="fnOpenPlayCollect(this)" data-click="1"><p>收藏</p>';
+                                    // <img src="../image/KM_play_collect.png" alt=""  onclick="fnOpenCollect();" id="collect">
+              bookCollectionHtml = '<img src="../image/KM_play_collect_red.png" alt="" class="collectmusicssssssss" id="playCollect" onclick="fnOpenPlayCollect(this)" data-click="1">';
             }else{
-              bookCollectionHtml = '<img src="../image/KM_play_collect.png" alt="" class="collectmusicssss" id="playCollect"  onclick="fnOpenPlayCollect(this)" data-click="0"><p>收藏</p>';
+              bookCollectionHtml = '<img src="../image/KM_play_collect.png" alt="" class="collectmusicssssssss" id="playCollect"  onclick="fnOpenPlayCollect(this)" data-click="0">';
             }
             $api.html(stylelistCollectionHtml, bookCollectionHtml);
             if(ret.data.comment_total){
@@ -777,7 +779,7 @@
             var html = '';
             html += '<img src="../image/play/ic_play_play.png" alt="" onclick="fnOpenPlayer();" id="player">';
             $api.html(stylelist, html);
-            
+
             api.sendEvent({
                 name: 'netPlayUrlXunTing',
                 extra: {
@@ -952,13 +954,14 @@
     function fnOpenPlayerxiayi() {
         var c = api.pageParam.a;
         api.sendEvent({
-            name: 'GeDanxiayis',
+            name: 'xunTingXiaYi',
             extra: {
                 c: c
             }
         });
         var player = $api.byId('player');
         player.src = "../image/play/ic_play_pause.png";
+
     }
 
     // 打开评论页面
@@ -976,13 +979,13 @@
     }
     // 收藏
     function fnOpenPlayCollect(clicktoolitem) {
-      var toolbarlist = document.getElementsByClassName('collectmusicssss')[0];
+      var toolbarlist = document.getElementsByClassName('collectmusicssssssss')[0];
       var click = clicktoolitem.getAttribute("data-click");
       if (click == 0) {
           // 点开
           clicktoolitem.setAttribute("data-click", 1);
           toolbarlist.src = "../image/KM_play_collect_red.png";
-          uri = '/extra/collection';
+          var uri = '/extra/collection';
           api.ajax({
               url: host + apiUri + uri + '/' + bookId,
               method: 'post',
@@ -1002,7 +1005,7 @@
               if (ret.status == 200) {
                   if(ret.data == "inc"){
                     api.toast({              
-                        msg:   '已收藏',
+                        msg:   '收藏成功',
                         duration:  2000,
                         location:   'middle'          
                     });
@@ -1024,7 +1027,7 @@
           // 关闭
           clicktoolitem.setAttribute("data-click", 0);
           toolbarlist.src = "../image/KM_play_collect.png";
-          uri = '/extra/collection';
+          var uri = '/extra/collection';
           api.ajax({
               url: host + apiUri + uri + '/' + bookId,
               method: 'post',

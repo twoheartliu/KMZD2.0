@@ -395,7 +395,7 @@
         </div> -->
         <div class="index_main_h1">
             <b class="index_main_span fl">听单(<span id="listenlist"></span>)</b>
-            <div class="listen-more">更多</div>
+            <div class="listen-more" onclick="fnlistenList()">更多</div>
         </div>
         <ul id="test">
             <ul id='id-container' class="message_frame_cycle">
@@ -428,7 +428,7 @@
 
         <div class="index_main_h1">
             <b class="index_main_span fl">作品(<span id="productNum"></span>)</b>
-            <div class="zopn-more">更多</div>
+            <div class="zopn-more" onclick="fnzopnList()">更多</div>
         </div>
         <div class="wrapper" id="wrap">
             <!-- <div class="noHistory">您还没有作品</div>
@@ -544,14 +544,26 @@
 
     }
 
+    // 点击打开听单详情
     function openListen(s) {
         api.openWin({
-            name: 'tingdan',
+            name: 'ListingsList_frame',
             url: './ListingsList.html',
             pageParam: {
-                ids: s,
+                albumId: s,
             }
         });
+    }
+
+    function fnlistenList(s) {
+        api.openWin({
+            name: 'ListingsLists',
+            url: './ListingsLists.html',
+            pageParam: {
+                ids: 'test'
+            }
+        });
+
     }
     //调接口
     function openInfo (){

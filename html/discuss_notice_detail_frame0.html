@@ -413,8 +413,12 @@
               setTimeout(function(){
                   api.refreshHeaderLoadDone()
               },3000)
+              var stylelists = $api.byId('allcommentS');
+              var htmls = '所有评论';
+              $api.html(stylelists, htmls);
                 var stylelist = $api.byId('comments');
                 var html = '';
+
                 for (var i = 0; i < ret.data.length; i++) {
                     var date = new Date(ret.data[i].create_date * 1000); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
                     Y = date.getFullYear() + '年';

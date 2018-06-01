@@ -570,9 +570,13 @@
                 var html = '暂无评论,<span style="color:blue;" onclick="ReplyToCommentsDiscuss_detail()">去评论</span>';
                 $api.html(stylelist, html);
               }else{
+                var allcommentS = $api.byId('allcommentS');
+                var allcommentShtmls = '所有评论';
+                $api.html(allcommentS, allcommentShtmls);
                 setTimeout(function() {
                     api.refreshHeaderLoadDone()
                 }, 3000)
+
                 var stylelist = $api.byId('comments');
                 var html = '';
                 for (var i = 0; i < ret.data.length; i++) {
