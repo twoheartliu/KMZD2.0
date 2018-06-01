@@ -373,16 +373,40 @@
       	}else{
           var mp3 = input;
           var paths = 'http://47.100.11.38/bgmp3/'+mp3;
-          var netAudio = api.require('netAudio');
-          netAudio.play({
-              path: paths
-          }, function(ret, err) {
-              if (ret) {
-
-              } else {
-                  // alert(JSON.stringify(err));
+          // var netAudio = api.require('netAudio');
+          // netAudio.play({
+          //     path: paths
+          // }, function(ret, err) {
+          //     if (ret) {
+          //       console.log(2225222);
+          //
+          //       api.startRecord({
+          //           path: 'fs://luyin/' + timestamp + jubenid+'.amr'
+          //       });
+          //       timestamps = timestamp;
+          //       timeC();
+          //       timedCount();
+          //       console.log(898789);
+          //     } else {
+          //         // alert(JSON.stringify(err));
+          //     }
+          // });
+          var audioStreamer = api.require('audioStreamer');
+          audioStreamer.openPlayer({
+              path: paths,
+          }, function(ret) {
+              if (ret.status) {
+                  // api.alert({ msg: JSON.stringify(ret) });
+                  api.startRecord({
+                            path: 'fs://luyin/' + timestamp + jubenid+'.amr'
+                        });
+                        timestamps = timestamp;
+                        timeC();
+                        timedCount();
               }
           });
+          console.log(123321);
+
       	}
       }
 
@@ -679,10 +703,9 @@
     function fnNetAudiosLuYinByID() {
         if (input) {
             fnBeiYueplay();
+            return false;
         }
-        console.log(11111);
-        console.log(timestamp);
-        console.log(jubenid);
+        console.log(111115);
         api.startRecord({
             path: 'fs://luyin/' + timestamp + jubenid+'.amr'
         });
@@ -747,10 +770,13 @@
             playCollect.src = "../image/read/recording.png";
             a = 2;
             //暂停播放
-            var netAudio = api.require('netAudio');
-            netAudio.stop();
+            // var netAudio = api.require('netAudio');
+            // netAudio.stop();
+            var audioStreamer = api.require('audioStreamer');
+audioStreamer.pause();
             stopCount();
             //暂停录音
+            console.log(235656532);
             api.stopRecord(function(ret, err) {
               console.log(JSON.stringify(ret));
               console.log(8888);
