@@ -151,7 +151,7 @@
         <div class="code">
             <img src="./image/login/login_password.png" class="code_img">
             <input type="password" placeholder="请输入密码" id="password">
-            <img src="./image/my/visible.png" onblur="fnPswordYanZheng();" state="off" id="img" class="fr code_img">
+            <img src="./image/my/Invisible.png" onblur="fnPswordYanZheng();" state="off" id="img" class="fr code_img">
             <div class="clear"></div>
         </div>
         <div class="code">
@@ -193,10 +193,10 @@ var wait = 60;
                 img.style.opacity = 1;
             }
             // var playCollect = $api.byId('playCollect');
-            if (img.getAttribute("src", 2) == "./image/my/visible.png") {
-                img.src = "./image/my/Invisible.png";
-            } else {
+            if (img.getAttribute("src", 2) == "./image/my/Invisible.png") {
                 img.src = "./image/my/visible.png";
+            } else {
+                img.src = "./image/my/Invisible.png";
             }
         }
 
@@ -211,16 +211,16 @@ var wait = 60;
       var phoneRegular = /^(13[0-9]|15[012356789]|17[0135678]|18[0-9]|14[579])[0-9]{8}$/;
       if (phone == '') {
           api.toast({
-              msg: '手机不能为空',
+              msg: '请输入手机号',
               duration: 2000,
-              location: 'bottom'
+              location: 'middle'
           });
           return;
       } else if (!phoneRegular.test(phone)) {
           api.toast({
               msg: '手机格式不正确',
               duration: 2000,
-              location: 'bottom'
+              location: 'middle'
           });
           phones.value = '';
           return;
@@ -232,7 +232,7 @@ var wait = 60;
             api.toast({
                 msg: '密码不能为空',
                 duration: 2000,
-                location: 'bottom'
+                location: 'middle'
             });
             return;
         } else {
@@ -241,7 +241,7 @@ var wait = 60;
             api.toast({
                 msg: '密码必须大于等于六位',
                 duration: 2000,
-                location: 'bottom'
+                location: 'middle'
             });
               return;
           }
@@ -250,7 +250,7 @@ var wait = 60;
             api.toast({
                 msg: '密码必须包含字母和数字',
                 duration: 2000,
-                location: 'bottom'
+                location: 'middle'
             });
             return;
           }else{
@@ -295,7 +295,7 @@ var wait = 60;
               api.toast({
                   msg: '请输入正确的验证码',
                   duration: 2000,
-                  location: 'bottom'
+                  location: 'middle'
               });
             }
 
@@ -311,16 +311,16 @@ var wait = 60;
       var phoneRegular = /^(13[0-9]|15[012356789]|17[0135678]|18[0-9]|14[579])[0-9]{8}$/;
       if (phone == '') {
           api.toast({
-              msg: '手机不能为空',
+              msg: '请输入手机号',
               duration: 2000,
-              location: 'bottom'
+              location: 'middle'
           });
           return;
       } else if (!phoneRegular.test(phone)) {
           api.toast({
               msg: '手机格式不正确',
               duration: 2000,
-              location: 'bottom'
+              location: 'middle'
           });
           phones.value = '';
           return;
@@ -332,7 +332,7 @@ var wait = 60;
             api.toast({
                 msg: '密码不能为空',
                 duration: 2000,
-                location: 'bottom'
+                location: 'middle'
             });
             return;
         } else {
@@ -341,7 +341,7 @@ var wait = 60;
             api.toast({
                 msg: '密码必须大于等于六位',
                 duration: 2000,
-                location: 'bottom'
+                location: 'middle'
             });
               return;
           }
@@ -350,7 +350,7 @@ var wait = 60;
             api.toast({
                 msg: '密码必须包含字母和数字',
                 duration: 2000,
-                location: 'bottom'
+                location: 'middle'
             });
             return;
           }else{
@@ -449,16 +449,16 @@ var wait = 60;
       var phoneRegular = /^(13[0-9]|15[012356789]|17[0135678]|18[0-9]|14[579])[0-9]{8}$/;
       if (phone == '') {
           api.toast({
-              msg: '手机不能为空',
+              msg: '请输入手机号',
               duration: 2000,
-              location: 'bottom'
+              location: 'middle'
           });
           return false;
       } else if (!phoneRegular.test(phone)) {
           api.toast({
               msg: '手机格式不正确',
               duration: 2000,
-              location: 'bottom'
+              location: 'middle'
           });
           phones.value = '';
           return false;
@@ -473,7 +473,7 @@ var wait = 60;
           api.toast({
               msg: '密码不能为空',
               duration: 2000,
-              location: 'bottom'
+              location: 'middle'
           });
           return false;
       } else {
@@ -482,7 +482,7 @@ var wait = 60;
           api.toast({
               msg: '密码必须大于等于六位',
               duration: 2000,
-              location: 'bottom'
+              location: 'middle'
           });
             return false;
         }
@@ -491,7 +491,7 @@ var wait = 60;
           api.toast({
               msg: '密码必须包含字母和数字',
               duration: 2000,
-              location: 'bottom'
+              location: 'middle'
           });
           return false;
         }
