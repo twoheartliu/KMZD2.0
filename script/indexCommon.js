@@ -211,7 +211,6 @@ function fnFuZhiAudio(url) {
     var stylelist = $api.byId('yinpin');
     var html = '<audio id="myAudio" ><source src="' + url + '" type="audio/mp3"></audio>';
     $api.html(stylelist, html);
-    console.log(html);
     if (html) {
         kaishibofang();
     }

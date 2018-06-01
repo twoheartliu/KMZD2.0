@@ -600,6 +600,7 @@
           $api.css(messageFrameDiv, 'height:' + winHeightHeader + 'px;');
           $api.fixIos7Bar(header);
           fnBookExtraGoodssssss();
+          dangqianbofangid = api.pageParam.DangQianbofangid;
           api.addEventListener({
               name: 'netPlaying'
           }, function(ret, err) {
@@ -959,8 +960,9 @@
     }
     //监听收藏，评论数；
     function fnJianTingBookCollection(bookId){
+
       api.ajax({
-          url: host + apiUri + uri + '/' + bookId,
+          url: host + apiUri + '/sound/' + bookId,
           method: 'get',
           dataType: 'json',
           headers: {

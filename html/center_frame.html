@@ -146,6 +146,16 @@
               var html = '';
               html += '<div onclick="fnOpenPlay( ' + bofang + ',' + a + ');"><img src="../image/footer_bf' + bofang + '.png" alt=""></div>';
               $api.html(stylelist, html);
+          }else if (bofang == 8) {
+              var stylelist = $api.byId('centerVedeo');
+              var html = '';
+              html += '<div onclick="fnOpenPlay( ' + bofang + ',' + a + ');"><img src="../image/footer_bf' + bofang + '.png" alt=""></div>';
+              $api.html(stylelist, html);
+          } else if (bofang == 9) {
+              var stylelist = $api.byId('centerVedeo');
+              var html = '';
+              html += '<div onclick="fnOpenPlay( ' + bofang + ',' + a + ');"><img src="../image/footer_bf' + bofang + '.png" alt=""></div>';
+              $api.html(stylelist, html);
           }
           if (playlistid) {
               api.sendEvent({
@@ -207,6 +217,16 @@
             var html = '';
             html += '<div onclick="fnOpenPlay( ' + bofang + ',' + a + ');"><img src="../image/footer_bf' + bofang + '.png" alt=""></div>';
             $api.html(stylelist, html);
+        }else if (bofang == 8) {
+            var stylelist = $api.byId('centerVedeo');
+            var html = '';
+            html += '<div onclick="fnOpenPlay( ' + bofang + ',' + a + ');"><img src="../image/footer_bf' + bofang + '.png" alt=""></div>';
+            $api.html(stylelist, html);
+        } else if (bofang == 9) {
+            var stylelist = $api.byId('centerVedeo');
+            var html = '';
+            html += '<div onclick="fnOpenPlay( ' + bofang + ',' + a + ');"><img src="../image/footer_bf' + bofang + '.png" alt=""></div>';
+            $api.html(stylelist, html);
         }
         if (playlistid) {
             api.sendEvent({
@@ -250,7 +270,6 @@
             });
         } else if (bofang == 2) {
           if (Dqbofangid == a) {
-            console.log(4444);
               api.openWin({
                   name: 'play',
                   url: './play.html',
@@ -275,7 +294,6 @@
 
         } else if (bofang == 3) {
           if (Dqbofangid == a) {
-            console.log(Dqbofangid);
               api.openWin({
                   name: 'play',
                   url: './play.html',
@@ -347,7 +365,6 @@
           }
         } else if (bofang == 6) {
           if (Dqbofangid == a) {
-            console.log(1111);
               api.openWin({
                   name: 'playDanQu',
                   url: './playDanQu.html',
@@ -390,16 +407,52 @@
             });
           }
 
+        }else if (bofang == 8) {
+          if (Dqbofangid) {
+              api.openWin({
+                name: 'listenTo',
+                url: './listen_to.html',
+                  pageParam: {
+                      DangQianbofangid: Dqbofangid,
+                  }
+              });
+          } else {
+            api.openWin({
+                name: 'listenTo',
+                url: './listen_to.html',
+                pageParam: {
+                    name: 'test'
+                }
+            });
+          }
+
+        } else if (bofang == 9) {
+          if (Dqbofangid) {
+              api.openWin({
+                name: 'listenTo',
+                url: './listen_to.html',
+                  pageParam: {
+                      DangQianbofangid: Dqbofangid,
+                  }
+              });
+          } else {
+            api.openWin({
+                name: 'listenTo',
+                url: './listen_to.html',
+                pageParam: {
+                    name: 'test'
+                }
+            });
+          }
+
         }else {
-            // api.openWin({
-            //     name: 'play',
-            //     url: './play.html',
-            //     // pageParam: {
-            //     //   bofang: 2,
-            //     //   a: 1,
-            //     //   playid: 1
-            //     // },
-            // });
+          api.openWin({
+              name: 'listenTo',
+              url: './listen_to.html',
+              pageParam: {
+                  name: 'test'
+              }
+          });
         }
     }
     // function fnOpenPlay(bofang, a, playlistid) {

@@ -745,15 +745,44 @@
 
     }
 
+    var Dqbofangid;
+    function fnDangQianbofangid(id) {
+        Dqbofangid = id;
+    }
+
     //打开熏听页面
     function fnListenWin() {
-        api.openWin({
-            name: 'listenTo',
-            url: './listen_to.html',
-            pageParam: {
-                name: 'test'
-            }
+      api.addEventListener({
+            name: 'netPlaying'
+        }, function(ret, err) {
+            fnDangQianbofangid(ret.value.playing);
+              api.openWin({
+                  name: 'listenTo',
+                  url: './listen_to.html',
+                  pageParam: {
+                      DangQianbofangid: ret.value.playing,
+                  }
+              });
+              return false;
         });
+        if(Dqbofangid){
+          api.openWin({
+              name: 'listenTo',
+              url: './listen_to.html',
+              pageParam: {
+                  DangQianbofangid:Dqbofangid
+              }
+          });
+        }else{
+          api.openWin({
+              name: 'listenTo',
+              url: './listen_to.html',
+              pageParam:{
+                  name: 'test'
+              }
+          });
+        }
+
 
     }
     // 打开优秀作品更多页面
