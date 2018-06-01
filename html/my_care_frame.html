@@ -140,6 +140,13 @@
     var userDeleteHtml;
     apiready = function() {
         token = $api.getStorage('token');
+        api.addEventListener({
+            name: 'myPersonal'
+        }, function(ret, err) {
+
+            // console.log(JSON.stringify(ret));
+            fnAttention();
+        });
         // fnDeleteUser();
         fnAttention();
 
@@ -176,7 +183,6 @@
     };
     var totalHtml;
     function fnAttention() {
-
         api.ajax({
             url: host + apiUri + '/user/follow',
             method: 'get',

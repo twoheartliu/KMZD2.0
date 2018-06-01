@@ -422,14 +422,14 @@
                     fnJinRuBofangs(dangqianbofangid,bofang);
                     soundId = dangqianbofangid;
                     bookId == dangqianbofangid;
+                    fnJianTingBookCollection(bookId);
                   }else{
                     fnJinRuBofangs(dangqianbofangid);
                     soundId = dangqianbofangid;
                     bookId == dangqianbofangid;
+                    fnJianTingBookCollection(bookId);
                   }
                 } else {
-                   bookId = api.pageParam.a;
-                   soundId = api.pageParam.a;
                     fnJinRuBofang();
                 }
             } else {
@@ -484,10 +484,12 @@
                             fnJinRuBofangs(dangqianbofangid,bofang);
                             soundId = dangqianbofangid;
                             bookId == dangqianbofangid;
+                            fnJianTingBookCollection(bookId);
                           }else{
                             fnJinRuBofangs(dangqianbofangid);
                             soundId = dangqianbofangid;
                             bookId == dangqianbofangid;
+                            fnJianTingBookCollection(bookId);
                           }
                         } else {
                             fnJinRuBofang();
@@ -536,8 +538,6 @@
         var winHeightHeader = winHeight - headerPosH;
         $api.css(messageFrameDiv, 'height:' + winHeightHeader + 'px;');
         $api.fixIos7Bar(header);
-
-
         dangqianbofangid = api.pageParam.DangQianbofangid;
         if(dangqianbofangid){
           bookId = dangqianbofangid;
@@ -555,14 +555,14 @@
                   fnJinRuBofangs(dangqianbofangid,bofang);
                   soundId = dangqianbofangid;
                   bookId == dangqianbofangid;
+                  fnJianTingBookCollection(bookId);
                 }else{
                   fnJinRuBofangs(dangqianbofangid);
                   soundId = dangqianbofangid;
                   bookId == dangqianbofangid;
+                  fnJianTingBookCollection(bookId);
                 }
               } else {
-                 bookId = api.pageParam.a;
-                  soundId = api.pageParam.a;
                   fnJinRuBofang();
               }
           } else {
@@ -617,10 +617,12 @@
                           fnJinRuBofangs(dangqianbofangid,bofang);
                           soundId = dangqianbofangid;
                           bookId == dangqianbofangid;
+                          fnJianTingBookCollection(bookId);
                         }else{
                           fnJinRuBofangs(dangqianbofangid);
                           soundId = dangqianbofangid;
                           bookId == dangqianbofangid;
+                          fnJianTingBookCollection(bookId);
                         }
                       } else {
                           fnJinRuBofang();
@@ -713,6 +715,12 @@
               var html = 0;
               var stylelist = $api.byId('comments');
               $api.html(stylelist, html);
+            }
+            if (ret.data.title) {
+                var stylelistTitle = $api.byId('title');
+                var htmlTitle = ret.data.title;
+                $api.html(stylelistTitle, htmlTitle);
+                fnNamesss(ret.data.title);
             }
         } else {
             netMessage(ret);
@@ -876,18 +884,17 @@
         if (player.getAttribute("src", 2) == "../image/play/ic_play_play.png") {
             player.src = "../image/play/ic_play_pause.png";
             var bofang = 9;
-            var a = api.pageParam.a;
             api.sendEvent({
                 name: 'netPlayXunTing',
                 extra: {
                     bofang: bofang,
+                    a:soundId
                 }
             });
             api.sendEvent({
                 name: 'neizhiliebiaoPlay',
                 extra: {
                     bofang: bofang,
-                    a: a
                 }
             });
         } else {
@@ -899,12 +906,10 @@
                 }
             });
             var bofang = 8;
-            var a = api.pageParam.a;
             api.sendEvent({
                 name: 'neizhiliebiaoPlay',
                 extra: {
                     bofang: bofang,
-                    a: a
                 }
             });
 
@@ -1308,16 +1313,16 @@
         collect.src="../image/KM_play_collect.png";
       }
     };
-    // 打开评论页面
-    function fnOpenPlayDiscuss(){
-      api.openWin({
-          name: 'discussNoticeDetail0',
-          url: './discuss_notice_detail0.html',
-          pageParam: {
-              name: 'test'
-          }
-      });
-    }
+    // // 打开评论页面
+    // function fnOpenPlayDiscuss(){
+    //   api.openWin({
+    //       name: 'discussNoticeDetail0',
+    //       url: './discuss_notice_detail0.html',
+    //       pageParam: {
+    //           name: 'test'
+    //       }
+    //   });
+    // }
   </script>
   <script>
       var change = function($input) {

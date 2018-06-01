@@ -66,6 +66,13 @@
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
     function goback() {
+      var myPersonal = 1;
+      api.sendEvent({
+          name: 'myPersonal',
+          extra: {
+              myPersonal: myPersonal
+          }
+      });
         api.closeWin({
             name: 'myPersonal'
         });

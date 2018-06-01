@@ -69,7 +69,9 @@
 // }
 //播放歌单音频
 function fnBoFangyinpinxinxi() {
-
+    fnUserFollow();
+    clearInterval(timer2);
+    clearInterval(timer1);
     playgedan = rets.data[play].id;
     fnBFid(playgedan);
     api.ajax({
@@ -211,7 +213,6 @@ function fnFuZhiAudio(url) {
     var stylelist = $api.byId('yinpin');
     var html = '<audio id="myAudio" ><source src="' + url + '" type="audio/mp3"></audio>';
     $api.html(stylelist, html);
-    console.log(html);
     if (html) {
         kaishibofang();
     }
@@ -339,6 +340,7 @@ function addtime() {
         lenth = myAudio.duration;
         temp = curs;
         minute = parseInt(temp / 60);
+        minuteFollow = minute;
         if (curs % 60 < 10) {
             if (minute < 10) {
                 html = "0" + minute + ":0" + curs % 60 + "";
@@ -389,6 +391,7 @@ function addtime() {
 function fnGeDanShangYi() {
     var myAudio = document.getElementById("myAudio");
     netAudioPause();
+    fnUserFollow();
     myAudio.currentTime = 0;
     clearInterval(timer2);
     clearInterval(timer1);
@@ -402,6 +405,7 @@ function fnGeDanShangYi() {
 function fnGeDanxiaYi() {
     var myAudio = document.getElementById("myAudio");
     netAudioPause();
+    fnUserFollow();
     myAudio.currentTime = 0;
     myAudio.load();
     clearInterval(timer2);
@@ -438,8 +442,6 @@ function netPlayLieIdUrl(playlistid,playUrli) {
         }
         });
       }
-
-
 }
 //当前播放id
 function fnBFid(id) {
@@ -511,9 +513,41 @@ function fnDQBF(y) {
     fnBoFangyinpinxinxi(play);
 }
 
+function fnUserFollow(){
+  if(minuteFollow){
+    api.ajax({
+        url: host + apiUri + '/user/update_learn_time',
+        method: 'post',
+        dataType: 'json',
+        headers: {
+            "source": api.systemType,
+            "version": version,
+            "session": token
+        },
+        data:{
+          values:{
+            learn_time:minuteFollow
+          }
+        }
+    }, function(ret, err) {
+     if(ret){
+      if (ret.status == 200) {
+          // fnZhuanJiZhanshi(ret);
+      } else {
+        netMessage(ret);
+      }
+    }else{
+      netWork(err);
+    }
+    });
+  }
+}
+
+
+
+
 function fnZhuanJiZhanshi(data_) {
     rets = data_;
-    console.log();
     for (y = 0; y < rets.data.length; y++) {
         var id1 = rets.data[y].id;
         var id2 = DangQianbofangid;
@@ -576,6 +610,7 @@ function fnSuiJiBoFangMoShiGeQuid(n) {
     play = n;
     var myAudio = document.getElementById("myAudio");
     netAudioPause();
+    fnUserFollow();
     myAudio.currentTime = 0;
     clearInterval(timer2);
     clearInterval(timer1);
@@ -584,6 +619,7 @@ function fnSuiJiBoFangMoShiGeQuid(n) {
 //单曲循环播放更新
 function fndanqubofangmoshi() {
     netAudioPause();
+    fnUserFollow();
     myAudio.currentTime = 0;
     clearInterval(timer1);
     clearInterval(timer2);
