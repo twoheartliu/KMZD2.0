@@ -361,7 +361,13 @@
                     }
                 }
             });
-
+            api.addEventListener({
+                name: 'shiTingUrl'
+            }, function(ret, err) {
+              if(ret){
+                fnFuZhiJiBenXinXi(ret);
+              }
+            });
 
         }
 
@@ -396,6 +402,13 @@
     var body;
     var cgxid;
     var myAudioPlay;
+    var userId;
+    var userRecords;
+    var userTime;
+    var userFormate;
+    var userSize;
+    var draftsId;
+    var pathSss = 1;
     function kaishibofang(){
       var myAudio = document.getElementById("myAudio");
       myAudio.play();
@@ -406,6 +419,16 @@
       timestamps = timestamp;
       timeC();
       timedCount();
+
+    }
+    function fnFuZhiJiBenXinXi(data_){
+      userId = data_.value.userId;
+      draftsId = data_.value.draftsId;
+      userRecords = data_.value.userRecords;
+      userTime = data_.value.userTime;
+      userFormate = data_.value.userFormate;
+      userSize = data_.value.userSize;
+      pathSss = 0;
     }
     function fnGetJubenlist() {
         var id = api.pageParam.InfojubenType;
@@ -415,6 +438,7 @@
             url: host + apiUri + uri,
             method: 'get',
             dataType: 'json',
+            timeout:10,
             headers: {
                 "source": api.systemType,
                 "version": version,
@@ -564,8 +588,8 @@
                         ok:"ctwin"
                     }
                 });
-                path = '';
-                timeCsss();
+                // path = '';
+                // timeCsss();
               }else {
                   // alert(JSON.stringify(ret.message));
                   // timeCsss();
@@ -691,12 +715,6 @@
             fnBeiYueplay();
             return false;
         }
-        // api.startRecord({
-        //     path: 'fs://luyin/' + timestamp + jubenid+'.amr'
-        // });
-        // timestamps = timestamp;
-        // timeC();
-        // timedCount();
         api.startRecord({
             path: 'fs://luyin/' + timestamp + jubenid+'.amr'
         });
@@ -734,7 +752,6 @@
             api.stopRecord(function(ret, err) {
                 if (ret) {
                     path = ret.path;
-                    console.log(path);
                     duration = ret.duration;
                 }
             });

@@ -1,6 +1,5 @@
 //保存
 function fnLuYinBaoCun() {
-  console.log(11111);
     if (a == 2) {
         //fs 文件管理 删除  拷贝  移除等
         //拷贝文件
@@ -51,7 +50,6 @@ function fnLuYinBaoCun() {
                     },
                     tapClose: true
                 }, function(ret) {
-                    var timestampssss = new Date().getTime();
                     var systemType = api.systemType;
                     if(systemType == "ios"){
                       var pathAdd = path.substring(39,76);
@@ -59,6 +57,57 @@ function fnLuYinBaoCun() {
                     }
                     if (ret.eventType == 'left') {
 
+                        if(userId){
+                          uri = '/user/save_drafts/' + draftsId;
+                          api.ajax({
+                              url: host + apiUri + uri,
+                              method: 'post',
+                              dataType: 'json',
+                              timeout:10,
+                              headers: {
+                                  "source": api.systemType,
+                                  "version": version,
+                                  "session": token
+                              },
+                              data: {
+                                  values: {
+                                      "script_id": jubenid,
+                                      "title": title,
+                                      "author_id": author_id,
+                                      "lyric": body,
+                                      "records": userRecords,
+                                      "format": userTime,
+                                      "size": userFormate,
+                                      "time": userSize,
+                                  }
+                              }
+                          }, function(ret, err) {
+                              if(ret){
+                                if (ret.status == 200) {
+                                    api.toast({              
+                                        msg:   '已保存',
+                                        duration:  2000,
+                                        location:   'middle'          
+                                    });
+                                    var fs = api.require('fs');
+                                    fs.rmdir({
+                                        path: 'fs://luyin'
+                                    }, function(ret, err) {
+                                        if (ret.status) {} else {
+                                            // alert(JSON.stringify(err));
+                                        }
+                                    });
+                                    path = '';
+                                    timeCsss();
+                                } else {
+                                    netMessage(ret);
+                                }
+                              }else{
+                                netWork(err);
+                              }
+                          });
+                          return false;
+                        }
                       uri = '/upload/user_records';
                       api.ajax({
                           url: host + apiUri + uri,
@@ -78,66 +127,54 @@ function fnLuYinBaoCun() {
                       }, function(ret, err) {
                         if(ret){
                           if (ret.status == 200) {
-                              // console.log(ret.status);
-                              // fs.rmdir({
-                              //     path: 'fs://shangchuanxiang'
-                              // }, function(ret, err) {
-                              //     if (ret.status) {} else {
-                              //         alert(JSON.stringify(err));
-                              //     }
-                              // });
-                              console.log(00000);
-                              var fs = api.require('fs');
-                              fs.rmdir({
-                                  path: 'fs://luyin'
+                              uri = '/user/save_drafts/' + ret.data.drafts_id;
+                              api.ajax({
+                                  url: host + apiUri + uri,
+                                  method: 'post',
+                                  dataType: 'json',
+                                  timeout:10,
+                                  headers: {
+                                      "source": api.systemType,
+                                      "version": version,
+                                      "session": token
+                                  },
+                                  data: {
+                                      values: {
+                                          "script_id": jubenid,
+                                          "title": title,
+                                          "author_id": author_id,
+                                          "lyric": body,
+                                          "records": ret.data.records,
+                                          "format": ret.data.formate,
+                                          "size": ret.data.size,
+                                          "time": ret.data.time,
+                                      }
+                                  }
                               }, function(ret, err) {
-                                  if (ret.status) {} else {
-                                      alert(JSON.stringify(err));
+                                  if(ret){
+                                    if (ret.status == 200) {
+                                        api.toast({              
+                                            msg:   '已保存',
+                                            duration:  2000,
+                                            location:   'middle'          
+                                        });
+                                        var fs = api.require('fs');
+                                        fs.rmdir({
+                                            path: 'fs://luyin'
+                                        }, function(ret, err) {
+                                            if (ret.status) {} else {
+                                                // alert(JSON.stringify(err));
+                                            }
+                                        });
+                                        path = '';
+                                        timeCsss();
+                                    } else {
+                                        netMessage(ret);
+                                    }
+                                  }else{
+                                    netWork(err);
                                   }
                               });
-                              path = '';
-                              timeCsss();
-
-                              // uri = '/user/records';
-                              // api.ajax({
-                              //     url: host + apiUri + uri,
-                              //     method: 'post',
-                              //     dataType: 'json',
-                              //     timeout:10,
-                              //     headers: {
-                              //         "source": api.systemType,
-                              //         "version": version,
-                              //         "session": token
-                              //     },
-                              //     data: {
-                              //         values: {
-                              //             "script_id": jubenid,
-                              //             "title": name,
-                              //             "author_id": author_id,
-                              //             "lyric": body,
-                              //             "records": ret.data.records,
-                              //             "format": ret.data.formate,
-                              //             "size": ret.data.size,
-                              //             "time": ret.data.time,
-                              //         }
-                              //     }
-                              // }, function(ret, err) {
-                              //     // console.log(JSON.stringify(ret));
-                              //     if(ret){
-                              //       if (ret.status == 200) {
-                              //           api.toast({              
-                              //               msg:   '已上传',
-                              //               duration:  2000,
-                              //               location:   'middle'          
-                              //           });
-                              //
-                              //       } else {
-                              //           netMessage(ret);
-                              //       }
-                              //     }else{
-                              //       netWork(err);
-                              //     }
-                              // });
                           } else {
 
                               netMessage(ret);
@@ -146,46 +183,66 @@ function fnLuYinBaoCun() {
                           netWork(err);
                         }
                       });
-                        // cgxid = '' + timestampssss + '' + jubenid + '';
-                        // api.getPrefs({
-                        //     key: 'cgxlist'
-                        // }, function(ret, err) {
-                        //     if (ret) {
-                        //         var flag = false; //是否增加历史记录
-                        //         var historyUrlText = ret.value;
-                        //         var historyUrlArray = historyUrlText.split(',');
-                        //         for (var i = 0; i < historyUrlArray.length; i++) {
-                        //             historyUrlArray[i] == cgxid && (flag = true);
-                        //         }!flag && historyUrlArray.splice(1, 0, cgxid, title, name, body, author_id);
-                        //         !flag && api.setPrefs({
-                        //             key: 'cgxlist',
-                        //             value: historyUrlArray.join(',')
-                        //         });
-                        //         var dialogBox = api.require('dialogBox');
-                        //         dialogBox.close({
-                        //             dialogName: 'alert'
-                        //         });
-                        //     } else {
-                        //         // alert(JSON.stringify(err));
-                        //     }
-                        // });
                         var dialogBox = api.require('dialogBox');
                         dialogBox.close({
                             dialogName: 'alert'
                         });
                     }
                     if (ret.eventType == 'right') {
-                      console.log(55555);
-                      var connectionType = api.connectionType;
-                      	if(connectionType == "none"){
-                          api.toast({              
-                              msg: '请先连接网络',
-                              duration:  2000,
-                              location:   'middle'          
-                          });
-                      	}else{
 
-                          console.log(22222);
+                        if(userId){
+                          uri = '/user/records';
+                          api.ajax({
+                              url: host + apiUri + uri,
+                              method: 'post',
+                              dataType: 'json',
+                              timeout:10,
+                              headers: {
+                                  "source": api.systemType,
+                                  "version": version,
+                                  "session": token
+                              },
+                              data: {
+                                  values: {
+                                      "script_id": jubenid,
+                                      "title": title,
+                                      "author_id": author_id,
+                                      "lyric": body,
+                                      "records": userRecords,
+                                      "format": userTime,
+                                      "size": userFormate,
+                                      "time": userSize,
+                                  }
+                              }
+                          }, function(ret, err) {
+                              // console.log(JSON.stringify(ret));
+                              if(ret){
+                                if (ret.status == 200) {
+                                    api.toast({              
+                                        msg:   '已上传',
+                                        duration:  2000,
+                                        location:   'middle'          
+                                    });
+                                    var fs = api.require('fs');
+                                    fs.rmdir({
+                                        path: 'fs://luyin'
+                                    }, function(ret, err) {
+                                        if (ret.status) {} else {
+                                            // alert(JSON.stringify(err));
+                                        }
+                                    });
+                                    path = '';
+                                    timeCsss();
+                                } else {
+                                    netMessage(ret);
+                                }
+                              }else{
+                                netWork(err);
+                              }
+                          });
+                          return false;
+                        }
+
 
                           uri = '/upload/user_records';
                           api.ajax({
@@ -207,16 +264,6 @@ function fnLuYinBaoCun() {
                             if(ret){
                               if (ret.status == 200) {
                                   // console.log(ret.status);
-                                  var fs = api.require('fs');
-                                  fs.rmdir({
-                                      path: 'fs://luyin'
-                                  }, function(ret, err) {
-                                      if (ret.status) {} else {
-                                          alert(JSON.stringify(err));
-                                      }
-                                  });
-                                  path = '';
-                                  timeCsss();
 
                                   uri = '/user/records';
                                   api.ajax({
@@ -250,7 +297,16 @@ function fnLuYinBaoCun() {
                                                 duration:  2000,
                                                 location:   'middle'          
                                             });
-
+                                            var fs = api.require('fs');
+                                            fs.rmdir({
+                                                path: 'fs://luyin'
+                                            }, function(ret, err) {
+                                                if (ret.status) {} else {
+                                                    alert(JSON.stringify(err));
+                                                }
+                                            });
+                                            path = '';
+                                            timeCsss();
                                         } else {
                                             netMessage(ret);
                                         }
@@ -267,8 +323,6 @@ function fnLuYinBaoCun() {
                             }
                           });
 
-
-                      	}
                         var dialogBox = api.require('dialogBox');
                         dialogBox.close({
                             dialogName: 'alert'

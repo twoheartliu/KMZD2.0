@@ -225,6 +225,7 @@
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/message.js"></script>;
 <script type="text/javascript">
     var token;
     apiready = function() {
@@ -267,6 +268,7 @@
             url: host + apiUri + '/user/records',
             method: 'get',
             dataType: 'json',
+            timeout:10,
             headers: {
                 "source": api.systemType,
                 "version": version,
@@ -274,51 +276,56 @@
             }
         }, function(ret, err) {
             // alert(JSON.stringify(ret));
-            if (ret.status == 200) {
-              setTimeout(function(){
-                  api.refreshHeaderLoadDone()
-              },3000)
-                var data = ret.data;
-                var len = ret.data.length;
-                var stylelist = $api.byId('wrap');
-                var html = '';
-                if (data == ' ') {
-                    html = '<div class="noHistory">您还没有上传作品，赶快去朗诵自己的作品吧~</div>';
-                    // alert(111);
-                    $api.html(stylelist, html);
-                } else {
-                  var stylelists = $api.byId('wrap');
-                  var htmls = '';
-                  for (var i = 0; i < ret.data.length; i++) {
-                    if(ret.data[i].author_name = "null"){
-                      htmls += '<div class="egret-flex-item" id="' + ret.data[i].id +
-                          '"><div class="egret-flex-items" tapmode="fmbtnhover" onclick="openFM('+ ret.data[i].id +')"><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf001"><span class="span1 fl"><span>' + ret.data[i].title +
-                          '</span></span></div><div class="egret-flex-item-shelf03"><div><img src="../image/KM_play.png" alt=""><span>' + ret.data[i].play_total +
-                          '</span></div><div><img src="../image/KM_zf.png" alt=""><span>' + ret.data[i].share_total + '</span></div>  <div><img src="../image/KM_dz.png" alt=""><span>' + ret.data[i].good_total +
-                          '</span></div></div></div></div><div class="egret-flex-item-shelf004" onclick="fnOpenPlayMore('+ ret.data[i].id +')"><img src="../image/KM_list_more.png" alt=""></div></div><div class="hdivider"></div>';
+            if(ret){
+              if (ret.status == 200) {
+                setTimeout(function(){
+                    api.refreshHeaderLoadDone()
+                },3000)
+                  var data = ret.data;
+                  var len = ret.data.length;
+                  var stylelist = $api.byId('wrap');
+                  var html = '';
+                  if (data == ' ') {
+                      html = '<div class="noHistory">您还没有上传作品，赶快去朗诵自己的作品吧~</div>';
+                      // alert(111);
+                      $api.html(stylelist, html);
+                  } else {
+                    var stylelists = $api.byId('wrap');
+                    var htmls = '';
+                    for (var i = 0; i < ret.data.length; i++) {
+                      if(ret.data[i].author_name = "null"){
+                        htmls += '<div class="egret-flex-item" id="' + ret.data[i].id +
+                            '"><div class="egret-flex-items" tapmode="fmbtnhover" onclick="openFM('+ ret.data[i].id +')"><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf001"><span class="span1 fl"><span>' + ret.data[i].title +
+                            '</span></span></div><div class="egret-flex-item-shelf03"><div><img src="../image/KM_play.png" alt=""><span>' + ret.data[i].play_total +
+                            '</span></div><div><img src="../image/KM_zf.png" alt=""><span>' + ret.data[i].share_total + '</span></div>  <div><img src="../image/KM_dz.png" alt=""><span>' + ret.data[i].good_total +
+                            '</span></div></div></div></div><div class="egret-flex-item-shelf004" onclick="fnOpenPlayMore('+ ret.data[i].id +')"><img src="../image/KM_list_more.png" alt=""></div></div><div class="hdivider"></div>';
 
-                    }else{
-                      htmls += '<div class="egret-flex-item" id="' + ret.data[i].id +
-                          '"><div class="egret-flex-items" tapmode="fmbtnhover" onclick="openFM('+ ret.data[i].id +')"><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 fl"><span>' + ret.data[i].title +
-                          '</span></span></div><div class="egret-flex-item-shelf02"><span>' + ret.data[i].author_name + '</span></div><div class="egret-flex-item-shelf03"><div><img src="../image/KM_play.png" alt=""><span>' + ret.data[i].play_total +
-                          '</span></div><div><img src="../image/KM_zf.png" alt=""><span>' + ret.data[i].share_total + '</span></div>  <div><img src="../image/KM_dz.png" alt=""><span>' + ret.data[i].good_total +
-                          '</span></div></div></div></div><div class="egret-flex-item-shelf04" onclick="fnOpenPlayMore('+ ret.data[i].id +')"><img src="../image/KM_list_more.png" alt=""></div></div><div class="hdivider"></div>';
-                    }
-
-                  }
-                  $api.html(stylelists, htmls);
-                  api.sendEvent({
-                      name: 'netNum',
-                      extra: {
-                          productNum: len
+                      }else{
+                        htmls += '<div class="egret-flex-item" id="' + ret.data[i].id +
+                            '"><div class="egret-flex-items" tapmode="fmbtnhover" onclick="openFM('+ ret.data[i].id +')"><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 fl"><span>' + ret.data[i].title +
+                            '</span></span></div><div class="egret-flex-item-shelf02"><span>' + ret.data[i].author_name + '</span></div><div class="egret-flex-item-shelf03"><div><img src="../image/KM_play.png" alt=""><span>' + ret.data[i].play_total +
+                            '</span></div><div><img src="../image/KM_zf.png" alt=""><span>' + ret.data[i].share_total + '</span></div>  <div><img src="../image/KM_dz.png" alt=""><span>' + ret.data[i].good_total +
+                            '</span></div></div></div></div><div class="egret-flex-item-shelf04" onclick="fnOpenPlayMore('+ ret.data[i].id +')"><img src="../image/KM_list_more.png" alt=""></div></div><div class="hdivider"></div>';
                       }
-                  });
-                }
+
+                    }
+                    $api.html(stylelists, htmls);
+                    api.sendEvent({
+                        name: 'netNum',
+                        extra: {
+                            productNum: len
+                        }
+                    });
+                  }
 
 
-            } else {
-                // alert(JSON.stringify(err));
+              } else {
+                  netMessage(ret);
+              }
+            }else {
+              netWork(err);
             }
+
 
         });
     }

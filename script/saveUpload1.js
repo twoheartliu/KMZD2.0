@@ -50,80 +50,68 @@ function fnLuYinBaoCun() {
                     },
                     tapClose: true
                 }, function(ret) {
-                    var timestampssss = new Date().getTime();
                     var systemType = api.systemType;
                     if(systemType == "ios"){
                       var pathAdd = path.substring(39,76);
                       $api.setStorage('pathAdd',pathAdd);
                     }
                     if (ret.eventType == 'left') {
-                      console.log(2222);
-                      uri = '/upload/user_records';
-                      api.ajax({
-                          url: host + apiUri + uri,
-                          method: 'post',
-                          dataType: 'json',
-                          timeout:10,
-                          headers: {
-                              "source": api.systemType,
-                              "version": version,
-                              "session": token
-                          },
-                          data: {
-                              files: {
-                                  records: path
+
+                        uri = '/user/save_drafts/' + draftsId;
+                        api.ajax({
+                            url: host + apiUri + uri,
+                            method: 'post',
+                            dataType: 'json',
+                            timeout:10,
+                            headers: {
+                                "source": api.systemType,
+                                "version": version,
+                                "session": token
+                            },
+                            data: {
+                                values: {
+                                    "script_id": jubenid,
+                                    "title": title,
+                                    "author_id": author_id,
+                                    "lyric": body,
+                                    "records": userRecords,
+                                    "format": userFormate,
+                                    "size": userSize,
+                                    "time": userTime,
+                                }
+                            }
+                        }, function(ret, err) {
+                            if(ret){
+                              if (ret.status == 200) {
+                                  api.toast({              
+                                      msg:   '已保存',
+                                      duration:  2000,
+                                      location:   'middle'          
+                                  });
+                                  var fs = api.require('fs');
+                                  fs.rmdir({
+                                      path: 'fs://luyin'
+                                  }, function(ret, err) {
+                                      if (ret.status) {} else {
+                                          // alert(JSON.stringify(err));
+                                      }
+                                  });
+                                  path = '';
+                                  timeCsss();
+                              } else {
+                                  netMessage(ret);
                               }
-                          }
-                      }, function(ret, err) {
-                        if(ret){
-                          if (ret.status == 200) {
-                              // console.log(ret.status);
-                              // fs.rmdir({
-                              //     path: 'fs://shangchuanxiang'
-                              // }, function(ret, err) {
-                              //     if (ret.status) {} else {
-                              //         alert(JSON.stringify(err));
-                              //     }
-                              // });
-                              console.log(00000);
-                              var fs = api.require('fs');
-                              fs.rmdir({
-                                  path: 'fs://luyin'
-                              }, function(ret, err) {
-                                  if (ret.status) {} else {
-                                      alert(JSON.stringify(err));
-                                  }
-                              });
-                              path = '';
-                              timeCsss();
-                          } else {
-
-                              netMessage(ret);
-                          }
-                        }else{
-                          netWork(err);
-                        }
-                      });
-
+                            }else{
+                              netWork(err);
+                            }
+                        });
                         var dialogBox = api.require('dialogBox');
                         dialogBox.close({
                             dialogName: 'alert'
                         });
                     }
                     if (ret.eventType == 'right') {
-                      console.log(55555);
-                      var connectionType = api.connectionType;
-                      	if(connectionType == "none"){
-                          api.toast({              
-                              msg: '请先连接网络',
-                              duration:  2000,
-                              location:   'middle'          
-                          });
-                      	}else{
-
-                          console.log(22222);
-
-                          uri = '/upload/user_records';
+                          uri = '/user/records';
                           api.ajax({
                               url: host + apiUri + uri,
                               method: 'post',
@@ -135,37 +123,42 @@ function fnLuYinBaoCun() {
                                   "session": token
                               },
                               data: {
-                                  files: {
-                                      records: path
+                                  values: {
+                                      "script_id": jubenid,
+                                      "title": title,
+                                      "author_id": author_id,
+                                      "lyric": body,
+                                      "records": userRecords,
+                                      "format": userFormate,
+                                      "size": userSize,
+                                      "time": userTime,
                                   }
                               }
                           }, function(ret, err) {
-                            if(ret){
-                              if (ret.status == 200) {
-                                  // console.log(ret.status);
-                                  var fs = api.require('fs');
-                                  fs.rmdir({
-                                      path: 'fs://luyin'
-                                  }, function(ret, err) {
-                                      if (ret.status) {} else {
-                                          alert(JSON.stringify(err));
-                                      }
-                                  });
-                                  path = '';
-                                  timeCsss();
-
-
-                              } else {
-
-                                  netMessage(ret);
+                              if(ret){
+                                if (ret.status == 200) {
+                                    api.toast({              
+                                        msg:   '已上传',
+                                        duration:  2000,
+                                        location:   'middle'          
+                                    });
+                                    var fs = api.require('fs');
+                                    fs.rmdir({
+                                        path: 'fs://luyin'
+                                    }, function(ret, err) {
+                                        if (ret.status) {} else {
+                                            alert(JSON.stringify(err));
+                                        }
+                                    });
+                                    path = '';
+                                    timeCsss();
+                                } else {
+                                    netMessage(ret);
+                                }
+                              }else{
+                                netWork(err);
                               }
-                            }else{
-                              netWork(err);
-                            }
                           });
-
-
-                      	}
                         var dialogBox = api.require('dialogBox');
                         dialogBox.close({
                             dialogName: 'alert'

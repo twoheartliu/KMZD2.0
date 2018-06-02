@@ -145,6 +145,7 @@
   </body>
   <script type="text/javascript" src="../script/api.js"></script>
   <script type="text/javascript" src="../script/common.js"></script>
+  <script type="text/javascript" src="../script/message.js"></script>;
   <script type="text/javascript">
   var token;
     apiready = function(){
@@ -156,6 +157,8 @@
       api.ajax({
           url: host + apiUri + '/index/billboard' + '?type=friend',
           method: 'get',
+          dataType: 'json',
+          timeout:10,
           headers: {
               "source": api.systemType,
               "version": version,
@@ -163,111 +166,117 @@
           }
       }, function(ret, err) {
           // console.log(JSON.stringify(ret));
-          if (ret.status == 200) {
-              var len= ret.data.length;
-              var section = $api.byId('section');
-              var htmls = '';
-              for(var i = 0; i < len; i++){
-                var photo = ret.data[i].photo;
-                // console.log(photo);
-                if(ret.data[i].photo == null){
-                  // html4 = '<img src="../image/bangdan/default_head.png" alt="">';
-                  htmls += '<div class="bill-board-top">'+
-                    '<div class="user-logo" onclick="fnOpenmyPersonal(\'' + ret.data[i].user_id + '\',\'' + ret.data[i].nick_name + '\');">'+
-                      '<div class="user-img">'+
-                        '<div class="logo-img"><img src="../image/bangdan/default_head.png" alt=""></div>'+
-                        '<p >'+ret.data[i].nick_name+' </p>'+
+          if(ret){
+            if (ret.status == 200) {
+                var len= ret.data.length;
+                var section = $api.byId('section');
+                var htmls = '';
+                for(var i = 0; i < len; i++){
+                  var photo = ret.data[i].photo;
+                  // console.log(photo);
+                  if(ret.data[i].photo == null){
+                    // html4 = '<img src="../image/bangdan/default_head.png" alt="">';
+                    htmls += '<div class="bill-board-top">'+
+                      '<div class="user-logo" onclick="fnOpenmyPersonal(\'' + ret.data[i].user_id + '\',\'' + ret.data[i].nick_name + '\');">'+
+                        '<div class="user-img">'+
+                          '<div class="logo-img"><img src="../image/bangdan/default_head.png" alt=""></div>'+
+                          '<p >'+ret.data[i].nick_name+' </p>'+
+                        '</div>'+
                       '</div>'+
-                    '</div>'+
-                    '<ul class="row">'+
-                      '<li class="col">'+
-                        '<p>学分</p>'+
-                        '<p><span class="num">'+ret.data[i].user_exp+'</span>分</p>'+
-                      '</li>'+
-                      '<li class="col">'+
-                        '<p>学时</p>'+
-                        '<p><span class="num">'+parseInt(ret.data[i].user_learn_time/60) +'</span>小时<span class="num">'+ret.data[i].user_learn_time%60+'</span>分钟</p>'+
-                      '</li>'+
-                      '<li class="col">'+
-                        '<p>作品</p>'+
-                        '<p><span class="num">'+ret.data[i].record_total+'</span>个</p>'+
-                      '</li>'+
-                      '<li class="col ">'+
-                        '<p>被赞</p>'+
-                        '<p><span class="num">'+ret.data[i].good_total+'</span>次</p>'+
-                      '</li>'+
-                    '</ul>'+
-                  '</div>';
+                      '<ul class="row">'+
+                        '<li class="col">'+
+                          '<p>学分</p>'+
+                          '<p><span class="num">'+ret.data[i].user_exp+'</span>分</p>'+
+                        '</li>'+
+                        '<li class="col">'+
+                          '<p>学时</p>'+
+                          '<p><span class="num">'+parseInt(ret.data[i].user_learn_time/60) +'</span>小时<span class="num">'+ret.data[i].user_learn_time%60+'</span>分钟</p>'+
+                        '</li>'+
+                        '<li class="col">'+
+                          '<p>作品</p>'+
+                          '<p><span class="num">'+ret.data[i].record_total+'</span>个</p>'+
+                        '</li>'+
+                        '<li class="col ">'+
+                          '<p>被赞</p>'+
+                          '<p><span class="num">'+ret.data[i].good_total+'</span>次</p>'+
+                        '</li>'+
+                      '</ul>'+
+                    '</div>';
+                    $api.html(section,htmls);
+                  }else{
+                    var photo = ret.data[i].photo.substring(0, 4);
+                    if(photo == 'http' ){
+                      // title = ret.data[i].photo;
+                      // html4 = '<img src="' + ret.data[i].photo + '" alt="" />';
+                      htmls += '<div class="bill-board-top">'+
+                        '<div class="user-logo" onclick="fnOpenmyPersonal(\'' + ret.data[i].user_id + '\',\'' + ret.data[i].nick_name + '\');">'+
+                          '<div class="user-img">'+
+                            '<div class="logo-img"><img src="' + ret.data[i].photo + '" alt=""></div>'+
+                            '<p >'+ret.data[i].nick_name+' </p>'+
+                          '</div>'+
+                        '</div>'+
+                        '<ul class="row">'+
+                          '<li class="col">'+
+                            '<p>学分</p>'+
+                            '<p><span class="num">'+ret.data[i].user_exp+'</span>分</p>'+
+                          '</li>'+
+                          '<li class="col">'+
+                            '<p>学时</p>'+
+                            '<p><span class="num">'+parseInt(ret.data[i].user_learn_time/60) +'</span>小时<span class="num">'+ret.data[i].user_learn_time%60+'</span>分钟</p>'+
+                          '</li>'+
+                          '<li class="col">'+
+                            '<p>作品</p>'+
+                            '<p><span class="num">'+ret.data[i].record_total+'</span>个</p>'+
+                          '</li>'+
+                          '<li class="col ">'+
+                            '<p>被赞</p>'+
+                            '<p><span class="num">'+ret.data[i].good_total+'</span>次</p>'+
+                          '</li>'+
+                        '</ul>'+
+                      '</div>';
+                      $api.html(section,htmls);
+                    }
+                    if(photo != 'http' ){
+                      // html4 = '<img src="' + updatePhotoUrl + ret.data.photo + '" alt="" />';
+                      htmls += '<div class="bill-board-top">'+
+                        '<div class="user-logo" onclick="fnOpenmyPersonal(\'' + ret.data[i].user_id + '\',\'' + ret.data[i].nick_name + '\');">'+
+                          '<div class="user-img">'+
+                            '<div class="logo-img"><img src="' + updatePhotoUrl + ret.data[i].photo + '" alt=""></div>'+
+                            '<p >'+ret.data[i].nick_name+' </p>'+
+                          '</div>'+
+                        '</div>'+
+                        '<ul class="row">'+
+                          '<li class="col">'+
+                            '<p>学分</p>'+
+                            '<p><span class="num">'+ret.data[i].user_exp+'</span>分</p>'+
+                          '</li>'+
+                          '<li class="col">'+
+                            '<p>学时</p>'+
+                            '<p><span class="num">'+parseInt(ret.data[i].user_learn_time/60) +'</span>小时<span class="num">'+ret.data[i].user_learn_time%60+'</span>分钟</p>'+
+                          '</li>'+
+                          '<li class="col">'+
+                            '<p>作品</p>'+
+                            '<p><span class="num">'+ret.data[i].record_total+'</span>个</p>'+
+                          '</li>'+
+                          '<li class="col ">'+
+                            '<p>被赞</p>'+
+                            '<p><span class="num">'+ret.data[i].good_total+'</span>次</p>'+
+                          '</li>'+
+                        '</ul>'+
+                      '</div>';
+                      $api.html(section,htmls);
+                    }
+                  }
                   $api.html(section,htmls);
-                }else{
-                  var photo = ret.data[i].photo.substring(0, 4);
-                  if(photo == 'http' ){
-                    // title = ret.data[i].photo;
-                    // html4 = '<img src="' + ret.data[i].photo + '" alt="" />';
-                    htmls += '<div class="bill-board-top">'+
-                      '<div class="user-logo" onclick="fnOpenmyPersonal(\'' + ret.data[i].user_id + '\',\'' + ret.data[i].nick_name + '\');">'+
-                        '<div class="user-img">'+
-                          '<div class="logo-img"><img src="' + ret.data[i].photo + '" alt=""></div>'+
-                          '<p >'+ret.data[i].nick_name+' </p>'+
-                        '</div>'+
-                      '</div>'+
-                      '<ul class="row">'+
-                        '<li class="col">'+
-                          '<p>学分</p>'+
-                          '<p><span class="num">'+ret.data[i].user_exp+'</span>分</p>'+
-                        '</li>'+
-                        '<li class="col">'+
-                          '<p>学时</p>'+
-                          '<p><span class="num">'+parseInt(ret.data[i].user_learn_time/60) +'</span>小时<span class="num">'+ret.data[i].user_learn_time%60+'</span>分钟</p>'+
-                        '</li>'+
-                        '<li class="col">'+
-                          '<p>作品</p>'+
-                          '<p><span class="num">'+ret.data[i].record_total+'</span>个</p>'+
-                        '</li>'+
-                        '<li class="col ">'+
-                          '<p>被赞</p>'+
-                          '<p><span class="num">'+ret.data[i].good_total+'</span>次</p>'+
-                        '</li>'+
-                      '</ul>'+
-                    '</div>';
-                    $api.html(section,htmls);
-                  }
-                  if(photo != 'http' ){
-                    // html4 = '<img src="' + updatePhotoUrl + ret.data.photo + '" alt="" />';
-                    htmls += '<div class="bill-board-top">'+
-                      '<div class="user-logo" onclick="fnOpenmyPersonal(\'' + ret.data[i].user_id + '\',\'' + ret.data[i].nick_name + '\');">'+
-                        '<div class="user-img">'+
-                          '<div class="logo-img"><img src="' + updatePhotoUrl + ret.data[i].photo + '" alt=""></div>'+
-                          '<p >'+ret.data[i].nick_name+' </p>'+
-                        '</div>'+
-                      '</div>'+
-                      '<ul class="row">'+
-                        '<li class="col">'+
-                          '<p>学分</p>'+
-                          '<p><span class="num">'+ret.data[i].user_exp+'</span>分</p>'+
-                        '</li>'+
-                        '<li class="col">'+
-                          '<p>学时</p>'+
-                          '<p><span class="num">'+parseInt(ret.data[i].user_learn_time/60) +'</span>小时<span class="num">'+ret.data[i].user_learn_time%60+'</span>分钟</p>'+
-                        '</li>'+
-                        '<li class="col">'+
-                          '<p>作品</p>'+
-                          '<p><span class="num">'+ret.data[i].record_total+'</span>个</p>'+
-                        '</li>'+
-                        '<li class="col ">'+
-                          '<p>被赞</p>'+
-                          '<p><span class="num">'+ret.data[i].good_total+'</span>次</p>'+
-                        '</li>'+
-                      '</ul>'+
-                    '</div>';
-                    $api.html(section,htmls);
-                  }
                 }
-                $api.html(section,htmls);
-              }
-          } else {
-              // console.log(JSON.stringify(err));
+            } else {
+                // console.log(JSON.stringify(err));
+                netMessage(ret);
+            }
+          }else{
+            netWork(err);
           }
+
       });
     }
     function fnOpenmyPersonal(id, nickname){
