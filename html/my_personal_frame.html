@@ -510,12 +510,14 @@
         },function(ret, err){
             if (ret.status == 200) {
                 var listenlist = $api.byId('listenlist');
-                //作品数量
-                if (ret.data.user_listening.length == 0) {
+                //听单数量
+                // console.log(JSON.stringify(ret.data.listening_total));
+                var listenlist_total = ret.data.user_info.listening_total
+                if (listenlist_total == null) {
                     var nums = '0';
                     $api.html(listenlist, nums);
                 } else {
-                    var nums = ret.data.user_listening.length;
+                    var nums = listenlist_total;
                     $api.html(listenlist, nums);
                 }
 
@@ -544,7 +546,7 @@
 
     }
 
-    // 点击打开听单详情
+    // 点击打开当前听单
     function openListen(s) {
         api.openWin({
             name: 'ListingsList_frame',
@@ -554,11 +556,11 @@
             }
         });
     }
-
+    // 听单-更多
     function fnlistenList(s) {
         api.openWin({
-            name: 'ListingsLists',
-            url: './ListingsLists.html',
+            name: 'moreListeningList',
+            url: './moreListeningList.html',
             pageParam: {
                 ids: 'test'
             }
@@ -827,7 +829,7 @@
           }
       });
     }
-    //打开更多
+    //作品详情
     function fnOpenPlayMore(id) {
         var dialogBox = api.require('dialogBox');
         dialogBox.actionMenu({
@@ -869,7 +871,7 @@
         }, function(ret) {
             if (ret.eventType == 'cancel') {
                 dialogBox.close({
-                    dialogName: 'discount'
+                    dialogName: 'actionMenu'
                 });
             }
             if (ret.index == "0") {
@@ -909,13 +911,13 @@
 
               });
               dialogBox.close({
-                  dialogName: 'alert'
+                  dialogName: 'actionMenu'
               });
                 // alert(1);
             } else if (ret.index == "1") {
                 fnOpenAddListening(id)
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'actionMenu'
                 });
                 // alert(2);
             } else if (ret.index == "2") {
@@ -926,7 +928,7 @@
                 // alert(3);
             } else {
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'actionMenu'
                 });
             }
             // dialogBox.close({
@@ -978,27 +980,27 @@
         }, function(ret) {
             if (ret.eventType == 'cancel') {
                 dialogBox.close({
-                    dialogName: 'discount'
+                    dialogName: 'actionMenu'
                 });
             }
             if (ret.index == "0") {
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'actionMenu'
                 });
                 // alert(1);
             } else if (ret.index == "1") {
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'actionMenu'
                 });
                 // alert(2);
             } else if (ret.index == "2") {
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'actionMenu'
                 });
                 // alert(3);
             } else {
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'actionMenu'
                 });
             }
             // dialogBox.close({
