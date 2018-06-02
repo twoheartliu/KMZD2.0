@@ -452,7 +452,7 @@
 
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
-<script type="text/javascript" src="../script/zepto.js"></script>
+<!-- <script type="text/javascript" src="../script/zepto.js"></script> -->
 <!-- <script type="text/javascript" src="../script/audio2.js"></script> -->
 <script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript" src="../script/message.js"></script>
@@ -472,6 +472,12 @@
     var body;
     var author_id;
     var jidutiao = 1;
+    var userId;
+    var userRecords;
+    var userTime;
+    var userFormate;
+    var userSize;
+    var draftsId;
     apiready = function() {
       token = $api.getStorage('token');
       api.addEventListener({
@@ -548,6 +554,7 @@
             }
         }, function(ret, err) {
           if(ret){
+            console.log(JSON.stringify(ret));
             if (ret.status == 200) {
                 // console.log(ret.status);
                 var fs = api.require('fs');
@@ -558,12 +565,28 @@
                         alert(JSON.stringify(err));
                     }
                 });
-                var userId = ret.data.user_id;
 
+                userId = ret.data.user_id;
+                draftsId = ret.data.drafts_id;
+                userRecords = ret.data.records;
+                userTime = ret.data.time;
+                userFormate = ret.data.formate;
+                userSize = ret.data.size;
+
+                api.sendEvent({
+                    name: 'shiTingUrl',
+                    extra: {
+                        userId:userId,
+                        draftsId:draftsId,
+                        records:userRecords,
+                        time:userTime,
+                        formate:userFormate,
+                        size:userSize,
+                    }
+                });
                 var stylelist = $api.byId('yinpin');
                 var html = '<audio id="myAudio" ><source src=" ' + userRecord + userId + '/' + ret.data.records + '" type="audio/mp3"></audio>';
                 $api.html(stylelist, html);
-                console.log(html);
             } else {
 
                 netMessage(ret);

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
     <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
-    <title>孔孟之道--发表作品</title>
+    <title>孔孟之道--草稿箱</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
     <style>
         html,
@@ -267,6 +267,7 @@
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/message.js"></script>;
 <script type="text/javascript">
 var caogao;
 var Dqbofangid;
@@ -278,37 +279,32 @@ var jubenid;
       fnGetBeiJingYinYueTypelist();
     }
     function fnGetBeiJingYinYueTypelist() {
-      api.getPrefs({
-          key: 'cgxlist'
+      uri = '/user/drafts';
+      api.ajax({
+          url: host + apiUri + uri,
+          method: 'get',
+          timeout:10,
+          headers: {
+              "source": api.systemType,
+              "version": version,
+              "session": token
+          },
       }, function(ret, err) {
-          var historyUrlText = '' || ret.value;
-          historyUrlArray = historyUrlText.split(',');
-          if(historyUrlArray == ''){
-            var stylelist = $api.byId('lists');
-            var html ='<div style="height:100%; width:100%; background-color:#fff;"><p style="margin:0 auto;">暂无数据<p></div>';
-            $api.html(stylelist, html);
-          }
-          var length = historyUrlArray.length-1;
-          var stylelist = $api.byId('lists');
-          var html = '';
-          for (var i = 0; i < length/5+1; i++) {
-              if (historyUrlArray[i].length == 0)
-                  continue;
-              var cgxid = historyUrlArray[i*5-4];
-              // console.log(cgxid);
-              var title = historyUrlArray[i*5-3];
-              var name = historyUrlArray[i*5-2];
-              var desc = historyUrlArray[i*5-1];
-              var author_id = historyUrlArray[i*5];
-                if(historyUrlArray[i*5-1]){
-                  html +='<div class="egret-flex-item" tapmode="fmbtnhover"><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 col fl" >' + historyUrlArray[i*5-3] + '</span><span class="span2 col fl" onclick="opencaogaoyinyue(' + i + ');">&nbsp; &nbsp; &nbsp;作者：' + historyUrlArray[i*5-2] + '</span><img class="span4 col fr" onclick="dialogBox_actionMenu(' + i + ');" src="../image/KM_list_more.png"alt=""/></div></div></div>';
-                }else{
-                  html +='<div class="egret-flex-item" tapmode="fmbtnhover"><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 col fl">' + historyUrlArray[i*5-3] + '</span><span class="span3 col fl" onclick="opencaogaoyinyue(' + i + ');"></span><img class="span4 col fr" onclick="dialogBox_actionMenu(' + i + ');"src="../image/KM_list_more.png" alt=""/></div></div></div>';
-                }
-              $api.html(stylelist, html);
+          if(ret){
+            if (ret.status == 200) {
+              var stylelist = $api.byId('lists');
+                  var html = '';
+              for (var i = 0; i < ret.data.length; i++) {
+                html +='<div class="egret-flex-item" tapmode="fmbtnhover"><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 col fl" >' + ret.data[i].title + '</span><span class="span2 col fl" onclick="opencaogaoyinyue(' + ret.data[i].drafts_id + ');">&nbsp; &nbsp; &nbsp;</span><img class="span4 col fr" onclick="dialogBox_actionMenu(' + ret.data[i].drafts_id + ');" src="../image/KM_list_more.png"alt=""/></div></div></div>';
+                $api.html(stylelist, html);
+              }
+            } else {
+                netMessage(ret);
+            }
+          }else{
+            netWork(err);
           }
       });
-
   	}
     function fnDangQianbofangid(id){
       Dqbofangid = id;
@@ -385,181 +381,147 @@ var jubenid;
             var index = ret.index;
             if (texts == "cancel") {
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'actionMenu'
                 });
             } else if (index == 0) {
-                api.getPrefs({
-                    key: 'cgxlist'
-                }, function(ret, err) {
-                    var historyUrlText = '' || ret.value;
-                    historyUrlArray = historyUrlText.split(',');
-                    var fs = api.require('fs');
-                    fs.copyTo({
-                        oldPath: 'fs://caogaoxiang/'+historyUrlArray[s*5-4],
-                        newPath: 'fs://shangchuanxiang'
-                    }, function(ret, err) {
-                        var paths = 'fs://shangchuanxiang/'+historyUrlArray[s*5-4];
-                        if (ret.status) {
-                            fs.rename({
-                                oldPath: paths,
-                                newPath: 'fs://shangchuanxiang/'+historyUrlArray[s*5-4] + '.amr'
-                            }, function(ret, err) {
-                                if (ret.status) {
-                                    // alert('已上传');
-                                    uri = '/upload/user_records';
-                                    api.ajax({
-                                        url: host + apiUri + uri,
-                                        method: 'post',
-                                        dataType: 'json',
-                                        timeout:10,
-                                        headers: {
-                                            "source": api.systemType,
-                                            "version": version,
-                                            "session": token
-                                        },
-                                        data: {
-                                            files: {
-                                                records: 'fs://shangchuanxiang/' + historyUrlArray[s*5-4] + '.amr'
-                                            }
-                                        }
-                                    }, function(ret, err) {
-                                      if(ret){
-                                        if (ret.status == 200) {
-                                            var aaaa = historyUrlArray[s*5-4];
-                                            var aaaa = aaaa.substring(12);
-                                            uri = '/user/records';
-                                            api.ajax({
-                                                url: host + apiUri + uri,
-                                                method: 'post',
-                                                dataType: 'json',
-                                                headers: {
-                                                    "source": api.systemType,
-                                                    "version": version,
-                                                    "session": token
-                                                },
-                                                data: {
-                                                    values: {
-                                                        "script_id":aaaa,
-                                                        "title": historyUrlArray[s*5-3],
-                                                        "author_id":historyUrlArray[s*5],
-                                                        "lyric": historyUrlArray[s*5-1],
-                                                        "records": ret.data.records,
-                                                        "format": ret.data.formate,
-                                                        "size": ret.data.size,
-                                                        "time": ret.data.time,
-                                                    }
-                                                }
-                                            }, function(ret, err) {
-                                              if(ret){
-                                                if (ret.status == 200) {
-                                                  api.toast({              
-                                                      msg:   '已上传',
-                                                      duration:  2000,
-                                                      location:   'middle'          
-                                                  });
-
-                                                api.getPrefs({
-                                                    key: 'cgxlist'
-                                                }, function(ret, err) {
-                                                    var flag = false;
-                                                    var historyUrlText = '' || ret.value;
-                                                    var historyUrlArray = historyUrlText.split(',');
-                                                    var ccc = s*5-4;
-                                                    historyUrlArray.splice(ccc,5);
-                                                    !flag && api.setPrefs({
-                                                        key: 'cgxlist',
-                                                        value: historyUrlArray.join(',')
-                                                    });
-                                                    fnGetBeiJingYinYueTypelist();
-
-                                                });
-                                                fs.remove({
-                                                    path: 'fs://caogaoxiang/'+historyUrlArray[s*5-4]
-                                                }, function(ret, err) {
-                                                    if (ret.status) {
-                                                        // alert(JSON.stringify(ret));
-                                                    } else {
-                                                        // alert(JSON.stringify(err));
-                                                    }
-                                                });
-                                                fs.rmdir({
-                                                    path: 'fs://shangchuanxiang'
-                                                }, function(ret, err) {
-                                                    if (ret.status) {
-                                                    } else {
-                                                        // alert(JSON.stringify(err));
-                                                    }
-                                                });
-                                                fs.rmdir({
-                                                    path: 'fs://luyin'
-                                                }, function(ret, err) {
-                                                    if (ret.status) {
-                                                    } else {
-                                                        // alert(JSON.stringify(err));
-                                                    }
-                                                });
-                                                } else {
-                                                  netMessage(ret);
-                                                }
-                                              }else{
-                                                netWork(err);
-                                              }
-                                            });
-                                        } else {
-                                          netMessage(ret);
-                                        }
-                                      }else{
-                                        netWork(err);
-                                      }
-                                    });
-
-
-
-                                } else {
-                                    alert(JSON.stringify(err));
-                                }
-                            });
-                        } else {
-                            alert(JSON.stringify(err));
+              uri = '/user/drafts';
+              api.ajax({
+                  url: host + apiUri + uri,
+                  method: 'get',
+                  timeout:10,
+                  headers: {
+                      "source": api.systemType,
+                      "version": version,
+                      "session": token
+                  },
+              }, function(ret, err) {
+                  if(ret){
+                    if (ret.status == 200) {
+                      var h;
+                      for (i = 0; i < ret.data.length; i++) {
+                        if(ret.data[i].drafts_id == s){
+                            h = i
                         }
-                    });
-                });
+                      }
+                        var uri = '/user/records';
+                        api.ajax({
+                            url: host + apiUri + uri,
+                            method: 'post',
+                            dataType: 'json',
+                            timeout:10,
+                            headers: {
+                                "source": api.systemType,
+                                "version": version,
+                                "session": token
+                            },
+                            data: {
+                                values: {
+                                    "script_id": ret.data[h].script_id,
+                                    "title": ret.data[h].time,
+                                    "author_id": ret.data[h].author_id,
+                                    "lyric": ret.data[h].body,
+                                    "records": ret.data[h].url,
+                                    "format": ret.data[h].formate,
+                                    "size": ret.data[h].size,
+                                    "time": ret.data[h].time,
+                                    "drafts_id": ret.data[h].drafts_id,
+                                }
+                            }
+                        }, function(ret, err) {
+                            if(ret){
+                              if (ret.status == 200) {
+                                  api.toast({              
+                                      msg:   '已上传',
+                                      duration:  2000,
+                                      location:   'middle'          
+                                  });
+                                  fnGetBeiJingYinYueTypelist();
+                              } else {
+                                  netMessage(ret);
+                              }
+                            }else{
+                              netWork(err);
+                            }
+                        });
+                    } else {
+                        netMessage(ret);
+                    }
+                  }else{
+                    netWork(err);
+                  }
+              });
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'actionMenu'
                 });
             } else if (index == 1) {
-              api.getPrefs({
-                  key: 'cgxlist'
+              uri = '/user/del_drafts';
+              api.ajax({
+                  url: host + apiUri + uri,
+                  method: 'post',
+                  timeout:10,
+                  headers: {
+                      "source": api.systemType,
+                      "version": version,
+                      "session": token
+                  },
+                  data:{
+                    values:{
+                      id:s
+                    }
+                  }
               }, function(ret, err) {
-                  var flag = false;
-                  var historyUrlText = '' || ret.value;
-                  var historyUrlArray = historyUrlText.split(',');
-                  var ccc = s*5-4;
-                  historyUrlArray.splice(ccc,5);
-                  !flag && api.setPrefs({
-                      key: 'cgxlist',
-                      value: historyUrlArray.join(',')
-                  });
-                  fnGetBeiJingYinYueTypelist();
-
-              });
-              var fs = api.require('fs');
-              fs.remove({
-                  path: 'fs://caogaoxiang/'+historyUrlArray[s*5-4]
-              }, function(ret, err) {
-                  if (ret.status) {
-                      // alert(JSON.stringify(ret));
-                        alert('已删除')
-                  } else {
-                      alert(JSON.stringify(err));
+                  if(ret){
+                    if (ret.status == 200) {
+                      api.toast({              
+                      	msg:  '删除成功',
+                      	duration:  2000,
+                      	location:   'middle'          
+                      });
+                      fnGetBeiJingYinYueTypelist();
+                    } else {
+                        netMessage(ret);
+                    }
+                  }else{
+                    netWork(err);
                   }
               });
 
+
+              // api.getPrefs({
+              //     key: 'cgxlist'
+              // }, function(ret, err) {
+              //     var flag = false;
+              //     var historyUrlText = '' || ret.value;
+              //     var historyUrlArray = historyUrlText.split(',');
+              //     var ccc = s*5-4;
+              //     historyUrlArray.splice(ccc,5);
+              //     !flag && api.setPrefs({
+              //         key: 'cgxlist',
+              //         value: historyUrlArray.join(',')
+              //     });
+              //     fnGetBeiJingYinYueTypelist();
+              //
+              // });
+              // var fs = api.require('fs');
+              // fs.remove({
+              //     path: 'fs://caogaoxiang/'+historyUrlArray[s*5-4]
+              // }, function(ret, err) {
+              //     if (ret.status) {
+              //         // alert(JSON.stringify(ret));
+              //           alert('已删除')
+              //     } else {
+              //         alert(JSON.stringify(err));
+              //     }
+              // });
+
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'actionMenu'
                 });
 
             }
+            dialogBox.close({
+                dialogName: 'actionMenu'
+            });
         });
     }
 </script>

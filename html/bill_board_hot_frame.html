@@ -258,6 +258,7 @@
   </body>
   <script type="text/javascript" src="../script/api.js"></script>
   <script type="text/javascript" src="../script/common.js"></script>
+  <script type="text/javascript" src="../script/message.js"></script>;
   <script type="text/javascript">
   var token;
     apiready = function(){
@@ -269,6 +270,8 @@
       api.ajax({
           url: host + apiUri + '/index/billboard' + '?type=hot',
           method: 'get',
+          dataType: 'json',
+          timeout:10,
           headers: {
               "source": api.systemType,
               "version": version,
@@ -276,33 +279,39 @@
           }
       }, function(ret, err) {
           // console.log(JSON.stringify(ret));
-          if (ret.status == 200) {
-              var len= ret.data.length;
-              // console.log(len);
-              var html2 = '';
-              var section = $api.byId('section');
-              for(var i = 0; i < len; i++){
-                html2 += '<div class="egret-flex-item" >'+
-                  '<div class="egret-flex-items" tapmode="fmbtnhover" onclick="fnOpenPlay('+ret.data[i].id+')">'+
-                    '<div class="egret-flex-item-shelf">'+
-                        '<div class="egret-flex-item-shelf02">'+ret.data[i].title+'</div>'+
-                        '<div class="egret-flex-item-shelf03">'+
-                            '<div><img src="../image/KM_play.png" alt=""><span>'+ret.data[i].play_total+'</span></div>'+
-                            '<div><img src="../image/KM_zf.png" alt=""><span>'+ret.data[i].share_total+'</span></div>'+
-                            '<div><img src="../image/KM_dz.png" alt=""><span>'+ret.data[i].good_total+'</span></div>'+
-                        '</div>'+
+          if(ret){
+            if (ret.status == 200) {
+                var len= ret.data.length;
+                // console.log(len);
+                var html2 = '';
+                var section = $api.byId('section');
+                for(var i = 0; i < len; i++){
+                  html2 += '<div class="egret-flex-item" >'+
+                    '<div class="egret-flex-items" tapmode="fmbtnhover" onclick="fnOpenPlay('+ret.data[i].id+')">'+
+                      '<div class="egret-flex-item-shelf">'+
+                          '<div class="egret-flex-item-shelf02">'+ret.data[i].title+'</div>'+
+                          '<div class="egret-flex-item-shelf03">'+
+                              '<div><img src="../image/KM_play.png" alt=""><span>'+ret.data[i].play_total+'</span></div>'+
+                              '<div><img src="../image/KM_zf.png" alt=""><span>'+ret.data[i].share_total+'</span></div>'+
+                              '<div><img src="../image/KM_dz.png" alt=""><span>'+ret.data[i].good_total+'</span></div>'+
+                          '</div>'+
+                      '</div>'+
+                    '</div>'+
+                    '<div class="egret-flex-item-shelf04" onclick="fnOpenPlayMore()">'+
+                      '<img src="../image/KM_list_more.png" alt="">'+
                     '</div>'+
                   '</div>'+
-                  '<div class="egret-flex-item-shelf04" onclick="fnOpenPlayMore()">'+
-                    '<img src="../image/KM_list_more.png" alt="">'+
-                  '</div>'+
-                '</div>'+
-                '<div class="hdivider"></div>';
-                $api.html(section,html2);
-              }
-          } else {
-              // console.log(JSON.stringify(err));
+                  '<div class="hdivider"></div>';
+                  $api.html(section,html2);
+                }
+            } else {
+                netMessage(ret);
+            }
+
+          }else{
+            netWork(err);
           }
+
       });
     }
     //打开播放
