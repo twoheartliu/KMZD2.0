@@ -303,6 +303,10 @@
                 <div class="fr aloud_py_fr" onclick="fnSoundtrackWin();"><span></span>选择配乐</div>
             </div>
         </div>
+        <div id="yinpin">
+            <!-- <audio id="myAudio" >
+        </audio> -->
+        </div>
         <!-- <div class="footer_bottom row">
                 <div class="footer_bottoms_st col"><img src="../image/KM_shiting.png" alt=""></div>
                 <div class="footer_bottoms col"><img src="../image/KM_ly.png" alt=""></div>
@@ -373,40 +377,12 @@
       	}else{
           var mp3 = input;
           var paths = 'http://47.100.11.38/bgmp3/'+mp3;
-          // var netAudio = api.require('netAudio');
-          // netAudio.play({
-          //     path: paths
-          // }, function(ret, err) {
-          //     if (ret) {
-          //       console.log(2225222);
-          //
-          //       api.startRecord({
-          //           path: 'fs://luyin/' + timestamp + jubenid+'.amr'
-          //       });
-          //       timestamps = timestamp;
-          //       timeC();
-          //       timedCount();
-          //       console.log(898789);
-          //     } else {
-          //         // alert(JSON.stringify(err));
-          //     }
-          // });
-          var audioStreamer = api.require('audioStreamer');
-          audioStreamer.openPlayer({
-              path: paths,
-          }, function(ret) {
-              if (ret.status) {
-                  // api.alert({ msg: JSON.stringify(ret) });
-                  api.startRecord({
-                            path: 'fs://luyin/' + timestamp + jubenid+'.amr'
-                        });
-                        timestamps = timestamp;
-                        timeC();
-                        timedCount();
-              }
-          });
-          console.log(123321);
-
+          var stylelist = $api.byId('yinpin');
+          var html = '<audio id="myAudio" ><source src="' + paths + '" type="audio/mp3"></audio>';
+          $api.html(stylelist, html);
+          if (html) {
+              kaishibofang();
+          }
       	}
       }
 
@@ -419,7 +395,18 @@
     var name;
     var body;
     var cgxid;
-
+    var myAudioPlay;
+    function kaishibofang(){
+      var myAudio = document.getElementById("myAudio");
+      myAudio.play();
+      myAudioPlay = 1;
+      api.startRecord({
+          path: 'fs://luyin/' + timestamp + jubenid+'.amr'
+      });
+      timestamps = timestamp;
+      timeC();
+      timedCount();
+    }
     function fnGetJubenlist() {
         var id = api.pageParam.InfojubenType;
         jubenid = api.pageParam.InfojubenType;
@@ -489,9 +476,7 @@
               // alert(JSON.stringify(err));
           }
       });
-        api.closeWin({
-            name: 'aloud'
-        });
+      api.closeWin();
     }
 
     function fnReadListWin() {
@@ -558,7 +543,6 @@
     }
     //试听
     function fnLuYinshiting() {
-        console.log(path);
         if (a == 2) {
             if (path) {
               if(c > 9){
@@ -580,6 +564,8 @@
                         ok:"ctwin"
                     }
                 });
+                path = '';
+                timeCsss();
               }else {
                   // alert(JSON.stringify(ret.message));
                   // timeCsss();
@@ -705,47 +691,15 @@
             fnBeiYueplay();
             return false;
         }
-        console.log(111115);
+        // api.startRecord({
+        //     path: 'fs://luyin/' + timestamp + jubenid+'.amr'
+        // });
+        // timestamps = timestamp;
+        // timeC();
+        // timedCount();
         api.startRecord({
             path: 'fs://luyin/' + timestamp + jubenid+'.amr'
         });
-
-
-        // var audioRecorder = api.require('audioRecorder');
-        // audioRecorder.startRecord({
-        //   savePath:'fs://luyin/' + timestamp + jubenid+'.pcm',
-        //   format:'pcm'
-        // }, function(ret, err){
-        //   // alert(JSON.stringify(ret));
-        //   console.log(JSON.stringify(ret));
-        // });
-
-
-
-        // r = plus.audio.getRecorder();
-        //     if(r == null) {
-        //         console.log('录音对象未获取')
-        //         outLine('录音对象未获取');
-        //         return;
-        //     }
-        //     r.record({
-        //         filename: '_doc/audio/'
-        //         //format: '3gp'
-        //     }, function(p) {
-        //         console.log('录音完成：' + p)
-        //         outLine('录音完成：' + p);
-        //         plus.io.resolveLocalFileSystemURL(p, function(entry) {
-        //             //createItem(entry);
-        //             addVoice(p, entry);
-        //         }, function(e) {
-        //             outLine('读取录音文件错误：' + e.message);
-        //         });
-        //
-        //     }, function(e) {
-        //         outLine('录音失败：' + e.message);
-        //     });
-        console.log(2222);
-        // console.log(path);
         timestamps = timestamp;
         timeC();
         timedCount();
@@ -770,32 +724,22 @@
             playCollect.src = "../image/read/recording.png";
             a = 2;
             //暂停播放
-            // var netAudio = api.require('netAudio');
-            // netAudio.stop();
-            var audioStreamer = api.require('audioStreamer');
-audioStreamer.pause();
+            if(myAudioPlay == 1){
+              var myAudio = document.getElementById("myAudio");
+              myAudio.pause();
+            }
+
             stopCount();
             //暂停录音
-            console.log(235656532);
             api.stopRecord(function(ret, err) {
-              console.log(JSON.stringify(ret));
-              console.log(8888);
-              console.log(JSON.stringify(err));
                 if (ret) {
-                    // console.log(ret.path);
                     path = ret.path;
-                    console.log(999);
                     console.log(path);
                     duration = ret.duration;
                 }
             });
-            // var audioRecorder = api.require('audioRecorder');
-            // audioRecorder.stopRecord(function(ret){
-            //     // alert(JSON.stringify(ret));
-            //     console.log(JSON.stringify(ret));
-            // });
-
         }
 
     }
+
 </script>
