@@ -218,46 +218,46 @@ function fnLuYinBaoCun() {
                                   path = '';
                                   timeCsss();
 
-                                  uri = '/user/records';
-                                  api.ajax({
-                                      url: host + apiUri + uri,
-                                      method: 'post',
-                                      dataType: 'json',
-                                      timeout:10,
-                                      headers: {
-                                          "source": api.systemType,
-                                          "version": version,
-                                          "session": token
-                                      },
-                                      data: {
-                                          values: {
-                                              "script_id": jubenid,
-                                              "title": name,
-                                              "author_id": author_id,
-                                              "lyric": body,
-                                              "records": ret.data.records,
-                                              "format": ret.data.formate,
-                                              "size": ret.data.size,
-                                              "time": ret.data.time,
-                                          }
-                                      }
-                                  }, function(ret, err) {
-                                      // console.log(JSON.stringify(ret));
-                                      if(ret){
-                                        if (ret.status == 200) {
-                                            api.toast({              
-                                                msg:   '已上传',
-                                                duration:  2000,
-                                                location:   'middle'          
-                                            });
-
-                                        } else {
-                                            netMessage(ret);
-                                        }
-                                      }else{
-                                        netWork(err);
-                                      }
-                                  });
+                                  // uri = '/user/records';
+                                  // api.ajax({
+                                  //     url: host + apiUri + uri,
+                                  //     method: 'post',
+                                  //     dataType: 'json',
+                                  //     timeout:10,
+                                  //     headers: {
+                                  //         "source": api.systemType,
+                                  //         "version": version,
+                                  //         "session": token
+                                  //     },
+                                  //     data: {
+                                  //         values: {
+                                  //             "script_id": jubenid,
+                                  //             "title": name,
+                                  //             "author_id": author_id,
+                                  //             "lyric": body,
+                                  //             "records": ret.data.records,
+                                  //             "format": ret.data.formate,
+                                  //             "size": ret.data.size,
+                                  //             "time": ret.data.time,
+                                  //         }
+                                  //     }
+                                  // }, function(ret, err) {
+                                  //     // console.log(JSON.stringify(ret));
+                                  //     if(ret){
+                                  //       if (ret.status == 200) {
+                                  //           api.toast({              
+                                  //               msg:   '已上传',
+                                  //               duration:  2000,
+                                  //               location:   'middle'          
+                                  //           });
+                                  //
+                                  //       } else {
+                                  //           netMessage(ret);
+                                  //       }
+                                  //     }else{
+                                  //       netWork(err);
+                                  //     }
+                                  // });
                               } else {
 
                                   netMessage(ret);
