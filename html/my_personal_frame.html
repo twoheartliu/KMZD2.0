@@ -395,7 +395,7 @@
         </div> -->
         <div class="index_main_h1">
             <b class="index_main_span fl">听单(<span id="listenlist"></span>)</b>
-            <div class="listen-more" onclick="fnlistenList()">更多</div>
+            <div class="listen-more" onclick="fnlistenList(nickName, listenlist_total)">更多</div>
         </div>
         <ul id="test">
             <ul id='id-container' class="message_frame_cycle">
@@ -478,6 +478,8 @@
 <script type="text/javascript">
     var token;
     var relation;
+    var userId;
+    var listenlist_total;
     // var isFirst = true;
     // function doS(){
     //     if(isFirst){
@@ -498,7 +500,7 @@
 
     // 听单相关
     function listenList() {
-        var userId = api.pageParam.userId;
+        userId = api.pageParam.userId;
         api.ajax({
             url: host + apiUri + '/user/personal_page/' + userId,
             method: 'get',
@@ -512,7 +514,7 @@
                 var listenlist = $api.byId('listenlist');
                 //听单数量
                 // console.log(JSON.stringify(ret.data.listening_total));
-                var listenlist_total = ret.data.user_info.listening_total
+                listenlist_total = ret.data.user_info.listening_total
                 if (listenlist_total == null) {
                     var nums = '0';
                     $api.html(listenlist, nums);
@@ -520,6 +522,13 @@
                     var nums = listenlist_total;
                     $api.html(listenlist, nums);
                 }
+                userId = api.pageParam.userId;
+                api.sendEvent({
+                    name: 'Listen_userId',
+                    extra: {
+                        userId: userId,
+                    }
+                });
 
                 //听单列表
                 var container = $api.byId('id-container');
@@ -533,9 +542,13 @@
                     var nolist = '';
                     for (var i = 0; i < ret.data.user_listening.length; i++) {
                         // console.log(JSON.stringify( ret.data.user_listening[i]));
-
-                        nolist += '<li><div onclick="openListen('+ret.data.user_listening[i].l_id+')"><div class="message_frame_cycle_div fl"><div class="message_frame_cycle_img"><img src="'+listenCover+''+ret.data.user_listening[i].listening_cover+'" alt=""></div><div class="message_frame_cycle_div_1 col">'+ret.data.user_listening[i].listening_name+'</div></div></div></li>';
+                        if (ret.data.user_listening[i].listening_cover == '') {
+                            nolist += '<li><div onclick="openListen('+ret.data.user_listening[i].l_id+')"><div class="message_frame_cycle_div fl"><div class="message_frame_cycle_img"><img src="../image/my/fnShareImg.jpg" alt=""></div><div class="message_frame_cycle_div_1 col">'+ret.data.user_listening[i].listening_name+'</div></div></div></li>';
+                        } else {
+                            nolist += '<li><div onclick="openListen('+ret.data.user_listening[i].l_id+')"><div class="message_frame_cycle_div fl"><div class="message_frame_cycle_img"><img src="'+listenCover+''+ret.data.user_listening[i].listening_cover+'" alt=""></div><div class="message_frame_cycle_div_1 col">'+ret.data.user_listening[i].listening_name+'</div></div></div></li>';
+                        }
                     }
+
                     $api.html(container, nolist);
                 }
                 // alert( JSON.stringify( ret ) );
@@ -557,20 +570,35 @@
         });
     }
     // 听单-更多
-    function fnlistenList(s) {
+    function fnlistenList(nickName, listenlist_total) {
         api.openWin({
             name: 'moreListeningList',
             url: './moreListeningList.html',
             pageParam: {
-                ids: 'test'
+                nickName: nickName,
+                userId: userId,
+            }
+        });
+
+    }
+
+    // 作品 更多
+    function fnzopnList() {
+        api.openWin({
+            name: 'moreZopn',
+            url: './moreZopn.html',
+            pageParam: {
+                nickName: nickName,
+                userId: userId,
             }
         });
 
     }
     //调接口
+    var nickName;
     function openInfo (){
       var userId = api.pageParam.userId;
-      var nickName = api.pageParam.nickName;
+      nickName = api.pageParam.nickName;
       //用户名
       var username = $api.byId('username');
       var html = nickName;
