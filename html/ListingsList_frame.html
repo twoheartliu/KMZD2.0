@@ -579,7 +579,6 @@
                       // var footer = $api.byId('footer');
                       // $api.html(footer, '正在加载更多');
                       p ++;
-                      // console.log(p);
                       songList();
                     });
 
@@ -874,7 +873,7 @@
                   var footer = $api.byId('footer');
                   $api.html(footer, '无更多数据');
                 }else {
-                  console.log(ret.data.length);
+                //   console.log(ret.data.length);
                   if (ret.data.length < 10) {
                     var footer = $api.byId('footer');
                     // $api.css(footer, 'display:none');
@@ -1096,12 +1095,12 @@
                     }
                 });
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'discount'
                 });
             } else if (ret.index == "1") {
                 fnOpenAddListening(songListID);
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'discount'
                 });
                 // alert(2);
             } else if (ret.index == "2") {
@@ -1113,7 +1112,7 @@
             } else if (ret.index == "3") {
                 // fnOpenPlayShare();
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'discount'
                 });
                 DeleteSingle(songListID);
 
