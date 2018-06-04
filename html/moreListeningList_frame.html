@@ -204,7 +204,7 @@
                 }
             }, function(ret, err) {
               p ++;
-              console.log(p);
+            //   console.log(p);
               ListenLists();
             });
     }
@@ -286,7 +286,7 @@
                       var footer = $api.byId('footer');
                       $api.html(footer, '无更多数据');
                     }else {
-                      console.log(ret.data.length);
+                    //   console.log(ret.data.length);
                       if (ret.data.length < 10) {
                         var footer = $api.byId('footer');
                         // $api.css(footer, 'display:none');
@@ -333,7 +333,7 @@
     }
 
     function fnOpenPlay(s) {
-        console.log(s);
+        // console.log(s);
         api.openWin({
             name: 'ListingsList',
             url: './ListingsList.html',
