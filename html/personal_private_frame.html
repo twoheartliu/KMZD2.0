@@ -46,6 +46,7 @@
         /*.namefr{padding: 0 60px;}*/
         .name div{border: 1px solid #ccc;padding: 10px;border-radius: 3px;}
         #main{margin-bottom: 80px;}
+        .private{padding: 10px 0;}
     </style>
 </head>
 <body>
@@ -61,8 +62,6 @@
   apiready = function (){
     token = $api.getStorage('token');
     userId = api.pageParam.userId;
-    var mHeader = $api.byId('mesHeader');
-    var headerPos = $api.offset(mHeader);
     fnOpenchatbox();
     fnGetSixin();
     api.setCustomRefreshHeaderInfo({
@@ -121,6 +120,13 @@
 
               // console.log( JSON.stringify( ret ) );
               if (ret.status == 200) {
+                var personalPrivateFrame = 1;
+                api.sendEvent({
+                    name: 'personalPrivateFrame',
+                    extra: {
+                        personalPrivateFrame: personalPrivateFrame
+                    }
+                });
                 api.refreshHeaderLoadDone();
                 var main = $api.byId('main');
                 // 排序（不要转格式，能够直接拿来用）
@@ -161,7 +167,7 @@
 
                   var html = ''
                   if (userId == ret.data[i].receiver_id) {
-                    html += '<div>'+
+                    html += '<div class="private">'+
                               '<div class="fr img"><img src="'+ images +'" alt=""></div>'+
                               '<div class="fr shijianfr">'+
                                   '<div>'+timestampToTimess+'</div>'+
@@ -171,7 +177,7 @@
                               '<div class="clr"></div>'+
                           '</div>';
                   }else {
-                     html += '<div>'+
+                     html += '<div class="private">'+
                             '<div class="fl img"><img src="'+ images +'" alt=""></div>'+
                             '<div class="fl shijian">'+
                                 '<div>'+timestampToTimess+'</div>'+
@@ -283,6 +289,7 @@
                   }
               },function(ret, err){
                   if (ret) {
+                    fnGetSixin();
                       // console.log( JSON.stringify( ret ) );
                   } else {
                       console.log( JSON.stringify( err ) );

@@ -54,9 +54,16 @@
 <script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript">
     var token;
+    var p = 1;
     apiready = function (){
       token = $api.getStorage('token');
       fnMessagePrivateFrame();
+      api.addEventListener({
+          name: 'personalPrivateFrame'
+      }, function(ret, err) {
+          fnMessagePrivateFrame();
+      });
+      
     }
     function fnMessagePrivateFrame() {
       api.ajax({
@@ -72,7 +79,7 @@
           data: {
               values: {
                   type: 3,
-                  p:1
+                  p:p
               }
           }
       },function(ret, err){
