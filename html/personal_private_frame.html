@@ -26,34 +26,55 @@ html,body {min-height: 100%;background: #f2f2f2}
 </head>
 <body>
       <div id="main">
-
       </div>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript">
+  var userId;
+  var token;
   apiready = function (){
+    token = $api.getStorage('token');
+    userId = api.pageParam.userId;
     var mHeader = $api.byId('mesHeader');
     var headerPos = $api.offset(mHeader);
     fnOpenchatbox();
     fnGetSixin();
   }
   function fnGetSixin() {
+    // console.log(token);
+    // console.log(userId);
       api.ajax({
-          url: '',
-          method: 'get',
+        url:  host + apiUri +'/message/detail',
+        method: 'get',
+        headers: {
+            "source": api.systemType,
+            "version": version,
+            "session": token
+        },
           data: {
               values: {
-                  name: 'haha'
-              },
-              files: {
-                  file: 'fs://a.gif'
+                  user_id: userId
               }
           }
       },function(ret, err){
           if (ret) {
-              alert( JSON.stringify( ret ) );
+              // console.log( JSON.stringify( ret ) );
+              if (ret.status == 200) {
+                var  html = '';
+                var main = $api.byId('main');
+                for (var i = 0; i < ret.data.length; i++) {
+                  if (userId == ret.data[i].receiver_id) {
+                      html += '<div>123132</div>'
+                  }else {
+                      html += '<div>456456</div>'
+                  }
+                }
+                $api.html(main, html);
+
+              }
           } else {
-              alert( JSON.stringify( err ) );
+              // alert( JSON.stringify( err ) );
           }
       });
 
@@ -113,26 +134,50 @@ html,body {min-height: 100%;background: #f2f2f2}
                 titleSize: 14
             }
         },
-        extras: {
-            titleSize: 10,
-            titleColor: '#a3a3a3',
-            btns: [{
-                title: '图片',
-                normalImg: 'widget://image/message/chatBox_album1.png',
-                activeImg: 'widget://image/message/chatBox_album2.png'
-            }, {
-                title: '拍照',
-                normalImg: 'widget://image/message/chatBox_cam1.png',
-                activeImg: 'widget://image/message/chatBox_cam2.png'
-            }]
-        }
+        // extras: {
+        //     titleSize: 10,
+        //     titleColor: '#a3a3a3',
+        //     btns: [{
+        //         title: '图片',
+        //         normalImg: 'widget://image/message/chatBox_album1.png',
+        //         activeImg: 'widget://image/message/chatBox_album2.png'
+        //     }, {
+        //         title: '拍照',
+        //         normalImg: 'widget://image/message/chatBox_cam1.png',
+        //         activeImg: 'widget://image/message/chatBox_cam2.png'
+        //     }]
+        // }
     }, function(ret, err) {
         if (ret) {
             // alert(JSON.stringify(ret));
-            console.log(JSON.stringify(ret));
+            // console.log(JSON.stringify(ret));
+            if (ret.msg) {
+              api.ajax({
+                  url:  host + apiUri +'/message/send',
+                  method: 'post',
+                  headers: {
+                      "source": api.systemType,
+                      "version": version,
+                      "session": token
+                  },
+                  data: {
+                      values: {
+                          user_id: userId,
+                          content: ret.msg
+                      }
+                  }
+              },function(ret, err){
+                  if (ret) {
+                      // console.log( JSON.stringify( ret ) );
+                  } else {
+                      console.log( JSON.stringify( err ) );
+                  }
+              });
+            }
         } else {
             // alert(JSON.stringify(err));
         }
+
     });
   }
 </script>

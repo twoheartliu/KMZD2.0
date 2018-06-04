@@ -33,16 +33,22 @@
 </head>
 <body>
   <header class="egret-header topbar" id="mesHeader">
-      <div class="egret-header-title">用户名</div>
+      <div class="egret-header-title" id="nickName"></div>
       <div  class="egret-img"><img src="../image/icon_back.png" alt="" onclick="goback()" ></div>
   </header>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
+  var userId;
   function goback () {
     api.closeWin({name:'personalPrivate'});
   }
   apiready = function (){
+    userId = api.pageParam.userId;
+    var nickName = api.pageParam.nickName;
+    //用户名
+    var nickNames = $api.byId('nickName');
+    $api.html(nickNames, nickName);
     var mHeader = $api.byId('mesHeader');
        $api.fixStatusBar(mHeader);  //状态栏
     var headerPos = $api.offset(mHeader);
@@ -61,7 +67,7 @@
             h: api.frameHeight-50
         },
         pageParam: {
-            name: 'test'
+            userId: userId
         },
         bounces: true,
         bgColor: 'rgba(0,0,0,0)',

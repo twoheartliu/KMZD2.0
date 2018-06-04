@@ -395,7 +395,7 @@
         </div> -->
         <div class="index_main_h1">
             <b class="index_main_span fl">听单(<span id="listenlist"></span>)</b>
-            <div class="listen-more" onclick="fnlistenList(nickName, listenlist_total)">更多</div>
+            <div class="listen-more" onclick="fnlistenList()">更多</div>
         </div>
         <ul id="test">
             <ul id='id-container' class="message_frame_cycle">
@@ -478,8 +478,6 @@
 <script type="text/javascript">
     var token;
     var relation;
-    var userId;
-    var listenlist_total;
     // var isFirst = true;
     // function doS(){
     //     if(isFirst){
@@ -500,7 +498,7 @@
 
     // 听单相关
     function listenList() {
-        userId = api.pageParam.userId;
+        var userId = api.pageParam.userId;
         api.ajax({
             url: host + apiUri + '/user/personal_page/' + userId,
             method: 'get',
@@ -512,23 +510,14 @@
         },function(ret, err){
             if (ret.status == 200) {
                 var listenlist = $api.byId('listenlist');
-                //听单数量
-                // console.log(JSON.stringify(ret.data.listening_total));
-                listenlist_total = ret.data.user_info.listening_total
-                if (listenlist_total == null) {
+                //作品数量
+                if (ret.data.user_listening.length == 0) {
                     var nums = '0';
                     $api.html(listenlist, nums);
                 } else {
-                    var nums = listenlist_total;
+                    var nums = ret.data.user_listening.length;
                     $api.html(listenlist, nums);
                 }
-                userId = api.pageParam.userId;
-                api.sendEvent({
-                    name: 'Listen_userId',
-                    extra: {
-                        userId: userId,
-                    }
-                });
 
                 //听单列表
                 var container = $api.byId('id-container');
@@ -542,13 +531,9 @@
                     var nolist = '';
                     for (var i = 0; i < ret.data.user_listening.length; i++) {
                         // console.log(JSON.stringify( ret.data.user_listening[i]));
-                        if (ret.data.user_listening[i].listening_cover == '') {
-                            nolist += '<li><div onclick="openListen('+ret.data.user_listening[i].l_id+')"><div class="message_frame_cycle_div fl"><div class="message_frame_cycle_img"><img src="../image/my/fnShareImg.jpg" alt=""></div><div class="message_frame_cycle_div_1 col">'+ret.data.user_listening[i].listening_name+'</div></div></div></li>';
-                        } else {
-                            nolist += '<li><div onclick="openListen('+ret.data.user_listening[i].l_id+')"><div class="message_frame_cycle_div fl"><div class="message_frame_cycle_img"><img src="'+listenCover+''+ret.data.user_listening[i].listening_cover+'" alt=""></div><div class="message_frame_cycle_div_1 col">'+ret.data.user_listening[i].listening_name+'</div></div></div></li>';
-                        }
-                    }
 
+                        nolist += '<li><div onclick="openListen('+ret.data.user_listening[i].l_id+')"><div class="message_frame_cycle_div fl"><div class="message_frame_cycle_img"><img src="'+listenCover+''+ret.data.user_listening[i].listening_cover+'" alt=""></div><div class="message_frame_cycle_div_1 col">'+ret.data.user_listening[i].listening_name+'</div></div></div></li>';
+                    }
                     $api.html(container, nolist);
                 }
                 // alert( JSON.stringify( ret ) );
@@ -559,7 +544,7 @@
 
     }
 
-    // 点击打开当前听单
+    // 点击打开听单详情
     function openListen(s) {
         api.openWin({
             name: 'ListingsList_frame',
@@ -569,36 +554,21 @@
             }
         });
     }
-    // 听单-更多
-    function fnlistenList(nickName, listenlist_total) {
-        api.openWin({
-            name: 'moreListeningList',
-            url: './moreListeningList.html',
-            pageParam: {
-                nickName: nickName,
-                userId: userId,
-            }
-        });
 
-    }
-
-    // 作品 更多
-    function fnzopnList() {
+    function fnlistenList(s) {
         api.openWin({
-            name: 'moreZopn',
-            url: './moreZopn.html',
+            name: 'ListingsLists',
+            url: './ListingsLists.html',
             pageParam: {
-                nickName: nickName,
-                userId: userId,
+                ids: 'test'
             }
         });
 
     }
     //调接口
-    var nickName;
     function openInfo (){
       var userId = api.pageParam.userId;
-      nickName = api.pageParam.nickName;
+      var nickName = api.pageParam.nickName;
       //用户名
       var username = $api.byId('username');
       var html = nickName;
@@ -654,11 +624,11 @@
               }
               //作品数量
               var productNum = $api.byId('productNum');
-              if (ret.data.user_info.record_total == 0) {
+              if (ret.data.user_records.length == 0) {
                   var html2 = '0';
                   $api.html(productNum, html2);
               } else {
-                  var html2 = ret.data.user_info.record_total;
+                  var html2 = ret.data.user_records.length;
                   $api.html(productNum, html2);
               }
               //作品列表
@@ -836,13 +806,16 @@
                 });
             }
     }
-
-    function fnOpenPersonalPrivate( ) {
+    // 私信入口
+    function fnOpenPersonalPrivate() {
+      var userId = api.pageParam.userId;
+      var nickName = api.pageParam.nickName;
         api.openWin({
             name: 'personalPrivate',
             url: './personal_private.html',
             pageParam: {
-                name: 'text'
+                userId: userId,
+                nickName : nickName
             }
         });
     }
@@ -857,7 +830,7 @@
           }
       });
     }
-    //作品详情
+    //打开更多
     function fnOpenPlayMore(id) {
         var dialogBox = api.require('dialogBox');
         dialogBox.actionMenu({
@@ -899,7 +872,7 @@
         }, function(ret) {
             if (ret.eventType == 'cancel') {
                 dialogBox.close({
-                    dialogName: 'actionMenu'
+                    dialogName: 'discount'
                 });
             }
             if (ret.index == "0") {
@@ -939,13 +912,13 @@
 
               });
               dialogBox.close({
-                  dialogName: 'actionMenu'
+                  dialogName: 'alert'
               });
                 // alert(1);
             } else if (ret.index == "1") {
                 fnOpenAddListening(id)
                 dialogBox.close({
-                    dialogName: 'actionMenu'
+                    dialogName: 'alert'
                 });
                 // alert(2);
             } else if (ret.index == "2") {
@@ -956,7 +929,7 @@
                 // alert(3);
             } else {
                 dialogBox.close({
-                    dialogName: 'actionMenu'
+                    dialogName: 'alert'
                 });
             }
             // dialogBox.close({
@@ -1008,27 +981,27 @@
         }, function(ret) {
             if (ret.eventType == 'cancel') {
                 dialogBox.close({
-                    dialogName: 'actionMenu'
+                    dialogName: 'discount'
                 });
             }
             if (ret.index == "0") {
                 dialogBox.close({
-                    dialogName: 'actionMenu'
+                    dialogName: 'alert'
                 });
                 // alert(1);
             } else if (ret.index == "1") {
                 dialogBox.close({
-                    dialogName: 'actionMenu'
+                    dialogName: 'alert'
                 });
                 // alert(2);
             } else if (ret.index == "2") {
                 dialogBox.close({
-                    dialogName: 'actionMenu'
+                    dialogName: 'alert'
                 });
                 // alert(3);
             } else {
                 dialogBox.close({
-                    dialogName: 'actionMenu'
+                    dialogName: 'alert'
                 });
             }
             // dialogBox.close({
