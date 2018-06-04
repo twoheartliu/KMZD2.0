@@ -228,11 +228,9 @@
 <script type="text/javascript" src="../script/message.js"></script>;
 <script type="text/javascript">
     var token;
-<<<<<<< HEAD
-    apiready = function() {
-        token = $api.getStorage('token');
-        // fnMessagePrivateFrame();
-=======
+    // apiready = function() {
+    //     token = $api.getStorage('token');
+    //     fnMessagePrivateFrame();
     var p = 1;
     apiready = function (){
       token = $api.getStorage('token');
@@ -243,47 +241,10 @@
           fnMessagePrivateFrame();
       });
 
->>>>>>> 386f5a611de71a21ef982b7834b293070c462dbb
     }
 
     function fnMessagePrivateFrame() {
-<<<<<<< HEAD
-        api.ajax({
-            url: host + apiUri + '/message/lists',
-            method: 'get',
-            dataType: 'json',
-            timeout:10,
-            headers: {
-                "source": api.systemType,
-                "version": version,
-                "session": token
-            },
-            data: {
-                values: {
-                    type: 3,
-                    p: 1
-                }
-            }
-        }, function(ret, err) {
-            if (ret) {
-                // console.log(JSON.stringify(ret));
-            } else {
-                // console.log(JSON.stringify(err));
-            }
-        });
 
-    }
-    //打开聊天页面
-    function fnOpenprivate() {
-        api.openWin({
-            name: 'messagePrivateDetail',
-            url: './message_private_detail.html',
-            pageParam: {
-                ok: 'message_private_detail'
-            }
-        });
-    }
-=======
       api.ajax({
         url: host + apiUri + '/message/lists',
         method: 'get',
@@ -303,6 +264,7 @@
       },function(ret, err){
           if (ret) {
               // console.log(JSON.stringify(ret));
+              if(ret){
               if (ret.status == 200) {
                 var html = '';
                 var section = $api.byId('section');
@@ -349,8 +311,11 @@
 
               }
           } else {
-              console.log(JSON.stringify(err));
+              netMessage(ret);
           }
+        }else{
+          netWork(err);
+        }
       });
 
     }
@@ -361,12 +326,12 @@
       url: './personal_private.html',
         pageParam: {
             userId: userId,
-            nickName:nickName
+            nickName:nickName,
+            ok:'personal_private'
         }
     });
 
   }
->>>>>>> 386f5a611de71a21ef982b7834b293070c462dbb
 </script>
 
 </html>

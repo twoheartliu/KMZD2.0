@@ -330,13 +330,6 @@
                                         }
                                     }, function(ret, err) {
                                       if(ret){
-                                        // if (ret.status == 10407) {
-                                        //     api.toast({
-                                        //         msg: '您已绑定过QQ',
-                                        //         duration: 2000,
-                                        //         location: 'middle'
-                                        //     });
-                                        // }
                                         if (ret.status == 200) {
                                           api.toast({
                                                   msg: '绑定成功',
@@ -354,18 +347,17 @@
                                     });
                                 }
                               });
-                            }
-                            });
                         }
                     });
-                } else {
-                  api.toast({
-                          msg: '当前设备未安装QQ客户端',
-                          duration: 2000,
-                          location: 'middle'
-                      });
-                }
-            });
+                  }else{
+                    api.toast({
+                            msg: '当前设备未安装QQ客户端',
+                            duration: 2000,
+                            location: 'middle'
+                        });
+                  }
+                });
+
             // 点开
 
         } else {
@@ -611,7 +603,7 @@
                         url: host + apiUri + '/user/unbind_wechat',
                         method: 'post',
                         dataType: 'json',
-                        timeout:10,                        
+                        timeout:10,
                         headers: {
                             "source": api.systemType,
                             "version": version,
