@@ -274,9 +274,27 @@ var Dqbofangid;
 var Guid = new Array();
 var token;
 var jubenid;
+var ok;
     apiready = function() {
       token = $api.getStorage('token');
-      fnGetBeiJingYinYueTypelist();
+      ok = api.pageParam.ok;
+            var oks = 'ok'+ok;
+      api.addEventListener({
+          name: oks
+      }, function(ret, err) {
+        if(ret.value.wangluo){
+      		fnGetBeiJingYinYueTypelist();
+        }
+      });
+
+      var connectionType = api.connectionType;
+      if(connectionType == "none"){
+      	netWorkNone(ok);
+      }else{
+      	fnGetBeiJingYinYueTypelist();
+      }
+
+
     }
     function fnGetBeiJingYinYueTypelist() {
       uri = '/user/drafts';
@@ -325,7 +343,8 @@ var jubenid;
     			url: './caogaoplay.html',
     			pageParam: {
             DangQianbofangid: Dqbofangid,
-            a:urlCaoGao
+            a:urlCaoGao,
+            ok:'caogaoplay'
     			},
     			delay: 200
     		});
@@ -334,7 +353,8 @@ var jubenid;
     			name: 'caogaoplay',
     			url: './caogaoplay.html',
     			pageParam: {
-    				a : urlCaoGao
+    				a : urlCaoGao,
+            ok:'caogaoplay'
     			},
     			delay: 200
     		});

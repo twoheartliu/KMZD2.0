@@ -201,41 +201,72 @@
 <script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript">
     var songListID;
-    function goback() {
-//       api.closeToWin({
-//     name: 'root'
-// });
-        api.closeWin({
-            name: 'addListening'
-        });
-    }
+    var ok;
+    var token;
+
 
     apiready = function() {
+      token = $api.getStorage('token');
         var header = $api.byId('secHeader');
         $api.fixStatusBar(header);
         var headerPos = $api.offset(header);
         var headerPosH = $api.offset(header).h;
         songListID = api.pageParam.songListID;
         // console.log(songListID);
-        fnAddTrackToList();
+        ok = api.pageParam.ok;
+        var oks = 'ok'+ok;
         api.addEventListener({
-            name: 'reloads'
+            name: oks
         }, function(ret, err) {
+          if(ret.value.wangluo){
             fnAddTrackToList();
+            api.addEventListener({
+                name: 'reloads'
+            }, function(ret, err) {
+                fnAddTrackToList();
+            });
+
+            // 获取浏览器高度
+            if (window.innerHeight)
+                winHeight = window.innerHeight;
+            else if ((document.body) && (document.body.clientHeight))
+                winHeight = document.body.clientHeight;
+            var messageFrameDiv = $api.byId('messageFrameDiv');
+            var winHeightHeader = winHeight - headerPosH;
+            $api.css(messageFrameDiv, 'height:' + winHeightHeader + 'px;');
+          }
         });
 
-        // 获取浏览器高度
-        if (window.innerHeight)
-            winHeight = window.innerHeight;
-        else if ((document.body) && (document.body.clientHeight))
-            winHeight = document.body.clientHeight;
-        var messageFrameDiv = $api.byId('messageFrameDiv');
-        var winHeightHeader = winHeight - headerPosH;
-        $api.css(messageFrameDiv, 'height:' + winHeightHeader + 'px;');
-        // console.log(winHeight);
+        var connectionType = api.connectionType;
+        if(connectionType == "none"){
+        	netWorkNone(ok);
+        }else{
+          fnAddTrackToList();
+          api.addEventListener({
+              name: 'reloads'
+          }, function(ret, err) {
+              fnAddTrackToList();
+          });
+
+          // 获取浏览器高度
+          if (window.innerHeight)
+              winHeight = window.innerHeight;
+          else if ((document.body) && (document.body.clientHeight))
+              winHeight = document.body.clientHeight;
+          var messageFrameDiv = $api.byId('messageFrameDiv');
+          var winHeightHeader = winHeight - headerPosH;
+          $api.css(messageFrameDiv, 'height:' + winHeightHeader + 'px;');
+        }
+
     }
+    function goback() {
+        api.closeWin({
+            name: 'addListening'
+        });
+    }
+
     function fnAddTrackToList() {
-      var token = $api.getStorage('token');
+
       api.ajax({
           url: host + apiUri +'/listening',
           method: 'get',
@@ -283,7 +314,7 @@
 
     }
     function AddTrack(track) {
-        var token = $api.getStorage('token');
+
         api.ajax({
             url: host + apiUri + '/listening/song',
             method: 'post',
@@ -325,7 +356,7 @@
           name: 'New',
           url: './New.html',
           pageParam: {
-              name: 'test'
+              ok: 'New'
           }
       });
 

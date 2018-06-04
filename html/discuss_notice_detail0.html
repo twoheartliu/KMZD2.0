@@ -215,6 +215,7 @@
     var soundId;
     var uris;
     var name;
+    var ok;
     apiready = function(){
 
         var notHeader = $api.byId('notHeader');
@@ -223,26 +224,61 @@
         soundId = api.pageParam.soundId;
         uris = api.pageParam.uris;
         name = api.pageParam.name;
-        api.openFrame({
-            name: 'ReplyToCommentsSingle',
-            url: './ReplyToComments_single.html',
-            rect: {
-                x: 0,
-                y: api.frameHeight - 55,
-                w: 'auto',
-                h: 'auto'
-            },
-            pageParam: {
-                soundId: soundId,
-                uris: uris,
-                name: name
-            },
-            customRefreshHeader: 'UIPullRefreshFlash',
-            bounces: true,
-            bgColor: 'rgba(0,0,0,0)',
-            vScrollBarEnabled: false,
-            hScrollBarEnabled: false
+        ok = api.pageParam.ok;
+              var oks = 'ok'+ok;
+        api.addEventListener({
+            name: oks
+        }, function(ret, err) {
+          if(ret.value.wangluo){
+            api.openFrame({
+                name: 'ReplyToCommentsSingle',
+                url: './ReplyToComments_single.html',
+                rect: {
+                    x: 0,
+                    y: api.frameHeight - 55,
+                    w: 'auto',
+                    h: 'auto'
+                },
+                pageParam: {
+                    soundId: soundId,
+                    uris: uris,
+                    name: name
+                },
+                customRefreshHeader: 'UIPullRefreshFlash',
+                bounces: true,
+                bgColor: 'rgba(0,0,0,0)',
+                vScrollBarEnabled: false,
+                hScrollBarEnabled: false
+            });
+          }
         });
+
+        var connectionType = api.connectionType;
+        if(connectionType == "none"){
+        	netWorkNone(ok);
+        }else{
+          api.openFrame({
+              name: 'ReplyToCommentsSingle',
+              url: './ReplyToComments_single.html',
+              rect: {
+                  x: 0,
+                  y: api.frameHeight - 55,
+                  w: 'auto',
+                  h: 'auto'
+              },
+              pageParam: {
+                  soundId: soundId,
+                  uris: uris,
+                  name: name
+              },
+              customRefreshHeader: 'UIPullRefreshFlash',
+              bounces: true,
+              bgColor: 'rgba(0,0,0,0)',
+              vScrollBarEnabled: false,
+              hScrollBarEnabled: false
+          });
+        }
+
     }
 
     function fnOpenDiscussNotDetail(){

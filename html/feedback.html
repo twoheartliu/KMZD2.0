@@ -61,6 +61,7 @@
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/message.js"></script>;
 <script type="text/javascript">
     var type;
     var contact;
@@ -160,6 +161,8 @@
         api.ajax({
             url: host + apiUri + '/system/feedback',
             method: 'post',
+            dataType: 'json',
+            timeout:10,
             headers: {
                 "source": api.systemType,
                 "version": version,
@@ -174,10 +177,6 @@
             }
         }, function(ret, err) {
             if (ret) {
-                // console.log('sss')
-                // console.log(type);
-                // console.log(content);
-                // alert(JSON.stringify(ret))
                 if (ret.status == 200) {
                     api.toast({
                         msg: '提交成功',
@@ -187,7 +186,11 @@
                     setTimeout(function() {
                         api.closeWin();
                     }, 2000)
+                }else{
+                  netMessage(ret);
                 }
+            }else{
+              netWork(err);
             }
         });
     }

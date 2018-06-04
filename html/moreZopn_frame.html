@@ -278,7 +278,6 @@
                     }
                 }, function(ret, err) {
                   p ++;
-                  console.log(p);
                   fnProductLists();
                 });
         }
@@ -289,6 +288,7 @@
             url: host + apiUri + '/user/records',
             method: 'get',
             dataType: 'json',
+            timeout:10,
             headers: {
                 "source": api.systemType,
                 "version": version,
@@ -302,6 +302,7 @@
             },
         }, function(ret, err) {
             // console.log(JSON.stringify(ret.status));
+            if(ret){
             if (ret.status == 200) {
               setTimeout(function(){
                   api.refreshHeaderLoadDone()
@@ -345,8 +346,11 @@
 
 
             } else {
-                // alert(JSON.stringify(err));
+                netMessage(ret);
             }
+          }else{
+             netWork(err);
+          }
 
         });
     }
@@ -356,6 +360,7 @@
             url: host + apiUri + '/user/records',
             method: 'get',
             dataType: 'json',
+            timeout:10,
             headers: {
                 "source": api.systemType,
                 "version": version,
@@ -369,12 +374,12 @@
             },
         }, function(ret, err) {
             // console.log(JSON.stringify(ret.status));
+            if(ret){
             if (ret.status == 200) {
                 if (ret.data == '') {
                   var footer = $api.byId('footer');
                   $api.html(footer, '无更多数据');
                 }else {
-                  console.log(ret.data.length);
                   if (ret.data.length < 10) {
                     var footer = $api.byId('footer');
                     // $api.css(footer, 'display:none');
@@ -427,8 +432,11 @@
 
 
             } else {
-                // alert(JSON.stringify(err));
+                netMessage(ret);
             }
+          }else{
+            netWork(err);
+          }
 
         });
     }
@@ -474,19 +482,19 @@
         }, function(ret) {
             if (ret.eventType == 'cancel') {
                 dialogBox.close({
-                    dialogName: 'discount'
+                    dialogName: 'actionMenu'
                 });
             }
             if (ret.index == "0") {
                 fnOpenAddListening(id);
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'actionMenu'
                 });
             } else if (ret.index == "1") {
-                fnOpenPlayShare();
-                // dialogBox.close({
-                //     dialogName: 'alert'
-                // });
+                // fnOpenPlayShare();
+                dialogBox.close({
+                    dialogName: 'actionMenu'
+                });
                 // api.openWin({
                 //   name: 'playDiscuss',
                 //   url: './play_discuss.html',
@@ -495,11 +503,11 @@
                 // alert("删除");
 
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'actionMenu'
                 });
             } else {
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'actionMenu'
                 });
             }
         });

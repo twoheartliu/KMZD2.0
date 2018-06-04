@@ -228,39 +228,86 @@
 <script type="text/javascript" src="../script/message.js"></script>;
 <script type="text/javascript">
     var token;
+    var ok;
     apiready = function() {
             token = $api.getStorage('token');
-            fnProductList();
-            api.setCustomRefreshHeaderInfo({
-                bgColor: '#f0f0f0',
-                image: {
-                  pull: [
-                      'widget://image/Refresh/dropdown_anim_00.png',
-                      'widget://image/Refresh/dropdown_anim_01.png',
-                      'widget://image/Refresh/dropdown_anim_02.png',
-                      'widget://image/Refresh/dropdown_anim_03.png',
-                      'widget://image/Refresh/dropdown_anim_04.png',
-                      'widget://image/Refresh/dropdown_anim_05.png',
-                      'widget://image/Refresh/dropdown_anim_06.png',
-                      'widget://image/Refresh/dropdown_anim_07.png',
-                      'widget://image/Refresh/dropdown_anim_08.png',
-                      'widget://image/Refresh/dropdown_anim_09.png',
-                      'widget://image/Refresh/dropdown_anim_10.png',
-                ],
-                load: [
-                      'widget://image/Refresh/dropdown_anim_00.png',
-                      'widget://image/Refresh/dropdown_anim_01.png',
-                      'widget://image/Refresh/dropdown_anim_02.png',
-                      'widget://image/Refresh/dropdown_anim_03.png',
-                      'widget://image/Refresh/dropdown_anim_04.png',
-                      'widget://image/Refresh/dropdown_anim_05.png',
-              ]}
-            }, function() {
-                    //下拉刷新被触发，自动进入加载状态，使用 api.refreshHeaderLoadDone() 手动结束加载中状态
-                    //下拉刷新被触发，使用 api.refreshHeaderLoadDone() 结束加载中状态
+            ok = api.pageParam.ok;
+                  var oks = 'ok'+ok;
+            api.addEventListener({
+                name: oks
+            }, function(ret, err) {
+              if(ret.value.wangluo){
+                fnProductList();
+                api.setCustomRefreshHeaderInfo({
+                    bgColor: '#f0f0f0',
+                    image: {
+                      pull: [
+                          'widget://image/Refresh/dropdown_anim_00.png',
+                          'widget://image/Refresh/dropdown_anim_01.png',
+                          'widget://image/Refresh/dropdown_anim_02.png',
+                          'widget://image/Refresh/dropdown_anim_03.png',
+                          'widget://image/Refresh/dropdown_anim_04.png',
+                          'widget://image/Refresh/dropdown_anim_05.png',
+                          'widget://image/Refresh/dropdown_anim_06.png',
+                          'widget://image/Refresh/dropdown_anim_07.png',
+                          'widget://image/Refresh/dropdown_anim_08.png',
+                          'widget://image/Refresh/dropdown_anim_09.png',
+                          'widget://image/Refresh/dropdown_anim_10.png',
+                    ],
+                    load: [
+                          'widget://image/Refresh/dropdown_anim_00.png',
+                          'widget://image/Refresh/dropdown_anim_01.png',
+                          'widget://image/Refresh/dropdown_anim_02.png',
+                          'widget://image/Refresh/dropdown_anim_03.png',
+                          'widget://image/Refresh/dropdown_anim_04.png',
+                          'widget://image/Refresh/dropdown_anim_05.png',
+                  ]}
+                }, function() {
+                        //下拉刷新被触发，自动进入加载状态，使用 api.refreshHeaderLoadDone() 手动结束加载中状态
+                        //下拉刷新被触发，使用 api.refreshHeaderLoadDone() 结束加载中状态
 
-                          fnProductList();
-                });
+                              fnProductList();
+                    });	
+              }
+            });
+
+            var connectionType = api.connectionType;
+            if(connectionType == "none"){
+            	netWorkNone(ok);
+            }else{
+              fnProductList();
+              api.setCustomRefreshHeaderInfo({
+                  bgColor: '#f0f0f0',
+                  image: {
+                    pull: [
+                        'widget://image/Refresh/dropdown_anim_00.png',
+                        'widget://image/Refresh/dropdown_anim_01.png',
+                        'widget://image/Refresh/dropdown_anim_02.png',
+                        'widget://image/Refresh/dropdown_anim_03.png',
+                        'widget://image/Refresh/dropdown_anim_04.png',
+                        'widget://image/Refresh/dropdown_anim_05.png',
+                        'widget://image/Refresh/dropdown_anim_06.png',
+                        'widget://image/Refresh/dropdown_anim_07.png',
+                        'widget://image/Refresh/dropdown_anim_08.png',
+                        'widget://image/Refresh/dropdown_anim_09.png',
+                        'widget://image/Refresh/dropdown_anim_10.png',
+                  ],
+                  load: [
+                        'widget://image/Refresh/dropdown_anim_00.png',
+                        'widget://image/Refresh/dropdown_anim_01.png',
+                        'widget://image/Refresh/dropdown_anim_02.png',
+                        'widget://image/Refresh/dropdown_anim_03.png',
+                        'widget://image/Refresh/dropdown_anim_04.png',
+                        'widget://image/Refresh/dropdown_anim_05.png',
+                ]}
+              }, function() {
+                      //下拉刷新被触发，自动进入加载状态，使用 api.refreshHeaderLoadDone() 手动结束加载中状态
+                      //下拉刷新被触发，使用 api.refreshHeaderLoadDone() 结束加载中状态
+
+                            fnProductList();
+                  });
+            }
+
         }
         //调接口
     function fnProductList() {
@@ -371,19 +418,19 @@
         }, function(ret) {
             if (ret.eventType == 'cancel') {
                 dialogBox.close({
-                    dialogName: 'discount'
+                    dialogName: 'actionMenu'
                 });
             }
             if (ret.index == "0") {
                 fnOpenAddListening(id);
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'actionMenu'
                 });
             } else if (ret.index == "1") {
                 fnOpenPlayShare();
-                // dialogBox.close({
-                //     dialogName: 'alert'
-                // });
+                dialogBox.close({
+                    dialogName: 'actionMenu'
+                });
                 // api.openWin({
                 //   name: 'playDiscuss',
                 //   url: './play_discuss.html',
@@ -392,11 +439,11 @@
                 // alert("删除");
 
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'actionMenu'
                 });
             } else {
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'actionMenu'
                 });
             }
         });
@@ -443,24 +490,24 @@
         }, function(ret) {
             if (ret.eventType == 'cancel') {
                 dialogBox.close({
-                    dialogName: 'discount'
+                    dialogName: 'actionMenu'
                 });
             }
             if (ret.index == "0") {
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'actionMenu'
                 });
             } else if (ret.index == "1") {
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'actionMenu'
                 });
             } else if (ret.index == "2") {
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'actionMenu'
                 });
             } else {
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'actionMenu'
                 });
             }
         });
@@ -471,7 +518,8 @@
             name: 'addListening',
             url: './add_listening.html',
             pageParam: {
-                songListID: id
+                songListID: id,
+                ok:'add_listening'
             }
         });
     }

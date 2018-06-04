@@ -72,26 +72,55 @@
             name: 'securitycente'
         });
     }
-
+var ok;
     apiready = function() {
         var header = $api.byId('secHeader');
         $api.fixStatusBar(header);
         var headerPos = $api.offset(header);
-        api.openFrame({
-            name: 'securitycente_frame',
-            url: './securitycente_frame.html',
-            rect: {
-                x: 0,
-                y: headerPos.h,
-                w: 'auto',
-                h: 'auto'
-            },
-            pageParam: {
-                name: 'test'
-            },
-            bounces: false,
-            allowEdit:true
+        api.addEventListener({
+            name: oks
+        }, function(ret, err) {
+          if(ret.value.wangluo){
+            api.openFrame({
+                name: 'securitycente_frame',
+                url: './securitycente_frame.html',
+                rect: {
+                    x: 0,
+                    y: headerPos.h,
+                    w: 'auto',
+                    h: 'auto'
+                },
+                pageParam: {
+                    name: 'test'
+                },
+                bounces: false,
+                allowEdit:true
+            });
+          }
         });
+
+        var connectionType = api.connectionType;
+        if(connectionType == "none"){
+        	netWorkNone(ok);
+        }else{
+          api.openFrame({
+              name: 'securitycente_frame',
+              url: './securitycente_frame.html',
+              rect: {
+                  x: 0,
+                  y: headerPos.h,
+                  w: 'auto',
+                  h: 'auto'
+              },
+              pageParam: {
+                  name: 'test'
+              },
+              bounces: false,
+              allowEdit:true
+          });
+        }
+
+
 
     }
 </script>

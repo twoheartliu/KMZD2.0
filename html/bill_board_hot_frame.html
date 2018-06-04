@@ -367,7 +367,7 @@
         }, function(ret) {
             if (ret.eventType == 'cancel') {
                 dialogBox.close({
-                    dialogName: 'discount'
+                    dialogName: 'actionMenu'
                 });
             }
             if (ret.index == "0") {
@@ -377,29 +377,29 @@
                     location: 'middle'
                 });
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'actionMenu'
                 });
                 // alert(1);
             } else if (ret.index == "1") {
                 fnOpenAddListening();
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'actionMenu'
                 });
                 // alert(2);
             } else if (ret.index == "2") {
                 fnOpenPlayShare();
-                // dialogBox.close({
-                //     dialogName: 'alert'
-                // });
+                dialogBox.close({
+                    dialogName: 'actionMenu'
+                });
                 // alert(3);
             }else {
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'actionMenu'
                 });
             }
-            // dialogBox.close({
-            //     dialogName: 'alert'
-            // })
+            dialogBox.close({
+                dialogName: 'actionMenu'
+            })
             // alert(JSON.stringify(ret))
 
         });
@@ -447,22 +447,22 @@
         }, function(ret) {
             if (ret.eventType == 'cancel') {
                 dialogBox.close({
-                    dialogName: 'discount'
+                    dialogName: 'actionMenu'
                 });
             }
             if (ret.index == "0") {
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'actionMenu'
                 });
                 // alert(1);
             } else if (ret.index == "1") {
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'actionMenu'
                 });
                 // alert(2);
             } else if (ret.index == "2") {
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'actionMenu'
                 });
                 // alert(3);
             } else {
@@ -470,9 +470,9 @@
                     dialogName: 'alert'
                 });
             }
-            // dialogBox.close({
-            //     dialogName: 'alert'
-            // })
+            dialogBox.close({
+                dialogName: 'actionMenu'
+            })
             // alert(JSON.stringify(ret))
 
         });
@@ -483,7 +483,7 @@
           name: 'addListening',
           url: './add_listening.html',
           pageParam: {
-              name: 'test'
+              ok: 'add_listening'
           }
       });
     }

@@ -229,7 +229,7 @@ var ids;
         ids = api.pageParam.ids;
           var oks = 'ok'+ok;
         api.addEventListener({
-            name: 'oks'
+            name: oks
         }, function(ret, err) {
           if(ret.value.wangluo){
             albumId = api.pageParam.albumId;
@@ -276,13 +276,11 @@ var ids;
 
     function replySend() {
         var replyValue = $api.byId('replyValue').value;
-        console.log(replyValue);
-        console.log(uris);
-        console.log(albumId);
         api.ajax({
             url: host + apiUri + uris,
             method: 'post',
             dataType: 'json',
+            timeout:10,
             headers: {
                 "source": api.systemType,
                 "version": version,
@@ -298,7 +296,7 @@ var ids;
             }
         }, function(ret, err) {
                 if(ret){
-                  console.log(JSON.stringify(ret));
+                  // console.log(JSON.stringify(ret));
                 if (ret.status == 200) {
 
                   // api.sendEvent({

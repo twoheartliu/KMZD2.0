@@ -75,7 +75,7 @@
         ok = api.pageParam.ok;
         var oks = 'ok'+ok;
         api.addEventListener({
-            name: 'oks'
+            name: oks
         }, function(ret, err) {
           if(ret.value.wangluo){
             var id = api.pageParam.id;
@@ -99,7 +99,7 @@
                 },
                 customRefreshHeader: 'UIPullRefreshFlash',
                 bounces: true,
-            });	
+            });
           }
         });
 

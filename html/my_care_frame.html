@@ -186,6 +186,8 @@
         api.ajax({
             url: host + apiUri + '/user/follow',
             method: 'get',
+            dataType: 'json',
+            timeout:10,
             headers: {
                 "source": api.systemType,
                 "version": version,
@@ -193,6 +195,7 @@
             }
         }, function(ret, err) {
               api.refreshHeaderLoadDone()
+              if(ret){
             if (ret.status == 200) {
                 if (ret.data == '') {
                     var attentionsss = $api.byId('attention');
@@ -250,8 +253,11 @@
                     $api.html(attention, html);
                 }
             } else {
-                // alert(JSON.stringify(err));
+                netMessage(ret);
             }
+          }else{
+            netWork(err);
+          }
         });
 
     }
@@ -300,11 +306,11 @@
             }, function(ret) {
                 if (ret.eventType == 'right') {
                     // console.log(id);
-
-
                     api.ajax({
                         url: host + apiUri + '/user/follow',
                         method: 'post',
+                        dataType: 'json',
+                        timeout:10,
                         headers: {
                             "source": api.systemType,
                             "version": version,
@@ -319,6 +325,7 @@
                         // console.log(JSON.stringify(ret));
                         // var user = $api.byId('userDelete_' + id + '');
                         // html = ''
+                        if(ret){
                         if (ret.status == 200) {
                           toolbarlist.setAttribute("data-click", 1);
                           toolbarlist.src = "../image/my/attention_j.png";
@@ -337,7 +344,10 @@
                             // var userDeleteID = userDelete + ret;
                             // html += '<img src="../image/my/attention_j.png" alt="" class="userDeleteA">';
                         } else {
-                            // alert(JSON.stringify(err));
+                            netMessage(ret);
+                        }
+                      }else{
+                          netWork(err);
                         }
                         // $api.html(user, html);
                         // console.log(html);
@@ -396,6 +406,8 @@
                   api.ajax({
                       url: host + apiUri + '/user/follow',
                       method: 'post',
+                      dataType: 'json',
+                      timeout:10,
                       headers: {
                           "source": api.systemType,
                           "version": version,
@@ -410,6 +422,7 @@
                       // console.log(JSON.stringify(ret));
                       // var user = $api.byId('userDelete_' + id + '');
                       // html = ''
+                      if(ret){
                       if (ret.status == 200) {
                         if (img_alt == 1) {
                           toolbarlist.setAttribute("data-click", 0);
@@ -442,8 +455,11 @@
                           // var userDeleteID = userDelete + ret;
                           // html += '<img src="../image/my/attention_j.png" alt="" class="userDeleteA">';
                       } else {
-                          // alert(JSON.stringify(err));
+                        netMessage(ret);
                       }
+                    }else{
+                      netWork(err);
+                    }
                       // $api.html(user, html);
                       // console.log(html);
                   });
@@ -468,8 +484,9 @@
             name: 'myPersonal',
             url: './my_personal.html',
             pageParam: {
-              'userId': id,
-              'nickName':nickname
+              userId: id,
+              nickName:nickname,
+              ok:'my_personal'
             }
         });
     };

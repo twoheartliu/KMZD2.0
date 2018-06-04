@@ -272,6 +272,7 @@
             url: host + apiUri + uri,
             method: 'get',
             dataType: 'json',
+            timeout:10,
             headers: {
                 "source": api.systemType,
                 "version": version,
@@ -280,6 +281,7 @@
 
         }, function(ret, err) {
             // alert(JSON.stringify(ret));
+            if(ret){
             if (ret.status == 200) {
                 setTimeout(function() {
                     api.refreshHeaderLoadDone()
@@ -326,6 +328,9 @@
             } else {
                 netMessage(ret);
             }
+          }else{
+            netWork(err);
+          }
         });
     }
 
@@ -390,7 +395,8 @@
             pageParam: {
                 albumId: id,
                 ok: urlName,
-                floor_name: name
+                floor_name: name,
+                ok:urlName
             }
         });
 
@@ -437,7 +443,7 @@
         }, function(ret) {
             if (ret.eventType == 'cancel') {
                 dialogBox.close({
-                    dialogName: 'discount'
+                    dialogName: 'actionMenu'
                 });
             }
             if (ret.index == "0") {
@@ -447,28 +453,28 @@
                                   location:   'middle'          
                 });
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'actionMenu'
                 });
             } else if (ret.index == "1") {
                 fnOpenAddListening();
 
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'actionMenu'
                 });
                 // alert(2);
             } else if (ret.index == "2") {
                 fnOpenPlayShare();
                 // dialogBox.close({
-                //     dialogName: 'alert'
+                //     dialogName: 'actionMenu'
                 // });
                 // alert(3);
             } else {
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'actionMenu'
                 });
             }
             // dialogBox.close({
-            //     dialogName: 'alert'
+            //     dialogName: 'actionMenu'
             // })
             // alert(JSON.stringify(ret))
 
@@ -479,6 +485,7 @@
         api.openWin({
             name: 'play',
             url: './play.html',
+            ok:'play'
         });
 
     }

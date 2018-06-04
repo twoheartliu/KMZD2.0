@@ -379,7 +379,7 @@
                     name: 'login',
                     url: '../login.html',
                     pageParam: {
-                        name: 'test'
+                        ok: 'login'
                     }
                 });
             } else {
@@ -429,6 +429,7 @@
             url: host + apiUri + uri,
             method: 'get',
             dataType: 'json',
+            timeout:10,
             headers: {
                 "source": api.systemType,
                 "version": version,
@@ -441,6 +442,7 @@
 
             }
         }, function(ret, err) {
+          if(ret){
             if (ret.status == 200) {
                 var data = ret.data;
                 var len = ret.data.length;
@@ -474,8 +476,11 @@
                 // alert( JSON.stringify( ret ) );
                 fnInitSwiper();
             } else {
-                // alert( JSON.stringify( err ) );
+                netMessage(ret);
             }
+          }else{
+            netWork(err);
+          }
         });
 
     }
@@ -493,7 +498,7 @@
             if (ret) {
                 // alert(JSON.stringify(ret));
             } else {
-                alert(JSON.stringify(err));
+                // alert(JSON.stringify(err));
             }
         });
 
@@ -523,7 +528,7 @@
             lujing = content;
         }
         api.openWin({
-            name: 'playDanQu',
+            name: lujing,
             url: lujing,
             // console.log('lujing');
             pageParam: {
@@ -535,6 +540,7 @@
                 albumId: song_id,
                 floor_name: titles,
                 a: song_id,
+                ok:lujing
             }
         });
 
@@ -703,7 +709,8 @@
             pageParam: {
                 albumId: id,
                 ok: urlName,
-                floor_name: name
+                floor_name: name,
+                pk:'urlName'
             }
         });
 
@@ -739,7 +746,7 @@
             name: 'guoxue',
             url: './guoxue.html',
             pageParam: {
-                name: 'test'
+                ok: 'guoxueok'
             }
         });
 
@@ -762,6 +769,7 @@
                   url: './listen_to.html',
                   pageParam: {
                       DangQianbofangid: ret.value.playing,
+                        ok: 'listen_to'
                   }
               });
             }else if (ret.value.bofang == 9) {
@@ -770,6 +778,8 @@
                   url: './listen_to.html',
                   pageParam: {
                       DangQianbofangid: ret.value.playing,
+                        ok: 'listen_to'
+
                   }
               });
             }
@@ -782,7 +792,7 @@
               name: 'listenTo',
               url: './listen_to.html',
               pageParam:{
-                  name: 'test'
+                  ok: 'listen_to'
               }
           });
 
@@ -794,6 +804,9 @@
         api.openWin({
             name: 'excellentWorks',
             url: './excellent_works.html',
+            pageParam:{
+                ok: 'excellent_works'
+            }
         });
     }
     // 打开榜单页面
@@ -802,6 +815,9 @@
             name: 'billBoard',
             url: './bill_board.html',
         });
+        pageParam:{
+            ok: 'bill_board'
+        }
     }
     // 打开国学机页面
     function fnReadWin() {
@@ -809,7 +825,7 @@
             name: 'machine',
             url: './machine.html',
             pageParam: {
-                name: 'test'
+                name: 'machine'
             }
         });
 
@@ -837,7 +853,8 @@
                 pageParam: {
                     a: a,
                     // danQu:'danQu',
-                    dangqianbofangid: Dqbofangid
+                    dangqianbofangid: Dqbofangid,
+                    ok:'playDanQu'
                 }
             });
         } else {
@@ -848,6 +865,7 @@
                 pageParam: {
                     a: a,
                     // danQu:'danQu',
+                    ok:'playDanQu'
                 }
             });
 
@@ -859,7 +877,7 @@
             name: 'machine_xiangqing',
             url: './machine_xiangqing.html',
             pageParam: {
-                name: 'test'
+                ok:'machine_xiangqing'
             }
         });
 
@@ -957,9 +975,9 @@
                 // alert(2);
             } else if (ret.index == "2") {
                 fnOpenPlayShare(id);
-                // dialogBox.close({
-                //     dialogName: 'alert'
-                // });
+                dialogBox.close({
+                    dialogName: 'actionMenu'
+                });
                 // alert(3);
             } else {
                 dialogBox.close({
@@ -1052,7 +1070,8 @@
             name: 'addListening',
             url: './add_listening.html',
             pageParam: {
-                songListID: id
+                songListID: id,
+                ok:'add_listening'
             }
         });
     }

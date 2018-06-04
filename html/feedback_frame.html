@@ -289,6 +289,7 @@
 <script type="text/javascript " src="../script/api.js "></script>
 <script type="text/javascript " src="../script/common.js "></script>
 <script type="text/javascript " src="../script/swiper.min.js "></script>
+<script type="text/javascript" src="../script/message.js"></script>;
 <script type="text/javascript ">
     var token;
     apiready = function() {
@@ -364,7 +365,7 @@
             name: 'common',
             url: './common.html',
             pageParam: {
-                name: 'test'
+                ok: 'common'
             }
         });
 
@@ -450,6 +451,7 @@
                             url: host + apiUri + uri,
                             method: 'post',
                             dataType: 'json',
+                            timeout:10,
                             headers: {
                                 "source": api.systemType,
                                 "version": version,
@@ -469,19 +471,17 @@
                                     var header = 'http://47.100.11.38/kmzd/public/uploads/feedback/'
                                     var img = $api.byId('id-img');
                                     html = '<img src="'+ header + imgs +'" alt="" />'
-
                                     $api.html(img, html);
-                                    // console.log(html);
-                                    // console.log(imgs);
                                     api.toast({
                                         msg: '上传成功',
                                         duration: 2000,
                                         location: 'middle'
                                     });
+                                }else{
+                                  netMessage(ret);
                                 }
                             } else {
-                                // console.log(111);
-                                // alert( JSON.stringify( err ) );
+                                netWork(err);
                             }
                         });
 

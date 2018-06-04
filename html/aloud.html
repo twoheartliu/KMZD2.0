@@ -352,48 +352,93 @@
     var userSize;
     var draftsId;
     var pathSss = 1;
+    var ok;
     apiready = function() {
-            token = $api.getStorage('token');
-            path = '';
-            var CompanyInfobeiyue;
-            var secHeader = $api.byId('secHeader');
-            $api.fixStatusBar(secHeader);
-            var headerH = $api.offset(secHeader).h;
-            fnGetJubenlist();
-            api.addEventListener({
-                name: 'netBeiyueId'
-            }, function(ret, err) {
-                if (ret) {
-                    var inputss = ret.value.mp3;
-                    fninputvalue(inputss);
-                    if(ret.value.titleName){
-                      var stylelist = $api.byId('titleName');
-                      var html = '配乐：'+ret.value.titleName;
-                      $api.html(stylelist, html);
-                    }
-                }
-            });
-            api.addEventListener({
-                name: 'shiTingUrl'
-            }, function(ret, err) {
-              if(ret){
-                fnFuZhiJiBenXinXi(ret);
-              }
-            });
-            api.addEventListener({
-                name: 'shiTingPath'
-            }, function(ret, err) {
-              if(ret){
-                fnFuZhiPath(ret);
-              }
-            });
+      token = $api.getStorage('token');
+      path = '';
+      var CompanyInfobeiyue;
+      var secHeader = $api.byId('secHeader');
+      $api.fixStatusBar(secHeader);
+      var headerH = $api.offset(secHeader).h;
 
+      ok = api.pageParam.ok;
+            var oks = 'ok'+ok;
+      api.addEventListener({
+          name: oks
+      }, function(ret, err) {
+        if(ret.value.wangluo){
+          fnGetJubenlist();
+          api.addEventListener({
+              name: 'netBeiyueId'
+          }, function(ret, err) {
+              if (ret) {
+                  var inputss = ret.value.mp3;
+                  fninputvalue(inputss);
+                  if(ret.value.titleName){
+                    var stylelist = $api.byId('titleName');
+                    var html = '配乐：'+ret.value.titleName;
+                    $api.html(stylelist, html);
+                  }
+              }
+          });
+          api.addEventListener({
+              name: 'shiTingUrl'
+          }, function(ret, err) {
+            if(ret){
+              fnFuZhiJiBenXinXi(ret);
+            }
+          });
+          api.addEventListener({
+              name: 'shiTingPath'
+          }, function(ret, err) {
+            if(ret){
+              fnFuZhiPath(ret);
+            }
+          });
         }
-function fnFuZhiPath(data_){
-  if(data_.value.path){
-    path = '';
-  }
-}
+      });
+
+      var connectionType = api.connectionType;
+      if(connectionType == "none"){
+      	netWorkNone(ok);
+      }else{
+        fnGetJubenlist();
+        api.addEventListener({
+            name: 'netBeiyueId'
+        }, function(ret, err) {
+            if (ret) {
+                var inputss = ret.value.mp3;
+                fninputvalue(inputss);
+                if(ret.value.titleName){
+                  var stylelist = $api.byId('titleName');
+                  var html = '配乐：'+ret.value.titleName;
+                  $api.html(stylelist, html);
+                }
+            }
+        });
+        api.addEventListener({
+            name: 'shiTingUrl'
+        }, function(ret, err) {
+          if(ret){
+            fnFuZhiJiBenXinXi(ret);
+          }
+        });
+        api.addEventListener({
+            name: 'shiTingPath'
+        }, function(ret, err) {
+          if(ret){
+            fnFuZhiPath(ret);
+          }
+        });
+      }
+
+
+    }
+    function fnFuZhiPath(data_){
+      if(data_.value.path){
+        path = '';
+      }
+    }
     //播放背景音乐
     function fnBeiYueplay() {
       var connectionType = api.connectionType;

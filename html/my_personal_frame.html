@@ -502,12 +502,15 @@
         api.ajax({
             url: host + apiUri + '/user/personal_page/' + userId,
             method: 'get',
+            dataType: 'json',
+            timeout:10,
             headers: {
                 "source": api.systemType,
                 "version": version,
                 "session": token
             }
         },function(ret, err){
+          if(ret){
             if (ret.status == 200) {
                 var listenlist = $api.byId('listenlist');
                 //作品数量
@@ -530,15 +533,15 @@
                 } else {
                     var nolist = '';
                     for (var i = 0; i < ret.data.user_listening.length; i++) {
-                        // console.log(JSON.stringify( ret.data.user_listening[i]));
-
                         nolist += '<li><div onclick="openListen('+ret.data.user_listening[i].l_id+')"><div class="message_frame_cycle_div fl"><div class="message_frame_cycle_img"><img src="'+listenCover+''+ret.data.user_listening[i].listening_cover+'" alt=""></div><div class="message_frame_cycle_div_1 col">'+ret.data.user_listening[i].listening_name+'</div></div></div></li>';
                     }
                     $api.html(container, nolist);
                 }
-                // alert( JSON.stringify( ret ) );
             } else {
-                alert( JSON.stringify( err ) );
+                netMessage(ret);
+            }
+            else{
+              netWork(err);
             }
         });
 
@@ -551,6 +554,7 @@
             url: './ListingsList.html',
             pageParam: {
                 albumId: s,
+                ok:'ListingsList'
             }
         });
     }
@@ -560,7 +564,8 @@
             name: 'ListingsLists',
             url: './ListingsLists.html',
             pageParam: {
-                ids: 'test'
+                // ids: 'test',
+                ok:'ListingsList'
             }
         });
 
@@ -577,6 +582,8 @@
       api.ajax({
           url: host + apiUri + '/user/personal_page/' + userId,
           method: 'get',
+          dataType: 'json',
+          timeout:10,
           headers: {
               "source": api.systemType,
               "version": version,
@@ -584,6 +591,7 @@
           }
       }, function(ret, err) {
           // console.log(JSON.stringify(ret));
+          if(ret){
           if (ret.status == 200) {
               //关注
               var headerCare = $api.byId('headerCare');
@@ -646,6 +654,9 @@
           } else {
               netMessage(ret);
           }
+        }else {
+            netWork(err);
+          }
       });
 
     }
@@ -694,6 +705,8 @@
                         api.ajax({
                             url: host + apiUri + '/user/follow',
                             method: 'post',
+                            dataType: 'json',
+                            timeout:10,
                             headers: {
                                 "source": api.systemType,
                                 "version": version,
@@ -708,6 +721,7 @@
                         }, function(ret, err) {
                             // console.log(JSON.stringify(ret));
                             var indexHeaderCare11 = $api.byId('indexHeaderCare11');
+                            if(ret){
                             if (ret.status == 200) {
                                 indexHeaderCare11.src = "../image/my/care_g.png";
                                 openInfo();
@@ -719,8 +733,11 @@
                                 // console.log(data);
                                 // return relation == true;
                             } else {
-
+                                netWork(err);
                             }
+                          }else{
+                            netMessage(ret);
+                          }
                         })
                     } else if (ret.eventType == 'left') {
                         var dialogBox = api.require('dialogBox');
@@ -771,6 +788,8 @@
                         api.ajax({
                             url: host + apiUri + '/user/follow',
                             method: 'post',
+                            dataType: 'json',
+                            timeout:10,
                             headers: {
                                 "source": api.systemType,
                                 "version": version,
@@ -784,6 +803,7 @@
                         }, function(ret, err) {
                             // console.log(JSON.stringify(ret));
                             var indexHeaderCare11 = $api.byId('indexHeaderCare11');
+                            if(ret){
                             if (ret.status == 200) {
                                 indexHeaderCare11.src = "../image/my/care_a.png";
                                 var dialogBox = api.require('dialogBox');
@@ -794,8 +814,11 @@
                                 relation == false;
                                 // console.log(data);
                             } else {
-
+                              netMessage(ret);
                             }
+                          }else{
+                            netWork(err);
+                          }
                         })
                     } else if (ret.eventType == 'left') {
                         var dialogBox = api.require('dialogBox');
@@ -815,7 +838,8 @@
             url: './personal_private.html',
             pageParam: {
                 userId: userId,
-                nickName : nickName
+                nickName : nickName,
+                ok:'personal_private'
             }
         });
     }
@@ -872,7 +896,7 @@
         }, function(ret) {
             if (ret.eventType == 'cancel') {
                 dialogBox.close({
-                    dialogName: 'discount'
+                    dialogName: 'actionMenu'
                 });
             }
             if (ret.index == "0") {
@@ -912,24 +936,24 @@
 
               });
               dialogBox.close({
-                  dialogName: 'alert'
+                  dialogName: 'actionMenu'
               });
                 // alert(1);
             } else if (ret.index == "1") {
                 fnOpenAddListening(id)
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'actionMenu'
                 });
                 // alert(2);
             } else if (ret.index == "2") {
                 fnOpenPlayShare();
-                // dialogBox.close({
-                //     dialogName: 'alert'
-                // });
+                dialogBox.close({
+                    dialogName: 'actionMenu'
+                });
                 // alert(3);
             } else {
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'actionMenu'
                 });
             }
             // dialogBox.close({
@@ -981,27 +1005,27 @@
         }, function(ret) {
             if (ret.eventType == 'cancel') {
                 dialogBox.close({
-                    dialogName: 'discount'
+                    dialogName: 'actionMenu'
                 });
             }
             if (ret.index == "0") {
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'actionMenu'
                 });
                 // alert(1);
             } else if (ret.index == "1") {
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'actionMenu'
                 });
                 // alert(2);
             } else if (ret.index == "2") {
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'actionMenu'
                 });
                 // alert(3);
             } else {
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'actionMenu'
                 });
             }
             // dialogBox.close({
@@ -1017,7 +1041,8 @@
             name: 'addListening',
             url: './add_listening.html',
             pageParam: {
-                songListID: id
+                songListID: id,
+                ok:'add_listening'
             }
         });
     }

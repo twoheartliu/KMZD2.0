@@ -222,32 +222,68 @@
     var albumId;
     var uris;
     var name;
+    var ok;
     apiready = function() {
         var notHeader = $api.byId('notHeader');
         $api.fixStatusBar(notHeader);
         albumId = api.pageParam.albumId;
         name = api.pageParam.name;
         uris = api.pageParam.uris;
-        fnOpenMessageNotDetail(albumId);
-        api.openFrame({
-            name: 'ReplyToComments',
-            url: './ReplyToComments.html',
-            rect: {
-                x: 0,
-                y: api.frameHeight - 55,
-                w: 'auto',
-                h: 'auto'
-            },
-            pageParam: {
-                albumId: albumId,
-                uris: uris,
-                name: name
-            },
-            bounces: false,
-            bgColor: 'rgba(0,0,0,0)',
-            vScrollBarEnabled: false,
-            hScrollBarEnabled: false
+        ok = api.pageParam.ok;
+        var oks = 'ok'+ok;
+        api.addEventListener({
+            name: oks
+        }, function(ret, err) {
+          if(ret.value.wangluo){
+            fnOpenMessageNotDetail(albumId);
+            api.openFrame({
+                name: 'ReplyToComments',
+                url: './ReplyToComments.html',
+                rect: {
+                    x: 0,
+                    y: api.frameHeight - 55,
+                    w: 'auto',
+                    h: 'auto'
+                },
+                pageParam: {
+                    albumId: albumId,
+                    uris: uris,
+                    name: name
+                },
+                bounces: false,
+                bgColor: 'rgba(0,0,0,0)',
+                vScrollBarEnabled: false,
+                hScrollBarEnabled: false
+            });
+          }
         });
+
+        var connectionType = api.connectionType;
+        if(connectionType == "none"){
+        	netWorkNone(ok);
+        }else{
+          fnOpenMessageNotDetail(albumId);
+          api.openFrame({
+              name: 'ReplyToComments',
+              url: './ReplyToComments.html',
+              rect: {
+                  x: 0,
+                  y: api.frameHeight - 55,
+                  w: 'auto',
+                  h: 'auto'
+              },
+              pageParam: {
+                  albumId: albumId,
+                  uris: uris,
+                  name: name
+              },
+              bounces: false,
+              bgColor: 'rgba(0,0,0,0)',
+              vScrollBarEnabled: false,
+              hScrollBarEnabled: false
+          });
+        }
+
     }
 
     function fnOpenMessageNotDetail(albumId) {

@@ -229,6 +229,8 @@
         api.ajax({
             url: host + apiUri + '/listening/detail/' + id,
             method: 'get',
+            dataType: 'json',
+            timeout:10,
             headers: {
                 "source": api.systemType,
                 "version": version,
@@ -236,6 +238,7 @@
             }
         }, function(ret, err) {
             if (ret) {
+              if(ret.status == 200){
                 var CoverDivInput = $api.byId('CoverDivInput');
 
                 var CoverDivInputs = ret.data.linstening_info.listening_name;
@@ -249,9 +252,13 @@
                     Cover_img.innerHTML = '<img src="' + http + 'listening/' + dataImg + '">'
                     CoverImgs = dataImg;
                 }
+              }else{
+                netMessage(ret);
+              }
+
 
             } else {
-                alert(JSON.stringify(err));
+                netWork(err);
             }
         });
     }
@@ -301,11 +308,11 @@
             var index = ret.index;
             if (texts == "cancel") {
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'actionMenu'
                 });
             } else if (index == 0) {
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'actionMenu'
                 });
                 api.getPicture({
                     sourceType: 'camera',
@@ -321,6 +328,7 @@
                     if (ret) {
                         // alert(JSON.stringify(ret));
                         // console.log(JSON.stringify(ret.data));
+                        if(ret.status == 200){
                         var CoverImg = $api.byId('Cover_img');
                         CoverImg.innerHTML = '<img src="' + ret.data + '">';
                         // console.log(ret.data);
@@ -343,46 +351,36 @@
                                 if (ret.status == 200) {
                                     fnUploadImage(ret);
                                 } else {
-                                    api.toast({
-                                        msg: '上传失败',
-                                        duration: 2000,
-                                        location: 'middle'
-                                    });
+                                    netMessage(ret);
+                                    var CoverImg = ret.data;
+                                    var CoverImg = $api.byId('Cover_img');
+                                    CoverImg.innerHTML = '<img src="../image/my/fnShareImg.jpg">'
                                 }
                                 // alert( JSON.stringify( ret ) );
                                 // console.log(JSON.stringify( ret ));
 
                             } else {
-                                var CoverImg = ret.data;
-                                var CoverImg = $api.byId('Cover_img');
-                                CoverImg.innerHTML = '<img src="../image/my/fnShareImg.jpg">'
+                              var CoverImg = ret.data;
+                              var CoverImg = $api.byId('Cover_img');
+                              CoverImg.innerHTML = '<img src="../image/my/fnShareImg.jpg">'
 
-                                api.toast({
-                                    msg: '上传失败',
-                                    duration: 2000,
-                                    location: 'middle'
-                                });
+                                netWork(err);
 
                             }
                         });
+                      }else{
+                        netMessage(ret);
+                      }
 
 
                     } else {
-                        alert(ret.message);
-                        $api.rmStorage('token');
-                        api.openWin({
-                            name: 'login',
-                            url: '../login.html',
-                            pageParam: {
-                                name: 'test'
-                            }
-                        });
+                        netWork(err);
                     }
                 });
             } else if (index == 1) {
                 // alert('相册')
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'actionMenu'
                 });
                 api.getPicture({
                     sourceType: 'album',
@@ -396,6 +394,7 @@
                     saveToPhotoAlbum: false
                 }, function(ret, err) {
                     if (ret) {
+                      if(ret.status == 200){
                         var CoverImg = $api.byId('Cover_img');
                         CoverImg.innerHTML = '<img src="' + ret.data + '">';
                         // console.log(ret.data);
@@ -403,6 +402,8 @@
                         api.ajax({
                             url: host + apiUri + '/upload/listening_cover',
                             method: 'post',
+                            dataType: 'json',
+                            timeout:10,
                             headers: {
                                 "source": api.systemType,
                                 "version": version,
@@ -417,35 +418,28 @@
                             if (ret) {
                                 if (ret.status == 200) {
                                     fnUploadImage(ret);
+                                }else{
+                                  netMessage(ret);
                                 }
                                 // alert( JSON.stringify( ret ) );
                                 // console.log(JSON.stringify( ret ));
 
                             } else {
-                                api.toast({
-                                    msg: '上传失败',
-                                    duration: 2000,
-                                    location: 'middle'
-                                });
+                                netWork(err);
 
                             }
                         });
+                      }else{
+                        netMessage(ret);
+                      }
                     } else {
-                        alert(ret.message);
-                        $api.rmStorage('token');
-                        api.openWin({
-                            name: 'login',
-                            url: '../login.html',
-                            pageParam: {
-                                name: 'test'
-                            }
-                        });
+                          netWork(err);
                     }
                 });
 
             } else if (index == 2) {
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'actionMenu'
                 });
                 fnShare();
 
@@ -544,46 +538,46 @@
             // alert(JSON.stringify(ret));
             if (index == 0) {
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'share'
                 });
             } else if (index == 1) {
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'share'
                 });
                 fnUploadImages(index);
             } else if (index == 2) {
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'share'
                 });
                 fnUploadImages(index);
             } else if (index == 3) {
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'share'
                 });
                 fnUploadImages(index);
             } else if (index == 4) {
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'share'
                 });
                 fnUploadImages(index);
             } else if (index == 5) {
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'share'
                 });
                 fnUploadImages(index);
             } else if (index == 6) {
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'share'
                 });
                 fnUploadImages(index);
             } else if (index == 7) {
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'share'
                 });
                 fnUploadImages(index);
             } else if (styles == "itemText") {
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'share'
                 });
             }
         });
@@ -609,8 +603,6 @@
             });
         }
     }
-    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
     function fnOkWin() {
         CoverDivInputs();
         // fnUploadImage();
@@ -633,6 +625,8 @@
             api.ajax({
                 url: host + apiUri + '/listening/edit',
                 method: 'post',
+                dataType: 'json',
+                timeout:10,
                 headers: {
                     "source": api.systemType,
                     "version": version,
@@ -659,17 +653,13 @@
                       // goback();
                         api.closeWin();
                     }
+                    else{
+                      netMessage(ret);
+                    }
                 } else {
-                    alert(ret.message);
-                    $api.rmStorage('token');
-                    api.openWin({
-                        name: 'login',
-                        url: '../login.html',
-                        pageParam: {
-                            name: 'test'
-                        }
-                    });
+                    netWork(err);
                 }
+
             });
 
 

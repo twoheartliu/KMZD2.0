@@ -143,7 +143,6 @@
             if (!list[0]) {
                 $api.removeCls(list, 'in');
                 setTimeout(function() {
-                  console.log(5555);
                     api.closeFrame();
                 }, 350);
             }
@@ -168,6 +167,7 @@
             url: host + apiUri + playUrli + playlistid,
             method: 'get',
             dataType: 'json',
+            timeout:10,
             headers: {
                 "source": api.systemType,
                 "version": version,
@@ -191,6 +191,7 @@
             url: host + apiUri + playUrli + playlistid,
             method: 'get',
             dataType: 'json',
+            timeout:10,
             headers: {
                 "source": api.systemType,
                 "version": version,
@@ -214,6 +215,7 @@
             url: host + apiUri + playUrli,
             method: 'get',
             dataType: 'json',
+            timeout:10,
             headers: {
                 "source": api.systemType,
                 "version": version,
@@ -268,6 +270,7 @@
           url: host + apiUri + '/album/' + playlistid,
           method: 'get',
           dataType: 'json',
+          timeout:10,
           headers: {
               "source": api.systemType,
               "version": version,
@@ -293,6 +296,7 @@
           url: host + apiUri + '/listening/detail/' + playlistid,
           method: 'get',
           dataType: 'json',
+          timeout:10,
           headers: {
               "source": api.systemType,
               "version": version,
@@ -331,7 +335,8 @@
                 name: 'play',
                 url: './play.html',
                 pageParam: {
-                    DangQianbofangid: a
+                    DangQianbofangid: a,
+                    ok:'play'
                 }
             });
             return false;
@@ -343,7 +348,8 @@
                     playlistid: playlistid,
                     a: a,
                     bofang: bofang,
-                    playUrli:playUrli
+                    playUrli:playUrli,
+                    ok:'play'
                 }
             });
             api.sendEvent({
