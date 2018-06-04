@@ -162,6 +162,8 @@ var mobile
           api.ajax({
               url: host + apiUri + '/register/is_phone_exist',
               method: 'get',
+              dataType: 'json',
+              timeout:10,
               headers: {
                   "source": api.systemType,
                   "version": version,
@@ -173,14 +175,7 @@ var mobile
                   }
               }
           },function(ret, err){
-            if (ret.status == 10209) {
-              phones.value = ''
-              api.toast({
-                  msg: '手机号已存在',
-                  duration: 2000,
-                  location: 'middle'
-              });
-            }
+            if(ret){
               if (ret.status == 200) {
                 // console.log(JSON.stringify(ret));
                     fnajaxPost();
@@ -193,14 +188,20 @@ var mobile
               } else {
                   netMessage(ret);
               }
+            }else {
+              netWork(err);
+            }
+
+
           });
       }
     }
     function fnajaxPost() {
-        console.log(mobile);
         api.ajax({
             url: host + apiUri + '/sms/get_code',
             method: 'get',
+            dataType: 'json',
+            timeout:10,
             headers: {
                 "source": api.systemType,
                 "version": version,
@@ -213,40 +214,24 @@ var mobile
                 }
             }
         },function(ret, err){
-                console.log(JSON.stringify(ret));
-                console.log(JSON.stringify(err));
-            if (ret.status == 10302) {
-              console.log(JSON.stringify(ret));
-              api.toast({
-                   msg: '请勿重复发送验证码',
-                   duration: 2000,
-                   location: 'middle'
-               });
+            if(ret){
+              if (ret.status == 200) {
+                api.toast({
+                     msg: '已发送',
+                     duration: 2000,
+                     location: 'middle'
+                 });
+              } else {
+                  netMessage(ret);
+              }
+            }else {
+              netWork(err);
             }
-            if (ret.status == 10303) {
-              api.toast({
-                   msg: '同一时段内获取次数超限，请稍后再试',
-                   duration: 2000,
-                   location: 'middle'
-               });
-            }
-            if (ret.status == 200) {
-              // console.log(JSON.stringify(ret));
-              api.toast({
-                   msg: '已发送',
-                   duration: 2000,
-                   location: 'middle'
-               });
-            } else {
-              // console.log(JSON.stringify(err));
-                netMessage(ret);
-            }
+
         });
     }
     function fnSjyanzheng() {
       var typeBindMobile = $api.byId('code').value;
-      console.log(mobile);
-      console.log(typeBindMobile);
 
         if (mobile == '') {
           api.toast({
@@ -271,6 +256,8 @@ var mobile
             api.ajax({
               url: host + apiUri + '/user/bind_mobile',
               method: 'post',
+              dataType: 'json',
+              timeout:10,
               headers: {
                   "source": api.systemType,
                   "version": version,
@@ -284,16 +271,20 @@ var mobile
                 }
             },function(ret, err){
                 if (ret) {
-                    console.log( JSON.stringify( ret ) );
-                    api.openWin({
-                        name: 'DetermineTheDinding',
-                        url: './DetermineTheDinding.html',
-                        pageParam: {
-                            mobile: mobile
-                        }
-                    });
+                    if(ret.status == 200){
+                      api.openWin({
+                          name: 'DetermineTheDinding',
+                          url: './DetermineTheDinding.html',
+                          pageParam: {
+                              mobile: mobile
+                          }
+                      });
+                    }else{
+                      netMessage(ret);
+                    }
+
                 } else {
-                    console.log( JSON.stringify( err ) );
+                    netWork(err);
                 }
             });
 

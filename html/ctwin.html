@@ -452,7 +452,7 @@
 
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
-<script type="text/javascript" src="../script/zepto.js"></script>
+<!-- <script type="text/javascript" src="../script/zepto.js"></script> -->
 <!-- <script type="text/javascript" src="../script/audio2.js"></script> -->
 <script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript" src="../script/message.js"></script>
@@ -472,6 +472,12 @@
     var body;
     var author_id;
     var jidutiao = 1;
+    var userId;
+    var userRecords;
+    var userTime;
+    var userFormate;
+    var userSize;
+    var draftsId;
     apiready = function() {
       token = $api.getStorage('token');
       api.addEventListener({
@@ -529,10 +535,68 @@
 
     }
     function fnFuZhiAudio() {
-        var stylelist = $api.byId('yinpin');
-        var html = '<audio id="myAudio" ><source src="' + path + '" type="audio/mp3"></audio>';
-        $api.html(stylelist, html);
-        console.log(html);
+      if(path){
+        uri = '/upload/user_records';
+        api.ajax({
+            url: host + apiUri + uri,
+            method: 'post',
+            dataType: 'json',
+            timeout:10,
+            headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token
+            },
+            data: {
+                files: {
+                    records: path
+                }
+            }
+        }, function(ret, err) {
+          if(ret){
+            console.log(JSON.stringify(ret));
+            if (ret.status == 200) {
+                // console.log(ret.status);
+                var fs = api.require('fs');
+                fs.rmdir({
+                    path: 'fs://luyin'
+                }, function(ret, err) {
+                    if (ret.status) {} else {
+                        alert(JSON.stringify(err));
+                    }
+                });
+
+                userId = ret.data.user_id;
+                draftsId = ret.data.drafts_id;
+                userRecords = ret.data.records;
+                userTime = ret.data.time;
+                userFormate = ret.data.formate;
+                userSize = ret.data.size;
+
+                api.sendEvent({
+                    name: 'shiTingUrl',
+                    extra: {
+                        userId:userId,
+                        draftsId:draftsId,
+                        records:userRecords,
+                        time:userTime,
+                        formate:userFormate,
+                        size:userSize,
+                    }
+                });
+                var stylelist = $api.byId('yinpin');
+                var html = '<audio id="myAudio" ><source src=" ' + userRecord + userId + '/' + ret.data.records + '" type="audio/mp3"></audio>';
+                $api.html(stylelist, html);
+            } else {
+
+                netMessage(ret);
+            }
+          }else{
+            netWork(err);
+          }
+        });
+      }
+
     }
 
     //赋值播放时间
@@ -656,119 +720,10 @@
     var c = 0;
     var t
     function fnLuYinshiting(){
-      // var audioRecorder = api.require('audioRecorder');
-      // audioRecorder.covertToMp3({
-      //           channel: 2,
-      //           sampleRates: 16000,
-      //           originalFilePath: 'fs://luyin/'+timestamp+jubenid+'.amr',
-      //           mp3FilePath: 'fs://luyins/'+timestamp+jubenid+'.amr'
-      // }, function(ret) {
-      //           alert(JSON.stringify(ret));
-      // });
-
-
-
-
-      // var fs = api.require('fs');
-      // uri = '/upload/user_records';
-      // api.ajax({
-      //     url: host + apiUri + uri,
-      //     method: 'post',
-      //     timeout:10,
-      //     dataType: 'json',
-      //     headers: {
-      //         "source": api.systemType,
-      //         "version": version,
-      //         "session": token
-      //     },
-      //     data: {
-      //         files: {
-      //             records: 'fs://luyin/'+timestamp+jubenid+'.amr'
-      //         }
-      //     }
-      // }, function(ret, err) {
-      //   console.log(JSON.stringify(ret));
-      //   if(ret){
-      //     if (ret.status == 200) {
-      //         // console.log(ret.status);
-      //         fs.rmdir({
-      //             path: 'fs://shangchuanxiang'
-      //         }, function(ret, err) {
-      //             if (ret.status) {} else {
-      //                 alert(JSON.stringify(err));
-      //             }
-      //         });
-      //         fs.rmdir({
-      //             path: 'fs://luyin'
-      //         }, function(ret, err) {
-      //             if (ret.status) {} else {
-      //                 alert(JSON.stringify(err));
-      //             }
-      //         });
-      //         path = '';
-      //         // timeCsss();
-      //         if(jidutiao){
-      //           var myAudio = document.getElementById("myAudio");
-      //           myAudio.currentTime = 0;
-      //         }
-      //         uri = '/user/records';
-      //         api.ajax({
-      //             url: host + apiUri + uri,
-      //             method: 'post',
-      //             dataType: 'json',
-      //             headers: {
-      //                 "source": api.systemType,
-      //                 "version": version,
-      //                 "session": token
-      //             },
-      //             data: {
-      //                 values: {
-      //                     "script_id": jubenid,
-      //                     "title": name,
-      //                     "author_id": author_id,
-      //                     "lyric": body,
-      //                     "records": ret.data.records,
-      //                     "format": ret.data.formate,
-      //                     "size": ret.data.size,
-      //                     "time": ret.data.time,
-      //                 }
-      //             }
-      //         }, function(ret, err) {
-      //             // console.log(JSON.stringify(ret));
-      //             if (ret.status == 200) {
-      //                 api.toast({              
-      //                     msg:   '已上传',
-      //                     duration:  2000,
-      //                     location:   'middle'          
-      //                 });
-      //
-      //             } else {
-      //                 netMessage(ret);
-      //             }
-      //         });
-      //     } else {
-      //         netMessage(ret);
-      //     }
-      //   }else{
-      //     netWork(err);
-      //   }
-      // });
-      // path = api.pageParam.path;
-      // var audioStreamer = api.require('audioStreamer');
-      // audioStreamer.openPlayer({
-      //     // path: 'fs:/'+path,
-      //     path: path,
-      // }, function(ret) {
-      //     if (ret.status) {
-      //       console.log(JSON.stringify(ret));
-      //         // api.alert({ msg: JSON.stringify(ret) });
-      //     }
-      // });
   		if(path){
         var myAudio = document.getElementById("myAudio");
         myAudio.play();
         myAudio.loop=true;
-
         jindutiao();
   		}else {
           api.toast({              

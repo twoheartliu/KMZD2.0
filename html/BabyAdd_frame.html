@@ -141,6 +141,7 @@
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/message.js"></script>
 <script type="text/javascript">
     var token;
     apiready = function() {
@@ -182,7 +183,7 @@
                 $api.html(idSetGender, '女');
             }
             var index = ret.buttonIndex;
-            console.log(JSON.stringify(ret.buttonIndex));
+            // console.log(JSON.stringify(ret.buttonIndex));
         });
     }
     // 选择生日
@@ -238,6 +239,7 @@
                     url: host + apiUri + uri,
                     method: 'post',
                     dataType: 'json',
+                    timeout:10,
                     headers: {
                         "source": api.systemType,
                         "version": version,
@@ -250,6 +252,7 @@
                         },
                     }
                 }, function(ret, err) {
+                  if(ret){
                     if (ret.status == 200) {
                         api.toast({              
                             msg:   '添加成功',
@@ -266,7 +269,13 @@
                         setTimeout(function() {
                             api.closeWin();
                         }, 2000)
+                    }else{
+                      netMessage(ret);
                     }
+                  }else{
+                    netWork(err);
+                  }
+
                 })
 
             }

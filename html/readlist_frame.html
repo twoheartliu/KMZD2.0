@@ -65,11 +65,19 @@
             padding: 15px;
         }
         .index_name_div_span {
-          font-size: 14px;
+          font-size: 16px;
           line-height: 45px;
           display: block;
         }
 
+        .body_li_4{
+            width: 30px;
+            height: 30px;
+            border-radius: 15px;
+            float: right;
+            text-align: center;
+            color: #ccc;
+        }
     </style>
 </head>
 
@@ -128,7 +136,7 @@ var token;
     		var stylelist = $api.byId('typejubenlist');
     		var html = '';
     		 for (var i = 0; i < data_.data.length; i++) {
-    		 	html +='<div class="div" onclick = "fnReadListBodr(' + data_.data[i].type_id + ',\'' + data_.data[i].name + '\');"><img src="../image/guoxueguan/readlist.png" alt="" class="index_name_div_img fl"><span class="index_name_div_span fl">' + data_.data[i].name + '</span><div class="index_name_div_imgr fr"><img src="../image/my/index_y.png" alt=""></div></div><div class="clr"></div>';
+    		 	html +='<div class="div" onclick = "fnReadListBodr(' + data_.data[i].type_id + ',\'' + data_.data[i].name + '\');"><span class="index_name_div_span fl">' + data_.data[i].name + '</span><div class="index_name_div_imgr fr"><div class="body_li_4"><img src="../image/my/index_y.png" alt=""></div></div></div><div class="clr"></div>';
           //console.log(data_.data[i].type_id);
           }
       		$api.html(stylelist, html);

@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
     <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
-    <title>孔孟之道--准备联网</title>
+    <title>个人主页-听单-更多-window</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
-    <link rel="stylesheet" type="text/css" href="../css/style.css" />
     <style>
         .fr {
             float: right;
@@ -16,24 +14,20 @@
         .fl {
             float: left;
         }
-        .p20px{padding: 0 20px;}
+
         header {
             width: 100%;
             height: 50px;
             background: #89211b;
         }
 
-        .header_fr img {
+        .header_fl img {
             width: 15px;
             height: 20px;
-            padding: 5px;
+            /*padding: 10px;*/
+            padding: 16px 10px 10px 20px;
         }
-        .header_fl img {
-          width: 15px;
-          height: 20px;
-          padding: 15px;
 
-        }
         .header_center {
             margin: 0 auto;
             width: 100%;
@@ -47,11 +41,15 @@
         .header_fr {
             width: 30px;
             height: 30px;
-            padding: 10px;
+            padding: 10px 20px 10px 10px;
             line-height: 30px;
             font-size: 15px;
-            color: #000;
+            color: #fff;
             /*display: none;*/
+        }
+        .header_fr img{
+          width: 100%;
+
         }
     </style>
 </head>
@@ -59,8 +57,8 @@
 <body>
     <header id="secHeader">
         <div class="header_fl fl" onclick="goback();"><img src="../image/icon_back.png" alt=""></div>
-        <div class="header_fr fr"></div>
-        <div class="header_center">准备联网</div>
+        <div class="header_fr fr" ></div>
+        <div class="header_center" id="id-header"></div>
     </header>
 </body>
 
@@ -69,16 +67,26 @@
 <script type="text/javascript">
     function goback() {
         api.closeWin({
-            name: 'awaken'
+            // name: 'ListeningList'
         });
     }
+    var userId;
     apiready = function() {
+        var nickName = api.pageParam.nickName;
+        userId = api.pageParam.userId;
+        var header = $api.byId('id-header');
+        var htmlName = nickName + '的听单列表';
+        $api.html(header, htmlName);
+
+
+
         var header = $api.byId('secHeader');
         $api.fixStatusBar(header);
         var headerPos = $api.offset(header);
+        // console.log(userId);
         api.openFrame({
-            name: 'awaken_frame',
-            url: './awaken_frame.html',
+            name: 'moreListeningList_frame',
+            url: './moreListeningList_frame.html',
             rect: {
                 x: 0,
                 y: headerPos.h,
@@ -86,9 +94,13 @@
                 h: 'auto'
             },
             pageParam: {
-                name: 'test'
+                userId: userId,
             },
-            bounces: false,
+            customRefreshHeader: 'UIPullRefreshFlash',
+            bounces: true,
+            reload: true
         });
+
     }
+
 </script>
