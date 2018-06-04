@@ -74,7 +74,7 @@
       ok = api.pageParam.ok;
       var oks = 'ok'+ok;
       api.addEventListener({
-        name: 'oks'
+        name: oks
       }, function(ret, err) {
       if(ret.value.wangluo){
         var albumId = api.pageParam.albumId;
@@ -109,6 +109,7 @@
       if(connectionType == "none"){
         netWorkNone(ok);
       }else{
+        console.log(2222);
         var albumId = api.pageParam.albumId;
         var floor_name = api.pageParam.floor_name;
         if(floor_name){

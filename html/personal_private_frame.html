@@ -1,52 +1,109 @@
 <!doctype html>
 <html>
 <head>
-<meta charset="UTF-8">
-<meta name="copyright" content="www.apicloud.com" />
-<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
-<title>孔孟之道--私信</title>
-<link rel="stylesheet" type="text/css" href="../css/api.css" />
-<style>
-html,body {min-height: 100%;background: #f2f2f2}
-.fr {float: right;}
-.fl {float: left;}
-.mt5 {margin-top: 5px;}
-.mt10 {margin-top: 10px;}
-.mt15 {margin-top: 15px;}
-.mt20 {margin-top: 20px;}
-.ml5 {margin-left: 0.5em;}
-.mr5 {margin-right: 0.5em;}
-.hdivider {width: 100%; height: 1px;background-color: #f2f2f2;}
-.br {border-right: 1px solid #f2f2f2;}
-.bb {border-bottom: 1px solid #f2f2f2;height: 1px;}
-.toRight {right: 0;}
-.row {display: -webkit-box;display: -webkit-flex;}
-.col {-webkit-box-flex:1; -webkit-flex:1; flex:1;margin: 0 5px; position: relative;}
-</style>
+    <meta charset="UTF-8">
+    <meta name="copyright" content="www.apicloud.com" />
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>孔孟之道--私信</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style>
+        html,body {min-height: 100%;background: #f2f2f2}
+        .fr {float: right;}
+        .fl {float: left;}
+        .mt5 {margin-top: 5px;}
+        .mt10 {margin-top: 10px;}
+        .mt15 {margin-top: 15px;}
+        .mt20 {margin-top: 20px;}
+        .ml5 {margin-left: 0.5em;}
+        .mr5 {margin-right: 0.5em;}
+        .hdivider {width: 100%; height: 1px;background-color: #f2f2f2;}
+        .br {border-right: 1px solid #f2f2f2;}
+        .bb {border-bottom: 1px solid #f2f2f2;height: 1px;}
+        .toRight {right: 0;}
+        .row {display: -webkit-box;display: -webkit-flex;}
+        .col {-webkit-box-flex:1; -webkit-flex:1; flex:1;margin: 0 5px; position: relative;}
+        .clr{clear: both}
+        .img{
+            width: 50px;
+            height: 50px;
+            border-radius: 25px;
+            overflow: hidden;
+            /*background: red;*/
+        }
+        .shijian{
+            /*width: 100%;*/
+            height: 50px;
+            line-height: 50px;
+            margin-left: 10px;
+
+        }
+        .shijianfr{    /*width: 100%;*/
+            height: 50px;
+            line-height: 50px;
+            margin-right: 10px;
+          }
+        .name{padding:  0 60px;}
+        /*.namefr{padding: 0 60px;}*/
+        .name div{border: 1px solid #ccc;padding: 10px;border-radius: 3px;}
+        #main{margin-bottom: 80px;}
+        .private{padding: 10px 0;}
+    </style>
 </head>
 <body>
-      <div id="main">
-      </div>
+    <div id="main">
+    </div>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript">
   var userId;
   var token;
+  var p = 1;
   apiready = function (){
     token = $api.getStorage('token');
     userId = api.pageParam.userId;
-    var mHeader = $api.byId('mesHeader');
-    var headerPos = $api.offset(mHeader);
     fnOpenchatbox();
     fnGetSixin();
+    api.setCustomRefreshHeaderInfo({
+        bgColor: '#f0f0f0',
+        image: {
+          pull: [
+              'widget://image/Refresh/dropdown_anim_00.png',
+              'widget://image/Refresh/dropdown_anim_01.png',
+              'widget://image/Refresh/dropdown_anim_02.png',
+              'widget://image/Refresh/dropdown_anim_03.png',
+              'widget://image/Refresh/dropdown_anim_04.png',
+              'widget://image/Refresh/dropdown_anim_05.png',
+              'widget://image/Refresh/dropdown_anim_06.png',
+              'widget://image/Refresh/dropdown_anim_07.png',
+              'widget://image/Refresh/dropdown_anim_08.png',
+              'widget://image/Refresh/dropdown_anim_09.png',
+              'widget://image/Refresh/dropdown_anim_10.png',
+        ],
+        load: [
+              'widget://image/Refresh/dropdown_anim_00.png',
+              'widget://image/Refresh/dropdown_anim_01.png',
+              'widget://image/Refresh/dropdown_anim_02.png',
+              'widget://image/Refresh/dropdown_anim_03.png',
+              'widget://image/Refresh/dropdown_anim_04.png',
+              'widget://image/Refresh/dropdown_anim_05.png',
+      ]}
+    }, function() {
+            //下拉刷新被触发，自动进入加载状态，使用 api.refreshHeaderLoadDone() 手动结束加载中状态
+            //下拉刷新被触发，使用 api.refreshHeaderLoadDone() 结束加载中状态
+                  p ++;
+                  fnGetSixin();
+        });
   }
+
   function fnGetSixin() {
     // console.log(token);
     // console.log(userId);
       api.ajax({
         url:  host + apiUri +'/message/detail',
         method: 'get',
+        dataType: 'json',
+        timeout:10,
         headers: {
             "source": api.systemType,
             "version": version,
@@ -54,25 +111,87 @@ html,body {min-height: 100%;background: #f2f2f2}
         },
           data: {
               values: {
-                  user_id: userId
+                  user_id: userId,
+                  p:p
               }
           }
       },function(ret, err){
           if (ret) {
+
               // console.log( JSON.stringify( ret ) );
               if (ret.status == 200) {
-                var  html = '';
+                var personalPrivateFrame = 1;
+                api.sendEvent({
+                    name: 'personalPrivateFrame',
+                    extra: {
+                        personalPrivateFrame: personalPrivateFrame
+                    }
+                });
+                api.refreshHeaderLoadDone();
                 var main = $api.byId('main');
+                // 排序（不要转格式，能够直接拿来用）
+                // var ss = ret.data;
+                // function compare(property){
+                //   return function(obj1,obj2){
+                //     var value1 = obj1[property];
+                //     var value2 = obj2[property];
+                //     return value1 - value2; // 升序
+                //   }
+                // }
+                // var sortObj = ss.sort(compare("create_date"));
                 for (var i = 0; i < ret.data.length; i++) {
-                  if (userId == ret.data[i].receiver_id) {
-                      html += '<div>123132</div>'
+                  var images;
+                  var listening_cover = ret.data[i].sender_image;
+                  var sandBox = listening_cover.substring(0, 4);
+                  if (sandBox == 'http') {
+                      images = ret.data[i].sender_image;
                   }else {
-                      html += '<div>456456</div>'
+                    images = updatePhotoUrl + listening_cover;
                   }
+                  // 时间戳转换器
+                  // function getLocalTime(nS) {
+                  //    return new Date(parseInt(nS) * 1000).toLocaleString().replace(/年|月/g, "-").replace(/日/g, " ");
+                  // }
+                  function timetrans(date){
+                        var date = new Date(date*1000);//如果date为13位不需要乘1000
+                        var Y = date.getFullYear() + '年';
+                        var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '月';
+                        var D = (date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate()) + '日';
+                        var h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
+                        var m = (date.getMinutes() <10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
+                        var s = (date.getSeconds() <10 ? '0' + date.getSeconds() : date.getSeconds());
+                        return Y+M+D+h+m+s;
+                    }
+                  var timestampToTimess = timetrans(ret.data[i].create_date);
+
+
+                  var html = ''
+                  if (userId == ret.data[i].receiver_id) {
+                    html += '<div class="private">'+
+                              '<div class="fr img"><img src="'+ images +'" alt=""></div>'+
+                              '<div class="fr shijianfr">'+
+                                  '<div>'+timestampToTimess+'</div>'+
+                              '</div>'+
+                              '<div class="clr"></div>'+
+                              '<div class="name"><div class="fr">'+ret.data[i].content+'</div></div>'+
+                              '<div class="clr"></div>'+
+                          '</div>';
+                  }else {
+                     html += '<div class="private">'+
+                            '<div class="fl img"><img src="'+ images +'" alt=""></div>'+
+                            '<div class="fl shijian">'+
+                                '<div>'+timestampToTimess+'</div>'+
+                            '</div>'+
+                            '<div class="clr"></div>'+
+                            '<div class="name"><div class="fl">'+ret.data[i].content+'</div></div>'+
+                            '<div class="clr"></div>'+
+                        '</div>';
+                  }
+                  $api.prepend(main,html);
                 }
-                $api.html(main, html);
 
               }
+
           } else {
               // alert( JSON.stringify( err ) );
           }
@@ -155,6 +274,8 @@ html,body {min-height: 100%;background: #f2f2f2}
               api.ajax({
                   url:  host + apiUri +'/message/send',
                   method: 'post',
+                  dataType: 'json',
+                  timeout:10,
                   headers: {
                       "source": api.systemType,
                       "version": version,
@@ -168,6 +289,7 @@ html,body {min-height: 100%;background: #f2f2f2}
                   }
               },function(ret, err){
                   if (ret) {
+                    fnGetSixin();
                       // console.log( JSON.stringify( ret ) );
                   } else {
                       console.log( JSON.stringify( err ) );

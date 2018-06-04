@@ -533,13 +533,10 @@
                 } else {
                     var nolist = '';
                     for (var i = 0; i < ret.data.user_listening.length; i++) {
-                        // console.log(JSON.stringify( ret.data.user_listening[i]));
-
                         nolist += '<li><div onclick="openListen('+ret.data.user_listening[i].l_id+')"><div class="message_frame_cycle_div fl"><div class="message_frame_cycle_img"><img src="'+listenCover+''+ret.data.user_listening[i].listening_cover+'" alt=""></div><div class="message_frame_cycle_div_1 col">'+ret.data.user_listening[i].listening_name+'</div></div></div></li>';
                     }
                     $api.html(container, nolist);
                 }
-                // alert( JSON.stringify( ret ) );
             } else {
                 netMessage(ret);
             }

@@ -709,6 +709,7 @@
                                     "session": token
                                 },
                             }, function(ret, err) {
+                              if(ret){
                                 if (ret.status == 200) {
                                     // $api.byId('tx').innerHTML = '<img src=" ' + updatePhotoUrl + ret.data.photo + ' ">';
                                     var stylelist = $api.byId('tx');
@@ -728,7 +729,7 @@
                                 } else {
                                     netMessage(ret);
                                 }
-                              }else{
+                              } else{
                                   netWork(err);
                                 }
                             });

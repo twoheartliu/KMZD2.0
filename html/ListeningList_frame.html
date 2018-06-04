@@ -218,9 +218,7 @@
                 }, function(ret, err) {
                     if (ret) {
                         if (ret.status == 200) {
-                            setTimeout(function() {
                                 api.refreshHeaderLoadDone()
-                            }, 3000)
                             var id = $api.byId('ListeningListFrame');
                             var html = '';
                             for (var i = 0; i < ret.data.length; i++) {
