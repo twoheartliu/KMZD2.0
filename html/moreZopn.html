@@ -71,66 +71,35 @@
         });
     }
     var userId;
-    var ok;
     apiready = function() {
         var nickName = api.pageParam.nickName;
         userId = api.pageParam.userId;
         var header = $api.byId('id-header');
         var htmlName = nickName + '的作品列表';
         $api.html(header, htmlName);
+
+
+
         var header = $api.byId('secHeader');
         $api.fixStatusBar(header);
         var headerPos = $api.offset(header);
         // console.log(userId);
-
-        ok = api.pageParam.ok;
-        var oks = 'ok'+ok;
-        api.addEventListener({
-            name: oks
-        }, function(ret, err) {
-          if(ret.value.wangluo){
-            api.openFrame({
-                name: 'moreZopn_frame',
-                url: './moreZopn_frame.html',
-                rect: {
-                    x: 0,
-                    y: headerPos.h,
-                    w: 'auto',
-                    h: 'auto'
-                },
-                pageParam: {
-                    userId: userId,
-                },
-                customRefreshHeader: 'UIPullRefreshFlash',
-                bounces: true,
-                reload: true
-            });
-          }
+        api.openFrame({
+            name: 'moreZopn_frame',
+            url: './moreZopn_frame.html',
+            rect: {
+                x: 0,
+                y: headerPos.h,
+                w: 'auto',
+                h: 'auto'
+            },
+            pageParam: {
+                userId: userId,
+            },
+            customRefreshHeader: 'UIPullRefreshFlash',
+            bounces: true,
+            reload: true
         });
-
-        var connectionType = api.connectionType;
-        if(connectionType == "none"){
-        	netWorkNone(ok);
-        }else{
-          api.openFrame({
-              name: 'moreZopn_frame',
-              url: './moreZopn_frame.html',
-              rect: {
-                  x: 0,
-                  y: headerPos.h,
-                  w: 'auto',
-                  h: 'auto'
-              },
-              pageParam: {
-                  userId: userId,
-              },
-              customRefreshHeader: 'UIPullRefreshFlash',
-              bounces: true,
-              reload: true
-          });
-        }
-
-
 
     }
 
