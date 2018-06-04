@@ -340,6 +340,18 @@
     var timestamps;
     var author_id;
     var Guid = new Array();
+    var title;
+    var name;
+    var body;
+    var cgxid;
+    var myAudioPlay;
+    var userId;
+    var userRecords;
+    var userTime;
+    var userFormate;
+    var userSize;
+    var draftsId;
+    var pathSss = 1;
     apiready = function() {
             token = $api.getStorage('token');
             path = '';
@@ -368,9 +380,20 @@
                 fnFuZhiJiBenXinXi(ret);
               }
             });
+            api.addEventListener({
+                name: 'shiTingPath'
+            }, function(ret, err) {
+              if(ret){
+                fnFuZhiPath(ret);
+              }
+            });
 
         }
-
+function fnFuZhiPath(data_){
+  if(data_.value.path){
+    path = '';
+  }
+}
     //播放背景音乐
     function fnBeiYueplay() {
       var connectionType = api.connectionType;
@@ -397,18 +420,7 @@
         input = text;
     }
     //获取剧本基本信息
-    var title;
-    var name;
-    var body;
-    var cgxid;
-    var myAudioPlay;
-    var userId;
-    var userRecords;
-    var userTime;
-    var userFormate;
-    var userSize;
-    var draftsId;
-    var pathSss = 1;
+
     function kaishibofang(){
       var myAudio = document.getElementById("myAudio");
       myAudio.play();
@@ -570,24 +582,52 @@
         if (a == 2) {
             if (path) {
               if(c > 9){
-                api.openWin({
-                    name: 'ctwin',
-                    url: './ctwin.html',
-                    pageParam: {
-                        path: path,
-                        desc: body,
-                        title: title,
-                        name: name,
-                        jubenid: jubenid,
-                        cgxid: cgxid,
-                        timestamp: timestamp,
-                        timestamps: timestamps,
-                        author_id: author_id,
-                        a:a,
-                        c:c,
-                        ok:"ctwin"
-                    }
-                });
+                  if(userId){
+                    api.openWin({
+                        name: 'ctwin',
+                        url: './ctwin.html',
+                        pageParam: {
+                            path: path,
+                            desc: body,
+                            title: title,
+                            name: name,
+                            jubenid: jubenid,
+                            cgxid: cgxid,
+                            timestamp: timestamp,
+                            timestamps: timestamps,
+                            author_id: author_id,
+                            a:a,
+                            c:c,
+                            ok:"ctwin",
+                            userId:userId,
+                            userRecords:userRecords,
+                            draftsId:draftsId,
+                            userTime:userTime,
+                            userFormate:userFormate,
+                            userSize:userSize
+                        }
+                    });
+                  }else{
+                    api.openWin({
+                        name: 'ctwin',
+                        url: './ctwin.html',
+                        pageParam: {
+                            path: path,
+                            desc: body,
+                            title: title,
+                            name: name,
+                            jubenid: jubenid,
+                            cgxid: cgxid,
+                            timestamp: timestamp,
+                            timestamps: timestamps,
+                            author_id: author_id,
+                            a:a,
+                            c:c,
+                            ok:"ctwin"
+                        }
+                    });
+                  }
+
                 // path = '';
                 // timeCsss();
               }else {

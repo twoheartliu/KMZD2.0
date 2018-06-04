@@ -147,12 +147,45 @@
     //接口  推荐听单
 
     function fnGetBeiJingYinYueTypelist() {
-        var titlesNames = api.pageParam.titlesNames;
+        api.getPrefs({
+            key: 'cgxlist'
+        }, function(ret, err) {
+            var historyUrlText = '' || ret.value;
+            historyUrlArray = historyUrlText.split(',');
+            var length = historyUrlArray.length - 1;
             var stylelist = $api.byId('liebiao');
-            var html = '<li class="active" tapmode="focus" ><div><p>' + titlesNames + '</p></div></li>';
-
+            var html = '';
+            for (var i = 0; i < length / 4 + 1; i++) {
+                if (historyUrlArray[i].length == 0)
+                    continue;
+                var cgxid = historyUrlArray[i * 4 - 3];
+                var title = historyUrlArray[i * 4 - 2];
+                var name = historyUrlArray[i * 4 - 1];
+                var desc = historyUrlArray[i * 4];
+                if (historyUrlArray[i * 4 - 1]) {
+                    html += '<li class="active" tapmode="focus" onclick="fnPlayGeQu(' + i + ');"><div><p>' + historyUrlArray[i * 4 - 2] + '</p><label>作者:' + historyUrlArray[i * 4 - 1] + '</label></div></li>';
+                } else {
+                    html += '<li class="active" tapmode="focus" onclick="fnPlayGeQu(' + i + ');"><div><p>' + historyUrlArray[i * 4 - 2] + '</p><label>作者:未知</label></div></li>';
+                }
                 $api.html(stylelist, html);
                 fnGeDanMingCheng();
+            }
+        });
+    }
+
+    //接口  听单展示
+    function fnGeDanLieBiao(data_) {
+        var stylelist = $api.byId('liebiao');
+        var html = '';
+        for (var i = 0; i < data_.data.length; i++) {
+            if (data_.data[i].singerName) {
+                html += '<li class="active" tapmode="focus" onclick="fnPlayGeQu(' + data_.data[i].id + ');"><div><p>' + data_.data[i].name + '</p><label>作者:' + data_.data[i].singerName + '</label></div></li>';
+            } else {
+                html += '<li class="active" tapmode="focus" onclick="fnPlayGeQu(' + data_.data[i].id + ');"><div><p>' + data_.data[i].name + '</p><label>作者:未知</label></div></li>';
+            }
+        }
+        $api.html(stylelist, html);
+
     }
 
     function fnGeDanMingCheng(data_) {
@@ -161,6 +194,67 @@
         $api.html(stylelist, html);
     }
 
+    function fnPlayGeQu(a) {
+        var bofang = 3;
+        if (a == api.pageParam.Dqbofangid) {
+            api.openWin({
+                name: 'caogaoplay',
+                url: './caogaoplay.html',
+                pageParam: {
+                    DangQianbofangid: a
+                }
+            });
+            return false;
+        } else {
+            api.openWin({
+                name: 'caogaoplay',
+                url: './caogaoplay.html',
+                pageParam: {
+                    a: a,
+                    bofang: bofang
+                }
+            });
+            api.sendEvent({
+                name: 'neizhiliebiaoPlay',
+                extra: {
+                    a: a,
+                    bofang: bofang
+                }
+            });
+            api.sendEvent({
+                name: 'neizhiliebiaoPlaysss',
+                extra: {
+                    a: a,
+                    bofang: bofang
+                }
+            });
+        }
+    }
+
+    // function fnSetGender(){
+    //   // var stylelist = $api.byId('play-list');
+    //   // // var buttons = buttons;
+    //   // var html = '';
+    //   //     html += '<li class="active" tapmode="focus"><div><p>【美食地图】天南地北一张饼</p><label>时长: 24分10秒</label></div></li>';
+    //   // var index = $api.html(stylelist, html);
+    //
+    //   var index = ['huih','dhuas','shdua','huih','dhuas','shdua','huih','dhuas','shdua','huih','dhuas','shdua','huih','dhuas','shdua']
+    // 		api.actionSheet({
+    // 				title: '节目单',
+    // 				cancelTitle: '取消',
+    // 				buttons: index
+    // 		}, function(ret, err){
+    // 				if( ret.buttonIndex >= index.length){
+    //           			setTimeout(function(){
+    //           				api.closeFrame();
+    //           			},350);
+    // 						return;
+    //
+    // 				}
+    // 				// var gender = ret.buttonIndex === 1?'男':'女';
+    // 				// fnUpdateUserInfo('gender',gender)
+    // 		});
+    //   }
 </script>
 
 </html>

@@ -536,65 +536,86 @@
     }
     function fnFuZhiAudio() {
       if(path){
-        uri = '/upload/user_records';
-        api.ajax({
-            url: host + apiUri + uri,
-            method: 'post',
-            dataType: 'json',
-            timeout:10,
-            headers: {
-                "source": api.systemType,
-                "version": version,
-                "session": token
-            },
-            data: {
-                files: {
-                    records: path
-                }
-            }
-        }, function(ret, err) {
-          if(ret){
-            console.log(JSON.stringify(ret));
-            if (ret.status == 200) {
-                // console.log(ret.status);
-                var fs = api.require('fs');
-                fs.rmdir({
-                    path: 'fs://luyin'
-                }, function(ret, err) {
-                    if (ret.status) {} else {
-                        alert(JSON.stringify(err));
-                    }
-                });
-
-                userId = ret.data.user_id;
-                draftsId = ret.data.drafts_id;
-                userRecords = ret.data.records;
-                userTime = ret.data.time;
-                userFormate = ret.data.formate;
-                userSize = ret.data.size;
-
-                api.sendEvent({
-                    name: 'shiTingUrl',
-                    extra: {
+         userId = api.pageParam.userId;
+         userRecords = api.pageParam.userRecords;
+         draftsId = api.pageParam.draftsId;
+         userTime = api.pageParam.userTime;
+         userFormate = api.pageParam.userFormate;
+         userSize = api.pageParam.userSize;
+        if(userRecords){
+          api.sendEvent({
+              name: 'shiTingUrl',
+              extra: {
+                userId:userId,
+                draftsId:draftsId,
+                userRecords:userRecords,
+                userTime:userTime,
+                userFormate:userFormate,
+                userSize:userSize,
+              }
+          });
+          var stylelist = $api.byId('yinpin');
+          var html = '<audio id="myAudio" ><source src=" ' + userRecord + userId + '/' + userRecords + '" type="audio/mp3"></audio>';
+          $api.html(stylelist, html);
+          return false;
+        }else{
+          uri = '/upload/user_records';
+          api.ajax({
+              url: host + apiUri + uri,
+              method: 'post',
+              dataType: 'json',
+              timeout:10,
+              headers: {
+                  "source": api.systemType,
+                  "version": version,
+                  "session": token
+              },
+              data: {
+                  files: {
+                      records: path
+                  }
+              }
+          }, function(ret, err) {
+            if(ret){
+              if (ret.status == 200) {
+                  userId = ret.data.user_id;
+                  draftsId = ret.data.drafts_id;
+                  userRecords = ret.data.records;
+                  userTime = ret.data.time;
+                  userFormate = ret.data.formate;
+                  userSize = ret.data.size;
+                  api.sendEvent({
+                      name: 'shiTingUrl',
+                      extra: {
                         userId:userId,
                         draftsId:draftsId,
-                        records:userRecords,
-                        time:userTime,
-                        formate:userFormate,
-                        size:userSize,
-                    }
-                });
-                var stylelist = $api.byId('yinpin');
-                var html = '<audio id="myAudio" ><source src=" ' + userRecord + userId + '/' + ret.data.records + '" type="audio/mp3"></audio>';
-                $api.html(stylelist, html);
-            } else {
+                        userRecords:userRecords,
+                        userTime:userTime,
+                        userFormate:userFormate,
+                        userSize:userSize,
+                      }
+                  });
+                  var stylelist = $api.byId('yinpin');
+                  var html = '<audio id="myAudio" ><source src=" ' + userRecord + userId + '/' + ret.data.records + '" type="audio/mp3"></audio>';
+                  $api.html(stylelist, html);
+                  var fs = api.require('fs');
+                  fs.rmdir({
+                      path: 'fs://luyin'
+                  }, function(ret, err) {
+                      if (ret.status) {} else {
+                          // alert(JSON.stringify(err));
+                      }
+                  });
+              } else {
 
-                netMessage(ret);
+                  netMessage(ret);
+              }
+            }else{
+              netWork(err);
             }
-          }else{
-            netWork(err);
-          }
-        });
+          });
+        }
+
       }
 
     }

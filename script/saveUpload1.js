@@ -88,6 +88,12 @@ function fnLuYinBaoCun() {
                                       duration:  2000,
                                       location:   'middle'          
                                   });
+                                  api.sendEvent({
+                                      name: 'shiTingPath',
+                                      extra: {
+                                        path:2,
+                                      }
+                                  });
                                   var fs = api.require('fs');
                                   fs.rmdir({
                                       path: 'fs://luyin'
@@ -141,6 +147,12 @@ function fnLuYinBaoCun() {
                                         msg:   '已上传',
                                         duration:  2000,
                                         location:   'middle'          
+                                    });
+                                    api.sendEvent({
+                                        name: 'shiTingPath',
+                                        extra: {
+                                          path:2,
+                                        }
                                     });
                                     var fs = api.require('fs');
                                     fs.rmdir({

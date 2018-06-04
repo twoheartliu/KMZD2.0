@@ -68,6 +68,148 @@
 //     });
 // }
 //播放歌单音频
+// function fnBoFangyinpinxinxi() {
+//     fnUserFollow();
+//     clearInterval(timer2);
+//     clearInterval(timer1);
+//     playgedan = rets.data[play].id;
+//     fnBFid(playgedan);
+//     api.ajax({
+//       url: host + apiUri + '/sound/' + playgedan,
+//       method: 'get',
+//       dataType: 'json',
+//       headers: {
+//           "source": api.systemType,
+//           "version": version,
+//           "session": token
+//       }
+//     }, function(ret, err) {
+//       if(ret){
+//       if(ret.status == 200){
+//             if (playlistid) {
+//                 api.sendEvent({
+//                     name: 'netbofangsssssss',
+//                     extra: {
+//                         a: playgedan,
+//                         playlistid: playlistid,
+//                         bofang: bofang,
+//                         playUrli:playUrli
+//                     }
+//                 });
+//             }
+//             api.sendEvent({
+//                 name: 'neiJianTingGood',
+//                 extra: {
+//                     bookId:ret.data.id
+//                 }
+//             });
+//             if(ret.data.user_id){
+//               var userId = ret.data.user_id;
+//               var userUrl = ret.data.url;
+//               url = userRecord + userId + '/'+ userUrl;
+//               fnFuZhiAudio(url);
+//
+//             }else{
+//               fnFuZhiAudio(host+'/'+ret.data.url);
+//             }
+//             titlename = ret.data.title;
+//             reciter = ret.data.reciter;
+//             desc = ret.data.body;
+//             singerName = ret.data.author_name;
+//             api.sendEvent({
+//                 name: 'jibenxinxi',
+//                 extra: {
+//                     titlename: titlename,
+//                     desc: desc,
+//                     reciter: reciter,
+//                     singerName: singerName,
+//                     comment_total: comment_total,
+//                     collection: is_collection
+//                 }
+//             });
+//
+//       }else{
+//         netRecordingModule(playgedan);
+//       }
+//     }else{
+//       netRecordingModule(playgedan);
+//     }
+//     });
+// }
+//
+// function netRecordingModule(playgedans) {
+//   playgedan = playgedans;
+//     var appIds=api.appId;
+//     var bbbbb = api.systemType;
+//     var pathAdd = $api.getStorage('pathAdd');
+//     var uelr = '/storage/emulated/0/UZMap/';
+//     if(bbbbb == "ios"){
+//        uelr ='/var/mobile/Containers/Data/Application'+pathAdd+'/Documents/uzfs/';
+//     }
+//
+//     var appid=appIds;
+//     url = uelr+appid+'/caogaoxiang/'+playgedan ;
+//
+//     fnFuZhiAudio(url);
+//     titlename = rets.data[play].name;
+//     desc = rets.data[play].desc;
+//     singerName = rets.data[play].singerName;
+//     author_id = rets.data[play].author_id;
+//     api.sendEvent({
+//         name: 'jibenxinxi',
+//         extra: {
+//             titlename: titlename,
+//             desc: desc,
+//             singerName: singerName,
+//             author_id: author_id,
+//         }
+//     });
+//     api.sendEvent({
+//         name: 'netbofangsssssss',
+//         extra: {
+//             a: playgedan,
+//             bofang: bofang
+//         }
+//     });
+// }
+
+// function netRecordingModuleing(playgedans) {
+//     playgedan = playgedans;
+//     var appIds=api.appId;
+//     var bbbbb = api.systemType;
+//     var pathAdd = $api.getStorage('pathAdd');
+//     var uelr = '/storage/emulated/0/UZMap/';
+//     if(bbbbb == "ios"){
+//       uelr ='/var/mobile/Containers/Data/Application'+pathAdd+'/Documents/uzfs/';
+//     }
+//
+//     var appid=appIds;
+//     url=uelr+appid+'/caogaoxiang/'+playgedan;
+//     fnFuZhiAudio(url);
+//
+//     titlename = rets.data[play].name;
+//     desc = rets.data[play].desc;
+//     singerName = rets.data[play].singerName;
+//     author_id = rets.data[play].author_id;
+//     api.sendEvent({
+//         name: 'jibenxinxi',
+//         extra: {
+//             titlename: titlename,
+//             desc: desc,
+//             singerName: singerName,
+//             author_id: author_id,
+//         }
+//     });
+//     api.sendEvent({
+//         name: 'netbofangsssssss',
+//         extra: {
+//             a: playgedan,
+//             bofang: bofang
+//         }
+//     });
+// }
+
+//播放歌单音频
 function fnBoFangyinpinxinxi() {
     fnUserFollow();
     clearInterval(timer2);
@@ -129,85 +271,13 @@ function fnBoFangyinpinxinxi() {
             });
 
       }else{
-        netRecordingModule(playgedan);
+        netMessage(ret);
       }
     }else{
-      netRecordingModule(playgedan);
+      netWork(err);
     }
     });
 }
-
-function netRecordingModule(playgedans) {
-  playgedan = playgedans;
-    var appIds=api.appId;
-    var bbbbb = api.systemType;
-    var pathAdd = $api.getStorage('pathAdd');
-    var uelr = '/storage/emulated/0/UZMap/';
-    if(bbbbb == "ios"){
-       uelr ='/var/mobile/Containers/Data/Application'+pathAdd+'/Documents/uzfs/';
-    }
-
-    var appid=appIds;
-    url = uelr+appid+'/caogaoxiang/'+playgedan ;
-
-    fnFuZhiAudio(url);
-    titlename = rets.data[play].name;
-    desc = rets.data[play].desc;
-    singerName = rets.data[play].singerName;
-    author_id = rets.data[play].author_id;
-    api.sendEvent({
-        name: 'jibenxinxi',
-        extra: {
-            titlename: titlename,
-            desc: desc,
-            singerName: singerName,
-            author_id: author_id,
-        }
-    });
-    api.sendEvent({
-        name: 'netbofangsssssss',
-        extra: {
-            a: playgedan,
-            bofang: bofang
-        }
-    });
-}
-
-// function netRecordingModuleing(playgedans) {
-//     playgedan = playgedans;
-//     var appIds=api.appId;
-//     var bbbbb = api.systemType;
-//     var pathAdd = $api.getStorage('pathAdd');
-//     var uelr = '/storage/emulated/0/UZMap/';
-//     if(bbbbb == "ios"){
-//       uelr ='/var/mobile/Containers/Data/Application'+pathAdd+'/Documents/uzfs/';
-//     }
-//
-//     var appid=appIds;
-//     url=uelr+appid+'/caogaoxiang/'+playgedan;
-//     fnFuZhiAudio(url);
-//
-//     titlename = rets.data[play].name;
-//     desc = rets.data[play].desc;
-//     singerName = rets.data[play].singerName;
-//     author_id = rets.data[play].author_id;
-//     api.sendEvent({
-//         name: 'jibenxinxi',
-//         extra: {
-//             titlename: titlename,
-//             desc: desc,
-//             singerName: singerName,
-//             author_id: author_id,
-//         }
-//     });
-//     api.sendEvent({
-//         name: 'netbofangsssssss',
-//         extra: {
-//             a: playgedan,
-//             bofang: bofang
-//         }
-//     });
-// }
 //audio标签赋值
 function fnFuZhiAudio(url) {
     var stylelist = $api.byId('yinpin');
@@ -246,9 +316,7 @@ function netAudioPlay() {
       bofang = 5;
     }else if (bofang == 2) {
       bofang = 3;
-    }else if(bofang == 0){
-      bofang = 1;
-    }else if (!bofang) {
+    }else if(!bofang){
       bofang = 1;
     }
 
@@ -453,59 +521,59 @@ function fnBFid(id) {
     });
 }
 
-//获取 草稿箱列表歌曲
-function netPlayLieCgx(cgxnewid) {
-    api.getPrefs({
-        key: 'cgxlist'
-    }, function(ret, err) {
-        var historyUrlText = '' || ret.value;
-        historyUrlArray = historyUrlText.split(',');
-        cgxPlay(cgxnewid);
-    });
-}
-
-function cgxPlay(cgxnewid) {
-    var cgxnewids = cgxnewid - 1;
-    ret = '';
-    var length = historyUrlArray.length - 1;
-    for (var i = 0; i < length / 5 + 1; i++) {
-        if (historyUrlArray[i].length == 0)
-            continue;
-        caogaoId = '';
-        caogaoId += historyUrlArray[i * 5 - 4];
-        caogaoTitle = '';
-        caogaoTitle += historyUrlArray[i * 5 - 3];
-        caogaoName = '';
-        caogaoName += historyUrlArray[i * 5 - 2];
-        caogaoBody = '';
-        caogaoBody += historyUrlArray[i * 5 - 1];
-        caogaoAuthor_id = '';
-        caogaoAuthor_id += historyUrlArray[i * 5];
-        clearInterval(timer2);
-        clearInterval(timer1);
-        dataArray.push({
-            "id": caogaoId,
-            "name": caogaoTitle,
-            "singerName": caogaoName,
-            "desc": caogaoBody,
-            "author_id":caogaoAuthor_id
-        });
-        rets = {
-            "data": dataArray
-        };
-    }
-    fnDQBF(cgxnewids);
-}
-//草稿箱  当前播放
-function fnBFcgx(id) {
-    DangQianbofangid = id;
-    api.sendEvent({
-        name: 'netPlaying',
-        extra: {
-            playing: DangQianbofangid,
-        }
-    });
-}
+// //获取 草稿箱列表歌曲
+// function netPlayLieCgx(cgxnewid) {
+//     api.getPrefs({
+//         key: 'cgxlist'
+//     }, function(ret, err) {
+//         var historyUrlText = '' || ret.value;
+//         historyUrlArray = historyUrlText.split(',');
+//         cgxPlay(cgxnewid);
+//     });
+// }
+//
+// function cgxPlay(cgxnewid) {
+//     var cgxnewids = cgxnewid - 1;
+//     ret = '';
+//     var length = historyUrlArray.length - 1;
+//     for (var i = 0; i < length / 5 + 1; i++) {
+//         if (historyUrlArray[i].length == 0)
+//             continue;
+//         caogaoId = '';
+//         caogaoId += historyUrlArray[i * 5 - 4];
+//         caogaoTitle = '';
+//         caogaoTitle += historyUrlArray[i * 5 - 3];
+//         caogaoName = '';
+//         caogaoName += historyUrlArray[i * 5 - 2];
+//         caogaoBody = '';
+//         caogaoBody += historyUrlArray[i * 5 - 1];
+//         caogaoAuthor_id = '';
+//         caogaoAuthor_id += historyUrlArray[i * 5];
+//         clearInterval(timer2);
+//         clearInterval(timer1);
+//         dataArray.push({
+//             "id": caogaoId,
+//             "name": caogaoTitle,
+//             "singerName": caogaoName,
+//             "desc": caogaoBody,
+//             "author_id":caogaoAuthor_id
+//         });
+//         rets = {
+//             "data": dataArray
+//         };
+//     }
+//     fnDQBF(cgxnewids);
+// }
+// //草稿箱  当前播放
+// function fnBFcgx(id) {
+//     DangQianbofangid = id;
+//     api.sendEvent({
+//         name: 'netPlaying',
+//         extra: {
+//             playing: DangQianbofangid,
+//         }
+//     });
+// }
 
 function fnDQBF(y) {
     play = y;
@@ -704,22 +772,22 @@ function initEventListennerBofang() {
         }
     });
     // 草稿箱  当前播放
-    api.addEventListener({
-        name: 'netPlayCgx'
-    }, function(ret, err) {
-        if (ret) {
-            fnBFcgx(ret.value.id);
-            netPlayLieCgx(ret.value.id);
-        }
-    });
+    // api.addEventListener({
+    //     name: 'netPlayCgx'
+    // }, function(ret, err) {
+    //     if (ret) {
+    //         fnBFcgx(ret.value.id);
+    //         netPlayLieCgx(ret.value.id);
+    //     }
+    // });
     // 草稿箱  当前播放
-    api.addEventListener({
-        name: 'netPlayingCgx'
-    }, function(ret, err) {
-        if (ret.value.id) {
-            netAudioPlay();
-        }
-    });
+    // api.addEventListener({
+    //     name: 'netPlayingCgx'
+    // }, function(ret, err) {
+    //     if (ret.value.id) {
+    //         netAudioPlay();
+    //     }
+    // });
     // 当前播放
     api.addEventListener({
         name: 'netPlayingUrl'

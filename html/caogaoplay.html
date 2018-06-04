@@ -522,7 +522,7 @@
             </div>
         </div>
         <ul id="action" class="qx">
-            <li class="collect">
+            <!-- <li class="collect">
                 <img src="../image/KM_play_collect.png" alt="" id="playCollect" onclick="fnOpenPlayCollect();">
                 <p>收藏</p>
             </li>
@@ -535,7 +535,6 @@
                 <p>点赞</p>
             </li>
             <li class="checkin" tapmode="focus" onclick="fnOpenPlayDiscuss();">
-                <!-- <img src="../image/discuss_detail.png" alt=""  > -->
                 <img src="../image/KM_play_discuss.png" alt="">
                 <i>20</i>
                 <p>评论</p>
@@ -543,7 +542,7 @@
             <li class="timer" tapmode="focus" onclick="fnOpenChoicePlayer();">
                 <img src="../image/KM_play_choice.png" alt="">
                 <p>切换国学机</p>
-            </li>
+            </li> -->
         </ul>
         <div id="control" class="qx">
             <div id="slider">
@@ -580,6 +579,9 @@
     var id;
     var bofangmoshi;
     var Dqbofangid;
+    var soundId;
+    var namesss;
+    var bookId;
     apiready = function() {
         var secHeader = $api.byId('secHeader');
         $api.fixStatusBar(secHeader);
@@ -596,44 +598,278 @@
         var winHeightHeader = winHeight - headerPosH;
         $api.css(messageFrameDiv, 'height:' + winHeightHeader + 'px;');
         api.addEventListener({
-            name: 'netPlaying'
-        }, function(ret, err) {
-            fnDangQianbofangid(ret.value.playing);
-        });
-        var DangQianbofangid = api.pageParam.DangQianbofangid;
-        if (DangQianbofangid) {
-            fnJinRuBofangs(DangQianbofangid);
-        } else {
+              name: 'oks'
+          }, function(ret, err) {
+            if(ret.value.wangluo){
+              dangqianbofangid = api.pageParam.DangQianbofangid;
+              api.addEventListener({
+                  name: 'netPlaying'
+              }, function(ret, err) {
+                  fnDangQianbofangid(ret.value.playing);
+              });
+                if (connectionType == "wifi") {
+                  if (dangqianbofangid) {
+                    bofang = api.pageParam.bofang;
+                    if(bofang){
+                      fnJinRuBofangs(dangqianbofangid,bofang);
+                      soundId = dangqianbofangid;
+                      bookId == dangqianbofangid;
+                    }else{
+                      fnJinRuBofangs(dangqianbofangid);
+                      soundId = dangqianbofangid;
+                      bookId == dangqianbofangid;
+                    }
+                  } else {
+                    bookId = api.pageParam.a;
+                    soundId = api.pageParam.a;
+                      fnJinRuBofang();
+                  }
+                } else {
+                    var dialogBox = api.require('dialogBox');
+                    dialogBox.alert({
+                        texts: {
+                            title: '您正在使用移动数据网络进行播放，是否继续播放',
+                            leftBtnTitle: '暂不播放',
+                            rightBtnTitle: '继续播放'
+                        },
+                        styles: {
+                            bg: '#fff',
+                            w: 300,
+                            title: {
+                                marginT: 20,
+                                icon: 'widget://res/gou.png',
+                                iconSize: 40,
+                                titleSize: 14,
+                                titleColor: '#666'
+                            },
+                            content: {
+                                color: '#ccc',
+                                size: 14
+                            },
+                            left: {
+                                marginB: 7,
+                                marginL: 20,
+                                w: 130,
+                                h: 35,
+                                corner: 2,
+                                bg: '#ccc',
+                                color: '#FFF',
+                                size: 12
+                            },
+                            right: {
+                                marginB: 7,
+                                marginL: 10,
+                                w: 130,
+                                h: 35,
+                                corner: 2,
+                                bg: '#89211b',
+                                color: '#fff',
+                                size: 12
+                            }
+                        }
+                    }, function(ret) {
+                        if (ret.eventType == 'right') {
+                            dangqianbofangid = api.pageParam.DangQianbofangid;
+                            if (dangqianbofangid) {
+                              bofang = api.pageParam.bofang;
+                              if(bofang){
+                                fnJinRuBofangs(dangqianbofangid,bofang);
+                                soundId = dangqianbofangid;
+                                bookId == dangqianbofangid;
+                              }else{
+                                fnJinRuBofangs(dangqianbofangid);
+                                soundId = dangqianbofangid;
+                                bookId == dangqianbofangid;
+                              }
+                            } else {
+                              bookId = api.pageParam.a;
+                              soundId = api.pageParam.a;
+                                fnJinRuBofang();
+                            }
+                            var dialogBox = api.require('dialogBox');
+                            dialogBox.close({
+                                dialogName: 'alert'
+                            });
+                        } else if (ret.eventType == 'left') {
+                            var stylelist = $api.byId('openplayer');
+                            var html = '<img src="../image/play/ic_play_play.png" alt=""  id="player">';
+                            $api.html(stylelist, html);
+                            var dialogBox = api.require('dialogBox');
+                            var stylelistkaishijishi = $api.byId('kaishijishi');
+                            var htmlkaishijishi = '00:00';
+                            $api.html(stylelistkaishijishi, htmlkaishijishi);
+                            var stylelistzongshichang = $api.byId('zongshichang');
+                            var htmlzongshichang = '00:00';
+                            $api.html(stylelistzongshichang, htmlzongshichang);
+                            api.closeWin();
+                            dialogBox.close({
+                                dialogName: 'alert'
+                            });
+                        }
+                    });
+                }
+
+              api.addEventListener({
+                  name: 'netPlaying'
+              }, function(ret, err) {
+                  fnDangQianbofangid(ret.value.playing);
+              });
+              var DangQianbofangid = api.pageParam.DangQianbofangid;
+              if (DangQianbofangid) {
+                  fnJinRuBofangs(DangQianbofangid);
+              } else {
+                  api.addEventListener({
+                      name: 'neizhiliebiaoPlaysss'
+                  }, function(ret, err) {
+                      aa = ret.value.a;
+                      bofangs = ret.value.bofang;
+                      fnA(aa, bofangs);
+                      fnAAaa(aa, bofangs);
+                      return;
+                  });
+                  fnJinRuBofang();
+              }
+            }
+          });
+
+          var connectionType = api.connectionType;
+          if(connectionType == "none"){
+          	netWorkNone(ok);
+          }else{
+            dangqianbofangid = api.pageParam.DangQianbofangid;
             api.addEventListener({
-                name: 'neizhiliebiaoPlaysss'
+                name: 'netPlaying'
             }, function(ret, err) {
-                aa = ret.value.a;
-                bofangs = ret.value.bofang;
-                fnA(aa, bofangs);
-                fnAAaa(aa, bofangs);
-                return;
+                fnDangQianbofangid(ret.value.playing);
             });
-            fnJinRuBofang();
-        }
+              if (connectionType == "wifi") {
+                if (dangqianbofangid) {
+                  bofang = api.pageParam.bofang;
+                  if(bofang){
+                    fnJinRuBofangs(dangqianbofangid,bofang);
+                    soundId = dangqianbofangid;
+                    bookId == dangqianbofangid;
+                  }else{
+                    fnJinRuBofangs(dangqianbofangid);
+                    soundId = dangqianbofangid;
+                    bookId == dangqianbofangid;
+                  }
+                } else {
+                  bookId = api.pageParam.a;
+                  soundId = api.pageParam.a;
+                    fnJinRuBofang();
+                }
+              } else {
+                  var dialogBox = api.require('dialogBox');
+                  dialogBox.alert({
+                      texts: {
+                          title: '您正在使用移动数据网络进行播放，是否继续播放',
+                          leftBtnTitle: '暂不播放',
+                          rightBtnTitle: '继续播放'
+                      },
+                      styles: {
+                          bg: '#fff',
+                          w: 300,
+                          title: {
+                              marginT: 20,
+                              icon: 'widget://res/gou.png',
+                              iconSize: 40,
+                              titleSize: 14,
+                              titleColor: '#666'
+                          },
+                          content: {
+                              color: '#ccc',
+                              size: 14
+                          },
+                          left: {
+                              marginB: 7,
+                              marginL: 20,
+                              w: 130,
+                              h: 35,
+                              corner: 2,
+                              bg: '#ccc',
+                              color: '#FFF',
+                              size: 12
+                          },
+                          right: {
+                              marginB: 7,
+                              marginL: 10,
+                              w: 130,
+                              h: 35,
+                              corner: 2,
+                              bg: '#89211b',
+                              color: '#fff',
+                              size: 12
+                          }
+                      }
+                  }, function(ret) {
+                      if (ret.eventType == 'right') {
+                          dangqianbofangid = api.pageParam.DangQianbofangid;
+                          if (dangqianbofangid) {
+                            bofang = api.pageParam.bofang;
+                            if(bofang){
+                              fnJinRuBofangs(dangqianbofangid,bofang);
+                              soundId = dangqianbofangid;
+                              bookId == dangqianbofangid;
+                            }else{
+                              fnJinRuBofangs(dangqianbofangid);
+                              soundId = dangqianbofangid;
+                              bookId == dangqianbofangid;
+                            }
+                          } else {
+                            bookId = api.pageParam.a;
+                            soundId = api.pageParam.a;
+                              fnJinRuBofang();
+                          }
+                          var dialogBox = api.require('dialogBox');
+                          dialogBox.close({
+                              dialogName: 'alert'
+                          });
+                      } else if (ret.eventType == 'left') {
+                          var stylelist = $api.byId('openplayer');
+                          var html = '<img src="../image/play/ic_play_play.png" alt=""  id="player">';
+                          $api.html(stylelist, html);
+                          var dialogBox = api.require('dialogBox');
+                          var stylelistkaishijishi = $api.byId('kaishijishi');
+                          var htmlkaishijishi = '00:00';
+                          $api.html(stylelistkaishijishi, htmlkaishijishi);
+                          var stylelistzongshichang = $api.byId('zongshichang');
+                          var htmlzongshichang = '00:00';
+                          $api.html(stylelistzongshichang, htmlzongshichang);
+                          api.closeWin();
+                          dialogBox.close({
+                              dialogName: 'alert'
+                          });
+                      }
+                  });
+              }
+          }
     }
 
     function fnDangQianbofangid(id) {
         Dqbofangid = id;
     }
 
-    function fnJinRuBofangs(id) {
+    function fnJinRuBofangs(id,bofang) {
         var eHeader = $api.byId('header');
         api.parseTapmode();
-        var stylelist = $api.byId('openplayer');
-        var html = '<img src="../image/play/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player"></div>';
-        $api.html(stylelist, html);
-        if (id) {
-            api.sendEvent({
-                name: 'netPlayingCgx',
-                extra: {
-                    id: id
-                }
-            });
+        if(bofang == 5){
+          var stylelist = $api.byId('openplayer');
+          var html = '<img src="../image/play/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player">';
+          $api.html(stylelist, html);
+          if (id) {
+            soundId = id;
+              api.sendEvent({
+                  name: 'netPlayingCaoGaoXiang',
+                  extra: {
+                      id: id
+                  }
+              });
+          }
+        }else{
+          var stylelist = $api.byId('openplayer');
+          var html = '<img src="../image/play/ic_play_play.png" alt="" onclick="fnOpenPlayer();" id="player">';
+          $api.html(stylelist, html);
         }
         fnInitSwiper();
         fnOpenChangeImg();
@@ -650,17 +886,7 @@
             var bofang = api.pageParam.bofang;
         }
         dqbfid = api.pageParam.a;
-        a = api.pageParam.a;
-        var id = api.pageParam.cgxid;
-        console.log(id);
-        if (id) {
-            api.sendEvent({
-                name: 'netPlayCgx',
-                extra: {
-                    id: id
-                }
-            });
-        }
+        id = api.pageParam.a;
         fnInitSwiper();
         fnOpenChangeImg();
         api.parseTapmode();
@@ -670,6 +896,15 @@
             html += '<img src="../image/play/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player"></div>';
             $api.html(stylelist, html);
             bofang = 5;
+            if (id) {
+                api.sendEvent({
+                    name: 'netPlayCaoGaoXiang',
+                    extra: {
+                      bofang: bofang,
+                        id: id
+                    }
+                });
+            }
             api.sendEvent({
                 name: 'neizhiliebiaoPlay',
                 extra: {
@@ -688,79 +923,22 @@
             var html = '';
             html += '<img src="../image/play/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player"></div>';
             $api.html(stylelist, html);
-            api.sendEvent({
-                name: 'neizhiliebiaoPlay',
-                extra: {
-                    bofang: bofang,
-                    a: a,
-                }
-            });
-            fnNetAudiosPlayByID(id);
-        }
-        api.sendEvent({
-            name: 'neizhiliebiaoPlay',
-            extra: {
-                bofang: bofang,
-                a: a
+            if (id) {
+                api.sendEvent({
+                    name: 'netPlayCaoGaoXiang',
+                    extra: {
+                      bofang: bofang,
+                        id: id
+                    }
+                });
             }
-        });
-        fnNetAudiosPlayByID(id);
-        fnbofangshijian();
-        fnJiBenXinXi()
-        jindutiao();
-        if (dangqianbofangid) {
-            dqbfid = dangqianbofangid;
-        }
-
-    }
-    //内置列表页选择播放
-    function fnA(a, bofangs) {
-        aa = a;
-        bofang = bofangs;
-        dqbfid = aa;
-        id = aa;
-        if (id) {
-            api.sendEvent({
-                name: 'netPlayCgx',
-                extra: {
-                    id: id
-                }
-            });
-        }
-        fnInitSwiper();
-        fnOpenChangeImg();
-        api.parseTapmode();
-        if (!bofang) {
-            var stylelist = $api.byId('openplayer');
-            var html = '';
-            html += '<img src="../image/play/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player"></div>';
-            $api.html(stylelist, html);
-            bofang = 5;
-            api.sendEvent({
-                name: 'neizhiliebiaoPlay',
-                extra: {
-                    bofang: bofang,
-                    a: id
-                }
-            });
-            fnNetAudiosPlayByID(id);
-        } else if (bofang == 4) {
-            var stylelist = $api.byId('openplayer');
-            var html = '';
-            html += '<img src="../image/play/ic_play_play.png" alt="" onclick="fnOpenPlayer();" id="player"></div>';
-            $api.html(stylelist, html);
-        } else if (bofang == 5) {
-            var stylelist = $api.byId('openplayer');
-            var html = '';
-            html += '<img src="../image/play/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player"></div>';
-            $api.html(stylelist, html);
-            api.sendEvent({
-                name: 'neizhiliebiaoPlay',
-                extra: {
-                    bofang: bofang,
-                    a: a
-                }
-            });
+            // api.sendEvent({
+            //     name: 'neizhiliebiaoPlay',
+            //     extra: {
+            //         bofang: bofang,
+            //         a: id,
+            //     }
+            // });
             fnNetAudiosPlayByID(id);
         }
         fnbofangshijian();
@@ -769,13 +947,9 @@
         if (dangqianbofangid) {
             dqbfid = dangqianbofangid;
         }
+
     }
 
-    function fnAAaa(a, bofangs) {
-        bofang = bofangs;
-        dqbfid = a;
-        id = a;
-    }
     //播放时间,总时长
     function fnbofangshijian() {
         api.addEventListener({
@@ -807,7 +981,9 @@
             }
         });
     }
-
+    function fnNamesss(titlenamesss){
+      namesss = titlenamesss;
+    }
     //赋值歌词\标题
     function fnJiBenXinXi() {
         api.addEventListener({
@@ -829,9 +1005,15 @@
                     var stylelist = $api.byId('title');
                     var html2 = ret.value.titlename;
                     $api.html(stylelist, html2);
+                    fnNamesss(ret.value.titlename);
+                    fuBiaoTi(ret.value.titlename);
                 }
             }
         });
+    }
+    var titlesNames;
+    function fuBiaoTi(titlesName){
+      titlesNames = titlesName;
     }
     //播放、暂停
     function fnOpenPlayer() {
@@ -841,7 +1023,7 @@
             var bofang = 5;
             var a = api.pageParam.a;
             api.sendEvent({
-                name: 'netPlay',
+                name: 'netPlayCaoGaoXiang',
                 extra: {
                     bofang: bofang,
                     a: a
@@ -854,19 +1036,11 @@
                     a: a,
                 }
             });
-            var zaicibf;
-            api.sendEvent({
-                name: 'zaicibf',
-                extra: {
-                    zaicibf: zaicibf,
-                    a: a,
-                }
-            });
             fnOpenChangeImg();
         } else {
             player.src = "../image/play/ic_play_play.png";
             api.sendEvent({
-                name: 'netAudiopauseSss',
+                name: 'netAudiopauseCaoGaoXiang',
                 extra: {
                     netAudioPausess: 2222
                 }
@@ -926,9 +1100,9 @@
     function fnOpenPlayershangyi() {
         var player = $api.byId('player');
         player.src = "../image/play/ic_play_pause.png";
-        var c = 1;
+        var c = api.pageParam.a;
         api.sendEvent({
-            name: 'GeDanshangyi',
+            name: 'caoGaoXiangshangyi',
             extra: {
                 c: c
             }
@@ -937,9 +1111,9 @@
     }
     //下一曲
     function fnOpenPlayerxiayi() {
-        var c = 2;
+        var c = api.pageParam.a;
         api.sendEvent({
-            name: 'GeDanxiayi',
+            name: 'caoGaoXiangxiayi',
             extra: {
                 c: c
             }
@@ -950,10 +1124,8 @@
     }
     //播放
     function fnNetAudiosPlayByID(id) {
-        var stylelist = $api.byId('list');
-        var html = '';
         if (id) {
-            var bofang = 5;
+            var bofang = 4;
             api.sendEvent({
                 name: 'neizhiliebiaoPlay',
                 extra: {
@@ -965,7 +1137,7 @@
             fnJiBenXinXi()
             fnbofangshijian();
         } else {
-            var bofang = 5;
+            var bofang = 4;
             var a = api.pageParam.a;
             api.sendEvent({
                 name: 'neizhiliebiaoPlay',
@@ -988,7 +1160,7 @@
     };
     // 切换单曲循环、顺序播放、随机播放
     function fnOpenChangeImg() {
-        var image_urls = ["../image/play/play_change0.png", "../image/play/play_change2.png"];
+        var image_urls = ["../image/play/play_change0.png", "../image/play/play_change1.png", "../image/play/play_change2.png"];
         // 初始化数组键值 (0 = 第一个图片)
         var idx = 0;
         if (!bofangmoshi) {
@@ -1006,21 +1178,37 @@
                 // 设置 src
                 this.src = image_urls[idx];
                 if (idx == 1) {
+                    bofangmoshi = 1;
+                    api.sendEvent({
+                        name: 'bofangmoshiDanQu',
+                        extra: {
+                            bofangmoshi: bofangmoshi
+                        }
+                    });
+                } else if (idx == 2) {
                     bofangmoshi = 2;
                     api.sendEvent({
-                        name: 'bofangmoshi',
+                        name: 'bofangmoshiDanQu',
                         extra: {
                             bofangmoshi: bofangmoshi
                         }
                     });
-                } else {
+                } else if (idx == 0){
                     bofangmoshi = 0;
                     api.sendEvent({
-                        name: 'bofangmoshi',
+                        name: 'bofangmoshiDanQu',
                         extra: {
                             bofangmoshi: bofangmoshi
                         }
                     });
+                }else{
+                  bofangmoshi = 0;
+                  api.sendEvent({
+                      name: 'bofangmoshiDanQu',
+                      extra: {
+                          bofangmoshi: bofangmoshi
+                      }
+                  });
                 }
             };
         } else {
@@ -1164,7 +1352,8 @@
                     h: height
                 },
                 pageParam: {
-                    Dqbofangid: Dqbofangid
+                    Dqbofangid: Dqbofangid,
+                    titlesNames:titlesNames
                 }
             });
         } else {
@@ -1179,6 +1368,9 @@
                     w: api.frameWidth,
                     h: height
                 },
+                pageParam: {
+                    titlesNames:titlesNames
+                }
             });
         }
     }
