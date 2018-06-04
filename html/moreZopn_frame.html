@@ -173,6 +173,12 @@
         .hdivider {
             margin-bottom: 10px;
         }
+        #footer {
+            width: 100%;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -219,6 +225,10 @@
           </div>
         </div>
         <div class="hdivider"></div> -->
+
+    </div>
+    <div id="footer" class="disnone">
+        正在加载更多
     </div>
 </body>
 
@@ -227,7 +237,7 @@
 <script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript">
     var token;
-
+    var p = 1;
     apiready = function() {
             token = $api.getStorage('token');
             fnProductList();
@@ -261,6 +271,16 @@
 
                           fnProductList();
                 });
+                api.addEventListener({
+                    name: 'scrolltobottom',
+                    extra: {
+                        threshold: -20 //设置距离底部多少距离时触发，默认值为0，数字类型
+                    }
+                }, function(ret, err) {
+                  p ++;
+                  console.log(p);
+                  fnProductLists();
+                });
         }
         //调接口
     function fnProductList() {
@@ -277,6 +297,7 @@
             data: {
                 values: {
                     id: userId,
+                    p:1
                 }
             },
         }, function(ret, err) {
@@ -314,6 +335,88 @@
 
                   }
                   $api.html(stylelists, htmls);
+                  api.sendEvent({
+                      name: 'netNum',
+                      extra: {
+                          productNum: len
+                      }
+                  });
+                }
+
+
+            } else {
+                // alert(JSON.stringify(err));
+            }
+
+        });
+    }
+    function fnProductLists() {
+        var userId = api.pageParam.userId;
+        api.ajax({
+            url: host + apiUri + '/user/records',
+            method: 'get',
+            dataType: 'json',
+            headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token
+            },
+            data: {
+                values: {
+                    id: userId,
+                    p:p
+                }
+            },
+        }, function(ret, err) {
+            // console.log(JSON.stringify(ret.status));
+            if (ret.status == 200) {
+                if (ret.data == '') {
+                  var footer = $api.byId('footer');
+                  $api.html(footer, '无更多数据');
+                }else {
+                  console.log(ret.data.length);
+                  if (ret.data.length < 10) {
+                    var footer = $api.byId('footer');
+                    // $api.css(footer, 'display:none');
+                    $api.html(footer, '无更多数据');
+                  }else {
+                    var footer = $api.byId('footer');
+                    // $api.css(footer, 'display:block');
+                    $api.html(footer, '正在加载更多');
+                  }
+              }
+              setTimeout(function(){
+                  api.refreshHeaderLoadDone()
+              },3000)
+                var data = ret.data;
+                var len = ret.data.length;
+                var stylelist = $api.byId('wrap');
+                var html = '';
+                if (data == ' ') {
+                    html = '<div class="noHistory">还没有上传作品</div>';
+                    // alert(111);
+                    $api.html(stylelist, html);
+                } else {
+                  var stylelists = $api.byId('wrap');
+                //   var htmls = '';
+                  for (var i = 0; i < ret.data.length; i++) {
+                    if(ret.data[i].author_name = "null"){
+                      $api.append(stylelists, '<div class="egret-flex-item" id="' + ret.data[i].id +
+                          '"><div class="egret-flex-items" tapmode="fmbtnhover" onclick="openFM('+ ret.data[i].id +')"><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf001"><span class="span1 fl"><span>' + ret.data[i].title +
+                          '</span></span></div><div class="egret-flex-item-shelf03"><div><img src="../image/KM_play.png" alt=""><span>' + ret.data[i].play_total +
+                          '</span></div><div><img src="../image/KM_zf.png" alt=""><span>' + ret.data[i].share_total + '</span></div>  <div><img src="../image/KM_dz.png" alt=""><span>' + ret.data[i].good_total +
+                          '</span></div></div></div></div></div><div class="hdivider"></div>');
+
+                    }else{
+                     $api.append(stylelists, '<div class="egret-flex-item" id="' + ret.data[i].id +
+                          '"><div class="egret-flex-items" tapmode="fmbtnhover" onclick="openFM('+ ret.data[i].id +')"><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 fl"><span>' + ret.data[i].title +
+                          '</span></span></div><div class="egret-flex-item-shelf02"><span>' + ret.data[i].author_name + '</span></div><div class="egret-flex-item-shelf03"><div><img src="../image/KM_play.png" alt=""><span>' + ret.data[i].play_total +
+                          '</span></div><div><img src="../image/KM_zf.png" alt=""><span>' + ret.data[i].share_total + '</span></div>  <div><img src="../image/KM_dz.png" alt=""><span>' + ret.data[i].good_total +
+                          '</span></div></div></div></div></div><div class="hdivider"></div>');
+                    }
+
+                  }
+                //   $api.html(stylelists, htmls);
                   api.sendEvent({
                       name: 'netNum',
                       extra: {

@@ -654,11 +654,11 @@
               }
               //作品数量
               var productNum = $api.byId('productNum');
-              if (ret.data.user_records.length == 0) {
+              if (ret.data.user_info.record_total == 0) {
                   var html2 = '0';
                   $api.html(productNum, html2);
               } else {
-                  var html2 = ret.data.user_records.length;
+                  var html2 = ret.data.user_info.record_total;
                   $api.html(productNum, html2);
               }
               //作品列表
