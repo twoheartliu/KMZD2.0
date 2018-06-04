@@ -106,10 +106,30 @@
     function goback () {
       api.closeWin({name:'billBoard'});
     }
+    var ok;
     apiready = function(){
       var eHeader = $api.byId('header')
-      $api.fixStatusBar(eHeader);
-      fnOpenFrameGroup();
+      ok = api.pageParam.ok;
+            var oks = 'ok'+ok;
+      api.addEventListener({
+          name: oks
+      }, function(ret, err) {
+        if(ret.value.wangluo){
+
+          $api.fixStatusBar(eHeader);
+          fnOpenFrameGroup();
+        }
+      });
+
+      var connectionType = api.connectionType;
+      if(connectionType == "none"){
+      	netWorkNone(ok);
+      }else{
+
+        $api.fixStatusBar(eHeader);
+        fnOpenFrameGroup();
+      }
+
     };
     function fnSelectTab(index,ele){
         var tabs = $api.domAll('#tabs>.tab');

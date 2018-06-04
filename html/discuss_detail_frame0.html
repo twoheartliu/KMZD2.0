@@ -487,36 +487,36 @@
             }, function(ret, err) {
                 ListenToTheListOfComments();
             });
-            // api.setCustomRefreshHeaderInfo({
-            //     bgColor: '#f0f0f0',
-            //     image: {
-            //       pull: [
-            //           'widget://image/Refresh/dropdown_anim_00.png',
-            //           'widget://image/Refresh/dropdown_anim_01.png',
-            //           'widget://image/Refresh/dropdown_anim_02.png',
-            //           'widget://image/Refresh/dropdown_anim_03.png',
-            //           'widget://image/Refresh/dropdown_anim_04.png',
-            //           'widget://image/Refresh/dropdown_anim_05.png',
-            //           'widget://image/Refresh/dropdown_anim_06.png',
-            //           'widget://image/Refresh/dropdown_anim_07.png',
-            //           'widget://image/Refresh/dropdown_anim_08.png',
-            //           'widget://image/Refresh/dropdown_anim_09.png',
-            //           'widget://image/Refresh/dropdown_anim_10.png',
-            //     ],
-            //     load: [
-            //           'widget://image/Refresh/dropdown_anim_00.png',
-            //           'widget://image/Refresh/dropdown_anim_01.png',
-            //           'widget://image/Refresh/dropdown_anim_02.png',
-            //           'widget://image/Refresh/dropdown_anim_03.png',
-            //           'widget://image/Refresh/dropdown_anim_04.png',
-            //           'widget://image/Refresh/dropdown_anim_05.png',
-            //   ]}
-            // }, function() {
-            //     //下拉刷新被触发，自动进入加载状态，使用 api.refreshHeaderLoadDone() 手动结束加载中状态
-            //     //下拉刷新被触发，使用 api.refreshHeaderLoadDone() 结束加载中状态
-            //     fnDetails()
-            //     ListenToTheListOfComments();
-            // });
+            api.setCustomRefreshHeaderInfo({
+                bgColor: '#f0f0f0',
+                image: {
+                  pull: [
+                      'widget://image/Refresh/dropdown_anim_00.png',
+                      'widget://image/Refresh/dropdown_anim_01.png',
+                      'widget://image/Refresh/dropdown_anim_02.png',
+                      'widget://image/Refresh/dropdown_anim_03.png',
+                      'widget://image/Refresh/dropdown_anim_04.png',
+                      'widget://image/Refresh/dropdown_anim_05.png',
+                      'widget://image/Refresh/dropdown_anim_06.png',
+                      'widget://image/Refresh/dropdown_anim_07.png',
+                      'widget://image/Refresh/dropdown_anim_08.png',
+                      'widget://image/Refresh/dropdown_anim_09.png',
+                      'widget://image/Refresh/dropdown_anim_10.png',
+                ],
+                load: [
+                      'widget://image/Refresh/dropdown_anim_00.png',
+                      'widget://image/Refresh/dropdown_anim_01.png',
+                      'widget://image/Refresh/dropdown_anim_02.png',
+                      'widget://image/Refresh/dropdown_anim_03.png',
+                      'widget://image/Refresh/dropdown_anim_04.png',
+                      'widget://image/Refresh/dropdown_anim_05.png',
+              ]}
+            }, function() {
+                //下拉刷新被触发，自动进入加载状态，使用 api.refreshHeaderLoadDone() 手动结束加载中状态
+                //下拉刷新被触发，使用 api.refreshHeaderLoadDone() 结束加载中状态
+                fnDetails()
+                ListenToTheListOfComments();
+            });
 
             api.addEventListener({
                 name: 'scrolltobottom',
@@ -637,10 +637,6 @@
         }, function(ret, err) {
             if (ret) {
                 if (ret.status == 200) {
-<<<<<<< HEAD
-=======
-
->>>>>>> 2c16c402dc854cfa7985fc606fb03f76c733743f
                     if (ret.data == '') {
                         var stylelist = $api.byId('allcommentS');
                         var html = '暂无评论,<span style="color:blue;" onclick="ReplyToCommentsDiscuss_detail()">去评论</span>';

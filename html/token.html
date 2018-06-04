@@ -9,10 +9,19 @@
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
     <link rel="stylesheet" type="text/css" href="../css/style.css" />
     <style>
-      .token_img{width: 100%;margin-top: 150px;text-align: center;}
-      .token{width: 100%;text-align: center;}
+        .token_img {
+            width: 100%;
+            margin-top: 150px;
+            text-align: center;
+        }
+
+        .token {
+            width: 100%;
+            text-align: center;
+        }
     </style>
 </head>
+
 <body onclick="fnToken();">
     <div class="token_img"><img src="../image/token.png" alt=""></div>
     <div class="token">您还未登录，请点击后登陆</div>
@@ -24,14 +33,15 @@
     apiready = function() {
 
     }
+
     function fnToken() {
-      api.openWin({
-          name: 'login',
-          url: '../login.html',
-          pageParam: {
-              name: 'test'
-          }
-      });
+        api.openWin({
+            name: 'login',
+            url: '../login.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
 
     }
 </script>

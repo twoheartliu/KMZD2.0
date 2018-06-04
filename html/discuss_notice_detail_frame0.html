@@ -293,33 +293,33 @@
             ListenToTheListOfComments();
         });
 
-        // api.setCustomRefreshHeaderInfo({
-        //     bgColor: '#f0f0f0',
-        //     image: {
-        //       pull: [
-        //           'widget://image/Refresh/dropdown_anim_00.png',
-        //           'widget://image/Refresh/dropdown_anim_01.png',
-        //           'widget://image/Refresh/dropdown_anim_02.png',
-        //           'widget://image/Refresh/dropdown_anim_03.png',
-        //           'widget://image/Refresh/dropdown_anim_04.png',
-        //           'widget://image/Refresh/dropdown_anim_05.png',
-        //           'widget://image/Refresh/dropdown_anim_06.png',
-        //           'widget://image/Refresh/dropdown_anim_07.png',
-        //           'widget://image/Refresh/dropdown_anim_08.png',
-        //           'widget://image/Refresh/dropdown_anim_09.png',
-        //           'widget://image/Refresh/dropdown_anim_10.png',
-        //     ],
-        //     load: [
-        //       'widget://image/Refresh/dropdown_loading_00.png',
-        //       'widget://image/Refresh/dropdown_loading_01.png',
-        //       'widget://image/Refresh/dropdown_loading_02.png'
-        //   ]}
-        // }, function() {
-        //         //下拉刷新被触发，自动进入加载状态，使用 api.refreshHeaderLoadDone() 手动结束加载中状态
-        //         //下拉刷新被触发，使用 api.refreshHeaderLoadDone() 结束加载中状态
-        //                 fnDetails();
-        //               ListenToTheListOfComments();
-        //     });
+        api.setCustomRefreshHeaderInfo({
+            bgColor: '#f0f0f0',
+            image: {
+              pull: [
+                  'widget://image/Refresh/dropdown_anim_00.png',
+                  'widget://image/Refresh/dropdown_anim_01.png',
+                  'widget://image/Refresh/dropdown_anim_02.png',
+                  'widget://image/Refresh/dropdown_anim_03.png',
+                  'widget://image/Refresh/dropdown_anim_04.png',
+                  'widget://image/Refresh/dropdown_anim_05.png',
+                  'widget://image/Refresh/dropdown_anim_06.png',
+                  'widget://image/Refresh/dropdown_anim_07.png',
+                  'widget://image/Refresh/dropdown_anim_08.png',
+                  'widget://image/Refresh/dropdown_anim_09.png',
+                  'widget://image/Refresh/dropdown_anim_10.png',
+            ],
+            load: [
+              'widget://image/Refresh/dropdown_loading_00.png',
+              'widget://image/Refresh/dropdown_loading_01.png',
+              'widget://image/Refresh/dropdown_loading_02.png'
+          ]}
+        }, function() {
+                //下拉刷新被触发，自动进入加载状态，使用 api.refreshHeaderLoadDone() 手动结束加载中状态
+                //下拉刷新被触发，使用 api.refreshHeaderLoadDone() 结束加载中状态
+                        fnDetails(soundId);
+                      ListenToTheListOfComments();
+            });
 
     }
     //个人主页
@@ -340,6 +340,7 @@
           url: host + apiUri + uri + soundId,
           method: 'get',
           dataType: 'json',
+          timeout:10,
           headers: {
               "source": api.systemType,
               "version": version,
@@ -347,6 +348,7 @@
           }
       }, function(ret, err) {
         // console.log(JSON.stringify(ret));
+        if(ret){
           if (ret.status == 200) {
               var stylelist = $api.byId('details');
               var html = '';
@@ -360,17 +362,14 @@
                     '</div>'+
               '  </div>'+
                 '<div class="clear"></div>'
-                  // html = '<p class="nav-txt_name">''</p><p class="nav-txt_p">作者：</p>';
               } else {
                 html = '  <div class="nav-left fl"  onclick="fnPlayHTML('+ret.data.id+');">'+
                       '<div class="nav-img"><img src="../image/index/pic.jpg" alt=""></div>'+
                       '<div class="nav-txt">'+
                           '<p class="nav-txt_name">'+ret.data.title+'</p>'+
-                          // '<p class="nav-txt_p">'+ret.data.author_name+'</p> '+
                       '</div>'+
                 '  </div>'+
                   '<div class="clear"></div>'
-                  // html = '<p class="nav-txt_name">'+ret.data.title+'</p>';
               }
 
               $api.html(stylelist, html);
@@ -378,6 +377,9 @@
             netMessage(ret);
 
           }
+        }else{
+            netWork(err);
+        }
       });
     }
     function fnPlayHTML(id) {
@@ -385,7 +387,8 @@
           name: 'playDanQu',
           url: './playDanQu.html',
           pageParam: {
-              a: id
+              a: id,
+              ok:'playDanQu'
           }
       });
 
@@ -398,12 +401,14 @@
             url: host + apiUri + uris + soundId,
             method: 'get',
             dataType: 'json',
+            timeout:10,
             headers: {
                 "source": api.systemType,
                 "version": version,
                 "session": token
             }
         }, function(ret, err) {
+          if(ret){
             if (ret.status == 200) {
               if(ret.data == ''){
                 var stylelist = $api.byId('allcommentS');
@@ -490,6 +495,9 @@
             } else {
               netMessage(ret);
             }
+          }else{
+            netWork(err);
+            }
         });
       }
       function ReplyToCommentsDiscuss_detail() {
@@ -500,7 +508,8 @@
             pageParam: {
                 soundId: soundId,
                 uris: uris,
-                name: name
+                name: name,
+                ok:'ReplyToCommentsDiscuss_detail_single'
             },
             reload : true
         });
@@ -523,6 +532,7 @@
                 url: host + apiUri + uri + '/' + img_id,
                 method: 'post',
                 dataType: 'json',
+                timeout:10,
                 headers: {
                     "source": api.systemType,
                     "version": version,
@@ -535,6 +545,7 @@
                   },
                 },
             }, function(ret, err) {
+              if(ret){
                 if (ret.status == 200) {
                     api.toast({              
                         msg:   '已点赞',
@@ -549,6 +560,9 @@
                 } else {
                 netMessage(ret);
                 }
+              }else{
+                netWork(err);
+              }
             });
           } else {
             // 关闭
@@ -559,6 +573,7 @@
                 url: host + apiUri+uri+'/'+img_id,
                 method: 'post',
                 dataType: 'json',
+                timeout:10,
                 headers: {
                     "source": api.systemType,
                     "version": version,
@@ -571,6 +586,7 @@
                   }
                 }
             }, function(ret, err) {
+              if(ret){
                 if (ret.status == 200) {
                     api.toast({              
                         msg:   '已取消点赞',
@@ -586,6 +602,9 @@
                 } else {
                   netMessage(ret);
                 }
+              }else{
+                netWork(err);
+              }
             });
           }
       }
@@ -597,7 +616,8 @@
                     comment_id: comment_id,
                     soundId: soundId,
                     uris: uris,
-                    name: name
+                    name: name,
+                    ok:'reply_detail_single'
                 },
                 bounces: false,
                 vScrollBarEnabled: true,

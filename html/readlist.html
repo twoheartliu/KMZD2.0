@@ -60,13 +60,10 @@
 
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>;
 <script type="text/javascript" src="../script/message.js"></script>;
 <script type="text/javascript">
-    function goback() {
-        api.closeWin({
-            name: 'readlist'
-        });
-    }
+
 var ok;
     apiready = function() {
         var header = $api.byId('secHeader');
@@ -75,7 +72,7 @@ var ok;
         ok = api.pageParam.ok;
         var oks = 'ok'+ok;
         api.addEventListener({
-              name: 'oks'
+              name: oks
           }, function(ret, err) {
           if(ret.value.wangluo){
             var name = api.pageParam.name;
@@ -130,5 +127,10 @@ var ok;
                 bounces: false,
             });
         	}
+    }
+    function goback() {
+        api.closeWin({
+            name: 'readlist'
+        });
     }
 </script>

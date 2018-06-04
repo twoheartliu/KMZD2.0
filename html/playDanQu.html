@@ -571,6 +571,7 @@
     var goods;
     var soundId;
     var namesss;
+    var ok;
     apiready = function() {
       token = $api.getStorage('token');
       var secHeader = $api.byId('secHeader');
@@ -589,8 +590,10 @@
       $api.fixIos7Bar(header);
       fnJianTingGood();
       fnJianTingPingLunShu();
+      ok = api.pageParam.ok;
+      var oks = 'ok'+ok;
       api.addEventListener({
-          name: 'oks'
+          name: oks
       }, function(ret, err) {
         if(ret.value.wangluo){
 
@@ -698,7 +701,7 @@
                         var stylelist = $api.byId('openplayer');
                         var html = '<img src="../image/play/ic_play_play.png" alt=""  id="player">';
                         $api.html(stylelist, html);
-                        var dialogBox = api.require('dialogBox');
+
                         var stylelistkaishijishi = $api.byId('kaishijishi');
                         var htmlkaishijishi = '00:00';
                         $api.html(stylelistkaishijishi, htmlkaishijishi);
@@ -715,6 +718,7 @@
                         var htmlComments = '0';
                         $api.html(stylelistComments, htmlComments);
                         api.closeWin();
+                        var dialogBox = api.require('dialogBox');
                         dialogBox.close({
                             dialogName: 'alert'
                         });
@@ -903,6 +907,7 @@
           url: host + apiUri + uri + '/' + bookId,
           method: 'get',
           dataType: 'json',
+          timeout:10,
           headers: {
               "source": api.systemType,
               "version": version,
@@ -1210,6 +1215,7 @@
               url: host + apiUri + uri + '/' + id,
               method: 'get',
               dataType: 'json',
+              timeout:10,
               headers: {
                   "source": api.systemType,
                   "version": version,
@@ -1245,6 +1251,7 @@
                 url: host + apiUri + uri + '/' + dqbfid,
                 method: 'get',
                 dataType: 'json',
+                timeout:10,
                 headers: {
                     "source": api.systemType,
                     "version": version,
@@ -1388,6 +1395,9 @@
         api.openWin({
             name: 'choicePlayer',
             url: './choice_player.html',
+            pageParam: {
+                ok: 'choice_player'
+            }
         });
     };
     // 打开评论页面
@@ -1399,7 +1409,8 @@
             pageParam: {
                 soundId: soundId,
                 uris: uris,
-                name: namesss
+                name: namesss,
+                ok: 'discuss_notice_detail0'
             }
         });
     }
@@ -1416,6 +1427,7 @@
               url: host + apiUri + uri + '/' + bookId,
               method: 'post',
               dataType: 'json',
+              timeout:10,
               headers: {
                   "source": api.systemType,
                   "version": version,
@@ -1458,6 +1470,7 @@
               url: host + apiUri + uri + '/' + bookId,
               method: 'post',
               dataType: 'json',
+              timeout:10,
               headers: {
                   "source": api.systemType,
                   "version": version,
@@ -1506,6 +1519,7 @@
             url: host + apiUri + uri + '/' + bookId,
             method: 'post',
             dataType: 'json',
+            timeout:10,
             headers: {
                 "source": api.systemType,
                 "version": version,
@@ -1542,6 +1556,7 @@
             url: host + apiUri + uri + '/' + bookId,
             method: 'post',
             dataType: 'json',
+            timeout:10,
             headers: {
                 "source": api.systemType,
                 "version": version,
@@ -1577,7 +1592,8 @@
             name: 'addListening',
             url: './add_listening.html',
             pageParam: {
-                songListID: soundId
+                songListID: soundId,
+                ok:'addListening'
             }
         });
     }

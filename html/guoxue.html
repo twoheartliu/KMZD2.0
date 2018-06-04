@@ -121,25 +121,57 @@
             name: 'guoxue'
         });
     }
+    var ok;
     apiready = function() {
         var header = $api.byId('secHeader');
         $api.fixStatusBar(header);
         var headerPos = $api.offset(header);
-        api.openFrame({
-            name: 'guoxue_frame',
-            url: './guoxue_frame.html',
-            rect: {
-                x: 0,
-                y: headerPos.h,
-                w: 'auto',
-                h: api.frameHeight - headerPos.h
-            },
-            pageParam: {
-                name: 'test'
-            },
-            customRefreshHeader: 'UIPullRefreshFlash',
-            bounces: true,
+        ok = api.pageParam.ok;
+        var oks = 'ok'+ok;
+        api.addEventListener({
+            name: oks
+        }, function(ret, err) {
+          if(ret.value.wangluo){
+            api.openFrame({
+                name: 'guoxue_frame',
+                url: './guoxue_frame.html',
+                rect: {
+                    x: 0,
+                    y: headerPos.h,
+                    w: 'auto',
+                    h: api.frameHeight - headerPos.h
+                },
+                pageParam: {
+                    name: 'test'
+                },
+                customRefreshHeader: 'UIPullRefreshFlash',
+                bounces: true,
+            });
+          }
         });
+
+        var connectionType = api.connectionType;
+        if(connectionType == "none"){
+        	netWorkNone(ok);
+        }else{
+          api.openFrame({
+              name: 'guoxue_frame',
+              url: './guoxue_frame.html',
+              rect: {
+                  x: 0,
+                  y: headerPos.h,
+                  w: 'auto',
+                  h: api.frameHeight - headerPos.h
+              },
+              pageParam: {
+                  name: 'test'
+              },
+              customRefreshHeader: 'UIPullRefreshFlash',
+              bounces: true,
+          });
+        }
+
+
         // fnOpenCenterFrame();
     }
     // function fnOpenCenterFrame() {
@@ -165,7 +197,8 @@
     function openHistorys() {
         api.openWin({
             name: 'historys',
-            url: './historys.html'
+            url: './historys.html',
+            ok:'historys'
         });
     }
 </script>

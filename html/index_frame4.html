@@ -357,6 +357,7 @@
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/message.js"></script>;
 <script type="text/javascript">
     var token;
     apiready = function() {
@@ -459,7 +460,7 @@
             name: 'login',
             url: '../login.html',
             pageParam: {
-                name: 'test'
+                ok: 'login'
             }
         });
       }
@@ -471,6 +472,7 @@
           url: host + apiUri + uri,
           method: 'get',
           dataType: 'json',
+          timeout:10,
           cache: false,
           headers: {
                 "source": api.systemType,
@@ -478,6 +480,7 @@
                 "session": token
             }
       },function(ret, err){
+        if(ret){
           if (ret.status == 200 ) {
             setTimeout(function(){
                 api.refreshHeaderLoadDone()
@@ -650,9 +653,11 @@
             }
 
         } else {
-            alert( JSON.stringify(err) );
+            netMessage(ret);
         }
-
+      }else{
+        netWork(err);
+      }
       });
   }
     function fnAjaxMy() {
@@ -661,6 +666,7 @@
           url: host + apiUri + '/user/info',
           method: 'get',
           dataType: 'json',
+          timeout:10,
           cache: false,
           headers: {
                 "source": api.systemType,
@@ -669,6 +675,7 @@
             }
       },function(ret, err){
           if (ret) {
+
               // alert( JSON.stringify( ret ) );
               // console.log(JSON.stringify( ret ));
               // function () {
@@ -676,15 +683,7 @@
               // }
           } else {
             // alert(1);
-            $api.rmStorage('token');
-             api.openWin({
-                 name: 'login',
-                 url: '../login.html',
-                 pageParam: {
-                     name: 'test'
-                 }
-
-            });
+            netWork(err);
         }
 
           });
@@ -698,7 +697,7 @@
           name: 'securitycente',
           url: './securitycente.html',
           pageParam: {
-              name: 'test'
+              ok: 'securitycente'
           }
       });
 
@@ -708,7 +707,7 @@
           name: 'ListeningList',
           url: './ListeningList.html',
           pageParam: {
-              name: 'test'
+              ok: 'ListeningList'
           }
       });
     }
@@ -732,7 +731,7 @@
             name: 'feedback',
             url: './feedback.html',
             pageParam: {
-                name: 'test'
+                ok: 'feedback'
             }
         });
     }
@@ -741,7 +740,7 @@
           name: 'upimg',
           url: './upimg.html',
           pageParam: {
-              name: 'test'
+              ok: 'upimg'
           }
       });
     }
@@ -751,7 +750,7 @@
             name: 'personal',
             url: './personal.html',
             pageParam: {
-                name: 'test'
+                ok: 'personal'
             }
         });
     }
@@ -761,7 +760,7 @@
             name: 'collection',
             url: './collection.html',
             pageParam: {
-                name: 'test'
+                ok: 'collection'
             }
         });
     }
@@ -771,7 +770,7 @@
             name: 'myCare',
             url: './my_care.html',
             pageParam: {
-                name: 'test'
+                ok: 'my_care'
             }
         });
 
@@ -782,7 +781,7 @@
           name: 'fans',
           url: './fans.html',
           pageParam: {
-              name: 'test'
+              ok: 'fans'
           }
       });
     }
@@ -791,6 +790,9 @@
         api.openWin({
             name: 'message',
             url: './message.html',
+            pageParam: {
+                ok: 'message'
+            }
         });
     };
 
@@ -798,6 +800,9 @@
         api.openWin({
             name: 'historys',
             url: './historys.html',
+            pageParam: {
+                ok: 'historys'
+            }
         });
     }
 
@@ -806,7 +811,7 @@
             name: 'achievementWin',
             url: './achievementWin.html',
             pageParam: {
-                name: 'test'
+                name: 'achievementWin'
             }
         });
 
@@ -817,7 +822,7 @@
             name: 'set',
             url: '../html/set.html',
             pageParam: {
-                name: 'test'
+                name: 'set'
             }
         });
     }

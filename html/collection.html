@@ -94,8 +94,25 @@
             name: 'collection'
         });
     }
+    var ok;
     apiready = function() {
-        fnframeGroup();
+      ok = api.pageParam.ok;
+            var oks = 'ok'+ok;
+      api.addEventListener({
+          name: oks
+      }, function(ret, err) {
+        if(ret.value.wangluo){
+      		fnframeGroup();
+        }
+      });
+
+      var connectionType = api.connectionType;
+      if(connectionType == "none"){
+      	netWorkNone(ok);
+      }else{
+      	fnframeGroup();
+      }
+
     }
     function fnSelectTab(index,ele) {
       var tabs = $api.domAll('#title>div');

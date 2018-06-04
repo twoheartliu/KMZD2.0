@@ -478,32 +478,32 @@
     var userFormate;
     var userSize;
     var draftsId;
+    var ok;
     apiready = function() {
       token = $api.getStorage('token');
+      var secHeader = $api.byId('secHeader');
+      $api.fixStatusBar(secHeader);
+      var headerH = $api.offset(secHeader).h;
+      title = api.pageParam.title;
+      name = api.pageParam.name;
+      desc = api.pageParam.desc;
+      author_id= api.pageParam.author_id;
+      body = desc;
+      cgxid = api.pageParam.cgxid;
+      path = api.pageParam.path;
+      jubenid = api.pageParam.jubenid;
+      timestamp = api.pageParam.timestamp;
+      timestamps = api.pageParam.timestamps;
+      a = api.pageParam.a;
+      c = api.pageParam.c;
       api.addEventListener({
-          name: 'ok'
+          name: oks
       }, function(ret, err) {
         if(ret.value.wangluo){
-          var secHeader = $api.byId('secHeader');
-          $api.fixStatusBar(secHeader);
-          var headerH = $api.offset(secHeader).h;
-          title = api.pageParam.title;
-          name = api.pageParam.name;
-          desc = api.pageParam.desc;
-          author_id= api.pageParam.author_id;
-          body = desc;
-          cgxid = api.pageParam.cgxid;
-          path = api.pageParam.path;
-          jubenid = api.pageParam.jubenid;
-          timestamp = api.pageParam.timestamp;
-          timestamps = api.pageParam.timestamps;
-          a = api.pageParam.a;
-          c = api.pageParam.c;
           fnGetJubentitle();
           fnGetJubenname();
           fnGetJubenbody();
           fnFuZhiAudio();
-
         }
       });
 
@@ -511,26 +511,10 @@
       if(connectionType == "none"){
       	netWorkNone();
       }else{
-        var secHeader = $api.byId('secHeader');
-        $api.fixStatusBar(secHeader);
-        var headerH = $api.offset(secHeader).h;
-        title = api.pageParam.title;
-        name = api.pageParam.name;
-        desc = api.pageParam.desc;
-        author_id= api.pageParam.author_id;
-        body = desc;
-        cgxid = api.pageParam.cgxid;
-        path = api.pageParam.path;
-        jubenid = api.pageParam.jubenid;
-        timestamp = api.pageParam.timestamp;
-        timestamps = api.pageParam.timestamps;
-        a = api.pageParam.a;
-        c = api.pageParam.c;
         fnGetJubentitle();
         fnGetJubenname();
         fnGetJubenbody();
         fnFuZhiAudio();
-
       }
 
     }
@@ -724,7 +708,8 @@
       //不渐变
       // range.style.background = 'linear-gradient(to left, #89211b ' + sssss + '%, #000 0,#000  )';
       // range.css( 'background', 'linear-gradient(to right, #059CFA, white ' + range.value + '%, white)' );
-      range.style.background = 'linear-gradient(to left, #89211b ' + sssss + '%, blue ' + range.value + '%,#789  )';
+      range.style.background = 'linear-gradient(to left, #89211b ' + sssss + '%, #f2f2f2 0,#f2f2f2  )';
+      // range.style.background = 'linear-gradient(to left, #89211b ' + sssss + '%, blue ' + range.value + '%,#789  )';
       fnZongJinDu(lenth);
     }
 

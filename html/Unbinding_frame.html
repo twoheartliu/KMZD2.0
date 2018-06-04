@@ -100,7 +100,6 @@
     apiready = function() {
         token = $api.getStorage('token');
         mobile = api.pageParam.mobile;
-        console.log(mobile);
         var wait = 60;
         document.getElementById("button").onclick = function() {
             var buttons = document.getElementById("button");
@@ -114,6 +113,8 @@
         api.ajax({
             url: host + apiUri + '/sms/get_code',
             method: 'get',
+            dataType: 'json',
+            timeout:10,
             headers: {
                 "source": api.systemType,
                 "version": version,
@@ -127,14 +128,19 @@
             }
         }, function(ret, err) {
             if (ret) {
-              api.toast({
-                  msg: '发送成功',
-                  duration: 2000,
-                  location: 'middle'
-              });
-            } else {
+              if(ret.status ==200){
+                api.toast({
+                    msg: '发送成功',
+                    duration: 2000,
+                    location: 'middle'
+                });
+              }else{
                 netMessage(ret);
               }
+
+            } else {
+                netWork(err);
+            }
         });
 
 
@@ -162,7 +168,7 @@
             name: 'changePassword',
             url: './changePassword.html',
             pageParam: {
-                name: 'test'
+                ok: 'changePassword'
             }
         });
     }
@@ -170,7 +176,6 @@
     function loginbutton() {
         var captchas = $api.byId('verificationCode');
         var captcha = captchas.value;
-        console.log(captcha);
         if (captcha == '') {
           api.toast({
               msg: '验证码不能为空',
@@ -181,6 +186,8 @@
           api.ajax({
               url: host + apiUri + '/user/unbind_mobile',
               method: 'post',
+              dataType: 'json',
+              timeout:10,
               headers: {
                   "source": api.systemType,
                   "version": version,
@@ -192,6 +199,7 @@
                   }
               }
           },function(ret, err){
+            if(ret){
               if (ret.status == 200) {
                 api.toast({
                     msg: '解除绑定成功',
@@ -202,7 +210,11 @@
                       name: 'securitycente'
                   });
               } else {
-                netMessage(ret);              }
+                netMessage(ret);
+              }
+            }else{
+              netWork(err);
+            }
           });
         }
     }

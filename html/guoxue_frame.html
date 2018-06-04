@@ -172,7 +172,7 @@
                 name: 'login',
                 url: '../login.html',
                 pageParam: {
-                    name: 'test'
+                    ok: 'login'
                 }
             });
         }
@@ -216,12 +216,14 @@
           url: host + apiUri + '/user/view_history',
           method: 'get',
           dataType: 'json',
+          timeout:10,
           headers: {
               "source": api.systemType,
               "version": version,
               "session": token
           },
       }, function(ret, err) {
+        if(ret){
           if (ret.status == 200) {
             setTimeout(function(){
                 api.refreshHeaderLoadDone()
@@ -229,12 +231,10 @@
             fnView_history(ret);
           } else {
               netMessage(ret);
-              // $api.rmStorage('token');
-              // api.openWin({
-              //     name: 'login',
-              //     url: '../login.html'
-              // });
           }
+        }else{
+          netWork(err);
+        }
       });
     }
     //赋值最近浏览
@@ -252,12 +252,14 @@
             url: host + apiUri + '/category/hot',
             method: 'get',
             dataType: 'json',
+            timeout:10,
             headers: {
                 "source": api.systemType,
                 "version": version,
                 "session": token
             },
         }, function(ret, err) {
+          if(ret){
             if (ret.status == 200) {
               setTimeout(function(){
                   api.refreshHeaderLoadDone()
@@ -266,6 +268,9 @@
             } else {
                 netMessage(ret);
             }
+          }else{
+            netWork(err);
+          }
         });
     }
     //赋值推荐目录
@@ -301,12 +306,14 @@
             url: host + apiUri + '/category',
             method: 'get',
             dataType: 'json',
+            timeout:10,
             headers: {
                 "source": api.systemType,
                 "version": version,
                 "session": token
             },
         }, function(ret, err) {
+          if(ret){
             if (ret.status == 200) {
               setTimeout(function(){
                   api.refreshHeaderLoadDone()
@@ -315,6 +322,9 @@
             } else {
                 netMessage(ret);
             }
+          }else {
+            netWork(err);
+          }
         });
     }
     //赋值目录

@@ -501,7 +501,7 @@
                     name: 'login',
                     url: '../login.html',
                     pageParam: {
-                        name: 'test'
+                        ok: 'login'
                     }
                 });
             }
@@ -514,6 +514,7 @@
             url: host + apiUri + uri,
             method: 'get',
             dataType: 'json',
+            timeout:10,
             headers: {
                 "source": api.systemType,
                 "version": version,
@@ -526,6 +527,7 @@
 
             }
         }, function(ret, err) {
+          if(ret){
             if (ret.status == 200) {
                 var data = ret.data;
                 var len = ret.data.length;
@@ -560,7 +562,10 @@
                 // alert( JSON.stringify( ret ) );
                 fnInitSwiper();
             } else {
-                alert(JSON.stringify(err));
+                netMessage(ret);
+            }
+          }else{
+              netWork(err);
             }
         });
 
@@ -634,7 +639,7 @@
         }
 
         api.openWin({
-            name: 'openBanner',
+            name: lujing,
             url: lujing,
             // console.log('lujing');
             pageParam: {
@@ -646,6 +651,7 @@
                 albumId: song_id,
                 floor_name: titles,
                 a: song_id,
+                ok:lujing
             }
         });
 
@@ -657,17 +663,22 @@
             url: host + apiUri + uri,
             method: 'get',
             dataType: 'json',
+            timeout:10,
             headers: {
                 "source": api.systemType,
                 "version": version,
                 "session": token
             }
         }, function(ret, err) {
+          if(ret){
             if (ret.status == 200) {
                 fnCategoryAlbum(ret);
             } else {
                 netMessage(ret);
             }
+          }else{
+            netWork(err);
+          }
 
         });
     }
@@ -696,6 +707,7 @@
             url: host + apiUri + uri,
             method: 'get',
             dataType: 'json',
+            timeout:10,
             headers: {
                 "source": api.systemType,
                 "version": version,
@@ -703,11 +715,15 @@
             }
         }, function(ret, err) {
             // alert(JSON.stringify(ret));
+            if(ret){
             if (ret.status == 200) {
                 fnRecitationScriptRecommend(ret);
             } else {
                 netMessage(ret);
             }
+          }else{
+            netWork(err);
+          }
 
         });
     }
@@ -730,6 +746,7 @@
             url: host + apiUri + uri,
             method: 'get',
             dataType: 'json',
+            timeout:10,
             headers: {
                 "source": api.systemType,
                 "version": version,
@@ -737,6 +754,7 @@
             }
         }, function(ret, err) {
             // alert(JSON.stringify(ret));
+            if(ret){
             if (ret.status == 200) {
                 // console.log(ret.data.length);
                 var data = ret.data;
@@ -781,6 +799,9 @@
             } else {
                 netMessage(ret);
             }
+          }else{
+            netWork(err);
+          }
 
         });
     }
@@ -802,7 +823,8 @@
             name: 'readlist',
             url: './readlist.html',
             pageParam: {
-                name: 'guoxuejingdian'
+                name: 'guoxuejingdian',
+                ok:'readlist'
             }
         });
     }
@@ -819,7 +841,8 @@
             name: 'aloud',
             url: './aloud.html',
             pageParam: {
-                InfojubenType: id
+                InfojubenType: id,
+                ok:'aloud'
             }
         });
     }
@@ -830,7 +853,8 @@
             url: './zyldwin.html',
             allowEdit: true,
             pageParam: {
-                name: 'test'
+                name: 'test',
+                ok:'zyldwin'
             }
         });
     }

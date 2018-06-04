@@ -577,6 +577,7 @@
     var playUrli;
     var playUrlis;
     var header;
+    var ok;
     apiready = function() {
       token = $api.getStorage('token');
       var secHeader = $api.byId('secHeader');
@@ -595,8 +596,10 @@
       $api.fixIos7Bar(header);
       fnJianTingGood();
       fnJianTingPingLunShu();
+      ok = api.pageParam.ok;
+      var oks = 'ok'+ok;
       api.addEventListener({
-          name: 'oks'
+          name: oks
       }, function(ret, err) {
         if(ret.value.wangluo){
 
@@ -928,11 +931,6 @@
           soundId = ret.value.bookId;
           fnBookExtraGoodssssss(bookId);
           fnJianTingBookCollection(bookId);
-          // if(){
-          //   var stylelistComments = $api.byId('comments');
-          //   var htmlComments = '0';
-          //   $api.html(stylelistComments, htmlComments);
-          // }
           return;
       });
     }
@@ -942,17 +940,11 @@
           name: 'gengXinSingle'
       }, function(ret, err) {
           fnJianTingBookCollection(bookId);
-          // if(){
-          //   var stylelistComments = $api.byId('comments');
-          //   var htmlComments = '0';
-          //   $api.html(stylelistComments, htmlComments);
-          // }
           return;
       });
     }
     //监听收藏，评论数；
     function fnJianTingBookCollection(bookId){
-
       api.ajax({
           url: host + apiUri + '/sound/' + bookId,
           method: 'get',
@@ -1037,20 +1029,8 @@
         }else{
           var stylelist = $api.byId('openplayer');
           var html = '<img src="../image/play/ic_play_play.png" alt="" onclick="fnOpenPlayer();" id="player">';
-          // var html = '<img src="../image/play/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player">';
           $api.html(stylelist, html);
-          // if (id) {
-          //   soundId = id;
-          //     api.sendEvent({
-          //         name: 'netPauseingUrl',
-          //         extra: {
-          //             id: id
-          //         }
-          //     });
-          // }
         }
-
-
         fnInitSwiper();
         fnOpenChangeImg();
         fnbofangshijian();
@@ -1139,7 +1119,6 @@
         fnJiBenXinXi();
         jindutiao();
         if (dangqianbofangid) {
-          // console.log(dangqianbofangid);
             dqbfid = dangqianbofangid;
         }
     }
@@ -1277,21 +1256,6 @@
                   }
 
                 }
-                // console.log(ret.value.is_collection);
-                    // console.log(ret.value.collection);
-                  // var stylelistCollectionHtml = $api.byId('bookExtraCollectionHtml');
-                  //   if(ret.value.collection){
-                  //     bookCollectionHtml = '<img src="../image/KM_play_collect_red.png" alt="" class="collectmusicssss" id="playCollect" onclick="fnOpenPlayCollect(this)" data-click="1"><p>收藏</p>';
-                  //
-                  //   }else{
-                  //     bookCollectionHtml = '<img src="../image/KM_play_collect.png" alt="" class="collectmusicssss" id="playCollect"  onclick="fnOpenPlayCollect(this)" data-click="0"><p>收藏</p>';
-                  //   }
-                  // $api.html(stylelistCollectionHtml, bookCollectionHtml);
-                // if(ret.value.comment_total){
-                //   var html = ret.value.comment_total;
-                //   var stylelist = $api.byId('comments');
-                //   $api.html(stylelist, html);
-                // }
                 //赋值标题
                 if (ret.value.titlename) {
                     var stylelist = $api.byId('title');
@@ -1303,7 +1267,6 @@
         });
     }
     function fnNamesss(titlenamesss){
-
           namesss = titlenamesss;
     }
     //播放、暂停
@@ -1440,6 +1403,7 @@
               url: host + apiUri + uri + '/' + id,
               method: 'get',
               dataType: 'json',
+              timeout:10,
               headers: {
                   "source": api.systemType,
                   "version": version,
@@ -1470,14 +1434,6 @@
                 fnbofangshijian();
                 var title = ret.data.title;
                 var author_name = ret.data.author_name;
-                // fnBookExtraGoodssssss();
-                // var stylelistCollectionHtml = $api.byId('bookExtraCollectionHtml');
-                //   if(ret.data.is_collection == 0){
-                //     bookCollectionHtml = '<img src="../image/KM_play_collect.png" alt="" class="collectmusicssss" id="playCollect"  onclick="fnOpenPlayCollect(this)" data-click="0"><p>收藏</p>';
-                //   }else{
-                //     bookCollectionHtml = '<img src="../image/KM_play_collect_red.png" alt="" class="collectmusicssss" id="playCollect" onclick="fnOpenPlayCollect(this)" data-click="1"><p>收藏</p>';
-                //   }
-                // $api.html(stylelistCollectionHtml, bookCollectionHtml);
             } else {
                 netMessage(ret);
             }
@@ -1492,6 +1448,7 @@
                 url: host + apiUri + uri + '/' + dqbfid,
                 method: 'get',
                 dataType: 'json',
+                timeout:10,
                 headers: {
                     "source": api.systemType,
                     "version": version,
@@ -1522,14 +1479,6 @@
               fnbofangshijian();
               var title = ret.data.title;
               var author_name = ret.data.author_name;
-              // fnBookExtraGoodssssss();
-              // var stylelistCollectionHtml = $api.byId('bookExtraCollectionHtml');
-              //   if(ret.data.is_collection == 0){
-              //     bookCollectionHtml = '<img src="../image/KM_play_collect.png" alt="" class="collectmusicssss" id="playCollect"  onclick="fnOpenPlayCollect(this)" data-click="0"><p>收藏</p>';
-              //   }else{
-              //     bookCollectionHtml = '<img src="../image/KM_play_collect_red.png" alt="" class="collectmusicssss" id="playCollect" onclick="fnOpenPlayCollect(this)" data-click="1"><p>收藏</p>';
-              //   }
-              // $api.html(stylelistCollectionHtml, bookCollectionHtml);
             } else {
                 netMessage(ret);
             }
@@ -1644,6 +1593,9 @@
         api.openWin({
             name: 'choicePlayer',
             url: './choice_player.html',
+            pageParam: {
+                ok: 'choice_player',
+            }
         });
     };
     // 打开评论页面
@@ -1655,7 +1607,8 @@
             pageParam: {
                 soundId: soundId,
                 uris: uris,
-                name: namesss
+                name: namesss,
+                ok:'discuss_notice_detail0'
             }
         });
     }
@@ -1672,6 +1625,7 @@
               url: host + apiUri + uri + '/' + bookId,
               method: 'post',
               dataType: 'json',
+              timeout:10,
               headers: {
                   "source": api.systemType,
                   "version": version,
@@ -1714,6 +1668,7 @@
               url: host + apiUri + uri + '/' + bookId,
               method: 'post',
               dataType: 'json',
+              timeout:10,
               headers: {
                   "source": api.systemType,
                   "version": version,
@@ -1762,6 +1717,7 @@
             url: host + apiUri + uri + '/' + bookId,
             method: 'post',
             dataType: 'json',
+            timeout:10,
             headers: {
                 "source": api.systemType,
                 "version": version,
@@ -1798,6 +1754,7 @@
             url: host + apiUri + uri + '/' + bookId,
             method: 'post',
             dataType: 'json',
+            timeout:10,
             headers: {
                 "source": api.systemType,
                 "version": version,
@@ -1833,7 +1790,8 @@
             name: 'addListening',
             url: './add_listening.html',
             pageParam: {
-                songListID: soundId
+                songListID: soundId,
+                ok:'add_listening'
             }
         });
     }

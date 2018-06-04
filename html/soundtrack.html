@@ -85,71 +85,62 @@
 
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>;
 <script type="text/javascript" src="../script/message.js"></script>;
 <script type="text/javascript">
+var ok;
+apiready = function() {
+  var header = $api.byId('secHeader');
+  $api.fixStatusBar(header);
+  var headerPos = $api.offset(header);
+  ok = api.pageParam.ok;
+  var oks = 'ok'+ok;
+  api.addEventListener({
+      name: oks
+  }, function(ret, err) {
+    if(ret.value.wangluo){
+      api.openFrame({
+          name: 'soundtrack_frame',
+          url: './soundtrack_frame.html',
+          rect: {
+              x: 0,
+              y: headerPos.h,
+              w: 'auto',
+              h: 'auto'
+          },
+          pageParam: {
+              name: 'test'
+          },
+          bounces: false,
+      });
+    }
+  });
+  var connectionType = api.connectionType;
+    if(connectionType == "none"){
+      netWorkNone(ok);
+    }else{
+      api.openFrame({
+          name: 'soundtrack_frame',
+          url: './soundtrack_frame.html',
+          rect: {
+              x: 0,
+              y: headerPos.h,
+              w: 'auto',
+              h: 'auto'
+          },
+          pageParam: {
+              name: 'test'
+          },
+          bounces: false,
+      });
+    }
+
+
+}
     function goback() {
         api.closeWin({
             name: 'soundtrack'
         });
-
-    }
-    function fnSoundtrackWin() {
-      api.openWin({
-          name: 'soundtrack',
-          url: './soundtrack.html',
-          pageParam: {
-              name: 'test'
-          }
-      });
-
-    }
-    var ok;
-    apiready = function() {
-      var header = $api.byId('secHeader');
-      $api.fixStatusBar(header);
-      var headerPos = $api.offset(header);
-      ok = api.pageParam.ok;
-      var oks = 'ok'+ok;
-      api.addEventListener({
-          name: 'oks'
-      }, function(ret, err) {
-        if(ret.value.wangluo){
-          api.openFrame({
-              name: 'soundtrack_frame',
-              url: './soundtrack_frame.html',
-              rect: {
-                  x: 0,
-                  y: headerPos.h,
-                  w: 'auto',
-                  h: 'auto'
-              },
-              pageParam: {
-                  name: 'test'
-              },
-              bounces: false,
-          });
-        }
-      });
-      var connectionType = api.connectionType;
-      	if(connectionType == "none"){
-      		netWorkNone(ok);
-      	}else{
-          api.openFrame({
-              name: 'soundtrack_frame',
-              url: './soundtrack_frame.html',
-              rect: {
-                  x: 0,
-                  y: headerPos.h,
-                  w: 'auto',
-                  h: 'auto'
-              },
-              pageParam: {
-                  name: 'test'
-              },
-              bounces: false,
-          });
-      	}
-
 
     }
 </script>

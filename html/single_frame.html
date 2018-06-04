@@ -824,7 +824,8 @@
                   playlistid: playlistid,
                   a: a,
                   DangQianbofangid: Dqbofangid,
-                  playUrli:'/album/song_list/'
+                  playUrli:'/album/song_list/',
+                  ok:'play'
               }
           });
         } else {
@@ -835,7 +836,8 @@
               pageParam: {
                   a: a,
                   playlistid: playlistid,
-                  playUrli:'/album/song_list/'
+                  playUrli:'/album/song_list/',
+                  ok:'play'
               }
           });
 
@@ -991,24 +993,24 @@
         }, function(ret) {
             if (ret.eventType == 'cancel') {
                 dialogBox.close({
-                    dialogName: 'discount'
+                    dialogName: 'actionMenu'
                 });
             }
             if (ret.index == "0") {
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'actionMenu'
                 });
             } else if (ret.index == "1") {
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'actionMenu'
                 });
             } else if (ret.index == "2") {
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'actionMenu'
                 });
             } else {
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'actionMenu'
                 });
             }
 
@@ -1039,6 +1041,7 @@
                 url: host + apiUri + uri + '/' + albumId,
                 method: 'post',
                 dataType: 'json',
+                timeout:10,
                 headers: {
                     "source": api.systemType,
                     "version": version,
@@ -1050,6 +1053,7 @@
                   }
                 }
             }, function(ret, err) {
+              if(ret){
                 if (ret.status == 200) {
                     if(ret.data == "inc"){
                       api.toast({              
@@ -1061,6 +1065,9 @@
                 } else {
                   netMessage(ret);
                 }
+              }else{
+                netWork(err);
+              }
             });
         } else {
             // 关闭
@@ -1072,6 +1079,7 @@
                 url: host + apiUri + uri + '/' + albumId,
                 method: 'post',
                 dataType: 'json',
+                timeout:10,
                 headers: {
                     "source": api.systemType,
                     "version": version,
@@ -1083,6 +1091,7 @@
                   }
                 }
             }, function(ret, err) {
+              if(ret){
                 if (ret.status == 200) {
                     if(ret.data == "dec"){
                       api.toast({              
@@ -1094,6 +1103,9 @@
                 } else {
                   netMessage(ret);
                 }
+              }else{
+                netWork(err);
+              }
             });
         }
     }
@@ -1112,6 +1124,7 @@
               url: host + apiUri + uri + '/' + albumId,
               method: 'post',
               dataType: 'json',
+              timeout:10,
               headers: {
                   "source": api.systemType,
                   "version": version,
@@ -1124,6 +1137,7 @@
                 },
               },
           }, function(ret, err) {
+            if(ret){
               if (ret.status == 200) {
                   api.toast({              
                       msg:   '已点赞',
@@ -1137,6 +1151,9 @@
               } else {
                 netMessage(ret);
               }
+            }else{
+              netWork(err);
+            }
           });
         } else {
           // 关闭
@@ -1148,6 +1165,7 @@
               url: host + apiUri + uri + '/' + albumId,
               method: 'post',
               dataType: 'json',
+              timeout:10,
               headers: {
                   "source": api.systemType,
                   "version": version,
@@ -1160,6 +1178,7 @@
                 }
               }
           }, function(ret, err) {
+            if(ret){
               if (ret.status == 200) {
                   api.toast({              
                       msg:   '已取消点赞',
@@ -1176,6 +1195,9 @@
               } else {
                 netMessage(ret);
               }
+            }else{
+              netWork(err);
+            }
           });
         }
     }
@@ -1193,7 +1215,8 @@
             pageParam: {
                 albumId: albumId,
                 uris: uris,
-                name: name
+                name: name,
+                ok:'discuss_detail0'
             }
         });
     }
@@ -1204,6 +1227,9 @@
         api.openWin({
             name: 'discussDetail',
             url: './discuss_detail.html',
+            pageParam: {
+                ok:'discuss_detail'
+            }
         });
     };
 

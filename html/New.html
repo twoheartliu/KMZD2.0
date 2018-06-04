@@ -67,14 +67,48 @@
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/message.js"></script>;
 <script type="text/javascript">
     function goback() {
         api.closeWin({
             name: 'New'
         });
     }
-
+var ok;
     apiready = function() {
+      ok = api.pageParam.ok;
+            var oks = 'ok'+ok;
+      api.addEventListener({
+          name: 'oks'
+      }, function(ret, err) {
+        if(ret.value.wangluo){
+          var header = $api.byId('secHeader');
+          $api.fixStatusBar(header);
+          var headerPos = $api.offset(header);
+          api.openFrame({
+              name: 'New_frame',
+              url: './New_frame.html',
+              rect: {
+                  x: 0,
+                  y: headerPos.h,
+                  w: 'auto',
+                  h: 'auto'
+              },
+              pageParam: {
+                  name: 'test'
+              },
+              bounces: false,
+              allowEdit: true,
+              reload: true
+          });
+          CoverDivInputImgBar();
+        }
+      });
+
+      var connectionType = api.connectionType;
+      if(connectionType == "none"){
+      	netWorkNone(ok);
+      }else{
         var header = $api.byId('secHeader');
         $api.fixStatusBar(header);
         var headerPos = $api.offset(header);
@@ -95,9 +129,7 @@
             reload: true
         });
         CoverDivInputImgBar();
-
-
-
+      }
 
     }
 
@@ -145,6 +177,8 @@
         api.ajax({
             url: host + apiUri + '/listening/create',
             method: 'post',
+            dataType: 'json',
+            timeout:10,
             headers: {
                 "source": api.systemType,
                 "version": version,
@@ -192,18 +226,12 @@
                         api.closeWin();
                     }, 2000)
 
+                }else{
+                  netMessage(ret);
                 }
 
             } else {
-                alert(ret.message);
-                $api.rmStorage('token');
-                api.openWin({
-                    name: 'login',
-                    url: '../login.html',
-                    pageParam: {
-                        name: 'test'
-                    }
-                });
+              netWork(err);
             }
         });
     }

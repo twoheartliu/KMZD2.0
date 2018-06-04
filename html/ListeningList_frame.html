@@ -151,8 +151,10 @@
 <script type="text/javascript" src="../script/message.js"></script>
 <script type="text/javascript">
     apiready = function() {
+      var ok = api.pageParam.ok;
+      var oks = 'ok'+ok;
         api.addEventListener({
-            name: 'ok'
+            name: oks
         }, function(ret, err) {
             if (ret.value.wangluo) {
                 //赋值源代码
@@ -207,6 +209,7 @@
                     url: host + apiUri + '/listening',
                     method: 'get',
                     dataType: 'json',
+                    timeout:10,
                     headers: {
                         "source": api.systemType,
                         "version": version,
@@ -253,7 +256,7 @@
                             netMessage(ret);
                         }
                     } else {
-                            netWork(err);
+                        netWork(err);
                     }
                 });
             }
@@ -318,6 +321,7 @@
                 url: host + apiUri + '/listening',
                 method: 'get',
                 dataType: 'json',
+                timeout:10,
                 headers: {
                     "source": api.systemType,
                     "version": version,
@@ -377,6 +381,7 @@
             url: './ListingsList.html',
             pageParam: {
                 albumId: ids,
+                ok:'ListingsList'
             }
         });
 
@@ -387,6 +392,8 @@
         api.ajax({
             url: host + apiUri + '/listening/del/' + id,
             method: 'post',
+            dataType: 'json',
+            timeout:10,
             headers: {
                 "source": api.systemType,
                 "version": version,
@@ -449,11 +456,11 @@
             var index = ret.index;
             if (texts == "cancel") {
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'actionMenu'
                 });
             } else if (index == 0) {
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'actionMenu'
                 });
                 api.openWin({
                     name: 'NewData',
@@ -464,11 +471,14 @@
                 });
             } else if (index == 1) {
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'actionMenu'
                 });
                 DeleteList(id);
                 // console.log(id);
             }
+            dialogBox.close({
+                dialogName: 'actionMenu'
+            });
         });
 
     }

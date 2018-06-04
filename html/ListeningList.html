@@ -70,27 +70,58 @@
             name: 'ListeningList'
         });
     }
-
+var ok;
     apiready = function() {
         var header = $api.byId('secHeader');
         $api.fixStatusBar(header);
         var headerPos = $api.offset(header);
-        api.openFrame({
-            name: 'ListeningList_frame',
-            url: './ListeningList_frame.html',
-            rect: {
-                x: 0,
-                y: headerPos.h,
-                w: 'auto',
-                h: 'auto'
-            },
-            pageParam: {
-                name: 'test'
-            },
-            customRefreshHeader: 'UIPullRefreshFlash',
-            bounces: true,
-            reload: true
+        ok = api.pageParam.ok;
+              var oks = 'ok'+ok;
+        api.addEventListener({
+            name: oks
+        }, function(ret, err) {
+          if(ret.value.wangluo){
+            api.openFrame({
+                name: 'ListeningList_frame',
+                url: './ListeningList_frame.html',
+                rect: {
+                    x: 0,
+                    y: headerPos.h,
+                    w: 'auto',
+                    h: 'auto'
+                },
+                pageParam: {
+                    name: 'test'
+                },
+                customRefreshHeader: 'UIPullRefreshFlash',
+                bounces: true,
+                reload: true
+            });
+          }
         });
+
+        var connectionType = api.connectionType;
+        if(connectionType == "none"){
+        	netWorkNone(ok);
+        }else{
+          api.openFrame({
+              name: 'ListeningList_frame',
+              url: './ListeningList_frame.html',
+              rect: {
+                  x: 0,
+                  y: headerPos.h,
+                  w: 'auto',
+                  h: 'auto'
+              },
+              pageParam: {
+                  ok: 'ListeningList_frame'
+              },
+              customRefreshHeader: 'UIPullRefreshFlash',
+              bounces: true,
+              reload: true
+          });
+        }
+
 
     }
     function fnNewWin() {
@@ -99,7 +130,8 @@
           name: 'New',
           url: './New.html',
           pageParam: {
-              name: name
+              name: name,
+              ok:'New'
           },
           reload:true
 

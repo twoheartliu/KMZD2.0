@@ -170,6 +170,7 @@ var name;
                 url: host + apiUri + uris,
                 method: 'post',
                 dataType: 'json',
+                timeout:10,
                 headers: {
                     "source": api.systemType,
                     "version": version,
@@ -183,6 +184,7 @@ var name;
                     }
                 }
             }, function(ret, err) {
+              if(ret){
                     if (ret.status == 200) {
                       api.sendEvent({
                           name: 'gengXin',
@@ -202,6 +204,9 @@ var name;
                     }else{
                       netMessage(ret);
                     }
+                  }else{
+                    netWork(err);
+                  }
 
             });
 

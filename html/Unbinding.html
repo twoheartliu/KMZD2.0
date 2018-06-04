@@ -96,6 +96,7 @@
             name: 'Unbinding'
         });
     }
+    var ok;
     apiready = function() {
       // 手机号
         var mobile = api.pageParam.mobile;
@@ -103,20 +104,50 @@
         var header = $api.byId('secHeader');
         $api.fixStatusBar(header);
         var headerPos = $api.offset(header);
-        api.openFrame({
-            name: 'Unbinding_frame',
-            url: './Unbinding_frame.html',
-            rect: {
-                x: 0,
-                y: headerPos.h,
-                w: 'auto',
-                h: 'auto'
-            },
-            pageParam: {
-                mobile: mobile
-            },
-            bounces: false,
+
+        ok = api.pageParam.ok;
+        var oks = 'ok'+ok;
+        api.addEventListener({
+            name: oks
+        }, function(ret, err) {
+          if(ret.value.wangluo){
+            api.openFrame({
+                name: 'Unbinding_frame',
+                url: './Unbinding_frame.html',
+                rect: {
+                    x: 0,
+                    y: headerPos.h,
+                    w: 'auto',
+                    h: 'auto'
+                },
+                pageParam: {
+                    mobile: mobile
+                },
+                bounces: false,
+            });	
+          }
         });
+
+        var connectionType = api.connectionType;
+        if(connectionType == "none"){
+        	netWorkNone(ok);
+        }else{
+          api.openFrame({
+              name: 'Unbinding_frame',
+              url: './Unbinding_frame.html',
+              rect: {
+                  x: 0,
+                  y: headerPos.h,
+                  w: 'auto',
+                  h: 'auto'
+              },
+              pageParam: {
+                  mobile: mobile
+              },
+              bounces: false,
+          });
+        }
+
     }
 
 </script>

@@ -382,6 +382,7 @@
   var collections;
   var soundId;
   var namesss;
+  var ok:
     function goback () {
       api.closeWin({name:'listenTo'});
     }
@@ -394,8 +395,10 @@
       var header = document.querySelector('header');
       fnJianTingGood();
       fnJianTingPingLunShu();
+      ok = api.pageParam.ok;
+      var oks = 'ok'+ok;
       api.addEventListener({
-          name: 'ok'
+          name: oks
       }, function(ret, err) {
         if(ret.value.wangluo){
 

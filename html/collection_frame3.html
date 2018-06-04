@@ -182,13 +182,12 @@
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/message.js"></script>;
 <script type="text/javascript">
     var token;
     apiready = function() {
         token = $api.getStorage('token');
-
         fnShowList();
-
         var ul = document.getElementById('test');
         var ul_lis = ul.getElementsByClassName('collection_frame_img3');
         var ul_lisdiv = ul.getElementsByClassName('message_frame_cycle');
@@ -208,12 +207,14 @@
             url: host + apiUri + uri,
             method: 'get',
             dataType: 'json',
+            timeout:10,
             headers: {
                 "source": api.systemType,
                 "version": version,
                 "session": token,
             },
         }, function(ret, err) {
+          if(ret){
             if (ret.status == 200) {
                 var data = ret.data;
                 // console.log(JSON.stringify(data));
@@ -261,8 +262,11 @@
                 // console.log(id);
                 // alert( JSON.stringify( ret ) );
             } else {
-                alert(JSON.stringify(err));
+                netMessage(ret);
             }
+          }else{
+              netWork(err);
+          }
         });
     }
 
@@ -278,6 +282,7 @@
             pageParam: {
                 albumId: l_id,
                 floor_name: titles,
+                ok:'ListingsList'
             }
         });
     }
@@ -325,6 +330,8 @@
                 api.ajax({
                     url: host + apiUri + '/user/del_collection',
                     method: 'post',
+                    dataType: 'json',
+                    timeout:10,
                     headers: {
                         "source": api.systemType,
                         "version": version,

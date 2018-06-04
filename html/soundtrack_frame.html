@@ -84,18 +84,23 @@ var token;
           url: host + apiUri + uri,
           method: 'get',
           dataType: 'json',
+          timeout:10,
           headers: {
               "source": api.systemType,
               "version": version,
               "session": token
           },
   		}, function(ret, err) {
+        if(ret){
   			if (ret.status == 200) {
   				//alert(JSON.stringify(ret));
           fnBytitleList(ret);
   			} else {
   				netMessage(ret);
   			}
+      }else{
+        netWork(err);
+      }
   		});
   	}
     function fnBytitleList(data_) {

@@ -177,12 +177,15 @@
         api.ajax({
             url: host + apiUri + '/user/third_info',
             method: 'get',
+            dataType: 'json',
+            timeout:10,
             headers: {
                 "source": api.systemType,
                 "version": version,
                 "session": token
             }
         }, function(ret, err) {
+          if(ret){
             // console.log(JSON.stringify(ret));
             if (ret.status == 200) {
 
@@ -190,7 +193,6 @@
                 var htmls = ''
                 var changePassword = $api.byId('changePassword');
                 var securitycente_BangDin = $api.byId('securitycente_BangDin');
-                console.log(ret.data.register_way);
                 if (ret.data.register_way == 'qq') {
                     html += '<div class="securitycente_div"><div class="securitycente_Img1 fl"><img src="../image/qq.png" alt=""></div><div class="securitycente_Name fl"><div class="securitycente_name1">QQ</div></div></div>'
                 } else if (ret.data.register_way == 'wechat') {
@@ -261,6 +263,9 @@
             } else {
                 netMessage(ret);
             }
+          }else{
+            netWork(err);
+          }
 
         });
     }
@@ -271,7 +276,7 @@
                 name: 'Binding',
                 url: './Binding.html',
                 pageParam: {
-                    name: 'test'
+                    ok: 'Binding'
                 }
             });
         } else {
@@ -280,7 +285,8 @@
                 url: './DetermineTheDinding.html',
                 pageParam: {
                     mobile: mobile,
-                    is_set_password: is_set_password
+                    is_set_password: is_set_password,
+                    ok:'DetermineTheDinding'
                 }
             });
         }
@@ -306,11 +312,12 @@
                                     var nickname = ret.info.nickname;
                                     var gender = ret.info.gender;
                                     var figureurl_qq_2 = ret.info.figureurl_qq_2;
-                                    console.log(figureurl_qq_2);
                                     var token = $api.getStorage('token');
                                     api.ajax({
                                         url: host + apiUri + '/user/bind_qq',
                                         method: 'post',
+                                        dataType: 'json',
+                                        timeout:10,
                                         headers: {
                                             "source": api.systemType,
                                             "version": version,
@@ -322,35 +329,41 @@
                                             }
                                         }
                                     }, function(ret, err) {
-                                      console.log(JSON.stringify(ret));
-                                        if (ret.status == 10407) {
-                                            api.toast({
-                                                msg: '您已绑定过QQ',
-                                                duration: 2000,
-                                                location: 'middle'
-                                            });
-                                        }
+                                      if(ret){
+                                        // if (ret.status == 10407) {
+                                        //     api.toast({
+                                        //         msg: '您已绑定过QQ',
+                                        //         duration: 2000,
+                                        //         location: 'middle'
+                                        //     });
+                                        // }
                                         if (ret.status == 200) {
+                                          api.toast({
+                                                  msg: '绑定成功',
+                                                  duration: 2000,
+                                                  location: 'middle'
+                                              });
                                             clicktoolitem.setAttribute("data-click", 1);
                                             toolbarlist.src = "../image/my/Bindings.png";
                                         } else {
                                             netMessage(ret);
                                         }
+                                      }else{
+                                        netWork(err);
+                                      }
                                     });
-                                } else {
-
-                                    netMessage(ret);
-
                                 }
+                              });
+                            }
                             });
-                        } else {
-                            netMessage(ret);
                         }
                     });
                 } else {
-                    api.alert({
-                        msg: "没有安装"
-                    });
+                  api.toast({
+                          msg: '当前设备未安装QQ客户端',
+                          duration: 2000,
+                          location: 'middle'
+                      });
                 }
             });
             // 点开
@@ -413,12 +426,15 @@
                             api.ajax({
                                 url: host + apiUri + '/user/unbind_qq',
                                 method: 'post',
+                                dataType: 'json',
+                                timeout:10,
                                 headers: {
                                     "source": api.systemType,
                                     "version": version,
                                     "session": token
                                 }
                             }, function(ret, err) {
+                              if(ret){
                                 if (ret.status == 200) {
                                     clicktoolitem.setAttribute("data-click", 0);
                                     toolbarlist.src = "../image/my/Binding.png";
@@ -427,20 +443,13 @@
                                         duration: 2000,
                                         location: 'middle'
                                     });
-                                }
-                                if (ret.status == 10415) {
-                                    clicktoolitem.setAttribute("data-click", 0);
-                                    toolbarlist.src = "../image/my/Binding.png";
-                                    api.toast({
-                                        msg: '您还未绑定',
-                                        duration: 2000,
-                                        location: 'middle'
-                                    });
-                                    // console.log( JSON.stringify( ret ) );
-                                } else {
+                                }else {
                                     // alert( JSON.stringify( err ) );
                                     netMessage(ret);
                                 }
+                              }else{
+                                netWork(err);
+                              }
                             });
 
                             // clicktoolitem.setAttribute("data-click", 0);
@@ -492,6 +501,8 @@
                                             api.ajax({
                                                 url: host + apiUri + '/user/bind_wechat',
                                                 method: 'post',
+                                                dataType: 'json',
+                                                timeout:10,
                                                 headers: {
                                                     "source": api.systemType,
                                                     "version": version,
@@ -504,13 +515,7 @@
                                                     }
                                                 }
                                             }, function(ret, err) {
-                                                if (ret.status == 10407) {
-                                                    api.toast({
-                                                        msg: '您已绑定过微信',
-                                                        duration: 2000,
-                                                        location: 'middle'
-                                                    });
-                                                }
+                                                if(ret){
                                                 if (ret.status == 200) {
                                                     api.toast({
                                                         msg: '绑定成功',
@@ -520,8 +525,11 @@
                                                     clicktoolitem.setAttribute("data-click", 1);
                                                     toolbarlist.src = "../image/my/Bindings.png";
                                                 } else {
-                                                    // alert(JSON.stringify(err));
+                                                    netMessage(ret);
 
+                                                }
+                                              }else{
+                                                  netWork(err);
                                                 }
                                             });
                                         } else {
@@ -538,7 +546,13 @@
                         }
                     });
                 } else {
-                    alert('当前设备未安装微信客户端');
+                  api.toast({
+                          msg: '当前设备未安装微信客户端',
+                          duration: 2000,
+                          location: 'middle'
+                      });
+
+
                 }
             });
         } else {
@@ -596,25 +610,15 @@
                     api.ajax({
                         url: host + apiUri + '/user/unbind_wechat',
                         method: 'post',
+                        dataType: 'json',
+                        timeout:10,                        
                         headers: {
                             "source": api.systemType,
                             "version": version,
                             "session": token
                         }
                     }, function(ret, err) {
-                        if (ret.status == 10415) {
-                            clicktoolitem.setAttribute("data-click", 0);
-                            toolbarlist.src = "../image/my/Binding.png";
-                            api.toast({
-                                msg: '您还未绑定',
-                                duration: 2000,
-                                location: 'middle'
-                            });
-                            // console.log( JSON.stringify( ret ) );
-                        } else {
-                            // alert( JSON.stringify( err ) );
-                            console.log(JSON.stringify(err));
-                        }
+                        if(ret){
                         if (ret.status == 200) {
                             api.toast({
                                 msg: '已解除绑定',
@@ -626,6 +630,9 @@
                         } else {
                             netMessage(ret);
                         }
+                      }else{
+                        netWork(err);
+                      }
                     });
                 } else {
                     var dialogBox = api.require('dialogBox');

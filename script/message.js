@@ -1,6 +1,13 @@
 var timeOut = 2000;
 function netMessage(ret){
 
+  if(ret.status == 10102){
+    api.toast({              
+        msg:  '曲目评论失败',
+        duration:  timeOut,
+        location:   'middle'          
+    });
+  }
   if(ret.status == 10101){
     api.toast({              
         msg:  '评论失败,请检测您的网络状态或重试',
@@ -78,6 +85,14 @@ function netMessage(ret){
   if(ret.status == 10210){
     api.toast({              
         msg:  '登录失败，请重试',
+        duration:  timeOut,
+        location:   'middle'          
+    });
+    setTimeout("turn_login()",timeOut);
+  }
+  if(ret.status == 10211){
+    api.toast({              
+        msg:  '重置密码失败',
         duration:  timeOut,
         location:   'middle'          
     });
@@ -188,6 +203,34 @@ function netMessage(ret){
         location:   'middle'          
     });
   }
+  if(ret.status == 10413){
+    api.toast({              
+        msg:  '删除失败',
+        duration:  timeOut,
+        location:   'middle'          
+    });
+  }
+  if(ret.status == 10414){
+    api.toast({              
+        msg:  '设置密码失败，请重试',
+        duration:  timeOut,
+        location:   'middle'          
+    });
+  }
+  if(ret.status == 10415){
+    api.toast({              
+        msg:  '您还未绑定',
+        duration:  timeOut,
+        location:   'middle'          
+    });
+  }
+  if(ret.status == 10416){
+    api.toast({              
+        msg:  '保存失败',
+        duration:  timeOut,
+        location:   'middle'          
+    });
+  }
   if(ret.status == 10501){
     api.toast({              
         msg:  '新建听单失败',
@@ -261,6 +304,20 @@ function netMessage(ret){
   if(ret.status == 10604){
     api.toast({              
         msg:  '已收藏过',
+        duration:  timeOut,
+        location:   'middle'          
+    });
+  }
+  if(ret.status == 10701){
+    api.toast({              
+        msg:  '消息发送失败',
+        duration:  timeOut,
+        location:   'middle'          
+    });
+  }
+  if(ret.status == 10702){
+    api.toast({              
+        msg:  '删除消息失败',
         duration:  timeOut,
         location:   'middle'          
     });

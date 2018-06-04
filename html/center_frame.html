@@ -249,6 +249,7 @@
                       playid: playlistid,
                       a: a,
                       DangQianbofangid: Dqbofangid,
+                      ok:'play'
                   }
               });
           } else {
@@ -259,6 +260,7 @@
                     bofang: bofang,
                     a: a,
                     playid: playlistid,
+                    ok:'play'
                 },
             });
           }
@@ -273,6 +275,7 @@
                       playid: playlistid,
                       a: a,
                       DangQianbofangid: Dqbofangid,
+                      ok:'play'
                   }
               });
           } else {
@@ -283,6 +286,7 @@
                     bofang: bofang,
                     a: a,
                     playid: playlistid,
+                    ok:'play'
                 },
             });
           }
@@ -295,6 +299,7 @@
                     bofang: bofang,
                     a: a,
                     DangQianbofangid: Dqbofangid,
+                    ok:'caogaoplay'
                 },
             });
 
@@ -305,6 +310,7 @@
                 pageParam: {
                     bofang: bofang,
                     a: a,
+                    ok:'caogaoplay'
                 },
             });
           }
@@ -317,6 +323,7 @@
                     bofang: bofang,
                     a: a,
                     DangQianbofangid: Dqbofangid,
+                    ok:'caogaoplay'
                 },
             });
 
@@ -327,6 +334,7 @@
                 pageParam: {
                     bofang: bofang,
                     a: a,
+                    ok:'caogaoplay'
                 },
             });
           }
@@ -339,6 +347,7 @@
                       bofang: bofang,
                       a: a,
                       DangQianbofangid: Dqbofangid,
+                      ok:'playDanQu'
                   }
               });
           } else {
@@ -348,6 +357,7 @@
                 pageParam: {
                     bofang: bofang,
                     a: a,
+                    ok:'playDanQu'
                 },
             });
           }
@@ -360,7 +370,8 @@
                   pageParam: {
                       bofang: bofang,
                       a: a,
-                      DangQianbofangid: Dqbofangid
+                      DangQianbofangid: Dqbofangid,
+                      ok:'playDanQu'
                   }
               });
           } else {
@@ -370,6 +381,7 @@
                 pageParam: {
                     bofang: bofang,
                     a: a,
+                    ok:'playDanQu'
                 },
             });
           }
@@ -381,6 +393,7 @@
                 url: './listen_to.html',
                   pageParam: {
                       DangQianbofangid: Dqbofangid,
+                      ok:'listen_to'
                   }
               });
           } else {
@@ -388,7 +401,7 @@
                 name: 'listenTo',
                 url: './listen_to.html',
                 pageParam: {
-                    name: 'test'
+                    ok:'listen_to'
                 }
             });
           }
@@ -400,6 +413,7 @@
                 url: './listen_to.html',
                   pageParam: {
                       DangQianbofangid: Dqbofangid,
+                      ok:'listen_to'
                   }
               });
           } else {
@@ -407,7 +421,7 @@
                 name: 'listenTo',
                 url: './listen_to.html',
                 pageParam: {
-                    name: 'test'
+                    ok:'listen_to'
                 }
             });
           }
@@ -417,108 +431,11 @@
               name: 'listenTo',
               url: './listen_to.html',
               pageParam: {
-                  name: 'test'
+                  ok:'listen_to'
               }
           });
         }
     }
-    // function fnOpenPlay(bofang, a, playlistid) {
-    //     if (bofang == 0) {
-    //         api.openWin({
-    //             name: 'playsousuo',
-    //             url: './playsousuo.html',
-    //             pageParam: {
-    //                 bofang: bofang,
-    //                 a: a
-    //             },
-    //         });
-    //     } else if (bofang == 1) {
-    //         api.openWin({
-    //             name: 'playsousuo',
-    //             url: './playsousuo.html',
-    //             pageParam: {
-    //                 bofang: bofang,
-    //                 a: a
-    //             },
-    //         });
-    //     } else if (bofang == 2) {
-    //         api.openWin({
-    //             name: 'play',
-    //             url: './play.html',
-    //             pageParam: {
-    //                 bofang: bofang,
-    //                 a: a,
-    //                 playid: playlistid
-    //             },
-    //         });
-    //     } else if (bofang == 3) {
-    //         api.openWin({
-    //             name: 'play',
-    //             url: './play.html',
-    //             pageParam: {
-    //                 bofang: bofang,
-    //                 a: a,
-    //                 playid: playlistid
-    //             },
-    //         });
-    //
-    //     } else if (bofang == 4) {
-    //
-    //         api.openWin({
-    //             name: 'caogaoplay',
-    //             url: './caogaoplay.html',
-    //             pageParam: {
-    //                 bofang: bofang,
-    //                 a: a,
-    //                 playid: playlistid
-    //             },
-    //         });
-    //     } else if (bofang == 5) {
-    //
-    //         api.openWin({
-    //             name: 'caogaoplay',
-    //             url: './caogaoplay.html',
-    //             pageParam: {
-    //                 bofang: bofang,
-    //                 a: a,
-    //                 playid: playlistid
-    //             },
-    //         });
-    //     } else if (bofang == 6) {
-    //
-    //         api.openWin({
-    //             name: 'playDanQu',
-    //             url: './playDanQu.html',
-    //             pageParam: {
-    //                 bofang: bofang,
-    //                 a: a,
-    //             },
-    //         });
-    //
-    //     } else if (bofang == 7) {
-    //
-    //         api.openWin({
-    //             name: 'playDanQu',
-    //             url: './playDanQu.html',
-    //             pageParam: {
-    //                 bofang: bofang,
-    //                 a: a,
-    //             },
-    //         });
-    //
-    //
-    //     }else {
-    //         api.openWin({
-    //             name: 'play',
-    //             url: './play.html',
-    //             // pageParam: {
-    //             //   bofang: 2,
-    //             //   a: 1,
-    //             //   playid: 1
-    //             // },
-    //         });
-    //     }
-    // }
 </script>
 
 </html>

@@ -568,6 +568,8 @@
 <script type="text/javascript" src="../script/swiper.min.js"></script>
 <script type="text/javascript" src="../script/zepto.js"></script>
 <script type="text/javascript" src="../script/audio2.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>;
+<script type="text/javascript" src="../script/message.js"></script>;
 <script type="text/javascript">
     var radios = ['see_you_again', 'new_soul', 'i_am_you'];
     var dqbfid;
@@ -582,6 +584,7 @@
     var soundId;
     var namesss;
     var bookId;
+    var ok;
     apiready = function() {
         var secHeader = $api.byId('secHeader');
         $api.fixStatusBar(secHeader);
@@ -597,8 +600,10 @@
         var messageFrameDiv = $api.byId('wrap');
         var winHeightHeader = winHeight - headerPosH;
         $api.css(messageFrameDiv, 'height:' + winHeightHeader + 'px;');
+        ok = api.pageParam.ok;
+        var oks = 'ok'+ok;
         api.addEventListener({
-              name: 'oks'
+              name: oks
           }, function(ret, err) {
             if(ret.value.wangluo){
               dangqianbofangid = api.pageParam.DangQianbofangid;
@@ -1243,6 +1248,7 @@
         api.openWin({
             name: 'choicePlayer',
             url: './choice_player.html',
+            ok:'choice_player'
         });
     };
 
@@ -1252,7 +1258,7 @@
             name: 'discussNoticeDetail0',
             url: './discuss_notice_detail0.html',
             pageParam: {
-                name: 'test'
+                ok: 'discuss_notice_detail0'
             }
         });
     }
@@ -1298,29 +1304,29 @@
         }, function(ret) {
             if (ret.eventType == 'cancel') {
                 dialogBox.close({
-                    dialogName: 'discount'
+                    dialogName: 'actionMenu'
                 });
             }
             if (ret.index == "0") {
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'actionMenu'
                 });
             } else if (ret.index == "1") {
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'actionMenu'
                 });
             } else if (ret.index == "2") {
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'actionMenu'
                 });
             } else {
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'actionMenu'
                 });
             }
-            // dialogBox.close({
-            //     dialogName: 'alert'
-            // })
+            dialogBox.close({
+                dialogName: 'actionMenu'
+            })
             // alert(JSON.stringify(ret))
 
         });
@@ -1331,7 +1337,7 @@
             name: 'addListening',
             url: './add_listening.html',
             pageParam: {
-                name: 'test'
+                ok: 'add_listening'
             }
         });
     }

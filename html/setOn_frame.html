@@ -101,12 +101,14 @@
             url: host + apiUri + uri,
             method: 'get',
             dataType: 'json',
+            timeout:10,
             headers: {
                 "source": api.systemType,
                 "version": version,
                 "session": token
             },
         }, function(ret, err) {
+          if(ret){
             if (ret.status == 200) {
                 v1 = ret.data.version_no;
                 v2 = version;
@@ -114,6 +116,9 @@
             }else{
               netMessage(ret);
             }
+          }else{
+            netWork(err);
+          }
         });
 
     }
@@ -165,12 +170,14 @@
             url: host + apiUri + uri,
             method: 'get',
             dataType: 'json',
+            timeout:10,
             headers: {
                 "source": api.systemType,
                 "version": version,
                 "session": token
             },
         }, function(ret, err) {
+          if(ret){
             if (ret.status == 200) {
                 var v1 = ret.data.version_no;
                 var v2 = version;
@@ -178,6 +185,9 @@
             }else{
               netMessage(ret);
             }
+          }else{
+            netWork(err);
+          }
         });
     }
     function versionComparess(curV, reqV){
@@ -256,12 +266,12 @@
       }, function(ret) {
           if (ret.eventType == 'left') {
               dialogBox.close({
-                  dialogName: 're'
+                  dialogName: 'alert'
               });
         }
         if(ret.eventType == 'right'){
           dialogBox.close({
-              dialogName: 're'
+              dialogName: 'alert'
           });
       }
       });

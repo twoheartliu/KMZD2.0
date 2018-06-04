@@ -231,6 +231,7 @@
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/message.js"></script>;
 <script src="../script/select/iScroll.js"></script>
 <!-- <script src="../script/select/Mdate.js"></script> -->
 <script type="text/javascript">
@@ -286,6 +287,7 @@
                      url: host + apiUri + uri,
                      method: 'post',
                      dataType: 'json',
+                     timeout:10,
                      headers: {
                          "source": api.systemType,
                          "version": version,
@@ -298,15 +300,15 @@
                          },
                      }
                  },function(ret, err){
-
-                    //  console.log(JSON.stringify( ret ));
-                    //  console.log(JSON.stringify( err ));
+                    if(ret){
                      if (ret.status == 200) {
                          fninfo();
-                        //  alert( JSON.stringify( ret ) );
                      } else {
-                        //  alert( JSON.stringify( err ) );
+                       netMessage(ret);
                      }
+                   } else {
+                     netWork(err);
+                   }
                  });
 
             }else{
@@ -326,6 +328,7 @@
             title: '选择时间'
         }, function(ret, err){
             if( ret ){
+
                 var inputsssss = $api.byId('dateSelectorTwo');
              //    inputsssss.value = html3;
                 //  console.log( JSON.stringify( ret ));
@@ -337,6 +340,7 @@
                      url: host + apiUri + uri,
                      method: 'post',
                      dataType: 'json',
+                     timeout:10,
                      headers: {
                          "source": api.systemType,
                          "version": version,
@@ -349,12 +353,15 @@
                          },
                      }
                  },function(ret, err){
+                   if(ret){
                      if (ret.status == 200) {
-                        //   console.log( JSON.stringify( ret ) );
                          fninfo();
                      } else {
-                        //  console.log( JSON.stringify( err ) );
+                        netMessage(ret);
                      }
+                   } else {
+                      netWork(err);
+                   }
                  });
 
             }else{
@@ -371,12 +378,14 @@
             url: host + apiUri + uri,
             method: 'get',
             dataType: 'json',
+            timeout:10,
             headers: {
                 "source": api.systemType,
                 "version": version,
                 "session": token,
             },
         }, function(ret, err) {
+          if(ret){
             // console.log(JSON.stringify(ret));
             if (ret.status == 200) {
                 //昵称
@@ -432,8 +441,12 @@
                     $api.html(title1, html4);
                 }
                 fn222222(ret.data);
+            }else{
+              netMessage(ret);
             }
-
+          }else{
+            netWork(err);
+          }
         });
     }
 
@@ -471,7 +484,7 @@
             name: 'BabyAdd',
             url: './BabyAdd.html',
             pageParam: {
-                name: 'test'
+                ok: 'BabyAdd'
             }
         });
 
@@ -646,6 +659,8 @@
             api.ajax({
                 url: host + apiUri + '/upload/user_photo',
                 method: 'post',
+                dataType: 'json',
+                timeout:10,
                 headers: {
                     "source": api.systemType,
                     "version": version,
@@ -657,11 +672,14 @@
                     }
                 }
             }, function(ret, err) {
+              if(ret){
                 if (ret.status == 200) {
 
                     api.ajax({
                         url: host + apiUri + '/user/edit',
                         method: 'post',
+                        dataType: 'json',
+                        timeout:10,
                         headers: {
                             "source": api.systemType,
                             "version": version,
@@ -675,6 +693,7 @@
                         }
                     }, function(ret, err) {
                         // console.log(ret.status);
+                        if(ret){
                         if (ret.status == 200) {
 
                             // $api.byId('tx').innerHTML = '<img src=" ' + updatePhotoUrl + ret.data. + ' ">';
@@ -682,6 +701,8 @@
                             api.ajax({
                                 url: host + apiUri + '/user/info',
                                 method: 'get',
+                                dataType: 'json',
+                                timeout:10,
                                 headers: {
                                     "source": api.systemType,
                                     "version": version,
@@ -705,28 +726,25 @@
                                         location: 'middle'
                                     });
                                 } else {
-                                    // api.toast({
-                                    //     msg: '上传失败，请重试',
-                                    //     duration: 3000,
-                                    //     location: 'bottom'
-                                    // });
+                                    netMessage(ret);
+                                }
+                              }else{
+                                  netWork(err);
                                 }
                             });
                         } else {
-                            api.toast({
-                                msg: '上传失败，请重试',
-                                duration: 3000,
-                                location: 'middle'
-                            });
+                            netMessage(err);
                         }
+                      }else{
+                        netWork(err);
+                      }
                     });
                 } else {
-                    api.toast({
-                        msg: '上传失败，请重试',
-                        duration: 3000,
-                        location: 'middle'
-                    });
+                    netMessage(err);
                 }
+              }else{
+                netWork(err);
+              }
             });
         });
     }
@@ -763,6 +781,7 @@
                 url: host + apiUri + uri,
                 method: 'post',
                 dataType: 'json',
+                timeout:10,
                 headers: {
                     "source": api.systemType,
                     "version": version,
@@ -775,6 +794,7 @@
                     }
                 },
             }, function(ret, err) {
+              if(ret){
                 if (ret.status == 200) {
                     var stylelist12 = $api.byId('sexBaby' + id);
                     if (gender == 1) {
@@ -787,7 +807,12 @@
                         var html12 = "女";
                         $api.html(stylelist12, html12);
                     }
+                }else{
+                  netMessage(ret);
                 }
+              }else{
+                netWork(err);
+              }
             });
         });
     }
@@ -809,6 +834,7 @@
                 url: host + apiUri + uri,
                 method: 'post',
                 dataType: 'json',
+                timeout:10,
                 headers: {
                     "source": api.systemType,
                     "version": version,
@@ -822,6 +848,7 @@
                 }
             }, function(ret, err) {
                 // console.log(ret.status);
+                if(ret){
                 if (ret.status == 200) {
                     var stylelist12 = $api.byId('sex');
                     if (gender == 1) {
@@ -832,7 +859,12 @@
                         var html12 = "女";
                         $api.html(stylelist12, html12);
                     }
+                }else{
+                  netMessage(ret);
                 }
+              }else{
+                netWork(ret);
+              }
             });
 
 
@@ -920,6 +952,7 @@
                     url: host + apiUri + uri,
                     method: 'post',
                     dataType: 'json',
+                    timeout:10,
                     headers: {
                         "source": api.systemType,
                         "version": version,
@@ -932,13 +965,22 @@
                         }
                     }
                 }, function(ret, err) {
-                    fninfo();
-                    api.sendEvent({
-                        name: 'netNickName',
-                        extra: {
-                            nickName: text
-                        }
-                    });
+                  if(ret){
+                    if(ret.status == 200){
+                      fninfo();
+                      api.sendEvent({
+                          name: 'netNickName',
+                          extra: {
+                              nickName: text
+                          }
+                      });
+                    }else{
+                      netMessage(ret);
+                    }
+                  }else{
+                    netWork(err);
+                  }
+
 
                 });
                 var dialogBox = api.require('dialogBox');
@@ -1031,6 +1073,7 @@
                     url: host + apiUri + uri,
                     method: 'post',
                     dataType: 'json',
+                    timeout:10,
                     headers: {
                         "source": api.systemType,
                         "version": version,
@@ -1043,13 +1086,23 @@
                         }
                     }
                 }, function(ret, err) {
-                    fninfo();
-                    api.sendEvent({
-                        name: 'netsignature',
-                        extra: {
-                            netsignature: text
-                        }
-                    });
+
+                  if(ret){
+                    if(ret.status == 200){
+                      fninfo();
+                      api.sendEvent({
+                          name: 'netsignature',
+                          extra: {
+                              netsignature: text
+                          }
+                      });
+                    }else{
+                      netMessage(ret);
+                    }
+                  }else{
+                    netWork(err);
+                  }
+
 
                 });
                 var dialogBox = api.require('dialogBox');
