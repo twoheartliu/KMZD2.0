@@ -29,8 +29,8 @@
         section>ul{margin: 0 10px;}
         section ul li{width:100%;height:50px;padding: 10px 0;}
         /*section ul li:nth-last-child(1){border-bottom: 1px solid #ccc;}*/
-        .user-img{width:45px;height: 50px;line-height: 50px;display: inline-block;}
-        .user-img>img{width:45px;}
+        .user-img{width:50px;height: 50px;line-height: 50px;display: inline-block;border-radius: 25px;overflow: hidden;}
+        .user-img>img{width: 100%;}
         .user-name{height: 50px;display: inline-block;vertical-align: top;position: relative;width: 85%;
           border-bottom: 1px solid #ccc;}
         .user-name p{font-size: 16px;color: #535354;overflow: hidden;text-overflow: ellipsis;white-space:nowrap;}
@@ -39,25 +39,15 @@
         .user-name div{width: 100%;height: 25px;line-height: 25px;}
         .user_name_span{position: relative;}
         .user_name_span1{width: 90%;display: block;color: #999;font-size: 12px;}
-        .user_name_span2{display: block;width: 20px;height: 20px;position: absolute;top: 0px;right: 2.5px;background: red;border-radius: 10px;text-align: center;color: #fff;font-size: 10px;line-height: 20px;}
+        .user_name_span2{display: block;position: absolute;top: 0px;right: 2.5px;border-radius: 10px;text-align: center;color: #fff;font-size: 10px;line-height: 20px;}
+        .user_name_span2 div{background: red;width: 20px;height: 20px;position: absolute;top: 0px;right: 2.5px;border-radius: 10px;text-align: center;color: #fff;font-size: 10px;line-height: 20px;}
     </style>
 </head>
 <body>
 <section>
-  <ul>
-    <li onclick="fnOpenprivate()">
-      <div class="user-img"><img src="../image/icon-person.png" alt=""></div>
-      <div class="user-name">
-        <div>
-          <p class="fl user_name_p1">走不出胡同的猫</p>
-          <p class="fr user_name_p2">2017年12月30日</p>
-        </div>
-        <div class="user_name_span">
-          <span class="user_name_span1">金融工程</span>
-          <span class="user_name_span2" id="user_name_span2"></span>
-        </div>
-      </div>
-    </li>
+  <ul id="section">
+
+  </ul>
 </section>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
@@ -66,13 +56,14 @@
     var token;
     apiready = function (){
       token = $api.getStorage('token');
-      // fnMessagePrivateFrame();
+      fnMessagePrivateFrame();
     }
     function fnMessagePrivateFrame() {
       api.ajax({
         url: host + apiUri + '/message/lists',
         method: 'get',
         dataType: 'json',
+        timeout:10,
         headers: {
             "source": api.systemType,
             "version": version,
@@ -86,19 +77,69 @@
           }
       },function(ret, err){
           if (ret) {
-              console.log( JSON.stringify( ret ) );
+              // console.log(JSON.stringify(ret));
+              if (ret.status == 200) {
+                var html = '';
+                var section = $api.byId('section');
+                for (var i = 0; i < ret.data.list.length; i++) {
+                    // console.log(1);
+                    // console.log(ret.data.list[i].content);
+                    var listening_cover = ret.data.list[i].friend_img;
+                    var sandBox = listening_cover.substring(0, 4);
+                    if (sandBox == 'http') {
+                        images = ret.data.list[i].friend_img;
+                    }else {
+                      images = updatePhotoUrl + listening_cover;
+                    }
+                    function timestampToTime(timestamp) {
+                        var date = new Date(timestamp * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+                        Y = date.getFullYear() + '年';
+                        M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '月';
+                        D = date.getDate() + '日';
+                        return Y+M+D;
+                    }
+                    var timestampToTimess =  timestampToTime(ret.data.list[i].modify_date);
+                    var unread_nums;
+                    // console.log(ret.data.list[i].unread_nums);
+                    if (ret.data.list[i].unread_nums != 0) {
+                        unread_nums = '<div>'+ret.data.list[i].unread_nums+'</div>'
+                    }else {
+                        unread_nums = ''
+                    }
+                    html += '<li onclick="fnOpenprivate('+ret.data.list[i].friend_id+',\''+ret.data.list[i].friend_name+'\')">'+
+                          '<div class="user-img"><img src="'+images+'" alt=""></div>'+
+                          '<div class="user-name">'+
+                            '<div>'+
+                              '<p class="fl user_name_p1">'+ret.data.list[i].friend_name+'</p>'+
+                              '<p class="fr user_name_p2">'+timestampToTimess+'</p>'+
+                            '</div>'+
+                            '<div class="user_name_span">'+
+                              '<span class="user_name_span1">'+ret.data.list[i].content+'</span>'+
+                              '<span class="user_name_span2" id="user_name_span2">'+unread_nums+'</span>'+
+                            '</div>'+
+                          '</div>'+
+                        '</li>'
+                }
+                $api.html(section, html);
+
+              }
           } else {
-              console.log( JSON.stringify( err ) );
+              console.log(JSON.stringify(err));
           }
       });
 
     }
   //打开聊天页面
-  function fnOpenprivate(){
+  function fnOpenprivate(userId,nickName){
     api.openWin({
-        name: 'messagePrivateDetail',
-        url: './message_private_detail.html',
+      name: 'personalPrivate',
+      url: './personal_private.html',
+        pageParam: {
+            userId: userId,
+            nickName:nickName
+        }
     });
+
   }
 </script>
 </html>

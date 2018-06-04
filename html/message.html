@@ -115,11 +115,10 @@
         fnmessageGet();
     }
     function fnmessageGet() {
-
       api.addEventListener({
           name: 'unread'
       }, function(ret, err) {
-        console.log(JSON.stringify(ret.value));
+        // console.log(JSON.stringify(ret.value));
           var message = $api.byId('message');
           var comment = $api.byId('comment');
           var notify = $api.byId('notify');
