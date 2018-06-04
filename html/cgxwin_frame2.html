@@ -283,6 +283,7 @@ var jubenid;
       api.ajax({
           url: host + apiUri + uri,
           method: 'get',
+          dataType: 'json',
           timeout:10,
           headers: {
               "source": api.systemType,
@@ -295,7 +296,7 @@ var jubenid;
               var stylelist = $api.byId('lists');
                   var html = '';
               for (var i = 0; i < ret.data.length; i++) {
-                html +='<div class="egret-flex-item" tapmode="fmbtnhover"><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 col fl" >' + ret.data[i].title + '</span><span class="span2 col fl" onclick="opencaogaoyinyue(' + ret.data[i].drafts_id + ');">&nbsp; &nbsp; &nbsp;</span><img class="span4 col fr" onclick="dialogBox_actionMenu(' + ret.data[i].drafts_id + ');" src="../image/KM_list_more.png"alt=""/></div></div></div>';
+                html +='<div class="egret-flex-item" tapmode="fmbtnhover" onclick="opencaogaoyinyue(' + ret.data[i].drafts_id + ',\'' + ret.data[i].url + '\');"><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 col fl" >' + ret.data[i].title + '</span><span class="span2 col fl">&nbsp; &nbsp; &nbsp;</span><img class="span4 col fr" onclick="dialogBox_actionMenu(' + ret.data[i].drafts_id + ');" src="../image/KM_list_more.png"alt=""/></div></div></div>';
                 $api.html(stylelist, html);
               }
             } else {
@@ -309,22 +310,22 @@ var jubenid;
     function fnDangQianbofangid(id){
       Dqbofangid = id;
     }
-    function opencaogaoyinyue(cgxid) {
+    function opencaogaoyinyue(a,urlCaoGao) {
       api.addEventListener({
           name: 'netPlaying'
       }, function(ret, err) {
-          if(cgxid == ret.value.playing){
+          if(a == ret.value.playing){
             fnDangQianbofangid(ret.value.playing);
           }
 
       });
-      if(Dqbofangid == cgxid){
+      if(Dqbofangid == urlCaoGao){
         api.openWin({
     			name: 'caogaoplay',
     			url: './caogaoplay.html',
     			pageParam: {
-    				cgxid : cgxid,
-            DangQianbofangid: Dqbofangid
+            DangQianbofangid: Dqbofangid,
+            a:urlCaoGao
     			},
     			delay: 200
     		});
@@ -333,7 +334,7 @@ var jubenid;
     			name: 'caogaoplay',
     			url: './caogaoplay.html',
     			pageParam: {
-    				cgxid : cgxid
+    				a : urlCaoGao
     			},
     			delay: 200
     		});
@@ -458,6 +459,7 @@ var jubenid;
               api.ajax({
                   url: host + apiUri + uri,
                   method: 'post',
+                  dataType: 'json',
                   timeout:10,
                   headers: {
                       "source": api.systemType,
@@ -485,35 +487,6 @@ var jubenid;
                     netWork(err);
                   }
               });
-
-
-              // api.getPrefs({
-              //     key: 'cgxlist'
-              // }, function(ret, err) {
-              //     var flag = false;
-              //     var historyUrlText = '' || ret.value;
-              //     var historyUrlArray = historyUrlText.split(',');
-              //     var ccc = s*5-4;
-              //     historyUrlArray.splice(ccc,5);
-              //     !flag && api.setPrefs({
-              //         key: 'cgxlist',
-              //         value: historyUrlArray.join(',')
-              //     });
-              //     fnGetBeiJingYinYueTypelist();
-              //
-              // });
-              // var fs = api.require('fs');
-              // fs.remove({
-              //     path: 'fs://caogaoxiang/'+historyUrlArray[s*5-4]
-              // }, function(ret, err) {
-              //     if (ret.status) {
-              //         // alert(JSON.stringify(ret));
-              //           alert('已删除')
-              //     } else {
-              //         alert(JSON.stringify(err));
-              //     }
-              // });
-
                 dialogBox.close({
                     dialogName: 'actionMenu'
                 });

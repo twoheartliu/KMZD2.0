@@ -578,21 +578,22 @@
       var headerH = $api.offset(secHeader).h;
       var headerPosH = $api.offset(secHeader).h;
       header = document.querySelector('header');
+      // 获取浏览器高度
+      if (window.innerHeight)
+          winHeight = window.innerHeight;
+      else if ((document.body) && (document.body.clientHeight))
+          winHeight = document.body.clientHeight;
+      var messageFrameDiv = $api.byId('wrap');
+      var winHeightHeader = winHeight - headerPosH;
+      $api.css(messageFrameDiv, 'height:' + winHeightHeader + 'px;');
+      $api.fixIos7Bar(header);
       fnJianTingGood();
       fnJianTingPingLunShu();
       api.addEventListener({
-          name: 'ok'
+          name: 'oks'
       }, function(ret, err) {
         if(ret.value.wangluo){
-          // 获取浏览器高度
-          if (window.innerHeight)
-              winHeight = window.innerHeight;
-          else if ((document.body) && (document.body.clientHeight))
-              winHeight = document.body.clientHeight;
-          var messageFrameDiv = $api.byId('wrap');
-          var winHeightHeader = winHeight - headerPosH;
-          $api.css(messageFrameDiv, 'height:' + winHeightHeader + 'px;');
-          $api.fixIos7Bar(header);
+
           fnBookExtraGoodssssss();
           dangqianbofangid = api.pageParam.DangQianbofangid;
           api.addEventListener({
@@ -727,15 +728,7 @@
       if(connectionType == "none"){
       	netWorkNone();
       }else{
-        // 获取浏览器高度
-        if (window.innerHeight)
-            winHeight = window.innerHeight;
-        else if ((document.body) && (document.body.clientHeight))
-            winHeight = document.body.clientHeight;
-        var messageFrameDiv = $api.byId('wrap');
-        var winHeightHeader = winHeight - headerPosH;
-        $api.css(messageFrameDiv, 'height:' + winHeightHeader + 'px;');
-        $api.fixIos7Bar(header);
+
         fnBookExtraGoodssssss();
         dangqianbofangid = api.pageParam.DangQianbofangid;
         api.addEventListener({
@@ -1115,7 +1108,6 @@
                     a: a
                 }
             });
-            var zaicibf
             api.sendEvent({
                 name: 'neizhiliebiaoPlay',
                 extra: {
@@ -1352,7 +1344,7 @@
                 // 设置 src
                 this.src = image_urls[idx];
                 if (idx == 1) {
-                    var bofangmoshi = 1;
+                    bofangmoshi = 1;
                     api.sendEvent({
                         name: 'bofangmoshiDanQu',
                         extra: {
@@ -1360,21 +1352,29 @@
                         }
                     });
                 } else if (idx == 2) {
-                    var bofangmoshi = 2;
+                    bofangmoshi = 2;
                     api.sendEvent({
                         name: 'bofangmoshiDanQu',
                         extra: {
                             bofangmoshi: bofangmoshi
                         }
                     });
-                } else {
-                    var bofangmoshi = 0;
+                } else if (idx == 0){
+                    bofangmoshi = 0;
                     api.sendEvent({
                         name: 'bofangmoshiDanQu',
                         extra: {
                             bofangmoshi: bofangmoshi
                         }
                     });
+                }else{
+                  bofangmoshi = 0;
+                  api.sendEvent({
+                      name: 'bofangmoshiDanQu',
+                      extra: {
+                          bofangmoshi: bofangmoshi
+                      }
+                  });
                 }
             };
         }
