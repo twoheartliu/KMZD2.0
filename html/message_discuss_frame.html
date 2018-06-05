@@ -295,6 +295,7 @@
         }, function(ret, err) {
             if (ret) {
                 if (ret.status == 200) {
+                  console.log(JSON.stringify(ret));
                     p = 1;
                     api.refreshHeaderLoadDone();
                     var sections = $api.byId('sections');
