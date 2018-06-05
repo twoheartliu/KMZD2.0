@@ -218,7 +218,7 @@
 
         </ul>
         <div id="footer" class="disnone">
-            正在加载更多
+            已经没数据了
         </div>
         <!-- <div class="nomessage">暂无消息01</div> -->
     </section>
@@ -295,6 +295,7 @@
         }, function(ret, err) {
             if (ret) {
                 if (ret.status == 200) {
+                  console.log(JSON.stringify(ret));
                     p = 1;
                     api.refreshHeaderLoadDone();
                     var sections = $api.byId('sections');
@@ -338,7 +339,6 @@
                             '</div>' +
                             '</li>'
                             // console.log(ret.data.list[i].photo);
-=======
                 // var timestampToTimess =  timestampToTime(ret.data.list[i].create_date);
                 // html +=
                 // '<li>'+
@@ -353,7 +353,7 @@
                 // '</li>'
                 // console.log(ret.data.list[i].photo);
               }
-                
+
                     $api.html(sections, html);
 
                     // fnAjaxDetail(id);
