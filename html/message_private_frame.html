@@ -205,7 +205,7 @@
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/common.js"></script>
-<script type="text/javascript" src="../script/message.js"></script>;
+<script type="text/javascript" src="../script/message.js"></script>
 <script type="text/javascript">
     var token;
     // apiready = function() {
@@ -246,6 +246,7 @@
               // console.log(JSON.stringify(ret));
               if(ret){
               if (ret.status == 200) {
+                console.log(JSON.stringify(ret));
                 var html = '';
                 var section = $api.byId('section');
                 for (var i = 0; i < ret.data.list.length; i++) {

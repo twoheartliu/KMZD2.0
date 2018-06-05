@@ -49,9 +49,10 @@
         .private{padding: 10px 0;}
     </style>
 </head>
-<body>
+<body id="body">
     <div id="main">
     </div>
+    <a href="javascript:;" id="btn" title=""></a>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/common.js"></script>
@@ -59,6 +60,8 @@
   var userId;
   var token;
   var p = 1;
+  var images;
+  var timestampToTimess;
   apiready = function (){
     token = $api.getStorage('token');
     userId = api.pageParam.userId;
@@ -99,103 +102,105 @@
   function fnGetSixin() {
     // console.log(token);
     // console.log(userId);
-      api.ajax({
-        url:  host + apiUri +'/message/detail',
-        method: 'get',
-        dataType: 'json',
-        timeout:10,
-        headers: {
-            "source": api.systemType,
-            "version": version,
-            "session": token
-        },
-          data: {
-              values: {
-                  user_id: userId,
-                  p:p
-              }
-          }
-      },function(ret, err){
-          if (ret) {
+        api.ajax({
+          url:  host + apiUri +'/message/detail',
+          method: 'get',
+          dataType: 'json',
+          timeout:10,
+          headers: {
+              "source": api.systemType,
+              "version": version,
+              "session": token
+          },
+            data: {
+                values: {
+                    user_id: userId,
+                    p:p
+                }
+            }
+        },function(ret, err){
+            if (ret) {
 
-              // console.log( JSON.stringify( ret ) );
-              if (ret.status == 200) {
-                var personalPrivateFrame = 1;
-                api.sendEvent({
-                    name: 'personalPrivateFrame',
-                    extra: {
-                        personalPrivateFrame: personalPrivateFrame
-                    }
-                });
-                api.refreshHeaderLoadDone();
-                var main = $api.byId('main');
-                // 排序（不要转格式，能够直接拿来用）
-                // var ss = ret.data;
-                // function compare(property){
-                //   return function(obj1,obj2){
-                //     var value1 = obj1[property];
-                //     var value2 = obj2[property];
-                //     return value1 - value2; // 升序
-                //   }
-                // }
-                // var sortObj = ss.sort(compare("create_date"));
-                for (var i = 0; i < ret.data.length; i++) {
-                  var images;
-                  var listening_cover = ret.data[i].sender_image;
-                  var sandBox = listening_cover.substring(0, 4);
-                  if (sandBox == 'http') {
-                      images = ret.data[i].sender_image;
-                  }else {
-                    images = updatePhotoUrl + listening_cover;
-                  }
-                  // 时间戳转换器
-                  // function getLocalTime(nS) {
-                  //    return new Date(parseInt(nS) * 1000).toLocaleString().replace(/年|月/g, "-").replace(/日/g, " ");
+                // console.log( JSON.stringify( ret ) );
+                if (ret.status == 200) {
+                  var personalPrivateFrame = 1;
+                  api.sendEvent({
+                      name: 'personalPrivateFrame',
+                      extra: {
+                          personalPrivateFrame: personalPrivateFrame
+                      }
+                  });
+                  api.refreshHeaderLoadDone();
+                  var main = $api.byId('main');
+                  // 排序（不要转格式，能够直接拿来用）
+                  // var ss = ret.data;
+                  // function compare(property){
+                  //   return function(obj1,obj2){
+                  //     var value1 = obj1[property];
+                  //     var value2 = obj2[property];
+                  //     return value1 - value2; // 升序
+                  //   }
                   // }
-                  function timetrans(date){
-                        var date = new Date(date*1000);//如果date为13位不需要乘1000
-                        var Y = date.getFullYear() + '年';
-                        var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '月';
-                        var D = (date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate()) + '日';
-                        var h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
-                        var m = (date.getMinutes() <10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
-                        var s = (date.getSeconds() <10 ? '0' + date.getSeconds() : date.getSeconds());
-                        return Y+M+D+h+m+s;
+                  // var sortObj = ss.sort(compare("create_date"));
+                  for (var i = 0; i < ret.data.length; i++) {
+
+                    var listening_cover = ret.data[i].sender_image;
+                    var sandBox = listening_cover.substring(0, 4);
+                    if (sandBox == 'http') {
+                        images = ret.data[i].sender_image;
+                    }else {
+                      images = updatePhotoUrl + listening_cover;
                     }
-                  var timestampToTimess = timetrans(ret.data[i].create_date);
+                    // 时间戳转换器
+                    // function getLocalTime(nS) {
+                    //    return new Date(parseInt(nS) * 1000).toLocaleString().replace(/年|月/g, "-").replace(/日/g, " ");
+                    // }
+                    function timetrans(date){
+                          var date = new Date(date*1000);//如果date为13位不需要乘1000
+                          var Y = date.getFullYear() + '年';
+                          var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '月';
+                          var D = (date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate()) + '日';
+                          var h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
+                          var m = (date.getMinutes() <10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
+                          var s = (date.getSeconds() <10 ? '0' + date.getSeconds() : date.getSeconds());
+                          return Y+M+D+h+m+s;
+                      }
+                    timestampToTimess = timetrans(ret.data[i].create_date);
 
 
-                  var html = ''
-                  if (userId == ret.data[i].receiver_id) {
-                    html += '<div class="private">'+
-                              '<div class="fr img"><img src="'+ images +'" alt=""></div>'+
-                              '<div class="fr shijianfr">'+
+                    var html = ''
+                    if (userId == ret.data[i].receiver_id) {
+                      html += '<div class="private">'+
+                                '<div class="fr img"><img src="'+ images +'" alt=""></div>'+
+                                '<div class="fr shijianfr">'+
+                                    '<div>'+timestampToTimess+'</div>'+
+                                '</div>'+
+                                '<div class="clr"></div>'+
+                                '<div class="name"><div class="fr">'+ret.data[i].content+'</div></div>'+
+                                '<div class="clr"></div>'+
+                            '</div>';
+                    }else {
+                       html += '<div class="private">'+
+                              '<div class="fl img"><img src="'+ images +'" alt=""></div>'+
+                              '<div class="fl shijian">'+
                                   '<div>'+timestampToTimess+'</div>'+
                               '</div>'+
                               '<div class="clr"></div>'+
-                              '<div class="name"><div class="fr">'+ret.data[i].content+'</div></div>'+
+                              '<div class="name"><div class="fl">'+ret.data[i].content+'</div></div>'+
                               '<div class="clr"></div>'+
                           '</div>';
-                  }else {
-                     html += '<div class="private">'+
-                            '<div class="fl img"><img src="'+ images +'" alt=""></div>'+
-                            '<div class="fl shijian">'+
-                                '<div>'+timestampToTimess+'</div>'+
-                            '</div>'+
-                            '<div class="clr"></div>'+
-                            '<div class="name"><div class="fl">'+ret.data[i].content+'</div></div>'+
-                            '<div class="clr"></div>'+
-                        '</div>';
+                    }
+                    $api.prepend(main,html);
                   }
-                  $api.prepend(main,html);
+
                 }
 
-              }
+            } else {
+                // alert( JSON.stringify( err ) );
+            }
+        });
 
-          } else {
-              // alert( JSON.stringify( err ) );
-          }
-      });
+
 
   }
 
@@ -270,6 +275,7 @@
         if (ret) {
             // alert(JSON.stringify(ret));
             // console.log(JSON.stringify(ret));
+            var msg = ret.msg;
             if (ret.msg) {
               api.ajax({
                   url:  host + apiUri +'/message/send',
@@ -289,7 +295,29 @@
                   }
               },function(ret, err){
                   if (ret) {
-                    fnGetSixin();
+                    var h=document.body.clientHeight;
+                    var osTop = document.documentElement.scrollTop || document.body.scrollTop;
+                        document.documentElement.scrollTop = document.body.scrollTop = h;
+                    var now = new Date();
+                    var year = now.getFullYear()+'年';       //年
+                    var month = now.getMonth() + 1 +'月';     //月
+                    var day = now.getDate() + '日';            //日
+                    var hh = now.getHours() + ':';            //时
+                    var mm = now.getMinutes() + ':';          //分
+                    var ss = now.getSeconds();           //秒
+                    var main = $api.byId('main');
+                    html = '<div class="private">'+
+                              '<div class="fr img"><img src="'+ images +'" alt=""></div>'+
+                              '<div class="fr shijianfr">'+
+                                  '<div>'+year+month+day+'  '+hh+mm+ss+'</div>'+
+                              '</div>'+
+                              '<div class="clr"></div>'+
+                              '<div class="name"><div class="fr">'+msg+'</div></div>'+
+                              '<div class="clr"></div>'+
+                          '</div>';
+                      $api.append(main,html)
+                    // var mcg = 1;
+                    // fnGetSixin(mcg);
                       // console.log( JSON.stringify( ret ) );
                   } else {
                       console.log( JSON.stringify( err ) );
