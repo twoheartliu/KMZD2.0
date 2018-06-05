@@ -564,9 +564,7 @@
                 if (ret.status == 200) {
 
                     // fnRecommendedDirectory(ret);
-                    setTimeout(function() {
-                        api.refreshHeaderLoadDone()
-                    }, 3000)
+                    api.refreshHeaderLoadDone()
                     fnPageLayoutAssignment(ret);
                 } else {
                     netMessage(ret);

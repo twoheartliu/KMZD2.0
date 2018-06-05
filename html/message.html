@@ -233,8 +233,9 @@
         });
     }
     var ok;
+    var token;
     apiready = function() {
-        // token = $api.getStorage('token');
+        token = $api.getStorage('token');
         var eHeader = $api.byId('secHeader');
         $api.fixStatusBar(eHeader); //状态栏
         var headerPos = $api.offset(eHeader);
@@ -255,39 +256,72 @@
         }else{
           fnOpenFrameGroup();
           fnmessageGet();
+          api.addEventListener({
+              name: 'personalPrivateFrame'
+          }, function(ret, err) {
+            fnmessageGet();
+            api.sendEvent({
+                name: 'personalPrivateFrameIndex',
+                extra: {
+                    personalPrivateFrameIndex: '1'
+                }
+            });
+          });
         }
+
 
     }
 
     function fnmessageGet() {
-        api.addEventListener({
-            name: 'unread'
-        }, function(ret, err) {
-            var message = $api.byId('message');
-            var comment = $api.byId('comment');
-            var notify = $api.byId('notify');
-            var messages, comments, notify;
-            if (ret.value.message < 100) {
-                messages = ret.value.message;
-            } else {
-                messages = '99+';
-            }
-            if (ret.value.comment < 100) {
-                comments = ret.value.comment;
-            } else {
-                comments = '99+';
-            }
-            if (ret.value.notify < 100) {
-                notifys = ret.value.notify;
-            } else {
-                notifys = '99+';
-            }
-            $api.html(message, messages);
-            $api.html(comment, comments);
-            $api.html(notify, notifys);
+
+      api.ajax({
+          url: host + apiUri + '/message/unread_message_nums',
+          method: 'get',
+          dataType: 'json',
+          timeout:10,
+          headers: {
+              "source": api.systemType,
+              "version": version,
+              "session": token,
+          }
+      },function(ret, err){
+          if (ret) {
+              console.log(JSON.stringify(ret));
+              if (ret.status = 200) {
+                var message = $api.byId('message');
+                var comment = $api.byId('comment');
+                var notify = $api.byId('notify');
+                var messages, comments, notify;
+                if (ret.data.message < 100) {
+                    messages = ret.data.message;
+                } else {
+                    messages = '99+';
+                }
+                if (ret.data.comment < 100) {
+                    comments = ret.data.comment;
+                } else {
+                    comments = '99+';
+                }
+                if (ret.data.notify < 100) {
+                    notifys = ret.data.notify;
+                } else {
+                    notifys = '99+';
+                }
+                $api.html(message, messages);
+                $api.html(comment, comments);
+                $api.html(notify, notifys);
 
 
-        });
+
+              }else {
+                netMessage(ret);
+              }
+          } else {
+            netWork(err);
+          }
+      });
+
+
     }
 </script>
 
