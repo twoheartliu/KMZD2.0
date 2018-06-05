@@ -70,15 +70,13 @@
             outline: none;
         }
         .itemlist {
-            padding: 12px;
+            padding-left: 20px;
             width: 91%;
-            display: block;
-            float: left;
-            margin-right: 20px;
-            margin-bottom: 20px;
+            /*display: block;*/
+            margin: 10px;
         }
         .item {
-            padding: 4px;
+            padding: 5px;
             margin: 2px;
             line-height: 22px;
             border: 1px solid #ccc;
@@ -90,14 +88,12 @@
             background-color: white;
         }
         .search_list {
-            display: block;
+            /*display: block;*/
+            position: relative;
             padding: 10px;
             background-color: white;
-            padding-bottom: 60px;
         }
         .search {
-            display: block;
-            position: relative;
             line-height: 15px;
             padding: 10px;
             border-bottom: 1px solid #ddd;
@@ -114,7 +110,25 @@
             line-height: 15px;
             padding: 10px;
             font-size: 12px;
+            background-color: white;
         }
+        .middle {
+            display: block;
+            height: 30px;
+            background-color: #fff;
+            padding-top: 22px;
+        }
+        .so_head {
+            position: absolute;
+            left: 4px;
+            margin-left: 4px;
+        }
+        .deleteAll {
+            position: absolute;
+            right: 4px;
+            margin-right: 4px;
+        }
+        /*.clr{clear: both;}*/
     </style>
 </head>
 
@@ -133,10 +147,12 @@
         热门搜索
     </div>
     <ul class="itemlist">
-        <li class="item">非常非常好看的国学课</li>
-        <li class="item">三字经</li>
+
         <li class="item">西游记</li>
         <li class="item">论语</li>
+        <li class="item">非常非常好看的国学课</li>
+        <li class="item">非常非常好看的国学课</li>
+        <li class="item">三字经</li>
         <li class="item">格列佛游记</li>
         <li class="item">非常非常好看的国学课</li>
         <li class="item">三字经</li>
@@ -144,26 +160,38 @@
         <li class="item">论语</li>
         <li class="item">格列佛游记</li>
     </ul>
+    <div class="clr"></div>
+
+    <div class="middle">
+        <div class="so_head">
+            搜索历史
+        </div>
+        <div class="deleteAll">
+            清空记录
+        </div>
+    </div>
 
     <ul class="search_list">
-        <li class="search">非常非常好看的国学课 <img src="../image/delete.png" alt=""></li>
-        <li class="search">三字经 <img src="../image/delete.png" alt=""></li>
-        <li class="search">西游记 <img src="../image/delete.png" alt=""></li>
+
         <li class="search">论语 <img src="../image/delete.png" alt=""></li>
         <li class="search">格列佛游记 <img src="../image/delete.png" alt=""></li>
         <li class="search">非常非常好看的国学课 <img src="../image/delete.png" alt=""></li>
+        <li class="search">非常非常好看的国学课 <img src="../image/delete.png" alt=""></li>
+        <li class="search">三字经 <img src="../image/delete.png" alt=""></li>
+        <li class="search">西游记 <img src="../image/delete.png" alt=""></li>
         <li class="search">三字经 <img src="../image/delete.png" alt=""></li>
         <li class="search">西游记 <img src="../image/delete.png" alt=""></li>
         <li class="search">论语 <img src="../image/delete.png" alt=""></li>
         <li class="search">格列佛游记 <img src="../image/delete.png" alt=""></li>
     </ul>
+
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/index2.js"></script>
 <script type="text/javascript">
     function goback() {
         api.closeWin({
-            name: 'searchs_pre.html',
+            name: 'searchs_pre',
         });
     }
     apiready = function() {
