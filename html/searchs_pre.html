@@ -59,10 +59,10 @@
         .soso {
             font-size: 18px;
             height: 50px;
-            right: 20px;
-            top: 15px;
+            width: 56px;
+            float: right;
+            line-height: 50px;
             color: white;
-            position: absolute;
         }
 
         .egret-header-search input:focus {
@@ -70,13 +70,13 @@
             outline: none;
         }
         .itemlist {
-            padding-left: 20px;
+            padding-left: 15px;
             width: 91%;
             /*display: block;*/
             margin: 10px;
         }
         .item {
-            padding: 5px;
+            padding: 8px;
             margin: 2px;
             line-height: 22px;
             border: 1px solid #ccc;
@@ -94,15 +94,16 @@
             background-color: white;
         }
         .search {
-            line-height: 15px;
+            line-height: 25px;
             padding: 10px;
             border-bottom: 1px solid #ddd;
         }
         .search img {
-            line-height: 15px;
-            height:15px;
+            line-height: 25px;
+            height: 15px;
+            padding-top: 4px;
             position: absolute;
-            right: 10px;
+            right: 12px;
         }
         .hot {
             display: block;
@@ -136,12 +137,12 @@
     <!-- 头部 -->
     <header id="header">
         <div class="egret-img"><img src="../image/icon_back.png" alt="" onclick="goback()"></div>
-        <div class="egret-header-search" tapmode onclick="OpenSearch();">
+        <div class="egret-header-search" tapmode>
             <img src="../image/header_search.png" alt="">
             <!-- <input type="text"  placeholder="请输入关键词搜索" > -->
             <span>请输入关键词搜索</span>
         </div>
-        <div class="soso">搜索</div>
+        <div class="soso" onclick="OpenSearch();">搜索</div>
     </header>
     <div class="hot">
         热门搜索
@@ -200,7 +201,16 @@
 
     };
 
+    function OpenSearch() {
+        api.openWin({
+            name: 'searchs',
+            url: './searchs.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
 
+    }
 </script>
 
 </html>

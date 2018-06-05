@@ -16,6 +16,7 @@
         header {
             background-color: #89211b;
             height: 50px;
+            position: relative;
         }
 
         .egret-img {
@@ -31,7 +32,7 @@
 
         .egret-header-search {
             background-color: #f2f2f2;
-            width: 80%;
+            width: 68%;
             height: 40px;
             margin-top: 8px;
             border-radius: 4px;
@@ -54,6 +55,15 @@
             /*padding-top: 8px;*/
             color: #ccc;
             vertical-align: top;
+        }
+
+        .soso {
+            font-size: 18px;
+            height: 50px;
+            width: 56px;
+            float: right;
+            line-height: 50px;
+            color: white;
         }
 
         .egret-header-search input:focus {
@@ -96,11 +106,13 @@
     <!-- 头部 -->
     <header id="header">
         <div class="egret-img"><img src="../image/icon_back.png" alt="" onclick="goback()"></div>
-        <div class="egret-header-search" tapmode onclick="OpenSearch();">
+        <div class="egret-header-search" tapmode>
             <img src="../image/header_search.png" alt="">
             <!-- <input type="text"  placeholder="请输入关键词搜索" > -->
             <span>请输入关键词搜索</span>
         </div>
+        <!-- onclick="OpenSearch();" -->
+        <div class="soso" >取消</div>
     </header>
     <nav id="nav">
         <div id="tabs">
@@ -114,7 +126,6 @@
     </nav>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
-<script type="text/javascript" src="../script/index2.js"></script>
 <script type="text/javascript">
     function goback() {
         api.closeWin({
