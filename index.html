@@ -305,8 +305,8 @@
                         <div class="topbar normalHeader">
                             <div class="egret-header-box egret-img-a egret-div " tapmode onclick="openMessage()">
                                 <img class="left_img" src="./image/index/KM_xiaoxi.png" alt="">
-                                <div class="num">
-                                    <p>1</p>
+                                <div class="num" id="num">
+
                                 </div>
                             </div>
                             <div class="egret-header-box egret-div">
@@ -387,41 +387,9 @@
 <script type="text/javascript" src="script/indexCaoGaoCommon.js"></script>
 <script type="text/javascript" src="script/index.js"></script>
 <script type="text/javascript">
-    var token;
-    var a;
-    var playUrli;
-    var playgedan;
-    var play;
-    var timer2;
-    var timer1;
-    var historyUrlArray;
-    var y;
-    var rets;
-    var shunxuplays;
-    var danquplays;
-    var suijiplays;
-    var bofangmoshiid;
-    var playTime;
-    var a;
-    var bofang;
-    var playlistid;
-    var dataArray = new Array();
-    var caogaoId;
-    var caogaoTitle;
-    var caogaoName;
-    var caogaoBody;
-    var author_id;
-    var DangQianbofangid;
-    var titlename;
-    var desc;
-    var singerName;
-    var reciter;
-    var comment_total;
-    var is_collection;
-    var caogaoAuthor_id;
-    var bookId;
-    var danQu;
-    var minuteFollow;
+ var token; var a; var playUrli; var playgedan; var play; var timer2; var timer1; var historyUrlArray; var y; var rets; var shunxuplays; var danquplays; var suijiplays; var bofangmoshiid; var playTime; var a; var bofang; var playlistid; var dataArray
+= new Array(); var caogaoId; var caogaoTitle; var caogaoName; var caogaoBody; var author_id; var DangQianbofangid; var titlename; var desc; var singerName; var reciter; var comment_total; var is_collection; var caogaoAuthor_id; var bookId; var danQu;
+var minuteFollow;
     apiready = function() {
       // $api.clearStorage();
             token = $api.getStorage('token');
@@ -458,6 +426,28 @@
             //   $api.html(stylelist, html);
             // }
             fuLianXuQianDao();
+
+            // api.addEventListener({
+            //     name: 'personalPrivateFrameIndex'
+            // }, function(ret, err) {
+            //   console.log(111);
+            //   fnNum();
+            // });
+            //
+            // api.addEventListener({
+            //     name: 'personalPrivateFrameIndex2'
+            // }, function(ret, err) {
+            //   console.log(222);
+            //   fnNum();
+            // });
+
+            api.addEventListener({
+                name: 'personalPrivateFrame'
+            }, function(ret, err) {
+              fnNum();
+
+            });
+
         }
         // 底部导航播放按钮；
     function fnOpenCenterFrame() {
@@ -567,6 +557,17 @@
             eHeaderLis = $api.domAll('header li'),
             index = 0;
         for (var i = 0, len = eFootLis.length; i < len; i++) {
+            if (i == 0) {
+                fnNum();
+            }
+            if (i == 4) {
+              api.sendEvent({
+                  name: 'indexFrame4',
+                  extra: {
+                      indexFrame4: 'indexFrame4'
+                  }
+              });
+            }
             if (tag == eFootLis[i]) {
                 index = i;
             } else {
@@ -708,6 +709,47 @@
                 name: 'test'
             }
         });
+
+    }
+    // 未读消息数
+    function fnNum() {
+      api.ajax({
+          url: host + apiUri + '/message/unread_message_nums',
+          method: 'get',
+          dataType: 'json',
+          timeout:10,
+          headers: {
+              "source": api.systemType,
+              "version": version,
+              "session": token,
+          }
+      },function(ret, err){
+          if (ret) {
+              // console.log(JSON.stringify(ret));
+              if (ret.status = 200) {
+                var message = ret.data.message;
+                var comment = ret.data.comment;
+                var notify = ret.data.notify;
+                var total = message + comment + notify;
+                // console.log(total);
+                var num = $api.byId('num');
+                if (total == 0) {
+                  var htmlnum = ''
+                  $api.html(num, htmlnum);
+                }else {
+                  var htmlnum = '<p>'+total+'</p>'
+                  $api.html(num, htmlnum);
+                }
+
+
+
+              }else {
+                netMessage(ret);
+              }
+          } else {
+            netWork(err);
+          }
+      });
 
     }
 </script>

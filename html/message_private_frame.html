@@ -192,7 +192,12 @@
         .user_name_span1{width: 90%;display: block;color: #999;font-size: 12px;}
         .user_name_span2{display: block;position: absolute;top: 0px;right: 2.5px;border-radius: 10px;text-align: center;color: #fff;font-size: 10px;line-height: 20px;}
         .user_name_span2 div{background: red;width: 20px;height: 20px;position: absolute;top: 0px;right: 2.5px;border-radius: 10px;text-align: center;color: #fff;font-size: 10px;line-height: 20px;}
-
+        #footer {
+            width: 100%;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -201,6 +206,9 @@
   <ul id="section">
 
   </ul>
+  <div id="footer" class="disnone">
+      已经没数据了
+  </div>
 </section>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
@@ -221,10 +229,49 @@
           fnMessagePrivateFrame();
       });
 
+      api.setCustomRefreshHeaderInfo({
+          bgColor: '#f0f0f0',
+          image: {
+              pull: [
+                  'widget://image/Refresh/dropdown_anim_00.png',
+                  'widget://image/Refresh/dropdown_anim_01.png',
+                  'widget://image/Refresh/dropdown_anim_02.png',
+                  'widget://image/Refresh/dropdown_anim_03.png',
+                  'widget://image/Refresh/dropdown_anim_04.png',
+                  'widget://image/Refresh/dropdown_anim_05.png',
+                  'widget://image/Refresh/dropdown_anim_06.png',
+                  'widget://image/Refresh/dropdown_anim_07.png',
+                  'widget://image/Refresh/dropdown_anim_08.png',
+                  'widget://image/Refresh/dropdown_anim_09.png',
+                  'widget://image/Refresh/dropdown_anim_10.png',
+              ],
+              load: [
+                  'widget://image/Refresh/dropdown_anim_00.png',
+                  'widget://image/Refresh/dropdown_anim_01.png',
+                  'widget://image/Refresh/dropdown_anim_02.png',
+                  'widget://image/Refresh/dropdown_anim_03.png',
+                  'widget://image/Refresh/dropdown_anim_04.png',
+                  'widget://image/Refresh/dropdown_anim_05.png',
+
+              ]
+          }
+      }, function() {
+          //下拉刷新被触发，自动进入加载状态，使用 api.refreshHeaderLoadDone() 手动结束加载中状态
+          //下拉刷新被触发，使用 api.refreshHeaderLoadDone() 结束加载中状态
+          fnMessagePrivateFrame();
+      });
+      api.addEventListener({
+          name: 'scrolltobottom',
+          extra: {
+              threshold: -20 //设置距离底部多少距离时触发，默认值为0，数字类型
+          }
+      }, function(ret, err) {
+          p++;
+          fnMessagePrivateFrames();
+      });
     }
-
+    // 下拉刷新
     function fnMessagePrivateFrame() {
-
       api.ajax({
         url: host + apiUri + '/message/lists',
         method: 'get',
@@ -238,7 +285,7 @@
           data: {
               values: {
                   type: 3,
-                  p:p
+                  p:1
               }
           }
       },function(ret, err){
@@ -246,7 +293,8 @@
               // console.log(JSON.stringify(ret));
               if(ret){
               if (ret.status == 200) {
-                console.log(JSON.stringify(ret));
+                api.refreshHeaderLoadDone()
+                // console.log(JSON.stringify(ret));
                 var html = '';
                 var section = $api.byId('section');
                 for (var i = 0; i < ret.data.list.length; i++) {
@@ -289,6 +337,92 @@
                         '</li>'
                 }
                 $api.html(section, html);
+
+              }
+          } else {
+              netMessage(ret);
+          }
+        }else{
+          netWork(err);
+        }
+      });
+
+    }
+    // 上拉加载更多
+    function fnMessagePrivateFrames() {
+      api.ajax({
+        url: host + apiUri + '/message/lists',
+        method: 'get',
+        dataType: 'json',
+        timeout:10,
+        headers: {
+            "source": api.systemType,
+            "version": version,
+            "session": token
+        },
+          data: {
+              values: {
+                  type: 3,
+                  p:p
+              }
+          }
+      },function(ret, err){
+          if (ret) {
+              if(ret){
+              if (ret.status == 200) {
+                // console.log(JSON.stringify(ret));
+                var section = $api.byId('section');
+                for (var i = 0; i < ret.data.list.length; i++) {
+                    // console.log(1);
+                    // console.log(ret.data.list[i].content);
+                    var listening_cover = ret.data.list[i].friend_img;
+                    var sandBox = listening_cover.substring(0, 4);
+                    if (sandBox == 'http') {
+                        images = ret.data.list[i].friend_img;
+                    }else {
+                      images = updatePhotoUrl + listening_cover;
+                    }
+                    function timestampToTime(timestamp) {
+                        var date = new Date(timestamp * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+                        Y = date.getFullYear() + '年';
+                        M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '月';
+                        D = date.getDate() + '日';
+                        return Y+M+D;
+                    }
+                    var timestampToTimess =  timestampToTime(ret.data.list[i].modify_date);
+                    var unread_nums;
+                    // console.log(ret.data.list[i].unread_nums);
+                    if (ret.data.list[i].unread_nums != 0) {
+                        unread_nums = '<div>'+ret.data.list[i].unread_nums+'</div>'
+                    }else {
+                        unread_nums = ''
+                    }
+                    if (ret.data.list == '') {
+                        var footer = $api.byId('footer');
+                        $api.html(footer, '无更多数据');
+                    } else {
+                        if (ret.data.list.length < 10) {
+                            var footer = $api.byId('footer');
+                            $api.html(footer, '无更多数据');
+                        } else {
+                            var footer = $api.byId('footer');
+                            $api.html(footer, '正在加载更多');
+                        }
+                          $api.append(section,'<li onclick="fnOpenprivate('+ret.data.list[i].friend_id+',\''+ret.data.list[i].friend_name+'\')">'+
+                                '<div class="user-img"><img src="'+images+'" alt=""></div>'+
+                                '<div class="user-name">'+
+                                  '<div>'+
+                                    '<p class="fl user_name_p1">'+ret.data.list[i].friend_name+'</p>'+
+                                    '<p class="fr user_name_p2">'+timestampToTimess+'</p>'+
+                                  '</div>'+
+                                  '<div class="user_name_span">'+
+                                    '<span class="user_name_span1">'+ret.data.list[i].content+'</span>'+
+                                    '<span class="user_name_span2" id="user_name_span2">'+unread_nums+'</span>'+
+                                  '</div>'+
+                                '</div>'+
+                              '</li>');
+                      }
+                }
 
               }
           } else {

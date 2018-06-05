@@ -514,7 +514,10 @@
     var ListingsListGoodHtml;
     var name;
     var p = 1;
+    var ok;
     apiready = function() {
+            ok = api.pageParam.ok;
+            var oks = 'ok'+ok;
             api.addEventListener({
                 name: oks
             }, function(ret, err) {

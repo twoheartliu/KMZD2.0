@@ -62,6 +62,7 @@
   var p = 1;
   var images;
   var timestampToTimess;
+  var img;
   apiready = function (){
     token = $api.getStorage('token');
     userId = api.pageParam.userId;
@@ -151,6 +152,7 @@
                     }else {
                       images = updatePhotoUrl + listening_cover;
                     }
+
                     // 时间戳转换器
                     // function getLocalTime(nS) {
                     //    return new Date(parseInt(nS) * 1000).toLocaleString().replace(/年|月/g, "-").replace(/日/g, " ");
@@ -170,6 +172,7 @@
 
                     var html = ''
                     if (userId == ret.data[i].receiver_id) {
+                      img = images;
                       html += '<div class="private">'+
                                 '<div class="fr img"><img src="'+ images +'" alt=""></div>'+
                                 '<div class="fr shijianfr">'+
@@ -307,7 +310,7 @@
                     var ss = now.getSeconds();           //秒
                     var main = $api.byId('main');
                     html = '<div class="private">'+
-                              '<div class="fr img"><img src="'+ images +'" alt=""></div>'+
+                              '<div class="fr img"><img src="'+ img +'" alt=""></div>'+
                               '<div class="fr shijianfr">'+
                                   '<div>'+year+month+day+'  '+hh+mm+ss+'</div>'+
                               '</div>'+

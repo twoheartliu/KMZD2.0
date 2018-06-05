@@ -225,7 +225,7 @@
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/common.js"></script>
-<script type="text/javascript" src="../script/message.js"></script>;
+<script type="text/javascript" src="../script/message.js"></script>
 <script type="text/javascript">
     var token;
     var photo;
@@ -356,15 +356,6 @@
 
                     $api.html(sections, html);
 
-                    // fnAjaxDetail(id);
-                    api.sendEvent({
-                        name: 'unread',
-                        extra: {
-                            message: ret.data.unread.message,
-                            comment: ret.data.unread.comment,
-                            notify: ret.data.unread.notify
-                        }
-                    });
                 }else{
                   netMessage(ret);
                 }
