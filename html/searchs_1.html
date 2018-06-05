@@ -1,294 +1,208 @@
 <!DOCTYPE html>
-  <html>
-  <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
-      <title>首页搜索-单曲</title>
-      <link rel="stylesheet" type="text/css" href="../css/api.css"/>
-      <style>
-        body,html{
-          background-color: #f2f2f2;
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>首页-搜索-作品</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style>
+        body {
+            background-color: #f2f2f2;
+        }
+
+        .fr {
+            float: right;
+        }
+
+        .fl {
+            float: left;
+        }
+
+        .pos {
+            position: relative;
         }
 
         .row {
             display: -webkit-box;
             display: -webkit-flex;
         }
+
         .col {
             -webkit-box-flex: 1;
             -webkit-flex: 1;
             flex: 1;
-            margin: 0 5px;
             position: relative;
         }
-        section{
-          width:100%;
-          text-align: center;
-          margin: 0 auto;
-          background-color: #f2f2f2;
-        }
-        .user-logo{
-          height:120px;
-    			background: #fff;
-          margin:0 0 10px;
-          padding-top: 10px;
-    		}
-    		.user-logo .user-img{
-    			width: 80px;
-          height: 80px;
-          /*line-height: 80px;*/
 
-          /*border: 5px solid #e5e5e5;*/
-          margin: 0 auto;
-    			/*background: url(../image/bangdan/default_head.png) no-repeat center center;
-    			-webkit-background-size: contain;
-    			background-size: contain;*/
-    		}
-        .user-logo .logo-img{
-          height:80px;
-          width:100%;
-          text-align: center;
-          margin:0 auto;
-          overflow: hidden;
-          border-radius: 40px;
+        .message_frame {
+            padding: 0 10px;
         }
-        .user-logo .logo-img img{
-          width:80px;
-          height:80px;
+
+        .message_frame_period {
+            color: #000;
+            height: 50px;
+            line-height: 50px;
+            font-size: 30px;
         }
-        .user-logo .user-img>p{
-          padding-top:10px;
-          font-size: 14px;
-          color:#000;
+
+        .message_frame_cycle {
+            display: -webkit-box;
+            -webkit-box-align: center;
+            padding: 5px 0;
+            background: #fff;
+            border-bottom: 1px solid #f2f2f2;
         }
-        .bill-board-top{
-          margin-bottom: 10px;
-          background: #fff;
+
+        .message_frame_cycle_img {
+            max-width: 80px;
+            min-width: 80px;
+            margin-left: 0.5em;
+            margin-right: 0.2em;
+            -webkit-box-flex: 1;
+            -webkit-box-align: center;
         }
-        .bill-board-top>ul{
-          padding:15px 0;
+
+        .message_frame_cycle_img img {
+            height: 80px;
+            width: 80px;
+            -webkit-box-align: center;
+            vertical-align: top;
+            /*border-radius: 5px;*/
         }
-        .bill-board-top>ul>li{
-          border-right: 1px dashed #ccc;
+
+        .message_frame_cycle_div {
+            overflow: hidden;
+            -webkit-box-flex: 2;
+            -webkit-box-align: center;
+            padding-left: 10px;
         }
-        .bill-board-top>ul>li:last-of-type{
-          border-right: none;
+
+        .message_frame_cycle_div div {
+            line-height: 30px;
+            position: relative;
         }
-        .bill-board-top>ul>li>p{
-          color:#666;
+
+        .message_frame_cycle_div_3 {
+            width: 100%;
+        }
+
+        .message_frame_cycle_div_3fl {
+            color: #666;
+        }
+
+        .message_frame_cycle_div_3fl_span {
+            color: #536;
+        }
+
+        .message_frame_cycle_div_3 span {
+            margin: 0 10px;
+        }
+
+        .collection_frame {
+            font-size: 12px;
+            color: #4c4c4c;
+        }
+
+        .collection_frame_img1 {
+            width: 15px;
+            margin: 0 10px;
+        }
+
+        .collection_frame_img1 img {
+            width: 100%;
+            margin-top: 8px;
+        }
+
+        .collection_frame_img2 {
+            width: 15px;
+        }
+
+        .collection_frame_img2 img {
+            width: 100%;
+        }
+
+        .collection_frame_img3 {
+            width: 16px;
+            margin: 0 10px;
+        }
+
+        .collection_frame_img3 img {
+            width: 100%;
+        }
+
+        .active {
+            display: none;
+        }
+        .message_frame_cycle_div_1{
           font-size: 13px;
-          line-height: 25px;
         }
-        ul>li>p:last-of-type{
-          color:#000000;
-        }
-        ul>li>p .num{
-          color:#89211b;
-        }
-      </style>
-  </head>
-  <body>
-    <section id="section">
-      <!-- <div class="bill-board-top">
-        <div class="user-logo" onclick="fnOpenmyPersonal();">
-          <div class="user-img">
-            <div class="logo-img"><img src="../image/bangdan/default_head.png" alt=""></div>
-            <p>紫嫣 </p>
-          </div>
-        </div>
-        <ul class="row">
-          <li class="col">
-            <p>学分</p>
-            <p><span class="num">287</span>分</p>
-          </li>
-          <li class="col">
-            <p>学时</p>
-            <p><span class="num">1</span>小时<span class="num">30</span>分钟</p>
-          </li>
-          <li class="col">
-            <p>作品</p>
-            <p><span class="num">87</span>个</p>
-          </li>
-          <li class="col ">
-            <p>被赞</p>
-            <p><span class="num">999</span>次</p>
-          </li>
-        </ul>
-      </div>
-      <div class="bill-board-top">
-        <div class="user-logo" onclick="fnOpenmyPersonal();">
-          <div class="user-img">
-            <div class="logo-img"><img src="../image/bangdan/default_head.png" alt=""></div>
-            <p>紫嫣 </p>
-          </div>
-        </div>
-        <ul class="row">
-          <li class="col">
-            <p>学分</p>
-            <p><span class="num">287</span>分</p>
-          </li>
-          <li class="col">
-            <p>学时</p>
-            <p><span class="num">1</span>小时<span class="num">30</span>分钟</p>
-          </li>
-          <li class="col">
-            <p>作品</p>
-            <p><span class="num">87</span>个</p>
-          </li>
-          <li class="col ">
-            <p>被赞</p>
-            <p><span class="num">999</span>次</p>
-          </li>
-        </ul>
-      </div> -->
-    </section>
-  </body>
-  <script type="text/javascript" src="../script/api.js"></script>
-  <script type="text/javascript" src="../script/common.js"></script>
-  <script type="text/javascript" src="../script/message.js"></script>;
-  <script type="text/javascript">
-  var token;
-    apiready = function(){
-      token = $api.getStorage('token');
-      fnOpenFriend();
-    };
-    //调接口
-    function fnOpenFriend() {
-      api.ajax({
-          url: host + apiUri + '/index/billboard' + '?type=friend',
-          method: 'get',
-          dataType: 'json',
-          timeout:10,
-          headers: {
-              "source": api.systemType,
-              "version": version,
-              "session": token
-          }
-      }, function(ret, err) {
-          // console.log(JSON.stringify(ret));
-          if(ret){
-            if (ret.status == 200) {
-                var len= ret.data.length;
-                var section = $api.byId('section');
-                var htmls = '';
-                for(var i = 0; i < len; i++){
-                  var photo = ret.data[i].photo;
-                  // console.log(photo);
-                  if(ret.data[i].photo == null){
-                    // html4 = '<img src="../image/bangdan/default_head.png" alt="">';
-                    htmls += '<div class="bill-board-top">'+
-                      '<div class="user-logo" onclick="fnOpenmyPersonal(\'' + ret.data[i].user_id + '\',\'' + ret.data[i].nick_name + '\');">'+
-                        '<div class="user-img">'+
-                          '<div class="logo-img"><img src="../image/bangdan/default_head.png" alt=""></div>'+
-                          '<p >'+ret.data[i].nick_name+' </p>'+
-                        '</div>'+
-                      '</div>'+
-                      '<ul class="row">'+
-                        '<li class="col">'+
-                          '<p>学分</p>'+
-                          '<p><span class="num">'+ret.data[i].user_exp+'</span>分</p>'+
-                        '</li>'+
-                        '<li class="col">'+
-                          '<p>学时</p>'+
-                          '<p><span class="num">'+parseInt(ret.data[i].user_learn_time/60) +'</span>小时<span class="num">'+ret.data[i].user_learn_time%60+'</span>分钟</p>'+
-                        '</li>'+
-                        '<li class="col">'+
-                          '<p>作品</p>'+
-                          '<p><span class="num">'+ret.data[i].record_total+'</span>个</p>'+
-                        '</li>'+
-                        '<li class="col ">'+
-                          '<p>被赞</p>'+
-                          '<p><span class="num">'+ret.data[i].good_total+'</span>次</p>'+
-                        '</li>'+
-                      '</ul>'+
-                    '</div>';
-                    $api.html(section,htmls);
-                  }else{
-                    var photo = ret.data[i].photo.substring(0, 4);
-                    if(photo == 'http' ){
-                      // title = ret.data[i].photo;
-                      // html4 = '<img src="' + ret.data[i].photo + '" alt="" />';
-                      htmls += '<div class="bill-board-top">'+
-                        '<div class="user-logo" onclick="fnOpenmyPersonal(\'' + ret.data[i].user_id + '\',\'' + ret.data[i].nick_name + '\');">'+
-                          '<div class="user-img">'+
-                            '<div class="logo-img"><img src="' + ret.data[i].photo + '" alt=""></div>'+
-                            '<p >'+ret.data[i].nick_name+' </p>'+
-                          '</div>'+
-                        '</div>'+
-                        '<ul class="row">'+
-                          '<li class="col">'+
-                            '<p>学分</p>'+
-                            '<p><span class="num">'+ret.data[i].user_exp+'</span>分</p>'+
-                          '</li>'+
-                          '<li class="col">'+
-                            '<p>学时</p>'+
-                            '<p><span class="num">'+parseInt(ret.data[i].user_learn_time/60) +'</span>小时<span class="num">'+ret.data[i].user_learn_time%60+'</span>分钟</p>'+
-                          '</li>'+
-                          '<li class="col">'+
-                            '<p>作品</p>'+
-                            '<p><span class="num">'+ret.data[i].record_total+'</span>个</p>'+
-                          '</li>'+
-                          '<li class="col ">'+
-                            '<p>被赞</p>'+
-                            '<p><span class="num">'+ret.data[i].good_total+'</span>次</p>'+
-                          '</li>'+
-                        '</ul>'+
-                      '</div>';
-                      $api.html(section,htmls);
-                    }
-                    if(photo != 'http' ){
-                      // html4 = '<img src="' + updatePhotoUrl + ret.data.photo + '" alt="" />';
-                      htmls += '<div class="bill-board-top">'+
-                        '<div class="user-logo" onclick="fnOpenmyPersonal(\'' + ret.data[i].user_id + '\',\'' + ret.data[i].nick_name + '\');">'+
-                          '<div class="user-img">'+
-                            '<div class="logo-img"><img src="' + updatePhotoUrl + ret.data[i].photo + '" alt=""></div>'+
-                            '<p >'+ret.data[i].nick_name+' </p>'+
-                          '</div>'+
-                        '</div>'+
-                        '<ul class="row">'+
-                          '<li class="col">'+
-                            '<p>学分</p>'+
-                            '<p><span class="num">'+ret.data[i].user_exp+'</span>分</p>'+
-                          '</li>'+
-                          '<li class="col">'+
-                            '<p>学时</p>'+
-                            '<p><span class="num">'+parseInt(ret.data[i].user_learn_time/60) +'</span>小时<span class="num">'+ret.data[i].user_learn_time%60+'</span>分钟</p>'+
-                          '</li>'+
-                          '<li class="col">'+
-                            '<p>作品</p>'+
-                            '<p><span class="num">'+ret.data[i].record_total+'</span>个</p>'+
-                          '</li>'+
-                          '<li class="col ">'+
-                            '<p>被赞</p>'+
-                            '<p><span class="num">'+ret.data[i].good_total+'</span>次</p>'+
-                          '</li>'+
-                        '</ul>'+
-                      '</div>';
-                      $api.html(section,htmls);
-                    }
-                  }
-                  $api.html(section,htmls);
-                }
-            } else {
-                // console.log(JSON.stringify(err));
-                netMessage(ret);
-            }
-          }else{
-            netWork(err);
-          }
+    </style>
+</head>
 
-      });
+<body>
+    <ul id="test">
+        <ul id='id-container'>
+            <li>
+                <div class="message_frame_cycle">
+                    <!-- <div class="message_frame_cycle_img"><img src="../image/KM_album.png" alt=""></div> -->
+                    <div class="message_frame_cycle_div fl">
+                        <div class="message_frame_cycle_div_1 col">《沁园春·雪》2</div>
+                        <div class="message_frame_cycle_div_3 fl">
+                            <div class="message_frame_cycle_div_3fl">
+                                <div class="pos collection_frame fl">作者:<span>小许</span></div>
+                                <div class="pos collection_frame fl">朗诵者：<span>紫嫣</span></div>
+                                <!-- <div class="pos collection_frame_img3 fr"><img src="../image/shanchu.png" alt=""></div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="message_frame_cycle">
+                    <!-- <div class="message_frame_cycle_img"><img src="../image/KM_album.png" alt=""></div> -->
+                    <div class="message_frame_cycle_div fl">
+                        <div class="message_frame_cycle_div_1 col">《沁园春·雪》2</div>
+                        <div class="message_frame_cycle_div_3 fl">
+                            <div class="message_frame_cycle_div_3fl">
+                                <div class="pos collection_frame fl">作者:<span>小许</span></div>
+                                <div class="pos collection_frame fl">朗诵者：<span>紫嫣</span></div>
+                                <!-- <div class="pos collection_frame_img3 fr"><img src="../image/shanchu.png" alt=""></div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="message_frame_cycle">
+                    <!-- <div class="message_frame_cycle_img"><img src="../image/KM_album.png" alt=""></div> -->
+                    <div class="message_frame_cycle_div fl">
+                        <div class="message_frame_cycle_div_1 col">《沁园春·雪》2</div>
+                        <div class="message_frame_cycle_div_3 fl">
+                            <div class="message_frame_cycle_div_3fl">
+                                <div class="pos collection_frame fl">作者:<span>小许</span></div>
+                                <div class="pos collection_frame fl">朗诵者：<span>紫嫣</span></div>
+                                <!-- <div class="pos collection_frame_img3 fr"><img src="../image/shanchu.png" alt=""></div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </ul>
+</body>
+
+</html>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/message.js"></script>;
+<script type="text/javascript">
+    var token;
+    apiready = function() {
+        token = $api.getStorage('token');
+
     }
-    function fnOpenmyPersonal(id, nickname){
-      api.openWin({
-          name: 'myPersonal',
-          url: './my_personal.html',
-          pageParam: {
-            userId: id,
-            nickName: nickname,
-            ok:'myPersonal1'
-          }
-      });
-    }
-  </script>
-  </html>
+
+
+</script>
