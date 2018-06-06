@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <title>朗诵搜索前</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style>
+        body,
+        html {
+            background-color: #f2f2f2;
+        }
+        /*头部样式*/
+
+        header {
+            background-color: #89211b;
+            height: 50px;
+            position: relative;
+        }
+
+        .egret-img {
+            /*position: absolute;*/
+            display: inline-block;
+        }
+
+        .egret-img img {
+            width: 15px;
+            height: 20px;
+            padding: 15px;
+        }
+
+        .egret-header-search {
+            background-color: #f2f2f2;
+            width: 68%;
+            height: 40px;
+            margin-top: 8px;
+            border-radius: 4px;
+            display: inline-block;
+            margin: 5px auto 0;
+            vertical-align: top;
+            text-align: center;
+        }
+
+        .egret-header-search img {
+            /*padding-left: 5px;*/
+            padding-right: 10px;
+            height: 20px;
+            margin-top: 10px;
+        }
+
+        .egret-header-search input {
+            /*padding-left: 5px;*/
+            padding-right: 10px;
+            height: 20px;
+            width: 200px;
+            /*margin-top: 5px;*/
+        }
+
+        .egret-header-search span {
+            height: 40px;
+            line-height: 40px;
+            font-size: 14px;
+            /*padding-top: 8px;*/
+            color: #ccc;
+            vertical-align: top;
+        }
+        .soso {
+            font-size: 18px;
+            height: 50px;
+            width: 56px;
+            float: right;
+            line-height: 50px;
+            color: white;
+        }
+
+        .egret-header-search input:focus {
+            /*border:0;*/
+            outline: none;
+        }
+        .itemlist {
+            padding-left: 15px;
+            width: 91%;
+            /*display: block;*/
+            margin: 10px;
+        }
+        .item {
+            padding: 8px;
+            margin: 2px;
+            line-height: 22px;
+            border: 1px solid #ccc;
+            display: inline-block;
+            border-top-right-radius: 10px;
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            background-color: white;
+        }
+        .search_list {
+            /*display: block;*/
+            position: relative;
+            padding: 10px;
+            background-color: white;
+        }
+        .search {
+            line-height: 25px;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .search img {
+            line-height: 25px;
+            height: 15px;
+            padding-top: 4px;
+            position: absolute;
+            right: 12px;
+        }
+        .hot {
+            display: block;
+            position: relative;
+            line-height: 15px;
+            padding: 10px;
+            font-size: 12px;
+            background-color: white;
+        }
+        .middle {
+            display: block;
+            height: 30px;
+            background-color: #fff;
+            padding-top: 22px;
+        }
+        .so_head {
+            position: absolute;
+            left: 4px;
+            margin-left: 4px;
+        }
+        .deleteAll {
+            position: absolute;
+            right: 4px;
+            margin-right: 4px;
+        }
+        /*.clr{clear: both;}*/
+    </style>
+</head>
+
+<body>
+    <!-- 头部 -->
+    <header id="header">
+        <div class="egret-img"><img src="../image/icon_back.png" alt="" onclick="goback()"></div>
+        <div class="egret-header-search" tapmode>
+            <img src="../image/header_search.png" alt="">
+            <input type="text" name="" value="" placeholder="请输入关键词搜索">
+            <!-- <input type="text"   > -->
+            <!-- <span>请输入关键词搜索</span> -->
+        </div>
+        <div class="soso" onclick="OpenSearch();">搜索</div>
+    </header>
+    <div class="hot">
+        热门搜索
+    </div>
+    <ul class="itemlist">
+
+        <li class="item">西游记</li>
+        <li class="item">论语</li>
+        <li class="item">非常非常好看的国学课</li>
+        <li class="item">非常非常好看的国学课</li>
+        <li class="item">三字经</li>
+        <li class="item">格列佛游记</li>
+        <li class="item">非常非常好看的国学课</li>
+        <li class="item">三字经</li>
+        <li class="item">西游记</li>
+        <li class="item">论语</li>
+        <li class="item">格列佛游记</li>
+    </ul>
+    <div class="clr"></div>
+
+    <div class="middle">
+        <div class="so_head">
+            搜索历史
+        </div>
+        <div class="deleteAll">
+            清空记录
+        </div>
+    </div>
+
+    <ul class="search_list">
+
+        <li class="search">论语 <img src="../image/delete.png" alt=""></li>
+        <li class="search">格列佛游记 <img src="../image/delete.png" alt=""></li>
+        <li class="search">非常非常好看的国学课 <img src="../image/delete.png" alt=""></li>
+        <li class="search">非常非常好看的国学课 <img src="../image/delete.png" alt=""></li>
+        <li class="search">三字经 <img src="../image/delete.png" alt=""></li>
+        <li class="search">西游记 <img src="../image/delete.png" alt=""></li>
+        <li class="search">三字经 <img src="../image/delete.png" alt=""></li>
+        <li class="search">西游记 <img src="../image/delete.png" alt=""></li>
+        <li class="search">论语 <img src="../image/delete.png" alt=""></li>
+        <li class="search">格列佛游记 <img src="../image/delete.png" alt=""></li>
+    </ul>
+
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/index2.js"></script>
+<script type="text/javascript">
+    function goback() {
+        api.closeWin({
+            name: 'langsong_searchs_pre',
+        });
+    }
+    apiready = function() {
+        var eHeader = $api.byId('header')
+        $api.fixStatusBar(eHeader);
+
+    };
+
+    function OpenSearch() {
+        api.openWin({
+            name: 'langsong_searchs',
+            url: './langsong_searchs.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
+
+    }
+</script>
+
+</html>
