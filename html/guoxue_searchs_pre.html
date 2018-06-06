@@ -114,28 +114,30 @@
             background-color: white;
         }
         .middle {
-            display: block;
             height: 30px;
             background-color: #fff;
             padding-top: 22px;
         }
         .so_head {
-            position: absolute;
-            left: 4px;
-            margin-left: 4px;
+            display: inline;
+            float: left;
+            padding-left: 10px;
         }
         .deleteAll {
-            position: absolute;
-            right: 4px;
-            margin-right: 4px;
+            display: inline;
+            float: right;
+            padding-right: 10px;
         }
         /*.clr{clear: both;}*/
+        #messageFrameDiv {
+            overflow: auto;
+        }
     </style>
 </head>
 
-<body>
+<body id='body'>
     <!-- 头部 -->
-    <header id="header">
+    <header id="headerss">
         <div class="egret-img"><img src="../image/icon_back.png" alt="" onclick="goback()"></div>
         <div class="egret-header-search" tapmode>
             <img src="../image/header_search.png" alt="">
@@ -144,47 +146,49 @@
         </div>
         <div class="soso" onclick="OpenSearch();">搜索</div>
     </header>
-    <div class="hot">
-        热门搜索
-    </div>
-    <ul class="itemlist">
-
-        <li class="item">西游记</li>
-        <li class="item">论语</li>
-        <li class="item">非常非常好看的国学课</li>
-        <li class="item">非常非常好看的国学课</li>
-        <li class="item">三字经</li>
-        <li class="item">格列佛游记</li>
-        <li class="item">非常非常好看的国学课</li>
-        <li class="item">三字经</li>
-        <li class="item">西游记</li>
-        <li class="item">论语</li>
-        <li class="item">格列佛游记</li>
-    </ul>
-    <div class="clr"></div>
-
-    <div class="middle">
-        <div class="so_head">
-            搜索历史
+    <div id="messageFrameDiv">
+        <div class="hot">
+            热门搜索
         </div>
-        <div class="deleteAll">
-            清空记录
+        <ul class="itemlist">
+
+            <li class="item">西游记</li>
+            <li class="item">论语</li>
+            <li class="item">非常非常好看的国学课</li>
+            <li class="item">非常非常好看的国学课</li>
+            <li class="item">三字经</li>
+            <li class="item">格列佛游记</li>
+            <li class="item">非常非常好看的国学课</li>
+            <li class="item">三字经</li>
+            <li class="item">西游记</li>
+            <li class="item">论语</li>
+            <li class="item">格列佛游记</li>
+        </ul>
+        <div class="clr"></div>
+
+        <div class="middle">
+            <div class="so_head">
+                搜索历史
+            </div>
+            <div class="deleteAll">
+                清空记录
+            </div>
         </div>
+
+        <ul class="search_list">
+
+            <li class="search">论语 <img src="../image/delete.png" alt=""></li>
+            <li class="search">格列佛游记 <img src="../image/delete.png" alt=""></li>
+            <li class="search">非常非常好看的国学课 <img src="../image/delete.png" alt=""></li>
+            <li class="search">非常非常好看的国学课 <img src="../image/delete.png" alt=""></li>
+            <li class="search">三字经 <img src="../image/delete.png" alt=""></li>
+            <li class="search">西游记 <img src="../image/delete.png" alt=""></li>
+            <li class="search">三字经 <img src="../image/delete.png" alt=""></li>
+            <li class="search">西游记 <img src="../image/delete.png" alt=""></li>
+            <li class="search">论语 <img src="../image/delete.png" alt=""></li>
+            <li class="search">格列佛游记 <img src="../image/delete.png" alt=""></li>
+        </ul>
     </div>
-
-    <ul class="search_list">
-
-        <li class="search">论语 <img src="../image/delete.png" alt=""></li>
-        <li class="search">格列佛游记 <img src="../image/delete.png" alt=""></li>
-        <li class="search">非常非常好看的国学课 <img src="../image/delete.png" alt=""></li>
-        <li class="search">非常非常好看的国学课 <img src="../image/delete.png" alt=""></li>
-        <li class="search">三字经 <img src="../image/delete.png" alt=""></li>
-        <li class="search">西游记 <img src="../image/delete.png" alt=""></li>
-        <li class="search">三字经 <img src="../image/delete.png" alt=""></li>
-        <li class="search">西游记 <img src="../image/delete.png" alt=""></li>
-        <li class="search">论语 <img src="../image/delete.png" alt=""></li>
-        <li class="search">格列佛游记 <img src="../image/delete.png" alt=""></li>
-    </ul>
 
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
@@ -196,15 +200,27 @@
         });
     }
     apiready = function() {
-        var eHeader = $api.byId('header')
+        var eHeader = $api.byId('headerss')
+        var headers = $api.offset(eHeader);
+        // var headerssx = $api.offset(eHeader).h;
+        console.log(headers.h);
+
         $api.fixStatusBar(eHeader);
+        // console.log(headers.h);
+        if (window.innerHeight)
+            winHeight = window.innerHeight;
+        else if ((document.body) && (document.body.clientHeight))
+            winHeight = document.body.clientHeight;
+        var messageFrameDiv = $api.byId('messageFrameDiv');
+        var winHeightHeader = winHeight - headers.h - 25;
+        $api.css(messageFrameDiv, 'height:' + winHeightHeader + 'px;');
 
     };
 
     function OpenSearch() {
         api.openWin({
-            name: 'guoxue_searchs',
-            url: './guoxue_searchs.html',
+            name: 'searchs',
+            url: './searchs.html',
             pageParam: {
                 name: 'test'
             }
