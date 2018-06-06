@@ -202,7 +202,6 @@
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/common.js"></script>
-<script type="text/javascript" src="../script/message.js"></script>;
 <script type="text/javascript">
     var token;
     apiready = function() {
@@ -229,14 +228,12 @@
             url: host + apiUri + uri,
             method: 'get',
             dataType: 'json',
-            timeout:10,
             headers: {
                 "source": api.systemType,
                 "version": version,
                 "session": token,
             },
         }, function(ret, err) {
-          if(ret){
             if (ret.status == 200) {
                 var data = ret.data;
                 // console.log(JSON.stringify(data));
@@ -277,12 +274,12 @@
                         '</div><div class="pos collection_frame_img3 fr"><img src="../image/shanchu.png" onclick=fnDeleteList(' + id + ') alt=""></div></div></div></div></div></li>'
                 }
                 $api.html(container, lists);
+                // console.log(lists);
+                // console.log(id);
+                // alert( JSON.stringify( ret ) );
             } else {
-                netMessage(ret);
+                alert(JSON.stringify(err));
             }
-          }else{
-              netWork(err);
-          }
         });
     }
 
@@ -290,17 +287,24 @@
     var lujing;
     function fnOpenList(id) {
         lujing = './playDanQu.html';
+        // titles = '专辑';
+        // console.log('hwwaw');
+        console.log(id);
         api.openWin({
             name: 'playDanQu',
             url: lujing,
+            // console.log('lujing');
+            // console.log(id);
             pageParam: {
                 a: id,
-                ok:'playDanQu'
             }
         });
     }
     //删除列表中的歌曲
     function fnDeleteList(id) {
+        // console.log('wawaawaaw');
+        // console.log(id);
+
         var dialogBox = api.require('dialogBox');
         dialogBox.alert({
             texts: {
@@ -341,8 +345,6 @@
                 api.ajax({
                     url: host + apiUri + '/user/del_collection',
                     method: 'post',
-                    dataType: 'json',
-                    timeout:10,
                     headers: {
                         "source": api.systemType,
                         "version": version,
@@ -357,9 +359,12 @@
                 }, function(ret, err) {
                     if (ret) {
                         if (ret.status == 200) {
+                            // console.log('haaaaa');
                             var ids = 'single_' + id
                             var item = $api.byId(ids);
+                            // console.log(item);
                             $api.remove(item);
+                            
                             var dialogBox = api.require('dialogBox');
                             dialogBox.close({
                                 dialogName: 'alert'
