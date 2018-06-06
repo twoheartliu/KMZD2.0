@@ -48,12 +48,12 @@
             margin-top: 10px;
         }
 
-        .egret-header-search span {
-            height: 40px;
-            line-height: 40px;
-            font-size: 14px;
-            /*padding-top: 8px;*/
-            color: #ccc;
+        .egret-header-search input {
+            /*height: 20px;*/
+            line-height: 18px;
+            font-size: 15px;
+            padding-top: 10px;
+            /*color: #ccc;*/
             vertical-align: top;
         }
         .soso {
@@ -141,8 +141,8 @@
         <div class="egret-img"><img src="../image/icon_back.png" alt="" onclick="goback()"></div>
         <div class="egret-header-search" tapmode>
             <img src="../image/header_search.png" alt="">
-            <!-- <input type="text"  placeholder="请输入关键词搜索" > -->
-            <span>请输入关键词搜索</span>
+            <input type="text"  placeholder="请输入关键词搜索" >
+            <!-- <span>请输入关键词搜索</span> -->
         </div>
         <div class="soso" onclick="OpenSearch();">搜索</div>
     </header>
@@ -203,7 +203,7 @@
         var eHeader = $api.byId('headerss')
         var headers = $api.offset(eHeader);
         // var headerssx = $api.offset(eHeader).h;
-        console.log(headers.h);
+        // console.log(headers.h);
 
         $api.fixStatusBar(eHeader);
         // console.log(headers.h);

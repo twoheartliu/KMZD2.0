@@ -112,7 +112,7 @@
             <span>请输入关键词搜索</span>
         </div>
         <!-- onclick="OpenSearch();" -->
-        <div class="soso" >取消</div>
+        <div class="soso">取消</div>
     </header>
     <nav id="nav">
         <div id="tabs">
@@ -123,17 +123,74 @@
     </nav>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/message.js"></script>
 <script type="text/javascript">
+    var token;
+    var datas;
+    var data;
+
     function goback() {
         api.closeWin({
             name: 'guoxue_searchs'
         });
     }
     apiready = function() {
-        var eHeader = $api.byId('header')
+        token = $api.getStorage('token');
+        var eHeader = $api.byId('header');
         $api.fixStatusBar(eHeader);
-        fnOpenFrameGroup();
+
+        datas = api.pageParam.data;
+        console.log(datas);
+
+
+        // searching();
     };
+
+    // function searching() {
+    //     api.ajax({
+    //         url: host + apiUri + '/search/sinology',
+    //         method: 'get',
+    //         dataType: 'json',
+    //         timeout: 10,
+    //         headers: {
+    //             "source": api.systemType,
+    //             "version": version,
+    //             "session": token,
+    //         },
+    //         data: {
+    //             values: {
+    //                 keywords: datas,
+    //                 p: 1,
+    //             },
+    //         },
+    //     }, function(ret, err) {
+    //         if (ret) {
+    //             if (ret.status === 200) {
+    //                 // console.log(ret.data.length);
+    //                 for (var i = 0; i < ret.data.length; i++) {
+    //                     var data = ret.data[i];
+    //                     // var author = ret.data[i].author_name;
+    //                     // var id = ret.data[i].id;
+    //                     // var title = ret.data[i].title;
+    //                     // var body = ret.data[i].body;
+    //                     // console.log(JSON.stringify(data));
+    //                     // fnOpenFrameGroup();
+    //                     api.sendEvent({
+    //                         name: 'search_data',
+    //                         extra: {
+    //                             data: data,
+    //                         }
+    //                     });
+    //
+    //                 }
+    //             }
+    //
+    //         } else {
+    //             alert(JSON.stringify(err));
+    //         }
+    //     });
+    // }
 
     function fnSelectTab(index, ele) {
         var tabs = $api.domAll('#tabs>.tab');
@@ -164,15 +221,21 @@
             frames: [{
                 name: 'searchs_0',
                 url: './searchs_0.html',
-                // pageParam:{category:'国友榜'}
+                pageParam: {
+                    key: 'datas',
+                }
             }, {
                 name: 'searchs_2',
                 url: './searchs_2.html',
-                // pageParam:{category:'朗诵榜'}
+                pageParam: {
+                    // data: '',
+                }
             }, {
                 name: 'searchs_3',
                 url: './searchs_3.html',
-                // pageParam:{category:'热听榜'}
+                pageParam: {
+                    // data: '',
+                },
             }, ]
         }, function(ret, err) {
             var tabs = $api.domAll('#tabs>.tab');
