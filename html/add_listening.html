@@ -199,7 +199,7 @@
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/common.js"></script>
-<script type="text/javascript" src="../script/message.js"></script>;
+<script type="text/javascript" src="../script/message.js"></script>
 <script type="text/javascript">
     var songListID;
     var ok;
@@ -225,14 +225,7 @@
                 fnAddTrackToList();
             });
 
-            // 获取浏览器高度
-            if (window.innerHeight)
-                winHeight = window.innerHeight;
-            else if ((document.body) && (document.body.clientHeight))
-                winHeight = document.body.clientHeight;
-            var messageFrameDiv = $api.byId('messageFrameDiv');
-            var winHeightHeader = winHeight - headerPosH;
-            $api.css(messageFrameDiv, 'height:' + winHeightHeader + 'px;');
+
           }
         });
 
@@ -247,15 +240,25 @@
               fnAddTrackToList();
           });
 
-          // 获取浏览器高度
-          if (window.innerHeight)
-              winHeight = window.innerHeight;
-          else if ((document.body) && (document.body.clientHeight))
-              winHeight = document.body.clientHeight;
-          var messageFrameDiv = $api.byId('messageFrameDiv');
-          var winHeightHeader = winHeight - headerPosH;
-          $api.css(messageFrameDiv, 'height:' + winHeightHeader + 'px;');
+          // // 获取浏览器高度
+          // if (window.innerHeight)
+          //     winHeight = window.innerHeight;
+          // else if ((document.body) && (document.body.clientHeight))
+          //     winHeight = document.body.clientHeight;
+          // var messageFrameDiv = $api.byId('messageFrameDiv');
+          // var winHeightHeader = winHeight - headerPosH;
+          // $api.css(messageFrameDiv, 'height:' + winHeightHeader + 'px;');
         }
+        // console.log(JSON.stringify(headerPos));
+        // 获取浏览器高度
+        if (window.innerHeight)
+            winHeight = window.innerHeight;
+        else if ((document.body) && (document.body.clientHeight))
+            winHeight = document.body.clientHeight;
+        var messageFrameDiv = $api.byId('messageFrameDiv');
+        var winHeightHeader = winHeight - headerPos.h;
+        $api.css(messageFrameDiv, 'height:' + winHeightHeader + 'px;');
+
 
     }
     function goback() {
@@ -274,6 +277,11 @@
                 "source": api.systemType,
                 "version": version,
                 "session": token
+            },
+            data: {
+                values: {
+                    p:'non'
+                }
             }
       },function(ret, err){
           if (ret) {

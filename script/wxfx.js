@@ -98,17 +98,38 @@ function shareMp3() {
         }
     });
 }
+// QQ
+function fnintnQQ(Types,TypesId) {
+  var TypesAll;
+  // 单曲
+  var Single = '47.100.11.38//kmzd/m/share1.html?id='
+  // 听单
+  var Listening = '47.100.11.38/kmzd/m/share11.html？id='
+  // 专辑
+  var Album  =  '47.100.11.38/kmzd/m/share111.html？id='
+  // 类型
+  console.log(Types);
+  // id
+  console.log(TypesId);
+  if (Types = Single) {
+      TypesAll =  Single;
+  }else if (Types = Listening) {
+      TypesAll =  SinListeninggle;
+      console.log(Types);
+      console.log(TypesId);
 
-function fnintnQQ() {
-    var qq = api.require('qq');
-    qq.shareNews({
-        url: 'http://www.uzmap.com',
-        title: '新闻分享',
-        description: '新闻描述',
-        imgUrl: 'http://upload.wabei.cn/2011/0807/20110807025817844.jpg'
-    });
+  }else if (Types = Album) {
+      TypesAll =  Album;
+  }
+    // var qq = api.require('qq');
+    // qq.shareNews({
+    //     url: TypesAll + TypesId,
+    //     title: '新闻分享',
+    //     description: '新闻描述',
+    //     imgUrl: 'http://upload.wabei.cn/2011/0807/20110807025817844.jpg'
+    // });
 }
-
+// 微信评友圈
 function initTimeline() {
     wx.isInstalled(function(ret, err) {
         if (ret.installed) {
