@@ -30,6 +30,13 @@ function fnBoFangCaoGaoXiangXinXi(id) {
                 bofang: bofang
             }
         });
+        api.sendEvent({
+            name: 'neiJianTingGood',
+            extra: {
+                // bookId:ret.data.id,
+                bofangmoshiid:bofangmoshiid
+            }
+        });
         var userId = ret.data[h].user_id;
         var userUrl = ret.data[h].url;
         var url = userRecord + userId + '/'+ userUrl;
@@ -135,6 +142,7 @@ function bfdanquCaoGaoXiang() {
 }
 function fnBFMoshiCgx(MoShiId) {
     bofangmoshiid = MoShiId;
+
 }
 //判断播放模式
 function fnBoFangmoshiidsssss() {

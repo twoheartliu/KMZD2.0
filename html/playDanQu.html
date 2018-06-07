@@ -546,7 +546,7 @@
                 <li class="prev" tapmode="focus" onclick="fnOpenPlayershangyi()"></li>
                 <li class="play" tapmode="focus" id="openplayer"><img src="../image/play/ic_play_play.png" alt="" onclick="fnOpenPlayer();" id="player"></li>
                 <li class="next" tapmode="focus" onclick="fnOpenPlayerxiayi()"></li>
-                <li><img src="../image/play/play_change0.png" alt="" id="img"></li>
+                <li id="imagesImg"><img src="../image/play/play_change0.png" alt="" id="img"></li>
             </ul>
         </div>
     </div>
@@ -592,6 +592,20 @@
       var winHeightHeader = winHeight - headerPosH;
       $api.css(messageFrameDiv, 'height:' + winHeightHeader + 'px;');
       $api.fixIos7Bar(header);
+      dangqianbofangid = api.pageParam.DangQianbofangid;
+      // bofangmoshi = api.pageParam.bofangmoshi;
+      // console.log(bofangmoshi);
+      // if(bofangmoshi){
+      //   fnBoFangMoShiId(bofangmoshi);
+      // }else if(bofangmoshi == 'undefined'){
+      //   bofangmoshi = 0;
+      //   fnBoFangMoShiId(bofangmoshi);
+      // }else{
+      //   bofangmoshi = 0;
+      //   fnBoFangMoShiId(bofangmoshi);
+      // }
+
+      fnJianTingBFms();
       fnJianTingGood();
       fnJianTingPingLunShu();
       ok = api.pageParam.ok;
@@ -884,15 +898,44 @@
     function fnDangQianbofangid(id) {
         Dqbofangid = id;
     }
-
+    function fnBoFangMoShiId(bofangMoShiId){
+      // console.log(bofangmoshi);
+      bofangmoshi = bofangMoShiId;
+      var stylelist = $api.byId('imagesImg');
+      var html = '';
+      if(bofangmoshi == 1){
+        html = '<img src="../image/play/play_change1.png" alt="" id="img">';
+      }else if(bofangmoshi == 2){
+        html = '<img src="../image/play/play_change2.png" alt="" id="img">';
+      }else if(bofangmoshi == 0){
+        html = '<img src="../image/play/play_change0.png" alt="" id="img">';
+      }else if(bofangmoshi == 'undefined'){
+        html = '<img src="../image/play/play_change0.png" alt="" id="img">';
+      }else{
+        html = '<img src="../image/play/play_change0.png" alt="" id="img">';
+      }
+      $api.html(stylelist, html);
+      fnOpenChangeImg(bofangmoshi);
+    }
     function fnJianTingGood(){
       api.addEventListener({
           name: 'neiJianTingGood'
       }, function(ret, err) {
           bookId = ret.value.bookId;
           soundId = ret.value.bookId;
+          // bofangmoshi = ret.value.bofangmoshiid;
+          // fnBoFangMoShiId(bofangmoshi);
           fnBookExtraGoodssssss(bookId);
           fnJianTingBookCollection(bookId);
+          return;
+      });
+    }
+    function fnJianTingBFms(){
+      api.addEventListener({
+          name: 'neiJianTingBFms'
+      }, function(ret, err) {
+          bofangmoshi = ret.value.bofangmoshiid;
+          fnBoFangMoShiId(bofangmoshi);
           return;
       });
     }
@@ -907,6 +950,7 @@
     }
     //监听收藏，评论数；
     function fnJianTingBookCollection(bookId){
+      uri = '/sound';
       api.ajax({
           url: host + apiUri + uri + '/' + bookId,
           method: 'get',
@@ -968,7 +1012,6 @@
         }
 
         fnInitSwiper();
-        fnOpenChangeImg();
         fnbofangshijian();
         fnJiBenXinXi();
         jindutiao();
@@ -985,7 +1028,6 @@
         dqbfid = api.pageParam.a;
         id = api.pageParam.a;
         fnInitSwiper();
-        fnOpenChangeImg();
         api.parseTapmode();
         if (!bofang) {
             var stylelist = $api.byId('openplayer');
@@ -1400,6 +1442,12 @@
                   });
                 }
             };
+            api.sendEvent({
+                name: 'bofangmoshiDanQu',
+                extra: {
+                    bofangmoshi: bofangmoshi
+                }
+            });
         }
 
 

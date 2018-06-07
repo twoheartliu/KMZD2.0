@@ -1,13 +1,13 @@
-var host = 'http://47.100.11.38';
+var host = 'https://api.kmzhidao.com';
 var version = '2.0';
 var apiUri = '/kmzd/2.0';
 //
-var http = 'http://47.100.11.38/kmzd/public/uploads/';
+var http = 'https://api.kmzhidao.com/kmzd/public/uploads/';
 //用户头像
-var updatePhotoUrl = 'http://47.100.11.38/kmzd/public/uploads/photo/';
-var listeningImg = 'http://47.100.11.38/kmzd/public/uploads/listening/';
+var updatePhotoUrl = 'https://api.kmzhidao.com/kmzd/public/uploads/photo/';
+var listeningImg = 'https://api.kmzhidao.com/kmzd/public/uploads/listening/';
 // 用户作品
-var userRecord = 'http://47.100.11.38//kmzd/public/uploads/records/';
+var userRecord = 'https://api.kmzhidao.com/kmzd/public/uploads/records/';
 //
 // if(token){
 //   tokens = token;

@@ -235,7 +235,8 @@ function fnBoFangyinpinxinxi() {
                         a: playgedan,
                         playlistid: playlistid,
                         bofang: bofang,
-                        playUrli:playUrli
+                        playUrli:playUrli,
+                        bofangmoshiid:bofangmoshiid
                     }
                 });
             }
@@ -243,7 +244,8 @@ function fnBoFangyinpinxinxi() {
             api.sendEvent({
                 name: 'neiJianTingGood',
                 extra: {
-                    bookId:ret.data.id
+                    bookId:ret.data.id,
+                    bofangmoshiid:bofangmoshiid
                 }
             });
             if(ret.data.user_id){
@@ -267,7 +269,8 @@ function fnBoFangyinpinxinxi() {
                     reciter: reciter,
                     singerName: singerName,
                     comment_total: comment_total,
-                    collection: is_collection
+                    collection: is_collection,
+                    bofangmoshiid:bofangmoshiid
                 }
             });
             fnBoFangmoshiid();
@@ -299,6 +302,13 @@ function netAudioPlay() {
     var myAudio = document.getElementById("myAudio");
     myAudio.play();
     // fnBoFangmoshiid()
+    api.addEventListener({
+        name: 'playPlay'
+    }, function(ret, err) {
+        if (ret) {
+            netAudioPause();
+        }
+    });
     initEventListennerBoFangMoshi();
     api.sendEvent({
         name: 'jibenxinxi',
@@ -306,6 +316,7 @@ function netAudioPlay() {
             titlename: titlename,
             desc: desc,
             singerName: singerName,
+            bofangmoshiid:bofangmoshiid
         }
     });
     if(bofang == 8){
@@ -323,7 +334,8 @@ function netAudioPlay() {
     api.sendEvent({
         name: 'netBoFangId',
         extra: {
-            bofang: bofang
+            bofang: bofang,
+
         }
     });
 
@@ -348,7 +360,8 @@ function netAudioPause() {
     api.sendEvent({
         name: 'netBoFangId',
         extra: {
-            bofang: bofang
+            bofang: bofang,
+            bofangmoshiid:bofangmoshiid
         }
     });
 }
@@ -385,6 +398,12 @@ function jindutiao() {
               }
           });
         }
+        api.sendEvent({
+            name: 'neiJianTingBFms',
+            extra: {
+                bofangmoshiid: bofangmoshiid,
+            }
+        });
 
     }, 1000)
 }
@@ -451,7 +470,6 @@ function addtime() {
                   author_id: author_id
               }
           });
-
 
     }, 1000);
 }
@@ -546,10 +564,13 @@ function netPlayLieIdUrlAll(playlistid,playUrli,is_play_all) {
 //当前播放id
 function fnBFid(id) {
     DangQianbofangid = id;
+    var bofangI = bofang;
+    console.log(bofangI);
     api.sendEvent({
         name: 'netPlaying',
         extra: {
             playing: DangQianbofangid,
+            bofang:bofangI
         }
     });
 }
@@ -739,6 +760,7 @@ function fndanqubofangmoshi() {
 
 function fnBFMoshi(MoShiId) {
     bofangmoshiid = MoShiId;
+
 }
 
 //判断播放模式
@@ -754,8 +776,6 @@ function fnBoFangmoshiid() {
 
 function fnBOFangJian(bofangs, aa, playlist,playUrlis) {
     if (playlistid) {
-
-
         playlistid = playlist;
         playUrli = playUrli;
     }
@@ -782,6 +802,12 @@ function initEventListennerBoFangMoshi() {
         name: 'bofangmoshi'
     }, function(ret, err) {
         if (ret) {
+          api.sendEvent({
+              name: 'neiJianTingGood',
+              extra: {
+                  bofangmoshiid:ret.value.bofangmoshi
+              }
+          });
             fnBFMoshi(ret.value.bofangmoshi);
             fnBoFangmoshiid();
         }

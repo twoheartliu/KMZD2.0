@@ -542,7 +542,7 @@
                 <li class="prev" tapmode="focus" onclick="fnOpenPlayershangyi()"></li>
                 <li class="play" tapmode="focus" id="openplayer"><img src="../image/play/ic_play_play.png" alt="" onclick="fnOpenPlayer();" id="player"></li>
                 <li class="next" tapmode="focus" onclick="fnOpenPlayerxiayi()"></li>
-                <li><img src="../image/play/play_change0.png" alt="" id="img"></li>
+                <li id="imagesImg"><img src="../image/play/play_change0.png" alt="" id="img"></li>
             </ul>
         </div>
     </div>
@@ -595,6 +595,7 @@
       $api.css(messageFrameDiv, 'height:' + winHeightHeader + 'px;');
       $api.fixIos7Bar(header);
       fnJianTingGood();
+      fnJianTingBFms();
       fnJianTingPingLunShu();
       ok = api.pageParam.ok;
       var oks = 'ok'+ok;
@@ -934,6 +935,33 @@
           return;
       });
     }
+    function fnJianTingBFms(){
+      api.addEventListener({
+          name: 'neiJianTingBFms'
+      }, function(ret, err) {
+          bofangmoshi = ret.value.bofangmoshiid;
+          fnBoFangMoShiId(bofangmoshi);
+          return;
+      });
+    }
+    function fnBoFangMoShiId(bofangMoShiId){
+      bofangmoshi = bofangMoShiId;
+      var stylelist = $api.byId('imagesImg');
+      var html = '';
+      if(bofangmoshi == 1){
+        html = '<img src="../image/play/play_change1.png" alt="" id="img">';
+      }else if(bofangmoshi == 2){
+        html = '<img src="../image/play/play_change2.png" alt="" id="img">';
+      }else if(bofangmoshi == 0){
+        html = '<img src="../image/play/play_change0.png" alt="" id="img">';
+      }else if(bofangmoshi == 'undefined'){
+        html = '<img src="../image/play/play_change0.png" alt="" id="img">';
+      }else{
+        html = '<img src="../image/play/play_change0.png" alt="" id="img">';
+      }
+      $api.html(stylelist, html);
+      fnOpenChangeImg(bofangmoshi);
+    }
     //评论完成回调评论数；
     function fnJianTingPingLunShu(){
       api.addEventListener({
@@ -1009,7 +1037,7 @@
     }
 
     function fnJinRuBofangs(ids,bofang) {
-
+console.log(bofang);
       id =ids;
         var eHeader = $api.byId('header')
         api.parseTapmode();
@@ -1032,7 +1060,6 @@
           $api.html(stylelist, html);
         }
         fnInitSwiper();
-        fnOpenChangeImg();
         fnbofangshijian();
         fnJiBenXinXi();
         jindutiao();
@@ -1104,7 +1131,6 @@
 
         }
         fnInitSwiper();
-        fnOpenChangeImg();
         api.parseTapmode();
         if (!bofang) {
             var stylelist = $api.byId('openplayer');
@@ -1178,7 +1204,6 @@
             });
         }
         fnInitSwiper();
-        fnOpenChangeImg();
         if (!bofang) {
             var stylelist = $api.byId('openplayer');
             var html = '';
@@ -1328,7 +1353,6 @@
                 }
             });
 
-            fnOpenChangeImg();
         } else {
             player.src = "../image/play/ic_play_play.png";
             var netAudiopausess = 1;
@@ -1535,7 +1559,7 @@
         });
     };
     // 切换单曲循环、顺序播放、随机播放
-    function fnOpenChangeImg() {
+    function fnOpenChangeImg(bofangmoshi) {
         var image_urls = ["../image/play/play_change0.png", "../image/play/play_change1.png", "../image/play/play_change2.png"];
         // 初始化数组键值 (0 = 第一个图片)
         var idx = 0;
@@ -1610,7 +1634,15 @@
                             bofangmoshi: bofangmoshi
                         }
                     });
-                } else {
+                } else if (idx == 0){
+                    bofangmoshi = 0;
+                    api.sendEvent({
+                        name: 'bofangmoshi',
+                        extra: {
+                            bofangmoshi: bofangmoshi
+                        }
+                    });
+                }else {
                     var bofangmoshi = 0;
                     api.sendEvent({
                         name: 'bofangmoshi',
@@ -1620,6 +1652,12 @@
                     });
                 }
             };
+            api.sendEvent({
+                name: 'bofangmoshi',
+                extra: {
+                    bofangmoshi: bofangmoshi
+                }
+            });
         }
 
 
