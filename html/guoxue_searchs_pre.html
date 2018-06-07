@@ -152,7 +152,7 @@
         <div class="egret-img"><img src="../image/icon_back.png" alt="" onclick="goback()"></div>
         <div class="egret-header-search" tapmode>
             <img src="../image/header_search.png" alt="">
-            <input id='search-input' type="text"  placeholder="请输入关键词搜索" >
+            <input id='search-input' type="text" placeholder="请输入关键词搜索">
             <!-- <span>请输入关键词搜索</span> -->
         </div>
         <div class="soso" onclick="OpenSearch();">搜索</div>
@@ -204,6 +204,7 @@
 <script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript">
     var token;
+
     function goback() {
         api.closeWin({
             name: 'guoxue_searchs_pre',
@@ -226,6 +227,7 @@
         var winHeightHeader = winHeight - headers.h - 25;
         $api.css(messageFrameDiv, 'height:' + winHeightHeader + 'px;');
 
+        clearInput();
     };
 
     // api.openWin({
@@ -240,11 +242,36 @@
         var w = $api.byId('search-input');
         var word = w.value
 
-        api.openWin({
-            name: 'guoxue_searchs',
-            url: './guoxue_searchs.html',
-            pageParam: {
-                data: word,
+        if (word == "") {
+            api.toast({
+                msg: '请输入要搜索的内容',
+                duration: 2000,
+                location: 'middle'
+            });
+        } else {
+            api.openWin({
+                name: 'guoxue_searchs',
+                url: './guoxue_searchs.html',
+                pageParam: {
+                    data: word,
+                }
+            });
+        }
+
+    }
+
+    function clearInput() {
+        api.addEventListener({
+            name: 'clearInput'
+        }, function(ret, err) {
+            if (ret) {
+                //  alert( JSON.stringify( ret ) );
+                // console.log('sss');
+                var input = $api.byId('search-input');
+                // console.log(input.value);
+                input.value = ""
+            } else {
+                alert(JSON.stringify(err));
             }
         });
 

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
     <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
-    <title>首页-搜索-曲目</title>
+    <title>国学馆-搜索-详情</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
     <style>
         body {
@@ -138,6 +138,11 @@
 
         .message_frame_cycle_div_1 {
             font-size: 13px;
+            margin: 5px 0 0 8px;
+        }
+
+        #id-title {
+            margin-left: 6px;
         }
     </style>
 </head>
@@ -145,18 +150,19 @@
 <body>
     <ul id="test">
         <ul id='id-container'>
-            <li>
+            <!-- <li>
                 <div class="message_frame_cycle">
                     <div class="message_frame_cycle_div fl">
-                        <div class="message_frame_cycle_div_1 col" id="id-author">《沁园春·雪》2</div>
                         <div class="message_frame_cycle_div_3 fl">
                             <div class="message_frame_cycle_div_3fl">
-                                <div class="pos collection_frame fl">作者:<span>小许</span></div>
+                                <div class="message_frame_cycle_div_2 col" >《沁园春·雪》2</div>
+                                <div class="message_frame_cycle_div_1 col" >作者:<span>小许</span></div></div>
+                                <div class="pos collection_frame fl"><span>孔子谓季氏： 八佾舞于庭，是可忍也，孰</span></div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </li>
+            </li> -->
             <!-- <li>
                 <div class="message_frame_cycle">
                     <div class="message_frame_cycle_div fl">
@@ -199,13 +205,25 @@
     apiready = function() {
         token = $api.getStorage('token');
         keyword = api.pageParam.keywords;
-        console.log(JSON.stringify(keyword));
-        loadlist();
+        api.addEventListener({
+            name: 'inputValues'
+        }, function(ret, err){
+            if( ret ){
+                //  console.log( JSON.stringify( ret.value.inputValues ) );
+                var keys = ret.value.inputValues;
+                loadlist(keys);
+            }else{
+                 alert( JSON.stringify( err ) );
+            }
+        });
+
+        // console.log(JSON.stringify(keyword));
+        loadlist(keyword);
     }
 
-    function loadlist() {
+    function loadlist(i) {
         api.ajax({
-            url: host + apiUri + '/search/sinology',
+            url: host + apiUri + '/search/recitation',
             method: 'get',
             dataType: 'json',
             timeout: 10,
@@ -216,7 +234,7 @@
             },
             data: {
                 values: {
-                    keywords: keyword,
+                    keywords: i,
                     p: 1,
                 },
             },
@@ -226,18 +244,58 @@
                 if (ret.status === 200) {
                     var html = '';
                     for (var i = 0; i < ret.data.length; i++) {
-                        console.log(JSON.stringify(ret.data[i]));
+                        // console.log(JSON.stringify(ret.data[i]));
                         var data = ret.data[i];
                         var author = data.author_name;
                         var id = data.id;
                         var body = data.body;
+                        if (body.length > 25) {
+                            body = body.slice(0, 25)
+                        }
                         var title = data.title;
 
-                        html += '<li onclick=fnOpenList('+ id +')><div class="message_frame_cycle"><div class="message_frame_cycle_div fl"><div class="message_frame_cycle_div_1 col" id="id-author">' + title +
-                            '</div><div class="message_frame_cycle_div_3 fl"><div class="message_frame_cycle_div_3fl"><div class="pos collection_frame fl">作者:<span>' + author + '</span></div></div></div></div></div></li>';
+                        html +=
+                            '<li onclick="fnOpenList('+ id +')"><div class="message_frame_cycle"><div class="message_frame_cycle_div fl"><div class="message_frame_cycle_div_3 fl"><div class="message_frame_cycle_div_3fl"><div class="message_frame_cycle_div_2 col" id="id-title">' +
+                            title + '</div><div class="message_frame_cycle_div_1 col" >作者:<span>' + author + '</span></div></div><div class="pos collection_frame fl"><span>' + body + '</span></div></div></div></div></div></li>';
                     }
+                    // html.replace(keyword, "<font color=red>"+keyword+"</font>")
+                    // console.log(html);
+
+
                     var container = $api.byId('id-container');
+
                     $api.html(container, html);
+
+                    // function keyLight(id, key, bgColor) {
+                    //     var oDiv = document.getElementById(id),
+                    //         sText = oDiv.innerHTML,
+                    //         Color = Color || "red",
+                    //         sKey = "<span style='color: " + Color + ";'>"+key+"</span>",
+                    //         num = -1,
+                    //         rStr = new RegExp(key, "g"),
+                    //         rHtml = new RegExp("\<.*?\>", "ig"), //匹配html元素
+                    //         aHtml = sText.match(rHtml); //存放html元素的数组
+                    //     sText = sText.replace(rHtml, '{~}'); //替换html标签
+                    //     sText = sText.replace(rStr, sKey); //替换key
+                    //     sText = sText.replace(/{~}/g, function() { //恢复html标签
+                    //         num++;
+                    //         return aHtml[num];
+                    //     });
+                    //
+                    //     oDiv.innerHTML = sText;
+                    // }
+                    //
+                    // var key1 = keyLight('id-container', keyword)
+
+
+
+                    api.sendEvent({
+                        name: 'langsong-result',
+                        extra: {
+                            total: ret.data.length,
+                        }
+                    });
+
                 }
             } else {
                 alert(JSON.stringify(err));
@@ -248,6 +306,7 @@
 
     // 打开列表
     var lujing;
+
     function fnOpenList(id) {
         lujing = './playDanQu.html';
         // titles = '专辑';
