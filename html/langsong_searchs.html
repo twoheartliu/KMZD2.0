@@ -138,7 +138,7 @@
             <div class="tab" tapmode="active" onclick="fnSelectTab(1,this)">作者</div>
             <div class="tab " tapmode="active" onclick="fnSelectTab(2,this)">专辑</div>
         </div> -->
-        <p>共找到 x 个结果</p>
+        <!-- <p>共找到 x 个结果</p> -->
     </nav>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
@@ -155,7 +155,7 @@
     function goback() {
         clear();
         api.closeWin({
-            name: 'guoxue_searchs'
+            name: 'langsong_searchs'
         });
     }
     apiready = function() {
@@ -169,7 +169,7 @@
 
 
         api.addEventListener({
-            name: 'search-result'
+            name: 'langsong-result'
         }, function(ret, err){
             if( ret ){
                 //  console.log( JSON.stringify( ret ) );
@@ -190,50 +190,6 @@
         // searching();
     };
 
-    // function searching() {
-    //     api.ajax({
-    //         url: host + apiUri + '/search/sinology',
-    //         method: 'get',
-    //         dataType: 'json',
-    //         timeout: 10,
-    //         headers: {
-    //             "source": api.systemType,
-    //             "version": version,
-    //             "session": token,
-    //         },
-    //         data: {
-    //             values: {
-    //                 keywords: datas,
-    //                 p: 1,
-    //             },
-    //         },
-    //     }, function(ret, err) {
-    //         if (ret) {
-    //             if (ret.status === 200) {
-    //                 // console.log(ret.data.length);
-    //                 for (var i = 0; i < ret.data.length; i++) {
-    //                     var data = ret.data[i];
-    //                     // var author = ret.data[i].author_name;
-    //                     // var id = ret.data[i].id;
-    //                     // var title = ret.data[i].title;
-    //                     // var body = ret.data[i].body;
-    //                     // console.log(JSON.stringify(data));
-    //                     // fnOpenFrameGroup();
-    //                     api.sendEvent({
-    //                         name: 'search_data',
-    //                         extra: {
-    //                             data: data,
-    //                         }
-    //                     });
-    //
-    //                 }
-    //             }
-    //
-    //         } else {
-    //             alert(JSON.stringify(err));
-    //         }
-    //     });
-    // }
 
     function fnSelectTab(index, ele) {
         var tabs = $api.domAll('#tabs>.tab');
@@ -251,8 +207,8 @@
         var eNav = $api.byId('nav');
         var eNavOffset = $api.offset(eNav);
         api.openFrame({
-            name: 'guoxue_searchs_detail',
-            url: './guoxue_searchs_detail.html',
+            name: 'langsong_searchs_detail',
+            url: './langsong_searchs_detail.html',
             rect: {
                 x: 0,
                 y: eHeaderOffset.h + eNavOffset.h,
