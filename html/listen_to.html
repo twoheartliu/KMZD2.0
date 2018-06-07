@@ -329,7 +329,7 @@
                 <span class="e">14:00:00</span> -->
 
             <span class="playTime" id="kaishijishi">00:00</span>
-            <input type="range" id="range" name="range" min="0" max="100" step="1" value="0.1" class="red"/>
+            <input type="range" id="range" name="range" min="0" max="100" step="1" value="0" class="red"/>
             <!-- <span id="slider"></span> -->
             <!-- <img src="../image/KM_play.png" alt="" > -->
             <!--外层容器-->
@@ -382,7 +382,7 @@
   var collections;
   var soundId;
   var namesss;
-  var ok:
+  var ok;
     function goback () {
       api.closeWin({name:'listenTo'});
     }
@@ -928,13 +928,21 @@
                 var lenth = ret.value.lenth;
                 var cur = ret.value.cur;
                 var a = cur / lenth;
-                var ccc = JSON.stringify(cur / lenth * 100);
-                if (ccc > 0) {
-                    range.value = ccc;
+                var ccc = JSON.stringify(cur/lenth  * 100);
+                var sssss;
+                if(!cur){
+                  range.value = 0;
+                  range.style.background = 'linear-gradient(to left, #89211b 100%, #f2f2f2 0,#f2f2f2  )';
+                }else{
+                  range.value = ccc;
+                  sssss = 100 - range.value;
+                  // if(ccc > 99){
+                  //   range.value = 105;
+                  //   sssss = 0;
+                  // }
+                  //不渐变
+                  range.style.background = 'linear-gradient(to left, #89211b ' + sssss + '%, #f2f2f2 0,#f2f2f2  )';
                 }
-                var sssss = 100 - range.value;
-                //不渐变
-                range.style.background = 'linear-gradient(to left, #89211b ' + sssss + '%, #f2f2f2 0,#f2f2f2  )';
                 // range.css( 'background', 'linear-gradient(to right, #059CFA, white ' + range.value + '%, white)' );
                 // range.style.background = 'linear-gradient(to left, #89211b ' + sssss + '%, blue ' + range.value + '%,#789  )';
                 fnZongJinDu(lenth);
@@ -1076,48 +1084,6 @@
       }
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // function fnOpenPlayButton(){
-    //   var playButton = $api.byId('playButton');
-    //   var video = $api.byId('video');
-    //   if(playButton.getAttribute("src",2)=="../image/play.png"){
-    //     playButton.src="../image/playing.png";
-    //     $api.addCls(video, 'Rotation');
-    //   }else{
-    //     playButton.src="../image/play.png";
-    //     $api.removeCls(video, 'Rotation');
-    //   }
-    // }
     //打开更多页面
     function fnOpenPlayMore() {
         var dialogBox = api.require('dialogBox');
@@ -1157,13 +1123,13 @@
         }, function(ret) {
             if (ret.eventType == 'cancel') {
                 dialogBox.close({
-                    dialogName: 'discount'
+                    dialogName: 'actionMenu'
                 });
             }
             if (ret.index == "0") {
               fnOpenAddListening();
               dialogBox.close({
-                  dialogName: 'alert'
+                  dialogName: 'actionMenu'
               });
 
             } else if (ret.index == "1") {
@@ -1171,7 +1137,7 @@
                 // alert(2);
             } else {
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'actionMenu'
                 });
             }
             // dialogBox.close({
@@ -1223,27 +1189,27 @@
         }, function(ret) {
             if (ret.eventType == 'cancel') {
                 dialogBox.close({
-                    dialogName: 'discount'
+                    dialogName: 'actionMenu'
                 });
             }
             if (ret.index == "0") {
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'actionMenu'
                 });
                 // alert(1);
             } else if (ret.index == "1") {
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'actionMenu'
                 });
                 // alert(2);
             } else if (ret.index == "2") {
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'actionMenu'
                 });
                 // alert(3);
             } else {
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'actionMenu'
                 });
             }
             // dialogBox.close({
@@ -1302,30 +1268,7 @@
       clearInterval(timeout);
       timeout = null;
     }
-    // 收藏
-    function fnOpenCollect(){
-      var collect = $api.byId('collect');
-      if(collect.getAttribute("src",2)=="../image/KM_play_collect.png"){
-        collect.src="../image/KM_play_collect_red.png";
-        api.toast({
-              msg: '收藏成功',
-              duration: 2000,
-              location: 'middle'
-          });
-      }else{
-        collect.src="../image/KM_play_collect.png";
-      }
-    };
-    // // 打开评论页面
-    // function fnOpenPlayDiscuss(){
-    //   api.openWin({
-    //       name: 'discussNoticeDetail0',
-    //       url: './discuss_notice_detail0.html',
-    //       pageParam: {
-    //           name: 'test'
-    //       }
-    //   });
-    // }
+
   </script>
   <script>
       var change = function($input) {

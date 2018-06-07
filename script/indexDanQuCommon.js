@@ -55,7 +55,7 @@ function fnBoFangyinpinxinxis(id) {
                       singerName: singerName,
                   }
               });
-
+            fnBoFangmoshiids
         }else{
           netMessage(ret);
         }

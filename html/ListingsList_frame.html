@@ -439,7 +439,7 @@
 </head>
 
 <body>
-  
+
     <div class="list_bj">
         <div class="p13px">
             <div class="single" id="single">
@@ -485,7 +485,7 @@
         <div class="playall" onclick="">
             <div class="p13px">
                 <div class="playall_img fl"><img src="../image/index/KM_bofang.png" alt=""></div>
-                <div class="playall_span fl">全部播放</div>
+                <div class="playall_span fl" onclick="fnPlay();">全部播放</div>
             </div>
         </div>
         <ul class="on" id="tuijianliebiaogequ">
@@ -936,7 +936,8 @@
                   playlistid: playlistid,
                   a: a,
                   DangQianbofangid: Dqbofangid,
-                  playUrli:playUrli
+                  playUrli:playUrli,
+                  ok:'play'
               }
           });
         } else {
@@ -947,7 +948,8 @@
               pageParam: {
                   a: a,
                   playlistid: playlistid,
-                  playUrli:playUrli
+                  playUrli:playUrli,
+                  ok:'play'
               }
           });
 

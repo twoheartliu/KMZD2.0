@@ -549,7 +549,7 @@
                 <span class="s" id="kaishijishi">
                   <!-- 00:00 -->
                 </span>
-                <input type="range" id="range" name="range" min="0" max="100" step="1" value="0.01" class="red" />
+                <input type="range" id="range" name="range" min="0" max="100" step="1" value="0" class="red" />
                 <span class="e" id="zongshichang">
                   <!-- 00:00 -->
                 </span>
@@ -1071,15 +1071,24 @@
                 var lenth = ret.value.lenth;
                 var cur = ret.value.cur;
                 var a = cur / lenth;
-                var ccc = JSON.stringify(cur / lenth * 100);
-                if (ccc > 0) {
-                    range.value = ccc;
+                var ccc = JSON.stringify(cur/lenth  * 100);
+                var sssss;
+                if(!cur){
+                  range.value = 0;
+                  range.style.background = 'linear-gradient(to left, #89211b 100%, #f2f2f2 0,#f2f2f2  )';
+                }else{
+                  range.value = ccc;
+                  sssss = 100 - range.value;
+                  // if(ccc > 99){
+                  //   range.value = 105;
+                  //   sssss = 0;
+                  // }
+                  //不渐变
+                  range.style.background = 'linear-gradient(to left, #89211b ' + sssss + '%, #f2f2f2 0,#f2f2f2  )';
                 }
-                var sssss = 100 - range.value;
-                //不渐变
                 // range.style.background = 'linear-gradient(to left, #89211b ' + sssss + '%, #000 0,#000  )';
                 // range.css( 'background', 'linear-gradient(to right, #059CFA, white ' + range.value + '%, white)' );
-                range.style.background = 'linear-gradient(to left, #89211b ' + sssss + '%, blue ' + range.value + '%,#789  )';
+                // range.style.background = 'linear-gradient(to left, #89211b ' + sssss + '%, blue ' + range.value + '%,#789  )';
                 fnZongJinDu(lenth);
 
             }
@@ -1385,6 +1394,7 @@
     var change = function($input) {
         /*内容可自行定义*/
         adjust();
+        console.log(222);
     }
     $('input').RangeSlider({
         callback: change

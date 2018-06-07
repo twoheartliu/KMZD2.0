@@ -43,7 +43,7 @@ function fnBoFangCaoGaoXiangXinXi(id) {
                 desc: desc,
             }
         });
-
+          fnBoFangmoshiidsssss
       }else{
         netMessage(ret);
       }
@@ -96,7 +96,7 @@ function suijiCaoGaoXiang() {
         }
     }, 1000);
     bofangmoshiid = 1;
-    fnBFMoshi(bofangmoshiid);
+    fnBFMoshiCgx(bofangmoshiid);
 }
 //顺序播放
 function shunxuCaoGaoXiang() {
@@ -115,7 +115,7 @@ function shunxuCaoGaoXiang() {
 
     }, 1000);
     bofangmoshiid = 0;
-    fnBFMoshi(bofangmoshiid);
+    fnBFMoshiCgx(bofangmoshiid);
 }
 //单曲播放
 function bfdanquCaoGaoXiang() {
@@ -131,16 +131,13 @@ function bfdanquCaoGaoXiang() {
         }
     }, 1000);
     bofangmoshiid = 2;
-    fnBFMoshi(bofangmoshiid);
+    fnBFMoshiCgx(bofangmoshiid);
 }
-
-
-function fnBFMoshi(MoShiId) {
+function fnBFMoshiCgx(MoShiId) {
     bofangmoshiid = MoShiId;
 }
-
 //判断播放模式
-function fnBoFangmoshiid() {
+function fnBoFangmoshiidsssss() {
     if (!bofangmoshiid) {
         shunxuCaoGaoXiang();
     } else if (bofangmoshiid == '1') {
@@ -158,8 +155,8 @@ function initEventListennerBoFangCaoGaoXiangMoshi() {
         name: 'bofangmoshi'
     }, function(ret, err) {
         if (ret) {
-            fnBFMoshi(ret.value.bofangmoshi);
-            fnBoFangmoshiid();
+            fnBFMoshiCgx(ret.value.bofangmoshi);
+            fnBoFangmoshiidsssss();
         }
     });
 

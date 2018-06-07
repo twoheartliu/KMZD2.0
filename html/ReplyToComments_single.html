@@ -37,10 +37,13 @@
       uris = api.pageParam.uris;
       name = api.pageParam.name;
       if(name){
-        var stylelist = $api.byId('discuss_detail');
-        var html = '评论'+name;
-        $api.html(stylelist, html);
+        if(name != 'undefined'){
+          var stylelist = $api.byId('discuss_detail');
+          var html = '评论'+name;
+          $api.html(stylelist, html);
+        }
       }
+
     }
     function ReplyToCommentsDiscuss_detail() {
       api.openWin({

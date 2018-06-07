@@ -239,6 +239,7 @@ function fnBoFangyinpinxinxi() {
                     }
                 });
             }
+            fnBFid(ret.data.id);
             api.sendEvent({
                 name: 'neiJianTingGood',
                 extra: {
@@ -269,7 +270,7 @@ function fnBoFangyinpinxinxi() {
                     collection: is_collection
                 }
             });
-
+            fnBoFangmoshiid();
       }else{
         netMessage(ret);
       }
@@ -297,7 +298,6 @@ function kaishibofang() {
 function netAudioPlay() {
     var myAudio = document.getElementById("myAudio");
     myAudio.play();
-    fnBoFangmoshiid();
     // fnBoFangmoshiid()
     initEventListennerBoFangMoshi();
     api.sendEvent({
@@ -498,9 +498,42 @@ function netPlayLieIdUrl(playlistid,playUrli) {
             }
         }, function(ret, err) {
          if(ret){
-          //  console.log(JSON.stringify(ret));
           if (ret.status == 200) {
+
               fnZhuanJiZhanshi(ret);
+          } else {
+            netMessage(ret);
+          }
+        }else{
+          netWork(err);
+        }
+        });
+      }
+}
+
+function netPlayLieIdUrlAll(playlistid,playUrli,is_play_all) {
+    if(playlistid){
+      uri = playUrli;
+        api.ajax({
+            url: host + apiUri + uri + playlistid,
+            method: 'get',
+            dataType: 'json',
+            headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token
+            },
+            data:{
+              values:{
+                'is_play_all':is_play_all
+              }
+            }
+        }, function(ret, err) {
+         if(ret){
+          if (ret.status == 200) {
+            rets = ret;
+            play = 0;
+            fnBoFangyinpinxinxi(play);
           } else {
             netMessage(ret);
           }
@@ -579,7 +612,6 @@ function fnDQBF(y) {
     play = y;
     fnBoFangyinpinxinxi(play);
 }
-
 function fnUserFollow(){
   if(minuteFollow){
     api.ajax({
@@ -611,10 +643,17 @@ function fnUserFollow(){
 }
 
 
-
-
 function fnZhuanJiZhanshi(data_) {
-    rets = data_;
+  rets = data_;
+  // api.addEventListener({
+  //     name: 'netPlayAotu'
+  // }, function(ret, err) {
+  //     if (ret) {
+  //         fnPlayAotu();
+  //         return false;
+  //     }
+  //     return false;
+  // });
     for (y = 0; y < rets.data.length; y++) {
         var id1 = rets.data[y].id;
         var id2 = DangQianbofangid;
@@ -768,7 +807,12 @@ function initEventListennerBofang() {
         name: 'netPlayLieIdUrl'
     }, function(ret, err) {
         if (ret) {
+          if(ret.value.is_play_all){
+            netPlayLieIdUrlAll(ret.value.playlistid,ret.value.playUrli,ret.value.is_play_all);
+          }else{
             netPlayLieIdUrl(ret.value.playlistid,ret.value.playUrli);
+          }
+
         }
     });
     // 草稿箱  当前播放
