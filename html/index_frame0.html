@@ -550,6 +550,7 @@
         uri = '/index/floor';
         api.ajax({
             url: host + apiUri + uri,
+            // url:'https://api.kmzhidao.com/kmzd/2.0/index/floor',
             method: 'get',
             dataType: 'json',
             timeout: 10,
@@ -559,6 +560,7 @@
                 "session": token
             },
         }, function(ret, err) {
+          // console.log(JSON.stringify(err));
             if (ret) {
                 if (ret.status == 200) {
 

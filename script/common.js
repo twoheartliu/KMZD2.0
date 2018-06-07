@@ -10,7 +10,23 @@ var listeningImg = 'http://api.kmzhidao.com/kmzd/public/uploads/listening/';
 var userRecord = 'http://api.kmzhidao.com/kmzd/public/uploads/records/';
 //banner;
 var uploadsBanner = 'http://api.kmzhidao.com/kmzd/public/uploads/banner/';
+
+
+//token
+//    var token = $api.getStorage('token');
+
+//用户id
+//    var user_id = $api.getStorage('user_id');
+
+//用户昵称
+//    var nick_name = $api.getStorage('nick_name');
+
+//用户头像
+//    var photo = $api.getStorage('photo');
 //
+
+
+
 // if(token){
 //   tokens = token;
 // }

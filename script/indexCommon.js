@@ -565,7 +565,6 @@ function netPlayLieIdUrlAll(playlistid,playUrli,is_play_all) {
 function fnBFid(id) {
     DangQianbofangid = id;
     var bofangI = bofang;
-    console.log(bofangI);
     api.sendEvent({
         name: 'netPlaying',
         extra: {
@@ -573,6 +572,12 @@ function fnBFid(id) {
             bofang:bofangI
         }
     });
+    // api.sendEvent({
+    //     name: 'netPlayingBofang',
+    //     extra: {
+    //         bofang:bofangI
+    //     }
+    // });
 }
 
 // //获取 草稿箱列表歌曲

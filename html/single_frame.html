@@ -804,25 +804,24 @@
     }
     var Dqbofangid;
     var bofang;
-    function fnDangQianbofangid(bofangI,id) {
+    function fnDangQianbofangid(bofangss,id) {
         Dqbofangid = id;
-        bofang:bofangI;
-        console.log(bofang);
+        bofang=bofangss;
     }
 
     function fnOpenPlay(a) {
-console.log(a);
       api.addEventListener({
             name: 'netPlaying'
         }, function(ret, err) {
-            if (ret.value.playing) {
-              console.log(111);
-                fnDangQianbofangid(ret.value.bofang,ret.value.playing);
+            if (ret.value.playing == a) {
+              var id = ret.value.playing;
+              var bofangss = ret.value.bofang;
+                fnDangQianbofangid(bofangss,id);
             }
         });
+
         var playlistid = api.pageParam.albumId;
         if (Dqbofangid == a) {
-console.log(222);
           api.openWin({
               name: 'play',
               url: './play.html',
