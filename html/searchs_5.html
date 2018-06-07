@@ -49,7 +49,6 @@
             width: 50px;
         }
 
-
         .user-img img {
             position: absolute;
             width: 50px;
@@ -57,17 +56,20 @@
             height: 50px;
             left: 5px;
         }
+
         .item {
             position: relative;
             width: 100%;
         }
+
         .user-name {
             position: absolute;
             top: 20px;
             left: 66px;
             font-size: 13px;
         }
-        .add p{
+
+        .add p {
             position: absolute;
             top: 25px;
             line-height: 25px;
@@ -80,6 +82,7 @@
             color: #F2393E;
             font-size: 12px;
         }
+
         .user-bio {
             position: absolute;
             top: 45px;
@@ -92,8 +95,25 @@
 
 <body>
     <nav id="nav">
-        <ul>
-            <li class="item">
+        <ul id='id-container'>
+            <!-- <li class="item">
+                <div class="user-detail">
+                    <div class="user-img"><img src="../image/KM_tx.png" alt=""></div>
+                    <div class="user-name">
+                        <p>走不出胡同的猫</p>
+                    </div>
+                    <div class="user-bio">
+                        <p>想寄给你一片星星，一朵月亮</p>
+                    </div>
+                </div>
+                <div class="add">
+                    <img src="" alt="" class="userDeleteA">
+                    <p>+ 关注</p>
+                    <p>√ 已关注</P>
+                    <p>
+                </div>
+            </li> -->
+            <!-- <li class="item">
                 <div class="user-detail">
                     <div class="user-img"><img src="../image/KM_tx.png" alt=""></div>
                     <div class="user-name">
@@ -152,73 +172,106 @@
                     <img src="" alt="" class="userDeleteA">
                     <p>+ 关注</p>
                 </div>
-            </li>
-            <li class="item">
-                <div class="user-detail">
-                    <div class="user-img"><img src="../image/KM_tx.png" alt=""></div>
-                    <div class="user-name">
-                        <p>走不出胡同的猫</p>
-                    </div>
-                    <div class="user-bio">
-                        <p>想寄给你一片星星，一朵月亮</p>
-                    </div>
-                </div>
-                <div class="add">
-                    <img src="" alt="" class="userDeleteA">
-                    <p>+ 关注</p>
-                </div>
-            </li>
+            </li> -->
         </ul>
-        <!-- <div class="nomessage">暂无消息</div> -->
     </nav>
 </body>
 
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript">
-    apiready = function() {
-        fnDeleteUser();
-    };
+    var token;
+    var keyword;
+    var type;
 
-    function fnOpenmyPersonal() {
+
+
+
+    apiready = function() {
+        token = $api.getStorage('token');
+        keyword = api.pageParam.keywords;
+        type = api.pageParam.type;
+        // console.log(JSON.stringify(keyword));
+
+        api.addEventListener({
+            name: 'inputValues'
+        }, function(ret, err) {
+            if (ret) {
+                //  console.log( JSON.stringify( ret.value.inputValues ) );
+                var keys = ret.value.inputValues;
+                loadlist(keys, type);
+            } else {
+                alert(JSON.stringify(err));
+            }
+        });
+
+        loadlist(keyword, type);
+    }
+
+    function loadlist(key, type) {
+        console.log(key);
+        api.ajax({
+            url: host + apiUri + '/search/',
+            method: 'get',
+            dataType: 'json',
+            timeout: 10,
+            headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token,
+            },
+            data: {
+                values: {
+                    keywords: key,
+                    p: 1,
+                    type: type,
+                },
+            },
+        }, function(ret, err) {
+            if (ret) {
+                // console.log(JSON.stringify(ret));
+                if (ret.status === 200) {
+                    var html = '';
+                    for (var i = 0; i < ret.data.length; i++) {
+                        // console.log(JSON.stringify(ret.data[i]));
+                        var data = ret.data[i];
+                        var id = data.id;
+                        var img = updatePhotoUrl + data.photo;
+                        var nickname = data.nick_name;
+                        var sign = data.signature;
+                        // console.log(JSON.stringify(data));
+                        // console.log(img);
+
+                        if (data.photo == '') {
+                            img = "../image/KM_tx.png";
+                        }
+
+
+                        html += '<li onclick="fnOpenmyPersonal('+id+',\''+nickname+'\');" class="item"><div class="user-detail"><div class="user-img"><img src="'+img+'" alt=""></div><div class="user-name"><p>'+ nickname +'</p></div><div class="user-bio"><p>'+ sign +'</p></div></div><div class="add"></div></li>';
+                    }
+                    var container = $api.byId('id-container');
+                    $api.html(container, html);
+                    // console.log(html);
+                }
+            } else {
+                alert(JSON.stringify(err));
+            }
+        });
+
+    }
+
+    function fnOpenmyPersonal(id, nickname) {
         api.openWin({
             name: 'myPersonal',
             url: './my_personal.html',
             pageParam: {
-                name: 'test'
+              userId: id,
+              nickName:nickname,
+              ok:'my_personal'
             }
         });
+    }
 
-    };
 
-    function fnDeleteUser() {
-        // var userDeleteA = document.getElementById('userDeleteA');
-        var nav = document.getElementById('nav');
-        var userDeleteA = nav.getElementsByClassName('userDeleteA');
-        for (var i = 0; i < userDeleteA.length; i++) {
-            userDeleteA[i].index = i;
-            userDeleteA[i].onclick = function() {
-                var j = this.index;
-                if (userDeleteA[j].getAttribute("src", 2) == "../image/personal_care_a.png") {
-                    userDeleteA[j].src = "../image/personal_care.png";
-                } else {
-                    userDeleteA[j].src = "../image/personal_care_a.png";
-                }
-            }
-        }
-        // var ul_li = nav.getElementsByClassName('item');
-        // for (var i = 0; i < user_delete.length; i++) {
-        //     user_delete[i].index = i;
-        //     user_delete[i].onclick = function() {
-        //         var j = this.index;
-        //       $api.addCls(ul_li[j], 'active');
-        //       user_delete[j].src="../image/user-delete-a.png";
-        //       if(user_delete[j].getAttribute("src",2)=="../image/play_collect.png"){
-        //         user_delete[j].src="../image/user-delete-a.png";
-        //       }else{
-        //         user_delete[j].src="../image/user-delete.png";
-        //       }
-        //     }
-        // }
-    };
 </script>

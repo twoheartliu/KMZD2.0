@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
-    <title>首页搜索window</title>
+    <title>国学馆搜索window</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
     <style>
         body,
@@ -57,6 +57,15 @@
             vertical-align: top;
         }
 
+        .egret-header-search input {
+            /*height: 20px;*/
+            line-height: 18px;
+            font-size: 15px;
+            padding-top: 10px;
+            /*color: #ccc;*/
+            vertical-align: top;
+        }
+
         .soso {
             font-size: 18px;
             height: 50px;
@@ -79,6 +88,14 @@
             border-bottom: 2px solid transparent;
         }
 
+        #nav p{
+            line-height: 48px;
+            height: 48px;
+            /*box-shadow: 0px 1px 40px 0px #ccc;*/
+            border-bottom: 2px solid transparent;
+            margin-left: 8px;
+        }
+
         #tabs {
             display: flex;
             display: -webkit-flex;
@@ -99,6 +116,7 @@
             color: #89211b;
             border-bottom: 1px solid #89211b;
         }
+
     </style>
 </head>
 
@@ -108,35 +126,71 @@
         <div class="egret-img"><img src="../image/icon_back.png" alt="" onclick="goback()"></div>
         <div class="egret-header-search" tapmode>
             <img src="../image/header_search.png" alt="">
-            <!-- <input type="text"  placeholder="请输入关键词搜索" > -->
-            <span>请输入关键词搜索</span>
+            <input id="id-input" type="text"  placeholder="请输入关键词搜索">
+            <!-- <span>请输入关键词搜索</span> -->
         </div>
         <!-- onclick="OpenSearch();" -->
-        <div class="soso" >取消</div>
+        <div class="soso" id="id-soso" onclick="choice()">取消</div>
     </header>
     <nav id="nav">
         <div id="tabs">
             <div class="tab active" tapmode="active" onclick="fnSelectTab(0,this)">单曲</div>
-            <div class="tab " tapmode="active" onclick="fnSelectTab(1,this)">作品</div>
-            <div class="tab" tapmode="active" onclick="fnSelectTab(2,this)">作者</div>
+            <div class="tab" tapmode="active" onclick="fnSelectTab(1,this)">作品</div>
+            <div class="tab " tapmode="active" onclick="fnSelectTab(2,this)">作者</div>
             <div class="tab " tapmode="active" onclick="fnSelectTab(3,this)">专辑</div>
-            <div class="tab" tapmode="active" onclick="fnSelectTab(4,this)">听单</div>
+            <div class="tab " tapmode="active" onclick="fnSelectTab(4,this)">听单</div>
             <div class="tab " tapmode="active" onclick="fnSelectTab(5,this)">用户</div>
         </div>
+        <!-- <p>共找到 x 个结果</p> -->
     </nav>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/message.js"></script>
 <script type="text/javascript">
+    var token;
+    var datas;
+    var data;
+    var total;
+    var target;
+
+
     function goback() {
+        clear();
         api.closeWin({
             name: 'searchs'
         });
     }
     apiready = function() {
-        var eHeader = $api.byId('header')
+        token = $api.getStorage('token');
+        var eHeader = $api.byId('header');
         $api.fixStatusBar(eHeader);
-        fnOpenFrameGroup();
+
+        datas = api.pageParam.data;
+        // console.log(datas);
+        listenInput();
+
+
+
+        // api.addEventListener({
+        //     name: 'search-result'
+        // }, function(ret, err){
+        //     if( ret ){
+        //         //  console.log( JSON.stringify( ret ) );
+        //         total = ret.value.total;
+        //         // console.log(total);
+        //         var navs = $api.byId('nav');
+        //         $api.html(navs, '<p>共找到'+ total +'个结果</p>')
+        //     }else{
+        //          alert( JSON.stringify( err ) );
+        //     }
+        // });
+
+        fnOpenFrameGroup(datas);
+
+        // searching();
     };
+
 
     function fnSelectTab(index, ele) {
         var tabs = $api.domAll('#tabs>.tab');
@@ -148,7 +202,7 @@
         });
     }
 
-    function fnOpenFrameGroup() {
+    function fnOpenFrameGroup(i) {
         var eHeader = $api.byId('header');
         var eHeaderOffset = $api.offset(eHeader);
         var eNav = $api.byId('nav');
@@ -167,27 +221,45 @@
             frames: [{
                 name: 'searchs_0',
                 url: './searchs_0.html',
-                // pageParam:{category:'国友榜'}
+                pageParam:{
+                    keywords: i,
+                    type: 'book',
+                }
             }, {
                 name: 'searchs_1',
                 url: './searchs_1.html',
-                // pageParam:{category:'朗诵榜'}
+                pageParam:{
+                    keywords: i,
+                    type: 'record',
+                }
             }, {
                 name: 'searchs_2',
                 url: './searchs_2.html',
-                // pageParam:{category:'热听榜'}
+                pageParam:{
+                    keywords: i,
+                    type: 'author',
+                }
             }, {
                 name: 'searchs_3',
                 url: './searchs_3.html',
-                // pageParam:{category:'朗诵榜'}
+                pageParam:{
+                    keywords: i,
+                    type: 'album',
+                }
             }, {
                 name: 'searchs_4',
                 url: './searchs_4.html',
-                // pageParam:{category:'朗诵榜'}
+                pageParam:{
+                    keywords: i,
+                    type: 'listening',
+                }
             }, {
                 name: 'searchs_5',
                 url: './searchs_5.html',
-                // pageParam:{category:'朗诵榜'}
+                pageParam:{
+                    keywords: i,
+                    type: 'user',
+                }
             }]
         }, function(ret, err) {
             var tabs = $api.domAll('#tabs>.tab');
@@ -197,6 +269,51 @@
             }
             $api.addCls(tabs.item(ret.index), 'active');
         });
+    }
+
+    function listenInput() {
+        var input = $api.byId('id-input');
+        input.value = datas;
+        var soso = $api.byId('id-soso');
+        input.addEventListener('input', function(event) {
+            target = event.target.value;
+            if (target == '') {
+                // soso.value = '取消'
+                $api.html(soso, '取消')
+            } else {
+                // soso.value = '搜索'
+                $api.html(soso, '搜索')
+            }
+        })
+    }
+
+    function choice() {
+        var soso = $api.byId('id-soso');
+        if (soso.innerHTML == "取消") {
+            clear();
+            goback();
+
+        }
+        if (soso.innerHTML == "搜索") {
+            var inputValues = target;
+            // console.log(inputValues);
+            api.sendEvent({
+                name: 'inputValues',
+                extra: {
+                    inputValues: inputValues,
+                }
+            });
+        }
+    }
+
+    function clear() {
+        api.sendEvent({
+            name: 'clearInput',
+            extra: {
+                key: 'v',
+            }
+        });
+
     }
 </script>
 

@@ -145,7 +145,7 @@
 <body>
     <ul id="test">
         <ul id='id-container'>
-            <li>
+            <!-- <li>
                 <div class="message_frame_cycle">
                     <div class="message_frame_cycle_div fl">
                         <div class="message_frame_cycle_div_1 col" id="id-author">《沁园春·雪》2</div>
@@ -156,7 +156,7 @@
                         </div>
                     </div>
                 </div>
-            </li>
+            </li> -->
             <!-- <li>
                 <div class="message_frame_cycle">
                     <div class="message_frame_cycle_div fl">
@@ -192,6 +192,7 @@
 <script type="text/javascript">
     var token;
     var keyword;
+    var type;
 
 
 
@@ -199,13 +200,27 @@
     apiready = function() {
         token = $api.getStorage('token');
         keyword = api.pageParam.keywords;
-        console.log(JSON.stringify(keyword));
-        loadlist();
+        type = api.pageParam.type;
+        // console.log(JSON.stringify(keyword));
+
+        api.addEventListener({
+            name: 'inputValues'
+        }, function(ret, err){
+            if( ret ){
+                //  console.log( JSON.stringify( ret.value.inputValues ) );
+                var keys = ret.value.inputValues;
+                loadlist(keys, type);
+            }else{
+                 alert( JSON.stringify( err ) );
+            }
+        });
+
+        loadlist(keyword, type);
     }
 
-    function loadlist() {
+    function loadlist(key, type) {
         api.ajax({
-            url: host + apiUri + '/search/sinology',
+            url: host + apiUri + '/search/',
             method: 'get',
             dataType: 'json',
             timeout: 10,
@@ -216,8 +231,9 @@
             },
             data: {
                 values: {
-                    keywords: keyword,
+                    keywords: key,
                     p: 1,
+                    type: type,
                 },
             },
         }, function(ret, err) {
@@ -226,7 +242,7 @@
                 if (ret.status === 200) {
                     var html = '';
                     for (var i = 0; i < ret.data.length; i++) {
-                        console.log(JSON.stringify(ret.data[i]));
+                        // console.log(JSON.stringify(ret.data[i]));
                         var data = ret.data[i];
                         var author = data.author_name;
                         var id = data.id;
