@@ -968,13 +968,18 @@
                   dialogName: 'actionMenu'
               });
             } else if (ret.index == "1") {
+              dialogBox.close({
+                  dialogName: 'actionMenu'
+              });
                 fnOpenAddListening(id);
+
+            } else if (ret.index == "2") {
+                var Types = 'Single'
                 dialogBox.close({
                     dialogName: 'actionMenu'
                 });
-            } else if (ret.index == "2") {
-                var Types = 'Single'
                 fnOpenPlayShare(Types,id,data_title);
+
             } else {
               dialogBox.close({
                   dialogName: 'actionMenu'

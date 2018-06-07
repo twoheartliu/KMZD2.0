@@ -282,6 +282,10 @@
                               }, function(ret, err) {
                                 if(ret){
                                   if (ret.status == 200) {
+                                    console.log(ret.data.token);
+                                    console.log(ret.data.user_id);
+                                    console.log(ret.data.nick_name);
+                                    console.log(ret.data.photo);
                                     var tokens = ret.data.token;
                                     $api.setStorage('token',tokens);
                                     var user_id_s = ret.data.user_id;
@@ -362,6 +366,10 @@
                                         },
                                     }, function(ret, err) {
                                         if (ret.status == 200) {
+                                          console.log(ret.data.token);
+                                          console.log(ret.data.user_id);
+                                          console.log(ret.data.nick_name);
+                                          console.log(ret.data.photo);
                                           var tokens = ret.data.token;
                                           $api.setStorage('token',tokens);
                                           var user_id_s = ret.data.user_id;
