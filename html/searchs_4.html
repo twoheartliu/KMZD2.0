@@ -17,7 +17,7 @@
         }
 
         .fl {
-            float: left;
+            /*float: left;*/
         }
 
         .pos {
@@ -82,6 +82,7 @@
         .message_frame_cycle_div div {
             line-height: 30px;
             position: relative;
+            margin-left: 2px;
         }
 
         .message_frame_cycle_div_3 {
@@ -139,6 +140,33 @@
 
         .message_frame_cycle_div_1 {
             font-size: 13px;
+            margin-top: 4px;
+        }
+
+        .egret-flex-item-shelf03 {
+            line-height: 15px;
+            margin-left: 0.4em;
+        }
+
+        .egret-flex-item-shelf03 div {
+            float: left;
+            /*line-height: 20px;
+            margin: 5px 0px;*/
+        }
+
+        .egret-flex-item-shelf03 div img {
+            width: 12px;
+            height: 12px;
+            line-height: 12px;
+            /*margin: 0 2px;*/
+            margin: 0px 2px -2px;
+        }
+
+        .egret-flex-item-shelf03 div span {
+            line-height: 22px;
+            vertical-align: middle;
+            font-size: 11px;
+            color: #b2b2b2;
         }
     </style>
 </head>
@@ -146,51 +174,24 @@
 <body>
     <ul id="test">
         <ul id='id-container'>
-            <li>
-            <div class="message_frame_cycle">
-            <div class="message_frame_cycle_img"><img src="../image/KM_album.png" alt=""></div>
-            <div class="message_frame_cycle_div fl">
-            <div class="message_frame_cycle_div_1 col">《沁园春·雪》2</div>
-            <div class="message_frame_cycle_div_3 fl">
-            <div class="message_frame_cycle_div_3fl">
-            <div class="pos collection_frame fl">作者:<span>小许</span></div>
-            <div class="pos collection_frame fl">朗诵者：<span>紫嫣</span></div>
-            <!-- <div class="pos collection_frame_img3 fr"><img src="../image/shanchu.png" alt=""></div> -->
-            </div>
-            </div>
-            </div>
-            </div>
-            </li>
-            <li>
-            <div class="message_frame_cycle">
-            <div class="message_frame_cycle_img"><img src="../image/KM_album.png" alt=""></div>
-            <div class="message_frame_cycle_div fl">
-            <div class="message_frame_cycle_div_1 col">《沁园春·雪》2</div>
-            <div class="message_frame_cycle_div_3 fl">
-            <div class="message_frame_cycle_div_3fl">
-            <div class="pos collection_frame fl">作者:<span>小许</span></div>
-            <div class="pos collection_frame fl">朗诵者：<span>紫嫣</span></div>
-            <!-- <div class="pos collection_frame_img3 fr"><img src="../image/shanchu.png" alt=""></div> -->
-            </div>
-            </div>
-            </div>
-            </div>
-            </li>
-            <li>
-            <div class="message_frame_cycle">
-            <div class="message_frame_cycle_img"><img src="../image/KM_album.png" alt=""></div>
-            <div class="message_frame_cycle_div fl">
-            <div class="message_frame_cycle_div_1 col">《沁园春·雪》2</div>
-            <div class="message_frame_cycle_div_3 fl">
-            <div class="message_frame_cycle_div_3fl">
-            <div class="pos collection_frame fl">作者:<span>小许</span></div>
-            <div class="pos collection_frame fl">朗诵者：<span>紫嫣</span></div>
-            <!-- <div class="pos collection_frame_img3 fr"><img src="../image/shanchu.png" alt=""></div> -->
-            </div>
-            </div>
-            </div>
-            </div>
-            </li>
+            <!-- <li>
+                <div class="message_frame_cycle">
+                    <div class="message_frame_cycle_img"><img src="../image/KM_album.png" alt=""></div>
+                    <div class="message_frame_cycle_div fl">
+                        <div class="message_frame_cycle_div_1 col">《沁园春·雪》2</div>
+                        <div class="message_frame_cycle_div_3 fl">
+                            <div class="message_frame_cycle_div_3fl">
+                                <div class="pos collection_frame fl">创建者:<span>小许</span></div>
+                            </div>
+                            <div class="egret-flex-item-shelf03">
+                                <div><img src="../image/KM_play.png" alt=""><span>100</span></div>
+                                <div><img src="../image/KM_cd.png" alt=""><span>100</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li> -->
+
         </ul>
     </ul>
 </body>
@@ -201,9 +202,114 @@
 <script type="text/javascript" src="../script/message.js"></script>
 <script type="text/javascript">
     var token;
+    var keyword;
+    var type;
+
+
+
+
     apiready = function() {
         token = $api.getStorage('token');
+        keyword = api.pageParam.keywords;
+        type = api.pageParam.type;
+        // console.log(JSON.stringify(keyword));
+
+        api.addEventListener({
+            name: 'inputValues'
+        }, function(ret, err) {
+            if (ret) {
+                //  console.log( JSON.stringify( ret.value.inputValues ) );
+                var keys = ret.value.inputValues;
+                loadlist(keys, type);
+            } else {
+                alert(JSON.stringify(err));
+            }
+        });
+
+        loadlist(keyword, type);
+    }
+
+    function loadlist(key, type) {
+        api.ajax({
+            url: host + apiUri + '/search/',
+            method: 'get',
+            dataType: 'json',
+            timeout: 10,
+            headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token,
+            },
+            data: {
+                values: {
+                    keywords: key,
+                    p: 1,
+                    type: type,
+                },
+            },
+        }, function(ret, err) {
+            if (ret) {
+                // console.log(JSON.stringify(ret));
+                if (ret.status === 200) {
+                    var html = '';
+                    for (var i = 0; i < ret.data.length; i++) {
+                        // console.log(JSON.stringify(ret.data[i]));
+                        var data = ret.data[i];
+                        var id = data.id;
+                        var title = data.title;
+                        var img = host + '/' + data.sma;
+                        var nickname = data.nick_name;
+                        var play_total = data.play_total;
+                        var songs_total = data.songs_total;
+                        console.log(nickname);
+
+                        if (data.sma == '') {
+                            img = "../image/KM_album.png";
+                        }
+
+
+                        html += '<li onclick=fnOpenList('+ id +')><div class="message_frame_cycle"><div class="message_frame_cycle_img"><img src="../image/KM_album.png" alt=""></div><div class="message_frame_cycle_div fl"><div class="message_frame_cycle_div_1 col">'+ title +'</div><div class="message_frame_cycle_div_3 fl"><div class="message_frame_cycle_div_3fl"><div class="pos collection_frame fl">创建者:<span>'+ nickname +'</span></div></div><div class="egret-flex-item-shelf03"><div><img src="../image/KM_play.png" alt=""><span>'+ play_total +'</span></div><div><img src="../image/KM_cd.png" alt=""><span>'+ songs_total +'</span></div></div></div></div></div></li>';
+                    }
+                    var container = $api.byId('id-container');
+                    $api.html(container, html);
+                }
+            } else {
+                alert(JSON.stringify(err));
+            }
+        });
 
     }
 
+    // 打开专辑列表
+    function fnOpenList(id) {
+        api.ajax({
+            url: host + apiUri + '/listening/detail/' + id,
+            method: 'get',
+            headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token
+            },
+        },function(ret, err){
+            if (ret) {
+                var listenName = ret.data.linstening_info.l_id;
+                console.log(JSON.stringify(listenName));
+                lujing = './ListingsList.html';
+                titles = '听单';
+
+                api.openWin({
+                    name: 'OpenList',
+                    url: lujing,
+                    // console.log('lujing');
+                    pageParam: {
+                        floor_name: titles,
+                        albumId: listenName,
+                    }
+                });
+                // alert( JSON.stringify( ret ) );
+            } else {
+                alert( JSON.stringify( err ) );
+            }
+        });
+    }
 </script>
