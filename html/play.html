@@ -606,15 +606,16 @@
 
           fnBookExtraGoodssssss();
           dangqianbofangid = api.pageParam.DangQianbofangid;
+          bofang = api.pageParam.bofang;
           api.addEventListener({
               name: 'netPlaying'
           }, function(ret, err) {
-              fnDangQianbofangid(ret.value.playing);
+              fnDangQianbofangid(ret.value.playing,ret.value.bofang);
           });
           var connectionType = api.connectionType;
 
             if (connectionType == "wifi") {
-              bofang = api.pageParam.bofang;
+
               if(bofang){
                 // fnJinRuBofangs();
                 if (dangqianbofangid) {
@@ -695,6 +696,7 @@
                 }, function(ret) {
                     if (ret.eventType == 'right') {
                         dangqianbofangid = api.pageParam.DangQianbofangid;
+                        bofang = api.pageParam.bofang;
                         if (dangqianbofangid) {
                           if(bofang){
                             fnJinRuBofangs(dangqianbofangid,bofang);
@@ -771,15 +773,16 @@
       }else{
         fnBookExtraGoodssssss();
         dangqianbofangid = api.pageParam.DangQianbofangid;
+        bofang = api.pageParam.bofang;
         api.addEventListener({
             name: 'netPlaying'
         }, function(ret, err) {
-            fnDangQianbofangid(ret.value.playing);
+            fnDangQianbofangid(ret.value.playing,ret.value.bofang);
         });
 
           if (connectionType == "wifi") {
               if (dangqianbofangid) {
-                bofang = api.pageParam.bofang;
+
                 if(bofang){
                   fnJinRuBofangs(dangqianbofangid,bofang);
                   soundId = dangqianbofangid;
@@ -1032,12 +1035,12 @@
       var stylelist = $api.byId('bookExtraGood');
       $api.html(stylelist, bookGoodHtml);
     }
-    function fnDangQianbofangid(id) {
+    function fnDangQianbofangid(id,bofangs) {
         Dqbofangid = id;
+        bofang = bofangs
     }
 
     function fnJinRuBofangs(ids,bofang) {
-console.log(bofang);
       id =ids;
         var eHeader = $api.byId('header')
         api.parseTapmode();
@@ -1053,8 +1056,22 @@ console.log(bofang);
                       id: id
                   }
               });
+              api.sendEvent({
+                  name: 'neizhiliebiaoPlay',
+                  extra: {
+                      bofang: bofang,
+                      a: id,
+                  }
+              });
           }
         }else{
+          api.sendEvent({
+              name: 'neizhiliebiaoPlay',
+              extra: {
+                  bofang: 2,
+                  // a: id,
+              }
+          });
           var stylelist = $api.byId('openplayer');
           var html = '<img src="../image/play/ic_play_play.png" alt="" onclick="fnOpenPlayer();" id="player">';
           $api.html(stylelist, html);

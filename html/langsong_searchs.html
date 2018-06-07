@@ -57,6 +57,15 @@
             vertical-align: top;
         }
 
+        .egret-header-search input {
+            /*height: 20px;*/
+            line-height: 18px;
+            font-size: 15px;
+            padding-top: 10px;
+            /*color: #ccc;*/
+            vertical-align: top;
+        }
+
         .soso {
             font-size: 18px;
             height: 50px;
@@ -79,6 +88,14 @@
             border-bottom: 2px solid transparent;
         }
 
+        #nav p{
+            line-height: 48px;
+            height: 48px;
+            /*box-shadow: 0px 1px 40px 0px #ccc;*/
+            border-bottom: 2px solid transparent;
+            margin-left: 8px;
+        }
+
         #tabs {
             display: flex;
             display: -webkit-flex;
@@ -99,6 +116,7 @@
             color: #89211b;
             border-bottom: 1px solid #89211b;
         }
+
     </style>
 </head>
 
@@ -108,32 +126,70 @@
         <div class="egret-img"><img src="../image/icon_back.png" alt="" onclick="goback()"></div>
         <div class="egret-header-search" tapmode>
             <img src="../image/header_search.png" alt="">
-            <!-- <input type="text"  placeholder="请输入关键词搜索" > -->
-            <span>请输入关键词搜索</span>
+            <input id="id-input" type="text"  placeholder="请输入关键词搜索">
+            <!-- <span>请输入关键词搜索</span> -->
         </div>
         <!-- onclick="OpenSearch();" -->
-        <div class="soso" >取消</div>
+        <div class="soso" id="id-soso" onclick="choice()">取消</div>
     </header>
     <nav id="nav">
-        <div id="tabs">
-            <div class="tab " tapmode="active" onclick="fnSelectTab(0,this)">作品</div>
+        <!-- <div id="tabs">
+            <div class="tab active" tapmode="active" onclick="fnSelectTab(0,this)">单曲</div>
             <div class="tab" tapmode="active" onclick="fnSelectTab(1,this)">作者</div>
-            <div class="tab" tapmode="active" onclick="fnSelectTab(2,this)">用户</div>
-        </div>
+            <div class="tab " tapmode="active" onclick="fnSelectTab(2,this)">专辑</div>
+        </div> -->
+        <!-- <p>共找到 x 个结果</p> -->
     </nav>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/message.js"></script>
 <script type="text/javascript">
+    var token;
+    var datas;
+    var data;
+    var total;
+    var target;
+
+
     function goback() {
+        clear();
         api.closeWin({
             name: 'langsong_searchs'
         });
     }
     apiready = function() {
-        var eHeader = $api.byId('header')
+        token = $api.getStorage('token');
+        var eHeader = $api.byId('header');
         $api.fixStatusBar(eHeader);
-        fnOpenFrameGroup();
+
+        datas = api.pageParam.data;
+        // console.log(datas);
+        listenInput();
+
+
+        api.addEventListener({
+            name: 'langsong-result'
+        }, function(ret, err){
+            if( ret ){
+                //  console.log( JSON.stringify( ret ) );
+                total = ret.value.total;
+                // console.log(total);
+                var navs = $api.byId('nav');
+                $api.html(navs, '<p>共找到'+ total +'个结果</p>')
+            }else{
+                 alert( JSON.stringify( err ) );
+            }
+        });
+
+
+
+
+        fnOpenFrame(datas);
+
+        // searching();
     };
+
 
     function fnSelectTab(index, ele) {
         var tabs = $api.domAll('#tabs>.tab');
@@ -145,44 +201,73 @@
         });
     }
 
-    function fnOpenFrameGroup() {
+    function fnOpenFrame(i) {
         var eHeader = $api.byId('header');
         var eHeaderOffset = $api.offset(eHeader);
         var eNav = $api.byId('nav');
         var eNavOffset = $api.offset(eNav);
-        api.openFrameGroup({
-            name: 'searchsGroup',
-            scrollEnabled: true,
+        api.openFrame({
+            name: 'langsong_searchs_detail',
+            url: './langsong_searchs_detail.html',
             rect: {
                 x: 0,
                 y: eHeaderOffset.h + eNavOffset.h,
                 w: 'auto',
-                h: 'auto'
+                h: 'auto',
             },
-            index: 0,
-            preload: 3,
-            frames: [{
-                name: 'searchs_1',
-                url: './searchs_1.html',
-                // pageParam:{category:'国友榜'}
-            }, {
-                name: 'searchs_2',
-                url: './searchs_2.html',
-                // pageParam:{category:'朗诵榜'}
-            }, {
-                name: 'searchs_5',
-                url: './searchs_5.html',
-                // pageParam:{category:'热听榜'}
-            }, ]
-        }, function(ret, err) {
-            console.log(ret);
-            var tabs = $api.domAll('#tabs>.tab');
-            for (var i = 0; i < 3; i++) {
-                var element = tabs.item(i);
-                $api.removeCls(element, 'active');
-            }
-            $api.addCls(tabs.item(ret.index), 'active');
+            pageParam: {
+                keywords: i,
+            },
+            bounces: true,
+            bgColor: 'rgba(0,0,0,0)',
+            vScrollBarEnabled: true,
+            hScrollBarEnabled: true
         });
+    }
+
+    function listenInput() {
+        var input = $api.byId('id-input');
+        input.value = datas;
+        var soso = $api.byId('id-soso');
+        input.addEventListener('input', function(event) {
+            target = event.target.value;
+            if (target == '') {
+                // soso.value = '取消'
+                $api.html(soso, '取消')
+            } else {
+                // soso.value = '搜索'
+                $api.html(soso, '搜索')
+            }
+        })
+    }
+
+    function choice() {
+        var soso = $api.byId('id-soso');
+        if (soso.innerHTML == "取消") {
+            clear();
+            goback();
+
+        }
+        if (soso.innerHTML == "搜索") {
+            var inputValues = target;
+            // console.log(inputValues);
+            api.sendEvent({
+                name: 'inputValues',
+                extra: {
+                    inputValues: inputValues,
+                }
+            });
+        }
+    }
+
+    function clear() {
+        api.sendEvent({
+            name: 'clearInput',
+            extra: {
+                key: 'v',
+            }
+        });
+
     }
 </script>
 
