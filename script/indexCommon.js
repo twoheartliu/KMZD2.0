@@ -226,8 +226,10 @@ function fnBoFangyinpinxinxi() {
           "session": token
       }
     }, function(ret, err) {
+      console.log(JSON.stringify(ret));
       if(ret){
       if(ret.status == 200){
+
             if (playlistid) {
                 api.sendEvent({
                     name: 'netbofangsssssss',
@@ -513,6 +515,11 @@ function netPlayLieIdUrl(playlistid,playUrli) {
                 "source": api.systemType,
                 "version": version,
                 "session": token
+            },
+            data:{
+              values:{
+                'is_play_all':1
+              }
             }
         }, function(ret, err) {
          if(ret){
@@ -543,7 +550,7 @@ function netPlayLieIdUrlAll(playlistid,playUrli,is_play_all) {
             },
             data:{
               values:{
-                'is_play_all':is_play_all
+                'is_play_all':1
               }
             }
         }, function(ret, err) {
@@ -807,12 +814,12 @@ function initEventListennerBoFangMoshi() {
         name: 'bofangmoshi'
     }, function(ret, err) {
         if (ret) {
-          api.sendEvent({
-              name: 'neiJianTingGood',
-              extra: {
-                  bofangmoshiid:ret.value.bofangmoshi
-              }
-          });
+          // api.sendEvent({
+          //     name: 'neiJianTingGood',
+          //     extra: {
+          //         bofangmoshiid:ret.value.bofangmoshi
+          //     }
+          // });
             fnBFMoshi(ret.value.bofangmoshi);
             fnBoFangmoshiid();
         }

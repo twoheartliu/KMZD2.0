@@ -274,7 +274,6 @@
                     },
                 }, function(ret, err) {
                     if (ret.status == 200) {
-
                       var tokens = ret.data.token;
                       $api.setStorage('token',tokens);
                       var user_id_s = ret.data.user_id;
@@ -283,10 +282,8 @@
                       $api.setStorage('nick_name',nick_name_s);
                       var photo_s = ret.data.photo;
                       $api.setStorage('photo',photo_s);
-                      // api.closeWin();
-                      // api.closeWin({
-                      //   name: 'login'
-                      //   });
+                      $api.byId('phone').value ='';
+                      $api.byId('password').value = '';
                        api.openWin({
                            name: 'index',
                            url: 'index.html',
