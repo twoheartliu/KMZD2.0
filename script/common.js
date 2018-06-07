@@ -8,6 +8,8 @@ var updatePhotoUrl = 'http://api.kmzhidao.com/kmzd/public/uploads/photo/';
 var listeningImg = 'http://api.kmzhidao.com/kmzd/public/uploads/listening/';
 // 用户作品
 var userRecord = 'http://api.kmzhidao.com/kmzd/public/uploads/records/';
+//banner;
+var uploadsBanner = 'http://api.kmzhidao.com/kmzd/public/uploads/banner/';
 //
 // if(token){
 //   tokens = token;
