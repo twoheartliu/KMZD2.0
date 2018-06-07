@@ -1255,7 +1255,26 @@
             }
             if (ret.index == "0") {
               if (Types == 'Single') {
-                  shareMp3Single(songListID,title);
+                // api.download({
+                //     url: imgaesFx,
+                //     savePath: 'fs:savePath/'+ iamgFx,
+                //     report: true,
+                //     cache: true,
+                //     allowResume: true
+                // }, function(ret, err) {
+                //     if (ret.state == 1) {
+                //         //下载成功
+                //         var savePath = ret.savePath;
+                        // shareMp3Single(songListID,title,savePath);
+                        var savePath = '';
+                        shareMp3Single(songListID,title,savePath);
+                        // shareMp3Album(name,listening_description,l_id);
+                  //   } else {
+                  //     console.log(JSON.stringify(err));
+                  //   }
+                  // });
+
+
               }else {
                 api.download({
                     url: imgUrlListening_cover,

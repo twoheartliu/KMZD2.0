@@ -6,7 +6,7 @@
 
 // 分享单曲
 // 分享微信
-function shareMp3Single(songListID,title) {
+function shareMp3Single(songListID,title,savePath) {
     var wx = api.require('wx');
     wx.isInstalled(function(ret, err) {
         if (ret.installed) {
@@ -28,6 +28,7 @@ function shareMp3Single(songListID,title) {
                                 openId: openId
                             }, function(ret, err) {
                                 if (ret.status) {
+                                  console.log(JSON.stringify(savePath));
                                   // 单曲
                                   var Single = host + '/kmzd/m/share1.html?id='
                                   // 专辑
@@ -35,15 +36,32 @@ function shareMp3Single(songListID,title) {
                                   // 听单
                                   var Album  =  host +'/kmzd/m/share111.html?id='
                                     var wx = api.require('wx');
+                                    var savePaths;
+                                    if (savePath == 'at') {
+                                      console.log(10);
+                                      savePaths = host + 'logo_144x144.png'
+                                    }else {
+                                        savePaths = savePath
+                                    }
                                     wx.shareWebpage({
                                         apiKey: '',
                                         scene: 'session',
                                         title: title,
                                         description: '',
-                                        thumb: 'http://47.100.11.38/logo_144x144.png',
+                                        thumb: savePaths,
                                         contentUrl: Single+songListID
                                     }, function(ret, err) {
                                         if (ret.status) {
+                                          var fs = api.require('fs');
+                                          fs.remove({
+                                              path: 'fs:' + savePath
+                                          }, function(ret, err) {
+                                              if (ret.status) {
+
+                                              } else {
+
+                                              }
+                                          });
                                           api.toast({
                                               msg: '分享成功',
                                               duration: 2000,
@@ -115,7 +133,8 @@ function fnintnQQSingle(songListID,title) {
   //   });
 }
 // 微信评友圈
-function initTimelineSingle(songListID,title) {
+function initTimelineSingle(songListID,title,savePath) {
+    console.log(savePath);
     var wx = api.require('wx');
     wx.isInstalled(function(ret, err) {
         if (ret.installed) {
@@ -149,15 +168,24 @@ function initTimelineSingle(songListID,title) {
                                         scene: 'timeline',
                                         title: title,
                                         description: '',
-                                        thumb: 'http://47.100.11.38/logo_144x144.png',
+                                        thumb: savePath,
                                         contentUrl: Single+songListID
                                     }, function(ret, err) {
                                         if (ret.status) {
-                                            api.toast({
-                                                msg: '分享成功',
-                                                duration: 2000,
-                                                location: 'bottom'
-                                            });
+                                          var fs = api.require('fs');
+                                          fs.remove({
+                                              path: 'fs:' + savePath
+                                          }, function(ret, err) {
+                                              if (ret.status) {
+                                                api.toast({
+                                                    msg: '分享成功',
+                                                    duration: 2000,
+                                                    location: 'bottom'
+                                                });
+                                              } else {
+
+                                              }
+                                          });
                                         } else {
                                             api.toast({
                                                 msg: '分享失败',
@@ -241,17 +269,16 @@ function shareMp3Listening(name,listening_description,l_id,savePath) {
                                         contentUrl: Album + l_id
                                     }, function(ret, err) {
                                         if (ret.status) {
-                                          api.toast({
-                                              msg: '分享成功',
-                                              duration: 2000,
-                                              location: 'bottom'
-                                          });
                                           var fs = api.require('fs');
                                           fs.remove({
                                               path: 'fs:' + savePath
                                           }, function(ret, err) {
                                               if (ret.status) {
-
+                                                api.toast({
+                                                    msg: '分享成功',
+                                                    duration: 2000,
+                                                    location: 'bottom'
+                                                });
                                               } else {
 
                                               }
