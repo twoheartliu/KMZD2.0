@@ -43,7 +43,8 @@ function fnBoFangyinpinxinxis(id) {
               api.sendEvent({
                   name: 'neiJianTingGood',
                   extra: {
-                      bookId:ret.data.id
+                      bookId:ret.data.id,
+                      bofangmoshiid:bofangmoshiid
                   }
               });
               api.sendEvent({
@@ -55,7 +56,7 @@ function fnBoFangyinpinxinxis(id) {
                       singerName: singerName,
                   }
               });
-
+            fnBoFangmoshiids
         }else{
           netMessage(ret);
         }

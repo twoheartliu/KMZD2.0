@@ -196,7 +196,7 @@
     </header>
     <div class="reply" id="reply">
         <div id="replys">
-            <textarea name="name" class="replyValue" placeholder=" 评论" id="replyValue"></textarea>
+            <textarea name="name" class="replyValue" placeholder="评论" id="replyValue"></textarea>
             <div class="replyButton" onclick="replySend();" id="replySend">
                 <button class="replySend">发表</button>
             </div>
@@ -234,7 +234,9 @@ var ok;
             uris = api.pageParam.uris;
             name = api.pageParam.name;
             if(name){
-              $api.byId('replyValue').placeholder = '评论' + name;
+              if(name != 'undefined' ){
+                $api.byId('replyValue').placeholder = '评论' + name;
+              }
             }
 
             // fnOpenMessageNotDetail(liLid);
@@ -257,7 +259,9 @@ var ok;
             uris = api.pageParam.uris;
             name = api.pageParam.name;
             if(name){
-              $api.byId('replyValue').placeholder = '评论' + name;
+              if(name != 'undefined'){
+                $api.byId('replyValue').placeholder = '评论' + name;
+              }
             }
 
             // fnOpenMessageNotDetail(liLid);

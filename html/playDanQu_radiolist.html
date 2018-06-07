@@ -131,12 +131,14 @@
         var list = $api.byId('radio-list');
         $api.addCls(list, 'in');
         var bodyW = document.getElementsByTagName("body")[0];
-        bodyW.onclick = function(evt) {
+        bodyW.onclick = function() {
             if (!list[0]) {
                 $api.removeCls(list, 'in');
                 setTimeout(function() {
                     api.closeFrame();
                 }, 350);
+            }else{
+                api.closeFrame();
             }
         }
         fnTingdanTuijian();

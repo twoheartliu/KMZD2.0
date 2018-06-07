@@ -490,7 +490,7 @@
                     <p>预置频道</p>
                 </div>
                 <div class="userinfocol" tapmode="toolhover"   id="comments">
-                  <div  onclick="fnOpenDiscussDetail(' + id + ',\'' + name + '\');"><div class="info" ><img src="../image/KM_ListingsListSx.png" alt=""><!-- <i>20</i> --></div><p >0</p></div>
+                  <div  onclick="fnOpenDiscussDetail();"><div class="info" ><img src="../image/KM_ListingsListSx.png" alt=""><!-- <i>20</i> --></div><p >0</p></div>
                 </div>
                 <div class="userinfocol" tapmode="toolhover" onclick="fnOpenPlayShare();">
                     <div class="info">
@@ -726,6 +726,10 @@
           }
 
         $api.html(stylelistCollectionHtml, albumCollectionHtml);
+
+        var stylelistsAllPlay = $api.byId('allPlay');
+        var htmlAllPlay = '<div class="playall_img fl"><img src="../image/index/KM_bofang.png" alt=""></div><div class="playall_span fl" onclick="fnOpenPlaysss(' + data_.data.id + ');">全部播放</div>';
+        $api.html(stylelistsAllPlay, htmlAllPlay);
     }
     function fnComment(comment_total,id,name){
       var stylelist = $api.byId('comments');
@@ -790,9 +794,7 @@
 
         }
         $api.html(stylelist, html);
-        var stylelists = $api.byId('allPlay');
-        var htmls = '<div class="playall_img fl"><img src="../image/index/KM_bofang.png" alt=""></div><div class="playall_span fl" onclick="fnOpenPlay(' + data_.data[0].id + ');">全部播放</div>';
-        $api.html(stylelists, htmls);
+
     }
 
     function fnTingdanZhanshibiaoti(data_) {
@@ -801,22 +803,26 @@
         $api.html(stylelist, html);
     }
     var Dqbofangid;
-    function fnDangQianbofangid(id) {
+    var bofang;
+    function fnDangQianbofangid(bofangI,id) {
         Dqbofangid = id;
+        bofang:bofangI;
+        console.log(bofang);
     }
 
     function fnOpenPlay(a) {
-
+console.log(a);
       api.addEventListener({
             name: 'netPlaying'
         }, function(ret, err) {
-            if (a == ret.value.playing) {
-                fnDangQianbofangid(ret.value.playing);
+            if (ret.value.playing) {
+              console.log(111);
+                fnDangQianbofangid(ret.value.bofang,ret.value.playing);
             }
         });
         var playlistid = api.pageParam.albumId;
         if (Dqbofangid == a) {
-
+console.log(222);
           api.openWin({
               name: 'play',
               url: './play.html',
@@ -825,7 +831,8 @@
                   a: a,
                   DangQianbofangid: Dqbofangid,
                   playUrli:'/album/song_list/',
-                  ok:'play'
+                  ok:'play',
+                  bofang:bofang
               }
           });
         } else {
@@ -837,7 +844,7 @@
                   a: a,
                   playlistid: playlistid,
                   playUrli:'/album/song_list/',
-                  ok:'play'
+                  ok:'play',
               }
           });
 
@@ -850,6 +857,18 @@
         //         playlistid: playlistid
         //     }
         // });
+    }
+
+    function fnOpenPlaysss(playlistid) {
+          api.openWin({
+              name: 'play',
+              url: './play.html',
+              pageParam: {
+                  playlistid: playlistid,
+                  playUrli:'/album/song_list/',
+                  ok:'play'
+              }
+          });
     }
     //打开更多
     function fnOpenPlayMore(id) {

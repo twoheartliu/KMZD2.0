@@ -228,7 +228,10 @@ var ok;
         name = api.pageParam.name;
         uris = api.pageParam.uris;
         if(name){
-          $api.byId('replyValue').placeholder = '评论' + name;
+          if(name != 'undefined'){
+            $api.byId('replyValue').placeholder = '评论' + name;
+          }
+
         }
         // fnOpenMessageNotDetail(liLid);
         // 获取浏览器高度
