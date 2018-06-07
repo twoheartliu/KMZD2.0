@@ -973,7 +973,7 @@ console.log(222);
                 });
             } else if (ret.index == "2") {
                 var Types = 'Single'
-                fnOpenPlayShare(Types,id,data_title);
+                fnOpenPlayShare(Types,id,data_title,sma);
             } else {
               dialogBox.close({
                   dialogName: 'actionMenu'
@@ -1038,7 +1038,33 @@ console.log(222);
               if (Types == 'Single') {
                   var songListID = id;
                   var title = data_title;
-                  shareMp3Single(songListID,title);
+                  // shareMp3Single(songListID,title);
+                  var imgaesFx = host + sma
+                  api.download({
+                      url: imgaesFx,
+                      savePath: 'fs:savePath/'+ sma,
+                      report: true,
+                      cache: true,
+                      allowResume: true
+                  }, function(ret, err) {
+                      if (ret.state == 1) {
+                          //下载成功
+                          var savePath = ret.savePath;
+                          var name =  titleFx;
+                          // var listening_description =
+                          var l_id = idFx;
+                          var listening_description;
+                          if (briefFx == null) {
+
+                              listening_description = ''
+                          }else {
+                              listening_description = briefFx;
+                          }
+                          shareMp3Album(name,listening_description,l_id,savePath);
+                      } else {
+                        console.log(JSON.stringify(err));
+                      }
+                  });
               }else {
 
                 api.download({

@@ -29,11 +29,11 @@ function shareMp3Single(songListID,title) {
                             }, function(ret, err) {
                                 if (ret.status) {
                                   // 单曲
-                                  var Single = 'http://47.100.11.38//kmzd/m/share1.html?id='
+                                  var Single = host + '/kmzd/m/share1.html?id='
                                   // 专辑
-                                  var Listening = 'http://47.100.11.38/kmzd/m/share11.html?id='
+                                  var Listening = host + '/kmzd/m/share11.html?id='
                                   // 听单
-                                  var Album  =  'http://47.100.11.38/kmzd/m/share111.html?id='
+                                  var Album  =  host +'/kmzd/m/share111.html?id='
                                     var wx = api.require('wx');
                                     wx.shareWebpage({
                                         apiKey: '',
@@ -94,11 +94,11 @@ function shareMp3Single(songListID,title) {
 // QQ
 function fnintnQQSingle(songListID,title) {
   // 单曲
-  var Single = 'http://47.100.11.38//kmzd/m/share1.html?id='
+  var Single = host + '/kmzd/m/share1.html?id='
   // 专辑
-  var Listening = 'http://47.100.11.38/kmzd/m/share11.html?id='
+  var Listening = host + '/kmzd/m/share11.html?id='
   // 听单
-  var Album  =  'http://47.100.11.38/kmzd/m/share111.html?id='
+  var Album  =  host +'/kmzd/m/share111.html?id='
   var qq = api.require('qq');
   qq.shareNews({
       url: Single+songListID,
@@ -139,11 +139,11 @@ function initTimelineSingle(songListID,title) {
                                 if (ret.status) {
                                     var wx = api.require('wx');
                                     // 单曲
-                                    var Single = 'http://47.100.11.38//kmzd/m/share1.html?id='
+                                    var Single = host + '/kmzd/m/share1.html?id='
                                     // 专辑
-                                    var Listening = 'http://47.100.11.38/kmzd/m/share11.html?id='
+                                    var Listening = host + '/kmzd/m/share11.html?id='
                                     // 听单
-                                    var Album  =  'http://47.100.11.38/kmzd/m/share111.html?id='
+                                    var Album  =  host +'/kmzd/m/share111.html?id='
                                     wx.shareWebpage({
                                         apiKey: '',
                                         scene: 'timeline',
@@ -226,11 +226,11 @@ function shareMp3Listening(name,listening_description,l_id,savePath) {
                             }, function(ret, err) {
                                 if (ret.status) {
                                   // 单曲
-                                  var Single = 'http://47.100.11.38//kmzd/m/share1.html?id='
+                                  var Single = host + '/kmzd/m/share1.html?id='
                                   // 专辑
-                                  var Listening = 'http://47.100.11.38/kmzd/m/share11.html?id='
+                                  var Listening = host + '/kmzd/m/share11.html?id='
                                   // 听单
-                                  var Album  =  'http://47.100.11.38/kmzd/m/share111.html?id='
+                                  var Album  =  host +'/kmzd/m/share111.html?id='
                                     var wx = api.require('wx');
                                     wx.shareWebpage({
                                         apiKey: '',
@@ -302,11 +302,11 @@ function shareMp3Listening(name,listening_description,l_id,savePath) {
 function fnintnQQListening(name,listening_description,l_id,savePath) {
   // var TypesAll;
   // 单曲
-  var Single = 'http://47.100.11.38//kmzd/m/share1.html?id='
+  var Single = host + '/kmzd/m/share1.html?id='
   // 专辑
-  var Listening = 'http://47.100.11.38/kmzd/m/share11.html?id='
+  var Listening = host + '/kmzd/m/share11.html?id='
   // 听单
-  var Album  =  'http://47.100.11.38/kmzd/m/share111.html?id='
+  var Album  =  host +'/kmzd/m/share111.html?id='
   // }
     var qq = api.require('qq');
     qq.shareNews({
@@ -339,11 +339,11 @@ function initTimelineListening(name,listening_description,l_id,savePath) {
                             }, function(ret, err) {
                                 if (ret.status) {
                                   // 单曲
-                                  var Single = 'http://47.100.11.38//kmzd/m/share1.html?id='
+                                  var Single = host + '/kmzd/m/share1.html?id='
                                   // 专辑
-                                  var Listening = 'http://47.100.11.38/kmzd/m/share11.html?id='
+                                  var Listening = host + '/kmzd/m/share11.html?id='
                                   // 听单
-                                  var Album  =  'http://47.100.11.38/kmzd/m/share111.html?id='
+                                  var Album  =  host +'/kmzd/m/share111.html?id='
                                   console.log(savePath);
                                     var wx = api.require('wx');
                                     wx.shareWebpage({
@@ -447,11 +447,11 @@ function shareMp3Album(name,listening_description,l_id,savePath) {
                             }, function(ret, err) {
                                 if (ret.status) {
                                   // 单曲
-                                  var Single = 'http://47.100.11.38//kmzd/m/share1.html?id='
+                                  var Single = host + '/kmzd/m/share1.html?id='
                                   // 专辑
-                                  var Listening = 'http://47.100.11.38/kmzd/m/share11.html?id='
+                                  var Listening = host + '/kmzd/m/share11.html?id='
                                   // 听单
-                                  var Album  =  'http://47.100.11.38/kmzd/m/share111.html?id='
+                                  var Album  =  host +'/kmzd/m/share111.html?id='
                                     var wx = api.require('wx');
                                     wx.shareWebpage({
                                         apiKey: '',
@@ -526,11 +526,11 @@ function fnintnQQAlbum(name,listening_description,l_id,savePath) {
     listening_descriptions = listening_description;
   }
   // 单曲
-  var Single = 'http://47.100.11.38//kmzd/m/share1.html?id='
+  var Single = host + '/kmzd/m/share1.html?id='
   // 专辑
-  var Listening = 'http://47.100.11.38/kmzd/m/share11.html?id='
+  var Listening = host + '/kmzd/m/share11.html?id='
   // 听单
-  var Album  =  'http://47.100.11.38/kmzd/m/share111.html?id='
+  var Album  =  host +'/kmzd/m/share111.html?id='
     var qq = api.require('qq');
     qq.shareNews({
         url: Listening + l_id,
@@ -579,11 +579,11 @@ function initTimelineAlbum(name,listening_description,l_id,savePath) {
                                     listening_descriptions = listening_description;
                                   }
                                   // 单曲
-                                  var Single = 'http://47.100.11.38//kmzd/m/share1.html?id='
+                                  var Single = host + '/kmzd/m/share1.html?id='
                                   // 专辑
-                                  var Listening = 'http://47.100.11.38/kmzd/m/share11.html?id='
+                                  var Listening = host + '/kmzd/m/share11.html?id='
                                   // 听单
-                                  var Album  =  'http://47.100.11.38/kmzd/m/share111.html?id='
+                                  var Album  =  host +'/kmzd/m/share111.html?id='
                                     var wx = api.require('wx');
                                     wx.shareWebpage({
                                         apiKey: '',
