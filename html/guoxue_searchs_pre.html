@@ -228,36 +228,6 @@
         $api.css(messageFrameDiv, 'height:' + winHeightHeader + 'px;');
 
         clearInput();
-
-        var searchinput = $api.byId('search-input');
-        var searchhight = $api.offset(searchinput);
-        var UIInput = api.require('UIInput');
-        UIInput.open({
-            rect: {
-                x: searchhight.l,
-                y: searchhight.t,
-                w: searchhight.w,
-                h: searchhight.h
-            },
-            styles: {
-                bgColor: '#f2f2f2',
-                size: 14,
-                color: 'black',
-                placeholder: {
-                    color: '#858585'
-                }
-            },
-            autoFocus: false,
-            maxRows: 4,
-            placeholder: '请输入关键词搜索',
-            keyboardType: 'default',
-            fixedOn: api.frameName
-        }, function(ret) {
-            if (ret.eventType == 'change') {} else {
-                alert(JSON.stringify(ret));
-            }
-        });
-
     };
 
     // api.openWin({
