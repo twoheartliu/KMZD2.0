@@ -7,7 +7,6 @@
     <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
     <title>孔孟之道--帮助与反馈</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
-    <link rel="stylesheet" type="text/css" href="../css/style.css" />
     <style>
         .fr {
             float: right;
@@ -20,13 +19,13 @@
         header {
             width: 100%;
             height: 50px;
-            background: #FFF;
+            background: #89211b;
         }
 
         .header_fl img {
             width: 15px;
             height: 20px;
-            padding: 10px;
+            padding: 15px;
         }
 
         .header_center {
@@ -36,7 +35,7 @@
             line-height: 50px;
             text-align: center;
             font-size: 20px;
-            color: #000;
+            color: #fff;
         }
 
         .header_fr {
@@ -53,16 +52,23 @@
 
 <body>
     <header id="secHeader">
-        <div class="header_fl fl" onclick="goback();"><img src="../image/KM_Hfh.png" alt=""></div>
-        <div class="header_fr fr"></div>
+        <div class="header_fl fl" onclick="goback();"><img src="../image/icon_back.png" alt=""></div>
+        <div class="header_fr fr" onclick="fnAjaxCreate(type, contact, content);">提交</div>
         <div class="header_center">帮助与反馈</div>
     </header>
 </body>
 
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
-
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/message.js"></script>;
 <script type="text/javascript">
+    var type;
+    var contact;
+    var content;
+    var img;
+    var token = $api.getStorage('token');
+
     function goback() {
         api.closeWin({
             name: 'feedback'
@@ -70,6 +76,9 @@
     }
     apiready = function() {
         var header = $api.byId('secHeader');
+
+        feedbackFromFrame()
+
         $api.fixStatusBar(header);
         var headerPos = $api.offset(header);
         api.openFrame({
@@ -87,5 +96,102 @@
             bounces: false,
         });
 
+    }
+
+
+    function feedbackFromFrame() {
+        // console.log(1111);
+        api.addEventListener({
+            name: 'fnchoice'
+        }, function(ret, err) {
+            if (ret) {
+                //  alert( JSON.stringify( ret ) );
+                var types = ret.value.type
+                if (types == '') {
+                    type = 1
+                } else {
+                    type = types
+                }
+                // console.log(type);
+            } else {
+                alert(JSON.stringify(err));
+            }
+        });
+
+        api.addEventListener({
+            name: 'fnContact'
+        }, function(ret, err) {
+            if (ret) {
+                // console.log(JSON.stringify(ret));
+                contact = ret.value.contact
+                // console.log(contact);
+            } else {
+                alert(JSON.stringify(err));
+            }
+        });
+
+        api.addEventListener({
+            name: 'fntext'
+        }, function(ret, err) {
+            if (ret) {
+                //  alert( JSON.stringify( ret.value.content ) );
+                content = ret.value.content
+                // console.log(content);
+            } else {
+                alert(JSON.stringify(err));
+            }
+        });
+
+    }
+
+    function fnAjaxCreate(type, contact, content) {
+        if (content == undefined) {
+            api.toast({
+                msg: '请填写要反馈的内容',
+                duration: 2000,
+                location: 'middle'
+            });
+        }
+        if (type == undefined) {
+            type = 1;
+        }
+        // console.log(type);
+        // console.log(contact);
+        // console.log(content);
+        api.ajax({
+            url: host + apiUri + '/system/feedback',
+            method: 'post',
+            dataType: 'json',
+            timeout:10,
+            headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token,
+            },
+            data: {
+                values: {
+                    'contact': contact,
+                    'type': type,
+                    'content': content,
+                }
+            }
+        }, function(ret, err) {
+            if (ret) {
+                if (ret.status == 200) {
+                    api.toast({
+                        msg: '提交成功',
+                        duration: 2000,
+                        location: 'middle'
+                    });
+                    setTimeout(function() {
+                        api.closeWin();
+                    }, 2000)
+                }else{
+                  netMessage(ret);
+                }
+            }else{
+              netWork(err);
+            }
+        });
     }
 </script>

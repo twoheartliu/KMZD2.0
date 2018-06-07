@@ -1,191 +1,706 @@
 <!doctype html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<meta name="copyright" content="www.apicloud.com" />
-<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
-<title>孔孟之道--评论</title>
-<link rel="stylesheet" type="text/css" href="../css/api.css" />
-<style>
-html,body {min-height: 100%;background: #ebebeb}
-.fr {float: right;}
-.fl {float: left;}
-.mt5 {margin-top: 5px;}
-.mt10 {margin-top: 10px;}
-.mt15 {margin-top: 15px;}
-.mt20 {margin-top: 20px;}
-.ml5 {margin-left: 0.5em;}
-.mr5 {margin-right: 0.5em;}
-.hdivider {width: 100%; height: 1px;background-color: #e0e0e0;}
-.br {border-right: 1px solid #e0e0e0;}
-.bb {border-bottom: 1px solid #e0e0e0;height: 1px;}
-.toRight {right: 0;}
-.row {display: -webkit-box;display: -webkit-flex;}
-.col {-webkit-box-flex:1; -webkit-flex:1; flex:1;margin: 0 5px; position: relative;}
-.swiper-container img {width: 100%;}
-/* 头部 */
-.nomessage {margin-top: 20px;font-size: 0.8em;text-align: center;color: #999;}
-section{border-top: 1px solid #ccc;}
-section>ul{margin: 0 10px;}
-section ul li{width:100%;padding: 10px 0;}
-/*section ul li:nth-last-child(1){border-bottom: 1px solid #ccc;}*/
-.user-img{width:40px;height: 50px;line-height: 50px;display: inline-block;}
-.user-name{display: inline-block;vertical-align: top;position: relative;width: 85%;border-bottom: 1px solid #ccc;}
-.user-name p{font-size: 16px;color: #89211b;line-height: 30px;}
-.user-name p:nth-child(2){color: #535354;}
-.discuss{height: auto;padding: 10px;background-color: #f2f2f3;color: #999;border-radius: 5px;}
-.user-name p:nth-last-child(1){font-size: 12px;position: absolute;top: 0;right: 0;width:92px;color: #999;}
-.reply{display:none;}
-.replyButton{width:100%;height:30px;text-align: right;padding-bottom: 10px;}
-.replySend{width: 50px;height: 30px;line-height: 30px;border-radius: 5px;text-align: center;
-  background-color: #89211b;color:#FFF;}
-.reply textarea{background-color: #fff; width:90%;height:60px;padding: 5px 0;}
-textarea:focus{outline-color: #fff;background-color: #fff;}
-button:focus{outline: none;}
-</style>
+    <meta charset="UTF-8">
+    <meta name="copyright" content="www.apicloud.com" />
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <title>孔孟之道--评论</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style>
+        html,
+        body {
+            min-height: 100%;
+            background: #ebebeb
+        }
+
+        .fr {
+            float: right;
+        }
+
+        .fl {
+            float: left;
+        }
+
+        .mt5 {
+            margin-top: 5px;
+        }
+
+        .mt10 {
+            margin-top: 10px;
+        }
+
+        .mt15 {
+            margin-top: 15px;
+        }
+
+        .mt20 {
+            margin-top: 20px;
+        }
+
+        .ml5 {
+            margin-left: 0.5em;
+        }
+
+        .mr5 {
+            margin-right: 0.5em;
+        }
+
+        .hdivider {
+            width: 100%;
+            height: 1px;
+            background-color: #e0e0e0;
+        }
+
+        .br {
+            border-right: 1px solid #e0e0e0;
+        }
+
+        .bb {
+            border-bottom: 1px solid #e0e0e0;
+            height: 1px;
+        }
+
+        .toRight {
+            right: 0;
+        }
+
+        .row {
+            display: -webkit-box;
+            display: -webkit-flex;
+        }
+
+        .col {
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+            margin: 0 5px;
+            position: relative;
+        }
+
+        .swiper-container img {
+            width: 100%;
+        }
+        /* 头部 */
+
+        .nomessage {
+            margin-top: 20px;
+            font-size: 0.8em;
+            text-align: center;
+            color: #999;
+        }
+
+        section {
+            border-top: 1px solid #ccc;
+            margin-bottom: 40px;
+            height: 100%;
+            width: 100%;
+        }
+
+        section>ul {
+            margin: 0 10px;
+        }
+
+        section ul li {
+            width: 100%;
+            padding: 10px 0;
+        }
+        /*section ul li:nth-last-child(1){border-bottom: 1px solid #ccc;}*/
+
+        .user-img {
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            display: inline-block;
+            border-radius: 25px;
+            overflow: hidden;
+        }
+
+        .user-img img {
+            width: 100%;
+        }
+
+        .userName {
+            display: inline-block;
+            vertical-align: top;
+            position: relative;
+            width: 80%;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .userName p {
+            font-size: 16px;
+            color: #89211b;
+            line-height: 30px;
+        }
+
+        .userName p:nth-child(2) {
+            color: #535354;
+        }
+
+        .discuss {
+            height: auto;
+            padding: 10px;
+            background-color: #f2f2f3;
+            color: #999;
+            border-radius: 5px;
+        }
+
+        .userName p:nth-last-child(1) {
+            font-size: 12px;
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 92px;
+            color: #999;
+        }
+
+        .reply {
+            display: block;
+            margin: 8px 2%;
+            width: 100%;
+            position: fixed;
+            left: 0;
+            bottom: 0;
+        }
+
+        .replyButton {
+            width: 50px;
+            height: 33px;
+            text-align: right;
+            padding-bottom: 10px;
+            display: inline-block;
+            vertical-align: bottom;
+        }
+
+        .replySend {
+            width: 50px;
+            height: 33px;
+            line-height: 33px;
+            border-radius: 5px;
+            text-align: center;
+            background-color: #89211b;
+            color: #FFF;
+            font-size: 14px;
+        }
+        /*.reply textarea{background-color: #fff; width: 100%;height:60px;padding: 5px 0;}*/
+
+        .reply textarea {
+            background-color: #fff;
+            width: 80%;
+            height: 25px;
+            padding: 5px 0;
+            margin-bottom: 8px;
+            display: inline-block;
+        }
+
+        textarea:focus {
+            outline-color: #fff;
+            background-color: #fff;
+        }
+
+        button:focus {
+            outline: none;
+        }
+
+        #footer {
+            width: 100%;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+        }
+    </style>
 </head>
+
 <body>
-  <section id="section">
-    <ul>
-      <li>
-        <div class="user-img"><img src="../image/icon-person.png" alt=""></div>
-        <div class="user-name"><p>云儿123</p>
-          <p class="replyCont" >回复我：时间就是最好的良药。</p>
-          <div class="reply" >
-            <textarea name="name" class="replyValue"></textarea>
-            <!-- <textarea name="name" rows="6" cols="36" class="replyValue"></textarea> -->
-            <div class="replyButton" >
-              <button class="replySend" >发送</button></div>
-          </div>
-          <div class="discuss">
-            <span>我的评论：不知道为什么分开，很多喜欢以为永远会喜欢，到最后才发现任何事情都抵不过时过境迁。</span>
-          </div>
-          <p>2017年12月30日</p>
+    <section id="section">
+        <ul id="sections">
+
+        </ul>
+        <div id="footer" class="disnone">
+            已经没数据了
         </div>
-      </li>
-      <li>
-        <div class="user-img"><img src="../image/icon-person.png" alt=""></div>
-        <div class="user-name"><p>云儿123</p>
-          <p class="replyCont" >回复我：时间就是最好的良药。</p>
-          <div class="reply" >
-            <textarea name="name" class="replyValue"></textarea>
-            <!-- <textarea name="name" rows="6" cols="40" class="replyValue"></textarea> -->
-            <div class="replyButton" >
-              <button class="replySend" >发送</button></div>
-          </div>
-          <div class="discuss">
-            <span>我的评论：不知道为什么分开，很多喜欢以为永远会喜欢，到最后才发现任何事情都抵不过时过境迁。</span>
-          </div>
-          <p>2017年12月30日</p>
-        </div>
-      </li>
-      <li>
-        <div class="user-img"><img src="../image/icon-person.png" alt=""></div>
-        <div class="user-name"><p>云儿123</p>
-          <p class="replyCont" >回复我：时间就是最好的良药。</p>
-          <div class="reply" >
-            <textarea name="name" rows="6" cols="40" class="replyValue"></textarea>
-            <div class="replyButton">
-              <button class="replySend" >发送</button></div>
-          </div>
-          <div class="discuss">
-            <span>我的评论：不知道为什么分开，很多喜欢以为永远会喜欢，到最后才发现任何事情都抵不过时过境迁。</span>
-          </div>
-          <p>2017年12月30日</p>
-        </div>
-      </li>
-      <li>
-        <div class="user-img"><img src="../image/icon-person.png" alt=""></div>
-        <div class="user-name"><p>云儿123</p>
-          <p class="replyCont" >回复我：时间就是最好的良药。</p>
-          <div class="reply" >
-            <textarea name="name" rows="6" cols="40" class="replyValue"></textarea>
-            <div class="replyButton"  >
-              <button class="replySend">发送</button></div>
-          </div>
-          <div class="discuss">
-            <span>我的评论：不知道为什么分开，很多喜欢以为永远会喜欢，到最后才发现任何事情都抵不过时过境迁。</span>
-          </div>
-          <p>2017年12月30日</p>
-        </div>
-      </li>
-    </ul>
-    <!-- <div class="nomessage">暂无消息01</div> -->
-  </section>
-  <!-- <div id="popup">
-    <ul style="margin: 0 10px;">
-      <li style="width:100%;padding: 10px 0;border-top: 1px solid #ccc;">
-        <div class="popup-img" >
-          <img src="../image/popup01.png" alt="" style="display: inline-block;width:35px;height: 35px;line-height: 35px;">
-          <span class="popup-name" style="display: inline-block;vertical-align: top;margin-top: 8px;margin-left: 5px;">回复评论</span>
-        </div>
-      </li>
-      <li style="width:100%;padding: 10px 0;border-top: 1px solid #ccc;">
-        <div class="popup-img">
-          <img src="../image/popup02.png" alt="" style="display: inline-block;width:35px;height: 35px;line-height: 35px;">
-          <span class="popup-name" style="display: inline-block;vertical-align: top;margin-top: 8px;margin-left: 5px;">查看品论</span>
-        </div>
-      </li>
-      <li style="width:100%;padding: 10px 0;border-top: 1px solid #ccc;">
-        <div class="popup-img">
-          <img src="../image/popup03.png" alt="" style="display: inline-block;width:35px;height: 35px;line-height: 35px;">
-          <span class="popup-name" style="display: inline-block;vertical-align: top;margin-top: 8px;margin-left: 5px;">举报</span>
-        </div>
-      </li>
-    </ul>
-  </div> -->
+        <!-- <div class="nomessage">暂无消息01</div> -->
+    </section>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/message.js"></script>
 <script type="text/javascript">
-  apiready = function (){
-    fnOpenUserButton();
-    fnOpensendFrame();
-  }
-  function fnOpenUserButton() {
-    var section = document.getElementById('section');
-    var ul_lis = section.getElementsByClassName('replyCont');
-    var reply = section.getElementsByClassName('reply');
-    for (var i = 0; i < ul_lis.length; i++) {
-        ul_lis[i].index = i;
-        ul_lis[i].onclick = function() {
-            var j = this.index;
-            reply[j].style.display = (reply[j].style.display =='block'?'none':'block');
-            // $api.addCls(ul_lis[j], 'active');
-            // ul_lis[j].innerHTML="已关注"
-        }
+    var token;
+    var photo;
+    var data_type;
+    var p = 1;
+    apiready = function() {
+        token = $api.getStorage('token');
+        fnAjaxPinLun();
+        api.setCustomRefreshHeaderInfo({
+            bgColor: '#f0f0f0',
+            image: {
+                pull: [
+                    'widget://image/Refresh/dropdown_anim_00.png',
+                    'widget://image/Refresh/dropdown_anim_01.png',
+                    'widget://image/Refresh/dropdown_anim_02.png',
+                    'widget://image/Refresh/dropdown_anim_03.png',
+                    'widget://image/Refresh/dropdown_anim_04.png',
+                    'widget://image/Refresh/dropdown_anim_05.png',
+                    'widget://image/Refresh/dropdown_anim_06.png',
+                    'widget://image/Refresh/dropdown_anim_07.png',
+                    'widget://image/Refresh/dropdown_anim_08.png',
+                    'widget://image/Refresh/dropdown_anim_09.png',
+                    'widget://image/Refresh/dropdown_anim_10.png',
+                ],
+                load: [
+                    'widget://image/Refresh/dropdown_anim_00.png',
+                    'widget://image/Refresh/dropdown_anim_01.png',
+                    'widget://image/Refresh/dropdown_anim_02.png',
+                    'widget://image/Refresh/dropdown_anim_03.png',
+                    'widget://image/Refresh/dropdown_anim_04.png',
+                    'widget://image/Refresh/dropdown_anim_05.png',
+                ]
+            }
+        }, function() {
+            //下拉刷新被触发，自动进入加载状态，使用 api.refreshHeaderLoadDone() 手动结束加载中状态
+            //下拉刷新被触发，使用 api.refreshHeaderLoadDone() 结束加载中状态
+            fnAjaxPinLun();
+        });
+        api.addEventListener({
+            name: 'scrolltobottom',
+            extra: {
+                threshold: -20 //设置距离底部多少距离时触发，默认值为0，数字类型
+            }
+        }, function(ret, err) {
+            p++;
+            fnAjaxPinLuns();
+        });
     }
-  }
-  function fnOpensendFrame(){
-    var section = document.getElementById('section');
-    var replyValue = section.getElementsByClassName('replyValue');
-    var reply = section.getElementsByClassName('reply');
-    var replySend = section.getElementsByClassName('replySend');
-    for (var i = 0; i < replySend.length; i++) {
-        replySend[i].index = i;
-        replySend[i].onclick = function() {
-            var j = this.index;
-            reply[j].style.display='none';
-            replyValue[j].value= " ";
-            // $api.addCls(ul_lis[j], 'active');
-            // ul_lis[j].innerHTML="已关注"
-        }
+
+    function fnAjaxPinLun() {
+        api.ajax({
+            url: host + apiUri + '/message/lists',
+            method: 'get',
+            dataType: 'json',
+            timeout:10,
+            headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token
+            },
+            data: {
+                values: {
+                    type: 2,
+                    p: 1
+                }
+            }
+        }, function(ret, err) {
+            if (ret) {
+                if (ret.status == 200) {
+                  // console.log(JSON.stringify(ret));
+                    p = 1;
+                    api.refreshHeaderLoadDone();
+                    var sections = $api.byId('sections');
+                    var html = '';
+                    for (var i = 0; i < ret.data.list.length; i++) {
+                        if (ret.data.list[i].data_type == 'album') {
+                            data_type = 'album';
+                        } else if (ret.data.list[i].data_type == 'book') {
+                            data_type = 'book';
+                        } else if (ret.data.list[i].data_type == 'listening') {
+                            data_type = 'listening';
+                        }
+                        var photos = ret.data.list[i].photo;
+                        var photo = photos.substring(0, 4);
+                        if (photo == '') {
+                            photo = '../image/KM_tx.png'
+                        } else if (photo == 'http') {
+                            photo = ret.data.list[i].photo;
+                        } else if (photo != 'http') {
+                            photo = updatePhotoUrl + photos;
+                        }
+
+                        function timestampToTime(timestamp) {
+                            var date = new Date(timestamp * 1000); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
+                            Y = date.getFullYear() + '年';
+                            M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '月';
+                            D = date.getDate() + '日';
+                            return Y + M + D;
+                        }
+                        var timestampToTimess = timestampToTime(ret.data.list[i].create_date);
+                        html +=
+                            '<li>' +
+                            '<div class="user-img"><img src="' + photo + '" alt=""></div>' +
+                            '<div class="userName" onclick="fnOpenUserButton(\'' + data_type + '\',' + ret.data.list[i].data_id + ',' + ret.data.list[i].send_user_id + ',\'' + ret.data.list[i].nick_name + '\',' + ret.data.list[i].comment_id +
+                            ');"><p>' + ret.data.list[i].nick_name + '</p>' +
+                            '<p class="replyCont" >回复我：' + ret.data.list[i].content + '</p>' +
+                            '<div class="discuss">' +
+                            '<span>' + ret.data.list[i].origin_content + '</span>' +
+                            '</div>' +
+                            '<p>' + timestampToTimess + '</p>' +
+                            '</div>' +
+                            '</li>'
+                            // console.log(ret.data.list[i].photo);
+                // var timestampToTimess =  timestampToTime(ret.data.list[i].create_date);
+                // html +=
+                // '<li>'+
+                //   '<div class="user-img"><img src="'+ photo +'" alt=""></div>'+
+                //   '<div class="userName" onclick="fnOpenUserButton(\'' + data_type + '\','+ret.data.list[i].data_id+','+ret.data.list[i].send_user_id+',\''+ret.data.list[i].nick_name+'\','+ret.data.list[i].comment_id+');"><p>'+ret.data.list[i].nick_name +'</p>'+
+                //     '<p class="replyCont" >回复我：'+ ret.data.list[i].content +'</p>'+
+                //     '<div class="discuss">'+
+                //       '<span>'+ ret.data.list[i].origin_content  +'</span>'+
+                //     '</div>'+
+                //     '<p>'+timestampToTimess+'</p>'+
+                //   '</div>'+
+                // '</li>'
+                // console.log(ret.data.list[i].photo);
+              }
+
+                    $api.html(sections, html);
+
+                }else{
+                  netMessage(ret);
+                }
+                // console.log( JSON.stringify( ret ) );
+            } else {
+                netWork(err);
+            }
+        });
+
     }
-  //   ereply = $api.byId('reply');
-  //   replyValue = $api.byId('replyValue');
-  //   ereply.style.display='none';
-  //   replyValue.value= " ";
-   }
-  // function fnOpendiscussFrame(){
-  //
-  //   ereply = $api.byId('reply');
-  //   ereply.style.display='block';
-  //
-  // }
-  // function fnOpensendFrame(){
-  //   ereply = $api.byId('reply');
-  //   replyValue = $api.byId('replyValue');
-  //   ereply.style.display='none';
-  //   replyValue.value= " ";
-  // }
+
+    function fnAjaxPinLuns() {
+        api.ajax({
+            url: host + apiUri + '/message/lists',
+            method: 'get',
+            dataType: 'json',
+            timeout:10,
+            headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token
+            },
+            data: {
+                values: {
+                    type: 2,
+                    p: p
+                }
+            }
+        }, function(ret, err) {
+            if (ret) {
+                if (ret.status == 200) {
+                    api.refreshHeaderLoadDone();
+                    var sections = $api.byId('sections');
+                    for (var i = 0; i < ret.data.list.length; i++) {
+                        if (ret.data.list[i].data_type == 'album') {
+                            data_type = 'album';
+                        } else if (ret.data.list[i].data_type == 'book') {
+                            data_type = 'book';
+                        } else if (ret.data.list[i].data_type == 'listening') {
+                            data_type = 'listening';
+                        }
+                        var photos = ret.data.list[i].photo;
+                        var photo = photos.substring(0, 4);
+                        if (photo == '') {
+                            photo = '../image/KM_tx.png'
+                        } else if (photo == 'http') {
+                            photo = ret.data.list[i].photo;
+                        } else if (photo != 'http') {
+                            photo = updatePhotoUrl + photos;
+                        }
+
+                        function timestampToTime(timestamp) {
+                            var date = new Date(timestamp * 1000); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
+                            Y = date.getFullYear() + '年';
+                            M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '月';
+                            D = date.getDate() + '日';
+                            return Y + M + D;
+                        }
+                        var timestampToTimess = timestampToTime(ret.data.list[i].create_date);
+                        if (ret.data.list == '') {
+                            var footer = $api.byId('footer');
+                            $api.html(footer, '无更多数据');
+                        } else {
+                            if (ret.data.list.length < 10) {
+                                var footer = $api.byId('footer');
+                                $api.html(footer, '无更多数据');
+                            } else {
+                                var footer = $api.byId('footer');
+                                $api.html(footer, '正在加载更多');
+                            }
+                            $api.append(sections,
+                                '<li>' +
+                                '<div class="user-img"><img src="' + photo + '" alt=""></div>' +
+                                '<div class="userName" onclick="fnOpenUserButton(\'' + data_type + '\',' + ret.data.list[i].data_id + ',' + ret.data.list[i].send_user_id + ',\'' + ret.data.list[i].nick_name + '\',' + ret.data.list[i].comment_id +
+                                ');"><p>' + ret.data.list[i].nick_name + '</p>' +
+                                '<p class="replyCont" >回复我：' + ret.data.list[i].content + '</p>' +
+                                '<div class="discuss">' +
+                                '<span>' + ret.data.list[i].origin_content + '</span>' +
+                                '</div>' +
+                                '<p>' + timestampToTimess + '</p>' +
+                                '</div>' +
+                                '</li>');
+                        }
+
+                        // console.log(ret.data.list[i].photo);
+                    }
+
+                    // fnAjaxDetail(id);
+                }else{
+                  netMessage(ret);
+                }
+                // console.log( JSON.stringify( ret ) );
+            } else {
+                netWork(err);
+            }
+        });
+
+    }
+
+    // data_type == 判断是那种类型// id== data_id// userId==send_user_id// name == 对方用户名// ids ==comment_id回复的id
+    function fnOpenUserButton(data_type, id, userId, name, ids) {
+        var dialogBox = api.require('dialogBox');
+        dialogBox.actionMenu({
+            rect: {
+                h: 150
+            },
+            texts: {
+                cancel: '取消'
+            },
+            items: [{
+                text: '回复',
+                icon: 'widget://image/message/reply.png'
+            }, {
+                text: '查看详情',
+                icon: 'widget://image/message/detail.png'
+            }],
+            styles: {
+                bg: '#FFF',
+                corner: 6,
+                column: 2,
+                itemText: {
+                    color: '#000',
+                    size: 14,
+                    marginT: 10
+                },
+                itemIcon: {
+                    size: 30
+                },
+                cancel: {
+                    bg: '#fff',
+                    color: '#333',
+                    h: 55,
+                    size: 14
+                }
+            },
+            tapClose: true
+        }, function(ret) {
+            var texts = ret.eventType;
+            var index = ret.index;
+            if (texts == "cancel") {
+                dialogBox.close({
+                    dialogName: 'actionMenu'
+                });
+            } else if (index == 0) {
+                if (data_type == 'album') {
+                    // 评论专辑
+                    fnOpendiscussAlbum(id, name, ids);
+                } else if (data_type == 'book') {
+                    // 单曲
+                    fnOpendiscussBook(id, name, ids);
+                } else if (data_type == 'listening') {
+                    // 评论听单
+                    fnOpendiscussListening(userId, name, ids);
+                }
+                dialogBox.close({
+                    dialogName: 'actionMenu'
+                });
+            } else if (index == 1) {
+                if (data_type == 'album') {
+                    fnOpenMessageNotAlbum(id);
+                } else if (data_type == 'book') {
+                    fnOpenMessageNotBook(id)
+                } else if (data_type == 'listening') {
+                    fnOpenMessageNotListening(id);
+                }
+                // fnOpenMessageNotDetail();
+
+                dialogBox.close({
+                    dialogName: 'actionMenu'
+                });
+
+            }
+        });
+    }
+    // 判断的三种情况跳转评论
+    function fnOpendiscussAlbum(id, name, ids) {
+        var uris = '/album/comment';
+        var ok = 'messageDiscussFrameDetail';
+        api.openWin({
+            name: 'messageDiscussFrameDetail',
+            url: './message_discuss_frame_detail.html',
+            pageParam: {
+                uris: uris,
+                albumId: id,
+                name: name,
+                ok: ok,
+                ids: ids,
+            }
+        });
+    }
+
+    function fnOpendiscussBook(id, name, ids) {
+        var uris = '/sound/comment';
+        var ok = 'messageDiscussFrameDetail';
+        api.openWin({
+            name: 'messageDiscussFrameDetail',
+            url: './message_discuss_frame_detail.html',
+            pageParam: {
+                uris: uris,
+                albumId: id,
+                name: name,
+                ok: ok,
+                ids: ids,
+
+            }
+        });
+    }
+
+    function fnOpendiscussListening(userId, name, ids) {
+        var uris = '/listening/comment';
+        var ok = 'messageDiscussFrameDetail';
+        api.openWin({
+            name: 'messageDiscussFrameDetail',
+            url: './message_discuss_frame_detail.html',
+            pageParam: {
+                uris: uris,
+                albumId: userId,
+                name: name,
+                ok: ok,
+                ids: ids
+            }
+        });
+    }
+    // 判断的三种情况跳转详情页面
+    function fnOpenMessageNotAlbum(id) {
+        var dataType = './discuss_detail0.html';
+        var dataName = 'discussDetail0';
+        api.ajax({
+            url: host + apiUri + '/album/' + id,
+            method: 'get',
+            dataType: 'json',
+            timeout:10,
+            headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token
+            },
+            data: {
+                values: {
+                    id: id
+                }
+            }
+        }, function(ret, err) {
+            if (ret) {
+              if(ret.status == 200){
+                var name = ret.data.title;
+                var uris = '/album/comment/';
+                api.openWin({
+                    name: dataName,
+                    url: dataType,
+                    pageParam: {
+                        name: name,
+                        uris: uris,
+                        albumId: id,
+                        ok:dataType
+                    }
+                });
+              }else{
+                netMessage(ret);
+              }
+            } else {
+                netWork(err);
+            }
+        });
+    }
+
+    function fnOpenMessageNotBook(id) {
+        var dataType = './discuss_notice_detail0.html';
+        var dataName = 'discussNoticeDetail0';
+        var uris = '/sound/comment/';
+        api.ajax({
+            url: host + apiUri + '/sound/' + id,
+            method: 'get',
+            dataType: 'json',
+            timeout:10,
+            headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token
+            },
+            data: {
+                values: {
+                    id: id
+                }
+            }
+        }, function(ret, err) {
+            if (ret) {
+              if(ret.status == 200){
+                var name = ret.data.title;
+                api.openWin({
+                    name: dataName,
+                    url: dataType,
+                    pageParam: {
+                        name: name,
+                        uris: uris,
+                        soundId: id,
+                        ok:dataType
+                    }
+                });
+              }else{
+                netMessage(ret);
+              }
+            } else {
+                netWork(err);
+            }
+        });
+    }
+
+    function fnOpenMessageNotListening(id) {
+        var dataType = './discuss_detail0.html';
+        var dataName = 'discussDetail0';
+        var uris = '/listening/comment/'
+        api.ajax({
+            url: host + apiUri + '/listening/detail/' + id,
+            method: 'get',
+            dataType: 'json',
+            timeout:10,
+            headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token
+            },
+        }, function(ret, err) {
+            if (ret) {
+              if(ret.status == 200){
+                var name = ret.data.linstening_info.listening_name;
+                var l_id = ret.data.linstening_info.l_id;
+                api.openWin({
+                    name: dataName,
+                    url: dataType,
+                    pageParam: {
+                        name: name,
+                        uris: uris,
+                        albumId: l_id,
+                        ok:dataType
+                    }
+                });
+              }else{
+                netMessage(ret);
+              }
+            } else {
+                netWork(err);
+            }
+        });
+    }
 </script>
+
 </html>

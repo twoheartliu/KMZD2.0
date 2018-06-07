@@ -1,164 +1,493 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
     <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
-    <title>孔孟之道--我的</title>
+    <title>孔孟之道--我的关注</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
     <style>
-    html,
-    body {
-        background-color: #f2f2f2;
-    }
-    /* 头部 */
-    .nomessage {margin-top: 20px;font-size: 0.8em;text-align: center;color: #999;}
-    nav{border-top: 1px solid #ccc;}
-    nav .total{color:#000;font-size: 16px;padding-left: 15px;height:40px;line-height: 40px;}
-    nav>ul{background-color: #fff;}
-    nav ul li{width:100%;height:70px;padding: 10px 0 0;background-color: #fff;border-bottom: 10px solid #f2f2f2;;}
-    .user-detail{display: inline-block;width:87%;}
-    /*section ul li:nth-last-child(1){border-bottom: 1px solid #ccc;}*/
-    .user-img{width:50px;height: 70px;line-height: 70px;display: inline-block;margin-left: 10px;vertical-align: top;}
-    .user-name{height: 70px;display: inline-block;vertical-align: middle;width: 65%;}
-    .user-name p{font-size: 16px;color: #000;width:100%;overflow: hidden;text-overflow: ellipsis;white-space:nowrap;line-height: 16px;}
-    .user-name p:nth-child(2){font-size: 14px;margin-top: 5px;color: #ccc;}
-    .user-name p:nth-child(3){font-size: 14px;margin-top: 5px;color: #ccc;}
-    .user-name p>span{margin-right: 10px;vertical-align: top;}
-    /*.user-name p:nth-last-child(1){font-size: 12px;width:92px;color: #999;float:right;}*/
-    .userDelete{display: inline-block;width: 30px;height:70px;line-height: 70px;text-align: center;}
-    .active{display: none;}
+        html,
+        body {
+            background-color: #f2f2f2;
+        }
+        /* 头部 */
+
+        .nomessage {
+            margin-top: 20px;
+            font-size: 0.8em;
+            text-align: center;
+            color: #999;
+        }
+
+        nav {
+            border-top: 1px solid #ccc;
+        }
+
+        nav .total {
+            color: #000;
+            font-size: 16px;
+            padding-left: 15px;
+            height: 40px;
+            line-height: 40px;
+        }
+
+        nav>ul {
+            background-color: #fff;
+        }
+
+        nav ul li {
+            width: 100%;
+            height: 70px;
+            padding: 10px 0 0;
+            background-color: #fff;
+            border-bottom: 10px solid #f2f2f2;
+            ;
+        }
+
+        .user-detail {
+            display: inline-block;
+            width: 80%;
+        }
+        /*section ul li:nth-last-child(1){border-bottom: 1px solid #ccc;}*/
+
+        .user-img {
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            overflow: hidden;
+            border-radius: 25px;
+            display: inline-block;
+            margin-left: 10px;
+            vertical-align: top;
+        }
+
+        .user-img img {
+            width: 100%;
+        }
+
+        .user-name {
+            height: 60px;
+            display: inline-block;
+            vertical-align: middle;
+            width: 65%;
+        }
+
+        .user-name p {
+            font-size: 16px;
+            color: #000;
+            width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            line-height: 25px;
+        }
+
+        .user-name p:nth-child(2) {
+            font-size: 14px;
+            margin-top: 8px;
+            color: #ccc;
+            line-height: 20px;
+        }
+        /*.user-name p:nth-child(3){font-size: 14px;margin-top: 5px;color: #ccc;}*/
+        /*.user-name p>span{margin-right: 10px;vertical-align: top;}*/
+        /*.user-name p:nth-last-child(1){font-size: 12px;width:92px;color: #999;float:right;}*/
+
+        .userDelete {
+            display: inline-block;
+            width: 30px;
+            line-height: 70px;
+            text-align: center;
+        }
+
+        .userDelete>img {
+            width: 50px;
+        }
+
+        .active {
+            display: none;
+        }
+
+        .p>span {
+            font-size: 12px;
+        }
+
+        .attention1 {
+            width: 100%;
+            text-align: center;
+            height: 100px;
+            line-height: 100px;
+        }
     </style>
 </head>
 
 <body>
-  <nav id="nav" >
-    <div class="total">共关注了<span>12</span>人</div>
-    <ul>
-      <li class="item">
-        <div class="user-detail" onclick="fnOpenmyPersonal();">
-            <div class="user-img"><img src="../image/user-logo.png" alt=""></div>
-            <div class="user-name" >
-              <p>走不出胡同的猫</p><p>注册时间：2017年12月30日</p>
-              <p>
-                <img src="../image/product.png" alt=""><span>180</span>
-                <img src="../image/morepeople.png" alt=""><span>180</span>
-              </p>
-            </div>
-          </div>
-          <div class="userDelete">
-            <img src="../image/personal_care_a.png" alt="" class="userDeleteA">
-          </div>
-      </li>
-      <li class="item">
-        <div class="user-detail" onclick="fnOpenmyPersonal();">
-            <div class="user-img"><img src="../image/user-logo.png" alt=""></div>
-            <div class="user-name" >
-              <p>走不出胡同的猫</p><p>注册时间：2017年12月30日</p>
-              <p>
-                <img src="../image/product.png" alt=""><span>180</span>
-                <img src="../image/morepeople.png" alt=""><span>180</span>
-              </p>
-            </div>
-          </div>
-          <div class="userDelete">
-            <img src="../image/personal_care_a.png" alt="" class="userDeleteA">
-          </div>
-      </li>
-      <li class="item">
-        <div class="user-detail" onclick="fnOpenmyPersonal();">
-            <div class="user-img"><img src="../image/user-logo.png" alt=""></div>
-            <div class="user-name" >
-              <p>走不出胡同的猫</p><p>注册时间：2017年12月30日</p>
-              <p>
-                <img src="../image/product.png" alt=""><span>180</span>
-                <img src="../image/morepeople.png" alt=""><span>180</span>
-              </p>
-            </div>
-          </div>
-          <div class="userDelete">
-            <img src="../image/personal_care_a.png" alt="" class="userDeleteA">
-          </div>
-      </li>
-      <li class="item">
-        <div class="user-detail" onclick="fnOpenmyPersonal();">
-            <div class="user-img"><img src="../image/user-logo.png" alt=""></div>
-            <div class="user-name" >
-              <p>走不出胡同的猫</p><p>注册时间：2017年12月30日</p>
-              <p>
-                <img src="../image/product.png" alt=""><span>180</span>
-                <img src="../image/morepeople.png" alt=""><span>180</span>
-              </p>
-            </div>
-          </div>
-          <div class="userDelete" >
-            <img src="../image/personal_care_a.png" alt=""  class="userDeleteA">
-          </div>
-      </li>
-      <li class="item">
-        <div class="user-detail" onclick="fnOpenmyPersonal();">
-            <div class="user-img"><img src="../image/user-logo.png" alt=""></div>
-            <div class="user-name" >
-              <p>走不出胡同的猫</p><p>注册时间：2017年12月30日</p>
-              <p>
-                <img src="../image/product.png" alt=""><span>180</span>
-                <img src="../image/morepeople.png" alt=""><span>180</span>
-              </p>
-            </div>
-          </div>
-          <div class="userDelete" >
-            <img src="../image/personal_care_a.png" alt="" class="userDeleteA" >
-          </div>
-      </li>
-    </ul>
-    <!-- <div class="nomessage">暂无消息</div> -->
-  </nav>
+    <nav id="nav">
+        <div class="total">已关注了<span id="total">0</span>人</div>
+        <ul id="attention"></ul>
+        <!-- <div class="nomessage">暂无消息</div> -->
+    </nav>
 </body>
+
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript">
+    var token;
+    var follow_list_photo;
+    // 关注图片
+    var userDeleteHtml;
     apiready = function() {
-      fnDeleteUser();
+        token = $api.getStorage('token');
+        api.addEventListener({
+            name: 'myPersonal'
+        }, function(ret, err) {
+
+            // console.log(JSON.stringify(ret));
+            fnAttention();
+        });
+        // fnDeleteUser();
+        fnAttention();
+
+        api.setCustomRefreshHeaderInfo({
+            bgColor: '#f0f0f0',
+            image: {
+              pull: [
+                  'widget://image/Refresh/dropdown_anim_00.png',
+                  'widget://image/Refresh/dropdown_anim_01.png',
+                  'widget://image/Refresh/dropdown_anim_02.png',
+                  'widget://image/Refresh/dropdown_anim_03.png',
+                  'widget://image/Refresh/dropdown_anim_04.png',
+                  'widget://image/Refresh/dropdown_anim_05.png',
+                  'widget://image/Refresh/dropdown_anim_06.png',
+                  'widget://image/Refresh/dropdown_anim_07.png',
+                  'widget://image/Refresh/dropdown_anim_08.png',
+                  'widget://image/Refresh/dropdown_anim_09.png',
+                  'widget://image/Refresh/dropdown_anim_10.png',
+            ],
+            load: [
+                  'widget://image/Refresh/dropdown_anim_00.png',
+                  'widget://image/Refresh/dropdown_anim_01.png',
+                  'widget://image/Refresh/dropdown_anim_02.png',
+                  'widget://image/Refresh/dropdown_anim_03.png',
+                  'widget://image/Refresh/dropdown_anim_04.png',
+                  'widget://image/Refresh/dropdown_anim_05.png',
+          ]}
+        }, function() {
+                //下拉刷新被触发，自动进入加载状态，使用 api.refreshHeaderLoadDone() 手动结束加载中状态
+                //下拉刷新被触发，使用 api.refreshHeaderLoadDone() 结束加载中状态
+
+                      fnAttention();
+            });
     };
-    function fnOpenmyPersonal(){
-      api.openWin({
-          name: 'myPersonal',
-          url: './my_personal.html',
-          pageParam: {
-              name: 'test'
+    var totalHtml;
+    function fnAttention() {
+        api.ajax({
+            url: host + apiUri + '/user/follow',
+            method: 'get',
+            dataType: 'json',
+            timeout:10,
+            headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token
+            }
+        }, function(ret, err) {
+              api.refreshHeaderLoadDone()
+              if(ret){
+            if (ret.status == 200) {
+                if (ret.data == '') {
+                    var attentionsss = $api.byId('attention');
+                    htmlss = '<li class="attention1">你还没有关注任何人</li>';
+                    $api.html(attentionsss, htmlss);
+                } else {
+                    var attention = $api.byId('attention');
+                    totalHtml = ret.data.follow_list.length;
+                    var total = $api.byId('total');
+                    $api.html(total, totalHtml);
+                    api.sendEvent({
+                        name: 'netNums',
+                        extra: {
+                            productNum: totalHtml
+                        }
+                    });
+                    html = '';
+                    for (var i = 0; i < ret.data.follow_list.length; i++) {
+                        var userDelete = $api.byId('userDelete');
+
+                        var user_id = ret.data.follow_list[i].user_id;
+
+                        if (ret.data.relation[user_id] == 2) {
+                            userDeleteHtml = '<img src="../image/my/personal_care_a.png"   alt="'+ret.data.relation[user_id]+'"  class="userDeleteA" onclick="collectmusicFx(this)" data-click="0" id="' + user_id + '">'
+                        } else if (ret.data.relation[user_id] == 1) {
+                            userDeleteHtml = '<img src="../image/my/personal_care.png"  alt="'+ret.data.relation[user_id]+'"  class="userDeleteA" onclick="collectmusicFx(this)" data-click="0" id="' + user_id + '">'
+                        } else {
+                            userDeleteHtml = '<img src="../image/my/attention_j.png" alt="'+ret.data.relation[user_id]+'" class="userDeleteA" onclick="collectmusicFx(this)" data-click="1" id="' + user_id + '">'
+                        }
+                        var photossss = ret.data.follow_list[i].photo;
+                        if (photossss == null) {
+                            follow_list_photo = '../image/KM_tx.png'
+                        } else {
+                            var photo = photossss.substring(0, 4);
+                            if (photo == 'http') {
+                                follow_list_photo = ret.data.follow_list[i].photo;
+                            } else if (photo != 'http') {
+                                follow_list_photo = updatePhotoUrl + photossss;
+                            }
+                        }
+                        var signature = ret.data.follow_list[i].signature;
+                        var signatures = '';
+                        if (signature == null) {
+                          signatures = ''
+                        }else {
+                          signatures = ret.data.follow_list[i].signature;
+                        }
+                        html +=
+                            '<li class="item"><div class="user-detail" onclick="fnOpenmyPersonal('+ret.data.follow_list[i].user_id+',\''+ret.data.follow_list[i].nick_name+'\');"><div class="user-img"><img src="' + follow_list_photo + '" alt=""></div><div class="user-name" ><p id="userName">' + ret.data.follow_list[i]
+                            .nick_name +
+                            '</p><p class="p">' + signatures +
+                            '</p></div></div><div id="userDelete" id="userDelete_' + ret.data.follow_list[i].user_id + ' " class="userDelete" >' + userDeleteHtml + '</div></li>'
+
+                    }
+                    $api.html(attention, html);
+                }
+            } else {
+                netMessage(ret);
+            }
+          }else{
+            netWork(err);
           }
-      });
+        });
 
-    };
-    function fnDeleteUser() {
-      // var userDeleteA = document.getElementById('userDeleteA');
-      var nav = document.getElementById('nav');
-      var userDeleteA = nav.getElementsByClassName('userDeleteA');
-      for (var i = 0; i < userDeleteA.length; i++) {
-        userDeleteA[i].index = i;
-        userDeleteA[i].onclick = function() {
-          var j = this.index;
-        if(userDeleteA[j].getAttribute("src",2)=="../image/personal_care_a.png"){
-          userDeleteA[j].src="../image/personal_care.png";
-        }else{
-          userDeleteA[j].src="../image/personal_care_a.png";
-        }
-      }
     }
-      // var ul_li = nav.getElementsByClassName('item');
-      // for (var i = 0; i < user_delete.length; i++) {
-      //     user_delete[i].index = i;
-      //     user_delete[i].onclick = function() {
-      //         var j = this.index;
-      //       $api.addCls(ul_li[j], 'active');
-      //       user_delete[j].src="../image/user-delete-a.png";
-      //       if(user_delete[j].getAttribute("src",2)=="../image/play_collect.png"){
-      //         user_delete[j].src="../image/user-delete-a.png";
-      //       }else{
-      //         user_delete[j].src="../image/user-delete.png";
-      //       }
-      //     }
-      // }
-    };
+    function collectmusicFx(clicktoolitem) {
+      var img_id = clicktoolitem.getAttribute("id");
+        var img_alt = clicktoolitem.getAttribute("alt");
 
+        var toolbarlist = document.getElementById(img_id);
+        var click = toolbarlist.getAttribute("data-click");
+        if (click == 0) {
+            var dialogBox = api.require('dialogBox');
+            dialogBox.alert({
+                texts: {
+                    content: '确定要取消关注吗？',
+                    leftBtnTitle: '取消',
+                    rightBtnTitle: '确认'
+                },
+                styles: {
+                    bg: '#fff',
+                    w: 300,
+                    content: {
+                        color: '#000',
+                        size: 14
+                    },
+                    left: {
+                        marginB: 15,
+                        marginL: 20,
+                        w: 100,
+                        h: 35,
+                        corner: 2,
+                        bg: '#ccc',
+                        color: '#fff',
+                        size: 12
+                    },
+                    right: {
+                        marginB: 15,
+                        marginL: 60,
+                        w: 100,
+                        h: 35,
+                        corner: 2,
+                        bg: '#ccc',
+                        color: '#fff',
+                        size: 12
+                    }
+                }
+            }, function(ret) {
+                if (ret.eventType == 'right') {
+                    // console.log(id);
+                    api.ajax({
+                        url: host + apiUri + '/user/follow',
+                        method: 'post',
+                        dataType: 'json',
+                        timeout:10,
+                        headers: {
+                            "source": api.systemType,
+                            "version": version,
+                            "session": token
+                        },
+                        data: {
+                            values: {
+                                follow_id: img_id
+                            }
+                        }
+                    }, function(ret, err) {
+                        // console.log(JSON.stringify(ret));
+                        // var user = $api.byId('userDelete_' + id + '');
+                        // html = ''
+                        if(ret){
+                        if (ret.status == 200) {
+                          toolbarlist.setAttribute("data-click", 1);
+                          toolbarlist.src = "../image/my/attention_j.png";
+                          totalHtml --;
+                          var total = $api.byId('total');
+                          $api.html(total, totalHtml);
+                          api.sendEvent({
+                              name: 'netNums',
+                              extra: {
+                                  productNum: totalHtml
+                              }
+                          });
+                            // fnAttention();
+
+                            // var userDelete = $api.byId('userDelete');
+                            // var userDeleteID = userDelete + ret;
+                            // html += '<img src="../image/my/attention_j.png" alt="" class="userDeleteA">';
+                        } else {
+                            netMessage(ret);
+                        }
+                      }else{
+                          netWork(err);
+                        }
+                        // $api.html(user, html);
+                        // console.log(html);
+                    });
+
+                    var dialogBox = api.require('dialogBox');
+                    dialogBox.close({
+                        dialogName: 'alert'
+                    });
+                } else if (ret.eventType == 'left') {
+                    var dialogBox = api.require('dialogBox');
+                    dialogBox.close({
+                        dialogName: 'alert'
+                    });
+                }
+            });
+        }else {
+          var dialogBox = api.require('dialogBox');
+          dialogBox.alert({
+              texts: {
+                  content: '确定要添加关注吗？',
+                  leftBtnTitle: '取消',
+                  rightBtnTitle: '确认'
+              },
+              styles: {
+                  bg: '#fff',
+                  w: 300,
+                  content: {
+                      color: '#000',
+                      size: 14
+                  },
+                  left: {
+                      marginB: 15,
+                      marginL: 20,
+                      w: 100,
+                      h: 35,
+                      corner: 2,
+                      bg: '#ccc',
+                      color: '#fff',
+                      size: 12
+                  },
+                  right: {
+                      marginB: 15,
+                      marginL: 60,
+                      w: 100,
+                      h: 35,
+                      corner: 2,
+                      bg: '#ccc',
+                      color: '#fff',
+                      size: 12
+                  }
+              }
+          }, function(ret) {
+              if (ret.eventType == 'right') {
+                  // console.log(id);
+                  api.ajax({
+                      url: host + apiUri + '/user/follow',
+                      method: 'post',
+                      dataType: 'json',
+                      timeout:10,
+                      headers: {
+                          "source": api.systemType,
+                          "version": version,
+                          "session": token
+                      },
+                      data: {
+                          values: {
+                              follow_id: img_id
+                          }
+                      }
+                  }, function(ret, err) {
+                      // console.log(JSON.stringify(ret));
+                      // var user = $api.byId('userDelete_' + id + '');
+                      // html = ''
+                      if(ret){
+                      if (ret.status == 200) {
+                        if (img_alt == 1) {
+                          toolbarlist.setAttribute("data-click", 0);
+                          toolbarlist.src = "../image/my/personal_care.png";
+                          totalHtml ++;
+                          var total = $api.byId('total');
+                          $api.html(total, totalHtml);
+                          api.sendEvent({
+                              name: 'netNums',
+                              extra: {
+                                  productNum: totalHtml
+                              }
+                          });
+                        }else if (img_alt == 2) {
+                          toolbarlist.setAttribute("data-click", 0);
+                          toolbarlist.src = "../image/my/personal_care_a.png";
+                          totalHtml ++;
+                          var total = $api.byId('total');
+                          $api.html(total, totalHtml);
+                          api.sendEvent({
+                              name: 'netNums',
+                              extra: {
+                                  productNum: totalHtml
+                              }
+                          });
+                        }
+                          // fnAttention();
+
+                          // var userDelete = $api.byId('userDelete');
+                          // var userDeleteID = userDelete + ret;
+                          // html += '<img src="../image/my/attention_j.png" alt="" class="userDeleteA">';
+                      } else {
+                        netMessage(ret);
+                      }
+                    }else{
+                      netWork(err);
+                    }
+                      // $api.html(user, html);
+                      // console.log(html);
+                  });
+
+                  var dialogBox = api.require('dialogBox');
+                  dialogBox.close({
+                      dialogName: 'alert'
+                  });
+              } else if (ret.eventType == 'left') {
+                  var dialogBox = api.require('dialogBox');
+                  dialogBox.close({
+                      dialogName: 'alert'
+                  });
+              }
+          });
+        }
+
+    }
+
+    function fnOpenmyPersonal(id , nickname) {
+        api.openWin({
+            name: 'myPersonal',
+            url: './my_personal.html',
+            pageParam: {
+              userId: id,
+              nickName:nickname,
+              ok:'my_personal'
+            }
+        });
+    };
 </script>

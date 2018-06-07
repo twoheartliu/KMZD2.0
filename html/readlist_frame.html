@@ -12,6 +12,9 @@
             padding: 0;
             margin: 0;
         }
+        .fl{float: left;}
+        .fr{float: right;}
+        .clr{clear: both;}
         .body {
             width: 100%;
             background: #fff;
@@ -31,24 +34,49 @@
             outline: none;
         }
         .bodyLi {
-            padding: 5px;
+            /*padding: 5px;*/
         }
-        .bodyLi div {
-            width: 100%;
+        .div {
+          width: 100%;
             height: 50px;
             line-height: 50px;
             border-bottom: 1px solid #ccc;
             position: relative;
         }
-        .bodyLi div img {
+        .bodyLi .index_name_div_img {
             width: 23px;
             position: relative;
-            top: 5px;
+            top: 10px;
             margin-left: 5px;
+            display: block;
         }
         span {
             text-decoration: none;
             color: #777;
+        }
+        .index_name_div_imgr {
+          height: 50px;
+          line-height: 50px;
+          display: block;
+        }
+
+        .index_name_div_imgr img {
+            width: 9px;
+            padding: 15px;
+        }
+        .index_name_div_span {
+          font-size: 16px;
+          line-height: 45px;
+          display: block;
+        }
+
+        .body_li_4{
+            width: 30px;
+            height: 30px;
+            border-radius: 15px;
+            float: right;
+            text-align: center;
+            color: #ccc;
         }
     </style>
 </head>
@@ -57,58 +85,78 @@
     <div class="body">
         <div class="sousuo"><input type="text" placeholder="搜作者，诗词名称，诗词内容"></div>
     </div>
-    <div class="bodyLi">
-      <div onclick="fnReadListBodr();">
+    <div class="bodyLi" id="typejubenlist">
+      <!-- <div onclick="fnReadListBodr();">
           <img src="../image/readlist.png" alt="">
           <span>《唐诗三百首》</span>
-      </div>
-      <div onclick="fnReadListBodr();">
-          <img src="../image/readlist.png" alt="">
-          <span>《唐诗三百首》</span>
-      </div>
-      <div onclick="fnReadListBodr();">
-          <img src="../image/readlist.png" alt="">
-          <span>《唐诗三百首》</span>
-      </div>
-      <div onclick="fnReadListBodr();">
-          <img src="../image/readlist.png" alt="">
-          <span>《唐诗三百首》</span>
-      </div>
-      <div onclick="fnReadListBodr();">
-          <img src="../image/readlist.png" alt="">
-          <span>《唐诗三百首》</span>
-      </div>
-      <div onclick="fnReadListBodr();">
-          <img src="../image/readlist.png" alt="">
-          <span>《唐诗三百首》</span>
-      </div>
-      <div onclick="fnReadListBodr();">
-          <img src="../image/readlist.png" alt="">
-          <span>《唐诗三百首》</span>
-      </div>
-      <div onclick="fnReadListBodr();">
-          <img src="../image/readlist.png" alt="">
-          <span>《唐诗三百首》</span>
-      </div>
-      <div onclick="fnReadListBodr();">
-          <img src="../image/readlist.png" alt="">
-          <span>《唐诗三百首》</span>
-      </div>
+      </div> -->
+
     </div>
 </body>
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/message.js"></script>
 <script type="text/javascript">
+var token;
     apiready = function() {
-
-    }
-    function fnReadListBodr() {
-      api.openWin({
-          name: 'readlistbodr',
-          url: './readlistbodr.html',
-          pageParam: {
-              name: 'test'
+      token = $api.getStorage('token');
+      fnGetJubenTypelist();
+    };
+    function fnGetJubenTypelist() {
+      var id = api.pageParam.id;
+      var uri = '/script/album?c_id=';
+      api.ajax({
+          url: host + apiUri + uri +id,
+          method: 'get',
+          dataType: 'json',
+          timeout:10,
+          headers: {
+              "source": api.systemType,
+              "version": version,
+              "session": token
           }
+      }, function(ret, err) {
+          // alert(JSON.stringify(ret));
+          if(ret){
+            if (ret.status == 200) {
+              fnUpdateLyricList(ret);
+            } else {
+                netMessage(ret);
+            }
+          }else{
+            netWork(err);
+          }
+
       });
-    }
+
+  	}
+  	function fnUpdateLyricList(data_) {
+      if(data_.data){
+    		var stylelist = $api.byId('typejubenlist');
+    		var html = '';
+    		 for (var i = 0; i < data_.data.length; i++) {
+    		 	html +='<div class="div" onclick = "fnReadListBodr(' + data_.data[i].type_id + ',\'' + data_.data[i].name + '\');"><span class="index_name_div_span fl">' + data_.data[i].name + '</span><div class="index_name_div_imgr fr"><div class="body_li_4"><img src="../image/my/index_y.png" alt=""></div></div></div><div class="clr"></div>';
+          //console.log(data_.data[i].type_id);
+          }
+      		$api.html(stylelist, html);
+        }else{
+          var stylelist = $api.byId('typejubenlist');
+      		var htmls ='<div><p>暂无数据</p></div>';
+      		$api.html(stylelist, htmls);
+        }
+  	}
+  	function fnReadListBodr(CompanyInfojubenByID,name) {
+  		api.openWin({
+  			name: 'readlistbodr',
+  			url: './readlistbodr.html',
+  			pageParam: {
+  				CompanyInfojubenByID : CompanyInfojubenByID,
+          name: name,
+          ok:'readlistbodr'
+  			},
+  			delay: 200
+  		});
+  	}
+
 </script>

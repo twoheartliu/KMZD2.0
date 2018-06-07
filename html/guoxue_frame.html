@@ -8,143 +8,373 @@
     <title>孔孟之道--国学馆</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
     <link rel="stylesheet" href="../css/swiper.min.css">
-    <link rel="stylesheet" href="../css/iconfont.css">
+    <!-- <link rel="stylesheet" href="../css/iconfont.css"> -->
     <style>
-         body{ background-color: #f2f2f2; overflow-x: hidden;} .fr { float: right; } .fl { float: left; } .p20px { padding: 0px 20px; } .clr { overflow: hidden; } .m20px{ margin: 0 20px; }
-         .row {
-             display: -webkit-box;
-             display: -webkit-flex;
-         }
+        body {
+            background-color: #f2f2f2;
+            overflow-x: hidden;
+        }
+        .fr {
+            float: right;
+        }
 
-         .col {
-             -webkit-box-flex: 1;
-             -webkit-flex: 1;
-             flex: 1;
-             margin: 0 5px;
-             position: relative;
-         }
-        .bg{width: 100%;height: 5px;}
-        .lishi{height: 70px;line-height: 70px;overflow: hidden;}
-        .lishi .div{float: left;}
-        .lishi_Div{overflow: auto;}
-        .lishi_DivW{overflow: hidden;}
-        .lishi_d{font-size: 13px;height: 35px;line-height: 35px;border: 1px solid #e9e9e9;text-align: center;background-color: #fff;color: #000;border-radius: 20px;margin: 17px 10px 0 10px; overflow: hidden;}
-        .guoxue{width: 100%;background-color: #fff;height: 91px;}/*display: flex; display: -webkit-flex;display: -webkit-box;*/
-        .guoxue div{text-align: center;width: 24.7%;float: left;line-height: 45px;font-size: 12px;}
-        .guoxue div img{display: block;padding: 15px 0;margin: 0 auto;}
-        .guoxue .div_img{line-height: 30px;}
-        .boder_l{border-left: 1px solid #ccc;}
-        .boder_r{border-right: 1px solid #ccc;}
-        .boder_t{border-top: 1px solid #ccc;}
-        .boder_b{border-bottom: 1px solid #ccc;}
-        .guoxueYi{width: 100%;height: 45px;line-height: 45px;background: #fff;display: flex; display: -webkit-flex;display: -webkit-box;font-size: 12px;}
-        .guoxueYi div{width: 24.8%;text-align: center;}
-        .guoxueLi {width: auto;height: 45px;line-height: 45px;font-size: 13px;}
-        .guoxueLi img{width: 19px;height: 18px;margin-right: 5px;}
-        .guoxueLis {width: 100%;height: 90px;line-height: 45px;background: #fff;}/*display: flex; display: -webkit-flex;display: -webkit-box;*/
-        .guoxueLis div{width: 33%;text-align: center;float: left;font-size: 12px;}
+        .fl {
+            float: left;
+        }
+
+        .p20px {
+            padding: 0px 20px;
+        }
+
+        .m20px {
+            margin: 0 20px;
+        }
+
+        .row {
+            display: -webkit-box;
+            display: -webkit-flex;
+        }
+
+        .col {
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+            margin: 0 5px;
+            position: relative;
+        }
+
+        .bg {
+            width: 100%;
+            height: 5px;
+        }
+
+        .lishi {
+            height: 70px;
+            line-height: 70px;
+            overflow: hidden;
+        }
+
+        .lishi .div {
+            float: left;width: 20%;
+        }
+
+        .lishi_Div{overflow: auto;width: 80%;float: left;}
+        .lishi_DivW{overflow: auto;width: 900%;}
+        .lishi_d{ font-size: 13px;
+        height: 35px;
+        line-height: 35px;
+        border: 1px solid #e9e9e9;
+        text-align: center;
+        background-color: #fff;
+        color: #000;
+        border-radius: 20px;
+        margin: 17px 2px 0 2px;
+        width: 100px;
+        display: block;
+        float: left;
+        }
+
+        table {
+
+            width: 99.5%;
+            text-align: center;
+            overflow-x: hidden;
+            /*文本居中*/
+            border-collapse: collapse;
+            /*表格的边框合并，如果相邻，则共用一个边框*/
+            border-spacing: 0;
+            /*设置行与单元格边框的间距。当表格边框独立（即border-collapse:separate;）此属性才起作用*/
+        }
+
+        table tr {
+            background: #fff;
+            width: 100%;
+        }
+
+        table td {
+            word-break: break-all;
+            /*允许在字内换行,即单词可分*/
+            word-wrap: break-word;
+            /*允许长单词或URL地址换行*/
+            /*border-right: 1px solid #939598;
+        border-bottom: 1px solid #939598;*/
+            font: 500 14px Arial;
+            height: 45px;
+            font-size: 12px;
+        }
+
+        table tr td {
+            width: 25%;
+            height: 45px;
+            border: 1px solid #f2f2f2;
+        }
+
+        .img {
+            width: 100%;
+        }
+
+        .img img {
+            width: 100%;
+        }
+        .colspan_img {
+            width: 20px;
+            padding: 12.5px;
+        }
+
+        .colspan_img img {
+            width: 100%;
+        }
+
+        .colspan_div {
+            line-height: 45px;
+        }
+
+        .td_bg {
+            background: none;
+        }
+        #view_history , #RecommendedDirectory,#directory {overflow-x: hidden;}
+
     </style>
 </head>
 
 <body>
     <div class="lishi p20px">
-      <div class="div">最近浏览：</div>
-      <div class="lishi_Div">
-          <div class="lishi_DivW row">
-            <div class="lishi_d col">蒙学</div>
-            <div class="lishi_d col">蒙学</div>
-            <div class="lishi_d col">蒙学</div>
-          </div>
-      </div>
+        <div class="div">最近浏览：</div>
+        <div class="lishi_Div">
+            <div class="lishi_DivW row" id="view_history">
+                <!-- <div class="lishi_d col" onclick="guoxue_frame();">蒙学</div>
+                <div class="lishi_d col">蒙学</div>
+                <div class="lishi_d col">蒙学</div> -->
+            </div>
+        </div>
     </div>
-    <div class="guoxue">
-        <div class="boder_r div_img" onclick="guoxue_Listframe()"><img src="../image/KM_MX.png" alt="">蒙学蒙学</div>
-        <div class="boder_r boder_b" onclick="guoxue_Listframe()">蒙学蒙学</div>
-        <div class="boder_r boder_b">蒙学蒙学</div>
-        <div class="boder_b">蒙学蒙学</div>
-        <div class="boder_r ">蒙学蒙学</div>
-        <div class="boder_r">蒙学蒙学</div>
-        <div class="">蒙学蒙学</div>
-    </div>
-    <div class="bg"></div>
-    <div class="guoxueYi">
-      <div class="boder_r">诗品</div>
-      <div class="boder_r">声韵启蒙</div>
-      <div class="boder_r">声韵启蒙</div>
-      <div>声韵启蒙</div>
-    </div>
-    <div class="guoxueLi p20px"><img src="../image/KM_gxjds.png" alt=""><span>国学经典</span></div>
-    <div class="guoxueLis">
-      <div class="boder_r boder_b">大学</div>
-      <div class="boder_r boder_b">中庸</div>
-      <div class="boder_b">大学</div>
-      <div class="boder_r">中庸</div>
-      <div class="boder_r">大学</div>
-      <div>中庸</div>
-    </div>
-    <div class="guoxueLi p20px"><img src="../image/KM_gxjds.png" alt=""><span>国学经典</span></div>
-    <div class="guoxueLis">
-      <div class="boder_r boder_b">大学</div>
-      <div class="boder_r boder_b">中庸</div>
-      <div class="boder_b">大学</div>
-      <div class="boder_r">中庸</div>
-      <div class="boder_r">大学</div>
-      <div>中庸</div>
-    </div>
-    <div class="guoxueLi p20px"><img src="../image/KM_gxjds.png" alt=""><span>国学经典</span></div>
-    <div class="guoxueLis">
-      <div class="boder_r boder_b">大学</div>
-      <div class="boder_r boder_b">中庸</div>
-      <div class="boder_b">大学</div>
-      <div class="boder_r">中庸</div>
-      <div class="boder_r">大学</div>
-      <div>中庸</div>
-    </div>
-    <div class="guoxueLi p20px"><img src="../image/KM_gxjds.png" alt=""><span>国学经典</span></div>
-    <div class="guoxueLis">
-      <div class="boder_r boder_b">大学</div>
-      <div class="boder_r boder_b">中庸</div>
-      <div class="boder_b">大学</div>
-      <div class="boder_r">中庸</div>
-      <div class="boder_r">大学</div>
-      <div>中庸</div>
-    </div>
-    <div class="guoxueLi p20px"><img src="../image/KM_gxjds.png" alt=""><span>国学经典</span></div>
-    <div class="guoxueLis">
-      <div class="boder_r boder_b">大学</div>
-      <div class="boder_r boder_b">中庸</div>
-      <div class="boder_b">大学</div>
-      <div class="boder_r">中庸</div>
-      <div class="boder_r">大学</div>
-      <div>中庸</div>
-    </div>
-    <div class="guoxueLi p20px"><img src="../image/KM_gxjds.png" alt=""><span>国学经典</span></div>
-    <div class="guoxueLis">
-      <div class="boder_r boder_b">大学</div>
-      <div class="boder_r boder_b">中庸</div>
-      <div class="boder_b">大学</div>
-      <div class="boder_r">中庸</div>
-      <div class="boder_r">大学</div>
-      <div>中庸</div>
-    </div>
-    <div class="guoxueLi p20px"></div>
-    <div class="guoxueLi p20px"></div>
+
+
+    <table id="RecommendedDirectory"></table>
+    <table id="directory"></table>
 </body>
 
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/message.js"></script>
 <script type="text/javascript" src="../script/swiper.min.js"></script>
 <script type="text/javascript">
+    var token;
+    apiready = function() {
+        token = $api.getStorage('token');
+        if (token) {
+            fnGetLieBiao();
+            fnGetDirectory();
+            fnGetView_history();
+        } else {
+            api.openWin({
+                name: 'login',
+                url: '../login.html',
+                pageParam: {
+                    ok: 'login'
+                }
+            });
+        }
 
-   apiready = function() { }
-    function guoxue_Listframe () {
-      api.openWin({
-          name: 'list',
-          url: './list.html',
-          pageParam: {
-              name: 'test'
+              api.setCustomRefreshHeaderInfo({
+                  bgColor: '#f0f0f0',
+                  image: {
+                    pull: [
+                        'widget://image/Refresh/dropdown_anim_00.png',
+                        'widget://image/Refresh/dropdown_anim_01.png',
+                        'widget://image/Refresh/dropdown_anim_02.png',
+                        'widget://image/Refresh/dropdown_anim_03.png',
+                        'widget://image/Refresh/dropdown_anim_04.png',
+                        'widget://image/Refresh/dropdown_anim_05.png',
+                        'widget://image/Refresh/dropdown_anim_06.png',
+                        'widget://image/Refresh/dropdown_anim_07.png',
+                        'widget://image/Refresh/dropdown_anim_08.png',
+                        'widget://image/Refresh/dropdown_anim_09.png',
+                        'widget://image/Refresh/dropdown_anim_10.png',
+                  ],
+                  load: [
+                        'widget://image/Refresh/dropdown_anim_00.png',
+                        'widget://image/Refresh/dropdown_anim_01.png',
+                        'widget://image/Refresh/dropdown_anim_02.png',
+                        'widget://image/Refresh/dropdown_anim_03.png',
+                        'widget://image/Refresh/dropdown_anim_04.png',
+                        'widget://image/Refresh/dropdown_anim_05.png',
+                ]}
+              }, function() {
+                      //下拉刷新被触发，自动进入加载状态，使用 api.refreshHeaderLoadDone() 手动结束加载中状态
+                      //下拉刷新被触发，使用 api.refreshHeaderLoadDone() 结束加载中状态
+
+                      fnGetLieBiao();
+                      fnGetDirectory();
+                      fnGetView_history();
+                  });
+    }
+    //获取最近浏览
+    function fnGetView_history(){
+      api.ajax({
+          url: host + apiUri + '/user/view_history',
+          method: 'get',
+          dataType: 'json',
+          timeout:10,
+          headers: {
+              "source": api.systemType,
+              "version": version,
+              "session": token
+          },
+      }, function(ret, err) {
+        if(ret){
+          if (ret.status == 200) {
+            setTimeout(function(){
+                api.refreshHeaderLoadDone()
+            },3000)
+            fnView_history(ret);
+          } else {
+              netMessage(ret);
           }
+        }else{
+          netWork(err);
+        }
       });
+    }
+    //赋值最近浏览
+    function fnView_history(data_){
+      var stylelist = $api.byId('view_history');
+      var html = '';
+      for (var i = 0; i < data_.data.length; i++) {
+        html += '<div class="lishi_d" onclick="guoxue_frame(' + data_.data[i].item_id + ',\'' + data_.data[i].item_name + '\');">' + data_.data[i].item_name + '</div>';
+      }
+      $api.html(stylelist, html);
+    }
+    //获取推荐目录
+    function fnGetLieBiao() {
+        api.ajax({
+            url: host + apiUri + '/category/hot',
+            method: 'get',
+            dataType: 'json',
+            timeout:10,
+            headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token
+            },
+        }, function(ret, err) {
+          if(ret){
+            if (ret.status == 200) {
+              setTimeout(function(){
+                  api.refreshHeaderLoadDone()
+              },3000)
+                fnRecommendedDirectory(ret);
+            } else {
+                netMessage(ret);
+            }
+          }else{
+            netWork(err);
+          }
+        });
+    }
+    //赋值推荐目录
+    function fnRecommendedDirectory(ret) {
+        var stylelist = $api.byId('RecommendedDirectory');
+        var html = '<tr>';
+        var c = 1;
+        var r = 1;
+        for (var i = 0; i < ret.data.length; i++) {
+            if (c == 1) {
+                html += '<td rowspan="2" onclick="guoxue_frame(' + ret.data[i].id + ',\'' + ret.data[i].name + '\')"><div class="div_img"><img src="../image/guoxueguan/KM_MX.png" alt=""></div>' + ret.data[i].name + '</td>';
+            } else {
+                html += '<td data="' + r + '" c="' + c + '" onclick="guoxue_frame(' + ret.data[i].id + ',\'' + ret.data[i].name + '\')">' + ret.data[i].name + '</td>';
+            }
+            if (r == 2 && c == 7) {
+                html += '</tr><tr>';
+            }
+            if (c % 4 == 0 && c != 8 && r == 1) {
+                r++;
+                html += '</tr><tr>';
+            } else if ((c - 3) % 4 == 0 && c != 8 && r != 1) {
+                r++;
+                html += '</tr><tr>';
+            }
+            c++;
+        }
+        html += '</tr>';
+        $api.html(stylelist, html);
+    }
+    //获取目录
+    function fnGetDirectory() {
+        api.ajax({
+            url: host + apiUri + '/category',
+            method: 'get',
+            dataType: 'json',
+            timeout:10,
+            headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token
+            },
+        }, function(ret, err) {
+          if(ret){
+            if (ret.status == 200) {
+              setTimeout(function(){
+                  api.refreshHeaderLoadDone()
+              },3000)
+                fnDirectory(ret);
+            } else {
+                netMessage(ret);
+            }
+          }else {
+            netWork(err);
+          }
+        });
+    }
+    //赋值目录
+    function fnDirectory(ret) {
+        var stylelist = $api.byId('directory');
+        var html = '';
+        for (var i = 0; i < ret.data.length; i++) {
+            if (ret.data[i].p_id == 0) {
+                html += '<tr class="bg"></tr><tr class="td_bg"><td colspan="4"><div class="fl colspan_img"><img src="../image/guoxueguan/KM_gxjds.png" alt=""></div><div class="fl colspan_div">' + ret.data[i].name + '</div></td></tr><tr>'
+            }
+            var y = 0;
+            for (var s = 0; s < ret.data.length; s++) {
+                if (ret.data[s].p_id != 0 && ret.data[s].p_id == ret.data[i].id) {
+                    html += '<td  onclick="guoxue_frame(' + ret.data[s].id + ',\'' + ret.data[s].name + '\')">' + ret.data[s].name + '</td>';
+                    y++;
+                    if (y > 3 && y % 4 == 0) {
+                        html += '</tr><tr>';
+                    }
+                }
+            }
+        }
+        html += '</tr>';
+        $api.html(stylelist, html);
+    }
+
+    function fnDirectoryLiet(id, ret) {
+        var stylelists = $api.byId('DirectoryList');
+        var html1 = '';
+        if (id) {
+            for (var s = 0; s < ret.data.length; s++) {
+                if (ret.data[s].p_id == id) {
+                    html1 += '<td>' + ret.data[s].name + '</td>';
+                    $api.html(stylelists, html1);
+                }
+            }
+            html1 += '<div>中庸</div>';
+            $api.html(stylelists, html1);
+        }
+    }
+
+    function guoxue_frame(id,floor_name) {
+        api.openWin({
+            name: 'single',
+            url: './single.html',
+            pageParam: {
+                albumId: id,
+                floor_name:floor_name,
+                ok:'single'
+            }
+        });
 
     }
 </script>

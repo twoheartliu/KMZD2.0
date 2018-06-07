@@ -7,18 +7,31 @@
       <link rel="stylesheet" type="text/css" href="../css/api.css"/>
       <style>
         body,html{
-          background-color: #111010;
-          /*background-image: url(../image/KM_listen_bg.png);
-          background-size: cover;
-          background-repeat: no-repeat;*/
+          /*background-color: #111010;*/
+          background-image: url(../image/play/KM_listen_bg.png);
+          background-size: 100% 100%;
+          background-repeat: no-repeat;
+          overflow: hidden;
+          /*height: 100%;*/
         }
         /*头部样式*/
         header{
           height: 50px;
-          background-color: #111010;
+          background: transparent;
+          overflow: hidden;
         }
         .egret-img {
-          display: inline-block;
+          display: block;
+          float: left;
+          /*padding-left: 18px;*/
+          width: 45px;
+          height: 50px;
+        }
+        .egret-imgs {
+          display: block;
+          float: right;
+          width: 45px;
+          height: 50px;
           /*padding-left: 18px;*/
         }
         .egret-img img {
@@ -27,14 +40,14 @@
           padding: 15px;
         }
         .egret-txt{
-          display: inline-block;
+          display: block;
           margin: 0 auto;
           width: 75%;
           color: #fff;
           text-align: center;
-          line-height: 20px;
+          line-height: 50px;
           height:50px;
-          vertical-align: top;
+          /*vertical-align: top;*/
         }
         .egret-txt h1{
           font-size: 16px;
@@ -42,63 +55,1229 @@
         .egret-txt p{
           font-size: 14px;
         }
+        .header_fr {
+            width: 30px;
+            height: 30px;
+            padding: 10px 20px 10px 10px;
+            line-height: 30px;
+            font-size: 15px;
+            color: #fff;
+            position: absolute;
+            right: 5px;
+            bottom: -0px;
+            /*display: inline-block;*/
+            /*display: none;*/
+        }
+
+        .header_fr img {
+            width: 100%;
+        }
+        .wrap{
+          /*background-image: url(../image/play/KM_listen_bg.png);
+          background-size: cover;
+          background-repeat: no-repeat;*/
+          /*height: 100%;*/
+
+        }
+        nav{
+          width:100%;
+          text-align: center;
+        }
+        .video-play{
+          /*padding-top: 100px;*/
+          /*padding-top: 75px;*/
+          padding-top: 25%;
+        }
+        .table-img{
+          margin-top: -30px;
+        }
+        .table-img img{
+          width:100%;
+          /*height:auto;*/
+          height:80px;
+        }
+        .bottom-img{
+          background-image : url(../image/play/bottom.png);
+          background-repeat: no-repeat;
+          background-size: contain;
+          /*width:260px;*/
+          width:245px;
+          /*height:260px;*/
+          height:245px;
+          margin: 0 auto;
+          position: relative;
+        }
+        .fumigate-img{
+          position: absolute;
+          bottom: -10px;
+          right: -30%;
+          width: 150px;
+          height: 150px;
+        }
+        .fumigate-img img{
+          width: 150px;
+          height: 150px;
+        }
+        .video{
+          width:190px;
+          height:190px;
+          position: absolute;
+          top: 34px;
+          /*left: 27px;*/
+          left: 20px;
+        }
+        .video>img{
+          /*width:190px;*/
+          width:180px;
+        }
+        .play{
+          padding:10px 0;
+        }
+        .play>img{
+          width:72%;
+          line-height: 40px;
+        }
+        .play>span{
+          font-size: 14px;
+          color:#fff;
+          /*vertical-align: bottom;*/
+          line-height: 40px;
+          width:8%;
+          text-align: center;
+        }
+        section{
+          display: flex;
+          display: -webkit-flex;
+          display: -webkit-box;
+          padding-top:10px;
+          height: 80px;
+        }
+        .item-sort{
+          flex:1;
+          -webkit-flex:1;
+          -webkit-box-flex:1;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: contain;
+          text-align: center;
+          /*line-height: 95px;*/
+          line-height: 70px;
+          position: relative;
+        }
+        .item-sorts img{
+          width: 30px;
+          height: 30px;
+        }
+        .item-sorts>i {
+            position: absolute;
+            top: -18px;
+            right: 30%;
+            width: 10px;
+            height: 10px;
+            display: inline-block;
+            font-style: normal;
+            font-size: 12px;
+            color: #fff;
+        }
+        @-webkit-keyframes rotation{
+          from {-webkit-transform: rotate(0deg);}
+          to {-webkit-transform: rotate(360deg);}
+        }
+        .Rotation{
+          -webkit-transform: rotate(360deg);
+          animation: rotation 5s linear infinite;
+          -moz-animation: rotation 5s linear infinite;
+          -webkit-animation: rotation 5s linear infinite;
+          -o-animation: rotation 5s linear infinite;
+        }
+        .playTime{
+          /*width: 7%;*/
+          width: 15%;
+          color: #fff;
+          height: 20px;
+          line-height: 20px;
+          text-align: center;
+          font-size: 12px;
+
+        }
+        input[type=range] {
+             -webkit-appearance: none;
+             /*width: 80%;*/
+             width: 65%;
+             border-radius: 10px; /*这个属性设置使填充进度条时的图形为圆角*/
+             /*background: -webkit-linear-gradient(#059CFA, #059CFA) no-repeat;*/
+             /*background: -webkit-linear-gradient(#059CFA, #059CFA) no-repeat;*/
+             /*background-size: 0% 100%;*/
+             height: 5px;
+       }
+       input[type=range]::-webkit-slider-thumb {
+         -webkit-appearance: none;
+         height: 15px;
+         width: 15px;
+         margin-top: -5px;
+         /*使滑块超出轨道部分的偏移量相等*/
+         background: #ffffff;
+         border-radius: 50%;
+         /*外观设置为圆形*/
+         border: solid 0.025em rgba(205, 224, 230, 0.5);
+         /*设置边框*/
+         box-shadow: 0 .025em .025em #3b4547;
+         /*添加底部阴影*/
+       }
+       input[type=range]:focus {
+           outline: none;
+       }
+       input[type=range]::-webkit-slider-runnable-track {
+         height: 5px;
+         border-radius: 2.5px;
+       }
+
+       input[type=range]::-ms-fill-lower {
+           /*进度条已填充的部分*/
+           height: 15px;
+           border-radius: 5px;
+           /*background: linear-gradient(to right, #ff0000, #1abc9c 100%, #123);*/
+           /*background: red !important;*/
+       }
+       input[type=range]::-ms-fill-upper {
+           /*进度条未填充的部分*/
+           height: 15px;
+           /*border-radius: 10px;*/
+           background: #ffffff;
+       }
+       input[type=range]:focus::-ms-fill-lower {
+           background: linear-gradient(to right, #059CFA, white 100%, white);
+       }
+       input[type=range]:focus::-ms-fill-upper {
+           background: #ffffff;
+       }
+
+       input[type=range]::-moz-range-progress {
+           /*background: linear-gradient(to right, #059CFA, white 100%, white);*/
+           height: 5px;
+           /*border-radius: 10px;*/
+       }
+       .red{
+         background: #89211b;
+       }
+       .qx{
+         /*padding-top: 10px;*/
+       }
+       .title{
+         width: 100%;
+         height:40px;
+         line-height: 20px;
+         text-align: center;
+         color:#fff;
+         font-size: 15px;
+         padding: 2px 0;
+       }
+       .title h2{
+         font-style: normal;
+         font-size: 14px;
+
+       }
+       .title p{
+         font-size: 13px;
+       }
 
       </style>
   </head>
   <body>
     <!-- 头部 -->
       <header id="header">
-          <div  class="egret-img"><img src="../image/cm2_icn_back.png" alt="" onclick="goback()" ></div>
+          <div  class="egret-img"><img src="../image/icon_back.png" alt="" onclick="goback()" ></div>
+          <div  class="egret-imgs"></div>
           <div class="egret-txt">
-            <h1>失去地心的魔方</h1>
-            <p>周晓鑫</p>
+            <!-- <h1>失去地心的魔方</h1>
+            <p>周晓鑫</p> -->
+            熏听
+          </div>
+          <div class="header_fr" onclick="fnOpenPlayMore()" >
+              <img src="../image/KM_more.png" alt="">
           </div>
       </header>
+      <div class="wrap" id="wrap">
+        <nav id="nav">
+          <div class="video-play" >
+            <div class="bottom-img">
+              <div class="video" >
+                <img src="../image/play/pan.png" alt="" class=" " id="video">
+              </div>
+              <div class="fumigate-img">
+                <img src="../image/play/fumigate.png" alt="">
+              </div>
+            </div>
+
+            <div class="table-img">
+              <img src="../image/play/table.png" alt="">
+            </div>
+          </div>
+          <div class="title">
+            <h2 id="title">
+              <!-- 失去地心的魔方 -->
+            </h2>
+
+            <p id="zuoZhe">
+              <!-- 周晓鑫 -->
+            </p>
+          </div>
+          <div id="control" class="qx">
+
+                <!-- <span class="s">13:00:00</span>
+                <input type="range" id="range" name="range" min="0" max="100" step="1" value="0" class="red"/>
+                <span class="e">14:00:00</span> -->
+
+            <span class="playTime" id="kaishijishi">00:00</span>
+            <input type="range" id="range" name="range" min="0" max="100" step="1" value="0" class="red"/>
+            <!-- <span id="slider"></span> -->
+            <!-- <img src="../image/KM_play.png" alt="" > -->
+            <!--外层容器-->
+            <!-- <progress max="100" value="0" id="pg"></progress> -->
+            <span class="playTime" id="zongshichang">00:00</span>
+          </div>
+        <!-- <div id="slider">
+      		<span class="s">13:00:00</span>
+      		<span class="e">14:00:00</span>
+      	</div> -->
+        </nav>
+        <section>
+          <div class="item-sort item-sorts">
+            <img src="../image/play/delete.png" alt="">
+          </div>
+          <div class="item-sort item-sorts" id="bookExtraCollectionHtml">
+            <!-- <img src="../image/KM_play_collect.png" alt=""  onclick="fnOpenCollect();" id="collect"> -->
+          </div>
+          <div class="item-sort" id="openplayer">
+            <img src="../image/footer_bf0.png" alt="" onclick="fnOpenPlayButton();" id="playButton">
+          </div>
+          <div class="item-sort item-sorts" onclick="fnOpenPlayerxiayi();">
+            <img src="../image/play/ic_play_next.png" alt="">
+          </div>
+          <div class="item-sort item-sorts" >
+            <img src="../image/KM_play_discuss.png" alt="" onclick="fnOpenPlayDiscuss();">
+            <i id="comments">0</i>
+          </div>
+        </section>
+      </div>
   </body>
   <script type="text/javascript" src="../script/api.js"></script>
+  <script type="text/javascript" src="../script/zepto.js"></script>
+  <script type="text/javascript" src="../script/swiper.min.js"></script>
+  <script type="text/javascript" src="../script/audio2.js"></script>
+  <script type="text/javascript" src="../script/common.js"></script>
+  <script type="text/javascript" src="../script/message.js"></script>
   <script type="text/javascript">
+  var radios = ['see_you_again', 'new_soul', 'i_am_you'];
+  var dqbfid;
+  var zongJindu;
+  var dangqianbofangid;
+  var aa;
+  var bofangs;
+  var bofangmoshi;
+  var Dqbofangid;
+  var token;
+  var bookId;
+  var bookCollectionHtml;
+  var collections;
+  var soundId;
+  var namesss;
+  var ok;
     function goback () {
       api.closeWin({name:'listenTo'});
     }
     apiready = function(){
-      var eHeader = $api.byId('header')
-      $api.fixStatusBar(eHeader);
-      var headerH = $api.offset(eHeader).h;
-      fnOpenListenFrame();
-    };
-    function fnOpenListenFrame(){
-      var eHeader = $api.byId('header')
-      var headerH = $api.offset(eHeader).h;
-      api.openFrame({
-          name: 'listenFrame',
-          url: './listen_frame.html',
-          rect: {
-              x: 0,
-              y: headerH,
-              w: api.frameWidth,
-              h: api.frameHeight - 50
-          },
-          pageParam: {
-              name: 'test'
-          },
-          bounces: false,
-          bgColor: 'rgba(0,0,0,0)',
-          vScrollBarEnabled: true,
-          hScrollBarEnabled: true
+      token = $api.getStorage('token');
+      var header = $api.byId('header');
+      $api.fixStatusBar(header);
+      var headerH = $api.offset(header).h;
+      var headerPosH = $api.offset(header).h;
+      var header = document.querySelector('header');
+      fnJianTingGood();
+      fnJianTingPingLunShu();
+      ok = api.pageParam.ok;
+      var oks = 'ok'+ok;
+      api.addEventListener({
+          name: oks
+      }, function(ret, err) {
+        if(ret.value.wangluo){
+
+          // 获取浏览器高度
+          if (window.innerHeight)
+              winHeight = window.innerHeight;
+          else if ((document.body) && (document.body.clientHeight))
+              winHeight = document.body.clientHeight;
+          var messageFrameDiv = $api.byId('wrap');
+          var winHeightHeader = winHeight - headerPosH;
+          $api.css(messageFrameDiv, 'height:' + winHeightHeader + 'px;');
+          $api.fixIos7Bar(header);
+          dangqianbofangid = api.pageParam.DangQianbofangid;
+          api.addEventListener({
+              name: 'netPlaying'
+          }, function(ret, err) {
+              fnDangQianbofangid(ret.value.playing);
+          });
+          var connectionType = api.connectionType;
+            if (connectionType == "wifi") {
+                if (dangqianbofangid) {
+                  bofang = api.pageParam.bofang;
+                  if(bofang){
+                    fnJinRuBofangs(dangqianbofangid,bofang);
+                    soundId = dangqianbofangid;
+                    bookId == dangqianbofangid;
+                    fnJianTingBookCollection(bookId);
+                  }else{
+                    fnJinRuBofangs(dangqianbofangid);
+                    soundId = dangqianbofangid;
+                    bookId == dangqianbofangid;
+                    fnJianTingBookCollection(bookId);
+                  }
+                } else {
+                    fnJinRuBofang();
+                }
+            } else {
+                var dialogBox = api.require('dialogBox');
+                dialogBox.alert({
+                    texts: {
+                        title: '您正在使用移动数据网络进行播放，是否继续播放',
+                        leftBtnTitle: '暂不播放',
+                        rightBtnTitle: '继续播放'
+                    },
+                    styles: {
+                        bg: '#fff',
+                        w: 300,
+                        title: {
+                            marginT: 20,
+                            icon: 'widget://res/gou.png',
+                            iconSize: 40,
+                            titleSize: 14,
+                            titleColor: '#666'
+                        },
+                        content: {
+                            color: '#ccc',
+                            size: 14
+                        },
+                        left: {
+                            marginB: 7,
+                            marginL: 20,
+                            w: 130,
+                            h: 35,
+                            corner: 2,
+                            bg: '#ccc',
+                            color: '#FFF',
+                            size: 12
+                        },
+                        right: {
+                            marginB: 7,
+                            marginL: 10,
+                            w: 130,
+                            h: 35,
+                            corner: 2,
+                            bg: '#89211b',
+                            color: '#fff',
+                            size: 12
+                        }
+                    }
+                }, function(ret) {
+                    if (ret.eventType == 'right') {
+                        dangqianbofangid = api.pageParam.DangQianbofangid;
+                        if (dangqianbofangid) {
+                          bofang = api.pageParam.bofang;
+                          if(bofang){
+                            fnJinRuBofangs(dangqianbofangid,bofang);
+                            soundId = dangqianbofangid;
+                            bookId == dangqianbofangid;
+                            fnJianTingBookCollection(bookId);
+                          }else{
+                            fnJinRuBofangs(dangqianbofangid);
+                            soundId = dangqianbofangid;
+                            bookId == dangqianbofangid;
+                            fnJianTingBookCollection(bookId);
+                          }
+                        } else {
+                            fnJinRuBofang();
+                        }
+                        var dialogBox = api.require('dialogBox');
+                        dialogBox.close({
+                            dialogName: 'alert'
+                        });
+                    } else if (ret.eventType == 'left') {
+                        var stylelist = $api.byId('openplayer');
+                        var html = '<img src="../image/play/ic_play_play.png" alt=""  id="player">';
+                        $api.html(stylelist, html);
+                        var dialogBox = api.require('dialogBox');
+                        var stylelistkaishijishi = $api.byId('kaishijishi');
+                        var htmlkaishijishi = '00:00';
+                        $api.html(stylelistkaishijishi, htmlkaishijishi);
+                        var stylelistzongshichang = $api.byId('zongshichang');
+                        var htmlzongshichang = '00:00';
+                        $api.html(stylelistzongshichang, htmlzongshichang);
+                        var stylelistbookExtraCollectionHtml = $api.byId('bookExtraCollectionHtml');
+                        var htmlbookExtraCollectionHtml = '<img src="../image/KM_play_collect.png" alt="" class="collectmusicssssssss" id="playCollect"  onclick="fnOpenPlayCollect(this)" data-click="0">';
+                        $api.html(stylelistbookExtraCollectionHtml, htmlbookExtraCollectionHtml);
+                        var stylelistComments = $api.byId('comments');
+                        var htmlComments = '0';
+                        $api.html(stylelistComments, htmlComments);
+                        api.closeWin();
+                        dialogBox.close({
+                            dialogName: 'alert'
+                        });
+                    }
+                });
+            }
+        }
       });
 
-    }
-    // function fnOpenPlayButton(){
-    //   var playButton = $api.byId('playButton');
-    //   var video = $api.byId('video');
-    //   if(playButton.getAttribute("src",2)=="../image/play.png"){
-    //     playButton.src="../image/playing.png";
-    //     $api.addCls(video, 'Rotation');
-    //   }else{
-    //     playButton.src="../image/play.png";
-    //     $api.removeCls(video, 'Rotation');
-    //   }
-    // }
+      var connectionType = api.connectionType;
+      if(connectionType == "none"){
+      	netWorkNone();
+      }else{
+        // 获取浏览器高度
+        if (window.innerHeight)
+            winHeight = window.innerHeight;
+        else if ((document.body) && (document.body.clientHeight))
+            winHeight = document.body.clientHeight;
+        var messageFrameDiv = $api.byId('wrap');
+        var winHeightHeader = winHeight - headerPosH;
+        $api.css(messageFrameDiv, 'height:' + winHeightHeader + 'px;');
+        $api.fixIos7Bar(header);
+        dangqianbofangid = api.pageParam.DangQianbofangid;
+        if(dangqianbofangid){
+          bookId = dangqianbofangid;
+          soundId = dangqianbofangid;
+        }
+        api.addEventListener({
+            name: 'netPlaying'
+        }, function(ret, err) {
+            fnDangQianbofangid(ret.value.playing);
+        });
+          if (connectionType == "wifi") {
+              if (dangqianbofangid) {
+                bofang = api.pageParam.bofang;
+                if(bofang){
+                  fnJinRuBofangs(dangqianbofangid,bofang);
+                  soundId = dangqianbofangid;
+                  bookId == dangqianbofangid;
+                  fnJianTingBookCollection(bookId);
+                }else{
+                  fnJinRuBofangs(dangqianbofangid);
+                  soundId = dangqianbofangid;
+                  bookId == dangqianbofangid;
+                  fnJianTingBookCollection(bookId);
+                }
+              } else {
+                  fnJinRuBofang();
+              }
+          } else {
+              var dialogBox = api.require('dialogBox');
+              dialogBox.alert({
+                  texts: {
+                      title: '您正在使用移动数据网络进行播放，是否继续播放',
+                      leftBtnTitle: '暂不播放',
+                      rightBtnTitle: '继续播放'
+                  },
+                  styles: {
+                      bg: '#fff',
+                      w: 300,
+                      title: {
+                          marginT: 20,
+                          icon: 'widget://res/gou.png',
+                          iconSize: 40,
+                          titleSize: 14,
+                          titleColor: '#666'
+                      },
+                      content: {
+                          color: '#ccc',
+                          size: 14
+                      },
+                      left: {
+                          marginB: 7,
+                          marginL: 20,
+                          w: 130,
+                          h: 35,
+                          corner: 2,
+                          bg: '#ccc',
+                          color: '#FFF',
+                          size: 12
+                      },
+                      right: {
+                          marginB: 7,
+                          marginL: 10,
+                          w: 130,
+                          h: 35,
+                          corner: 2,
+                          bg: '#89211b',
+                          color: '#fff',
+                          size: 12
+                      }
+                  }
+              }, function(ret) {
+                  if (ret.eventType == 'right') {
+                      dangqianbofangid = api.pageParam.DangQianbofangid;
+                      if (dangqianbofangid) {
+                        bofang = api.pageParam.bofang;
+                        if(bofang){
+                          fnJinRuBofangs(dangqianbofangid,bofang);
+                          soundId = dangqianbofangid;
+                          bookId == dangqianbofangid;
+                          fnJianTingBookCollection(bookId);
+                        }else{
+                          fnJinRuBofangs(dangqianbofangid);
+                          soundId = dangqianbofangid;
+                          bookId == dangqianbofangid;
+                          fnJianTingBookCollection(bookId);
+                        }
+                      } else {
+                          fnJinRuBofang();
+                      }
+                      var dialogBox = api.require('dialogBox');
+                      dialogBox.close({
+                          dialogName: 'alert'
+                      });
+                  } else if (ret.eventType == 'left') {
+                      var stylelist = $api.byId('openplayer');
+                      var html = '<img src="../image/play/ic_play_play.png" alt=""  id="player">';
+                      $api.html(stylelist, html);
+                      var dialogBox = api.require('dialogBox');
+                      var stylelistkaishijishi = $api.byId('kaishijishi');
+                      var htmlkaishijishi = '00:00';
+                      $api.html(stylelistkaishijishi, htmlkaishijishi);
+                      var stylelistzongshichang = $api.byId('zongshichang');
+                      var htmlzongshichang = '00:00';
+                      $api.html(stylelistzongshichang, htmlzongshichang);
+                      var stylelistbookExtraCollectionHtml = $api.byId('bookExtraCollectionHtml');
+                      var htmlbookExtraCollectionHtml = '<img src="../image/KM_play_collect.png" alt="" class="collectmusicssssssss" id="playCollect"  onclick="fnOpenPlayCollect(this)" data-click="0">';
+                      $api.html(stylelistbookExtraCollectionHtml, htmlbookExtraCollectionHtml);
+                      var stylelistComments = $api.byId('comments');
+                      var htmlComments = '0';
+                      $api.html(stylelistComments, htmlComments);
+                      api.closeWin();
+                      dialogBox.close({
+                          dialogName: 'alert'
+                      });
+                  }
+              });
+          }
+      }
 
+      // fnOpenListenFrame();
+    };
+
+    function fnDangQianbofangid(id) {
+        Dqbofangid = id;
+        dangqianbofangid = id;
+    }
+
+    function fnJianTingGood(){
+      api.addEventListener({
+          name: 'neiJianTingGood'
+      }, function(ret, err) {
+          bookId = ret.value.bookId;
+          soundId = ret.value.bookId;
+          fnJianTingBookCollection(bookId);
+          return;
+      });
+    }
+    //评论完成回调评论数；
+    function fnJianTingPingLunShu(){
+      api.addEventListener({
+          name: 'gengXinSingle'
+      }, function(ret, err) {
+          fnJianTingBookCollection(bookId);
+          return;
+      });
+    }
+    //监听收藏，评论数；
+    function fnJianTingBookCollection(bookId){
+      soundId = bookId;
+      api.ajax({
+          url: host + apiUri + '/sound/' + bookId,
+          method: 'get',
+          dataType: 'json',
+          headers: {
+              "source": api.systemType,
+              "version": version,
+              "session": token
+          }
+      }, function(ret, err) {
+        if(ret){
+        if (ret.status == 200) {
+            var stylelistCollectionHtml = $api.byId('bookExtraCollectionHtml');
+            if(ret.data.is_collection){
+                                    // <img src="../image/KM_play_collect.png" alt=""  onclick="fnOpenCollect();" id="collect">
+              bookCollectionHtml = '<img src="../image/KM_play_collect_red.png" alt="" class="collectmusicssssssss" id="playCollect" onclick="fnOpenPlayCollect(this)" data-click="1">';
+            }else{
+              bookCollectionHtml = '<img src="../image/KM_play_collect.png" alt="" class="collectmusicssssssss" id="playCollect"  onclick="fnOpenPlayCollect(this)" data-click="0">';
+            }
+            $api.html(stylelistCollectionHtml, bookCollectionHtml);
+            if(ret.data.comment_total){
+                var html = ret.data.comment_total;
+                var stylelist = $api.byId('comments');
+                $api.html(stylelist, html);
+            }else{
+              var html = 0;
+              var stylelist = $api.byId('comments');
+              $api.html(stylelist, html);
+            }
+            if (ret.data.title) {
+                var stylelistTitle = $api.byId('title');
+                var htmlTitle = ret.data.title;
+                $api.html(stylelistTitle, htmlTitle);
+                fnNamesss(ret.data.title);
+            }
+        } else {
+            netMessage(ret);
+        }
+      }else{
+        netWork(err);
+      }
+      });
+    }
+
+    function fnJinRuBofangs(id,bofang) {
+        var eHeader = $api.byId('header')
+        api.parseTapmode();
+        if(bofang == 9){
+          var stylelist = $api.byId('openplayer');
+          var html = '<img src="../image/play/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player">';
+          $api.html(stylelist, html);
+          if (id) {
+            soundId = id;
+              api.sendEvent({
+                  name: 'netPlayingUrl',
+                  extra: {
+                      id: id
+                  }
+              });
+          }
+        }else{
+          var stylelist = $api.byId('openplayer');
+          var html = '<img src="../image/play/ic_play_play.png" alt="" onclick="fnOpenPlayer();" id="player">';
+          $api.html(stylelist, html);
+        }
+        fnbofangshijian();
+        fnJiBenXinXi();
+        jindutiao();
+    }
+
+    function fnJinRuBofang(bofang) {
+        if (bofang) {
+            var bofang = bofang;
+        } else {
+            var bofang = api.pageParam.bofang;
+        }
+        api.parseTapmode();
+        if (!bofang) {
+            var stylelist = $api.byId('openplayer');
+            var html = '';
+            html += '<img src="../image/play/ic_play_play.png" alt="" onclick="fnOpenPlayer();" id="player">';
+            $api.html(stylelist, html);
+            bofang = 8;
+            api.sendEvent({
+                name: 'netPlayUrlXunTing',
+                extra: {
+                  bofang: bofang,
+                }
+            });
+            // api.sendEvent({
+            //     name: 'neizhiliebiaoPlay',
+            //     extra: {
+            //         bofang: bofang,
+            //     }
+            // });
+        } else if (bofang == 8) {
+            var stylelist = $api.byId('openplayer');
+            var html = '';
+            html += '<img src="../image/play/ic_play_play.png" alt="" onclick="fnOpenPlayer();" id="player">';
+            $api.html(stylelist, html);
+
+            api.sendEvent({
+                name: 'netPlayUrlXunTing',
+                extra: {
+                  bofang: bofang,
+                }
+            });
+        } else if (bofang == 9) {
+            var stylelist = $api.byId('openplayer');
+            var html = '';
+            html += '<img src="../image/play/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player">';
+            $api.html(stylelist, html);
+            api.sendEvent({
+                name: 'netPlayUrlXunTing',
+                extra: {
+                  bofang: bofang,
+                }
+            });
+        }
+        fnbofangshijian();
+        fnJiBenXinXi();
+        jindutiao();
+        if (dangqianbofangid) {
+            dqbfid = dangqianbofangid;
+        }
+    }
+
+
+    //赋值歌词、总时长、标题
+    function fnJiBenXinXi() {
+        api.addEventListener({
+            name: 'jibenxinxi'
+        }, function(ret, err) {
+            if (ret) {
+                //赋值歌词
+                if (ret.value.desc) {
+                  if(ret.value.desc != "非文本内容"){
+                    var str1 = JSON.stringify(ret.value.desc);
+                    var str2 = str1.replace(/n/g, '<br>');
+                    var str3 = str2.split('\\').join('');
+                    var str4 = str3.split("\"").join('');
+                    var stylelist = $api.byId('geci');
+                    var html0 = str4;
+                    $api.html(stylelist, html0);
+                  }
+
+                }
+                //赋值标题
+                if (ret.value.titlename) {
+                    var stylelist = $api.byId('title');
+                    var html2 = ret.value.titlename;
+                    $api.html(stylelist, html2);
+                    fnNamesss(ret.value.titlename);
+                }
+            }
+        });
+    }
+    //播放时间,总时长
+    function fnbofangshijian() {
+        api.addEventListener({
+            name: 'bofangshijian'
+        }, function(ret, err) {
+            //播放时间
+            if (ret.value.bofangshijian) {
+                var stylelist = $api.byId('kaishijishi');
+                var html = ret.value.bofangshijian;
+                $api.html(stylelist, html);
+            }else{
+              var stylelist = $api.byId('kaishijishi');
+              var html = '00:00';
+              $api.html(stylelist, html);
+            }
+        });
+        //总时长
+        api.addEventListener({
+            name: 'zongJinDusss'
+        }, function(ret, err) {
+            if (ret.value.html) {
+                var stylelist = $api.byId('zongshichang');
+                var html = ret.value.html;
+                $api.html(stylelist, html);
+            }else{
+              var stylelist = $api.byId('zongshichang');
+              var html = '00:00';
+              $api.html(stylelist, html);
+            }
+        });
+    }
+    function fnNamesss(titlenamesss){
+      namesss = titlenamesss;
+    }
+    //播放、暂停
+    function fnOpenPlayer() {
+        var player = $api.byId('player');
+        if (player.getAttribute("src", 2) == "../image/play/ic_play_play.png") {
+            player.src = "../image/play/ic_play_pause.png";
+            var bofang = 9;
+            api.sendEvent({
+                name: 'netPlayXunTing',
+                extra: {
+                    bofang: bofang,
+                    a:soundId
+                }
+            });
+            api.sendEvent({
+                name: 'neizhiliebiaoPlay',
+                extra: {
+                    bofang: bofang,
+                }
+            });
+        } else {
+            player.src = "../image/play/ic_play_play.png";
+            api.sendEvent({
+                name: 'netAudiopauseXunTing',
+                extra: {
+                    netAudiopauses: 222
+                }
+            });
+            var bofang = 8;
+            api.sendEvent({
+                name: 'neizhiliebiaoPlay',
+                extra: {
+                    bofang: bofang,
+                }
+            });
+
+        }
+    }
+    //进度条
+    function jindutiao() {
+        api.addEventListener({
+            name: 'zongJinDu'
+        }, function(ret, err) {
+            if (ret) {
+                var range = $api.byId('range');
+                var lenth = ret.value.lenth;
+                var cur = ret.value.cur;
+                var a = cur / lenth;
+                var ccc = JSON.stringify(cur/lenth  * 100);
+                var sssss;
+                if(!cur){
+                  range.value = 0;
+                  range.style.background = 'linear-gradient(to left, #89211b 100%, #f2f2f2 0,#f2f2f2  )';
+                }else{
+                  range.value = ccc;
+                  sssss = 100 - range.value;
+                  // if(ccc > 99){
+                  //   range.value = 105;
+                  //   sssss = 0;
+                  // }
+                  //不渐变
+                  range.style.background = 'linear-gradient(to left, #89211b ' + sssss + '%, #f2f2f2 0,#f2f2f2  )';
+                }
+                // range.css( 'background', 'linear-gradient(to right, #059CFA, white ' + range.value + '%, white)' );
+                // range.style.background = 'linear-gradient(to left, #89211b ' + sssss + '%, blue ' + range.value + '%,#789  )';
+                fnZongJinDu(lenth);
+
+            }
+        });
+    }
+
+    function fnZongJinDu(lenth) {
+        zongJindu = lenth;
+    }
+    //调整播放进度
+    function adjust() {
+        var range = $api.byId('range');
+        var x = range.value / 100;
+        var playTime = x * zongJindu;
+        api.sendEvent({
+            name: 'playTime',
+            extra: {
+                playTime: playTime
+            }
+        });
+    }
+    //下一曲
+    function fnOpenPlayerxiayi() {
+        var c = api.pageParam.a;
+        api.sendEvent({
+            name: 'xunTingXiaYi',
+            extra: {
+                c: c
+            }
+        });
+        var player = $api.byId('player');
+        player.src = "../image/play/ic_play_pause.png";
+
+    }
+
+    // 打开评论页面
+    function fnOpenPlayDiscuss() {
+      var uris = '/sound/comment/';
+        api.openWin({
+            name: 'discussNoticeDetail0',
+            url: './discuss_notice_detail0.html',
+            pageParam: {
+                soundId: soundId,
+                uris: uris,
+                name: namesss
+            }
+        });
+    }
+    // 收藏
+    function fnOpenPlayCollect(clicktoolitem) {
+      var toolbarlist = document.getElementsByClassName('collectmusicssssssss')[0];
+      var click = clicktoolitem.getAttribute("data-click");
+      if (click == 0) {
+          // 点开
+          clicktoolitem.setAttribute("data-click", 1);
+          toolbarlist.src = "../image/KM_play_collect_red.png";
+          var uri = '/extra/collection';
+          api.ajax({
+              url: host + apiUri + uri + '/' + bookId,
+              method: 'post',
+              dataType: 'json',
+              headers: {
+                  "source": api.systemType,
+                  "version": version,
+                  "session": token
+              },
+              data:{
+                values:{
+                  "model":'book',
+                }
+              }
+          }, function(ret, err) {
+            if(ret){
+              if (ret.status == 200) {
+                  if(ret.data == "inc"){
+                    api.toast({              
+                        msg:   '收藏成功',
+                        duration:  2000,
+                        location:   'middle'          
+                    });
+                  }
+                  api.sendEvent({
+                      name: 'collection',
+                      extra: {
+                          is_collection: 1,
+                      }
+                  });
+              } else {
+                netMessage(ret);
+              }
+            }else{
+              netWork(err);
+            }
+          });
+      } else {
+          // 关闭
+          clicktoolitem.setAttribute("data-click", 0);
+          toolbarlist.src = "../image/KM_play_collect.png";
+          var uri = '/extra/collection';
+          api.ajax({
+              url: host + apiUri + uri + '/' + bookId,
+              method: 'post',
+              dataType: 'json',
+              headers: {
+                  "source": api.systemType,
+                  "version": version,
+                  "session": token
+              },
+              data:{
+                values:{
+                  "model":'book',
+                }
+              }
+          }, function(ret, err) {
+            if(ret){
+              if (ret.status == 200) {
+                  if(ret.data == "dec"){
+                    api.toast({              
+                        msg:   '已取消收藏',
+                        duration:  2000,
+                        location:   'middle'          
+                    });
+                  }
+                  api.sendEvent({
+                      name: 'collection',
+                      extra: {
+                          is_collection: 0,
+                      }
+                  });
+              } else {
+                netMessage(ret);
+              }
+            }else{
+              netWork(err);
+            }
+          });
+      }
+    }
+
+    //打开更多页面
+    function fnOpenPlayMore() {
+        var dialogBox = api.require('dialogBox');
+        dialogBox.actionMenu({
+            rect: {
+                h: 150
+            },
+            texts: {
+                cancel: '取消'
+            },
+            items: [{
+                text: '添加到听单',
+                icon: 'widget://image/KM_play_add_gray.png'
+            }, {
+                text: '分享',
+                icon: 'widget://image/KM_ListingsListGd.png'
+            }],
+            styles: {
+                bg: '#FFF',
+                column: 2,
+                itemText: {
+                    color: '#000',
+                    size: 12,
+                    marginT: 8
+                },
+                itemIcon: {
+                    size: 30
+                },
+                cancel: {
+                    bg: 'fs://icon.png',
+                    color: '#000',
+                    h: 44,
+                    size: 14
+                }
+            },
+            tapClose: true
+        }, function(ret) {
+            if (ret.eventType == 'cancel') {
+                dialogBox.close({
+                    dialogName: 'actionMenu'
+                });
+            }
+            if (ret.index == "0") {
+              fnOpenAddListening();
+              dialogBox.close({
+                  dialogName: 'actionMenu'
+              });
+
+            } else if (ret.index == "1") {
+                  fnOpenPlayShare();
+                // alert(2);
+            } else {
+                dialogBox.close({
+                    dialogName: 'actionMenu'
+                });
+            }
+            // dialogBox.close({
+            //     dialogName: 'alert'
+            // })
+            // alert(JSON.stringify(ret))
+
+        });
+    }
+    //打开分享
+    function fnOpenPlayShare() {
+        var dialogBox = api.require('dialogBox');
+        dialogBox.actionMenu({
+            rect: {
+                h: 150
+            },
+            texts: {
+                cancel: '取消'
+            },
+            items: [{
+                text: '微信',
+                icon: 'widget://image/weixin.png'
+            }, {
+                text: 'QQ',
+                icon: 'widget://image/qq.png'
+            }, {
+                text: '朋友圈',
+                icon: 'widget://image/friends.png'
+            }],
+            styles: {
+                bg: '#FFF',
+                column: 3,
+                itemText: {
+                    color: '#000',
+                    size: 12,
+                    marginT: 8
+                },
+                itemIcon: {
+                    size: 30
+                },
+                cancel: {
+                    bg: 'fs://icon.png',
+                    color: '#000',
+                    h: 44,
+                    size: 14
+                }
+            },
+            tapClose: true
+        }, function(ret) {
+            if (ret.eventType == 'cancel') {
+                dialogBox.close({
+                    dialogName: 'actionMenu'
+                });
+            }
+            if (ret.index == "0") {
+                dialogBox.close({
+                    dialogName: 'actionMenu'
+                });
+                // alert(1);
+            } else if (ret.index == "1") {
+                dialogBox.close({
+                    dialogName: 'actionMenu'
+                });
+                // alert(2);
+            } else if (ret.index == "2") {
+                dialogBox.close({
+                    dialogName: 'actionMenu'
+                });
+                // alert(3);
+            } else {
+                dialogBox.close({
+                    dialogName: 'actionMenu'
+                });
+            }
+            // dialogBox.close({
+            //     dialogName: 'alert'
+            // })
+            // alert(JSON.stringify(ret))
+
+        });
+    }
+    //添加到听单
+    function fnOpenAddListening(){
+      api.openWin({
+          name: 'addListening',
+          url: './add_listening.html',
+          pageParam: {
+              name: 'test'
+          }
+      });
+    }
+
+    var timeout, rotate = 0;
+    function fnOpenPlayButton(){
+      var playButton = $api.byId('playButton');
+      var video = $api.byId('video');
+      var timeout, rotate = 0;
+      if(playButton.getAttribute("src",2)=="../image/footer_bf0.png"){
+        playButton.src="../image/footer_bf1.png";
+        // $api.addCls(video, 'Rotation');
+        startAnim();
+        // a();
+
+      }else{
+        playButton.src="../image/footer_bf0.png";
+        // $api.removeCls(video, 'Rotation');
+        stopAnim();
+        // b();
+      }
+    }
+    function startAnim() {
+        timeout = setInterval(function () {
+            var img = document.getElementById("video");
+            var rotateStyle = "rotate(" + rotate + "deg)";
+            img.style.transform = rotateStyle;
+            img.style["-moz-transform"] = rotateStyle;
+            img.style["-webkit-transform"] = rotateStyle;
+            img.style["-o-transform"] = rotateStyle;
+            img.style["-ms-transform"] = rotateStyle;
+
+            rotate += 1;
+            if (rotate > 360) {
+                rotate = 0;
+            }
+        }, 30);
+    }
+    function stopAnim() {
+      clearInterval(timeout);
+      timeout = null;
+    }
+
+  </script>
+  <script>
+      var change = function($input) {
+          /*内容可自行定义*/
+          // console.log("123");
+          adjust();
+      }
+      $('input').RangeSlider({
+          callback: change
+      });
   </script>
   </html>

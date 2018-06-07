@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>听单列表</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style media="screen">
+        body {}
+
+        .fr {
+            float: right;
+        }
+
+        .fl {
+            float: left;
+        }
+
+        .p13px {
+            padding: 0px 13px;
+        }
+
+        .clr {
+            overflow: hidden;
+        }
+
+        .p20px {
+            padding: 0 20px;
+        }
+
+        .list_bj {
+            width: 100%;
+        }
+
+        .list_bj .list_bjDiv {
+            width: 67px;
+            height: 86px;
+            margin: 0 auto;
+            padding: 13px 0;
+        }
+
+        .list_bj .list_bjDiv img {
+            width: 67px;
+            height: 86px;
+        }
+
+        .list_bj p {
+            width: 100%;
+            height: 20px;
+            line-height: 20px;
+            font-style: 16px;
+            text-align: center;
+            padding-bottom: 13px;
+        }
+
+        .row {
+            display: -webkit-box;
+            display: -webkit-flex;
+        }
+
+        .col {
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+            margin: 0 5px;
+            position: relative;
+        }
+
+        .border_r {
+            border-right: 1px dashed #ccc;
+        }
+        /* 弹出工具条 */
+
+        .musiclist-item-tool {
+            background-color: #e9c19a;
+            color: #fff;
+            display: -webkit-box;
+            padding: 0 10px;
+            display: none;
+        }
+
+        .musiclist-item-tool .userinfocol {
+            -webkit-box-flex: 1;
+            text-align: center;
+            padding: 5px 0;
+        }
+
+        .musiclist-item-tool .userinfocol .info img {
+            width: 50%;
+        }
+
+        .musiclist-item-tool .userinfocol .num {
+            color: #A8A8A8;
+            font-size: 0.8em;
+        }
+        /* 悬浮 */
+
+        .exitbtnhover {
+            background-color: #d33a31;
+            color: #fff;
+        }
+        /*.userinfo .toolhover {background-color: #e9c19a;}*/
+
+        .musiclist-item-tool .toolhover {
+            background-color: #e9c19a;
+        }
+
+        .allplayhover {
+            background-color: #e2e2e2;
+        }
+
+        .userinfo {
+            display: -webkit-box;
+            /*padding: 10px 0;*/
+        }
+
+        .userinfo .userinfocol {
+            /*-webkit-box-flex:1;*/
+            padding: 10px 0;
+            text-align: center;
+            width: 50%;
+            box-sizing: border-box;
+            height: 70px;
+        }
+
+        .userinfo .userinfocol .info {
+            font-size: 0.8em;
+            color: #999;
+            line-height: 60px;
+            height: 60px;
+        }
+
+        .userinfo .userinfocol .info img {
+            width: 3em;
+            padding: 10px 0;
+        }
+
+        .userinfo .userinfocol .num {
+            padding-top: 5px;
+        }
+
+        .list_bjDiv_img {
+            height: 70px;
+            overflow: hidden;
+        }
+
+        #con {
+            background-color: #fff;
+        }
+
+        #con ul {
+            padding: 0 10px;
+        }
+
+        #con ul li {
+            border-bottom: 1px solid #e6e6e6;
+            text-indent: 10px;
+            overflow: hidden;
+            margin: 0px 0;
+            position: relative;
+        }
+
+        #con ul li div span {
+            display: block;
+            line-height: 30px;
+        }
+
+        .on_li_divImg img {
+            width: 39px;
+            height: 39px;
+            padding: 5px;
+        }
+
+        .on_li_divImg1 {
+            width: 30px;
+            height: 30px;
+            padding: 10px;
+            line-height: 30px;
+            font-size: 20px;
+            color: #ccc;
+        }
+
+        .single {
+            height: 150px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 5px #bbb;
+            margin-top: 5px;
+        }
+
+        .single_img {
+            width: 130px;
+            height: 130px;
+            padding: 10px;
+        }
+
+        .single_img img {
+            width: 100%;
+        }
+
+        .single_l {
+            padding: 10px 0;
+            position: relative;
+            height: 130px;
+        }
+
+        .single_h1 {
+            font-size: 13px;
+            padding: 5px 0;
+        }
+
+        .single_img_p_span {
+            padding: 5px 0;
+            overflow: hidden;
+        }
+
+        .single_div_img {
+            width: 17px;
+            height: 17px;
+            border-radius: 8.5px;
+            overflow: hidden;
+        }
+
+        .single_div_img img {
+            width: 100%;
+        }
+
+        .single_img_name {
+            font-size: 12px;
+            margin: 0 5px;
+        }
+
+        .single_LIVE {
+            width: 37px;
+            height: 14px;
+        }
+
+        .single_LIVE img {
+            width: 100%;
+        }
+
+        .single_time {
+            font-size: 12px;
+            overflow: hidden;
+            margin-top: 30px;
+        }
+
+        .playall {
+            width: 100%;
+            /*height: 47.5px;*/
+            height: 40px;
+        }
+
+        .playall_img {
+            width: 16px;
+            height: 16px;
+            /*line-height: 47.5px;*/
+            line-height: 40px;
+            /*height: 47.5px;*/
+            height: 40px;
+            position: relative;
+            margin-right: 5px;
+        }
+
+        .playall_img img {
+            width: 100%;
+            position: relative;
+            top: 3px;
+        }
+
+        .playall_span {
+            /*line-height: 47.5px;*/
+            line-height: 40px;
+            /*height: 47.5px;*/
+            height: 40px;
+            font-size: 14px;
+        }
+
+        .on_play {
+            width: 80%;
+            /*position: relative;*/
+        }
+
+        .on_playall {
+            overflow: hidden;
+            position: relative;
+            z-index: 0;
+        }
+
+        .on_playall_img {
+            overflow: hidden;
+            position: absolute;
+            right: 10px;
+            top: 0;
+            width: 20px;
+            padding: 5px 0;
+            z-index: 1;
+        }
+
+        .on_playall_img img,
+        span {
+            float: left;
+        }
+
+        .on_playall_div {
+            /*margin: 0 10px;*/
+            margin-right: 5px;
+            overflow: hidden;
+            font-size: 10px;
+        }
+
+        .on_playall_div_img {
+            width: 15px;
+        }
+
+        .on_playall_div_img img {
+            width: 100%;
+            padding: 7.5px;
+        }
+
+        .on_playall_div_img1 {
+            width: 11px;
+        }
+
+        .on_playall_div_img1 img {
+            width: 100%;
+            padding: 9px 0px;
+        }
+
+        .on_playall_name {
+            font-size: 13px;
+        }
+
+        .on_playall_names {
+            font-size: 13px;
+        }
+
+        .on_playall_img img {
+            width: 100%;
+        }
+
+        .list_bjDiv_img {
+            height: 70px;
+            overflow: hidden;
+        }
+
+        .userinfo {
+            display: -webkit-box;
+            /*padding: 10px 0;*/
+            background: src(0, 0, 0, 0.5);
+        }
+
+        .userinfo .userinfocol {
+            -webkit-box-flex: 1;
+            padding: 10px 0;
+            text-align: center;
+            /*width: 50%;*/
+            box-sizing: border-box;
+            height: 70px;
+        }
+
+        .userinfo .userinfocol .info {
+            font-size: 0.8em;
+            color: #ccc;
+            /*line-height: 60px;*/
+            height: 35px;
+            position: relative;
+        }
+
+        .userinfo .userinfocol .info img {
+            /*width: 3em;*/
+            width: 25px;
+            padding: 5px 0;
+        }
+
+        .userinfo .userinfocol p {
+            color: #706c6c;
+            font-size: 12px;
+        }
+
+        .userinfo .userinfocol .info>i {
+            position: absolute;
+            top: -20px;
+            right: 32%;
+            width: 10px;
+            height: 10px;
+            display: inline-block;
+            font-style: normal;
+            font-size: 12px;
+            color: #706c6c;
+        }
+
+        .userinfo .userinfocol .num {
+            padding-top: 5px;
+        }
+        /*.single_time .single_time_img{
+        padding-right: 20px;
+      }*/
+
+        .single_time .single_time_img img {
+            width: 15px;
+        }
+
+        .single_img_num {
+            font-size: 14px;
+            color: #ccc;
+            padding-left: 3px;
+            padding-right: 10px;
+        }
+
+        .on_playall_more_imgs {
+            width: 15%;
+            position: absolute;
+            top: 0;
+            right: 10px;
+            overflow: hidden;
+        }
+
+        .on_playall_more_imgs img {
+            width: 20px;
+        }
+
+        .author {
+            font-size: 11px;
+            padding-bottom: 10px;
+        }
+
+        .items {
+            position: relative;
+        }
+        #footer {
+            width: 100%;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="list_bj">
+        <div class="p13px">
+            <div class="single" id="single">
+
+            </div>
+        </div>
+        <div class="list_bjDiv_img">
+            <div class="userinfo" id="userinfo">
+                <div class="userinfocol" tapmode="toolhover">
+                    <div class="info" id="extraGood">
+                        <!-- <img src="../image/KM_ListingsListDzs.png" alt="" class="collectmusicFx"> -->
+                    </div>
+                    <p id='goods'></p>
+                </div>
+                <div class="userinfocol" tapmode="toolhover">
+                    <div class="info" id="extraCollectionHtml">
+
+                    </div>
+                    <p>收藏</p>
+                </div>
+                <div class="userinfocol" tapmode="toolhover" onclick="">
+                    <div class="info">
+                        <img src="../image/KM_ListingsListYzpd.png" alt="">
+                    </div>
+                    <p>预置频道</p>
+                </div>
+                <div class="userinfocol" tapmode="toolhover" onclick="fnOpenDiscussDetail(); ">
+                    <div class="info">
+                        <img src="../image/KM_ListingsListSx.png" alt="">
+                    </div>
+                    <p id="DiscussDetailP">0</p>
+                </div>
+                <div class="userinfocol" tapmode="toolhover" onclick="fnOpenPlayShare();">
+                    <div class="info">
+                        <img src="../image/KM_ListingsListGd.png" alt="">
+                    </div>
+                    <p>分享</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="con">
+        <div class="playall" onclick="">
+            <div class="p13px">
+                <div class="playall_img fl"><img src="../image/index/KM_bofang.png" alt=""></div>
+                <div class="playall_span fl" onclick="fnPlay();">全部播放</div>
+            </div>
+        </div>
+        <ul class="on" id="tuijianliebiaogequ">
+
+        </ul>
+        <div id="footer" class="disnone">
+            正在加载更多
+        </div>
+    </div>
+</body>
+
+</html>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/message.js"></script>
+<script type="text/javascript" src="../script/wxfx.js"></script>
+<script type="text/javascript">
+    // 传过来的听单id
+    var ids;
+    //用户手机标识id判断是否登陆过期
+    var token;
+    // 用户头像信息
+    var photo;
+    // 点赞全局
+    var goodss;
+    // 全局微信
+    var wx;
+    // 全局切换图片
+    var ListingsListGoodHtml;
+    // 听单的名称
+    var name;
+    // 听单id
+    var l_id;
+    // 听单简介
+    var listening_description;
+    // 听单图片
+    var imgUrlListening_cover;
+    //存储本地图片路径
+    var imgUrlListening_Fs;
+    var p = 1;
+    var ok;
+
+
+    apiready = function() {
+            ok = api.pageParam.ok;
+            var oks = 'ok'+ok;
+            api.addEventListener({
+                name: oks
+            }, function(ret, err) {
+                if (ret.value.wangluo) {
+                    //赋值源代码
+                    wx = api.require('wx');
+                    //fnTingdanTuijianliebiao()
+                    ids = api.pageParam.ids;
+                    ListenToTheDetails();
+                    api.addEventListener({
+                        name: 'gengXin'
+                    }, function(ret, err) {
+
+                        if(ret){
+                          ListenToTheDetails();
+                        }
+                        return;
+                    });
+                    songList();
+                    api.setCustomRefreshHeaderInfo({
+                        bgColor: '#f0f0f0',
+                        image: {
+                          pull: [
+                              'widget://image/Refresh/dropdown_anim_00.png',
+                              'widget://image/Refresh/dropdown_anim_01.png',
+                              'widget://image/Refresh/dropdown_anim_02.png',
+                              'widget://image/Refresh/dropdown_anim_03.png',
+                              'widget://image/Refresh/dropdown_anim_04.png',
+                              'widget://image/Refresh/dropdown_anim_05.png',
+                              'widget://image/Refresh/dropdown_anim_06.png',
+                              'widget://image/Refresh/dropdown_anim_07.png',
+                              'widget://image/Refresh/dropdown_anim_08.png',
+                              'widget://image/Refresh/dropdown_anim_09.png',
+                              'widget://image/Refresh/dropdown_anim_10.png',
+                        ],
+                        load: [
+                              'widget://image/Refresh/dropdown_anim_00.png',
+                              'widget://image/Refresh/dropdown_anim_01.png',
+                              'widget://image/Refresh/dropdown_anim_02.png',
+                              'widget://image/Refresh/dropdown_anim_03.png',
+                              'widget://image/Refresh/dropdown_anim_04.png',
+                              'widget://image/Refresh/dropdown_anim_05.png',
+                      ]}
+                    }, function() {
+                        //下拉刷新被触发，自动进入加载状态，使用 api.refreshHeaderLoadDone() 手动结束加载中状态
+                        //下拉刷新被触发，使用 api.refreshHeaderLoadDone() 结束加载中状态
+                        ListenToTheDetails();
+                    });
+                    api.addEventListener({
+                        name: 'scrolltobottom',
+                        extra: {
+                            threshold: -20 //设置距离底部多少距离时触发，默认值为0，数字类型
+                        }
+                    }, function(ret, err) {
+                        //
+                        // console.log(1111);
+                        // $api.toggleCls(footer, 'disblok');
+                      //  setTimeout(function() {
+                      //    console.log(333);
+                        //  $api.toggleCls(footer, 'disnone');
+                      //  }, 3000);
+                      // var footer = $api.byId('footer');
+                      // $api.html(footer, '正在加载更多');
+                      p ++;
+                      songList();
+                    });
+
+                }
+            });
+
+            var connectionType = api.connectionType;
+            if (connectionType == "none") {
+                netWorkNone();
+
+            } else {
+
+
+                //赋值源代码
+                wx = api.require('wx');
+                //fnTingdanTuijianliebiao()
+                ids = api.pageParam.ids;
+                ListenToTheDetails();
+                api.addEventListener({
+                    name: 'gengXin'
+                }, function(ret, err) {
+
+                    if(ret){
+                      ListenToTheDetails();
+                    }
+                    return;
+                });
+                songList();
+                api.setCustomRefreshHeaderInfo({
+                    bgColor: '#f0f0f0',
+                    image: {
+                      pull: [
+                          'widget://image/Refresh/dropdown_anim_00.png',
+                          'widget://image/Refresh/dropdown_anim_01.png',
+                          'widget://image/Refresh/dropdown_anim_02.png',
+                          'widget://image/Refresh/dropdown_anim_03.png',
+                          'widget://image/Refresh/dropdown_anim_04.png',
+                          'widget://image/Refresh/dropdown_anim_05.png',
+                          'widget://image/Refresh/dropdown_anim_06.png',
+                          'widget://image/Refresh/dropdown_anim_07.png',
+                          'widget://image/Refresh/dropdown_anim_08.png',
+                          'widget://image/Refresh/dropdown_anim_09.png',
+                          'widget://image/Refresh/dropdown_anim_10.png',
+                    ],
+                    load: [
+                          'widget://image/Refresh/dropdown_anim_00.png',
+                          'widget://image/Refresh/dropdown_anim_01.png',
+                          'widget://image/Refresh/dropdown_anim_02.png',
+                          'widget://image/Refresh/dropdown_anim_03.png',
+                          'widget://image/Refresh/dropdown_anim_04.png',
+                          'widget://image/Refresh/dropdown_anim_05.png',
+                  ]}
+                }, function() {
+                    //下拉刷新被触发，自动进入加载状态，使用 api.refreshHeaderLoadDone() 手动结束加载中状态
+                    //下拉刷新被触发，使用 api.refreshHeaderLoadDone() 结束加载中状态
+                    ListenToTheDetails();
+                });
+                api.addEventListener({
+                    name: 'scrolltobottom',
+                    extra: {
+                        threshold: -20 //设置距离底部多少距离时触发，默认值为0，数字类型
+                    }
+                }, function(ret, err) {
+                    //
+                    // console.log(1111);
+                    // $api.toggleCls(footer, 'disblok');
+                  //  setTimeout(function() {
+                  //    console.log(333);
+                    //  $api.toggleCls(footer, 'disnone');
+                  //  }, 3000);
+                  // var footer = $api.byId('footer');
+                  // $api.html(footer, '正在加载更多');
+                  p ++;
+                  songList();
+                });
+            }
+        }
+        // 调取用户基本信息
+    function ListenToTheDetails() {
+        token = $api.getStorage('token');
+        api.ajax({
+            url: host + apiUri + '/listening/detail/' + ids,
+            method: 'get',
+            headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token
+            }
+        }, function(ret, err) {
+            if (ret) {
+              if (ret.status == 200) {
+                  api.refreshHeaderLoadDone()
+                  var single = $api.byId('single');
+                  // 听单id
+                  l_id = ret.data.linstening_info.l_id;
+                  // 听单简介
+                  listening_description = ret.data.linstening_info.listening_description;
+                  // 听单的名称
+                  name = ret.data.linstening_info.listening_name;
+                  // 存储本地路径
+                  imgUrlListening_Fs = ret.data.linstening_info.listening_cover;
+                      // 判断用户头像
+                  var photos = ret.data.linstening_info.photo;
+                  var photo = photos.substring(0, 4);
+                  if (photo == 'http') {
+                      photo = ret.data.linstening_info.photo;
+                  } else if (photo == '') {
+                      photo = '../image/KM_tx.png'
+                  } else if (photo != 'http') {
+                      photo = updatePhotoUrl + photos;
+                  }
+                  var song_listlength;
+                  for (var i = 0; i < ret.data.song_list.length; i++) {
+                    song_listlength = ret.data.song_list.length;
+                  };
+                  var html = "";
+                  // 判断用户听单封面信息
+                  var listening_cover = ret.data.linstening_info.listening_cover;
+                  imgUrlListening_cover = ret.data.linstening_info.listening_cover;
+                  var sandBox = listening_cover.substring(0, 8);
+                  if (sandBox == 'sand_box') {
+                      var sandBoxs = listening_cover.replace(/sand_box/, '..');
+                      html += '<div class="single_img fl"><img src="' + sandBoxs + '" alt=""></div><div class="single_l fl"><div class="single_h1" id="tingdanliebiaobiaoti">' + ret.data.linstening_info.listening_name +
+                          '</div><div class="single_img_p_span"><div class="single_div_img fl"><img src="' + photo + '" alt=""></div><div class="single_img_name fl">' + ret.data.linstening_info.nick_name +
+                          '</div></div><div class="single_time"><div class="single_time_img fl"><img src="../image/KM_sc.png" alt=""></div><div class="single_img_num fl">' + ret.data.linstening_info.collection_total +
+                          '</div><div class="single_time_img fl"><img src="../image/KM_play.png" alt=""></div><div class="single_img_num fl">' + ret.data.linstening_info.play_total +
+                          '</div><div class="single_time_img fl"><img src="../image/read/aloud_py.png" alt=""></div><div class="single_img_num fl">' + ret.data.linstening_info.song_total + '</div></div></div>'
+                  } else if (listening_cover == '') {
+                      html += '<div class="single_img fl"><img src="../image/my/fnShareImg.jpg" alt=""></div><div class="single_l fl"><div class="single_h1" id="tingdanliebiaobiaoti">' + ret.data.linstening_info.listening_name +
+                          '</div><div class="single_img_p_span"><div class="single_div_img fl"><img src="' + photo + '" alt=""></div><div class="single_img_name fl">' + ret.data.linstening_info.nick_name +
+                          '</div></div><div class="single_time"><div class="single_time_img fl"><img src="../image/KM_sc.png" alt=""></div><div class="single_img_num fl">' + ret.data.linstening_info.collection_total +
+                          '</div><div class="single_time_img fl"><img src="../image/KM_play.png" alt=""></div><div class="single_img_num fl">' + ret.data.linstening_info.play_total+
+                          '</div><div class="single_time_img fl"><img src="../image/read/aloud_py.png" alt=""></div><div class="single_img_num fl">' + ret.data.linstening_info.song_total  + '</div></div></div>'
+                  } else {
+                      var listening = 'listening/';
+                      var listening_covers = http + listening + listening_cover;
+                      imgUrlListening_cover = http + listening + ret.data.linstening_info.listening_cover;
+                      html += '<div class="single_img fl"><img src="' + listening_covers + '" alt=""></div><div class="single_l fl"><div class="single_h1" id="tingdanliebiaobiaoti">' + ret.data.linstening_info.listening_name +
+                          '</div><div class="single_img_p_span"><div class="single_div_img fl"><img src="' + photo + '" alt=""></div><div class="single_img_name fl">' + ret.data.linstening_info.nick_name +
+                          '</div></div><div class="single_time"><div class="single_time_img fl"><img src="../image/KM_sc.png" alt=""></div><div class="single_img_num fl">' + ret.data.linstening_info.collection_total +
+                          '</div><div class="single_time_img fl"><img src="../image/KM_play.png" alt=""></div><div class="single_img_num fl">' + ret.data.linstening_info.play_total +
+                          '</div><div class="single_time_img fl"><img src="../image/read/aloud_py.png" alt=""></div><div class="single_img_num fl">' + ret.data.linstening_info.song_total+ '</div></div></div>'
+                  }
+                  $api.html(single, html);
+                  var DiscussDetailP = $api.byId('DiscussDetailP');
+                  var comment_total = ret.data.linstening_info.comment_total;
+                  $api.html(DiscussDetailP, comment_total);
+                  fnExtraGoodssssss();
+                  goodss = ret.data.linstening_info.good_total;
+                  // console.log(ret.data.linstening_info.good_total);
+                  // console.log(goods);
+                  var stylelistss = $api.byId('goods');
+                  $api.html(stylelistss, goodss);
+                  var stylelistCollectionHtml = $api.byId('extraCollectionHtml');
+                  if (ret.data.linstening_info.is_collection == 0) {
+                      albumCollectionHtml = '<img src="../image/KM_hxs.png" alt="" class="collectmusic" onclick="collectmusic(this)" data-click="0">';
+                  } else {
+                      albumCollectionHtml = '<img src="../image/KM_play_collect_red.png" alt="" class="collectmusic" onclick="collectmusic(this)" data-click="1">';
+                  }
+
+                  $api.html(stylelistCollectionHtml, albumCollectionHtml);
+
+              } else {
+                  netMessage(ret);
+              }
+            }else {
+                  netWork(err);
+            }
+
+
+        });
+
+    }
+    //点赞方法
+    function fnExtraGoodssssss() {
+        var albumss = $api.getStorage('ListingsList' + ids);
+
+        // console.log(album);
+        if (albumss) {
+            if (albumss != 'inc') {
+                ListingsListGoodHtml = '<img src="../image/KM_ListingsListDzs.png" alt="" class="collectmusicFxs" onclick="collectmusicFx(this)" data-click="0">';
+            } else {
+                ListingsListGoodHtml = '<img src="../image/KM_play_dianzan_red.png" alt="" class="collectmusicFxs" onclick="collectmusicFx(this)" data-click="1">';
+            }
+        } else {
+            ListingsListGoodHtml = '<img src="../image/KM_ListingsListDzs.png" alt="" class="collectmusicFxs" onclick="collectmusicFx(this)" data-click="0">';
+        }
+        var stylelist = $api.byId('extraGood');
+        $api.html(stylelist, ListingsListGoodHtml);
+    }
+    //点赞方法
+    function collectmusicFx(clicktoolitem) {
+        var toolbarlist = document.getElementsByClassName('collectmusicFxs')[0];
+        var click = clicktoolitem.getAttribute("data-click");
+        var stylelist = $api.byId('goods');
+        if (click == 0) {
+            // 点开
+            clicktoolitem.setAttribute("data-click", 1);
+            toolbarlist.src = "../image/KM_play_dianzan_red.png";
+            var ids = api.pageParam.ids;
+            uri = '/extra/good';
+            var url = host + apiUri + uri + '/' + ids;
+            api.ajax({
+                url: host + apiUri + uri + '/' + ids,
+                method: 'post',
+                dataType: 'json',
+                headers: {
+                    "source": api.systemType,
+                    "version": version,
+                    "session": token
+                },
+                data: {
+                    values: {
+                        "type": 'inc',
+                        "model": 'listen',
+                    },
+                },
+            }, function(ret, err) {
+                if (ret.status == 200) {
+                    api.toast({              
+                        msg:   '已点赞',
+                        duration:  2000,
+                        location:   'middle'          
+                    });
+                    goodss++;
+                    $api.html(stylelist, goodss);
+                    var album = ids + 'ListingsLists';
+                    // $api.rmStorage('ListingsList',album)
+                    $api.setStorage('ListingsList' + ids, 'inc');
+                } else {
+                    netMessage(ret);
+                }
+            });
+        } else {
+            // 关闭
+            clicktoolitem.setAttribute("data-click", 0);
+            toolbarlist.src = "../image/KM_ListingsListDzs.png";
+            var ids = api.pageParam.ids;
+            uri = '/extra/good';
+            api.ajax({
+                url: host + apiUri + uri + '/' + ids,
+                method: 'post',
+                dataType: 'json',
+                headers: {
+                    "source": api.systemType,
+                    "version": version,
+                    "session": token
+                },
+                data: {
+                    values: {
+                        "type": 'dec',
+                        "model": 'listen',
+                    }
+                }
+            }, function(ret, err) {
+                if (ret.status == 200) {
+                    api.toast({              
+                        msg:   '已取消点赞',
+                        duration:  2000,
+                        location:   'middle'          
+                    });
+                    goodss--;
+                    if (goodss < 0) {
+                        goodss = 0;
+                    }
+                    $api.html(stylelist, goodss);
+                    $api.setStorage('ListingsList' + ids, 'dec');
+                    // $api.rmStorage('ListingsList',album)
+                } else {
+                    netMessage(ret);
+                }
+            });
+        }
+    }
+    // 调取用户听单单曲列表
+    function songList() {
+        api.ajax({
+          url: host + apiUri + '/listening/song_list/' + ids,
+          method: 'get',
+          headers: {
+              "source": api.systemType,
+              "version": version,
+              "session": token
+          },
+            data: {
+                values: {
+                    id: ids,
+                    p: p
+                }
+            }
+        },function(ret, err){
+            if (ret) {
+              if (ret.status == 200) {
+                var tuijianliebiaogequ = $api.byId('tuijianliebiaogequ');
+                var author_name;
+                var reciter;
+                if (ret.data == '') {
+                  var footer = $api.byId('footer');
+                  $api.html(footer, '无更多数据');
+                }else {
+                //   console.log(ret.data.length);
+                  if (ret.data.length < 10) {
+                    var footer = $api.byId('footer');
+                    // $api.css(footer, 'display:none');
+                    $api.html(footer, '无更多数据');
+                  }else {
+                    var footer = $api.byId('footer');
+                    // $api.css(footer, 'display:block');
+                    $api.html(footer, '正在加载更多');
+                  }
+                  for (var i = 0; i < ret.data.length; i++) {
+                    // console.log(ret.data[i].title);
+                      author_name = ((ret.data[i].author_name == null) ? "" : ret.data[i].author_name);
+                      reciter = ((ret.data[i].reciter == null) ? "" : ret.data[i].reciter);
+                      if(ret.data[i].reciter){
+                        $api.append(tuijianliebiaogequ,'<li id="id_' + ret.data[i].id + '"><div class="on_playall" onclick="fnPlay('+ ret.data[i].id +');"><span class="fl on_playall_name">' + ret.data[i].title + '</span><span></span></div><div class="author fl"  onclick="fnPlay('+ ret.data[i].id +');">作者：' + author_name +
+                            '</div><div class="author fl"  onclick="fnPlay('+ ret.data[i].id +');">朗读者：' + reciter + '</div><div class="fr on_playall_img" onclick="fnOpenPlayMore(' + ret.data[i].id + ',\''+ret.data[i].title+'\');"><img src="../image/KM_list_more.png" alt=""></div></li>');
+                      }else{
+                        $api.append(tuijianliebiaogequ,'<li id="id_' + ret.data[i].id + '"><div class="on_playall" onclick="fnPlay('+ ret.data[i].id +');"><span class="fl on_playall_name">' + ret.data[i].title + '</span><span></span></div><div class="author fl"  onclick="fnPlay('+ ret.data[i].id +');">作者：' + author_name +
+                            '</div><div class="author fl"  onclick="fnPlay('+ ret.data[i].id +');"></div><div class="fr on_playall_img" onclick="fnOpenPlayMore(' + ret.data[i].id + ',\''+ret.data[i].title+'\');"><img src="../image/KM_list_more.png" alt=""></div></li>');
+                      }
+
+                  }
+                }
+              }
+                // console.log( JSON.stringify( ret ) );
+            } else {
+                // console.log( JSON.stringify( err ) );
+            }
+        });
+
+
+    }
+    var Dqbofangid;
+    function fnDangQianbofangid(id) {
+        Dqbofangid = id;
+    }
+    function fnPlay(a) {
+      api.addEventListener({
+            name: 'netPlaying'
+        }, function(ret, err) {
+            if (a == ret.value.playing) {
+                fnDangQianbofangid(ret.value.playing);
+            }
+        });
+        var playlistid = api.pageParam.ids;
+        var playUrli = '/listening/song_list/';
+        if (Dqbofangid == a) {
+
+          api.openWin({
+              name: 'play',
+              url: './play.html',
+              pageParam: {
+                  playlistid: playlistid,
+                  a: a,
+                  DangQianbofangid: Dqbofangid,
+                  playUrli:playUrli,
+                  ok:'play'
+              }
+          });
+        } else {
+
+          api.openWin({
+              name: 'play',
+              url: './play.html',
+              pageParam: {
+                  a: a,
+                  playlistid: playlistid,
+                  playUrli:playUrli,
+                  ok:'play'
+              }
+          });
+
+        }
+
+    }
+    // 收藏成功
+    function collectmusic(clicktoolitem) {
+        var toolbarlist = document.getElementsByClassName('collectmusic')[0];
+        var click = clicktoolitem.getAttribute("data-click");
+        if (click == 0) {
+            // 点开
+            clicktoolitem.setAttribute("data-click", 1);
+            toolbarlist.src = "../image/KM_play_collect_red.png";
+            uri = '/extra/collection';
+            api.ajax({
+                url: host + apiUri + uri + '/' + ids,
+                method: 'post',
+                dataType: 'json',
+                headers: {
+                    "source": api.systemType,
+                    "version": version,
+                    "session": token
+                },
+                data: {
+                    values: {
+                        "model": 'listen',
+                    }
+                }
+            }, function(ret, err) {
+                if (ret.status == 200) {
+                    // fnRecommendedDirectory(ret);
+                    if (ret.data == "inc") {
+                        api.toast({              
+                            msg:   '收藏成功',
+                            duration:  2000,
+                            location:   'middle'          
+                        });
+                    }
+                } else {
+                    netMessage(ret);
+                }
+            });
+        } else {
+
+            // 关闭
+            clicktoolitem.setAttribute("data-click", 0);
+            toolbarlist.src = "../image/KM_hxs.png";
+            uri = '/extra/collection';
+            api.ajax({
+                url: host + apiUri + uri + '/' + ids,
+                method: 'post',
+                dataType: 'json',
+                headers: {
+                    "source": api.systemType,
+                    "version": version,
+                    "session": token
+                },
+                data: {
+                    values: {
+                        "model": 'listen',
+                    }
+                }
+            }, function(ret, err) {
+                if (ret.status == 200) {
+                    if (ret.data == "dec") {
+                        api.toast({              
+                            msg:   '已取消收藏',
+                            duration:  2000,
+                            location:   'middle'          
+                        });
+                    }
+                } else {
+                    netMessage(ret);
+                }
+            });
+        }
+    }
+    //打开更多
+    function fnOpenPlayMore(songListID,title) {
+        // 单曲id
+        // console.log(songListID);
+        var dialogBox = api.require('dialogBox');
+        dialogBox.actionMenu({
+            rect: {
+                h: 150
+            },
+            texts: {
+                cancel: '取消'
+            },
+            items: [{
+                text: '收藏',
+                icon: 'widget://image/KM_hxs.png'
+            }, {
+                text: '添加到听单',
+                icon: 'widget://image/KM_play_add_gray.png'
+            }, {
+                text: '分享',
+                icon: 'widget://image/KM_ListingsListGd.png'
+            }, {
+                text: '删除',
+                icon: 'widget://image/shanchus.png'
+            }],
+            styles: {
+                bg: '#FFF',
+                column: 4,
+                itemText: {
+                    color: '#000',
+                    size: 12,
+                    marginT: 8
+                },
+                itemIcon: {
+                    size: 30
+                },
+                cancel: {
+                    bg: 'fs://icon.png',
+                    color: '#000',
+                    h: 44,
+                    size: 14
+                }
+            },
+            tapClose: true
+        }, function(ret) {
+            if (ret.eventType == 'cancel') {
+                dialogBox.close({
+                    dialogName: 'actionMenu'
+                });
+            }
+            if (ret.index == "0") {
+                uri = '/extra/list_collection/';
+                api.ajax({
+                    url: host + apiUri + uri + songListID,
+                    method: 'post',
+                    dataType: 'json',
+                    headers: {
+                        "source": api.systemType,
+                        "version": version,
+                        "session": token
+                    },
+                    data: {
+                        values: {
+                            "model": 'book',
+                        }
+                    }
+                }, function(ret, err) {
+                    if (ret.status == 200) {
+                        api.toast({              
+                            msg:   '已收藏',
+                            duration:  2000,
+                            location:   'middle'          
+                        });
+                    } else {
+                        netMessage(ret);
+                    }
+                });
+                dialogBox.close({
+                    dialogName: 'actionMenu'
+                });
+            } else if (ret.index == "1") {
+                fnOpenAddListening(songListID);
+                dialogBox.close({
+                    dialogName: 'actionMenu'
+                });
+                // alert(2);
+            } else if (ret.index == "2") {
+                var Types = 'Single'
+                fnOpenPlayShare(songListID,title,Types);
+                // dialogBox.close({
+                //     dialogName: 'alert'
+                // });
+                // alert(3);
+            } else if (ret.index == "3") {
+                dialogBox.close({
+                    dialogName: 'actionMenu'
+                });
+                DeleteSingle(songListID);
+            }
+            // dialogBox.close({
+            //     dialogName: 'alert'
+            // })
+            // alert(JSON.stringify(ret))
+
+        });
+    }
+    // 删除单曲
+    function DeleteSingle(songListID) {
+        // console.log(ids);
+        api.ajax({
+            url: host + apiUri + '/listening/del_song/' + songListID,
+            method: 'post',
+            headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token
+            },
+            data: {
+                values: {
+                    'id': songListID,
+                    'l_id': ids
+                }
+            },
+        }, function(ret, err) {
+            if (ret.status == 200) {
+                var songListIDs = 'id_' + songListID;
+                var id_items = $api.byId(songListIDs); //找到li标签上的id
+                $api.remove(id_items);
+
+            } else {
+                netMessage(ret);
+            }
+        });
+
+    }
+    //添加到听单
+    function fnOpenAddListening(songListID) {
+        api.openWin({
+            name: 'addListening',
+            url: './add_listening.html',
+            pageParam: {
+                songListID: songListID
+            }
+        });
+    }
+    //打开评论列表页面
+    function openMessage() {
+        api.openWin({
+            name: 'messageNoticeDetail',
+            url: './message_notice_detail.html',
+        });
+    };
+    //打开评论详情
+    function fnOpenDiscussDetail() {
+        api.openWin({
+            name: 'discussDetail0',
+            url: './discuss_detail0.html',
+            pageParam: {
+                albumId: ids,
+                uris: '/listening/comment/',
+                name: name
+            }
+        });
+    }
+    //打开分享
+    function fnOpenPlayShare(songListID,title,Types) {
+        var dialogBox = api.require('dialogBox');
+        dialogBox.actionMenu({
+            rect: {
+                h: 150
+            },
+            texts: {
+                cancel: '取消'
+            },
+            items: [{
+                text: '微信',
+                icon: 'widget://image/weixin.png'
+            }, {
+                text: 'QQ',
+                icon: 'widget://image/qq.png'
+            }, {
+                text: '朋友圈',
+                icon: 'widget://image/friends.png'
+            }],
+            styles: {
+                bg: '#FFF',
+                column: 3,
+                itemText: {
+                    color: '#000',
+                    size: 12,
+                    marginT: 8
+                },
+                itemIcon: {
+                    size: 30
+                },
+                cancel: {
+                    bg: 'fs://icon.png',
+                    color: '#000',
+                    h: 44,
+                    size: 14
+                }
+            },
+            tapClose: true
+        }, function(ret) {
+            if (ret.eventType == 'cancel') {
+                dialogBox.close({
+                    dialogName: 'actionMenu'
+                });
+            }
+            if (ret.index == "0") {
+              if (Types == 'Single') {
+                  shareMp3Single(songListID,title);
+              }else {
+                api.download({
+                    url: imgUrlListening_cover,
+                    savePath: 'fs:savePath/'+ imgUrlListening_Fs,
+                    report: true,
+                    cache: true,
+                    allowResume: true
+                }, function(ret, err) {
+                    if (ret.state == 1) {
+                        //下载成功
+                        // console.log(111111);
+                        // console.log(ret.savePath);
+                        var savePath = ret.savePath;
+                        shareMp3Listening(name,listening_description,l_id,savePath);
+                    } else {
+                    }
+                });
+
+              }
+                dialogBox.close({
+                    dialogName: 'actionMenu'
+                });
+                // alert(1);
+            } else if (ret.index == "1") {
+                if (Types == 'Single') {
+                    fnintnQQSingle(songListID,title);
+                }else {
+                  // console.log(name);
+                  // console.log(listening_description);
+                  // console.log(l_id);
+                  // console.log(imgUrlListening_cover);
+                    fnintnQQListening(name,listening_description,l_id,imgUrlListening_cover);
+                }
+                dialogBox.close({
+                    dialogName: 'actionMenu'
+                });
+                // alert(2);
+            } else if (ret.index == "2") {
+              if (Types == 'Single') {
+                  initTimelineSingle(songListID,title);
+              }else {
+                api.download({
+                    url: imgUrlListening_cover,
+                    savePath: 'fs:savePath/'+ imgUrlListening_Fs,
+                    report: true,
+                    cache: true,
+                    allowResume: true
+                }, function(ret, err) {
+                    if (ret.state == 1) {
+                        //下载成功
+                        // console.log(111111);
+                        // console.log(ret.savePath);
+                        var savePath = ret.savePath;
+                        // console.log(savePath);
+                        initTimelineListening(name,listening_description,l_id,savePath);
+                    } else {
+                      console.log(JSON.stringify(err));
+                    }
+                });
+
+              }
+                dialogBox.close({
+                    dialogName: 'actionMenu'
+                });
+
+                // alert(3);
+            } else {
+                dialogBox.close({
+                    dialogName: 'actionMenu'
+                });
+            }
+            // dialogBox.close({
+            //     dialogName: 'alert'
+            // })
+
+        });
+    }
+
+</script>

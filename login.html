@@ -1,5 +1,6 @@
 <!doctype html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
@@ -10,143 +11,399 @@
     <link rel="stylesheet" href="./css/iconfont/iconfont.css">
     <link rel="stylesheet" href="./css/iconfont.css">
     <style>
-        html,body {
-          min-height: 100%;
-          background: #f2f2f2;
+        html,
+        body {
+            /*min-height: 100%;*/
+            background-image: url(./image/login/login_bg.png);
+            background-size: 100% 100%;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
         }
-        .fr {
-            float: right;
+
+        .p20px {
+            padding: 0 40px;
         }
 
         .fl {
             float: left;
         }
 
-        .pa {
+        .fr {
+            float: right;
+        }
+
+        .clr {
+            clear: both;
+        }
+
+        #footer {
+            width: 100%;
+            height: 150px;
             position: absolute;
+            bottom: 0;
         }
-        .bb {
-          border-bottom: 1px solid #e0e0e0;height: 1px;
+
+        #footer .login_wx {
+            width: 200px;
+            height: 40px;
+            border-radius: 20px;
+            background-color: #89211b;
+            margin: 0 auto;
+            text-align: center;
+            line-height: 40px;
+            color: #fff;
         }
-        .topbar {
-          /*background: #89211b;
-          border-bottom: 1px solid #89211b;*/
-          background: #f2f2f2;
-          border-bottom: 1px solid #f2f2f2;
-          height:50px;
-          position: relative;
+
+        .login_footer {
+            padding: 20px 0;
         }
-        .egret-header-title {
-          position: absolute;
-          width: 100%;
-          text-align: center;
-          line-height: 50px;
-          color: #000;
-          font-size: 20px;
-        }
-        .egret-register{
-          position: absolute;
-          right:10px;
-          line-height: 50px;
-          color:#89211b;
-          font-size: 16px;
-        }
-        #nav{
-          height:40px;
-          width:100%;
-          display: flex;
-          display: -webkit-flex;
-          display: -webkit-box;
-          background-color: #fff;
-          /*border-top: 1px solid #e0e0e0;*/
-          border-bottom: 1px solid #e0e0e0;
-        }
-        #nav>.tab{
-          line-height: 40px;
-          font-size: 14px;
-          color: #000;
-          flex:1;
-          -webkit-flex:1;
-          -webkit-box-flex:1;
-          text-align: center;
-          margin:0 30px;
-        }
-        #nav>.tab.active{
-          color: #89211b;
-          border-bottom: 1px solid #89211b;
-          margin:0 30px;
+
+        .login_qq,
+        .login_sj {
+            color: #89211b;
         }
     </style>
 </head>
+
 <body>
-  <header class="egret-header topbar" id="secHeader">
-     <div class="egret-header-title">登陆</div>
-     <div  class="egret-register " onclick="fnOpenRegister();">注册</div>
- </header>
- <nav id="nav">
-   <div class="tab active" onclick="fnSelectTab(0,this)" tapmode="active">账号密码登陆</div>
-   <div class="tab" onclick="fnSelectTab(1,this)" tapmode="active">快捷免密登陆</div>
- </nav>
- <div class="bb"></div>
+    <div id="footer">
+        <div class="login_wx" onclick="fnWXLogin();">
+            微信登录
+        </div>
+        <div class="login_footer">
+            <div class="p20px">
+                <div class="login_qq fl" onclick="fnQQLogin();">QQ登录 ></div>
+                <div class="login_sj fr" onclick="fnSjWin();">手机号登录 ></div>
+                <div class="clr"></div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
 <script type="text/javascript" src="script/api.js"></script>
-<script type="text/javascript" src="script/index.js"></script>
+<script type="text/javascript" src="script/common.js"></script>
+<script type="text/javascript" src="script/message1.js"></script>
+<!-- <script type="text/javascript" src="script/index.js"></script> -->
 <script type="text/javascript">
+    var wx, qq, weibo;
+    var userInfos = JSON.stringify($api.getStorage("userInfo"));
     apiready = function() {
-        var secHeader = $api.byId('secHeader');
-        $api.fixStatusBar(secHeader);
-        var headerH = $api.offset(secHeader).h;
-        fnOpenFrameGroup();
+
     }
-    function fnSelectTab(index,ele){
-        var tabs = $api.domAll('#nav>.tab');
-        $api.addCls(tabs.item(index), 'active');
-        api.setFrameGroupIndex({
-            name: 'loginFrameGroup',
-            index: index,
-            scroll: true
-        });
-    }
-    function fnOpenFrameGroup(){
-        var eNav = $api.byId('nav');
-        var eNavOffset = $api.offset(eNav);
-        api.openFrameGroup ({
-            name: 'loginFrameGroup',
-            scrollEnabled: true,
-            rect: {
-                 x: 0,
-                 y: eNavOffset.t + eNavOffset.h,
-                 w: 'auto',
-                 h: 'auto'
-            },
-            index: 0,
-            preload:2,
-            frames: [{
-                name: 'login_user_frame',
-                url: './login_user_frame.html',
-            },{
-                name: 'login_free_frame',
-                url: './login_free_frame.html',
-            }]
-        }, function(ret, err){
-            var tabs = $api.domAll('#nav>.tab');
-            for(var i = 0;i < 2;i++){
-                var element = tabs.item(i);
-                $api.removeCls(element, 'active');
+
+    function fntuichuWBLogin() {
+        var weiXin = api.require('weiXin');
+        weiXin.cancelAuth(function(ret, err) {
+            if (ret.status) {
+                api.alert({
+                    msg: '退出成功'
+                });
+            } else {
+                api.alert({
+                    msg: err.msg
+                });
             }
-            $api.addCls(tabs.item(ret.index), 'active');
         });
     }
-    // 打开注册页面
-    function fnOpenRegister(){
-      api.openWin({
-          name: 'register',
-          url: './register.html',
-          pageParam: {
-              name: 'test'
+
+    function fnSjWin() {
+        api.openWin({
+            name: 'login_user',
+            url: 'login_user.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
+
+    }
+    var accessToken;
+    var openId;
+
+    function fnWXLogin() {
+      // wx = api.require('weiXin');
+      //         var code;
+      //         wx.registerApp(function(ret, err) {
+      //             // console.log('111');
+      //             //api.alert({ msg: '' + ret.status });
+      //             if (ret.status) {
+      //                 //alert(JSON.stringify(ret.status));
+      //                 // console.log('222');
+      //
+      //                 // weiXin.refreshToken(function(ret, err) {
+      //                 //     if (ret.status) {
+      //                 //         api.alert({ msg: '刷新成功' });
+      //                 //     } else {
+      //                 //         api.alert({ msg: err.msg });
+      //                 //     }
+      //                 // });
+      //                 wx.auth(function(ret, err) {
+      //                   // console.log('333');
+      //                     //console.log(JSON.stringify(ret));
+      //                     //api.alert({ msg: ret.status });
+      //                     //api.alert({ msg: ret.token });
+      //                     if (ret.status) {
+      //                         // alert(JSON.stringify(ret.status));
+      //                         //alert(JSON.stringify(ret.code));
+      //
+      //                         wx.getUserInfo(function(ret, err) {
+      //                             var wxjibenziliao = ret;
+      //                             if (ret.status) {
+      //                                 //alert('222');
+      //                                 console.log(JSON.stringify(ret));
+      //                                 alert(JSON.stringify(ret));
+      //                                 api.ajax({
+      //                                     url: host + apiUri + '/login/wechat',
+      //                                     method: 'post',
+      //                                     dataType: 'json',
+      //                                     data: {
+      //                                       values:{
+      //                                         "openid":	ret.openid,
+      //                                         "nickname":	ret.nickname,
+      //                                         "sex":ret.sex,
+      //                                         "headimgurl":	ret.headimgurl,
+      //                                         "unionid":	ret.unionid,
+      //                                       },
+      //                                     },
+      //                                     headers: {
+      //                                       "source":api.systemType,
+      //                                       "version":version
+      //                                     },
+      //
+      //                                 }, function(ret, err) {
+      //                                   alert(JSON.stringify(ret));
+      //                                     if (ret.status == 200) {
+      //                                       var tokens = ret.data.token;
+      //                                       $api.setStorage('token',tokens);
+      //                                       console.log(tokens);
+      //                                        api.openWin({
+      //                                            name: 'index',
+      //                                            url: 'index.html',
+      //                                            pageParam: {
+      //                                                name: 'test'
+      //                                            }
+      //                                        });
+      //                                     }
+      //                                 });
+      //                                 // api.openWin({
+      //                                 //     name: 'index',
+      //                                 //     url: './index.html',
+      //                                 //     pageParam: {
+      //                                 //         name: 'test',
+      //                                 //         wxjibenziliao: wxjibenziliao
+      //                                 //     }
+      //                                 // });
+      //
+      //                             } else {
+      //                                 api.alert({
+      //                                     msg: err.msg
+      //                                 });
+      //                                 //alert(err.code);
+      //                             }
+      //                         });
+      //                     } else {
+      //                         api.alert({
+      //                             msg: err.msg
+      //                         });
+      //                         //alert(err.code);
+      //                     }
+      //                 });
+      //             } else {
+      //                 api.alert({
+      //                     msg: err.msg
+      //                 });
+      //                 alert('当前设备未安装微信客户端');
+      //             }
+      //         });
+
+
+
+
+      var wx = api.require('wx');
+      wx.isInstalled(function(ret, err) {
+          if (ret.installed) {
+            wx.auth({
+            }, function(ret, err) {
+              if (ret.status) {
+                  wx.getToken({
+                      code: ret.code
+                  }, function(ret, err) {
+                      // console.log(JSON.stringify(ret));
+                      if (ret.status) {
+                        // openId 字符串类型；授权用户唯一标识
+                        //accessToken 字符串类型；接口调用凭证，传给 getUserInfo 接口 获取用户信息；有效期2小时
+                        //dynamicToken 当 accessToken过期时该值传给refreshToken接口刷新accessToken的有效期dynamicToken的有效期为30天
+                        //expires 数字类型；accessToken 有效期，单位（秒）
+                        var accessToken = ret.accessToken;
+                        var openId = ret.openId;
+                        if(ret.expires < 100){
+                          wx.refreshToken({
+                              dynamicToken: ret.dynamicToken
+                          }, function(ret, err) {
+
+                              if (ret.status) {
+                                accessToken = ret.accessToken;
+                                openId = ret.openId;
+
+                              } else {
+                                api.toast({              
+                                    msg:  err.code,
+                                    duration:  2000,
+                                    location:   'middle'          
+                                });
+                              }
+
+                          });
+                        }
+                        wx.getUserInfo({
+                            accessToken:accessToken,
+                            openId: openId
+                        }, function(ret, err) {
+                            if (ret.status) {
+                              api.ajax({
+                                  url: host + apiUri + '/login/wechat',
+                                  method: 'post',
+                                  dataType: 'json',
+                                  timeout:10,
+                                  data: {
+                                    values:{
+                                      "openid":	ret.openid,
+                                      "nickname":	ret.nickname,
+                                      "sex":ret.sex,
+                                      "headimgurl":	ret.headimgurl,
+                                      "unionid":	ret.unionid,
+                                    },
+                                  },
+                                  headers: {
+                                    "source":api.systemType,
+                                    "version":version
+                                  },
+                              }, function(ret, err) {
+                                if(ret){
+                                  if (ret.status == 200) {
+                                    var tokens = ret.data.token;
+                                    $api.setStorage('token',tokens);
+                                    var user_id_s = ret.data.user_id;
+                                    $api.setStorage('user_id',user_id_s);
+                                    var nick_name_s = ret.data.nick_name;
+                                    $api.setStorage('nick_name',nick_name_s);
+                                    var photo_s = ret.data.photo;
+                                    $api.setStorage('photo',photo_s);
+                                     api.openWin({
+                                         name: 'index',
+                                         url: 'index.html'
+                                     });
+                                  }else{
+                                    netMessage(ret);
+                                  }
+                                }else{
+                                  netWork(err);
+                                }
+                              });
+                            } else {
+                              api.toast({              
+                                  msg:  err.code,
+                                  duration:  2000,
+                                  location:   'middle'          
+                              });
+                            }
+                        });
+                          // alert(JSON.stringify(ret));
+                      } else {
+                          alert(err.code);
+                      }
+                  });
+              } else {
+                  alert(err.code);
+              }
+            });
+          } else {
+              alert('当前设备未安装微信客户端');
           }
       });
     }
+
+    function fnQQLogin() {
+        qq = api.require('qq');
+        var login = function() {
+            qq.login(function(ret, err) {
+              console.log(111);
+                if (ret.status) {
+                  var openId = ret.openId;
+                  var accessToken = ret.accessToken;
+                    api.alert({
+                        title: '授权成功',
+                        msg: '正在打开孔孟知道...',
+                    }, function(ret, err) {
+                        if (ret) {
+                            qq.getUserInfo(function(ret, err) {
+                                if (ret.status) {
+                                    var openid = openId;
+                                    var nickname = ret.info.nickname;
+                                    var gender = ret.info.gender;
+                                    var figureurl_qq_2 = ret.info.figureurl_qq_2;
+                                    api.ajax({
+                                        url: host + apiUri + '/login/qq',
+                                        method: 'post',
+                                        dataType: 'json',
+                                        timeout:10,
+                                        data: {
+                                          values:{
+                                            "openid":	openid,
+                                            "nickname":	nickname,
+                                            "sex": gender,
+                                            "headimgurl":	figureurl_qq_2
+                                          },
+                                        },
+                                        headers: {
+                                          "source":api.systemType,
+                                          "version":version
+                                        },
+                                    }, function(ret, err) {
+                                        if (ret.status == 200) {
+                                          var tokens = ret.data.token;
+                                          $api.setStorage('token',tokens);
+                                          var user_id_s = ret.data.user_id;
+                                          $api.setStorage('user_id',user_id_s);
+                                          var nick_name_s = ret.data.nick_name;
+                                          $api.setStorage('nick_name',nick_name_s);
+                                          var photo_s = ret.data.photo;
+                                          $api.setStorage('photo',photo_s);
+                                           api.openWin({
+                                               name: 'index',
+                                               url: 'index.html'
+                                           });
+                                        }else{
+                                          netMessage(ret);
+                                        }
+                                    });
+                                } else {
+
+                                    // alert(JSON.stringify(err));
+                                }
+                            });
+                        } else {
+                            // alert(JSON.stringify(err));
+                        }
+                    });
+                } else {
+                    // var toast = new auiToast();
+                    // var toast.fail({
+                    //     title: "授权失败",
+                    //     duration: 1500
+                    // });
+                }
+            });
+        };
+        qq.installed(function(ret, err) {
+            if (ret.status) {
+                login();
+            } else {
+                api.alert({
+                    msg: "当前设备未安装QQ客户端"
+                });
+            }
+        });
+    };
 </script>

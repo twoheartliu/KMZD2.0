@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>孔孟之道--底部播放条</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style>
+      footer{width: 100%;height: 50px;background: #fff;border-top: 1px solid #ccc;}
+      .footer_img{width: 50px;height: 50px;float: left;line-height: 50px;}
+      .footer_img img{width: 40px;border-radius: 25px;padding: 5px;}
+      .footer_name{width: 100px;height: 50px;line-height: 50px;float: left;margin-left: 10px;}
+      .footer_play{width: 50px;height: 50px;line-height: 50px;margin-right: 20px;float: right;}
+      .footer_play img{width: 35px;padding: 7.5px;}
+    </style>
+</head>
+
+<body>
+    <footer>
+      <div class="footer_img"><img src="../image/play/frame03cover10.jpg" alt=""></div>
+      <div class="footer_name">孔孟之道</div>
+      <div class="footer_play"><img id="playCollect" onclick="fnOpenPlayCollect();"src="../image/footer_bf0.png" alt=""></div>
+    </footer>
+</body>
+
+</html>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+
+    apiready = function() {
+
+    }
+    function fnOpenPlayCollect() {
+        var playCollect = $api.byId('playCollect');
+        if (playCollect.getAttribute("src", 2) == "../image/footer_bf0.png") {
+            playCollect.src = "../image/footer_bf1.png";
+        } else {
+            playCollect.src = "../image/footer_bf0.png";
+        }
+    };
+</script>

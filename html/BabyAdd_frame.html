@@ -1,0 +1,289 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>孔孟之道--添加宝宝信息</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.2.0.css" />
+    <link rel="stylesheet" type="text/css" href="../css/Mdate.css">
+    <style>
+        body {
+            background: #ffffff;
+            position: relative;
+        }
+
+        .aui-pull-left span {
+            font-size: 18px;
+        }
+
+        .aui-card-list-content {
+            width: 130px;
+            margin: 0 auto;
+            border-radius: 65px;
+        }
+
+        .aui-card-list-content img {
+            border-radius: 65px;
+        }
+
+        .fl {
+            float: left;
+        }
+
+        .fr {
+            float: right;
+        }
+
+        .clr {
+            clear: both;
+        }
+
+        .upimg ul li {
+            overflow: hidden;
+            padding: 0 10px;
+            height: 45px;
+            line-height: 45px;
+        }
+
+        .upimg ul li div {
+            margin: 0 5px;
+            font-size: 14px;
+        }
+
+        .upimg ul li div:nth-child(1) {
+            /*color: #03a9f4;*/
+            font-size: 14px;
+        }
+
+        .upimg ul li div:nth-child(2) {
+            color: #ccc;
+        }
+
+        .upimg ul li div:nth-child(3) {
+            color: #ccc;
+        }
+
+        .upimg_div {
+            width: 100%;
+            height: 50px;
+            line-height: 50px;
+            padding: 0 10px;
+            font-size: 18px;
+            font-weight: 800;
+            /*color: #03a9f4;*/
+        }
+
+        #header {
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: 45px;
+            line-height: 45px;
+        }
+
+        #baby .dateSelectorOne {
+            text-align: right;
+            font-size: 14px;
+            line-height: 45px;
+        }
+
+        #babyAdd {
+            border: 1px solid #ccc;
+            margin: 20px;
+            text-align: center;
+            height: 50px;
+            line-height: 50px;
+            color: #999;
+            font-weight: 900;
+            border-radius: 10px;
+        }
+
+        #fnBirthday .dateSelectorOneBirthday {
+            text-align: right;
+            font-size: 14px;
+            line-height: 45px;
+            color: #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="upimg">
+        <div class="upimg_div">
+            <div class="fl">我的宝宝</div>
+        </div>
+        <div id="111">
+            <!-- <div class="upimg_div" id="dateShowBtn">
+              <div class="fl">生日</div>
+              <div class="fr"> > </div>
+              <div class="fr"><input type="text" id="dateSelectorTwo" class="dateSelectorOne" placeholder="选择日期" readonly="readonly"></div>
+            </div> -->
+            <ul id="baby">
+                <li onclick="fnSetGender();">
+                    <div class="fl">性别</div>
+                    <div class="fr"> > </div>
+                    <div class="fr" id="id-setGender">未填写</div>
+                </li>
+                <li id="fnBirthday">
+                    <div class="fl">生日</div>
+                    <div class="fr"> > </div>
+                    <div class="fr"><input type="text" id="dateSelectorOneBirthday" onclick='Timestamp()' class="dateSelectorOneBirthday" placeholder='选择日期' value="" readonly="readonly"></div>
+                </li>
+
+            </ul>
+        </div>
+        <div id="babyAdd" onclick="fnBabyAdd()">确定</div>
+    </div>
+
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/message.js"></script>
+<script type="text/javascript">
+    var token;
+    apiready = function() {
+        token = $api.getStorage('token');
+    };
+    //添加宝宝信息
+    function fnBabyAdd() {}
+    // 时间戳转换成年月日
+    function timestampToTime(timestamp) {
+        var date = new Date(timestamp * 1000); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
+        Y = date.getFullYear() + '-';
+        M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+        D = (date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate());
+        // h = date.getHours() + ':';
+        // m = date.getMinutes() + ':';
+        // s = date.getSeconds();
+        // return Y+M+D+h+m+s;
+        return Y + M + D;
+    }
+    var gender = '';
+
+    //  选择性别
+    function fnSetGender(id) {
+        api.actionSheet({
+            title: '选择性别',
+            cancelTitle: '取消',
+            buttons: ['男', '女']
+        }, function(ret, err) {
+            if (ret.buttonIndex >= 3) {
+                return;
+            }
+
+            var idSetGender = $api.byId('id-setGender');
+            gender = ret.buttonIndex === 1 ? 1 : 2;
+            if (gender == 1) {
+                // idSetGender.value = '男';
+                $api.html(idSetGender, '男');
+            } else {
+                $api.html(idSetGender, '女');
+            }
+            var index = ret.buttonIndex;
+            // console.log(JSON.stringify(ret.buttonIndex));
+        });
+    }
+    // 选择生日
+    var html4 = '';
+
+    function Timestamp() {
+        api.openPicker({
+            type: 'date',
+            date: '2014-05-01',
+            // date: year + '年' + month + '月01日',
+            title: '选择时间'
+        }, function(ret, err) {
+            if (ret) {
+                var inputsssss = $api.byId('dateSelectorOneBirthday');
+                //    inputsssss.value = html3;
+                //  console.log( JSON.stringify( ret ));
+                html4 = ret.year + '-' + ret.month + '-' + ret.day;
+                // console.log(html4);
+                // $api.html(inputsssss, html4)
+                inputsssss.value = html4;
+
+            } else {
+                alert(JSON.stringify(err));
+            }
+        });
+    }
+    // 确认
+    function fnBabyAdd() {
+        // console.log(html4);
+        // console.log(gender);
+        if (html4 == '' && gender == '') {
+            api.toast({              
+                msg:   '生日或性别未填写',
+                duration:  2000,
+                location:   'middle'          
+            });
+        } else {
+            if (html4 == '') {
+                api.toast({              
+                    msg:   '生日未填写',
+                    duration:  2000,
+                    location:   'middle'          
+                });
+            } else if (gender == '') {
+                api.toast({              
+                    msg:   '性别未填写',
+                    duration:  2000,
+                    location:   'middle'          
+                });
+            } else {
+                var uri = '/user/baby';
+                api.ajax({
+                    url: host + apiUri + uri,
+                    method: 'post',
+                    dataType: 'json',
+                    timeout:10,
+                    headers: {
+                        "source": api.systemType,
+                        "version": version,
+                        "session": token,
+                    },
+                    data: {
+                        values: {
+                            sex: gender,
+                            birth: html4,
+                        },
+                    }
+                }, function(ret, err) {
+                  if(ret){
+                    if (ret.status == 200) {
+                        api.toast({              
+                            msg:   '添加成功',
+                            duration:  2000,
+                            location:   'middle'          
+                        });
+                        var addbaby = 1;
+                        api.sendEvent({
+                            name: 'addbaby',
+                            extra: {
+                                addbaby: addbaby
+                            }
+                        });
+                        setTimeout(function() {
+                            api.closeWin();
+                        }, 2000)
+                    }else{
+                      netMessage(ret);
+                    }
+                  }else{
+                    netWork(err);
+                  }
+
+                })
+
+            }
+        }
+
+
+    }
+</script>
+
+
+</html>

@@ -1,66 +1,193 @@
 <!doctype html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<meta name="copyright" content="www.apicloud.com" />
-<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
-<title>孔孟之道--消息</title>
-<link rel="stylesheet" type="text/css" href="../css/api.css" />
-<style>
-html,body {min-height: 100%;background: #f2f2f2;}
-.fr {float: right;}
-.fl {float: left;}
-.mt5 {margin-top: 5px;}
-.mt10 {margin-top: 10px;}
-.mt15 {margin-top: 15px;}
-.mt20 {margin-top: 20px;}
-.ml5 {margin-left: 0.5em;}
-.mr5 {margin-right: 0.5em;}
-.hdivider {width: 100%; height: 1px;background-color: #e0e0e0;}
-.br {border-right: 1px solid #e0e0e0;}
-.bb {border-bottom: 1px solid #e0e0e0;height: 1px;}
-.toRight {right: 0;}
+    <meta charset="UTF-8">
+    <meta name="copyright" content="www.apicloud.com" />
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <title>孔孟之道--消息</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style>
+        html,
+        body {
+            min-height: 100%;
+            background: #f2f2f2;
+        }
 
-.row {display: -webkit-box;display: -webkit-flex;}
-.col {-webkit-box-flex:1; -webkit-flex:1; flex:1;margin: 0 5px; position: relative;}
+        .fr {
+            float: right;
+        }
 
-.swiper-container img {width: 100%;}
+        .fl {
+            float: left;
+        }
 
-/* 头部 */
-.topbar {background: #89211b; height:50px; border-bottom: 1px solid #89211b;position: relative;}
-.egret-header-box {height: 50px;}
-.egret-img {position: absolute;}
-.egret-img img {    width: 15px;
-    height: 20px;
-    padding: 15px;}
-.egret-header-title {position: absolute;width: 100%;text-align: center;line-height: 50px;color: #fff;font-size: 20px;}
- /* 航*/
-#nav{height:40px;width:100%;display: flex;display: -webkit-flex;display: -webkit-box;background-color: #fff;}
-#nav>.tab{line-height: 40px;font-size: 14px;color: #535354;flex:1;-webkit-flex:1;-webkit-box-flex:1;
-  text-align: center;border-right: 1px solid #e0e0e0;}
-#nav>.tab.active{background-color: #9EA1AC;color: #fff; border-radius: 0px;}
-</style>
+        .mt5 {
+            margin-top: 5px;
+        }
+
+        .mt10 {
+            margin-top: 10px;
+        }
+
+        .mt15 {
+            margin-top: 15px;
+        }
+
+        .mt20 {
+            margin-top: 20px;
+        }
+
+        .ml5 {
+            margin-left: 0.5em;
+        }
+
+        .mr5 {
+            margin-right: 0.5em;
+        }
+
+        .hdivider {
+            width: 100%;
+            height: 1px;
+            background-color: #e0e0e0;
+        }
+
+        .br {
+            border-right: 1px solid #e0e0e0;
+        }
+
+        .bb {
+            border-bottom: 1px solid #e0e0e0;
+            height: 1px;
+        }
+
+        .toRight {
+            right: 0;
+        }
+
+        .row {
+            display: -webkit-box;
+            display: -webkit-flex;
+        }
+
+        .col {
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+            margin: 0 5px;
+            position: relative;
+        }
+
+        .swiper-container img {
+            width: 100%;
+        }
+        /* 头部 */
+
+        .topbar {
+            background: #89211b;
+            height: 50px;
+            border-bottom: 1px solid #89211b;
+            position: relative;
+        }
+
+        .egret-header-box {
+            height: 50px;
+        }
+
+        .egret-img {
+            position: absolute;
+        }
+
+        .egret-img img {
+            width: 15px;
+            height: 20px;
+            padding: 15px;
+        }
+
+        .egret-header-title {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            line-height: 50px;
+            color: #fff;
+            font-size: 20px;
+        }
+        /* 航*/
+
+        #nav {
+            height: 35px;
+            width: 100%;
+            display: flex;
+            display: -webkit-flex;
+            display: -webkit-box;
+            background-color: #fff;
+            clear: both;
+        }
+
+        #nav>.tab {
+            line-height: 35px;
+            font-size: 14px;
+            color: #535354;
+            width: 33.3%;
+            float: left;
+            text-align: center;
+            border-right: 1px solid #e0e0e0;
+            position: relative;
+        }
+
+        #nav>.tab.active {
+            background-color: #9EA1AC;
+            color: #fff;
+            border-radius: 0px;
+        }
+
+        #nav>.tab div {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: rgba(0, 0, 0, 0);
+            top: 0;
+            right: 0;
+            color: red;
+            line-height: 20px;
+            text-align: center;
+            font-size: 10px;
+        }
+    </style>
 </head>
+
 <body>
-	<!-- 头部-->
-     <header class="egret-header topbar" id="secHeader">
+    <!-- 头部-->
+    <header class="egret-header topbar" id="secHeader">
         <div class="egret-header-title">我的消息</div>
-        <div  class="egret-img"><img src="../image/cm2_icn_back.png" alt="" onclick="goback()" ></div>
+        <div class="egret-img"><img src="../image/icon_back.png" alt="" onclick="goback()"></div>
     </header>
     <!-- 导航-->
     <nav id="nav">
-      <div class="tab active" onclick="fnSelectTab(0,this)" tapmode="active">私信</div>
-      <div class="tab" onclick="fnSelectTab(1,this)" tapmode="active">评论</div>
-      <div class="tab" onclick="fnSelectTab(2,this)" tapmode="active">通知</div>
+        <div class="tab active" onclick="fnSelectTab(0,this)">私信
+            <div class="" id="message"></div>
+        </div>
+        <div class="tab" onclick="fnSelectTab(1,this)">评论
+            <div class="" id="comment"></div>
+        </div>
+        <div class="tab" onclick="fnSelectTab(2,this)">通知
+            <div class="" id="notify"></div>
+        </div>
     </nav>
     <div class="bb"></div>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/message.js"></script>;
 <script type="text/javascript">
-    function goback () {
-    	api.closeWin({name:'message'});
+    // var token;
+    function goback() {
+        api.closeWin({
+            name: 'message'
+        });
     }
-    function fnSelectTab(index,ele){
+
+    function fnSelectTab(index, ele) {
         var tabs = $api.domAll('#nav>.tab');
         $api.addCls(tabs.item(index), 'active');
         api.setFrameGroupIndex({
@@ -69,59 +196,133 @@ html,body {min-height: 100%;background: #f2f2f2;}
             scroll: true
         });
     }
-    function fnOpenFrameGroup(){
+
+    function fnOpenFrameGroup() {
         var eNav = $api.byId('nav');
         var eNavOffset = $api.offset(eNav);
-        api.openFrameGroup ({
+        api.openFrameGroup({
             name: 'messageListFrameGroup',
             scrollEnabled: true,
             rect: {
-                 x: 0,
-                 y: eNavOffset.t + eNavOffset.h,
-                 w: 'auto',
-                 h: 'auto'
+                x: 0,
+                y: eNavOffset.t + eNavOffset.h,
+                w: 'auto',
+                h: 'auto'
             },
             index: 0,
-            preload:3,
+            preload: 3,
+            customRefreshHeader: 'UIPullRefreshFlash',
+            bounces: true,
             frames: [{
                 name: 'message_private_frame',
                 url: './message_private_frame.html',
-            },{
+            }, {
                 name: 'message_discuss_frame',
                 url: './message_discuss_frame.html',
-            },{
+            }, {
                 name: 'message_notice_frame',
                 url: './message_notice_frame.html',
             }]
-        }, function(ret, err){
+        }, function(ret, err) {
             var tabs = $api.domAll('#nav>.tab');
-            for(var i = 0;i < 3;i++){
+            for (var i = 0; i < 3; i++) {
                 var element = tabs.item(i);
                 $api.removeCls(element, 'active');
             }
             $api.addCls(tabs.item(ret.index), 'active');
         });
     }
-    apiready = function (){
-    	var eHeader = $api.byId('secHeader');
-         $api.fixStatusBar(eHeader);  //状态栏
+    var ok;
+    var token;
+    apiready = function() {
+        token = $api.getStorage('token');
+        var eHeader = $api.byId('secHeader');
+        $api.fixStatusBar(eHeader); //状态栏
+        var headerPos = $api.offset(eHeader);
+        ok = api.pageParam.ok;
+        var oks = 'ok'+ok;
+        api.addEventListener({
+            name: oks
+        }, function(ret, err) {
+          if(ret.value.wangluo){
+            fnOpenFrameGroup();
+            fnmessageGet();
+          }
+        });
 
-      var headerPos = $api.offset(eHeader);
-        fnOpenFrameGroup();
-    	// api.openFrame({
-    	// 	name: 'message_body',
-    	// 	url: './message_body.html',
-    	// 	bounces: false,
-    	// 	opaque: false,
-    	// 	rect: {
-    	// 		x: 0,
-    	// 		y: headerPos.h,
-    	// 		w: 'auto',
-    	// 		h: 'auto'
-    	// 	}
+        var connectionType = api.connectionType;
+        if(connectionType == "none"){
+        	netWorkNone(ok);
+        }else{
+          fnOpenFrameGroup();
+          fnmessageGet();
+          api.addEventListener({
+              name: 'personalPrivateFrame'
+          }, function(ret, err) {
+            fnmessageGet();
+            api.sendEvent({
+                name: 'personalPrivateFrameIndex',
+                extra: {
+                    personalPrivateFrameIndex: '1'
+                }
+            });
+          });
+        }
 
-    	// });
+
+    }
+
+    function fnmessageGet() {
+
+      api.ajax({
+          url: host + apiUri + '/message/unread_message_nums',
+          method: 'get',
+          dataType: 'json',
+          timeout:10,
+          headers: {
+              "source": api.systemType,
+              "version": version,
+              "session": token,
+          }
+      },function(ret, err){
+          if (ret) {
+              console.log(JSON.stringify(ret));
+              if (ret.status = 200) {
+                var message = $api.byId('message');
+                var comment = $api.byId('comment');
+                var notify = $api.byId('notify');
+                var messages, comments, notify;
+                if (ret.data.message < 100) {
+                    messages = ret.data.message;
+                } else {
+                    messages = '99+';
+                }
+                if (ret.data.comment < 100) {
+                    comments = ret.data.comment;
+                } else {
+                    comments = '99+';
+                }
+                if (ret.data.notify < 100) {
+                    notifys = ret.data.notify;
+                } else {
+                    notifys = '99+';
+                }
+                $api.html(message, messages);
+                $api.html(comment, comments);
+                $api.html(notify, notifys);
+
+
+
+              }else {
+                netMessage(ret);
+              }
+          } else {
+            netWork(err);
+          }
+      });
+
 
     }
 </script>
+
 </html>

@@ -20,6 +20,7 @@
         header {
             width: 100%;
             height: 50px;
+            background: #89211b;
         }
         .header_fl img {
             width: 30px;
@@ -67,15 +68,16 @@
             border: 1px solid #e6e6e6;
         }
         .egret-header-search img {
-            margin-left: 30px;
+            /*margin-left: 30px;*/
             height: 20px;
             position: relative;bottom: 5px;
         }
-        .egret-header-search input {
-            line-height: 24px;
+        .egret-header-search span {
+            line-height: 36px;
+            height: 36px;
             font-size: 14px;
-            padding-top: 5px;
-            color: #2e2e2e;
+            /*color: #2e2e2e;*/
+            color: #ccc;
             vertical-align: top;
         }
         .egret-header-search input:focus {
@@ -93,13 +95,14 @@
 
 <body>
     <header id="secHeader">
-        <div class="header_fr fl" onclick="goback();"><img src="../image/KM_Heifh.png" alt=""></div>
-        <div class="header_fl fr" onclick="openHistorys();"><img src="../image/KM_Hls.png" alt=""></div>
+        <div class="header_fr fl" onclick="goback();"><img src="../image/icon_back.png" alt=""></div>
+        <div class="header_fl fr" onclick="openHistorys();"></div>
         <div class="header_center">
           <div class="header_center_div">
-            <div class="egret-header-search">
+            <div class="egret-header-search" tapmode onclick="OpenSearch();">
                 <img src="../image/header_search.png" alt="">
-                <input type="text" placeholder="请输入关键词搜索" onclick="">
+                <!-- <input type="text" placeholder="请输入关键词搜索" > -->
+                <span >请输入关键词搜索</span>
             </div>
           </div>
         </div>
@@ -111,57 +114,102 @@
 
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
-
 <script type="text/javascript">
     function goback() {
         api.closeWin({
             name: 'guoxue'
         });
     }
+    var ok;
     apiready = function() {
         var header = $api.byId('secHeader');
         $api.fixStatusBar(header);
         var headerPos = $api.offset(header);
-        api.openFrame({
-            name: 'guoxue_frame',
-            url: './guoxue_frame.html',
-            rect: {
-                x: 0,
-                y: headerPos.h,
-                w: 'auto',
-                h: api.frameHeight - headerPos.h
-            },
-            pageParam: {
-                name: 'test'
-            },
-            bounces: false,
+        ok = api.pageParam.ok;
+        var oks = 'ok'+ok;
+        api.addEventListener({
+            name: oks
+        }, function(ret, err) {
+          if(ret.value.wangluo){
+            api.openFrame({
+                name: 'guoxue_frame',
+                url: './guoxue_frame.html',
+                rect: {
+                    x: 0,
+                    y: headerPos.h,
+                    w: 'auto',
+                    h: api.frameHeight - headerPos.h
+                },
+                pageParam: {
+                    name: 'test'
+                },
+                customRefreshHeader: 'UIPullRefreshFlash',
+                bounces: true,
+            });
+          }
         });
-        fnOpenCenterFrame();
+
+        var connectionType = api.connectionType;
+        if(connectionType == "none"){
+        	netWorkNone(ok);
+        }else{
+          api.openFrame({
+              name: 'guoxue_frame',
+              url: './guoxue_frame.html',
+              rect: {
+                  x: 0,
+                  y: headerPos.h,
+                  w: 'auto',
+                  h: api.frameHeight - headerPos.h
+              },
+              pageParam: {
+                  name: 'test'
+              },
+              customRefreshHeader: 'UIPullRefreshFlash',
+              bounces: true,
+          });
+        }
+
+
+        // fnOpenCenterFrame();
     }
-    function fnOpenCenterFrame() {
-        api.openFrame({
-            name: 'centerFrame',
-            url: './center_frame.html',
-            rect: {
-                x: (api.frameWidth - 89) / 2,
-                y: api.frameHeight - 89,
-                w: 89,
-                h: 89
-            },
-            pageParam: {
-                name: 'test'
-            },
-            bounces: true,
-            bgColor: 'rgba(0,0,0,0)',
-            vScrollBarEnabled: true,
-            hScrollBarEnabled: true
-        });
-    }
+    // function fnOpenCenterFrame() {
+    //     api.openFrame({
+    //         name: 'centerFrame',
+    //         url: './center_frame.html',
+    //         rect: {
+    //             x: (api.frameWidth - 89) / 2,
+    //             y: api.frameHeight - 89,
+    //             w: 89,
+    //             h: 89
+    //         },
+    //         pageParam: {
+    //             name: 'test'
+    //         },
+    //         bounces: true,
+    //         bgColor: 'rgba(0,0,0,0)',
+    //         vScrollBarEnabled: true,
+    //         hScrollBarEnabled: true
+    //     });
+    // }
     // 打开历史页面
     function openHistorys() {
         api.openWin({
             name: 'historys',
-            url: './historys.html'
+            url: './historys.html',
+            ok:'historys'
         });
     }
+
+    function OpenSearch() {
+        api.openWin({
+            name: 'guoxue_searchs_pre',
+            url: './guoxue_searchs_pre.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
+
+    }
+
 </script>

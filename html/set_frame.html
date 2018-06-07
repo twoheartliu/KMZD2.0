@@ -80,7 +80,6 @@
 
         .index_name_div_img img {
             width: 23px;
-
             padding: 11px;
         }
 
@@ -90,11 +89,24 @@
         }
 
         .index_name_div_imgr img {
-            width: 13px;
-            height: 23px;
-            padding: 11px;
+            width: 9px;
+            /*height: 23px;*/
+            padding: 10px;
         }
-        #buttion{width: 100px;height: 30px;position: absolute;right: 0;top: 10px;}
+
+        #buttion {
+            width: 100px;
+            height: 30px;
+            position: absolute;
+            right: 0;
+            top: 10px;
+        }
+        .Conditions{
+          text-decoration:underline;
+          text-align: center;
+          width: 100%;
+          margin: 20px auto;
+        }
     </style>
 </head>
 
@@ -104,159 +116,157 @@
             <div class="bg"></div>
             <div class="index_name_div border_b" onclick="fnAiVoiceWin();">
                 <div class="p20px">
-                    <div class="index_name_div_img fl"><img src="../image/tj.png" alt=""></div>
+                    <div class="index_name_div_img fl"><img src="../image/my/tj.png" alt=""></div>
                     <span class="index_name_div_span fl">添加国学机</span>
-                    <div class="index_name_div_imgr fr"><img src="../image/index_y.png" alt=""></div>
+                    <div class="index_name_div_imgr fr"><img src="../image/my/index_y.png" alt=""></div>
                 </div>
             </div>
             <div class="bg"></div>
             <div class="index_name_div border_b" onclick="dialogBox_alert2();">
                 <div class="p20px">
-                    <div class="index_name_div_img fl"><img src="../image/sj.png" alt=""></div>
-                    <span class="index_name_div_span fl">升级</span>
-                    <div class="index_name_div_imgr fr"><img src="../image/index_y.png" alt=""></div>
+                    <div class="index_name_div_img fl"><img src="../image/my/qcls.png" alt=""></div>
+                    <span class="index_name_div_span fl">关于</span>
+                    <div class="index_name_div_imgr fr"><img src="../image/my/index_y.png" alt=""></div>
                 </div>
             </div>
             <div class="bg"></div>
 
             <div class="index_name_div border_b" onclick="dialogBox_alert3();">
                 <div class="p20px">
-                    <div class="index_name_div_img fl"><img src="../image/qcls.png" alt=""></div>
-                    <span class="index_name_div_span fl">清除历史</span>
-                    <div class="index_name_div_imgr fr"><img src="../image/index_y.png" alt=""></div>
+                    <div class="index_name_div_img fl"><img src="../image/my/sj.png" alt=""></div>
+                    <span class="index_name_div_span fl">清除缓存</span>
+                    <div class="index_name_div_imgr fr"><img src="../image/my/index_y.png" alt=""></div>
                 </div>
             </div>
             <div class="index_name_div border_b" onclick="dialogBox_alert4();">
                 <div class="p20px">
-                    <div class="index_name_div_img fl"><img src="../image/tc.png" alt=""></div>
+                    <div class="index_name_div_img fl"><img src="../image/my/tc.png" alt=""></div>
                     <span class="index_name_div_span fl">退出</span>
-                    <div class="index_name_div_imgr fr"><img src="../image/index_y.png" alt=""></div>
+                    <div class="index_name_div_imgr fr"><img src="../image/my/index_y.png" alt=""></div>
                 </div>
             </div>
         </div>
     </div>
+    <div class="Conditions" onclick="fnConditionsWin()">孔孟之道服务条款</div>
 </body>
 
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
+
 <script type="text/javascript">
     apiready = function() {}
+
     function fnAiVoiceWin() {
-      api.openWin({
-          name: 'aiVoice',
-          url: './ai_voice.html',
-          pageParam: {
-              name: 'test'
-          }
-      });
+        api.openWin({
+            name: 'aiVoice',
+            url: './ai_voice.html',
+            pageParam: {
+                ok: 'ai_voice'
+            }
+        });
 
     }
+
     function dialogBox_alert4() {
-        var dialogBox = api.require('dialogBox');
-        dialogBox.alert({
-            texts: {
-                content: '退出成功！！',
-                leftBtnTitle: '确定'
-            },
-            styles: {
-                bg: '#fff',
-                corner: 6,
-                w: 300,
-                content: {
-                    color: '#000',
-                    size: 18
-                },
-                left: {
-                    marginB: 15,
-                    marginL: 30,
-                    marginR: 30,
-                    w: 240,
-                    h: 40,
-                    corner: 20,
-                    color: "#fff",
-                    bg: '#CDCDCD',
-                    size: 16
-                }
-            },
-            tapClose: true
-        }, function(ret) {
-            if (ret.eventType == 'left') {
-                dialogBox.close({
-                    dialogName: 'alert'
-                });
+        // $api.rmStorage('login');
+        $api.rmStorage('token');
+        api.toast({
+            msg: '已退出！',
+            duration: 2000,
+            location: 'middle'
+        });
+        // $api.clearStorage();
+        api.openWin({
+            name: 'login',
+            url: '../login.html',
+            pageParam: {
+                ok: 'login'
             }
         });
     }
+
     function dialogBox_alert3() {
-        var dialogBox = api.require('dialogBox');
-        dialogBox.alert({
-            texts: {
-                content: '清除成功',
-                leftBtnTitle: '确定'
-            },
-            styles: {
-                bg: '#fff',
-                corner: 6,
-                w: 300,
-                content: {
-                    color: '#000',
-                    size: 18
-                },
-                left: {
-                    marginB: 15,
-                    marginL: 30,
-                    marginR: 30,
-                    w: 240,
-                    h: 40,
-                    corner: 20,
-                    color: "#fff",
-                    bg: '#CDCDCD',
-                    size: 16
+      //同步返回结果：
+      var size = api.getCacheSize({
+          sync: true
+      });
+        //异步返回结果：
+        api.getCacheSize(function(ret) {
+            var size = ret.size;
+
+            var sizeM = (size / 1024 / 1024);
+            // var sizeMs = Math.round(sizeM);
+            var sizeMsb = (sizeM).toFixed(2);
+
+            // alert(sizeM);
+            // alert(sizeMs);
+            // alert(sizeMsb);
+            api.confirm({
+                title: sizeMsb + 'M',
+                msg: '是否清除缓存',
+                buttons: ['确定', '取消']
+            }, function(ret, err) {
+                var index = ret.buttonIndex;
+                if (index == 1) {
+                  api.clearCache(function() {
+                      api.toast({
+                          msg: '清除完成',
+                          duration: 2000,
+                          location: 'middle'
+                      });
+                  });
+                  api.toast({
+                      msg: '清除成功',
+                      duration: 2000,
+                      location: 'middle'
+                  });
+                } else {
+                  return;
                 }
-            },
-            tapClose: true
-        }, function(ret) {
-            if (ret.eventType == 'left') {
-                dialogBox.close({
-                    dialogName: 'alert'
-                });
+
+
+            });
+
+        });
+    }
+
+    function dialogBox_alert2() {
+      var connectionType = api.connectionType;
+      if(connectionType == "none"){
+        api.toast({              
+            msg: '网络未链接',
+              duration:  2000,
+              location:   'middle'          
+        });
+
+        return false;
+      }
+        api.openWin({
+            name: 'setOn',
+            url: './setOn.html',
+            pageParam: {
+                ok: 'setOn'
             }
         });
     }
-    function dialogBox_alert2() {
-        var dialogBox = api.require('dialogBox');
-        dialogBox.alert({
-            texts: {
-                content: '当前版本最高',
-                leftBtnTitle: '确定'
-            },
-            styles: {
-                bg: '#fff',
-                corner: 6,
-                w: 300,
-                content: {
-                    color: '#000',
-                    size: 18
-                },
-                left: {
-                    marginB: 15,
-                    marginL: 30,
-                    marginR: 30,
-                    w: 240,
-                    h: 40,
-                    corner: 20,
-                    color: "#fff",
-                    bg: '#CDCDCD',
-                    size: 16
-                }
-            },
-            tapClose: true
-        }, function(ret) {
-            if (ret.eventType == 'left') {
-                dialogBox.close({
-                    dialogName: 'alert'
-                });
+    function fnConditionsWin() {
+      var connectionType = api.connectionType;
+      if(connectionType == "none"){
+        api.toast({              
+            msg: '网络未链接',
+              duration:  2000,
+              location:   'middle'          
+        });
+
+        return false;
+      }
+        api.openWin({
+            name: 'Conditions',
+            url: './Conditions.html',
+            pageParam: {
+                ok: 'Conditions'
             }
         });
+
     }
 </script>

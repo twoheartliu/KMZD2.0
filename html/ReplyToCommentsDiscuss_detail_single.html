@@ -1,0 +1,296 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="copyright" content="www.apicloud.com" />
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <title>孔孟之道--评论</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style>
+        html,
+        body {
+            min-height: 100%;
+            background: #ebebeb;
+            overflow: hidden;
+        }
+
+        header {
+            width: 100%;
+            height: 50px;
+            background: #89211b;
+            overflow: hidden;
+        }
+
+        .fr {
+            float: right;
+        }
+
+        .fl {
+            float: left;
+        }
+
+        .clear {
+            clear: both;
+        }
+
+        .mt5 {
+            margin-top: 5px;
+        }
+
+        .mt10 {
+            margin-top: 10px;
+        }
+
+        .mt15 {
+            margin-top: 15px;
+        }
+
+        .mt20 {
+            margin-top: 20px;
+        }
+
+        .ml5 {
+            margin-left: 0.5em;
+        }
+
+        .mr5 {
+            margin-right: 0.5em;
+        }
+
+        .hdivider {
+            width: 100%;
+            height: 1px;
+            background-color: #e0e0e0;
+        }
+
+        .br {
+            border-right: 1px solid #e0e0e0;
+        }
+
+        .bb {
+            border-bottom: 1px solid #e0e0e0;
+            height: 1px;
+        }
+
+        .toRight {
+            right: 0;
+        }
+
+        .row {
+            display: -webkit-box;
+            display: -webkit-flex;
+        }
+
+        .col {
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+            margin: 0 5px;
+            position: relative;
+        }
+
+        .swiper-container img {
+            width: 100%;
+        }
+        /* 头部 */
+
+        .nomessage {
+            margin-top: 20px;
+            font-size: 0.8em;
+            text-align: center;
+            color: #999;
+        }
+
+        .topbar {
+            background: #89211b;
+            height: 50px;
+            border-bottom: 1px solid #89211b;
+            position: relative;
+        }
+
+        .egret-img {
+            position: absolute;
+        }
+
+        .egret-img img {
+            width: 15px;
+            height: 20px;
+            padding: 15px;
+            vertical-align: top;
+        }
+
+        .egret-header-title {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            line-height: 50px;
+            color: #fff;
+            font-size: 20px;
+        }
+
+        .reply {
+            display: block;
+            margin: 8px 2%;
+        }
+
+        .replyButton {
+            width: 100%;
+            height: 33px;
+            text-align: right;
+            padding-bottom: 10px;
+        }
+
+        .replySend {
+            width: 50px;
+            height: 33px;
+            line-height: 33px;
+            border-radius: 5px;
+            text-align: center;
+            background-color: #89211b;
+            color: #FFF;
+            font-size: 14px;
+        }
+
+        .replySend:hover {
+            background-color: #ccc;
+        }
+        /*.reply textarea{background-color: #fff; width: 100%;height:60px;padding: 5px 0;}*/
+
+        .reply textarea {
+            background-color: #fff;
+            width: 100%;
+            height: 65px;
+            padding: 5px 0;
+            margin-bottom: 8px;
+        }
+
+        textarea:focus {
+            outline-color: #fff;
+            background-color: #fff;
+        }
+
+        button:focus {
+            outline: none;
+        }
+
+        #reply {
+            overflow: hidden;
+        }
+
+        #replys {
+            overflow: auto;
+        }
+
+        #notHeader {
+            height: 50px;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body id="body">
+    <header class="egret-header topbar" id="notHeader">
+        <div class="egret-header-title">发表评论</div>
+        <div class="egret-img"><img src="../image/icon_back.png" alt="" onclick="goback()"></div>
+    </header>
+    <div class="reply" id="reply">
+        <div id="replys">
+            <textarea name="name" class="replyValue" placeholder=" 评论" id="replyValue"></textarea>
+            <div class="replyButton" onclick="replySend();" id="replySend">
+                <button class="replySend">发表</button>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/message.js"></script>
+<script type="text/javascript">
+var soundId;
+var uris;
+var token;
+var name;
+var ok;
+    function goback() {
+        api.closeWin({
+            name: 'ReplyToCommentsDiscussDetailSingle'
+        });
+    }
+    apiready = function() {
+      token = $api.getStorage('token');
+        var nHeader = $api.byId('notHeader');
+        var nHeaderPos = $api.offset(nHeader);
+        var headerH = $api.offset(nHeader).h;
+        // var notHeader = $api.byId('notHeader');
+        var headerHs = $api.fixStatusBar(nHeader);
+        soundId = api.pageParam.soundId;
+        name = api.pageParam.name;
+        uris = api.pageParam.uris;
+        if(name){
+          if(name != 'undefined'){
+            $api.byId('replyValue').placeholder = '评论' + name;
+          }
+
+        }
+        // fnOpenMessageNotDetail(liLid);
+        // 获取浏览器高度
+        if (window.innerHeight)
+            winHeight = window.innerHeight;
+        else if ((document.body) && (document.body.clientHeight))
+            winHeight = document.body.clientHeight;
+        var reply = $api.byId('reply');
+        var winHeightHeader = winHeight - headerH - headerHs;
+        $api.css(reply, 'height:' + winHeightHeader + 'px;');
+    }
+
+    function replySend() {
+        var replyValue = $api.byId('replyValue').value;
+        api.ajax({
+            url: host + apiUri + uris,
+            method: 'post',
+            dataType: 'json',
+            timeout:10,
+            headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token
+            },
+            data: {
+                values: {
+                    'id': soundId,
+                    'comment': replyValue
+                }
+            }
+        }, function(ret, err) {
+              if(ret){
+                if (ret.status == 200) {
+                  api.sendEvent({
+                      name: 'gengXinSingle',
+                      extra: {
+                          soundId: soundId
+                      }
+                  });
+                  api.closeWin();
+                    // api.openWin({
+                    //     name: 'discussDetail0',
+                    //     url: './discuss_detail0.html',
+                    //     pageParam: {
+                    //         albumId: albumId
+                    //     },
+                    //     reload: true
+                    // });
+                }else{
+                  netMessage(ret);
+                }
+              }else{
+                netWork(err);
+              }
+
+        });
+
+
+    }
+</script>
+
+</html>

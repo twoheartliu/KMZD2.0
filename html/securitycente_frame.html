@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>孔孟之道--安全中心</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style>
+        body {
+            padding: 10px;
+        }
+
+        .fl {
+            float: left;
+        }
+
+        .fr {
+            float: right;
+        }
+
+        .code {
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+            margin-top: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        input:focus,
+        button:focus {
+            outline: none;
+        }
+
+        .securitycente_BangDin {
+            padding: 10px 0;
+        }
+
+        .securitycente_div {
+            width: 100%;
+            height: 50px;
+            border-bottom: 1px solid #ccc;
+            overflow: hidden;
+        }
+
+        .securitycente_MiMa {
+            width: 100%;
+            height: 50px;
+            color: #ccc;
+            line-height: 50px;
+        }
+
+        .securitycente_MiMaImg {
+            width: 50px;
+            height: 50px;
+            text-align: center;
+        }
+
+        .securitycente_MiMaImg img {
+            margin-top: 12px;
+            width: 9px;
+        }
+
+        .securitycente_Img1 {
+            width: 50px;
+            height: 50px;
+            text-align: center;
+        }
+
+        .securitycente_Img1 img {
+            width: 25px;
+            margin: 12.5px auto;
+        }
+
+        .securitycente_Img {
+            width: 50px;
+            height: 50px;
+        }
+
+        .securitycente_Img img {
+            width: 100%;
+            margin-top: 12px;
+        }
+
+        .securitycente_Name {
+            line-height: 25px;
+            margin-left: 10px;
+        }
+
+        .securitycente_header {
+            width: 100%;
+            height: 50px;
+            line-height: 50px;
+            font-size: 12px;
+            color: #ccc;
+        }
+
+        .securitycente_name1 {
+            line-height: 50px;
+            color: #999;
+        }
+
+        .securitycente_name2 {
+            font-size: 10px;
+            color: #ccc;
+        }
+
+        .collectmusicSj {
+            width: 50px;
+            text-align: center;
+            height: 50px;
+            line-height: 50px;
+        }
+
+        .collectmusicSj img {
+            margin-top: 12px;
+            width: 9px;
+        }
+
+        .securitycente_MiMa_div {
+            margin: 0 10px;
+        }
+
+        .securitycente_MiMa_div img {
+            position: relative;
+            top: 2px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="securitycente_MiMa" id="changePassword"></div>
+    <div class="securitycente_BangDin">
+        <div class="securitycente_header" onclick="">其他登录方式</div>
+        <div id="securitycente_BangDin">
+        </div>
+        <!-- <div class="securitycente_div" onclick="collectmusicSj();">
+            <div class="securitycente_Img1 fl"><img src="../image/phoneNumber.png" alt=""></div>
+            <div class="securitycente_Name fl">
+                <div class="securitycente_name1">手机号</div>
+            </div>
+            <div class="fr collectmusicSj"><img src="../image/my/index_y.png" alt=""></div>
+        </div>
+        <div class="securitycente_div">
+            <div class="securitycente_Img1 fl"><img src="../image/qq.png" alt=""></div>
+            <div class="securitycente_Name fl">
+                <div class="securitycente_name1">QQ</div>
+            </div>
+            <div class="securitycente_Img fr" onclick="collectmusicQQ(this)" data-click="0"><img src="../image/my/Binding.png" alt="" class="collectmusicQQ"></div>
+        </div>
+        <div class="securitycente_div">
+            <div class="securitycente_Img1 fl"><img src="../image/weixin.png" alt=""></div>
+            <div class="securitycente_Name fl">
+                <div class="securitycente_name1">微信</div>
+            </div>
+            <div class="securitycente_Img fr" onclick="collectmusicWX(this)" data-click="0"><img src="../image/my/Binding.png" alt="" class="collectmusicWX"></div>
+        </div> -->
+    </div>
+</body>
+
+</html>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/message.js"></script>
+<script type="text/javascript">
+    var token;
+    var is_mobileImg, is_wechatImg, is_qqImg, is_set_password;
+    var mobile;
+    apiready = function() {
+        token = $api.getStorage('token');
+        fnapiajax();
+    }
+
+    function fnapiajax() {
+        api.ajax({
+            url: host + apiUri + '/user/third_info',
+            method: 'get',
+            dataType: 'json',
+            timeout:10,
+            headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token
+            }
+        }, function(ret, err) {
+          if(ret){
+            // console.log(JSON.stringify(ret));
+            if (ret.status == 200) {
+
+                var html = ''
+                var htmls = ''
+                var changePassword = $api.byId('changePassword');
+                var securitycente_BangDin = $api.byId('securitycente_BangDin');
+                if (ret.data.register_way == 'qq') {
+                    html += '<div class="securitycente_div"><div class="securitycente_Img1 fl"><img src="../image/qq.png" alt=""></div><div class="securitycente_Name fl"><div class="securitycente_name1">QQ</div></div></div>'
+                } else if (ret.data.register_way == 'wechat') {
+                    html += '<div class="securitycente_div"><div class="securitycente_Img1 fl"><img src="../image/weixin.png" alt=""></div><div class="securitycente_Name fl"><div class="securitycente_name1">微信</div></div></div>'
+
+                } else if (ret.data.register_way == 'mobile') {
+                    html +=
+                        '<div class="securitycente_div"><div class="securitycente_Img1 fl"><img src="../image/phoneNumber.png" alt=""></div><div class="securitycente_Name fl"><div class="securitycente_name1">' + ret.data.mobile +
+                        '</div></div></div>'
+                }
+                $api.html(changePassword, html);
+                if (ret.data.register_way == 'qq') {
+                    htmls +=
+                        '<div class="securitycente_div"><div class="securitycente_Img1 fl"><img src="../image/weixin.png" alt=""></div><div class="securitycente_Name fl"><div class="securitycente_name1">微信</div></div><div class="securitycente_Img fr" onclick="collectmusicWX(this)" data-click="0"><img src="../image/my/Binding.png" alt="" class="collectmusicWX"></div></div>'
+                    htmls +=
+                        '<div class="securitycente_div" onclick="collectmusicSj();"><div class="securitycente_Img1 fl"><img src="../image/phoneNumber.png" alt=""></div><div class="securitycente_Name fl"><div class="securitycente_name1">手机号</div></div><div class="fr collectmusicSj"><img src="../image/my/index_y.png" alt=""></div></div>'
+
+                } else if (ret.data.register_way == 'wechat') {
+                    htmls +=
+                        '<div class="securitycente_div"><div class="securitycente_Img1 fl"><img src="../image/qq.png" alt=""></div><div class="securitycente_Name fl"><div class="securitycente_name1">QQ</div></div><div class="securitycente_Img fr" id="securitycente_Imgqq"></div></div>'
+                    htmls +=
+                        '<div class="securitycente_div" onclick="collectmusicSj();"><div class="securitycente_Img1 fl"><img src="../image/phoneNumber.png" alt=""></div><div class="securitycente_Name fl"><div class="securitycente_name1">手机号</div></div><div class="fr collectmusicSj"><img src="../image/my/index_y.png" alt=""></div></div>'
+
+                } else if (ret.data.register_way == 'mobile') {
+                    htmls +=
+                        '<div class="securitycente_div"><div class="securitycente_Img1 fl"><img src="../image/qq.png" alt=""></div><div class="securitycente_Name fl"><div class="securitycente_name1">QQ</div></div><div class="securitycente_Img fr" id="securitycente_Imgqq"></div></div>'
+                    htmls +=
+                        '<div class="securitycente_div"><div class="securitycente_Img1 fl"><img src="../image/weixin.png" alt=""></div><div class="securitycente_Name fl"><div class="securitycente_name1">微信</div></div><div class="securitycente_Img fr" id="securitycente_ImgWeixin"></div></div>'
+                }
+                $api.html(securitycente_BangDin, htmls);
+                if (ret.data.is_mobile == 1) {
+                    is_mobileImg = 1;
+                    mobile = ret.data.mobile;
+                    // console.log(ret.data.is_set_password);
+                    is_set_password = ret.data.is_set_password
+                } else {
+                    is_mobileImg = 0;
+                }
+                if (ret.data.is_wechat == 1) {
+                    is_wechatImg = 1;
+                } else {
+                    is_wechatImg = 0;
+                }
+                if (ret.data.is_qq == 1) {
+                    is_qqImg = 1;
+                } else {
+                    is_qqImg = 0;
+                }
+                var securitycente_Imgqq = $api.byId('securitycente_Imgqq');
+                var isImgQQ = '';
+                if (is_qqImg == 1) {
+                  alert(1);
+                    isImgQQ = '<img src="../image/my/Bindings.png" alt="" class="collectmusicQQ" onclick="collectmusicQQ(this)" data-click="1">'
+                } else {
+                  alert(2);
+                    isImgQQ = '<img src="../image/my/Binding.png" alt="" class="collectmusicQQ" onclick="collectmusicQQ(this)" data-click="0">'
+                }
+                $api.html(securitycente_Imgqq, isImgQQ);
+
+                var securitycente_ImgWeixin = $api.byId('securitycente_ImgWeixin');
+                var isImgWeixin = '';
+                if (is_wechatImg == 1) {
+                    isImgWeixin = '<img src="../image/my/Bindings.png" alt="" class="collectmusicWX" onclick="collectmusicWX(this)" data-click="1" >'
+                } else {
+                    isImgWeixin = '<img src="../image/my/Binding.png" alt="" class="collectmusicWX" onclick="collectmusicWX(this)" data-click="0">'
+                }
+                $api.html(securitycente_ImgWeixin, isImgWeixin);
+            } else {
+                netMessage(ret);
+            }
+          }else{
+            netWork(err);
+          }
+
+        });
+    }
+
+    function collectmusicSj() {
+        if (is_mobileImg == 0) {
+            api.openWin({
+                name: 'Binding',
+                url: './Binding.html',
+                pageParam: {
+                    ok: 'Binding'
+                }
+            });
+        } else {
+            api.openWin({
+                name: 'DetermineTheDinding',
+                url: './DetermineTheDinding.html',
+                pageParam: {
+                    mobile: mobile,
+                    is_set_password: is_set_password,
+                    ok:'DetermineTheDinding'
+                }
+            });
+        }
+
+    }
+
+    function collectmusicQQ(clicktoolitem) {
+        var toolbarlist = document.getElementsByClassName('collectmusicQQ')[0];
+        var click = clicktoolitem.getAttribute("data-click");
+        if (click == 0) {
+            var qq = api.require('qq');
+            qq.installed(function(ret, err) {
+                if (ret.status) {
+                    qq.login(function(ret, err) {
+                        if (ret.status) {
+                            var openId = ret.openId;
+                            $api.setStorage('openId', openId);
+
+                            var accessToken = ret.accessToken;
+                            qq.getUserInfo(function(ret, err) {
+                                if (ret.status) {
+                                    var openid = openId;
+                                    var nickname = ret.info.nickname;
+                                    var gender = ret.info.gender;
+                                    var figureurl_qq_2 = ret.info.figureurl_qq_2;
+                                    var token = $api.getStorage('token');
+                                    api.ajax({
+                                        url: host + apiUri + '/user/bind_qq',
+                                        method: 'post',
+                                        dataType: 'json',
+                                        timeout:10,
+                                        headers: {
+                                            "source": api.systemType,
+                                            "version": version,
+                                            "session": token
+                                        },
+                                        data: {
+                                            values: {
+                                                'openid': openid
+                                            }
+                                        }
+                                    }, function(ret, err) {
+                                      if(ret){
+                                        if (ret.status == 200) {
+                                          api.toast({
+                                                  msg: '绑定成功',
+                                                  duration: 2000,
+                                                  location: 'middle'
+                                              });
+                                            clicktoolitem.setAttribute("data-click", 1);
+                                            toolbarlist.src = "../image/my/Bindings.png";
+                                        } else {
+                                            netMessage(ret);
+                                        }
+                                      }else{
+                                        netWork(err);
+                                      }
+                                    });
+                                }
+                              });
+                        }
+                    });
+                  }else{
+                    api.toast({
+                            msg: '当前设备未安装QQ客户端',
+                            duration: 2000,
+                            location: 'middle'
+                        });
+                  }
+                });
+
+            // 点开
+
+        } else {
+            var dialogBox = api.require('dialogBox');
+            dialogBox.alert({
+                texts: {
+                    title: '确认',
+                    content: '确认解绑QQ？',
+                    leftBtnTitle: '取消',
+                    rightBtnTitle: '确认'
+                },
+                styles: {
+                    bg: '#fff',
+                    w: 300,
+                    title: {
+                        marginT: 20,
+                        icon: 'widget://res/gou.png',
+                        iconSize: 40,
+                        titleSize: 14,
+                        titleColor: '#000'
+                    },
+                    content: {
+                        color: '#000',
+                        size: 14
+                    },
+                    left: {
+                        marginB: 7,
+                        marginL: 20,
+                        w: 130,
+                        h: 35,
+                        corner: 2,
+                        color: '#000',
+                        bg: '#ccc',
+                        size: 12
+                    },
+                    right: {
+                        marginB: 7,
+                        marginL: 10,
+                        w: 130,
+                        h: 35,
+                        corner: 2,
+                        color: '#000',
+                        bg: '#ccc',
+                        size: 12
+                    }
+                },
+
+                tapClose: true
+            }, function(ret) {
+                if (ret.eventType == 'right') {
+                    var dialogBox = api.require('dialogBox');
+                    dialogBox.close({
+                        dialogName: 'alert'
+                    });
+                    var qq = api.require('qq');
+                    qq.logout(function(ret, err) {
+                        if (ret.status) {
+                            api.ajax({
+                                url: host + apiUri + '/user/unbind_qq',
+                                method: 'post',
+                                dataType: 'json',
+                                timeout:10,
+                                headers: {
+                                    "source": api.systemType,
+                                    "version": version,
+                                    "session": token
+                                }
+                            }, function(ret, err) {
+                              if(ret){
+                                if (ret.status == 200) {
+                                    clicktoolitem.setAttribute("data-click", 0);
+                                    toolbarlist.src = "../image/my/Binding.png";
+                                    api.toast({
+                                        msg: '您解除绑定QQ',
+                                        duration: 2000,
+                                        location: 'middle'
+                                    });
+                                }else {
+                                    // alert( JSON.stringify( err ) );
+                                    netMessage(ret);
+                                }
+                              }else{
+                                netWork(err);
+                              }
+                            });
+
+                            // clicktoolitem.setAttribute("data-click", 0);
+                            // toolbarlist.src = "../image/my/Binding.png";
+                        } else {
+                            api.toast({
+                                msg: err.msg,
+                                duration: 2000,
+                                location: 'middle'
+                            });
+
+                        }
+                    });
+                } else {
+                    var dialogBox = api.require('dialogBox');
+                    dialogBox.close({
+                        dialogName: 'alert'
+                    });
+                }
+            });
+
+            // 关闭
+
+        }
+    }
+
+    function collectmusicWX(clicktoolitem) {
+        var toolbarlist = document.getElementsByClassName('collectmusicWX')[0];
+        var click = clicktoolitem.getAttribute("data-click");
+        if (click == 0) {
+            var wx = api.require('wx');
+            wx.isInstalled(function(ret, err) {
+                if (ret.installed) {
+                    wx.auth({}, function(ret, err) {
+                        if (ret.status) {
+                            var wx = api.require('wx');
+                            wx.getToken({
+                                code: ret.code
+                            }, function(ret, err) {
+                                if (ret.status) {
+                                    wx.getUserInfo({
+                                        accessToken: ret.accessToken,
+                                        openId: ret.openId
+                                    }, function(ret, err) {
+
+                                        var unionid = ret.unionid;
+                                        var openidWixin = ret.openid
+                                        if (ret.status) {
+                                            api.ajax({
+                                                url: host + apiUri + '/user/bind_wechat',
+                                                method: 'post',
+                                                dataType: 'json',
+                                                timeout:10,
+                                                headers: {
+                                                    "source": api.systemType,
+                                                    "version": version,
+                                                    "session": token
+                                                },
+                                                data: {
+                                                    values: {
+                                                        'openid': openidWixin,
+                                                        'unionid': unionid
+                                                    }
+                                                }
+                                            }, function(ret, err) {
+                                                if(ret){
+                                                if (ret.status == 200) {
+                                                    api.toast({
+                                                        msg: '绑定成功',
+                                                        duration: 2000,
+                                                        location: 'middle'
+                                                    });
+                                                    clicktoolitem.setAttribute("data-click", 1);
+                                                    toolbarlist.src = "../image/my/Bindings.png";
+                                                } else {
+                                                    netMessage(ret);
+
+                                                }
+                                              }else{
+                                                  netWork(err);
+                                                }
+                                            });
+                                        } else {
+                                            alert(err.code);
+                                        }
+                                    });
+
+                                } else {
+                                    alert(err.code);
+                                }
+                            });
+                        } else {
+                            alert(err.code);
+                        }
+                    });
+                } else {
+                  api.toast({
+                          msg: '当前设备未安装微信客户端',
+                          duration: 2000,
+                          location: 'middle'
+                      });
+
+
+                }
+            });
+        } else {
+            var dialogBox = api.require('dialogBox');
+            dialogBox.alert({
+                texts: {
+                    title: '确认',
+                    content: '确认解绑微信？',
+                    leftBtnTitle: '取消',
+                    rightBtnTitle: '确认'
+                },
+                styles: {
+                    bg: '#fff',
+                    w: 300,
+                    title: {
+                        marginT: 20,
+                        icon: 'widget://res/gou.png',
+                        iconSize: 40,
+                        titleSize: 14,
+                        titleColor: '#000'
+                    },
+                    content: {
+                        color: '#000',
+                        size: 14
+                    },
+                    left: {
+                        marginB: 7,
+                        marginL: 20,
+                        w: 130,
+                        h: 35,
+                        corner: 2,
+                        color: '#000',
+                        bg: '#ccc',
+                        size: 12
+                    },
+                    right: {
+                        marginB: 7,
+                        marginL: 10,
+                        w: 130,
+                        h: 35,
+                        corner: 2,
+                        color: '#000',
+                        bg: '#ccc',
+                        size: 12
+                    }
+                },
+
+                tapClose: true
+            }, function(ret) {
+                if (ret.eventType == 'right') {
+                    var dialogBox = api.require('dialogBox');
+                    dialogBox.close({
+                        dialogName: 'alert'
+                    });
+                    api.ajax({
+                        url: host + apiUri + '/user/unbind_wechat',
+                        method: 'post',
+                        dataType: 'json',
+                        timeout:10,
+                        headers: {
+                            "source": api.systemType,
+                            "version": version,
+                            "session": token
+                        }
+                    }, function(ret, err) {
+                        if(ret){
+                        if (ret.status == 200) {
+                            api.toast({
+                                msg: '已解除绑定',
+                                duration: 2000,
+                                location: 'middle'
+                            });
+                            clicktoolitem.setAttribute("data-click", 0);
+                            toolbarlist.src = "../image/my/Binding.png";
+                        } else {
+                            netMessage(ret);
+                        }
+                      }else{
+                        netWork(err);
+                      }
+                    });
+                } else {
+                    var dialogBox = api.require('dialogBox');
+                    dialogBox.close({
+                        dialogName: 'alert'
+                    });
+                }
+            });
+        }
+    }
+</script>

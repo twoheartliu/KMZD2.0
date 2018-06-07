@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>孔孟之道--听单列表</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style>
+        .fr {
+            float: right;
+        }
+
+        .fl {
+            float: left;
+        }
+
+        .p20px {
+            padding: 0px 20px;
+        }
+
+        .clr {
+            overflow: hidden;
+        }
+
+        .m20px {
+            margin: 0 20px;
+        }
+        /*个性化推荐 */
+
+        .egret-flex-item {
+            display: -webkit-box;
+            -webkit-box-align: center;
+            height: 80px;
+            position: relative;
+        }
+
+        .egret-flex-item-logo {
+            /*max-width: 80px;
+            min-width: 80px;
+
+            -webkit-box-flex: 1;
+            -webkit-box-align: center;*/
+        }
+
+        .egret-flex-item-logo img {
+            height: 60px;
+            width: 60px;
+            border-radius: 5px;
+            -webkit-box-align: center;
+            vertical-align: top;
+        }
+
+        .egret-flex-item-shelf {
+            overflow: hidden;
+            -webkit-box-flex: 2;
+            -webkit-box-align: center;
+            padding-left: 5px;
+        }
+
+        .egret-flex-item-shelf div {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            margin-top: 5px;
+        }
+
+        .egret-flex-item-shelf .egret-flex-item-shelf01 .span1 {
+            font-size: 13px;
+            color: #000;
+        }
+
+        .egret-flex-item-shelf .egret-flex-item-shelf02 .span2 {
+            font-size: 12px;
+            color: #ff3db8;
+            margin: 0 5px;
+        }
+
+        .egret-flex-item-shelf .egret-flex-item-shelf01 .span3 {
+            font-size: 12px;
+            color: #ccc;
+        }
+
+        .egret-flex-item-shelf .egret-flex-item-shelf02 {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .egret-flex-item-shelf .egret-flex-item-shelf02 span {
+            font-size: 15px;
+            color: #000;
+        }
+
+        .egret-flex-item-shelf03 div {
+            float: left;
+            line-height: 20px;
+        }
+
+        .egret-flex-item-shelf03 div img {
+            width: 12px;
+            height: 12px;
+            line-height: 12px;
+            margin: 0 2px;
+        }
+
+        .egret-flex-item-shelf03 div span {
+            line-height: 18px;
+            vertical-align: top;
+            font-size: 11px;
+            color: #b2b2b2;
+        }
+
+        .egret-flex-item-shelf .egret-flex-item-redclassify {
+            color: #E03F40;
+            border: 1px solid #E03F40;
+            font-size: inherit;
+            padding: 0 0.1em;
+            border-radius: 1px;
+            margin-right: 5px;
+            box-sizing: border-box;
+        }
+
+        .p20pxs {
+            padding: 0 20px;
+        }
+
+        li {
+            border-bottom: 1px solid #ccc;
+        }
+
+        .egret-flex-item-under {
+            position: absolute;
+            right: 10px;
+            top: 15px;
+        }
+
+        .egret-flex-item-under img {
+            width: 20px;
+        }
+        #footer {
+            width: 100%;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <ul id="ListeningListFrame"></ul>
+    <div id="footer" class="disnone">
+        上拉加载更多
+    </div>
+</body>
+
+</html>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/message.js"></script>
+<script type="text/javascript">
+    var p = 1;
+    apiready = function() {
+      var ok = api.pageParam.ok;
+      var oks = 'ok'+ok;
+        api.addEventListener({
+            name: oks
+        }, function(ret, err) {
+            if (ret.value.wangluo) {
+                //赋值源代码
+                ListenList();
+                // console.log(23323);
+                api.addEventListener({
+                    name: 'reload'
+                }, function(ret, err) {
+                    ListenList();
+                });
+                api.addEventListener({
+                    name: 'newData'
+                }, function(ret, err) {
+                    ListenList();
+                });
+                api.setCustomRefreshHeaderInfo({
+                    bgColor: '#f0f0f0',
+                    image: {
+                      pull: [
+                          'widget://image/Refresh/dropdown_anim_00.png',
+                          'widget://image/Refresh/dropdown_anim_01.png',
+                          'widget://image/Refresh/dropdown_anim_02.png',
+                          'widget://image/Refresh/dropdown_anim_03.png',
+                          'widget://image/Refresh/dropdown_anim_04.png',
+                          'widget://image/Refresh/dropdown_anim_05.png',
+                          'widget://image/Refresh/dropdown_anim_06.png',
+                          'widget://image/Refresh/dropdown_anim_07.png',
+                          'widget://image/Refresh/dropdown_anim_08.png',
+                          'widget://image/Refresh/dropdown_anim_09.png',
+                          'widget://image/Refresh/dropdown_anim_10.png',
+                    ],
+                    load: [
+                          'widget://image/Refresh/dropdown_anim_00.png',
+                          'widget://image/Refresh/dropdown_anim_01.png',
+                          'widget://image/Refresh/dropdown_anim_02.png',
+                          'widget://image/Refresh/dropdown_anim_03.png',
+                          'widget://image/Refresh/dropdown_anim_04.png',
+                          'widget://image/Refresh/dropdown_anim_05.png',
+                      ]
+                    }
+                }, function() {
+                    //下拉刷新被触发，自动进入加载状态，使用 api.refreshHeaderLoadDone() 手动结束加载中状态
+                    //下拉刷新被触发，使用 api.refreshHeaderLoadDone() 结束加载中状态
+
+                    ListenList();
+                });
+                }
+
+
+        });
+
+        var connectionType = api.connectionType;
+        if (connectionType == "none") {
+            netWorkNone();
+
+        } else {
+
+
+            //赋值源代码
+            ListenList();
+            // console.log(23323);
+            api.addEventListener({
+                name: 'reload'
+            }, function(ret, err) {
+                ListenList();
+            });
+            api.addEventListener({
+                name: 'newData'
+            }, function(ret, err) {
+                ListenList();
+            });
+            api.setCustomRefreshHeaderInfo({
+                bgColor: '#f0f0f0',
+                image: {
+                  pull: [
+                      'widget://image/Refresh/dropdown_anim_00.png',
+                      'widget://image/Refresh/dropdown_anim_01.png',
+                      'widget://image/Refresh/dropdown_anim_02.png',
+                      'widget://image/Refresh/dropdown_anim_03.png',
+                      'widget://image/Refresh/dropdown_anim_04.png',
+                      'widget://image/Refresh/dropdown_anim_05.png',
+                      'widget://image/Refresh/dropdown_anim_06.png',
+                      'widget://image/Refresh/dropdown_anim_07.png',
+                      'widget://image/Refresh/dropdown_anim_08.png',
+                      'widget://image/Refresh/dropdown_anim_09.png',
+                      'widget://image/Refresh/dropdown_anim_10.png',
+                ],
+                load: [
+                      'widget://image/Refresh/dropdown_anim_00.png',
+                      'widget://image/Refresh/dropdown_anim_01.png',
+                      'widget://image/Refresh/dropdown_anim_02.png',
+                      'widget://image/Refresh/dropdown_anim_03.png',
+                      'widget://image/Refresh/dropdown_anim_04.png',
+                      'widget://image/Refresh/dropdown_anim_05.png',
+              ]
+                }
+            }, function() {
+                //下拉刷新被触发，自动进入加载状态，使用 api.refreshHeaderLoadDone() 手动结束加载中状态
+                //下拉刷新被触发，使用 api.refreshHeaderLoadDone() 结束加载中状态
+                p=1;
+                ListenList();
+            });
+            }
+
+            api.addEventListener({
+                name: 'scrolltobottom',
+                extra: {
+                    threshold: -20 //设置距离底部多少距离时触发，默认值为0，数字类型
+                }
+            }, function(ret, err) {
+              p ++;
+              ListenLists();
+              var footer = $api.byId('footer');
+              // $api.css(footer, 'display:block');
+              $api.html(footer, '正在加载更多');
+            });
+
+    }
+    function ListenLists() {
+          var token = $api.getStorage('token');
+          api.ajax({
+              url: host + apiUri + '/listening',
+              method: 'get',
+              dataType: 'json',
+              timeout:10,
+              headers: {
+                  "source": api.systemType,
+                  "version": version,
+                  "session": token
+              },
+              data: {
+                  values: {
+                      p:p
+                  }
+              }
+          }, function(ret, err) {
+              if (ret) {
+                  if (ret.status == 200) {
+                    if (ret.data == "") {
+                      var footer = $api.byId('footer');
+                      $api.html(footer, '无更多数据');
+                    } else {
+                      var footer = $api.byId('footer');
+                      $api.html(footer, '上拉加载更多');
+                    }
+                          api.refreshHeaderLoadDone()
+                      var id = $api.byId('ListeningListFrame');
+                      for (var i = 0; i < ret.data.length; i++) {
+                          var listening_cover = ret.data[i].listening_cover;
+                          var sandBox = listening_cover.substring(0, 8);
+                          if (sandBox == 'sand_box') {
+                              var sandBoxs = listening_cover.replace(/sand_box/, '..');
+                              $api.append(id, '<li id="listen_' + ret.data[i].l_id + '" class="p20pxs"><div class="egret-flex-item" tapmode="fmbtnhover"><div class="egret-flex-item-logo" onclick="fnOpenPlay(' + ret.data[i].l_id + ')"><img src="' +
+                                  sandBoxs + '" alt="" class=""></div><div class="egret-flex-item-shelf"> <div class="egret-flex-item-shelf01" onclick="fnOpenPlay(' + ret.data[i].l_id + ')"><span class="span1 fl"><span>' + ret.data[i].listening_name +
+                                  '</span></span><span class="span3 fr"></span></div><div class="egret-flex-item-shelf03" onclick="fnOpenPlay(' + ret.data[i].l_id + ')"><div><img src="../image/KM_play.png" alt=""><span>' +
+                                  ret.data[i].play_total + '</span></div><div><img src="../image/KM_zf.png" alt=""><span>' + ret.data[i].share_total + '</span></div><div><img src="../image/KM_dz.png" alt=""><span>' +
+                                  ret.data[i].good_total + '</span></div></div></div><div class="egret-flex-item-under" onclick="fnSettings(' + ret.data[i].l_id + ');"><img src="../image/KM_list_more.png" alt=""></div></div></li>');
+                          } else if (listening_cover == '') {
+                                $api.append(id, '<li id="listen_' + ret.data[i].l_id + '" class="p20pxs"><div class="egret-flex-item" tapmode="fmbtnhover"><div class="egret-flex-item-logo" onclick="fnOpenPlay(' + ret.data[i].l_id +
+                                  ')"><img src="../image/my/fnShareImg.jpg" alt="" class=""></div><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01" onclick="fnOpenPlay(' + ret.data[i].l_id +
+                                  ')"><span class="span1 fl"><span>' + ret.data[i].listening_name + '</span></span><span class="span3 fr"></span></div><div class="egret-flex-item-shelf03" onclick="fnOpenPlay(' + ret.data[i].l_id +
+                                  ')"><div><img src="../image/KM_play.png" alt=""><span>' +
+                                  ret.data[i].play_total + '</span></div><div><img src="../image/KM_zf.png" alt=""><span>' + ret.data[i].share_total + '</span></div><div><img src="../image/KM_dz.png" alt=""><span>' +
+                                  ret.data[i].good_total + '</span></div></div></div><div class="egret-flex-item-under" onclick="fnSettings(' + ret.data[i].l_id + ');"><img src="../image/KM_list_more.png" alt=""></div></div></li>');
+                          } else {
+                              var listening = 'listening/';
+                              var listening_covers = http + listening + listening_cover;
+                                $api.append(id,'<li id="listen_' + ret.data[i].l_id + '" class="p20pxs"><div class="egret-flex-item" tapmode="fmbtnhover"><div class="egret-flex-item-logo" onclick="fnOpenPlay(' + ret.data[i].l_id + ')"><img src="' +
+                                  listening_covers + '" alt="" class=""></div><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01" onclick="fnOpenPlay(' + ret.data[i].l_id + ')"><span class="span1 fl"><span>' + ret.data[i].listening_name +
+                                  '</span></span><span class="span3 fr"></span></div><div class="egret-flex-item-shelf03" onclick="fnOpenPlay(' + ret.data[i].l_id + ')"><div><img src="../image/KM_play.png" alt=""><span>' +
+                                  ret.data[i].play_total + '</span></div><div><img src="../image/KM_zf.png" alt=""><span>' + ret.data[i].share_total + '</span></div><div><img src="../image/KM_dz.png" alt=""><span>' +
+                                  ret.data[i].good_total + '</span></div></div></div><div class="egret-flex-item-under" onclick="fnSettings(' + ret.data[i].l_id + ');"><img src="../image/KM_list_more.png" alt=""></div></div></li>');
+                          }
+                      }
+
+                  } else {
+                      netMessage(ret);
+                  }
+              } else {
+                  netWork(err);
+              }
+          });
+      }
+    function ListenList() {
+          var token = $api.getStorage('token');
+          api.ajax({
+              url: host + apiUri + '/listening',
+              method: 'get',
+              dataType: 'json',
+              timeout:10,
+              headers: {
+                  "source": api.systemType,
+                  "version": version,
+                  "session": token
+              },
+              data: {
+                  values: {
+                      p: 1
+                  }
+              }
+          }, function(ret, err) {
+              if (ret) {
+                  if (ret.status == 200) {
+                          api.refreshHeaderLoadDone()
+                      var id = $api.byId('ListeningListFrame');
+                      var html = '';
+                      for (var i = 0; i < ret.data.length; i++) {
+                          var listening_cover = ret.data[i].listening_cover;
+                          var sandBox = listening_cover.substring(0, 8);
+                          if (sandBox == 'sand_box') {
+                              var sandBoxs = listening_cover.replace(/sand_box/, '..');
+                              html += '<li id="listen_' + ret.data[i].l_id + '" class="p20pxs"><div class="egret-flex-item" tapmode="fmbtnhover"><div class="egret-flex-item-logo" onclick="fnOpenPlay(' + ret.data[i].l_id + ')"><img src="' +
+                                  sandBoxs + '" alt="" class=""></div><div class="egret-flex-item-shelf"> <div class="egret-flex-item-shelf01" onclick="fnOpenPlay(' + ret.data[i].l_id + ')"><span class="span1 fl"><span>' + ret.data[i].listening_name +
+                                  '</span></span><span class="span3 fr"></span></div><div class="egret-flex-item-shelf03" onclick="fnOpenPlay(' + ret.data[i].l_id + ')"><div><img src="../image/KM_play.png" alt=""><span>' +
+                                  ret.data[i].play_total + '</span></div><div><img src="../image/KM_zf.png" alt=""><span>' + ret.data[i].share_total + '</span></div><div><img src="../image/KM_dz.png" alt=""><span>' +
+                                  ret.data[i].good_total + '</span></div></div></div><div class="egret-flex-item-under" onclick="fnSettings(' + ret.data[i].l_id + ');"><img src="../image/KM_list_more.png" alt=""></div></div></li>';
+                          } else if (listening_cover == '') {
+                              html += '<li id="listen_' + ret.data[i].l_id + '" class="p20pxs"><div class="egret-flex-item" tapmode="fmbtnhover"><div class="egret-flex-item-logo" onclick="fnOpenPlay(' + ret.data[i].l_id +
+                                  ')"><img src="../image/my/fnShareImg.jpg" alt="" class=""></div><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01" onclick="fnOpenPlay(' + ret.data[i].l_id +
+                                  ')"><span class="span1 fl"><span>' + ret.data[i].listening_name + '</span></span><span class="span3 fr"></span></div><div class="egret-flex-item-shelf03" onclick="fnOpenPlay(' + ret.data[i].l_id +
+                                  ')"><div><img src="../image/KM_play.png" alt=""><span>' +
+                                  ret.data[i].play_total + '</span></div><div><img src="../image/KM_zf.png" alt=""><span>' + ret.data[i].share_total + '</span></div><div><img src="../image/KM_dz.png" alt=""><span>' +
+                                  ret.data[i].good_total + '</span></div></div></div><div class="egret-flex-item-under" onclick="fnSettings(' + ret.data[i].l_id + ');"><img src="../image/KM_list_more.png" alt=""></div></div></li>';
+                          } else {
+                              var listening = 'listening/';
+                              var listening_covers = http + listening + listening_cover;
+                              html += '<li id="listen_' + ret.data[i].l_id + '" class="p20pxs"><div class="egret-flex-item" tapmode="fmbtnhover"><div class="egret-flex-item-logo" onclick="fnOpenPlay(' + ret.data[i].l_id + ')"><img src="' +
+                                  listening_covers + '" alt="" class=""></div><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01" onclick="fnOpenPlay(' + ret.data[i].l_id + ')"><span class="span1 fl"><span>' + ret.data[i].listening_name +
+                                  '</span></span><span class="span3 fr"></span></div><div class="egret-flex-item-shelf03" onclick="fnOpenPlay(' + ret.data[i].l_id + ')"><div><img src="../image/KM_play.png" alt=""><span>' +
+                                  ret.data[i].play_total + '</span></div><div><img src="../image/KM_zf.png" alt=""><span>' + ret.data[i].share_total + '</span></div><div><img src="../image/KM_dz.png" alt=""><span>' +
+                                  ret.data[i].good_total + '</span></div></div></div><div class="egret-flex-item-under" onclick="fnSettings(' + ret.data[i].l_id + ');"><img src="../image/KM_list_more.png" alt=""></div></div></li>';
+                          }
+                      }
+                      $api.html(id, html);
+
+                  } else {
+                      netMessage(ret);
+                  }
+              } else {
+                  netWork(err);
+              }
+          });
+      }
+    function fnOpenPlay(ids) {
+        api.openWin({
+            name: 'ListingsList',
+            url: './ListingsList.html',
+            pageParam: {
+                albumId: ids,
+                ok:'ListingsList'
+            }
+        });
+
+    }
+
+    function DeleteList(id) {
+        var token = $api.getStorage('token');
+        api.ajax({
+            url: host + apiUri + '/listening/del/' + id,
+            method: 'post',
+            dataType: 'json',
+            timeout:10,
+            headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token
+            }
+        }, function(ret, err) {
+            if (ret) {
+                if (ret.status == 200) {
+                    var listen_ids = 'listen_' + id;
+                    var listen_item = $api.byId(listen_ids); //找到li标签上的id
+                    $api.remove(listen_item);
+                }else {
+                  netMessage(ret);
+                }
+            } else {
+                netWork(err);
+            }
+        });
+
+    }
+
+    function fnSettings(id) {
+        var dialogBox = api.require('dialogBox');
+        dialogBox.actionMenu({
+            rect: {
+                h: 150
+            },
+            texts: {
+                cancel: '取消'
+            },
+            items: [{
+                text: '编辑',
+                icon: 'widget://image/my/edit.png'
+            }, {
+                text: '删除',
+                icon: 'widget://image/my/shanchus.png'
+            }],
+            styles: {
+                bg: '#FFF',
+                corner: 6,
+                column: 2,
+                itemText: {
+                    color: '#000',
+                    size: 12,
+                    marginT: 10
+                },
+                itemIcon: {
+                    size: 30
+                },
+                cancel: {
+                    bg: '#fff',
+                    color: '#333',
+                    h: 55,
+                    size: 14
+                }
+            },
+            tapClose: true
+        }, function(ret) {
+            var texts = ret.eventType;
+            var index = ret.index;
+            if (texts == "cancel") {
+                dialogBox.close({
+                    dialogName: 'actionMenu'
+                });
+            } else if (index == 0) {
+                dialogBox.close({
+                    dialogName: 'actionMenu'
+                });
+                api.openWin({
+                    name: 'NewData',
+                    url: './NewData.html',
+                    pageParam: {
+                        id: id
+                    }
+                });
+            } else if (index == 1) {
+                dialogBox.close({
+                    dialogName: 'actionMenu'
+                });
+                DeleteList(id);
+                // console.log(id);
+            }
+            dialogBox.close({
+                dialogName: 'actionMenu'
+            });
+        });
+
+    }
+</script>

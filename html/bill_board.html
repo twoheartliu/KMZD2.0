@@ -11,7 +11,7 @@
         }
         /*头部样式*/
         header{
-          background-color: #fff;
+          background-color: #89211b;
           height: 50px;
         }
         .egret-img {
@@ -33,18 +33,20 @@
             display: inline-block;
             margin: 5px auto 0;
             vertical-align: top;
+            text-align: center;
         }
         .egret-header-search img {
             padding-left:5px;
             height: 20px;
-            margin-top: 7px;
+            margin-top: 10px;
         }
 
-        .egret-header-search input {
-            line-height: 24px;
+        .egret-header-search span {
+            height: 40px;
+            line-height: 40px;
             font-size: 14px;
-            padding-top: 5px;
-            color: #fff;
+            /*padding-top: 8px;*/
+            color: #ccc;
             vertical-align: top;
         }
 
@@ -83,10 +85,11 @@
   <body>
     <!-- 头部 -->
     <header id="header">
-        <div  class="egret-img"><img src="../image/KM_Hfh.png" alt="" onclick="goback()" ></div>
-        <div class="egret-header-search">
+        <div  class="egret-img"><img src="../image/icon_back.png" alt="" onclick="goback()" ></div>
+        <div class="egret-header-search" tapmode onclick="OpenSearch();">
           <img src="../image/header_search.png" alt="">
-          <input type="text" placeholder="请输入关键词搜索" >
+          <!-- <input type="text"  placeholder="请输入关键词搜索" > -->
+          <span >请输入关键词搜索</span>
       </div>
     </header>
     <nav id="nav">
@@ -98,14 +101,35 @@
     </nav>
   </body>
   <script type="text/javascript" src="../script/api.js"></script>
+  <script type="text/javascript" src="../script/index2.js"></script>
   <script type="text/javascript">
     function goback () {
       api.closeWin({name:'billBoard'});
     }
+    var ok;
     apiready = function(){
       var eHeader = $api.byId('header')
-      $api.fixStatusBar(eHeader);
-      fnOpenFrameGroup();
+      ok = api.pageParam.ok;
+            var oks = 'ok'+ok;
+      api.addEventListener({
+          name: oks
+      }, function(ret, err) {
+        if(ret.value.wangluo){
+
+          $api.fixStatusBar(eHeader);
+          fnOpenFrameGroup();
+        }
+      });
+
+      var connectionType = api.connectionType;
+      if(connectionType == "none"){
+      	netWorkNone(ok);
+      }else{
+
+        $api.fixStatusBar(eHeader);
+        fnOpenFrameGroup();
+      }
+
     };
     function fnSelectTab(index,ele){
         var tabs = $api.domAll('#tabs>.tab');

@@ -1,0 +1,260 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <title>孔孟之道--播放列表</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style>
+        html,
+        body {
+            height: 100%;
+            background-color: transparent;
+            overflow: hidden;
+        }
+
+        #mask {
+            height: 25%;
+        }
+
+        #radio-list {
+            -webkit-transition: all .3s;
+            transition: all .3s;
+            -webkit-transform: translateY(100%);
+            height: 75%;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-flex-flow: column;
+            flex-flow: column;
+            background-color: #eee;
+        }
+
+        #radio-list.in {
+            -webkit-transform: translateY(0%);
+        }
+
+        #radio-list h2 {
+            color: #272930;
+            font-size: 16px;
+            padding: 14px;
+            background-color: #eaeaea;
+        }
+
+        #radio-list ul {
+            background-color: #eee;
+            position: absolute;
+            width: 100%;
+        }
+
+        #radio-list .list {
+            position: relative;
+            overflow: auto;
+            /*-webkit-overflow-scrolling: touch;*/
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+        }
+
+        #radio-list li {
+            overflow: hidden;
+            padding: 10px 10px 0;
+            /*background: url(../image/ic_arrow_general.png) no-repeat 96% center;*/
+            -webkit-background-size: 18px;
+            background-size: 18px;
+        }
+
+        #radio-list li.focus {
+            background-color: #bebebe;
+        }
+
+        #radio-list li.focus p {
+            color: #e13430;
+        }
+
+        #radio-list li.active p {
+            background: url(../image/play/scheduleliving.png) no-repeat left center;
+            padding-left: 10px;
+            color: #e13430;
+            -webkit-background-size: 10px 13px;
+            background-size: 10px 13px;
+        }
+
+        #radio-list li p {
+            margin-bottom: 6px;
+        }
+
+        #radio-list li div {
+            font-size: 16px;
+            color: #272930;
+            border-bottom: 1px solid #ddd;
+        }
+
+        #radio-list li label {
+            margin-bottom: 10px;
+            font-size: 12px;
+            color: #787878;
+        }
+
+        #radio-list li .arr {
+            float: right;
+            width: 10%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="mask"></div>
+    <div id="radio-list">
+        <h2 id="gedanmingcheng">
+          <!-- 节目单 -->
+        </h2>
+        <div class="list">
+            <ul id="liebiao">
+                <!-- <li class="active" tapmode="focus" onclick="ccg12();">
+                    <div>
+                        <p id="name">
+                          【美食地图】天南地北一张饼
+                        </p>
+                        <label id="singername">
+                          时长: 24分10秒
+                        </label>
+                    </div>
+                </li> -->
+            </ul>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+    var historyUrlArray;
+    apiready = function() {
+        var list = $api.byId('radio-list');
+        $api.addCls(list, 'in');
+        var bodyW = document.getElementsByTagName("body")[0];
+        bodyW.onclick = function(evt) {
+            if (!list[0]) {
+                $api.removeCls(list, 'in');
+                setTimeout(function() {
+                    api.closeFrame();
+                }, 350);
+            }
+        }
+        fnGetBeiJingYinYueTypelist();
+    };
+    //接口  推荐听单
+
+    function fnGetBeiJingYinYueTypelist() {
+        api.getPrefs({
+            key: 'cgxlist'
+        }, function(ret, err) {
+            var historyUrlText = '' || ret.value;
+            historyUrlArray = historyUrlText.split(',');
+            var length = historyUrlArray.length - 1;
+            var stylelist = $api.byId('liebiao');
+            var html = '';
+            for (var i = 0; i < length / 4 + 1; i++) {
+                if (historyUrlArray[i].length == 0)
+                    continue;
+                var cgxid = historyUrlArray[i * 4 - 3];
+                var title = historyUrlArray[i * 4 - 2];
+                var name = historyUrlArray[i * 4 - 1];
+                var desc = historyUrlArray[i * 4];
+                if (historyUrlArray[i * 4 - 1]) {
+                    html += '<li class="active" tapmode="focus" onclick="fnPlayGeQu(' + i + ');"><div><p>' + historyUrlArray[i * 4 - 2] + '</p><label>作者:' + historyUrlArray[i * 4 - 1] + '</label></div></li>';
+                } else {
+                    html += '<li class="active" tapmode="focus" onclick="fnPlayGeQu(' + i + ');"><div><p>' + historyUrlArray[i * 4 - 2] + '</p><label>作者:未知</label></div></li>';
+                }
+                $api.html(stylelist, html);
+                fnGeDanMingCheng();
+            }
+        });
+    }
+
+    //接口  听单展示
+    function fnGeDanLieBiao(data_) {
+        var stylelist = $api.byId('liebiao');
+        var html = '';
+        for (var i = 0; i < data_.data.length; i++) {
+            if (data_.data[i].singerName) {
+                html += '<li class="active" tapmode="focus" onclick="fnPlayGeQu(' + data_.data[i].id + ');"><div><p>' + data_.data[i].name + '</p><label>作者:' + data_.data[i].singerName + '</label></div></li>';
+            } else {
+                html += '<li class="active" tapmode="focus" onclick="fnPlayGeQu(' + data_.data[i].id + ');"><div><p>' + data_.data[i].name + '</p><label>作者:未知</label></div></li>';
+            }
+        }
+        $api.html(stylelist, html);
+
+    }
+
+    function fnGeDanMingCheng(data_) {
+        var stylelist = $api.byId('gedanmingcheng');
+        var html = '草稿箱';
+        $api.html(stylelist, html);
+    }
+
+    function fnPlayGeQu(a) {
+        var bofang = 3;
+        if (a == api.pageParam.Dqbofangid) {
+            api.openWin({
+                name: 'caogaoplay',
+                url: './caogaoplay.html',
+                pageParam: {
+                    DangQianbofangid: a
+                }
+            });
+            return false;
+        } else {
+            api.openWin({
+                name: 'caogaoplay',
+                url: './caogaoplay.html',
+                pageParam: {
+                    a: a,
+                    bofang: bofang
+                }
+            });
+            api.sendEvent({
+                name: 'neizhiliebiaoPlay',
+                extra: {
+                    a: a,
+                    bofang: bofang
+                }
+            });
+            api.sendEvent({
+                name: 'neizhiliebiaoPlaysss',
+                extra: {
+                    a: a,
+                    bofang: bofang
+                }
+            });
+        }
+    }
+
+    // function fnSetGender(){
+    //   // var stylelist = $api.byId('play-list');
+    //   // // var buttons = buttons;
+    //   // var html = '';
+    //   //     html += '<li class="active" tapmode="focus"><div><p>【美食地图】天南地北一张饼</p><label>时长: 24分10秒</label></div></li>';
+    //   // var index = $api.html(stylelist, html);
+    //
+    //   var index = ['huih','dhuas','shdua','huih','dhuas','shdua','huih','dhuas','shdua','huih','dhuas','shdua','huih','dhuas','shdua']
+    // 		api.actionSheet({
+    // 				title: '节目单',
+    // 				cancelTitle: '取消',
+    // 				buttons: index
+    // 		}, function(ret, err){
+    // 				if( ret.buttonIndex >= index.length){
+    //           			setTimeout(function(){
+    //           				api.closeFrame();
+    //           			},350);
+    // 						return;
+    //
+    // 				}
+    // 				// var gender = ret.buttonIndex === 1?'男':'女';
+    // 				// fnUpdateUserInfo('gender',gender)
+    // 		});
+    //   }
+</script>
+
+</html>

@@ -6,41 +6,35 @@
     <title>孔孟之道--首页发现</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
     <style>
+        body{overflow: hidden;}
         .fl {
             float: left;
         }
-
         .fr {
             float: right;
         }
-
         .bg {
             width: 100%;
             height: 5px;
             background: #f2f2f2;
         }
-
         .p20px {
             padding: 0 20px;
         }
-
         .index_frame1 {
             overflow: hidden;
             height: 50px;
             line-height: 50px;
             border-bottom: 1px solid #e7e7e7;
         }
-
         .index_frame1 img {
-            float: left;
-            width: 20px;
-            padding: 15px 10px 15px 0;
+          float: left;
+          width: 30px;
+          padding: 10px 10px 10px 0;
         }
-
         .index_frame1_p {
             font-size: 14px;
         }
-
         .index_frame1_span {
             color: #ccc;
             font-size: 20px;
@@ -49,19 +43,19 @@
 </head>
 
 <body>
-    <div class="bg"></div>
-    <div class="index_frame1" onclick="dialogBox_alert2();">
-        <div class="p20px">
-            <img src="../image/KM_wd.png" alt="">
+    <!-- <div class="bg"></div> -->
+    <!-- <div class="index_frame1" onclick="dialogBox_alert2();"> -->
+        <!-- <div class="p20px">
+            <img src="../image/index_frame1/KM_wd.png" alt="">
             <div class="index_frame1_p fl"> 社群 </div>
             <div class="index_frame1_span fr"> > </div>
         </div>
-    </div>
+    </div> -->
     <div class="bg"></div>
     <div class="index_frame1" onclick="dialogBox_youxi();">
         <div class="p20px">
-            <img src="../image/KM_yx.png" alt="">
-            <div class="index_frame1_p fl"> 看图猜字 </div>
+            <img src="../image/index_frame1/KM_yx.png" alt="">
+            <div class="index_frame1_p fl"> 小学语文考试 </div>
             <div class="index_frame1_span fr"> > </div>
         </div>
     </div>
@@ -76,14 +70,14 @@
     <!-- <div class="bg"></div> -->
     <div class="index_frame1" onclick="dialogBox_alert2();">
         <div class="p20px">
-            <img src="../image/KM_hd.png" alt="">
+            <img src="../image/index_frame1/KM_hd.png" alt="">
             <div class="index_frame1_p fl"> 活动 </div>
             <div class="index_frame1_span fr"> > </div>
         </div>
     </div>
     <div class="index_frame1" onclick="fnMachineWin();">
         <div class="p20px">
-            <img src="../image/KM_sc.png" alt="">
+            <img src="../image/index_frame1/KM_sc.png" alt="">
             <div class="index_frame1_p fl"> 商城 </div>
             <div class="index_frame1_span fr"> > </div>
         </div>
@@ -96,30 +90,46 @@
             <div class="index_frame1_span fr"> > </div>
         </div>
     </div> -->
-    <div class="index_frame1" onclick="dialogBox_alert2();">
+    <!-- <div class="index_frame1" onclick="dialogBox_alert2();">
         <div class="p20px">
-            <img src="../image/KM_xgjx.png" alt="">
+            <img src="../image/index_frame1/KM_xgjx.png" alt="">
             <div class="index_frame1_p fl"> 小国精选 </div>
             <div class="index_frame1_span fr"> > </div>
         </div>
-    </div>
-    <div class="index_frame1" onclick="dialogBox_alert2();">
+    </div> -->
+    <!-- <div class="index_frame1" onclick="dialogBox_alert2();">
         <div class="p20px">
-            <img src="../image/KM_etxl.png" alt="">
+            <img src="../image/index_frame1/KM_etxl.png" alt="">
             <div class="index_frame1_p fl"> 儿童心理 </div>
             <div class="index_frame1_span fr"> > </div>
         </div>
-    </div>
+    </div> -->
 </body>
 
 </html>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript">
+var token;
+    apiready = function() {
+      token = $api.getStorage('token');
+      if(!token){
+        $api.rmStorage('token');
+        api.openWin({
+            name: 'login',
+            url: '../login.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
+      }
+    }
     function fnMachineWin() {
         api.openWin({
             name: 'machine',
             url: './machine.html',
             pageParam: {
-                name: 'test'
+                ok: 'machine'
             }
         });
 
@@ -155,6 +165,7 @@
             },
             tapClose: true
         }, function(ret) {
+          // alert(JSON.stringify(ret))
             if (ret.eventType == 'left') {
                 dialogBox.close({
                     dialogName: 'alert'
@@ -167,7 +178,7 @@
           name: 'dialogBox_youxi',
           url: './dialogBox_youxi.html',
           pageParam: {
-              name: 'test'
+              ok: 'dialogBox_youxi'
           }
       });
 

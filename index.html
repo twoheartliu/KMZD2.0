@@ -44,6 +44,8 @@
         header {
             background-color: #89211b;
             padding-top: 10px;
+            position: relative;
+            z-index: 1;
         }
 
         header ul li {
@@ -66,6 +68,7 @@
             -webkit-box-orient: horizontal;
             text-align: center;
             line-height: 50px;
+            clear: both;
         }
 
         .egret-header-box {
@@ -83,12 +86,26 @@
         }
 
         .egret-img-x img {
-            width: 25px;
+            width: 30px;
             vertical-align: middle;
         }
 
         .egret-img-a img {
-            width: 25px;
+            width: 30px;
+            display: block;
+            /*margin-top: 7.5px;*/
+        }
+
+        .left_img {
+            position: absolute;
+            left: 0;
+            bottom: 12.5px;
+        }
+
+        .right_img {
+            position: absolute;
+            right: 0;
+            bottom: 12.5px;
         }
 
         .egret-img-s {
@@ -121,11 +138,11 @@
         }
 
         .egret-header-search span {
-            line-height: 24px;
+            height: 40px;
+            line-height: 40px;
             width: 150px;
             font-size: 14px;
-            padding-top: 8px;
-            color: #fff;
+            color: #ccc;
             vertical-align: top;
         }
 
@@ -168,44 +185,113 @@
         }
 
         #footer ul li:nth-child(1) {
-            background-image: url(./image/footer_sy.png);
+            background-image: url(./image/index/footer_sy.png);
         }
 
         #footer ul li:nth-child(2) {
-            background-image: url(./image/footer_fx.png);
+            background-image: url(./image/index/footer_fx.png);
         }
 
         #footer ul li:nth-child(3) {}
 
         #footer ul li:nth-child(4) {
-            background-image: url(./image/footer_gy.png);
+            background-image: url(./image/index/footer_gy.png);
         }
 
         #footer ul li:nth-child(5) {
-            background-image: url(./image/footer_wd.png);
+            background-image: url(./image/index/footer_wd.png);
         }
 
         #footer ul li:nth-child(1).active {
-            background-image: url(./image/footer_sys.png);
+            background-image: url(./image/index/footer_sys.png);
         }
 
         #footer ul li:nth-child(2).active {
-            background-image: url(./image/footer_fxs.png);
+            background-image: url(./image/index/footer_fxs.png);
         }
 
         #footer ul li:nth-child(3).active {}
 
         #footer ul li:nth-child(4).active {
-            background-image: url(./image/footer_gys.png);
+            background-image: url(./image/index/footer_gys.png);
         }
 
         #footer ul li:nth-child(5).active {
-            background-image: url(./image/footer_wds.png);
+            background-image: url(./image/index/footer_wds.png);
         }
 
         .flex-con {
             /*overflow: auto*/
             overflow: hidden;
+        }
+
+        .header_center {
+            margin: 0 auto;
+            width: 100%;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            font-size: 20px;
+            /*color: #000;*/
+        }
+
+        .header_fr {
+            width: 30px;
+            height: 30px;
+            padding: 10px 20px 10px 10px;
+            line-height: 30px;
+            font-size: 15px;
+            color: #fff;
+            position: absolute;
+            right: 5px;
+            bottom: -0px;
+            /*display: inline-block;*/
+            /*display: none;*/
+        }
+
+        .header_fr img {
+            width: 100%;
+        }
+
+        .clear {
+            clear: both;
+        }
+
+        .topbars {
+            position: relative;
+            height: 50px;
+            line-height: 50px;
+        }
+
+        .egret-img-a-my span {
+            text-align: right;
+            width: 100%;
+            display: block;
+            position: absolute;
+            right: 30px;
+            line-height: 50px;
+            font-size: 12px;
+            color: #ccc;
+        }
+
+        .num {
+            position: absolute;
+            top: 5px;
+            left: 18px;
+            width: 14px;
+            height: 14px;
+            line-height: 14px;
+        }
+
+        .num p {
+            width: 14px;
+            height: 14px;
+            border-radius: 7px;
+            background-color: #f00;
+            border: 1px solid #fff;
+            text-align: center;
+            font-size: 12px;
+            color: #fff;
         }
     </style>
 </head>
@@ -217,41 +303,56 @@
                 <li class="active">
                     <div class="activebar_p20px">
                         <div class="topbar normalHeader">
-                            <div class="egret-header-box egret-img-a egret-div " tapmode onclick="openMessage()"><img src="./image/KM_xiaoxi.png" alt=""></div>
+                            <div class="egret-header-box egret-img-a egret-div " tapmode onclick="openMessage()">
+                                <img class="left_img" src="./image/index/KM_xiaoxi.png" alt="">
+                                <div class="num" id="num">
+
+                                </div>
+                            </div>
                             <div class="egret-header-box egret-div">
                                 <div class="egret-header-search">
                                     <img src="./image/header_search.png" alt="">
                                     <span tapmode onclick="OpenSearch();">请输入关键词搜索</span>
-                                    <img src="./image/video_header.png" alt="">
                                 </div>
                             </div>
-                            <div class="egret-header-box egret-img-a egret-div" tapmode onclick="fnDenglu()"><img src="./image/qiandao.png" alt=""></div>
+                            <div class="egret-header-box egret-img-a egret-div" tapmode onclick="fnDenglu();"><img class="right_img" src="./image/index/KM_qiandao.png" alt=""></div>
                         </div>
                     </div>
-
                 </li>
                 <li class="">
                     <div class="activebar_p20px">
                         <div class="topbar normalHeader">
-                            <div class="egret-header-box egret-img-x egret-div " tapmode onclick="openMessage()"><img src="./image/KM_xiaoxi.png" alt=""></div>
+                            <div class="egret-header-box egret-img-x egret-div " tapmode onclick="openMessage()"></div>
                             <div class="egret-header-box egret-div faxian">
                                 发现
                             </div>
-                            <div class="egret-header-box egret-img-s egret-div" tapmode onclick="OpenSearch();"><img src="./image/ss.png" alt=""></div>
+                            <div class="egret-header-box egret-img-s egret-div" tapmode></div>
                         </div>
                     </div>
                 </li>
                 <li class="">开发</li>
                 <li class="">
-                    <div class="friend-tit">
-                        国友
+                    <div class="friend-tit egret-header-box egret-div">
+                        朗诵
+                        <div class="header_fr" onclick="fnAlert();" id="Bullet">
+                            <img src="./image/index/246274041330857389.png" alt="">
+                        </div>
                     </div>
                 </li>
                 <li class="">
                     <div class="activebar_p20px">
-                        <div class="topbar normalHeader"></div>
+                        <div class="topbars normalHeader">
+
+                            <div class="egret-img-a egret-img-a-my" tapmode onclick="fnDenglu();"><img class="right_img" src="./image/index/KM_qiandao.png" alt="">
+                                <span id="lianxuqiandao">
+                              <!-- 暂无签到 -->
+                            </span>
+                            </div>
+
+                        </div>
                     </div>
                 </li>
+
             </ul>
         </header>
         <div id="main" class="flex-con">
@@ -262,7 +363,7 @@
                 <li tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con  active">首页</li>
                 <li tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con ">发现</li>
                 <li tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con"></li>
-                <li tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con ">国友</li>
+                <li tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con ">朗诵</li>
                 <li tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con ">我的</li>
             </ul>
         </div>
@@ -278,54 +379,120 @@
 
 </html>
 <script type="text/javascript" src="script/api.js"></script>
+<script type="text/javascript" src="script/common.js"></script>
+<script type="text/javascript" src="script/message1.js"></script>
+<script type="text/javascript" src="script/indexCommon.js"></script>
+<script type="text/javascript" src="script/indexDanQuCommon.js"></script>
+<script type="text/javascript" src="script/indexXunTingCommon.js"></script>
+<script type="text/javascript" src="script/indexCaoGaoCommon.js"></script>
 <script type="text/javascript" src="script/index.js"></script>
 <script type="text/javascript">
-    var play;
-    var timer3;
-    var timer2;
-    var timer1;
-    var historyUrlArray;
-    var y;
-    var DangQianbofangid;
-    var Data;
-    //var playgedan;
-    var shunxuplay;
-    var danquplay;
-    var suijiplay;
-    var bofangmoshiid;
-    var playTime;
+ var token; var a; var playUrli; var playgedan; var play; var timer2; var timer1; var historyUrlArray; var y; var rets; var shunxuplays; var danquplays; var suijiplays; var bofangmoshiid; var playTime; var a; var bofang; var playlistid; var dataArray
+= new Array(); var caogaoId; var caogaoTitle; var caogaoName; var caogaoBody; var author_id; var DangQianbofangid; var titlename; var desc; var singerName; var reciter; var comment_total; var is_collection; var caogaoAuthor_id; var bookId; var danQu;
+var minuteFollow;
     apiready = function() {
-        var secHeader = $api.byId('secHeader');
-        $api.fixStatusBar(secHeader);
-        var footer = $api.byId('footer');
-        var headerH = $api.offset(secHeader).h;
-        var footerH = $api.offset(footer).h;
-        funIniGroup();
-        fnOpenCenterFrame();
-        api.parseTapmode();
-        initEventListenner();
-        adjust();
-    }
+      // $api.clearStorage();
+            token = $api.getStorage('token');
+            var user_id = $api.getStorage('user_id');
+            var nick_name = $api.getStorage('nick_name');
+            var photo = $api.getStorage('photo');
+            console.log(token);
+            console.log(user_id);
+            console.log(nick_name);
+            console.log(photo);
+            // api.removePrefs({
+            //     key: 'cgxlist'
+            // });
+            var secHeader = $api.byId('secHeader');
+            $api.fixStatusBar(secHeader);
+            var headeris = document.querySelector('#secHeader');
+            $api.fixIos7Bar(headeris);
+            $api.fixStatusBar(headeris);
+            var footer = $api.byId('footer');
+            var headerH = $api.offset(secHeader).h;
+            var footerH = $api.offset(footer).h;
+            fnOpenCenterFrame();
+            api.parseTapmode();
+            initEventListenner();
+            initEventListennerBofang();
+            initEventListennerBoFangMoshi();
+            initEventListennerBofangDanQu();
+            initEventListennerBoFangMoshiDanQu();
+            initEventListennerShouCangXunTing();
+            initEventListennerBofangXunTing();
+            initEventListennerBoFangCaoGaoXiangMoshi();
+            initEventListennerBofangCaoGaoXiang();
+            //
+            adjust();
+            funIniGroup();
 
+            // var dqian = $api.getStorage('qiandaoshu');
+            // if(dqian){
+            //   var stylelist = $api.byId('lianxuqiandao');
+            //   var html ='已连续签到 '+ dqian +' 天';
+            //   $api.html(stylelist, html);
+            // }
+            fuLianXuQianDao();
+
+            // api.addEventListener({
+            //     name: 'personalPrivateFrameIndex'
+            // }, function(ret, err) {
+            //   console.log(111);
+            //   fnNum();
+            // });
+            //
+            // api.addEventListener({
+            //     name: 'personalPrivateFrameIndex2'
+            // }, function(ret, err) {
+            //   console.log(222);
+            //   fnNum();
+            // });
+
+            api.addEventListener({
+                name: 'personalPrivateFrame'
+            }, function(ret, err) {
+              fnNum();
+
+            });
+
+        }
+        // 底部导航播放按钮；
     function fnOpenCenterFrame() {
-        api.openFrame({
-            name: 'centerFrame',
-            url: './html/center_frame.html',
-            rect: {
-                x: (api.frameWidth - 70) / 2,
-                y: api.frameHeight - 70,
-                w: 70,
-                h: 70
-            },
-            pageParam: {
-                name: 'test'
-            },
-            bounces: false,
-            bgColor: 'rgba(0,0,0,0)',
-            vScrollBarEnabled: false,
-            hScrollBarEnabled: false
-        });
-
+        if (a) {
+            api.openFrame({
+                name: 'centerFrame',
+                url: './html/center_frame.html',
+                rect: {
+                    x: (api.frameWidth - 45) / 2,
+                    y: api.frameHeight - 50,
+                    w: 45,
+                    h: 50
+                },
+                customRefreshHeader: 'UIPullRefreshFlash',
+                bounces: true,
+                bgColor: 'rgba(0,0,0,0)',
+                vScrollBarEnabled: false,
+                hScrollBarEnabled: false
+            });
+        } else {
+            api.openFrame({
+                name: 'centerFrame',
+                url: './html/center_frame.html',
+                rect: {
+                    x: (api.frameWidth - 45) / 2,
+                    y: api.frameHeight - 50,
+                    w: 45,
+                    h: 50
+                },
+                pageParam: {
+                    name: 'test'
+                },
+                bounces: false,
+                bgColor: 'rgba(0,0,0,0)',
+                vScrollBarEnabled: false,
+                hScrollBarEnabled: false
+            });
+        }
     }
     //打开消息页面
     function openMessage() {
@@ -348,6 +515,7 @@
             url: './html/read.html',
         });
     }
+
     // 熏听页面
     function fnListenWin() {
         api.openWin({
@@ -369,7 +537,8 @@
                     name: 'test',
                     qqziliao: qqziliao
                 },
-                bounces: false
+                bounces: false,
+                historyGestureEnabled:false,
             })
         }
 
@@ -395,6 +564,17 @@
             eHeaderLis = $api.domAll('header li'),
             index = 0;
         for (var i = 0, len = eFootLis.length; i < len; i++) {
+            if (i == 0) {
+                fnNum();
+            }
+            if (i == 4) {
+              api.sendEvent({
+                  name: 'indexFrame4',
+                  extra: {
+                      indexFrame4: 'indexFrame4'
+                  }
+              });
+            }
             if (tag == eFootLis[i]) {
                 index = i;
             } else {
@@ -409,498 +589,69 @@
             index: index
         });
     }
-    var isFirst = true;
 
+    //签到
     function fnDenglu() {
-        if (isFirst) {
-            var dialogBox = api.require('dialogBox');
-            dialogBox.alert({
-                texts: {
-                    content: '签到成功！',
-                    leftBtnTitle: '确定'
-                        // rightBtnTitle: '去开提醒'
-                },
-                styles: {
-                    bg: '#fff',
-                    corner: 6,
-                    w: 300,
-                    content: {
-                        color: '#000',
-                        size: 18
-                    },
-                    left: {
-                        marginB: 15,
-                        marginL: 30,
-                        marginR: 30,
-                        w: 240,
-                        h: 40,
-                        corner: 20,
-                        color: "#fff",
-                        bg: '#CDCDCD',
-                        size: 16
-                    }
-                },
-                tapClose: true
-            }, function(ret) {
-                if (ret.eventType == 'left') {
-                    dialogBox.close({
-                        dialogName: 'alert'
-                    });
-                }
-            });
-        }
-        isFirst = false;
-    }
-
-    //获取当前歌曲的歌长
-    function jindutiao() {
-        var myAudio = document.getElementById("myAudio");
-        timer1 = setInterval(function() {
-            lenth = myAudio.duration;
-            cur = myAudio.currentTime; //获取当前的播放时间
-            api.sendEvent({
-                name: 'zongJinDu',
-                extra: {
-                    cur: cur,
-                    lenth: lenth,
-                }
-            });
-            //fillbar.style.width=""+parseFloat(cur/lenth)*300+"px";
-        }, 1000)
-    }
-    //播放音频信息
-    function fnBoFangSouSuoyinpinxinxi() {
-        var id = historyUrlArray[play];
+      var  uri = '/user/sign';
         api.ajax({
-            url: 'http://47.100.11.38/kongmeng/thirdParty/search_songs_by_id.php?id= ' + id,
+            url: host + apiUri + uri,
+            method: 'post',
+            dataType: 'json',
+            timeout:10,
+            headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token,
+            },
+        }, function(ret, err) {
+          if(ret){
+            if (ret.status == 200) {
+                api.toast({
+                    msg: '签到成功',
+                    duration: 2000,
+                    location: 'middle'
+                });
+                var stylelist = $api.byId('lianxuqiandao');
+                var html ='已连续签到 '+ ret.data.sign_count +' 天';
+                $api.html(stylelist, html);
+            } else {
+                netMessage(ret);
+            }
+          }else{
+            netWork(err);
+
+            }
+        });
+    }
+    function fuLianXuQianDao(){
+      var  uri = '/user';
+        api.ajax({
+            url: host + apiUri + uri,
             method: 'get',
             dataType: 'json',
+            timeout:10,
+            headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token,
+            },
         }, function(ret, err) {
-            if (ret) {
-                fnFuZhiAudio(ret.data[0].url);
-                //netUrl(ret.data[0].id);
-                // fnTitlexianshi(ret.data[0].name);
-                // fnGeCixianshi(ret.data[0].desc);
-                // fnZongShiChang(ret.data[0].zongSC);
-                var singerName = ret.data[0].singerName;
-                //AddHistoryTitle(title, singerName);
-
+          if(ret){
+            if (ret.status == 200) {
+                var stylelist = $api.byId('lianxuqiandao');
+                var html ='已连续签到 '+ ret.data.sign_count +' 天';
+                $api.html(stylelist, html);
             } else {
-                alert(JSON.stringify(err));
+                netMessage(ret);
             }
-        });
-    }
-    //播放歌单音频
-    function fnBoFangyinpinxinxi() {
-      var playgedan = Data.data[play].id;
-      //console.log(playgedan);
-        api.ajax({
-            url: 'http://47.100.11.38/kongmeng/thirdParty/search_songs_by_id.php?id= ' + playgedan,
-            method: 'get',
-            dataType: 'json',
-        }, function(ret, err) {
-            if (ret) {
-                fnFuZhiAudio(ret.data[0].url);
-                //netUrl(ret.data[0].id);
-                timer3 = setInterval(function() {
-                  api.sendEvent({
-                      name: 'jibenxinxi',
-                      extra: {
-                          titlename: ret.data[0].name,
-                          desc: ret.data[0].desc,
-                          play_time: ret.data[0].play_time,
-                          singerName: ret.data[0].singerName
-                      }
-                  });
-                }, 1000)
-                var singerName = ret.data[0].singerName;
-            } else {
-                alert(JSON.stringify(err));
-            }
-        });
-    }
-    //开始播放
-    function kaishibofang(){
-      netAudios();
-      addtime();
-      jindutiao();
-    }
-    //音频播放模块
-    function netAudios() {
-        clearInterval(timer3);
-        clearInterval(timer2);
-        clearInterval(timer1);
-        var myAudio = document.getElementById("myAudio");
-        myAudio.play();
-        initEventListennerBoFangMoshi();
-        fnBoFangmoshiid();
-    }
-    //播放时间
-    function addtime() {
-        var myAudio = document.getElementById("myAudio");
-        timer2 = setInterval(function() {
-            cur = parseInt(myAudio.currentTime);
-            temp = cur;
-            minute = parseInt(temp / 60);
-            if (cur % 60 < 10) {
-                var html = "" + minute + ":0" + cur % 60 + "";
-                //console.log(html);
-                api.sendEvent({
-                    name: 'bofangshijian',
-                    extra: {
-                        bofangshijian: html
-                    }
-                });
-            } else {
-                var html = "" + minute + ":" + cur % 60 + "";
-                //console.log(html);
-                api.sendEvent({
-                    name: 'bofangshijian',
-                    extra: {
-                        bofangshijian: html
-                    }
-                });
-            }
-        }, 1000);
-
-    }
-    //关闭音频
-    function netAudiopause() {
-        var myAudio = document.getElementById("myAudio");
-        myAudio.pause();
-    }
-    //添加搜索历史id
-    function netUrl(id) {
-        api.getPrefs({
-            key: 'sousuohistoryurl'
-        }, function(ret, err) {
-            if (ret) {
-                var flag = false; //是否增加历史记录
-                var historyUrlText = ret.value;
-                var historyUrlArray = historyUrlText.split(',');
-                for (var i = 0; i < historyUrlArray.length; i++) {
-                    historyUrlArray[i] == id && (flag = true);
-                }!flag && historyUrlArray.splice(1, 0, id);
-                !flag && api.setPrefs({
-                    key: 'sousuohistoryurl',
-                    value: historyUrlArray.join(',')
-                });
-                fnHistoryUrl(id);
-            } else {
-                alert(JSON.stringify(err));
-            }
-        });
-    }
-    //循环搜索历史id
-    function fnHistoryUrl(id) {
-        var yinpin = $api.byId('yinpin');
-        api.getPrefs({
-            key: 'sousuohistoryurl'
-        }, function(ret, err) {
-            var historyUrlText = '' || ret.value;
-            historyUrlArray = historyUrlText.split(',');
-            for (var i = 0; i < historyUrlArray.length; i++) {
-                if (historyUrlArray[i].length == 0)
-                    continue;
-                var id1 = historyUrlArray[i];
-                var id2 = id;
-                var w = i;
-                if (id1 == id2) {
-                    fnAudio(i);
-                }
-            }
-        });
-    }
-    //audio标签赋值
-    function fnFuZhiAudio(url) {
-        var stylelist = $api.byId('yinpin');
-        var html = '<audio id="myAudio" ><source src="' + url + '" type="audio/mpeg"></audio>';
-        $api.html(stylelist, html);
-        if (html) {
-            //console.log(html);
-            kaishibofang();
-        }
-    }
-
-    function fnAudio(i) {
-        play = i;
-        fnBoFangSouSuoyinpinxinxi();
-    }
-    //上一首
-    function fnShangYi() {
-        var myAudio = document.getElementById("myAudio");
-        myAudio.currentTime = 0;
-        netAudiopause();
-        clearInterval(timer2);
-        play = play - 1;
-        if (play == 0) {
-            play = historyUrlArray.length - 1;
-        }
-        fnBoFangSouSuoyinpinxinxi();
-    }
-    //下一首
-    function fnxiaYi() {
-        var myAudio = document.getElementById("myAudio");
-        myAudio.currentTime = 0;
-        clearInterval(timer2);
-        netAudiopause();
-        play = play + 1;
-        if (play > historyUrlArray.length - 1) {
-            play = 1;
-        }
-        fnBoFangSouSuoyinpinxinxi();
-    }
-    //歌单上一首
-    function fnGeDanShangYi() {
-        var myAudio = document.getElementById("myAudio");
-        myAudio.currentTime = 0;
-        netAudiopause();
-        clearInterval(timer3);
-        clearInterval(timer2);
-        clearInterval(timer1);
-        play--;
-        if (play < 0) {
-            play = Data.data.length-1;
-        }
-        fnBoFangyinpinxinxi(play);
-    }
-    //歌单下一首
-    function fnGeDanxiaYi() {
-        var myAudio = document.getElementById("myAudio");
-        myAudio.currentTime = 0;
-        netAudiopause();
-        clearInterval(timer3);
-        clearInterval(timer2);
-        clearInterval(timer1);
-
-        play++;
-        if (play > Data.data.length-1) {
-            play = 0;
-        }
-        fnBoFangyinpinxinxi();
-    }
-    //获取歌单歌曲id
-    function netPlayLieIdUrl(playlistid) {
-        api.ajax({
-            url: 'http://47.100.11.38/kongmeng/thirdParty/get_songs_by_playlist.php?playlistid= ' + playlistid,
-            // url: 'http://47.100.11.38/kongmeng/thirdParty/get_songs_by_playlist.php?page=0&size=10&playlistid= ' + playlistid,
-            method: 'get',
-        }, function(ret, err) {
-            if (ret) {
-                fnTingdanZhanshi(ret);
-            } else {
-                alert(JSON.stringify(err));
-            }
-        });
-    }
-
-    function fnBFid(id) {
-        DangQianbofangid = id;
-    }
-
-    function fnDQBF(y){
-      play = y;
-      fnBoFangyinpinxinxi();
-    }
-    function fnTingdanZhanshi(data_) {
-        Data = data_;
-        for (y = 0; y < Data.data.length; y++) {
-            var id1 = Data.data[y].id;
-            var id2 = DangQianbofangid;
-            if (id1 == id2) {
-              clearInterval(timer3);
-              clearInterval(timer2);
-              clearInterval(timer1);
-              fnDQBF(y);
-            }
-        }
-    }
-    //随机播放歌曲
-    function suiji(){
-      var myAudio = document.getElementById("myAudio");
-    	clearInterval(shunxuplay);
-      var n = Math.ceil(Math.random()*Data.data.length);
-    	suijiplay=setInterval(function(){
-    		if(myAudio.ended){
-           clearInterval(timer2);
-           //console.log(n);
-           if(n == Data.data.length){
-             n == Data.data.length-1;
-             fnSuiJiBoFangMoShiGeQuid(n);
-           }else {
-             fnBoFangMoShiGeQuid(n);
-           }
-
-    		}
-    	},1000);
-    }
-    //顺序播放
-    function shunxu(){
-      var myAudio = document.getElementById("myAudio");
-    	clearInterval(danquplay);
-    	shunxuplay=setInterval(function(){
-    		if(myAudio.ended){
-    			fnGeDanxiaYi();
-    		}
-    	},1000);
-
-    }
-    //单曲播放
-    function bfdanqu(){
-      var myAudio = document.getElementById("myAudio");
-    	clearInterval(suijiplay);
-    	danquplay=setInterval(function(){
-    		if(myAudio.ended){
-          fndanqubofangmoshi();
-
-    		}
-    	},1000);
-    }
-    //随机播放歌曲跟新
-    function fnSuiJiBoFangMoShiGeQuid(n) {
-      play = n;
-      var myAudio = document.getElementById("myAudio");
-      myAudio.currentTime = 0;
-      netAudiopause();
-      clearInterval(timer3);
-      clearInterval(timer2);
-      clearInterval(timer1);
-      fnBoFangyinpinxinxi();
-    }
-    //单曲循环播放更新
-    function fndanqubofangmoshi(){
-      var myAudio = document.getElementById("myAudio");
-      myAudio.currentTime = 0;
-      netAudiopause();
-      clearInterval(timer3);
-      clearInterval(timer2);
-      clearInterval(timer1);
-      fnBoFangyinpinxinxi();
-    }
-    function fnBFMoshi(MoShiId){
-      bofangmoshiid = MoShiId;
-      fnBoFangmoshiid();
-    }
-    //判断播放模式
-    function fnBoFangmoshiid(){
-      if(!bofangmoshiid){
-        shunxu();
-      }else{
-        if(bofangmoshiid == '0'){
-          shunxu();
-        }else if (bofangmoshiid == '1'){
-          suiji();
-        }else{
-          bfdanqu();
-        }
-      }
-    }
-
-    //调整播放进度
-    function adjust(){
-      api.addEventListener({
-          name: 'playTime'
-      }, function(ret, err) {
-          if (ret) {
-            var myAudio = document.getElementById("myAudio");
-            playTime = ret.value.playTime;
-            myAudio.currentTime = playTime ;
+          }else{
+            netWork(err);
           }
-      });
-
-    }
-    //监听播放模式
-    function initEventListennerBoFangMoshi() {
-      //监听播放模式
-      api.addEventListener({
-          name: 'bofangmoshi'
-      }, function(ret, err) {
-          if (ret) {
-              fnBFMoshi(ret.value.bofangmoshi);
-          }
-      });
+        });
     }
 
     // 初始化事件监听
     function initEventListenner() {
-        api.addEventListener({
-            name: 'netPlayUrl'
-        }, function(ret, err) {
-            if (ret) {
-                fnBFid(ret.value.id);
-            }
-        });
-        //监听url
-        api.addEventListener({
-            name: 'netUrl'
-        }, function(ret, err) {
-            if (ret) {
-                // api.removePrefs({
-                //     key: 'sousuohistoryurl'
-                // });
-                netUrl(ret.value.id);
-            }
-        });
-        api.addEventListener({
-            name: 'netPlayLieIdUrl'
-        }, function(ret, err) {
-            if (ret) {
-                // api.removePrefs({
-                //     key: 'sousuohistoryurl'
-                // });
-                netPlayLieIdUrl(ret.value.playlistid);
-            }
-        });
-        //监听再次播放
-        api.addEventListener({
-            name: 'zaicibf'
-        }, function(ret, err) {
-            if (ret) {
-                netAudios();
-                addtime();
-                jindutiao();
-            }
-        });
-        //监听关闭音频
-        api.addEventListener({
-            name: 'netAudiopause'
-        }, function(ret, err) {
-            if (ret) {
-                netAudiopause();
-            }
-        });
-        //上一首
-        api.addEventListener({
-            name: 'bofangshangyi'
-        }, function(ret, err) {
-            if (ret) {
-                fnShangYi();
-            }
-        });
-        //下一首
-        api.addEventListener({
-            name: 'bofangxiayi'
-        }, function(ret, err) {
-            if (ret) {
-                fnGeDanxiaYi();
-            }
-        });
-        //上一首
-        api.addEventListener({
-            name: 'GeDanshangyi'
-        }, function(ret, err) {
-            if (ret) {
-                fnGeDanShangYi();
-            }
-        });
-        //下一首
-        api.addEventListener({
-            name: 'GeDanxiayi'
-        }, function(ret, err) {
-            if (ret) {
-                fnGeDanxiaYi();
-            }
-        });
         // 拦截Android的返回键，在首页点击返回键，提示退出应用
         api.addEventListener({
             name: 'keyback'
@@ -918,5 +669,94 @@
                 }
             });
         });
+    }
+
+    function fnAlert() {
+        api.actionSheet({
+            // title: '底部弹出框测试',
+            cancelTitle: "",
+            // destructiveTitle: '红色警告按钮',
+            // buttons: ['我的作品','我的草稿', '取消']
+            buttons: ['我的作品', '我的草稿']
+        }, function(ret, err) {
+            // alert(JSON.stringify(ret));
+            var index = ret.buttonIndex;
+            if (index == 1) {
+                // alert(1);
+                api.openWin({
+                    name: 'personal',
+                    url: './html/personal.html',
+                    pageParam: {
+                        name: 'test'
+                    }
+                });
+                return;
+            } else if (index == 2) {
+                api.openWin({
+                    name: 'cgxwin',
+                    url: './html/cgxwin.html',
+                    pageParam: {
+                        name: 'test'
+                    }
+                });
+            } else {
+                // alert(3);
+                return;
+            }
+            // alert(JSON.stringify(index));
+
+        });
+    }
+
+    function OpenSearch() {
+        api.openWin({
+            name: 'searchs_pre',
+            url: './html/searchs_pre.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
+
+    }
+    // 未读消息数
+    function fnNum() {
+      api.ajax({
+          url: host + apiUri + '/message/unread_message_nums',
+          method: 'get',
+          dataType: 'json',
+          timeout:10,
+          headers: {
+              "source": api.systemType,
+              "version": version,
+              "session": token,
+          }
+      },function(ret, err){
+          if (ret) {
+              // console.log(JSON.stringify(ret));
+              if (ret.status = 200) {
+                var message = ret.data.message;
+                var comment = ret.data.comment;
+                var notify = ret.data.notify;
+                var total = message + comment + notify;
+                // console.log(total);
+                var num = $api.byId('num');
+                if (total == 0) {
+                  var htmlnum = ''
+                  $api.html(num, htmlnum);
+                }else {
+                  var htmlnum = '<p>'+total+'</p>'
+                  $api.html(num, htmlnum);
+                }
+
+
+
+              }else {
+                netMessage(ret);
+              }
+          } else {
+            netWork(err);
+          }
+      });
+
     }
 </script>

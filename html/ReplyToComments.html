@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>孔孟之道--底部评论回复</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style>
+      footer{width: 100%;height: 50px;background: #fff;border-top: 1px solid #ccc;}
+      .footer_img{width: 50px;height: 50px;float: right;line-height: 50px; color: #ccc;}
+      .footer_name{width: 100%;height: 50px;line-height: 50px;margin-left: 10px;color: #ccc;}
+      .footer_play{width: 50px;height: 50px;line-height: 50px;margin-right: 20px;float: right;}
+      .footer_play img{width: 35px;padding: 7.5px;}
+      .face {
+         width: 40px;
+         height: 40px;
+         float: right;
+         line-height: 40px;
+         margin-right: 5px;
+         margin-top: 6px;
+      }
+    </style>
+</head>
+
+<body onclick="">
+    <footer>
+      <div class="footer_img" onclick="ReplyToCommentsDiscuss_detail()"></div>
+      <div class="footer_name"  onclick="ReplyToCommentsDiscuss_detail()" id="discuss_detail">发表评论</div>
+
+      <!-- <div class="footer_play"><img id="playCollect" onclick="fnOpenPlayCollect();"src="../image/footer_bf0.png" alt=""></div> -->
+    </footer>
+</body>
+
+</html>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+    var albumId;
+    var uris;
+    var name;
+    var ok;
+    apiready = function() {
+      albumId = api.pageParam.albumId;
+      name = api.pageParam.name;
+      uris = api.pageParam.uris;
+      if(name){
+        if(name != 'undefined'){
+          var stylelist = $api.byId('discuss_detail');
+          var html = '评论'+name;
+          $api.html(stylelist, html);
+        }
+      }
+
+    }
+    function ReplyToCommentsDiscuss_detail() {
+      api.openWin({
+          name: 'ReplyToCommentsDiscussDetail',
+          url: './ReplyToCommentsDiscuss_detail.html',
+          pageParam: {
+              albumId: albumId,
+              uris: uris,
+              name: name,
+              ok:'ReplyToCommentsDiscuss_detail'
+          },
+          reload : true
+      });
+
+    }
+</script>

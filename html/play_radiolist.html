@@ -15,14 +15,14 @@
         }
 
         #mask {
-            height: 25%;
+            height: 40%;
         }
 
         #radio-list {
             -webkit-transition: all .3s;
             transition: all .3s;
             -webkit-transform: translateY(100%);
-            height: 75%;
+            height: 60%;
             display: -webkit-box;
             display: -webkit-flex;
             display: flex;
@@ -75,7 +75,7 @@
         }
 
         #radio-list li.active p {
-            background: url(../image/scheduleliving.png) no-repeat left center;
+            background: url(../image/play/scheduleliving.png) no-repeat left center;
             padding-left: 10px;
             color: #e13430;
             -webkit-background-size: 10px 13px;
@@ -128,12 +128,14 @@
     </div>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/message.js"></script>;
 <script type="text/javascript">
-var playlistid;
-
+    var playlistid;
+    var tingdanliebiaobiaoti;
+    var token;
+    var playUrli;
     apiready = function() {
-        // fnSetGender();
-        playlistid = api.pageParam.tuijiantingdanid;
         var list = $api.byId('radio-list');
         $api.addCls(list, 'in');
         var bodyW = document.getElementsByTagName("body")[0];
@@ -144,86 +146,243 @@ var playlistid;
                     api.closeFrame();
                 }, 350);
             }
+            // else{
+            //   setTimeout(function() {
+            //       api.closeFrame();
+            //   }, 350);
+            // }
         }
-        fnTingdanTuijian()
+        token = $api.getStorage('token');
+          playlistid = api.pageParam.playlistid;
+          playUrli = api.pageParam.playUrli;
+        fnGeDanMingCheng();
+        fnTingdanTuijian();
     };
     //接口  推荐听单
-    var tingdanliebiaobiaoti;
     function fnTingdanTuijian() {
-      playlistid = api.pageParam.playlistid;
-      //console.log(playlistid);
-        api.ajax({
-            url: 'http://47.100.11.38/kongmeng/thirdParty/get_songs_by_playlist.php?page=0&size=10&playlistid= ' + playlistid,
+        playlistid = api.pageParam.playlistid;
+        playUrli = api.pageParam.playUrli;
+        if(playUrli == '/album/song_list/'){
+          api.ajax({
+            url: host + apiUri + playUrli + playlistid,
             method: 'get',
-        }, function(ret, err) {
-            if (ret) {
-              //alert(JSON.stringify(ret));
-              gedanmingcheng=ret.data[0].albumName;
-              fnGeDanMingCheng(gedanmingcheng);
-              fnGeDanLieBiao(ret);
-            } else {
-                alert(JSON.stringify(err));
+            dataType: 'json',
+            timeout:10,
+            headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token
+            },
+            data:{
+              values:{
+                'is_play_all':1
+              }
             }
-        });
+          }, function(ret, err) {
+            if(ret){
+              if(ret.status == 200){
+                // gedanmingcheng = ret.data[0].albumName;
+                // fnGeDanMingCheng(gedanmingcheng);
+                fnGeDanLieBiao(ret);
+              }else{
+                netMessage(ret);
+              }
+            }else{
+              netWork(err);
+            }
+          });
+        }else if (playUrli == '/listening/song_list/') {
+          api.ajax({
+            url: host + apiUri + playUrli + playlistid,
+            method: 'get',
+            dataType: 'json',
+            timeout:10,
+            headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token
+            },
+            data:{
+              values:{
+                'is_play_all':1
+              }
+            }
+          }, function(ret, err) {
+            if(ret){
+              if(ret.status == 200){
+                // gedanmingcheng = ret.data[0].albumName;
+                // fnGeDanMingCheng(gedanmingcheng);
+                fnGeDanLieBiao(ret);
+              }else{
+                netMessage(ret);
+              }
+            }else{
+              netWork(err);
+            }
+          });
+        }else if (playUrli == 'user/records') {
+          api.ajax({
+            url: host + apiUri + playUrli,
+            method: 'get',
+            dataType: 'json',
+            timeout:10,
+            headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token
+            }
+          }, function(ret, err) {
+            if(ret){
+              if(ret.status == 200){
+                // gedanmingcheng = ret.data[0].albumName;
+                // fnGeDanMingCheng(gedanmingcheng);
+                fnGeDanLieBiao(ret);
+              }else{
+                netMessage(ret);
+              }
+            }else{
+              netWork(err);
+            }
+          });
+        }
+
+
+
     }
     //接口  听单展示
     function fnGeDanLieBiao(data_) {
         var stylelist = $api.byId('liebiao');
         var html = '';
         for (var i = 0; i < data_.data.length; i++) {
-          if(data_.data[i].singerName){
-            html += '<li class="active" tapmode="focus" onclick="fnPlayGeQu(' + data_.data[i].id + ');"><div><p>' + data_.data[i].name + '</p><label>作者:' + data_.data[i].singerName + '</label></div></li>';
+          if(data_.data[i].reciter){
+            if(data_.data[i].author_name){
+              html += '<li class="active" tapmode="focus" onclick="fnPlayGeQu(' + data_.data[i].id + ');"><div><p>' + data_.data[i].title + '</p><label>作者:' + data_.data[i].author_name + ' &nbsp;&nbsp;&nbsp;朗诵：' + data_.data[i].reciter + '</label></div></li>';
+            }else{
+              html += '<li class="active" tapmode="focus" onclick="fnPlayGeQu(' + data_.data[i].id + ');"><div><p>' + data_.data[i].title + '</p><label>朗诵：' + data_.data[i].reciter + '</label></div></li>';
+            }
           }else{
-            html += '<li class="active" tapmode="focus" onclick="fnPlayGeQu(' + data_.data[i].id + ');"><div><p>' + data_.data[i].name + '</p><label>作者:未知</label></div></li>';
+            if(data_.data[i].author_name){
+              html += '<li class="active" tapmode="focus" onclick="fnPlayGeQu(' + data_.data[i].id + ');"><div><p>' + data_.data[i].title + '</p><label>作者:' + data_.data[i].author_name + '</label></div></li>';
+            }else{
+              html += '<li class="active" tapmode="focus" onclick="fnPlayGeQu(' + data_.data[i].id + ');"><div><p>' + data_.data[i].title + '</p><label>作者:</label></div></li>';
+            }
           }
-
         }
         $api.html(stylelist, html);
 
     }
 
     function fnGeDanMingCheng(data_) {
+      playUrli = api.pageParam.playUrli;
+      if(playUrli == '/album/song_list/'){
+        playlistid = api.pageParam.playlistid;
+        api.ajax({
+          url: host + apiUri + '/album/' + playlistid,
+          method: 'get',
+          dataType: 'json',
+          timeout:10,
+          headers: {
+              "source": api.systemType,
+              "version": version,
+              "session": token
+          }
+        }, function(ret, err) {
+          if(ret){
+            if(ret.status == 200){
+              // gedanmingcheng = ret.data[0].albumName;
+              var stylelist = $api.byId('gedanmingcheng');
+              var html = ret.data.title;
+              $api.html(stylelist, html);
+            }else{
+              netMessage(ret);
+            }
+          }else{
+            netWork(err);
+          }
+        });
+      }else if(playUrli == '/listening/song_list/'){
+        playlistid = api.pageParam.playlistid;
+        api.ajax({
+          url: host + apiUri + '/listening/detail/' + playlistid,
+          method: 'get',
+          dataType: 'json',
+          timeout:10,
+          headers: {
+              "source": api.systemType,
+              "version": version,
+              "session": token
+          }
+        }, function(ret, err) {
+          if(ret){
+            if(ret.status == 200){
+              // gedanmingcheng = ret.data[0].albumName;
+              var stylelist = $api.byId('gedanmingcheng');
+              var html = ret.data.linstening_info.listening_name;
+              $api.html(stylelist, html);
+            }else{
+              netMessage(ret);
+            }
+          }else{
+            netWork(err);
+          }
+        });
+      }else if(playUrli == '/user/records'){}{
         var stylelist = $api.byId('gedanmingcheng');
-        var html = data_;
+        var html = '我的作品';
         $api.html(stylelist, html);
+      }
+
 
     }
+    var Dqbofangid;
 
     function fnPlayGeQu(a) {
-      playlistid = api.pageParam.tuijiantingdanid;
-      api.sendEvent({
-          name: 'playTime',
-          extra: {
-              a: a,
-              playlistid: playlistid
-          }
-      });
+        playlistid = api.pageParam.playlistid;
+        playUrli = api.pageParam.playUrli;
+        var bofang = 3;
+        if (a == api.pageParam.Dqbofangid) {
+            api.openWin({
+                name: 'play',
+                url: './play.html',
+                pageParam: {
+                    DangQianbofangid: a,
+                    ok:'play'
+                }
+            });
+            return false;
+        } else {
+            api.openWin({
+                name: 'play',
+                url: './play.html',
+                pageParam: {
+                    playlistid: playlistid,
+                    a: a,
+                    bofang: bofang,
+                    playUrli:playUrli,
+                    ok:'play'
+                }
+            });
+            api.sendEvent({
+                name: 'neizhiliebiaoPlay',
+                extra: {
+                    a: a,
+                    playlistid: playlistid,
+                    bofang: bofang,
+                    playUrli:playUrli
+                }
+            });
+            api.sendEvent({
+                name: 'neizhiliebiaoPlaysss',
+                extra: {
+                    a: a,
+                    playlistid: playlistid,
+                    bofang: bofang,
+                    playUrli:playUrli
+                }
+            });
+        }
     }
 
-    // function fnSetGender(){
-    //   // var stylelist = $api.byId('play-list');
-    //   // // var buttons = buttons;
-    //   // var html = '';
-    //   //     html += '<li class="active" tapmode="focus"><div><p>【美食地图】天南地北一张饼</p><label>时长: 24分10秒</label></div></li>';
-    //   // var index = $api.html(stylelist, html);
-    //
-    //   var index = ['huih','dhuas','shdua','huih','dhuas','shdua','huih','dhuas','shdua','huih','dhuas','shdua','huih','dhuas','shdua']
-    // 		api.actionSheet({
-    // 				title: '节目单',
-    // 				cancelTitle: '取消',
-    // 				buttons: index
-    // 		}, function(ret, err){
-    // 				if( ret.buttonIndex >= index.length){
-    //           			setTimeout(function(){
-    //           				api.closeFrame();
-    //           			},350);
-    // 						return;
-    //
-    // 				}
-    // 				// var gender = ret.buttonIndex === 1?'男':'女';
-    // 				// fnUpdateUserInfo('gender',gender)
-    // 		});
-    //   }
 </script>
 
 </html>

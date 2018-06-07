@@ -40,12 +40,13 @@
 
         .index_header_div {
             width: 100%;
-            height: 248px;
+            height: 300px;
             position: relative;
         }
 
         .index_header_img {
             width: 75px;
+            height: 80px;
             margin: 0 auto;
             border-radius: 37.5px;
         }
@@ -68,16 +69,15 @@
 
         .wode_bg {
             width: 100%;
-            height: 107px;
-            background-image: url(../image/wode_bg.png);
-            background-size: 100%;
+            height: 151px;
+            background-image: url(../image/my/wode_bg.png);
+            background-size: 100% 100%;
             background-repeat: no-repeat;
         }
 
         .wode_bg div {
             color: #fff;
             text-align: center;
-
         }
 
         .index_header_mvp_p {
@@ -125,9 +125,11 @@
             text-align: center;
             line-height: 40px;
         }
-        .index_header_sans div{
-          font-size: 14px;
+
+        .index_header_sans div {
+            font-size: 14px;
         }
+
         .index_header_sans div span {
             color: red;
         }
@@ -147,20 +149,22 @@
 
         .index_name_li {
             width: 100%;
-            height: 91px;
             border-radius: 5px;
             background: #fff;
         }
+
         .index_name_li1 {
             width: 100%;
             height: 136px;
             border-radius: 5px;
             background: #fff;
         }
+
         .index_name_div {
             line-height: 45px;
             height: 45px;
             overflow: hidden;
+            position: relative;
         }
 
         .index_name_div_img {
@@ -169,10 +173,9 @@
         }
 
         .index_name_div_img img {
-          width: 20px;
-              /* height: 30px; */
-              padding: 13px;
-
+            width: 25px;
+            /* height: 30px; */
+            padding: 10px;
         }
 
         .index_name_div_imgr {
@@ -184,9 +187,83 @@
             width: 9px;
             padding: 15px;
         }
+
         .index_name_div_span {
-          font-size: 14px;
-          line-height: 46px;
+            font-size: 14px;
+            line-height: 46px;
+        }
+
+        .index_header_mvp_span {
+            position: relative;
+        }
+
+        #scoreDisplay {
+            font-size: 10px;
+            position: absolute;
+            top: 2.5px;
+            left: 45%;
+            color: #000;
+        }
+
+        .dengJi {
+            font-size: 15px;
+            width: 70px;
+            position: absolute;
+            ;
+            bottom: 2px;
+            /*left: 5px;*/
+            right: -30%;
+        }
+
+        .index_header_mvp_span {
+            margin: 5px 0;
+            left: 25%;
+            position: absolute;
+        }
+        /*.bar{ width:450px; border:1px solid #6C9C2C; height:25px; } #scoreBar{ background:#95CA0D; float:left; height:100%;
+text-align:center; line-height:150%; }*/
+
+        .processcontainer {
+            /*border:1px solid #6C9C2C; */
+            width: 180px;
+            background: #ccc;
+            height: 25px;
+            /*text-align: center;*/
+            overflow: hidden;
+            border-radius: 5px;
+        }
+
+        #processbar {
+            background: #f1e900;
+            float: left;
+            height: 100%;
+            /*text-align:center;*/
+            line-height: 150%;
+            border-radius: 5px;
+        }
+
+        #scoreDisplay1 {
+            height: 25px;
+            line-height: 25px;
+        }
+
+        .numIndex4 {
+          position: relative;
+          top: 12.5px;
+          left: 5px;
+          width: 20px;
+          height: 20px;
+          border-radius: 10px;
+          overflow: hidden;
+        }
+        .numIndex4 p {
+          height: 20px;
+          border-radius: 10px;
+          background-color: #f00;
+          text-align: center;
+          font-size: 10px;
+          color: #fff;
+          line-height: 20px;
         }
     </style>
 </head>
@@ -195,27 +272,38 @@
     <div class="index_header">
         <div class="index_header_div">
             <div id="imgs" class="index_header_img" onclick="fnUpimg();">
-              <img src="../image/KM_tx.png" alt="">
+                <!-- <img src="../image/KM_tx.png" alt=""> -->
             </div>
             <div class="wode_bg">
-                <div class="index_header_mvp_p" onclick="" id="username">嘿！我不是朝天椒</div>
-                <div class="index_header_mvp_span">[ 童声 ]</div>
+                <div class="index_header_mvp_p" id="username"></div>
+                <div class="index_header_mvp_p" id='signature'></div>
+                <div class="index_header_mvp_span">
+                    <!-- <div class="bar">
+                    <div id="scoreBar">&nbsp;</div>
+                  </div>
+                  <span id="scoreDisplay"></span> -->
+                    <div class="processcontainer" id="processcontainer">
+                        <div id="processbar"></div>
+                        <span id="scoreDisplay1"></span>
+                    </div>
+                    <span class="dengJi" id="dengJi"></span>
+                </div>
             </div>
             <div class="index_header_san">
                 <div class="p13px">
                     <div class="row">
                         <div class="p20px">
-                            <div class="index_header_sans border_r">
-                                <div>学分</div>
-                                <div><span>123456</span>分</div>
+                            <div class="index_header_sans border_r" onclick="fnPersonalWin();">
+                                <div>作品</div>
+                                <div><span id="product"></span>个</div>
                             </div>
                             <div class="index_header_sans border_r" onclick="fnOpenMyCare();">
                                 <div>关注</div>
-                                <div><span>9999</span>个</div>
+                                <div><span id='care'></span>个</div>
                             </div>
-                            <div class="index_header_sans" onclick="fnPersonalWin();">
-                                <div>作品</div>
-                                <div><span>9999</span>个</div>
+                            <div class="index_header_sans" onclick="fnFans();">
+                                <div>粉丝</div>
+                                <div><span id="fans"></span>个</div>
                             </div>
                         </div>
                     </div>
@@ -223,40 +311,47 @@
             </div>
             <div class="index_header_bg"></div>
         </div>
+
     </div>
     <div class="index_name">
         <div class="p20pxs">
             <div class="index_name_li1">
                 <div class="index_name_div border_b" onclick="dialogBox_alert2();">
-                    <div class="index_name_div_img fl"><img src="../image/index_wdcj.png" alt=""></div>
+                    <div class="index_name_div_img fl"><img src="../image/my/index_wdcj.png" alt=""></div>
                     <span class="index_name_div_span fl">我的成就</span>
-                    <div class="index_name_div_imgr fr"><img src="../image/index_y.png" alt=""></div>
+                    <div class="index_name_div_imgr fr"><img src="../image/my/index_y.png" alt=""></div>
                 </div>
                 <div class="index_name_div border_b" onclick="fnUpimg();">
-                    <div class="index_name_div_img fl"><img src="../image/KM_grzx.png" alt=""></div>
+                    <div class="index_name_div_img fl"><img src="../image/my/KM_grzx.png" alt=""></div>
                     <span class="index_name_div_span fl">个人中心</span>
-                    <div class="index_name_div_imgr fr"><img src="../image/index_y.png" alt=""></div>
+                    <div class="index_name_div_imgr fr"><img src="../image/my/index_y.png" alt=""></div>
                 </div>
                 <div class="index_name_div" onclick="fnCollectionWin();">
-                    <div class="index_name_div_img fl"><img src="../image/index_wdsc.png" alt=""></div>
+                    <div class="index_name_div_img fl"><img src="../image/my/index_wdsc.png" alt=""></div>
                     <span class="index_name_div_span fl">我的收藏</span>
-                    <div class="index_name_div_imgr fr"><img src="../image/index_y.png" alt=""></div>
+                    <div class="index_name_div_imgr fr"><img src="../image/my/index_y.png" alt=""></div>
                 </div>
             </div>
         </div>
     </div>
     <div class="index_name">
         <div class="p20pxs">
-            <div class="index_name_li">
+            <div class="index_name_li1">
                 <div class="index_name_div border_b" onclick="openHistorys();">
-                    <div class="index_name_div_img fl"><img src="../image/index_lsjl.png" alt=""></div>
+                    <div class="index_name_div_img fl"><img src="../image/my/index_lsjl.png" alt=""></div>
                     <span class="index_name_div_span fl">历史记录</span>
-                    <div class="index_name_div_imgr fr"><img src="../image/index_y.png" alt=""></div>
+                    <div class="index_name_div_imgr fr"><img src="../image/my/index_y.png" alt=""></div>
+                </div>
+                <div class="index_name_div border_b" onclick="fnListeningListWin();">
+                    <div class="index_name_div_img fl"><img src="../image/my/index_wdtd.png" alt=""></div>
+                    <span class="index_name_div_span fl">我的听单</span>
+                    <div class="index_name_div_imgr fr"><img src="../image/my/index_y.png" alt=""></div>
                 </div>
                 <div class="index_name_div" onclick="openMessage();">
-                    <div class="index_name_div_img fl"><img src="../image/index_wdtxl.png" alt=""></div>
+                    <div class="index_name_div_img fl"><img src="../image/my/index_wdtxl.png" alt=""></div>
                     <span class="index_name_div_span fl">我的消息</span>
-                    <div class="index_name_div_imgr fr"><img src="../image/index_y.png" alt=""></div>
+                    <div class="index_name_div_imgr fr"><img src="../image/my/index_y.png" alt=""></div>
+                    <div class="numIndex4 fr" id="numIndex4"></div>
                 </div>
             </div>
         </div>
@@ -264,16 +359,22 @@
     <div class="index_name">
         <div class="p20pxs">
             <div class="index_name_li">
-                <div class="index_name_div border_b" onclick="fnFeedbackWin()">
-                    <div class="index_name_div_img fl"><img src="../image/index_bzyfk.png" alt=""></div>
-                    <span class="index_name_div_span fl">帮助与反馈</span>
-                    <div class="index_name_div_imgr fr"><img src="../image/index_y.png" alt=""></div>
+                <div class="index_name_div border_b" onclick="fnSecurityCenterWin()">
+                    <div class="index_name_div_img fl"><img src="../image/my/SecurityCenter.png" alt=""></div>
+                    <span class="index_name_div_span fl">安全中心</span>
+                    <div class="index_name_div_imgr fr"><img src="../image/my/index_y.png" alt=""></div>
                 </div>
-                <div class="index_name_div" onclick="fnSetWin();">
-                    <div class="index_name_div_img fl"><img src="../image/index_sz.png" alt=""></div>
+                <div class="index_name_div border_b" onclick="fnSetWin();">
+                    <div class="index_name_div_img fl"><img src="../image/my/index_sz.png" alt=""></div>
                     <span class="index_name_div_span fl">设置</span>
-                    <div class="index_name_div_imgr fr"><img src="../image/index_y.png" alt=""></div>
+                    <div class="index_name_div_imgr fr"><img src="../image/my/index_y.png" alt=""></div>
                 </div>
+                <div class="index_name_div" onclick="fnFeedbackWin()">
+                    <div class="index_name_div_img fl"><img src="../image/my/index_bzyfk.png" alt=""></div>
+                    <span class="index_name_div_span fl">帮助与反馈</span>
+                    <div class="index_name_div_imgr fr"><img src="../image/my/index_y.png" alt=""></div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -281,60 +382,449 @@
 
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/message.js"></script>
 <script type="text/javascript">
+    var token;
     apiready = function() {
-        // 优化点击事件
-        var qqziliao = api.pageParam.qqziliao;
-        fnYongHuTouXiang(qqziliao);
-        fnUserName(qqziliao);
-        //alert(JSON.stringify(qqziliao));
-        api.parseTapmode();
-    }
-    function fnYongHuTouXiang(qqziliao){
-      var QQusername = qqziliao.figureurl_qq_2;
-      //alert(JSON.stringify(QQusername));
-      var stylelist = $api.byId('imgs');
-      var html = '<img src="' + QQusername + '" alt="">';
-      $api.html(stylelist, html);
+            token = $api.getStorage('token');
+            if (token) {
+                api.parseTapmode();
+                fnpersonalInfo();
 
-    }
-    function fnUserName(qqziliao){
-      var stylelist = $api.byId('username');
-      var QQusername = qqziliao.nickname;
-      var html = QQusername;
-      $api.html(stylelist, html);
+                api.addEventListener({
+                    name: 'netTitlePhoto',
 
+                }, function(ret, err) {
+                    if (ret) {
+                        var stylelist = $api.byId('imgs');
+                        var html4 = ret.value.titlePhoto;
+                        $api.html(stylelist, html4);
+                    }
+                });
+                api.addEventListener({
+                    name: "netNickName",
+                }, function(ret, err) {
+                    if (ret) {
+                        var stylelist22 = $api.byId('username');
+                        var html22 = ret.value.nickName;
+                        $api.html(stylelist22, html22);
+                    }
+                });
+                api.addEventListener({
+                    name: "netsignature",
+                }, function(ret, err) {
+                    if (ret) {
+                        var stylelist23 = $api.byId('signature');
+                        var html23 = ret.value.netsignature;
+                        $api.html(stylelist23, html23);
+                    }
+                });
+                api.addEventListener({
+                    name: "netNum",
+                }, function(ret, err) {
+                    if (ret) {
+                        var stylelist50 = $api.byId('product');
+                        var rets = JSON.stringify(ret.value.productNum);
+                        // var html50 = ret.data.record_total;
+                        $api.html(stylelist50, rets);
+                    }
+                });
+                api.addEventListener({
+                    name: "netNums",
+                }, function(ret, err) {
+                    if (ret) {
+                        var rets = JSON.stringify(ret.value.productNum);
+                        var stylelist6 = $api.byId('care');
+                        $api.html(stylelist6, rets);
+                    }
+                });
+                api.addEventListener({
+                    name: "netFans",
+                }, function(ret, err) {
+                    if (ret) {
+                        var rets = JSON.stringify(ret.value.productNum);
+                        var stylelist7 = $api.byId('fans');
+                        // var html7 = ret.data.fans_total;
+                        $api.html(stylelist7, rets);
+                    }
+                });
+                api.addEventListener({
+                    name: 'indexFrame4'
+                }, function(ret, err) {
+                    fnNum();
+                });
+                api.setCustomRefreshHeaderInfo({
+                    bgColor: '#f0f0f0',
+                    image: {
+                        pull: [
+                            'widget://image/Refresh/dropdown_anim_00.png',
+                            'widget://image/Refresh/dropdown_anim_01.png',
+                            'widget://image/Refresh/dropdown_anim_02.png',
+                            'widget://image/Refresh/dropdown_anim_03.png',
+                            'widget://image/Refresh/dropdown_anim_04.png',
+                            'widget://image/Refresh/dropdown_anim_05.png',
+                            'widget://image/Refresh/dropdown_anim_06.png',
+                            'widget://image/Refresh/dropdown_anim_07.png',
+                            'widget://image/Refresh/dropdown_anim_08.png',
+                            'widget://image/Refresh/dropdown_anim_09.png',
+                            'widget://image/Refresh/dropdown_anim_10.png',
+                        ],
+                        load: [
+                            'widget://image/Refresh/dropdown_anim_00.png',
+                            'widget://image/Refresh/dropdown_anim_01.png',
+                            'widget://image/Refresh/dropdown_anim_02.png',
+                            'widget://image/Refresh/dropdown_anim_03.png',
+                            'widget://image/Refresh/dropdown_anim_04.png',
+                            'widget://image/Refresh/dropdown_anim_05.png',
+                        ]
+                    }
+                }, function() {
+                    //下拉刷新被触发，自动进入加载状态，使用 api.refreshHeaderLoadDone() 手动结束加载中状态
+                    //下拉刷新被触发，使用 api.refreshHeaderLoadDone() 结束加载中状态
+
+                    fnpersonalInfo();
+
+                });
+            } else {
+                $api.rmStorage('token');
+                api.openWin({
+                    name: 'login',
+                    url: '../login.html',
+                    pageParam: {
+                        ok: 'login'
+                    }
+                });
+            }
+
+        }
+        // 切换页面我的页面未读消息数量刷新
+    function fnNum() {
+        api.ajax({
+            url: host + apiUri + '/message/unread_message_nums',
+            method: 'get',
+            dataType: 'json',
+            timeout: 10,
+            headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token,
+            }
+        }, function(ret, err) {
+            if (ret) {
+                // console.log(JSON.stringify(ret));
+                if (ret.status = 200) {
+                    var message = ret.data.message;
+                    var comment = ret.data.comment;
+                    var notify = ret.data.notify;
+                    var total = message + comment + notify;
+                    // console.log(total);
+                    var numIndex4 = $api.byId('numIndex4');
+                    if (total == 0) {
+                        var htmlnumIndex4 = ''
+                        $api.html(numIndex4, htmlnumIndex4);
+                    } else {
+                        var htmlnumIndex4 = '<p>' + total + '</p>'
+                        $api.html(numIndex4, htmlnumIndex4);
+                    }
+                } else {
+                    netMessage(ret);
+                }
+            } else {
+                netWork(err);
+            }
+        });
     }
-    function fnFeedbackWin() {
+
+    function fnpersonalInfo() {
+        var uri = '/user';
+        api.ajax({
+            url: host + apiUri + uri,
+            method: 'get',
+            dataType: 'json',
+            timeout: 10,
+            cache: false,
+            headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token
+            }
+        }, function(ret, err) {
+            if (ret) {
+                if (ret.status == 200) {
+                    setTimeout(function() {
+                            api.refreshHeaderLoadDone()
+                        }, 1000)
+                        //头像
+                    var title1 = $api.byId("imgs");
+                    var html4 = '';
+                    // console.log(ret.data.photo);
+                    if (ret.data.photo == null) {
+                        html4 = '<img src="../image/KM_tx.png" alt="" />';
+                        $api.html(title1, html4);
+                    } else {
+                        var photo = ret.data.photo.substring(0, 4);
+                        if (photo == 'http') {
+                            // title = ret.data[i].photo;
+                            html4 = '<img src="' + ret.data.photo + '" alt="" />';
+                        }
+                        if (photo != 'http') {
+                            html4 = '<img src="' + updatePhotoUrl + ret.data.photo + '" alt="" />';
+                        }
+
+                        $api.html(title1, html4);
+                    }
+                    //用户名
+                    var stylelist = $api.byId('username');
+                    var html = ret.data.nick_name;
+                    $api.html(stylelist, html);
+                    //签名
+                    var stylelist1 = $api.byId('signature');
+                    if (ret.data.signature == null) {
+                        var html1 = '您还没有填写签名';
+                        $api.html(stylelist1, html1);
+                    } else {
+                        var html1 = ret.data.signature;
+                        $api.html(stylelist1, html1);
+                    }
+                    //作品数
+                    var stylelist5 = $api.byId('product');
+                    var html5 = ret.data.record_total;
+                    $api.html(stylelist5, html5);
+                    //关注数
+                    var stylelist6 = $api.byId('care');
+                    var html6 = ret.data.follow_total;
+                    $api.html(stylelist6, html6);
+                    //粉丝数
+                    var stylelist7 = $api.byId('fans');
+                    var html7 = ret.data.fans_total;
+                    $api.html(stylelist7, html7);
+                    //等级
+                    var objTmp = ["童生", "秀才", "举人", "进士", "探花", "榜眼", "状元", "国主"];
+                    var level = ret.data.level;
+                    var scores = ret.data.user_exp;
+                    // console.log(scores);
+                    var totalNum = [0, 100, 500, 2000, 5000, 10000, 30000, 100000];
+                    var processbar = document.getElementById("processbar");
+                    var processcontainer = document.getElementById("processcontainer");
+                    var scoreDisplay1 = document.getElementById("scoreDisplay1");
+                    // scoreRake(score);
+                    for (var z in objTmp) {
+                        // console.log(z+": "+objTmp[z]);
+                        if (level == 1) {
+                            var dengJi = $api.byId('dengJi');
+                            var html11 = objTmp[0];
+                            $api.html(dengJi, html11);
+                            var sss = totalNum[1];
+                            var aaa = scores / sss;
+                            var ccc = aaa * 100 + "%";
+                            if (ccc == "100%") {
+                                level = 2;
+                            } else {
+                                processbar.style.width = ccc;
+                                scoreDisplay1.innerHTML = scores + "/" + sss;
+                            }
+                        }
+                        if (level == 2) {
+                            var dengJi = $api.byId('dengJi');
+                            var html11 = objTmp[1];
+                            $api.html(dengJi, html11);
+                            var sss = totalNum[2];
+                            var aaa = scores / sss;
+                            var ccc = aaa * 100 + "%";
+                            if (ccc == "100%") {
+                                level = 2;
+                            } else {
+                                processbar.style.width = ccc;
+                                scoreDisplay1.innerHTML = scores + "/" + sss;
+                            }
+                        }
+                        if (level == 3) {
+                            var dengJi = $api.byId('dengJi');
+                            var html11 = objTmp[2];
+                            $api.html(dengJi, html11);
+                            var sss = totalNum[3];
+                            var aaa = scores / sss;
+                            var ccc = aaa * 100 + "%";
+                            if (ccc == "100%") {
+                                level = 4;
+                            } else {
+                                processbar.style.width = ccc;
+                                scoreDisplay1.innerHTML = scores + "/" + sss;
+                            }
+                        }
+                        if (level == 4) {
+                            var dengJi = $api.byId('dengJi');
+                            var html11 = objTmp[3];
+                            $api.html(dengJi, html11);
+
+                            var sss = totalNum[4];
+                            var aaa = scores / sss;
+                            var ccc = aaa * 100 + "%";
+                            if (ccc == "100%") {
+                                level = 5;
+                            } else {
+                                processbar.style.width = ccc;
+                                scoreDisplay1.innerHTML = scores + "/" + sss;
+                            }
+                        }
+                        if (level == 5) {
+                            var dengJi = $api.byId('dengJi');
+                            var html11 = objTmp[4];
+                            $api.html(dengJi, html11);
+                            var sss = totalNum[5];
+                            var aaa = scores / sss;
+                            var ccc = aaa * 100 + "%";
+                            if (ccc == "100%") {
+                                level = 6;
+                            } else {
+                                processbar.style.width = ccc;
+                                scoreDisplay1.innerHTML = scores + "/" + sss;
+                            }
+                        }
+                        if (level == 6) {
+                            var dengJi = $api.byId('dengJi');
+                            var html11 = objTmp[5];
+                            $api.html(dengJi, html11);
+                            var sss = totalNum[6];
+                            var aaa = scores / sss;
+                            var ccc = aaa * 100 + "%";
+                            if (ccc == "100%") {
+                                level = 7;
+                            } else {
+                                processbar.style.width = ccc;
+                                scoreDisplay1.innerHTML = scores + "/" + sss;
+                            }
+                        }
+                        if (level == 7) {
+                            var dengJi = $api.byId('dengJi');
+                            var html11 = objTmp[6];
+                            $api.html(dengJi, html11);
+                            var sss = totalNum[7];
+                            var aaa = scores / sss;
+                            var ccc = aaa * 100 + "%";
+                            if (ccc == "100%") {
+                                level = 8;
+                            } else {
+                                processbar.style.width = ccc;
+                                scoreDisplay1.innerHTML = scores + "/" + sss;
+                            }
+                        }
+                        if (level == 8) {
+                            var dengJi = $api.byId('dengJi');
+                            var html11 = objTmp[7];
+                            $api.html(dengJi, html11);
+                            var sss = totalNum[7];
+                            var aaa = scores / sss;
+                            var ccc = aaa * 100 + "%";
+                            processbar.style.width = ccc;
+                            scoreDisplay1.innerHTML = scores + "/" + sss;
+                        }
+                    }
+
+                } else {
+                    netMessage(ret);
+                }
+            } else {
+                netWork(err);
+            }
+        });
+    }
+
+    function fnAjaxMy() {
+        var token = $api.getStorage('token');
+        api.ajax({
+            url: host + apiUri + '/user/info',
+            method: 'get',
+            dataType: 'json',
+            timeout: 10,
+            cache: false,
+            headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token
+            }
+        }, function(ret, err) {
+            if (ret) {
+
+                // alert( JSON.stringify( ret ) );
+                // console.log(JSON.stringify( ret ));
+                // function () {
+                //
+                // }
+            } else {
+                // alert(1);
+                netWork(err);
+            }
+
+        });
+    }
+
+
+
+    // 安全中心
+    function fnSecurityCenterWin() {
         api.openWin({
-            name: 'feedback',
-            url: './feedback.html',
+            name: 'securitycente',
+            url: './securitycente.html',
             pageParam: {
-                name: 'test'
+                ok: 'securitycente'
             }
         });
 
     }
 
-    function fnUpimg() {
-      
-      api.openWin({
-          name: 'upimg',
-          url: './upimg.html',
-          pageParam: {
-              name: 'test'
-          }
-      });
-
-
+    function fnListeningListWin() {
+        api.openWin({
+            name: 'ListeningList',
+            url: './ListeningList.html',
+            pageParam: {
+                ok: 'ListeningList'
+            }
+        });
     }
 
+    function fnYongHuTouXiang(qqziliao) {
+        var QQusername = qqziliao.figureurl_qq_2;
+        //alert(JSON.stringify(QQusername));
+        var stylelist = $api.byId('imgs');
+        var html = '<img src="' + QQusername + '" alt="">';
+        $api.html(stylelist, html);
+
+    }
+    // function fnUserName(qqziliao){
+    //   var stylelist = $api.byId('username');
+    //   var QQusername = qqziliao.nickname;
+    //   var html = QQusername;
+    //   $api.html(stylelist, html);
+    //
+    // }
+    function fnFeedbackWin() {
+        api.openWin({
+            name: 'feedback',
+            url: './feedback.html',
+            pageParam: {
+                ok: 'feedback'
+            }
+        });
+    }
+
+    function fnUpimg() {
+        api.openWin({
+            name: 'upimg',
+            url: './upimg.html',
+            pageParam: {
+                ok: 'upimg'
+            }
+        });
+    }
+    //作品
     function fnPersonalWin() {
         api.openWin({
             name: 'personal',
             url: './personal.html',
             pageParam: {
-                name: 'test'
+                ok: 'personal'
             }
         });
     }
@@ -344,7 +834,7 @@
             name: 'collection',
             url: './collection.html',
             pageParam: {
-                name: 'test'
+                ok: 'collection'
             }
         });
     }
@@ -354,16 +844,29 @@
             name: 'myCare',
             url: './my_care.html',
             pageParam: {
-                name: 'test'
+                ok: 'my_care'
             }
         });
 
+    }
+    // 粉丝
+    function fnFans() {
+        api.openWin({
+            name: 'fans',
+            url: './fans.html',
+            pageParam: {
+                ok: 'fans'
+            }
+        });
     }
     //打开消息页面
     function openMessage() {
         api.openWin({
             name: 'message',
             url: './message.html',
+            pageParam: {
+                ok: 'message'
+            }
         });
     };
 
@@ -371,53 +874,30 @@
         api.openWin({
             name: 'historys',
             url: './historys.html',
+            pageParam: {
+                ok: 'historys'
+            }
         });
     }
 
     function dialogBox_alert2() {
-        var dialogBox = api.require('dialogBox');
-        dialogBox.alert({
-            texts: {
-                content: '您获得的成就为：童声！',
-                leftBtnTitle: '确定'
-            },
-            styles: {
-                bg: '#fff',
-                corner: 6,
-                w: 280,
-                content: {
-                    color: '#000',
-                    size: 18
-                },
-                left: {
-                    marginB: 15,
-                    marginL: 15,
-                    w: 250,
-                    h: 40,
-                    corner: 20,
-                    color: "#fff",
-                    bg: '#CDCDCD',
-                    size: 16
-                }
-            },
-            tapClose: true
-        }, function(ret) {
-            if (ret.eventType == 'left') {
-                dialogBox.close({
-                    dialogName: 'alert'
-                });
+        api.openWin({
+            name: 'achievementWin',
+            url: './achievementWin.html',
+            pageParam: {
+                name: 'achievementWin'
             }
         });
+
     }
 
     function fnSetWin() {
         api.openWin({
             name: 'set',
-            url: './set.html',
+            url: '../html/set.html',
             pageParam: {
-                name: 'test'
+                name: 'set'
             }
         });
-
     }
 </script>

@@ -16,15 +16,15 @@ function InitHistory() {
     api.getPrefs({
         key: 'history'
     }, function (ret, err) {
-        var historyTexts = ret.value || '';
-        var historyArrays = historyTexts.split(',');
-        //console.log(historyArrays);
-        var li = '<li class="history" data-index="{index}">{text}<img class="historyImg" src="../image/x.png" alt="" style="float: right;"></li>';
-        for (var i = 0; i < historyArrays.length; i++) {
-            if (historyArrays[i].length == 0)
+        var historyText = ret.value || '';
+        var historyArray = historyText.split(',');
+        //console.log(historyArray);
+        var li = '<li class="history" data-index="{index}">{text}<img class="historyImg" src="../image/x.png" alt="" style="float: right;padding-top:5px;"></li>';
+        for (var i = 0; i < historyArray.length; i++) {
+            if (historyArray[i].length == 0)
                 continue;
             var tempLi = li.replace(/\{index\}/g, i);
-            tempLi = tempLi.replace(/\{text\}/g, decodeURIComponent(historyArrays[i]));
+            tempLi = tempLi.replace(/\{text\}/g, decodeURIComponent(historyArray[i]));
             history.appendHTML(tempLi);
         }
 
@@ -46,12 +46,12 @@ function ClearHistory(index) {
         api.getPrefs({
             key: 'history'
         }, function (ret, err) {
-            var historyTexts = ret.value;
-            var historyArrays = historyTexts.split(',');
-            historyArrays.splice(index, 1);
+            var historyText = ret.value;
+            var historyArray = historyText.split(',');
+            historyArray.splice(index, 1);
             api.setPrefs({
                 key: 'history',
-                value: historyArrays.join(',')
+                value: historyArray.join(',')
             });
             api.toast({
                 msg: '已清除历史记录'

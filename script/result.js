@@ -5,7 +5,6 @@ apiready = function () {
     var header = $api.byId('header');
     //适配iOS 7+和Android 4.4+沉浸式状态栏
     $api.fixStatusBar(header);
-
     var headerPos = $api.offset(header);
     var back = $api.byId('back');
     var navbar = $api.byId('navbar');
@@ -24,25 +23,34 @@ apiready = function () {
     });
 
     InitNavbar();
-    InitFrameGroup(headerPos.h + navbarPos.h, title);
+    InitFrameGroup(headerPos.h, title);
 };
 
 var iscroll;
 
 function InitNavbar() {
-    var scrollerWidth = 0;
+  // var scrollerWidth = 0;
+  var navbarheight = 0;
+  var navbar = $api.byId('navbar');
     var engines = $api.byId('engines');
     var scroller = $api.byId('scroller');
-    var engine = '<li data-engineName="{engineName}" data-engineUrl="{engineUrl}">{engineName}</li>';
+    var engine = '<li data-engineName="{engineName}" data-engineUrl="{engineUrl}"></li>';
     for (var engineName in enginesMap) {
         var engineUrl = enginesMap[engineName];
         var tempEngine = engine.replace(/\{engineName\}/g, engineName);
         tempEngine = tempEngine.replace(/\{engineUrl\}/g, engineUrl);
         engines.appendHTML(tempEngine);
-        scrollerWidth += 120;
+        //一行一个
+        navbarheight += 0;
+        //一行三个
+        // scrollerWidth += 120;
+        //一行两个
+        // scrollerWidth += 180;
     }
-    scroller.style.width = scrollerWidth + 'px';
-    iscroll = new IScroll('#wrapper', {scrollX: true, scrollY: false, mouseWheel: false, click: true});
+    // navbar.style.height = scrollerWidth + 'px';
+    navbar.style.height = navbarheight + 'px';
+    iscroll = new IScroll('#wrapper', {scrollX: false, scrollY: false, mouseWheel: false, click: true});
+
     $api.addEvt(scroller, 'click', function (e) {
         var target = e.target;
         SetFrameActive(ElementIndex(target));
