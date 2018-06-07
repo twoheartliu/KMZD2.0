@@ -10,7 +10,6 @@
     <link rel="stylesheet" type="text/css" href="./css/style.css" />
     <link rel="stylesheet" href="./css/iconfont/iconfont.css">
     <link rel="stylesheet" href="./css/iconfont.css">
-
     <style>
         .hr01,
         .hr02 {
@@ -393,7 +392,13 @@ var minuteFollow;
     apiready = function() {
       // $api.clearStorage();
             token = $api.getStorage('token');
+            var user_id = $api.getStorage('user_id');
+            var nick_name = $api.getStorage('nick_name');
+            var photo = $api.getStorage('photo');
             console.log(token);
+            console.log(user_id);
+            console.log(nick_name);
+            console.log(photo);
             // api.removePrefs({
             //     key: 'cgxlist'
             // });
