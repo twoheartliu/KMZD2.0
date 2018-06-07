@@ -365,6 +365,7 @@
 <script type="text/javascript" src="../script/index.js"></script>
 <script type="text/javascript" src="../script/swiper.min.js"></script>
 <script type="text/javascript" src="../script/message.js"></script>
+<script type="text/javascript" src="../script/wxfx.js"></script>
 
 
 </html>
@@ -621,28 +622,24 @@
                         // html += '<div class="hotC" style="width:' + xxxx + 'px;" onclick="fnSingLeWin(' + data_.data[i].content[s].id + ',\'' + data_.data[i].floor_name + '\',\'' + data_.data[i].content_type + '\');"><img src=" ' + host + '/' + data_.data[i].content[s].sma + '" alt=""><div class="listtitle" style="width:' + xxxx + 'px;"> ' + data_.data[
                         //     i].content[s].title + '</div></div>';
 
-
                     } else if (data_.data[i].floor_type == "list") {
+                      console.log(data_.data[i].content[s].mid);
                         if (data_.data[i].content[s].author_name) {
                             html += '<div class="egret-flex-item"><div class="egret-flex-items" tapmode="fmbtnhover" onclick="fnOpenPlay(' + data_.data[i].content[s].id + ')"><div class="egret-flex-item-logo"><img src="' + host + '/' + data_.data[i]
-                                .content[
-                                    s].mid + '" alt="" class=""></div><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 fl"><span>' + data_.data[i].content[s].title +
+                                .content[s].mid + '" alt="" class=""></div><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 fl"><span>' + data_.data[i].content[s].title +
                                 '</span></span></div><div class="egret-flex-item-shelf02"><span>作者：' +
                                 data_.data[i].content[s].author_name + '</span></div><div class="egret-flex-item-shelf03"><div><img src="../image/KM_play.png" alt=""><span>' + data_.data[
                                     i].content[s].play_total + '</span></div><div><img src="../image/KM_zf.png" alt=""><span>' + data_.data[i].content[s].share_total +
                                 '</span></div><div><img src="../image/KM_dz.png" alt=""><span>' + data_.data[i].content[s].good_total +
-                                '</span></div></div></div>  </div><div class="egret-flex-item-shelf04" onclick="fnOpenPlayMore(' + data_.data[i].content[s].id +
-                                ')"><img src="../image/KM_list_more.png" alt=""></div></div><div class="hdivider"></div>';
+                                '</span></div></div></div>  </div><div class="egret-flex-item-shelf04" onclick="fnOpenPlayMore(' + data_.data[i].content[s].id + ',\''+data_.data[i].content[s].mid+'\',\''+data_.data[i].content[s].title+'\')"><img src="../image/KM_list_more.png" alt=""></div></div><div class="hdivider"></div>';
 
                         } else {
                             html += '<div class="egret-flex-item"><div class="egret-flex-items" tapmode="fmbtnhover" onclick="fnOpenPlay(' + data_.data[i].content[s].id + ')"><div class="egret-flex-item-logo"><img src="' + host + '/' + data_.data[i]
-                                .content[
-                                    s].mid + '" alt="" class=""></div><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 fl"><span>' + data_.data[i].content[s].title +
+                                .content[s].mid + '" alt="" class=""></div><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 fl"><span>' + data_.data[i].content[s].title +
                                 '</span></span></div><div class="egret-flex-item-shelf02"><span>作者：</span></div><div class="egret-flex-item-shelf03"><div><img src="../image/KM_play.png" alt=""><span>' + data_.data[
                                     i].content[s].play_total + '</span></div><div><img src="../image/KM_zf.png" alt=""><span>' + data_.data[i].content[s].share_total +
                                 '</span></div><div><img src="../image/KM_dz.png" alt=""><span>' + data_.data[i].content[s].good_total +
-                                '</span></div></div></div>  </div><div class="egret-flex-item-shelf04" onclick="fnOpenPlayMore(' + data_.data[i].content[s].id +
-                                ')"><img src="../image/KM_list_more.png" alt=""></div></div><div class="hdivider"></div>';
+                                '</span></div></div></div>  </div><div class="egret-flex-item-shelf04" onclick="fnOpenPlayMore(' + data_.data[i].content[s].id +',\''+data_.data[i].content[s].mid+'\',\''+data_.data[i].content[s].title+'\')"><img src="../image/KM_list_more.png" alt=""></div></div><div class="hdivider"></div>';
                         }
                     }
                 }
@@ -882,7 +879,7 @@
 
     }
     //打开更多页面
-    function fnOpenPlayMore(id) {
+    function fnOpenPlayMore(id,sma,titleName) {
         var dialogBox = api.require('dialogBox');
         dialogBox.actionMenu({
             rect: {
@@ -973,10 +970,11 @@
                 });
                 // alert(2);
             } else if (ret.index == "2") {
-                fnOpenPlayShare(id);
-                dialogBox.close({
-                    dialogName: 'actionMenu'
-                });
+              dialogBox.close({
+                  dialogName: 'actionMenu'
+              });
+                fnOpenPlayShare(id,sma,titleName);
+
                 // alert(3);
             } else {
                 dialogBox.close({
@@ -991,7 +989,9 @@
         });
     }
     //打开分享
-    function fnOpenPlayShare() {
+    function fnOpenPlayShare(id,sma,titleName) {
+      // console.log(id);
+        console.log(sma);
         var dialogBox = api.require('dialogBox');
         dialogBox.actionMenu({
             rect: {
@@ -1036,6 +1036,30 @@
                 });
             }
             if (ret.index == "0") {
+              var imgaesFx = host +'/'+ sma;
+              // console.log(imgaesFx);
+              api.download({
+                  url: imgaesFx,
+                  savePath: 'fs:savePath/'+ sma,
+                  report: true,
+                  cache: true,
+                  allowResume: true
+              }, function(ret, err) {
+                // console.log(JSON.stringify(ret));
+                  if (ret.state == 1) {
+                      //下载成功
+                      var savePath = ret.savePath;
+                      // console.log(savePath);
+                      var songListID = id;
+                      var title = titleName;
+                      shareMp3Single(songListID,title,savePath);
+                      // var savePath = '';
+                      // shareMp3Single(songListID,title,savePath);
+                      // shareMp3Album(name,listening_description,l_id);
+                  } else {
+                    console.log(JSON.stringify(err));
+                  }
+                });
                 dialogBox.close({
                     dialogName: 'actionMenu'
                 });
@@ -1061,6 +1085,7 @@
             // alert(JSON.stringify(ret))
 
         });
+                alert(id);
     }
     //添加到听单
     function fnOpenAddListening(id) {

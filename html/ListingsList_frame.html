@@ -525,6 +525,8 @@
     var imgUrlListening_cover;
     //存储本地图片路径
     var imgUrlListening_Fs;
+    // 有图片的曲目
+    var cover_sma;
     var p = 1;
     var ok;
 
@@ -687,6 +689,7 @@
         }, function(ret, err) {
             if (ret) {
               if (ret.status == 200) {
+
                   api.refreshHeaderLoadDone()
                   var single = $api.byId('single');
                   // 听单id
@@ -910,12 +913,13 @@
                     // console.log(ret.data[i].title);
                       author_name = ((ret.data[i].author_name == null) ? "" : ret.data[i].author_name);
                       reciter = ((ret.data[i].reciter == null) ? "" : ret.data[i].reciter);
+                      console.log(ret.data[i].cover_sma);
                       if(ret.data[i].reciter){
                         $api.append(tuijianliebiaogequ,'<li id="id_' + ret.data[i].id + '"><div class="on_playall" onclick="fnPlay('+ ret.data[i].id +');"><span class="fl on_playall_name">' + ret.data[i].title + '</span><span></span></div><div class="author fl"  onclick="fnPlay('+ ret.data[i].id +');">作者：' + author_name +
-                            '</div><div class="author fl"  onclick="fnPlay('+ ret.data[i].id +');">朗读者：' + reciter + '</div><div class="fr on_playall_img" onclick="fnOpenPlayMore(' + ret.data[i].id + ',\''+ret.data[i].title+'\');"><img src="../image/KM_list_more.png" alt=""></div></li>');
+                            '</div><div class="author fl"  onclick="fnPlay('+ ret.data[i].id +');">朗读者：' + reciter + '</div><div class="fr on_playall_img" onclick="fnOpenPlayMore(\'' + ret.data[i].cover_sma + '\',' + ret.data[i].id + ',\''+ret.data[i].title+'\');"><img src="../image/KM_list_more.png" alt=""></div></li>');
                       }else{
                         $api.append(tuijianliebiaogequ,'<li id="id_' + ret.data[i].id + '"><div class="on_playall" onclick="fnPlay('+ ret.data[i].id +');"><span class="fl on_playall_name">' + ret.data[i].title + '</span><span></span></div><div class="author fl"  onclick="fnPlay('+ ret.data[i].id +');">作者：' + author_name +
-                            '</div><div class="author fl"  onclick="fnPlay('+ ret.data[i].id +');"></div><div class="fr on_playall_img" onclick="fnOpenPlayMore(' + ret.data[i].id + ',\''+ret.data[i].title+'\');"><img src="../image/KM_list_more.png" alt=""></div></li>');
+                            '</div><div class="author fl"  onclick="fnPlay('+ ret.data[i].id +');"></div><div class="fr on_playall_img" onclick="fnOpenPlayMore(\''+ret.data[i].cover_sma+'\',' + ret.data[i].id + ',\''+ret.data[i].title+'\');"><img src="../image/KM_list_more.png" alt=""></div></li>');
                       }
 
                   }
@@ -1045,7 +1049,7 @@
         }
     }
     //打开更多
-    function fnOpenPlayMore(songListID,title) {
+    function fnOpenPlayMore(cover_sma,songListID,title) {
         // 单曲id
         // console.log(songListID);
         var dialogBox = api.require('dialogBox');
@@ -1132,7 +1136,7 @@
                 // alert(2);
             } else if (ret.index == "2") {
                 var Types = 'Single'
-                fnOpenPlayShare(songListID,title,Types);
+                fnOpenPlayShare(cover_sma,songListID,title,Types);
                 // dialogBox.close({
                 //     dialogName: 'alert'
                 // });
@@ -1209,7 +1213,8 @@
         });
     }
     //打开分享
-    function fnOpenPlayShare(songListID,title,Types) {
+    function fnOpenPlayShare(cover_sma,songListID,title,Types) {
+      console.log(cover_sma);
         var dialogBox = api.require('dialogBox');
         dialogBox.actionMenu({
             rect: {
@@ -1255,24 +1260,28 @@
             }
             if (ret.index == "0") {
               if (Types == 'Single') {
-                // api.download({
-                //     url: imgaesFx,
-                //     savePath: 'fs:savePath/'+ iamgFx,
-                //     report: true,
-                //     cache: true,
-                //     allowResume: true
-                // }, function(ret, err) {
-                //     if (ret.state == 1) {
-                //         //下载成功
-                //         var savePath = ret.savePath;
-                        // shareMp3Single(songListID,title,savePath);
-                        var savePath = '';
+                var imgaesFx = host +'/'+ cover_sma;
+                // console.log(imgaesFx);
+                api.download({
+                    url: imgaesFx,
+                    savePath: 'fs:savePath/'+ cover_sma,
+                    report: true,
+                    cache: true,
+                    allowResume: true
+                }, function(ret, err) {
+                  console.log(JSON.stringify(ret));
+                    if (ret.state == 1) {
+                        //下载成功
+                        var savePath = ret.savePath;
+                        console.log(savePath);
                         shareMp3Single(songListID,title,savePath);
+                        // var savePath = '';
+                        // shareMp3Single(songListID,title,savePath);
                         // shareMp3Album(name,listening_description,l_id);
-                  //   } else {
-                  //     console.log(JSON.stringify(err));
-                  //   }
-                  // });
+                    } else {
+                      console.log(JSON.stringify(err));
+                    }
+                  });
 
 
               }else {
@@ -1300,7 +1309,9 @@
                 // alert(1);
             } else if (ret.index == "1") {
                 if (Types == 'Single') {
-                    fnintnQQSingle(songListID,title);
+
+                    var savePath = '';
+                    fnintnQQSingle(songListID,title,savePath);
                 }else {
                   // console.log(name);
                   // console.log(listening_description);
@@ -1314,7 +1325,8 @@
                 // alert(2);
             } else if (ret.index == "2") {
               if (Types == 'Single') {
-                  initTimelineSingle(songListID,title);
+                  var savePath = '';
+                  initTimelineSingle(songListID,title,savePath);
               }else {
                 api.download({
                     url: imgUrlListening_cover,
