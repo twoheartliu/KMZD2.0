@@ -307,13 +307,13 @@
                         var listening_cover = listeningImg + ret.data[i].listening_cover;
                         // console.log(listening_cover);
                         if (ret.data[i].listening_cover == '') {
-                            $api.append(stylelists, '<li id="listen_' + ret.data[i].userId + '" class="p20pxs"><div class="egret-flex-item" tapmode="fmbtnhover"><div class="egret-flex-item-logo" onclick="fnOpenPlay(' + ret.data[i].userId + ')"><img src="../image/my/fnShareImg.jpg" alt="" class=""></div><div class="egret-flex-item-shelf"> <div class="egret-flex-item-shelf01" onclick="fnOpenPlay(' + ret.data[i].l_id + ')"><span class="span1 fl"><span>' + ret.data[i].listening_name +
+                            $api.append(ids, '<li id="listen_' + ret.data[i].userId + '" class="p20pxs"><div class="egret-flex-item" tapmode="fmbtnhover"><div class="egret-flex-item-logo" onclick="fnOpenPlay(' + ret.data[i].userId + ')"><img src="../image/my/fnShareImg.jpg" alt="" class=""></div><div class="egret-flex-item-shelf"> <div class="egret-flex-item-shelf01" onclick="fnOpenPlay(' + ret.data[i].l_id + ')"><span class="span1 fl"><span>' + ret.data[i].listening_name +
                                 '</span></span><span class="span3 fr"></span></div><div class="egret-flex-item-shelf03" onclick="fnOpenPlay(' + ret.data[i].l_id + ')"><div><img src="../image/KM_play.png" alt=""><span>' +
                                 ret.data[i].play_total + '</span></div><div><img src="../image/KM_zf.png" alt=""><span>' + ret.data[i].share_total + '</span></div><div><img src="../image/KM_dz.png" alt=""><span>' +
                                 ret.data[i].good_total + '</span></div></div></div></div></li>');
                         } else {
 
-                            $api.append(stylelists, '<li id="listen_' + ret.data[i].userIds + '" class="p20pxs"><div class="egret-flex-item" tapmode="fmbtnhover"><div class="egret-flex-item-logo" onclick="fnOpenPlay(' + ret.data[i].userIds + ')"><img src="' +
+                            $api.append(ids, '<li id="listen_' + ret.data[i].userIds + '" class="p20pxs"><div class="egret-flex-item" tapmode="fmbtnhover"><div class="egret-flex-item-logo" onclick="fnOpenPlay(' + ret.data[i].userIds + ')"><img src="' +
                                 listening_cover + '" alt="" class=""></div><div class="egret-flex-item-shelf"> <div class="egret-flex-item-shelf01" onclick="fnOpenPlay(' + ret.data[i].l_id + ')"><span class="span1 fl"><span>' + ret.data[i].listening_name +
                                 '</span></span><span class="span3 fr"></span></div><div class="egret-flex-item-shelf03" onclick="fnOpenPlay(' + ret.data[i].l_id + ')"><div><img src="../image/KM_play.png" alt=""><span>' +
                                 ret.data[i].play_total + '</span></div><div><img src="../image/KM_zf.png" alt=""><span>' + ret.data[i].share_total + '</span></div><div><img src="../image/KM_dz.png" alt=""><span>' +

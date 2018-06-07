@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
-    <title>首页搜索前</title>
+    <title>国学馆搜索前</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
     <style>
         body,
@@ -56,6 +56,7 @@
             /*color: #ccc;*/
             vertical-align: top;
         }
+
         .soso {
             font-size: 18px;
             height: 50px;
@@ -69,12 +70,14 @@
             /*border:0;*/
             outline: none;
         }
+
         .itemlist {
             padding-left: 15px;
             width: 91%;
             /*display: block;*/
             margin: 10px;
         }
+
         .item {
             padding: 8px;
             margin: 2px;
@@ -87,17 +90,20 @@
             border-bottom-right-radius: 10px;
             background-color: white;
         }
+
         .search_list {
             /*display: block;*/
             position: relative;
             padding: 10px;
             background-color: white;
         }
+
         .search {
             line-height: 25px;
             padding: 10px;
             border-bottom: 1px solid #ddd;
         }
+
         .search img {
             line-height: 25px;
             height: 15px;
@@ -105,6 +111,7 @@
             position: absolute;
             right: 12px;
         }
+
         .hot {
             display: block;
             position: relative;
@@ -113,22 +120,26 @@
             font-size: 12px;
             background-color: white;
         }
+
         .middle {
             height: 30px;
             background-color: #fff;
             padding-top: 22px;
         }
+
         .so_head {
             display: inline;
             float: left;
             padding-left: 10px;
         }
+
         .deleteAll {
             display: inline;
             float: right;
             padding-right: 10px;
         }
         /*.clr{clear: both;}*/
+
         #messageFrameDiv {
             overflow: auto;
         }
@@ -141,7 +152,7 @@
         <div class="egret-img"><img src="../image/icon_back.png" alt="" onclick="goback()"></div>
         <div class="egret-header-search" tapmode>
             <img src="../image/header_search.png" alt="">
-            <input type="text"  placeholder="请输入关键词搜索" >
+            <input id='search-input' type="text" placeholder="请输入关键词搜索">
             <!-- <span>请输入关键词搜索</span> -->
         </div>
         <div class="soso" onclick="OpenSearch();">搜索</div>
@@ -151,7 +162,6 @@
             热门搜索
         </div>
         <ul class="itemlist">
-
             <li class="item">西游记</li>
             <li class="item">论语</li>
             <li class="item">非常非常好看的国学课</li>
@@ -176,7 +186,6 @@
         </div>
 
         <ul class="search_list">
-
             <li class="search">论语 <img src="../image/delete.png" alt=""></li>
             <li class="search">格列佛游记 <img src="../image/delete.png" alt=""></li>
             <li class="search">非常非常好看的国学课 <img src="../image/delete.png" alt=""></li>
@@ -192,14 +201,17 @@
 
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
-<script type="text/javascript" src="../script/index2.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript">
+    var token;
+
     function goback() {
         api.closeWin({
-            name: 'searchs_pre',
+            name: 'guoxue_searchs_pre',
         });
     }
     apiready = function() {
+        token = $api.getStorage('token');
         var eHeader = $api.byId('headerss')
         var headers = $api.offset(eHeader);
         // var headerssx = $api.offset(eHeader).h;
@@ -215,14 +227,81 @@
         var winHeightHeader = winHeight - headers.h - 25;
         $api.css(messageFrameDiv, 'height:' + winHeightHeader + 'px;');
 
+        clearInput();
+
+        var searchinput = $api.byId('search-input');
+        var searchhight = $api.offset(searchinput);
+        var UIInput = api.require('UIInput');
+        UIInput.open({
+            rect: {
+                x: searchhight.l,
+                y: searchhight.t,
+                w: searchhight.w,
+                h: searchhight.h
+            },
+            styles: {
+                bgColor: '#f2f2f2',
+                size: 14,
+                color: 'black',
+                placeholder: {
+                    color: '#858585'
+                }
+            },
+            autoFocus: false,
+            maxRows: 4,
+            placeholder: '请输入关键词搜索',
+            keyboardType: 'default',
+            fixedOn: api.frameName
+        }, function(ret) {
+            if (ret.eventType == 'change') {} else {
+                alert(JSON.stringify(ret));
+            }
+        });
+
     };
 
+    // api.openWin({
+    //     name: 'searchs',
+    //     url: './searchs.html',
+    //     pageParam: {
+    //         data: datas,
+    //     }
+    // });
+
     function OpenSearch() {
-        api.openWin({
-            name: 'searchs',
-            url: './searchs.html',
-            pageParam: {
-                name: 'test'
+        var w = $api.byId('search-input');
+        var word = w.value
+
+        if (word == "") {
+            api.toast({
+                msg: '请输入要搜索的内容',
+                duration: 2000,
+                location: 'middle'
+            });
+        } else {
+            api.openWin({
+                name: 'guoxue_searchs',
+                url: './guoxue_searchs.html',
+                pageParam: {
+                    data: word,
+                }
+            });
+        }
+
+    }
+
+    function clearInput() {
+        api.addEventListener({
+            name: 'clearInput'
+        }, function(ret, err) {
+            if (ret) {
+                //  alert( JSON.stringify( ret ) );
+                // console.log('sss');
+                var input = $api.byId('search-input');
+                // console.log(input.value);
+                input.value = ""
+            } else {
+                alert(JSON.stringify(err));
             }
         });
 

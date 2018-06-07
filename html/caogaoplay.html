@@ -549,7 +549,7 @@
                 <span class="s" id="kaishijishi">
                   <!-- 00:00 -->
                 </span>
-                <input type="range" id="range" name="range" min="0" max="100" step="1" value="0.01" class="red" />
+                <input type="range" id="range" name="range" min="0" max="100" step="1" value="0" class="red" />
                 <span class="e" id="zongshichang">
                   <!-- 00:00 -->
                 </span>
@@ -559,7 +559,7 @@
                 <li class="prev" tapmode="focus" onclick="fnOpenPlayershangyi()"></li>
                 <li class="play" tapmode="focus" id="openplayer"></li>
                 <li class="next" tapmode="focus" onclick="fnOpenPlayerxiayi()"></li>
-                <li><img src="../image/play/play_change0.png" alt="" id="img"></li>
+                <li id="imagesImg"><img src="../image/play/play_change0.png" alt="" id="img"></li>
             </ul>
         </div>
     </div>
@@ -589,7 +589,6 @@
         var secHeader = $api.byId('secHeader');
         $api.fixStatusBar(secHeader);
         var headerH = $api.offset(secHeader).h;
-        var audioPlayer = api.require('audioPlayer');
         var headerPosH = $api.offset(secHeader).h;
         var header = document.querySelector('header');
         $api.fixIos7Bar(header);
@@ -600,6 +599,8 @@
         var messageFrameDiv = $api.byId('wrap');
         var winHeightHeader = winHeight - headerPosH;
         $api.css(messageFrameDiv, 'height:' + winHeightHeader + 'px;');
+        fnJianTingGood();
+        fnJianTingBFms();
         ok = api.pageParam.ok;
         var oks = 'ok'+ok;
         api.addEventListener({
@@ -850,7 +851,43 @@
               }
           }
     }
+    function fnJianTingGood(){
+      api.addEventListener({
+          name: 'neiJianTingGood'
+      }, function(ret, err) {
+          bofangmoshi = ret.value.bofangmoshiid;
+          fnOpenChangeImg(bofangmoshi);
+          return;
+      });
+    }
 
+    function fnJianTingBFms(){
+      api.addEventListener({
+          name: 'neiJianTingBFms'
+      }, function(ret, err) {
+          bofangmoshi = ret.value.bofangmoshiid;
+          fnBoFangMoShiId(bofangmoshi);
+          return;
+      });
+    }
+    function fnBoFangMoShiId(bofangMoShiId){
+      bofangmoshi = bofangMoShiId;
+      var stylelist = $api.byId('imagesImg');
+      var html = '';
+      if(bofangmoshi == 1){
+        html = '<img src="../image/play/play_change1.png" alt="" id="img">';
+      }else if(bofangmoshi == 2){
+        html = '<img src="../image/play/play_change2.png" alt="" id="img">';
+      }else if(bofangmoshi == 0){
+        html = '<img src="../image/play/play_change0.png" alt="" id="img">';
+      }else if(bofangmoshi == 'undefined'){
+        html = '<img src="../image/play/play_change0.png" alt="" id="img">';
+      }else{
+        html = '<img src="../image/play/play_change0.png" alt="" id="img">';
+      }
+      $api.html(stylelist, html);
+      fnOpenChangeImg();
+    }
     function fnDangQianbofangid(id) {
         Dqbofangid = id;
     }
@@ -1071,15 +1108,24 @@
                 var lenth = ret.value.lenth;
                 var cur = ret.value.cur;
                 var a = cur / lenth;
-                var ccc = JSON.stringify(cur / lenth * 100);
-                if (ccc > 0) {
-                    range.value = ccc;
+                var ccc = JSON.stringify(cur/lenth  * 100);
+                var sssss;
+                if(!cur){
+                  range.value = 0;
+                  range.style.background = 'linear-gradient(to left, #89211b 100%, #f2f2f2 0,#f2f2f2  )';
+                }else{
+                  range.value = ccc;
+                  sssss = 100 - range.value;
+                  // if(ccc > 99){
+                  //   range.value = 105;
+                  //   sssss = 0;
+                  // }
+                  //不渐变
+                  range.style.background = 'linear-gradient(to left, #89211b ' + sssss + '%, #f2f2f2 0,#f2f2f2  )';
                 }
-                var sssss = 100 - range.value;
-                //不渐变
                 // range.style.background = 'linear-gradient(to left, #89211b ' + sssss + '%, #000 0,#000  )';
                 // range.css( 'background', 'linear-gradient(to right, #059CFA, white ' + range.value + '%, white)' );
-                range.style.background = 'linear-gradient(to left, #89211b ' + sssss + '%, blue ' + range.value + '%,#789  )';
+                // range.style.background = 'linear-gradient(to left, #89211b ' + sssss + '%, blue ' + range.value + '%,#789  )';
                 fnZongJinDu(lenth);
 
             }
@@ -1224,23 +1270,45 @@
                 // 设置 src
                 this.src = image_urls[idx];
                 if (idx == 1) {
-                    var bofangmoshi = 2;
+                    bofangmoshi = 1;
                     api.sendEvent({
-                        name: 'bofangmoshi',
+                        name: 'bofangmoshiDanQu',
                         extra: {
                             bofangmoshi: bofangmoshi
                         }
                     });
-                } else {
-                    var bofangmoshi = 0;
+                } else if (idx == 2) {
+                    bofangmoshi = 2;
                     api.sendEvent({
-                        name: 'bofangmoshi',
+                        name: 'bofangmoshiDanQu',
                         extra: {
                             bofangmoshi: bofangmoshi
                         }
                     });
+                } else if (idx == 0){
+                    bofangmoshi = 0;
+                    api.sendEvent({
+                        name: 'bofangmoshiDanQu',
+                        extra: {
+                            bofangmoshi: bofangmoshi
+                        }
+                    });
+                }else{
+                  bofangmoshi = 0;
+                  api.sendEvent({
+                      name: 'bofangmoshiDanQu',
+                      extra: {
+                          bofangmoshi: bofangmoshi
+                      }
+                  });
                 }
             };
+            api.sendEvent({
+                name: 'bofangmoshiDanQu',
+                extra: {
+                    bofangmoshi: bofangmoshi
+                }
+            });
         }
     }
     // 选择播放器
@@ -1385,6 +1453,7 @@
     var change = function($input) {
         /*内容可自行定义*/
         adjust();
+        console.log(222);
     }
     $('input').RangeSlider({
         callback: change

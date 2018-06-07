@@ -729,6 +729,12 @@
   		if(path){
         var myAudio = document.getElementById("myAudio");
         myAudio.play();
+        api.sendEvent({
+            name: 'playPlay',
+            extra: {
+                bookId:2
+            }
+        });
         myAudio.loop=true;
         jindutiao();
   		}else {
