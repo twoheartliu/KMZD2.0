@@ -191,6 +191,7 @@
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/message.js"></script>
 <script type="text/javascript">
     var id;
     var CoverDivInput;
@@ -378,6 +379,7 @@
                     }
                 });
             } else if (index == 1) {
+
                 // alert('相册')
                 dialogBox.close({
                     dialogName: 'actionMenu'
@@ -394,7 +396,9 @@
                     saveToPhotoAlbum: false
                 }, function(ret, err) {
                     if (ret) {
-                      if(ret.status == 200){
+                  console.log(JSON.stringify(ret));
+                      if(ret.data != ''){
+
                         var CoverImg = $api.byId('Cover_img');
                         CoverImg.innerHTML = '<img src="' + ret.data + '">';
                         // console.log(ret.data);

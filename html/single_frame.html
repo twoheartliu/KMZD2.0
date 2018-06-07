@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
     <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
-    <title>听单</title>
+    <title>专辑</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
     <style>
         body {}
@@ -581,6 +581,7 @@
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript" src="../script/message.js"></script>
+<script type="text/javascript" src="../script/wxfx.js"></script>
 <script type="text/javascript">
     var token;
     var albumGoodHtml;
@@ -588,6 +589,9 @@
     var albumId;
     var collections;
     var goods;
+
+    // 分享全局变量
+    var imgaesFx , iamgFx , titleFx , idFx , briefFx;
     apiready = function() {
         token = $api.getStorage('token');
 
@@ -677,9 +681,13 @@
         }, function(ret, err) {
           if(ret){
             if (ret.status == 200) {
-                setTimeout(function(){
+                // setTimeout(function(){
+                titleFx = ret.data.title;
+                idFx = ret.data.id;
+                briefFx = ret.data.brief;
+                console.log(JSON.stringify(ret));
                     api.refreshHeaderLoadDone()
-                },3000)
+                // },3000)
                 fnAlbumAetailsList(ret);
             } else {
                 netMessage(ret);
@@ -698,6 +706,8 @@
         var imgstylelistss = $api.byId('imgssss');
         var imghtmls = '<img src="http://47.100.11.38/' + data_.data.big + '" alt="">';
         $api.html(imgstylelistss, imghtmls);
+        imgaesFx = 'http://47.100.11.38/' +  data_.data.sma;
+        iamgFx = data_.data.sma;
       }else{
         var imgstylelistss = $api.byId('imgssss');
         var imghtmls = '<img src="../image/index/pic.jpg" alt="">';
@@ -769,6 +779,7 @@
     }
     //接口  听单展示
     function fnAlbumIdLift(data_) {
+        // console.log(JSON.stringify(data_));
         var stylelist = $api.byId('tuijianliebiaogequ');
         var html = '';
         for (var i = 0; i < data_.data.length; i++) {
@@ -779,13 +790,13 @@
                     '</span>  </div><div class="on_playall_img"><div class="on_playall_div fl"><div class="on_playall_div_img fl"> <img src="../image/KM_play.png" alt=""></div> <div class="on_playall_div_span fl"><span>' + data_.data[i].play_total +
                     '</span> </div></div> <div class="on_playall_div fl"> <div class="on_playall_div_img fl"> <img src="../image/KM_zf.png" alt=""> </div><div class="on_playall_div_span fl"> <span>' + data_.data[i].share_total +
                     '</span> </div>  </div><div class="on_playall_div fl">  <div class="on_playall_div_img fl"><img src="../image/KM_dz.png" alt="">  </div><div class="on_playall_div_span fl"><span>' + data_.data[i].good_total +
-                    '</span></div></div></div></div><div class="on_playall_more_imgs fr" onclick="fnOpenPlayMore('+ data_.data[i].id +');"><img src="../image/KM_list_more.png" alt=""></div></li>'
+                    '</span></div></div></div></div><div class="on_playall_more_imgs fr" onclick="fnOpenPlayMore('+ data_.data[i].id +',\''+data_.data[i].title+'\','+data_.data[i].sma+');"><img src="../image/KM_list_more.png" alt=""></div></li>'
             } else {
                 html += '<li  class="items"><div class="on_play" onclick="fnOpenPlay(' + data_.data[i].id + ' );"><div class="on_playall"><span class="fl on_playall_name">' + data_.data[i].title +
                     '</span></div><div class="on_playall_img"><div class="on_playall_div fl"><div class="on_playall_div_img fl"> <img src="../image/KM_play.png" alt=""></div> <div class="on_playall_div_span fl"><span>' + data_.data[i].play_total +
                     '</span> </div></div> <div class="on_playall_div fl"> <div class="on_playall_div_img fl"> <img src="../image/KM_zf.png" alt=""> </div><div class="on_playall_div_span fl"> <span>' + data_.data[i].share_total +
                     '</span> </div>  </div><div class="on_playall_div fl">  <div class="on_playall_div_img fl"><img src="../image/KM_dz.png" alt="">  </div><div class="on_playall_div_span fl"><span>' + data_.data[i].good_total +
-                    '</span></div></div></div></div><div class="on_playall_more_imgs fr" onclick="fnOpenPlayMore('+ data_.data[i].id +');"><img src="../image/KM_list_more.png" alt=""></div></li>'
+                    '</span></div></div></div></div><div class="on_playall_more_imgs fr" onclick="fnOpenPlayMore('+ data_.data[i].id +',\''+data_.data[i].title+'\','+data_.data[i].sma+');"><img src="../image/KM_list_more.png" alt=""></div></li>'
             }
 
         }
@@ -796,6 +807,7 @@
     }
 
     function fnTingdanZhanshibiaoti(data_) {
+
         var stylelist = $api.byId('tingdanliebiaobiaoti');
         var html = data_;
         $api.html(stylelist, html);
@@ -852,7 +864,7 @@
         // });
     }
     //打开更多
-    function fnOpenPlayMore(id) {
+    function fnOpenPlayMore(id,data_title,sma) {
         var dialogBox = api.require('dialogBox');
         dialogBox.actionMenu({
             rect: {
@@ -941,7 +953,8 @@
                     dialogName: 'actionMenu'
                 });
             } else if (ret.index == "2") {
-                fnOpenPlayShare();
+                var Types = 'Single'
+                fnOpenPlayShare(Types,id,data_title);
             } else {
               dialogBox.close({
                   dialogName: 'actionMenu'
@@ -952,7 +965,13 @@
         });
     }
     //打开分享
-    function fnOpenPlayShare() {
+    function fnOpenPlayShare(Types,id,data_title,sma) {
+
+      // console.log(imgaesFx);
+      // console.log(iamgFx);
+      // console.log(titleFx);
+      // console.log(idFx);
+      // console.log(smaFx);
         var dialogBox = api.require('dialogBox');
         dialogBox.actionMenu({
             rect: {
@@ -997,14 +1016,114 @@
                 });
             }
             if (ret.index == "0") {
+              if (Types == 'Single') {
+                  var songListID = id;
+                  var title = data_title;
+                  shareMp3Single(songListID,title);
+              }else {
+
+                api.download({
+                    url: imgaesFx,
+                    savePath: 'fs:savePath/'+ iamgFx,
+                    report: true,
+                    cache: true,
+                    allowResume: true
+                }, function(ret, err) {
+                    if (ret.state == 1) {
+                        //下载成功
+                        var savePath = ret.savePath;
+                        var name =  titleFx;
+                        // var listening_description =
+                        var l_id = idFx;
+                        var listening_description;
+                        if (briefFx == null) {
+
+                            listening_description = ''
+                        }else {
+                            listening_description = briefFx;
+                        }
+                        shareMp3Album(name,listening_description,l_id,savePath);
+                    } else {
+                      console.log(JSON.stringify(err));
+                    }
+                });
+
+              }
                 dialogBox.close({
                     dialogName: 'actionMenu'
                 });
             } else if (ret.index == "1") {
+              if (Types == 'Single') {
+                  var songListID = id;
+                  var title = data_title;
+
+                  fnintnQQSingle(songListID,title,msa);
+              }else {
+
+                api.download({
+                    url: imgaesFx,
+                    savePath: 'fs:savePath/'+ iamgFx,
+                    report: true,
+                    cache: true,
+                    allowResume: true
+                }, function(ret, err) {
+                    if (ret.state == 1) {
+                        //下载成功
+                        var savePath = ret.savePath;
+                        var name =  titleFx;
+                        // var listening_description =
+                        var l_id = idFx;
+                        var listening_description;
+                        if (briefFx == null) {
+
+                            listening_description = ''
+                        }else {
+                            listening_description = briefFx;
+                        }
+                        fnintnQQAlbum(name,listening_description,l_id,savePath);
+                    } else {
+                      console.log(JSON.stringify(err));
+                    }
+                });
+
+              }
                 dialogBox.close({
                     dialogName: 'actionMenu'
                 });
             } else if (ret.index == "2") {
+              if (Types == 'Single') {
+                  var songListID = id;
+                  var title = data_title;
+                  initTimelineSingle(songListID,title);
+              }else {
+
+                api.download({
+                    url: imgaesFx,
+                    savePath: 'fs:savePath/'+ iamgFx,
+                    report: true,
+                    cache: true,
+                    allowResume: true
+                }, function(ret, err) {
+                    if (ret.state == 1) {
+                        //下载成功
+                        var savePath = ret.savePath;
+                        var name =  titleFx;
+                        // var listening_description =
+                        var l_id = idFx;
+                        var listening_description;
+                        if (briefFx == null) {
+
+                            listening_description = ''
+                        }else {
+                            listening_description = briefFx;
+                        }
+                        initTimelineAlbum(name,listening_description,l_id,savePath);
+                    } else {
+                      console.log(JSON.stringify(err));
+                    }
+                });
+
+              }
                 dialogBox.close({
                     dialogName: 'actionMenu'
                 });
