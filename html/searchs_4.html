@@ -168,6 +168,13 @@
             font-size: 11px;
             color: #b2b2b2;
         }
+
+        #footer {
+            width: 100%;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -194,6 +201,9 @@
 
         </ul>
     </ul>
+    <div id="footer" onclick="fnOpenMore();" class="disnone">
+        点击加载更多
+    </div>
 </body>
 
 </html>
@@ -201,35 +211,72 @@
 <script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript" src="../script/message.js"></script>
 <script type="text/javascript">
+    var type;
     var token;
     var keyword;
-    var type;
-
-
+    var p = 1;
 
 
     apiready = function() {
-        token = $api.getStorage('token');
-        keyword = api.pageParam.keywords;
         type = api.pageParam.type;
-        // console.log(JSON.stringify(keyword));
+        token = $api.getStorage('token');
+        fnSearchMore();
+        // api.addEventListener({
+        //     name: 'scrolltobottom',
+        //     extra: {
+        //         threshold: -20 //设置距离底部多少距离时触发，默认值为0，数字类型
+        //     }
+        // }, function(ret, err) {
+        //   p ++;
+        //   console.log(p);
 
+
+        // });
+    }
+
+
+    function fnOpenMore() {
+        p++;
+        loadlist();
+        // console.log(p);
+    }
+
+    var aaaaa;
+    var ccccc;
+    var eeeee;
+    var keys;
+
+    function fnSearchMore() {
         api.addEventListener({
             name: 'inputValues'
         }, function(ret, err) {
             if (ret) {
-                //  console.log( JSON.stringify( ret.value.inputValues ) );
-                var keys = ret.value.inputValues;
-                loadlist(keys, type);
-            } else {
-                alert(JSON.stringify(err));
-            }
+                keys = ret.value.inputValues;
+                if (keys) {
+                    fnAaaaa(keys);
+                    return false;
+                }
+                return false;
+            } else {}
+            return false;
         });
-
-        loadlist(keyword, type);
+        keys = api.pageParam.keywords;
+        loadlist(keys, type);
     }
 
-    function loadlist(key, type) {
+    function fnAaaaa(ii) {
+        p = 1;
+        keys = ii;
+        var container = $api.byId('id-container');
+        var html = '';
+        $api.html(container, html);
+        loadlist(keys, type);
+    }
+
+    function loadlist(i, type) {
+        if (!i) {
+            i = keys;
+        }
         api.ajax({
             url: host + apiUri + '/search/',
             method: 'get',
@@ -242,16 +289,35 @@
             },
             data: {
                 values: {
-                    keywords: key,
-                    p: 1,
-                    type: type,
+                    keywords: i,
+                    p: p,
+                    type: 'listening',
                 },
             },
         }, function(ret, err) {
             if (ret) {
                 // console.log(JSON.stringify(ret));
                 if (ret.status === 200) {
-                    var html = '';
+                    if (ret.data == '') {
+                        var footer = $api.byId('footer');
+                        $api.html(footer, '无更多数据');
+                    } else {
+                        //   console.log(ret.data.length);
+                        if (ret.data.length < 10) {
+                            var footer = $api.byId('footer');
+                            // $api.css(footer, 'display:none');
+                            $api.html(footer, '点击加载更多');
+                        } else {
+                            var footer = $api.byId('footer');
+                            // $api.css(footer, 'display:block');
+                            $api.html(footer, '正在加载更多');
+                        }
+                    }
+                    // var html = '';
+                    // setTimeout(function(){
+                    //     api.refreshHeaderLoadDone()
+                    // },3000)
+                    var container = $api.byId('id-container');
                     for (var i = 0; i < ret.data.length; i++) {
                         // console.log(JSON.stringify(ret.data[i]));
                         var data = ret.data[i];
@@ -267,11 +333,15 @@
                             img = "../image/KM_album.png";
                         }
 
-
-                        html += '<li onclick=fnOpenList('+ id +')><div class="message_frame_cycle"><div class="message_frame_cycle_img"><img src="../image/KM_album.png" alt=""></div><div class="message_frame_cycle_div fl"><div class="message_frame_cycle_div_1 col">'+ title +'</div><div class="message_frame_cycle_div_3 fl"><div class="message_frame_cycle_div_3fl"><div class="pos collection_frame fl">创建者:<span>'+ nickname +'</span></div></div><div class="egret-flex-item-shelf03"><div><img src="../image/KM_play.png" alt=""><span>'+ play_total +'</span></div><div><img src="../image/KM_cd.png" alt=""><span>'+ songs_total +'</span></div></div></div></div></div></li>';
+                        $api.append(container,
+                            '<li onclick=fnOpenList(' + id +
+                            ')><div class="message_frame_cycle"><div class="message_frame_cycle_img"><img src="../image/KM_album.png" alt=""></div><div class="message_frame_cycle_div fl"><div class="message_frame_cycle_div_1 col">' +
+                            title + '</div><div class="message_frame_cycle_div_3 fl"><div class="message_frame_cycle_div_3fl"><div class="pos collection_frame fl">创建者:<span>' + nickname +
+                            '</span></div></div><div class="egret-flex-item-shelf03"><div><img src="../image/KM_play.png" alt=""><span>' + play_total + '</span></div><div><img src="../image/KM_cd.png" alt=""><span>' + songs_total +
+                            '</span></div></div></div></div></div></li>');
                     }
-                    var container = $api.byId('id-container');
-                    $api.html(container, html);
+
+
                 }
             } else {
                 alert(JSON.stringify(err));
@@ -279,6 +349,7 @@
         });
 
     }
+
 
     // 打开专辑列表
     function fnOpenList(id) {
@@ -290,7 +361,7 @@
                 "version": version,
                 "session": token
             },
-        },function(ret, err){
+        }, function(ret, err) {
             if (ret) {
                 var listenName = ret.data.linstening_info.l_id;
                 console.log(JSON.stringify(listenName));
@@ -308,7 +379,7 @@
                 });
                 // alert( JSON.stringify( ret ) );
             } else {
-                alert( JSON.stringify( err ) );
+                alert(JSON.stringify(err));
             }
         });
     }
