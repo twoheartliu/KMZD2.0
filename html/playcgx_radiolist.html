@@ -105,7 +105,7 @@
     </style>
 </head>
 
-<body>
+<body onclick="fnbbbbbb()"  style="cursor:pointer;">
     <div id="mask"></div>
     <div id="radio-list">
         <h2 id="gedanmingcheng">
@@ -133,17 +133,26 @@
     apiready = function() {
         var list = $api.byId('radio-list');
         $api.addCls(list, 'in');
-        var bodyW = document.getElementsByTagName("body")[0];
-        bodyW.onclick = function(evt) {
-            if (!list[0]) {
-                $api.removeCls(list, 'in');
-                setTimeout(function() {
-                    api.closeFrame();
-                }, 350);
-            }
-        }
+        // var bodyW = document.getElementsByTagName("body")[0];
+        // bodyW.onclick = function(evt) {
+        //     if (!list[0]) {
+        //         $api.removeCls(list, 'in');
+        //         setTimeout(function() {
+        //             api.closeFrame();
+        //         }, 350);
+        //     }
+        // }
         fnGetBeiJingYinYueTypelist();
     };
+
+    function fnbbbbbb(){
+      var list = $api.byId('radio-list');
+      $api.addCls(list, 'in');
+      $api.removeCls(list, 'in');
+      setTimeout(function() {
+          api.closeFrame();
+      }, 350);
+    }
     //接口  推荐听单
 
     function fnGetBeiJingYinYueTypelist() {

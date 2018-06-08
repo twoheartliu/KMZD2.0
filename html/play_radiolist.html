@@ -107,7 +107,7 @@
     </style>
 </head>
 
-<body onclick="fnbbbbbb()">
+<body onclick="fnbbbbbb()"  style="cursor:pointer;">
     <div id="mask" ></div>
     <div id="radio-list">
         <h2 id="gedanmingcheng">
@@ -141,10 +141,10 @@
     apiready = function() {
         var list = $api.byId('radio-list');
         $api.addCls(list, 'in');
-        var bodyW = document.getElementsByTagName("body")[0];
+        // var bodyW = document.getElementsByTagName("body")[0];
         token = $api.getStorage('token');
-          playlistid = api.pageParam.playlistid;
-          playUrli = api.pageParam.playUrli;
+        playlistid = api.pageParam.playlistid;
+        playUrli = api.pageParam.playUrli;
         fnGeDanMingCheng();
         fnTingdanTuijian();
         // bodyW.onclick = function(evt) {
@@ -158,11 +158,19 @@
         // $('body').on("click touchstart", ".body", function(){
         //   console.log(111);
         // });
+        // $('body').on("click", function(){
+        //   console.log(111);
+        // });
 
     };
 
     function fnbbbbbb(){
-      alret(222);
+      var list = $api.byId('radio-list');
+      $api.addCls(list, 'in');
+      $api.removeCls(list, 'in');
+      setTimeout(function() {
+          api.closeFrame();
+      }, 350);
     }
     //接口  推荐听单
     function fnTingdanTuijian() {
