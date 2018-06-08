@@ -11,8 +11,9 @@ var listeningImg = 'http://47.100.11.38/kmzd/public/uploads/listening/';
 var userRecord = 'http://47.100.11.38/kmzd/public/uploads/records/';
 //banner;
 var uploadsBanner = 'http://47.100.11.38/kmzd/public/uploads/banner/';
-
-
+// 手机型号
+// var deviceModel = api.deviceModel;
+// console.log(deviceModel);
 //token
 //    var token = $api.getStorage('token');
 
