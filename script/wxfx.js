@@ -65,17 +65,21 @@ function shareMp3Single(songListID,title,savePath) {
                                                 api.toast({
                                                     msg: '分享成功',
                                                     duration: 2000,
-                                                    location: 'bottom'
+                                                    location: 'middle'
                                                 });
                                               } else {
-                                                    console.log(111111);
+                                                api.toast({
+                                                    msg: '分享失败',
+                                                    duration: 2000,
+                                                    location: 'middle'
+                                                });
                                               }
                                           });
                                         } else {
                                             api.toast({
                                                 msg: err.code,
                                                 duration: 2000,
-                                                location: 'bottom'
+                                                location: 'middle'
                                             });
                                         }
                                     });
@@ -83,7 +87,7 @@ function shareMp3Single(songListID,title,savePath) {
                                     api.toast({
                                         msg: '已取消',
                                         duration: 2000,
-                                        location: 'bottom'
+                                        location: 'middle'
                                     });
                                 }
                             });
@@ -92,7 +96,7 @@ function shareMp3Single(songListID,title,savePath) {
                           api.toast({
                               msg: '失败',
                               duration: 2000,
-                              location: 'bottom'
+                              location: 'middle'
                           });
                         }
                     });
@@ -100,7 +104,7 @@ function shareMp3Single(songListID,title,savePath) {
                   api.toast({
                       msg: '失败',
                       duration: 2000,
-                      location: 'bottom'
+                      location: 'middle'
                   });
                 }
             });
@@ -108,7 +112,7 @@ function shareMp3Single(songListID,title,savePath) {
             api.toast({
                 msg: '当前设备未安装微信客户端',
                 duration: 2000,
-                location: 'bottom'
+                location: 'middle'
             });
         }
     });
@@ -197,7 +201,7 @@ function initTimelineSingle(songListID,title,savePath) {
                                                 api.toast({
                                                     msg: '分享成功',
                                                     duration: 2000,
-                                                    location: 'bottom'
+                                                    location: 'middle'
                                                 });
                                               } else {
 
@@ -207,7 +211,7 @@ function initTimelineSingle(songListID,title,savePath) {
                                             api.toast({
                                                 msg: '分享失败',
                                                 duration: 2000,
-                                                location: 'bottom'
+                                                location: 'middle'
                                             });
                                         }
                                     });
@@ -215,7 +219,7 @@ function initTimelineSingle(songListID,title,savePath) {
                                   api.toast({
                                       msg: '分享失败',
                                       duration: 2000,
-                                      location: 'bottom'
+                                      location: 'middle'
                                   });
                                 }
                             });
@@ -223,7 +227,7 @@ function initTimelineSingle(songListID,title,savePath) {
                           api.toast({
                               msg: '失败',
                               duration: 2000,
-                              location: 'bottom'
+                              location: 'middle'
                           });
                         }
                     });
@@ -231,7 +235,7 @@ function initTimelineSingle(songListID,title,savePath) {
                   api.toast({
                       msg: '失败',
                       duration: 2000,
-                      location: 'bottom'
+                      location: 'middle'
                   });
                 }
             });
@@ -239,7 +243,7 @@ function initTimelineSingle(songListID,title,savePath) {
             api.toast({
                 msg: '当前设备未安装微信客户端',
                 duration: 2000,
-                location: 'bottom'
+                location: 'middle'
             });
         }
     });
@@ -298,17 +302,21 @@ function shareMp3Listening(name,listening_description,l_id,savePath) {
                                                 api.toast({
                                                     msg: '分享成功',
                                                     duration: 2000,
-                                                    location: 'bottom'
+                                                    location: 'middle'
                                                 });
                                               } else {
-
+                                                api.toast({
+                                                    msg: '分享失败',
+                                                    duration: 2000,
+                                                    location: 'middle'
+                                                });
                                               }
                                           });
                                         } else {
                                             api.toast({
-                                                msg: err.code,
+                                                msg: '分享失败',
                                                 duration: 2000,
-                                                location: 'bottom'
+                                                location: 'middle'
                                             });
                                         }
                                     });
@@ -316,7 +324,7 @@ function shareMp3Listening(name,listening_description,l_id,savePath) {
                                     api.toast({
                                         msg: '已取消',
                                         duration: 2000,
-                                        location: 'bottom'
+                                        location: 'middle'
                                     });
                                 }
                             });
@@ -325,7 +333,7 @@ function shareMp3Listening(name,listening_description,l_id,savePath) {
                           api.toast({
                               msg: '失败',
                               duration: 2000,
-                              location: 'bottom'
+                              location: 'middle'
                           });
                         }
                     });
@@ -333,7 +341,7 @@ function shareMp3Listening(name,listening_description,l_id,savePath) {
                   api.toast({
                       msg: '失败',
                       duration: 2000,
-                      location: 'bottom'
+                      location: 'middle'
                   });
                 }
             });
@@ -341,7 +349,7 @@ function shareMp3Listening(name,listening_description,l_id,savePath) {
             api.toast({
                 msg: '当前设备未安装微信客户端',
                 duration: 2000,
-                location: 'bottom'
+                location: 'middle'
             });
         }
     });
@@ -417,16 +425,21 @@ function initTimelineListening(name,listening_description,l_id,savePath) {
                                                 api.toast({
                                                     msg: '分享成功',
                                                     duration: 2000,
-                                                    location: 'bottom'
+                                                    location: 'middle'
                                                 });
                                               } else {
+                                                api.toast({
+                                                    msg: '分享失败',
+                                                    duration: 2000,
+                                                    location: 'middle'
+                                                });
                                               }
                                           });
                                         } else {
                                             api.toast({
                                                 msg: '分享失败',
                                                 duration: 2000,
-                                                location: 'bottom'
+                                                location: 'middle'
                                             });
                                         }
                                     });
@@ -434,7 +447,7 @@ function initTimelineListening(name,listening_description,l_id,savePath) {
                                   api.toast({
                                       msg: '分享失败',
                                       duration: 2000,
-                                      location: 'bottom'
+                                      location: 'middle'
                                   });
                                 }
                             });
@@ -442,7 +455,7 @@ function initTimelineListening(name,listening_description,l_id,savePath) {
                           api.toast({
                               msg: '失败',
                               duration: 2000,
-                              location: 'bottom'
+                              location: 'middle'
                           });
                         }
                     });
@@ -450,7 +463,7 @@ function initTimelineListening(name,listening_description,l_id,savePath) {
                   api.toast({
                       msg: '失败',
                       duration: 2000,
-                      location: 'bottom'
+                      location: 'middle'
                   });
                 }
             });
@@ -458,7 +471,7 @@ function initTimelineListening(name,listening_description,l_id,savePath) {
             api.toast({
                 msg: '当前设备未安装微信客户端',
                 duration: 2000,
-                location: 'bottom'
+                location: 'middle'
             });
         }
     });
@@ -521,24 +534,29 @@ function shareMp3Album(name,listening_description,l_id,savePath) {
                                                 api.toast({
                                                     msg: '分享成功',
                                                     duration: 2000,
-                                                    location: 'bottom'
+                                                    location: 'middle'
                                                 });
                                               } else {
+                                                api.toast({
+                                                    msg: '分享失败',
+                                                    duration: 2000,
+                                                    location: 'middle'
+                                                });
                                               }
                                           });
                                         } else {
-                                            api.toast({
-                                                msg: err.code,
-                                                duration: 2000,
-                                                location: 'bottom'
-                                            });
+                                          api.toast({
+                                              msg: '分享失败',
+                                              duration: 2000,
+                                              location: 'middle'
+                                          });
                                         }
                                     });
                                 } else {
                                     api.toast({
                                         msg: '已取消',
                                         duration: 2000,
-                                        location: 'bottom'
+                                        location: 'middle'
                                     });
                                 }
                             });
@@ -547,7 +565,7 @@ function shareMp3Album(name,listening_description,l_id,savePath) {
                           api.toast({
                               msg: '失败',
                               duration: 2000,
-                              location: 'bottom'
+                              location: 'middle'
                           });
                         }
                     });
@@ -555,7 +573,7 @@ function shareMp3Album(name,listening_description,l_id,savePath) {
                   api.toast({
                       msg: '失败',
                       duration: 2000,
-                      location: 'bottom'
+                      location: 'middle'
                   });
                 }
             });
@@ -563,7 +581,7 @@ function shareMp3Album(name,listening_description,l_id,savePath) {
             api.toast({
                 msg: '当前设备未安装微信客户端',
                 duration: 2000,
-                location: 'bottom'
+                location: 'middle'
             });
         }
     });
@@ -642,16 +660,21 @@ function initTimelineAlbum(name,listening_description,l_id,savePath) {
                                                 api.toast({
                                                     msg: '分享成功',
                                                     duration: 2000,
-                                                    location: 'bottom'
+                                                    location: 'middle'
                                                 });
                                               } else {
+                                                api.toast({
+                                                    msg: '分享失败',
+                                                    duration: 2000,
+                                                    location: 'middle'
+                                                });
                                               }
                                           });
                                         } else {
                                             api.toast({
                                                 msg: '分享失败',
                                                 duration: 2000,
-                                                location: 'bottom'
+                                                location: 'middle'
                                             });
                                         }
                                     });
@@ -659,7 +682,7 @@ function initTimelineAlbum(name,listening_description,l_id,savePath) {
                                   api.toast({
                                       msg: '分享失败',
                                       duration: 2000,
-                                      location: 'bottom'
+                                      location: 'middle'
                                   });
                                 }
                             });
@@ -667,7 +690,7 @@ function initTimelineAlbum(name,listening_description,l_id,savePath) {
                           api.toast({
                               msg: '失败',
                               duration: 2000,
-                              location: 'bottom'
+                              location: 'middle'
                           });
                         }
                     });
@@ -675,7 +698,7 @@ function initTimelineAlbum(name,listening_description,l_id,savePath) {
                   api.toast({
                       msg: '失败',
                       duration: 2000,
-                      location: 'bottom'
+                      location: 'middle'
                   });
                 }
             });
@@ -683,7 +706,7 @@ function initTimelineAlbum(name,listening_description,l_id,savePath) {
             api.toast({
                 msg: '当前设备未安装微信客户端',
                 duration: 2000,
-                location: 'bottom'
+                location: 'middle'
             });
         }
     });
