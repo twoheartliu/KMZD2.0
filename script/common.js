@@ -1,4 +1,4 @@
-var host = 'http://api.kmzhidao.com';
+var host = 'https://api.kmzhidao.com';
 var version = '2.0';
 var apiUri = '/kmzd/2.0';
 //

@@ -976,41 +976,45 @@
     }
     //监听收藏，评论数；
     function fnJianTingBookCollection(bookId){
-      api.ajax({
-          url: host + apiUri + '/sound/' + bookId,
-          method: 'get',
-          dataType: 'json',
-          headers: {
-              "source": api.systemType,
-              "version": version,
-              "session": token
-          }
-      }, function(ret, err) {
-        if(ret){
-        if (ret.status == 200) {
-            var stylelistCollectionHtml = $api.byId('bookExtraCollectionHtml');
-              if(ret.data.is_collection){
-                bookCollectionHtml = '<img src="../image/KM_play_collect_red.png" alt="" class="collectmusicssss" id="playCollect" onclick="fnOpenPlayCollect(this)" data-click="1"><p>收藏</p>';
+      if(bookId != 'undefined'){
+        api.ajax({
+            url: host + apiUri + '/sound/' + bookId,
+            method: 'get',
+            dataType: 'json',
+            headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token
+            }
+        }, function(ret, err) {
+          if(ret){
+
+          if (ret.status == 200) {
+              var stylelistCollectionHtml = $api.byId('bookExtraCollectionHtml');
+                if(ret.data.is_collection){
+                  bookCollectionHtml = '<img src="../image/KM_play_collect_red.png" alt="" class="collectmusicssss" id="playCollect" onclick="fnOpenPlayCollect(this)" data-click="1"><p>收藏</p>';
+                }else{
+                  bookCollectionHtml = '<img src="../image/KM_play_collect.png" alt="" class="collectmusicssss" id="playCollect"  onclick="fnOpenPlayCollect(this)" data-click="0"><p>收藏</p>';
+                }
+              $api.html(stylelistCollectionHtml, bookCollectionHtml);
+              if(ret.data.comment_total){
+                  var html = ret.data.comment_total;
+                  var stylelist = $api.byId('comments');
+                  $api.html(stylelist, html);
               }else{
-                bookCollectionHtml = '<img src="../image/KM_play_collect.png" alt="" class="collectmusicssss" id="playCollect"  onclick="fnOpenPlayCollect(this)" data-click="0"><p>收藏</p>';
-              }
-            $api.html(stylelistCollectionHtml, bookCollectionHtml);
-            if(ret.data.comment_total){
-                var html = ret.data.comment_total;
+                var html = 0;
                 var stylelist = $api.byId('comments');
                 $api.html(stylelist, html);
-            }else{
-              var html = 0;
-              var stylelist = $api.byId('comments');
-              $api.html(stylelist, html);
-            }
-        } else {
-            netMessage(ret);
+              }
+          } else {
+              netMessage(ret);
+          }
+        }else{
+          netWork(err);
         }
-      }else{
-        netWork(err);
+        });
       }
-      });
+
     }
     //1233
 

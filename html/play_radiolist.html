@@ -13,7 +13,9 @@
             background-color: transparent;
             overflow: hidden;
         }
-
+        .body {
+            curser:pointer;
+        }
         #mask {
             height: 40%;
         }
@@ -105,8 +107,8 @@
     </style>
 </head>
 
-<body>
-    <div id="mask"></div>
+<body onclick="fnbbbbbb()">
+    <div id="mask" ></div>
     <div id="radio-list">
         <h2 id="gedanmingcheng">
           <!-- 节目单 -->
@@ -129,7 +131,8 @@
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/common.js"></script>
-<script type="text/javascript" src="../script/message.js"></script>;
+<script type="text/javascript" src="../script/message.js"></script>
+<script type="text/javascript" src="../script/jquery-1.8.3.min.js"></script>
 <script type="text/javascript">
     var playlistid;
     var tingdanliebiaobiaoti;
@@ -139,25 +142,28 @@
         var list = $api.byId('radio-list');
         $api.addCls(list, 'in');
         var bodyW = document.getElementsByTagName("body")[0];
-        bodyW.onclick = function(evt) {
-            if (!list[0]) {
-                $api.removeCls(list, 'in');
-                setTimeout(function() {
-                    api.closeFrame();
-                }, 350);
-            }
-            // else{
-            //   setTimeout(function() {
-            //       api.closeFrame();
-            //   }, 350);
-            // }
-        }
         token = $api.getStorage('token');
           playlistid = api.pageParam.playlistid;
           playUrli = api.pageParam.playUrli;
         fnGeDanMingCheng();
         fnTingdanTuijian();
+        // bodyW.onclick = function(evt) {
+        //     if (!list[0]) {
+        //         $api.removeCls(list, 'in');
+        //         setTimeout(function() {
+        //             api.closeFrame();
+        //         }, 350);
+        //     }
+        // }
+        // $('body').on("click touchstart", ".body", function(){
+        //   console.log(111);
+        // });
+
     };
+
+    function fnbbbbbb(){
+      alret(222);
+    }
     //接口  推荐听单
     function fnTingdanTuijian() {
         playlistid = api.pageParam.playlistid;

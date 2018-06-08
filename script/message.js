@@ -467,7 +467,7 @@ function netWorkNone(ok){
 }
 
 function turn_login(){
-  $api.rmStorage('token');
+  // $api.rmStorage('token');
   api.openFrame({
       name: 'login',
       url: '../login.html',
