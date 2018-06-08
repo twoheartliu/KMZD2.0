@@ -532,7 +532,7 @@
                 <span class="s" id="kaishijishi">
                   <!-- 00:00 -->
                 </span>
-                <input type="range" id="range" name="range" min="0" max="90" step="1" value="0" class="red" />
+                <input type="range" id="range" name="range" min="0" max="90" step="1" value="0" class="red" style="cursor:pointer;" />
                 <span class="e" id="zongshichang">
                   <!-- 00:00 -->
                 </span>
@@ -781,8 +781,6 @@
         });
 
           if (connectionType == "wifi") {
-            console.log(dangqianbofangid);
-            console.log(bofang);
               if (dangqianbofangid) {
 
                 if(bofang){
@@ -1947,10 +1945,12 @@
 <script>
     var change = function($input) {
         /*内容可自行定义*/
+        console.log(2222)
         // console.log("123");
         adjust();
     }
     $('input').RangeSlider({
+
         callback: change
     });
 </script>

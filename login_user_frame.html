@@ -282,7 +282,8 @@
                       $api.setStorage('nick_name',nick_name_s);
                       var photo_s = ret.data.photo;
                       $api.setStorage('photo',photo_s);
-                      $api.byId('phone').value ='';
+                      var login_way_s = ret.data.login_way;
+                      $api.setStorage('login_way',login_way_s);
                       $api.byId('password').value = '';
                        api.openWin({
                            name: 'index',

@@ -282,10 +282,6 @@
                               }, function(ret, err) {
                                 if(ret){
                                   if (ret.status == 200) {
-                                    console.log(ret.data.token);
-                                    console.log(ret.data.user_id);
-                                    console.log(ret.data.nick_name);
-                                    console.log(ret.data.photo);
                                     var tokens = ret.data.token;
                                     $api.setStorage('token',tokens);
                                     var user_id_s = ret.data.user_id;
@@ -294,6 +290,8 @@
                                     $api.setStorage('nick_name',nick_name_s);
                                     var photo_s = ret.data.photo;
                                     $api.setStorage('photo',photo_s);
+                                    var login_way_s = ret.data.login_way;
+                                    $api.setStorage('login_way',login_way_s);
                                      api.openWin({
                                          name: 'index',
                                          url: 'index.html'
@@ -345,7 +343,6 @@
                             qq.getUserInfo(function(ret, err) {
 
                                 if (ret.status) {
-                                  console.log(JSON.stringify(ret));
                                     var openid = openId;
                                     var nickname = ret.info.nickname;
                                     var gender = ret.info.gender;
@@ -369,10 +366,6 @@
                                         },
                                     }, function(ret, err) {
                                         if (ret.status == 200) {
-                                          // console.log(ret.data.token);
-                                          // console.log(ret.data.user_id);
-                                          // console.log(ret.data.nick_name);
-                                          // console.log(ret.data.photo);
                                           var tokens = ret.data.token;
                                           $api.setStorage('token',tokens);
                                           var user_id_s = ret.data.user_id;
@@ -381,12 +374,12 @@
                                           $api.setStorage('nick_name',nick_name_s);
                                           var photo_s = ret.data.photo;
                                           $api.setStorage('photo',photo_s);
-                                          console.log(11111);
+                                          var login_way_s = ret.data.login_way;
+                                          $api.setStorage('login_way',login_way_s);
                                            api.openWin({
                                                name: 'index',
                                                url: 'index.html'
                                            });
-                                           console.log(222222);
                                         }else{
                                           netMessage(ret);
                                         }

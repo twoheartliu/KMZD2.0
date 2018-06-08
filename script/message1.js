@@ -417,7 +417,7 @@ function netWorkNone(ok){
 }
 
 function turn_login(){
-  $api.rmStorage('token');
+  console.log(2222);
   api.openFrame({
       name: 'login',
       url: 'login.html',
