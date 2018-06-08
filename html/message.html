@@ -153,6 +153,16 @@
             text-align: center;
             font-size: 10px;
         }
+        #nav>.tab div p{
+                    position: absolute;
+                    width: 20px;
+                    height: 20px;
+                    background: red;
+                    top: 0;
+                    right: 0;
+                    color: #fff;
+                    border-radius: 10px;
+                  }
     </style>
 </head>
 
@@ -178,7 +188,7 @@
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/common.js"></script>
-<script type="text/javascript" src="../script/message.js"></script>;
+<script type="text/javascript" src="../script/message.js"></script>
 <script type="text/javascript">
     // var token;
     function goback() {
@@ -292,20 +302,26 @@
                 var comment = $api.byId('comment');
                 var notify = $api.byId('notify');
                 var messages, comments, notify;
-                if (ret.data.message < 100) {
-                    messages = ret.data.message;
+                if (ret.data.message == 0) {
+                  messages = '';
+                } else if (ret.data.message < 100) {
+                    messages = '<p>'+ret.data.message+'</p>';
                 } else {
-                    messages = '99+';
+                    messages = '<p>99+</p>';
                 }
-                if (ret.data.comment < 100) {
-                    comments = ret.data.comment;
+                if (ret.data.comment == 0) {
+                    comments = '';
+                } else if (ret.data.comment < 100) {
+                    comments = '<p>'+ret.data.comment+'</p>';
                 } else {
-                    comments = '99+';
+                    comments = '<p>99+</p>';
                 }
-                if (ret.data.notify < 100) {
-                    notifys = ret.data.notify;
+                if (ret.data.notify == 0) {
+                    notifys = '';
+                } else if (ret.data.notify < 100) {
+                    notifys = '<p>'+ret.data.notify+'</p>';
                 } else {
-                    notifys = '99+';
+                    notifys = '<p>99+</p>';
                 }
                 $api.html(message, messages);
                 $api.html(comment, comments);
