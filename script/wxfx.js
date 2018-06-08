@@ -118,7 +118,7 @@ function shareMp3Single(songListID,title,savePath) {
     });
 }
 // QQ
-function fnintnQQSingle(songListID,title) {
+function fnintnQQSingle(songListID,title,savePath) {
   // 单曲
   var Single = host + '/kmzd/m/share1.html?id='
   // 专辑
@@ -133,7 +133,8 @@ function fnintnQQSingle(songListID,title) {
       url: Single+songListID,
       title: title,
       description: listening_description,
-      imgUrl: 'http://47.100.11.38/logo_144x144.png'
+      imgUrl: savePath
+      // 'http://47.100.11.38/logo_144x144.png'
   });
   // var qq = api.require('qq');
   //   qq.shareNews({

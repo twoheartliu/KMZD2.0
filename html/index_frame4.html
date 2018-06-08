@@ -221,51 +221,51 @@
             position: absolute;
         }
         /*.bar{ width:450px; border:1px solid #6C9C2C; height:25px; } #scoreBar{ background:#95CA0D; float:left; height:100%;
-text-align:center; line-height:150%; }*/
+        text-align:center; line-height:150%; }*/
 
-        .processcontainer {
-            /*border:1px solid #6C9C2C; */
-            width: 180px;
-            background: #ccc;
-            height: 25px;
-            /*text-align: center;*/
-            overflow: hidden;
-            border-radius: 5px;
-        }
-
-        #processbar {
-            background: #f1e900;
-            float: left;
-            height: 100%;
-            /*text-align:center;*/
-            line-height: 150%;
-            border-radius: 5px;
-        }
-
-        #scoreDisplay1 {
-            height: 25px;
-            line-height: 25px;
-        }
-
-        .numIndex4 {
-          position: relative;
-          top: 12.5px;
-          left: 5px;
-          width: 20px;
-          height: 20px;
-          border-radius: 10px;
+      .processcontainer {
+          /*border:1px solid #6C9C2C; */
+          width: 180px;
+          background: #ccc;
+          height: 25px;
+          /*text-align: center;*/
           overflow: hidden;
-        }
-        .numIndex4 p {
-          height: 20px;
-          border-radius: 10px;
-          background-color: #f00;
-          text-align: center;
-          font-size: 10px;
-          color: #fff;
-          line-height: 20px;
-        }
-    </style>
+          border-radius: 5px;
+      }
+
+      #processbar {
+          background: #f1e900;
+          float: left;
+          height: 100%;
+          /*text-align:center;*/
+          line-height: 150%;
+          border-radius: 5px;
+      }
+
+      #scoreDisplay1 {
+          height: 25px;
+          line-height: 25px;
+      }
+
+      .numIndex4 {
+        position: relative;
+        top: 12.5px;
+        left: 5px;
+        width: 20px;
+        height: 20px;
+        border-radius: 10px;
+        overflow: hidden;
+      }
+      .numIndex4 p {
+        height: 20px;
+        border-radius: 10px;
+        background-color: #f00;
+        text-align: center;
+        font-size: 10px;
+        color: #fff;
+        line-height: 20px;
+      }
+  </style>
 </head>
 
 <body>
@@ -316,19 +316,20 @@ text-align:center; line-height:150%; }*/
     <div class="index_name">
         <div class="p20pxs">
             <div class="index_name_li1">
-                <div class="index_name_div border_b" onclick="dialogBox_alert2();">
-                    <div class="index_name_div_img fl"><img src="../image/my/index_wdcj.png" alt=""></div>
-                    <span class="index_name_div_span fl">我的成就</span>
-                    <div class="index_name_div_imgr fr"><img src="../image/my/index_y.png" alt=""></div>
-                </div>
+
                 <div class="index_name_div border_b" onclick="fnUpimg();">
                     <div class="index_name_div_img fl"><img src="../image/my/KM_grzx.png" alt=""></div>
                     <span class="index_name_div_span fl">个人中心</span>
                     <div class="index_name_div_imgr fr"><img src="../image/my/index_y.png" alt=""></div>
                 </div>
-                <div class="index_name_div" onclick="fnCollectionWin();">
+                <div class="index_name_div border_b" onclick="fnCollectionWin();">
                     <div class="index_name_div_img fl"><img src="../image/my/index_wdsc.png" alt=""></div>
                     <span class="index_name_div_span fl">我的收藏</span>
+                    <div class="index_name_div_imgr fr"><img src="../image/my/index_y.png" alt=""></div>
+                </div>
+                <div class="index_name_div" onclick="openHistorys();">
+                    <div class="index_name_div_img fl"><img src="../image/my/index_lsjl.png" alt=""></div>
+                    <span class="index_name_div_span fl">历史记录</span>
                     <div class="index_name_div_imgr fr"><img src="../image/my/index_y.png" alt=""></div>
                 </div>
             </div>
@@ -337,21 +338,21 @@ text-align:center; line-height:150%; }*/
     <div class="index_name">
         <div class="p20pxs">
             <div class="index_name_li1">
-                <div class="index_name_div border_b" onclick="openHistorys();">
-                    <div class="index_name_div_img fl"><img src="../image/my/index_lsjl.png" alt=""></div>
-                    <span class="index_name_div_span fl">历史记录</span>
-                    <div class="index_name_div_imgr fr"><img src="../image/my/index_y.png" alt=""></div>
-                </div>
                 <div class="index_name_div border_b" onclick="fnListeningListWin();">
                     <div class="index_name_div_img fl"><img src="../image/my/index_wdtd.png" alt=""></div>
                     <span class="index_name_div_span fl">我的听单</span>
                     <div class="index_name_div_imgr fr"><img src="../image/my/index_y.png" alt=""></div>
                 </div>
-                <div class="index_name_div" onclick="openMessage();">
+                <div class="index_name_div border_b" onclick="openMessage();">
                     <div class="index_name_div_img fl"><img src="../image/my/index_wdtxl.png" alt=""></div>
                     <span class="index_name_div_span fl">我的消息</span>
                     <div class="index_name_div_imgr fr"><img src="../image/my/index_y.png" alt=""></div>
                     <div class="numIndex4 fr" id="numIndex4"></div>
+                </div>
+                <div class="index_name_div" onclick="dialogBox_alert2();">
+                    <div class="index_name_div_img fl"><img src="../image/my/index_wdcj.png" alt=""></div>
+                    <span class="index_name_div_span fl">等级说明</span>
+                    <div class="index_name_div_imgr fr"><img src="../image/my/index_y.png" alt=""></div>
                 </div>
             </div>
         </div>

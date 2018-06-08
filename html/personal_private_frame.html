@@ -62,9 +62,10 @@
   var p = 1;
   var images;
   var timestampToTimess;
-  var img;
+  var photo;
   apiready = function (){
     token = $api.getStorage('token');
+    photo = $api.getStorage('photo');
     userId = api.pageParam.userId;
     fnOpenchatbox();
     fnGetSixin();
@@ -172,7 +173,6 @@
 
                     var html = ''
                     if (userId == ret.data[i].receiver_id) {
-                      img = images;
                       html += '<div class="private">'+
                                 '<div class="fr img"><img src="'+ images +'" alt=""></div>'+
                                 '<div class="fr shijianfr">'+
@@ -309,8 +309,9 @@
                     var mm = now.getMinutes() + ':';          //分
                     var ss = now.getSeconds();           //秒
                     var main = $api.byId('main');
+                    var photos = updatePhotoUrl + photo;
                     html = '<div class="private">'+
-                              '<div class="fr img"><img src="'+ img +'" alt=""></div>'+
+                              '<div class="fr img"><img src="'+ photos +'" alt=""></div>'+
                               '<div class="fr shijianfr">'+
                                   '<div>'+year+month+day+'  '+hh+mm+ss+'</div>'+
                               '</div>'+
