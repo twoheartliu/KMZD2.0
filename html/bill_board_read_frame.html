@@ -318,9 +318,10 @@
               "session": token
           }
       }, function(ret, err) {
-          // console.log(JSON.stringify(ret));
+          console.log(JSON.stringify(ret));
           if(ret){
             if (ret.status == 200) {
+              console.log(JSON.stringify(ret));
                 var len= ret.data.length;
                 // console.log(len);
                 var html1 = '';
@@ -341,7 +342,7 @@
                           '</div>'+
                       '</div>'+
                     '</div>'+
-                    '<div class="egret-flex-item-shelf04" onclick="fnOpenPlayMore('+ret.data[i].id+',\''+ret.data[i].title+'\',\''+ret.data[i].sma+'\')">'+
+                    '<div class="egret-flex-item-shelf04" onclick="fnOpenPlayMore('+ret.data[i].id+',\''+ret.data[i].title+'\',\''+ret.data[i].cover_sma+'\')">'+
                       '<img src="../image/KM_list_more.png" alt="">'+
                     '</div>'+
                   '</div>'+
@@ -369,7 +370,8 @@
       });
     }
     //打开更多
-    function fnOpenPlayMore(ids, titleName ,sma) {
+    function fnOpenPlayMore(ids, titleName,sma) {
+      console.log(sma);
         var dialogBox = api.require('dialogBox');
         dialogBox.actionMenu({
             rect: {
@@ -434,12 +436,9 @@
                   dialogName: 'actionMenu'
               });
               // console.log(sma);
-              if (sma == undefined) {
-                var sma = '/logo_144x144.png'
+
                 fnOpenPlayShare(ids, titleName,sma);
-              }else {
-                fnOpenPlayShare(ids, titleName,sma);
-              }
+
 
 
 
@@ -456,7 +455,13 @@
     //打开分享
     function fnOpenPlayShare(id,titleName , sma) {
       // console.log(id);
-        // console.log(sma);
+        console.log(sma);
+        var smas;
+        if (sma == 'null') {
+          smas = '/logo_144x144.png'
+        }else {
+            smas = sma
+        }
         var dialogBox = api.require('dialogBox');
         dialogBox.actionMenu({
             rect: {
@@ -501,11 +506,11 @@
                 });
             }
             if (ret.index == "0") {
-              var imgaesFx = host +'/'+ sma;
+              var imgaesFx = host +'/'+ smas;
               // console.log(imgaesFx);
               api.download({
                   url: imgaesFx,
-                  savePath: 'fs:savePath/'+ sma,
+                  savePath: 'fs:savePath/'+ smas,
                   report: true,
                   cache: true,
                   allowResume: true
@@ -530,12 +535,12 @@
                 });
                 // alert(1);
             } else if (ret.index == "1") {
-              console.log(sma);
-              var imgaesFx = host +'/'+ sma;
+              // console.log(sma);
+              var imgaesFx = host +'/'+ smas;
               console.log(imgaesFx);
               api.download({
                   url: imgaesFx,
-                  savePath: 'fs:savePath/'+ sma,
+                  savePath: 'fs:savePath/'+ smas,
                   report: true,
                   cache: true,
                   allowResume: true
@@ -560,11 +565,11 @@
                 });
                 // alert(2);
             } else if (ret.index == "2") {
-              var imgaesFx = host +'/'+ sma;
+              var imgaesFx = host +'/'+ smas;
               // console.log(imgaesFx);
               api.download({
                   url: imgaesFx,
-                  savePath: 'fs:savePath/'+ sma,
+                  savePath: 'fs:savePath/'+ smas,
                   report: true,
                   cache: true,
                   allowResume: true
