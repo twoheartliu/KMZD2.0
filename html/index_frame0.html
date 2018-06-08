@@ -103,7 +103,7 @@
         .hot {
             width: 100%;
             /* margin: 0 auto; */
-            text-align: center;
+            /*text-align: center;*/
             overflow: hidden;
         }
 
@@ -583,6 +583,7 @@
         var frameWidth = api.frameWidth;
         var html = '';
         var s_length = '';
+        // console.log(JSON.stringify(data_));
         for (var i = 0; i < data_.data.length; i++) {
             if (data_.data[i].floor_id) {
                 html += '<div class="p20px"  id="ret.data[i].floor_id"><div class="sectionTitle mt20"><span class="TD_div fl">' + data_.data[i].floor_name + '</span><span class="fr more" onclick="fnRecommendWin(' + data_.data[i].floor_id +
@@ -880,6 +881,7 @@
     }
     //打开更多页面
     function fnOpenPlayMore(id,sma,titleName) {
+      // console.log(sma);
         var dialogBox = api.require('dialogBox');
         dialogBox.actionMenu({
             rect: {
@@ -976,6 +978,13 @@
               // console.log(id);
               // console.log(sma);
               // console.log(titleName);
+              // if (sma == undefined ) {
+              //   var sma = '/logo_144x144.png'
+              //   fnOpenPlayShare(id, titleName,sma);
+              // }else {
+              //   fnOpenPlayShare(id, titleName,sma);
+              // }
+
                 fnOpenPlayShare(id,sma,titleName);
 
                 // alert(3);
@@ -994,6 +1003,14 @@
     //打开分享
     function fnOpenPlayShare(id,sma,titleName) {
       // console.log(id);
+      var smas;
+      if (sma == undefined ) {
+        smas = '/logo_144x144.png'
+        // fnOpenPlayShare(id, titleName,sma);
+      }else {
+        // fnOpenPlayShare(id, titleName,sma);
+        smas = sma
+      }
         // console.log(sma);
         var dialogBox = api.require('dialogBox');
         dialogBox.actionMenu({
@@ -1039,11 +1056,11 @@
                 });
             }
             if (ret.index == "0") {
-              var imgaesFx = host +'/'+ sma;
+              var imgaesFx = host +'/'+ smas;
               // console.log(imgaesFx);
               api.download({
                   url: imgaesFx,
-                  savePath: 'fs:savePath/'+ sma,
+                  savePath: 'fs:savePath/'+ smas,
                   report: true,
                   cache: true,
                   allowResume: true
@@ -1068,11 +1085,11 @@
                 });
                 // alert(1);
             } else if (ret.index == "1") {
-              var imgaesFx = host +'/'+ sma;
+              var imgaesFx = host +'/'+ smas;
               // console.log(imgaesFx);
               api.download({
                   url: imgaesFx,
-                  savePath: 'fs:savePath/'+ sma,
+                  savePath: 'fs:savePath/'+ smas,
                   report: true,
                   cache: true,
                   allowResume: true
@@ -1097,11 +1114,11 @@
                 });
                 // alert(2);
             } else if (ret.index == "2") {
-              var imgaesFx = host +'/'+ sma;
+              var imgaesFx = host +'/'+ smas;
               // console.log(imgaesFx);
               api.download({
                   url: imgaesFx,
-                  savePath: 'fs:savePath/'+ sma,
+                  savePath: 'fs:savePath/'+ smas,
                   report: true,
                   cache: true,
                   allowResume: true

@@ -127,7 +127,7 @@
         <div class="egret-header-search" tapmode>
             <img src="../image/header_search.png" alt="">
             <input id="id-input" type="text"  placeholder="请输入关键词搜索">
-            <!-- <span>请输入关键词搜索</span> -->
+            <!-- <span></span> -->
         </div>
         <!-- onclick="OpenSearch();" -->
         <div class="soso" id="id-soso" onclick="choice()">取消</div>
@@ -164,12 +164,13 @@
         $api.fixStatusBar(eHeader);
 
         datas = api.pageParam.data;
+
         // console.log(datas);
         listenInput();
 
 
         api.addEventListener({
-            name: 'search-result'
+            name: 'guoxue-result'
         }, function(ret, err){
             if( ret ){
                 //  console.log( JSON.stringify( ret ) );
