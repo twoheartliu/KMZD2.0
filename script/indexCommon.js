@@ -288,7 +288,6 @@ function fnFuZhiAudio(url) {
     var stylelist = $api.byId('yinpin');
     var html = '<audio id="myAudio" ><source src="' + url + '" type="audio/mp3"></audio>';
     $api.html(stylelist, html);
-    console.log(html);
     if (html) {
         kaishibofang();
     }
@@ -302,7 +301,11 @@ function kaishibofang() {
 //音频播放模块
 function netAudioPlay() {
     var myAudio = document.getElementById("myAudio");
+    myAudio.muted=false;
+    myAudio.volume=1;
     myAudio.play();
+
+    // audio.volume=volumevalue;
     // fnBoFangmoshiid()
     api.addEventListener({
         name: 'playPlay'
@@ -348,6 +351,7 @@ function netAudioPlay() {
 function netAudioPause() {
     var myAudio = document.getElementById("myAudio");
     myAudio.pause();
+    // myAudio.muted=true();
     if (bofang == 9) {
       bofang = 8;
     }else if(bofang == 7){
@@ -371,6 +375,7 @@ function netAudioPause() {
 //获取当前歌曲的歌长
 function jindutiao() {
     var myAudio = document.getElementById("myAudio");
+
     timer1 = setInterval(function() {
         cur = parseInt(myAudio.currentTime);
         lenth = myAudio.duration;
@@ -406,7 +411,7 @@ function jindutiao() {
                 bofangmoshiid: bofangmoshiid,
             }
         });
-
+// console.log(myAudio.volume);
     }, 1000)
 }
 //调整播放进度

@@ -496,6 +496,8 @@
       timestamps = api.pageParam.timestamps;
       a = api.pageParam.a;
       c = api.pageParam.c;
+      ok = api.pageParam.ok;
+      var oks = 'ok'+ok;
       api.addEventListener({
           name: oks
       }, function(ret, err) {
@@ -504,7 +506,9 @@
           fnGetJubenname();
           fnGetJubenbody();
           fnFuZhiAudio();
+          return false;
         }
+          return false;
       });
 
       var connectionType = api.connectionType;
