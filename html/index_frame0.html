@@ -103,7 +103,7 @@
         .hot {
             width: 100%;
             /* margin: 0 auto; */
-            text-align: center;
+            /*text-align: center;*/
             overflow: hidden;
         }
 
@@ -976,6 +976,12 @@
               // console.log(id);
               // console.log(sma);
               // console.log(titleName);
+              if (sma == undefined) {
+                var sma = '/logo_144x144.png'
+                fnOpenPlayShare(ids, titleName,sma);
+              }else {
+                fnOpenPlayShare(ids, titleName,sma);
+              }
                 fnOpenPlayShare(id,sma,titleName);
 
                 // alert(3);
