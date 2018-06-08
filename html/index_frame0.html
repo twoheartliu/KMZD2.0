@@ -418,9 +418,19 @@
 
                     fnHomePageLayout();
                 });
-
+                api.addEventListener({
+                    name: 'neiJianTingBFms'
+                }, function(ret, err) {
+                    bofangmoshi = ret.value.bofangmoshiid;
+                    fnBoFangMoShiId(bofangmoshi);
+                    return;
+                });
             }
             //   fnInitSwiper();
+        }
+        var bofangmoshi;
+        function fnBoFangMoShiId(bofangmoshiss){
+          bofangmoshi = bofangmoshiss;
         }
         //  banner 接口
     function fnBanners() {
@@ -521,7 +531,7 @@
             titles = '专辑';
         } else if (banner_types == 4) {
             //听单
-            lujing = './single.html';
+            lujing = './ListingsList.html';
             song_id = content;
             titles = '听单';
         } else if (banner_types == 5) {
@@ -540,7 +550,8 @@
                 albumId: song_id,
                 floor_name: titles,
                 a: song_id,
-                ok:lujing
+                ok:lujing,
+                bofangmoshi:bofangmoshi
             }
         });
 
@@ -707,7 +718,8 @@
                 albumId: id,
                 ok: urlName,
                 floor_name: name,
-                pk:'urlName'
+                pk:'urlName',
+                bofangmoshi:bofangmoshi
             }
         });
 
@@ -720,7 +732,8 @@
             pageParam: {
                 id: id,
                 name: name,
-                ok: 'recommend'
+                ok: 'recommend',
+                bofangmoshi:bofangmoshi
             }
         });
 
@@ -743,7 +756,8 @@
             name: 'guoxue',
             url: './guoxue.html',
             pageParam: {
-                ok: 'guoxueok'
+                ok: 'guoxueok',
+
             }
         });
 
@@ -851,7 +865,8 @@
                     a: a,
                     // danQu:'danQu',
                     dangqianbofangid: Dqbofangid,
-                    ok:'playDanQu'
+                    ok:'playDanQu',
+                    bofangmoshi:bofangmoshi
                 }
             });
         } else {
@@ -862,7 +877,8 @@
                 pageParam: {
                     a: a,
                     // danQu:'danQu',
-                    ok:'playDanQu'
+                    ok:'playDanQu',
+                    bofangmoshi:bofangmoshi
                 }
             });
 
@@ -1077,7 +1093,7 @@
                       // shareMp3Single(songListID,title,savePath);
                       // shareMp3Album(name,listening_description,l_id);
                   } else {
-                    console.log(JSON.stringify(err));
+                    // console.log(JSON.stringify(err));
                   }
                 });
                 dialogBox.close({
@@ -1106,7 +1122,7 @@
                       // shareMp3Single(songListID,title,savePath);
                       // shareMp3Album(name,listening_description,l_id);
                   } else {
-                    console.log(JSON.stringify(err));
+                    // console.log(JSON.stringify(err));
                   }
                 });
                 dialogBox.close({
@@ -1135,7 +1151,7 @@
                       // shareMp3Single(songListID,title,savePath);
                       // shareMp3Album(name,listening_description,l_id);
                   } else {
-                    console.log(JSON.stringify(err));
+                    // console.log(JSON.stringify(err));
                   }
                 });
                 dialogBox.close({
