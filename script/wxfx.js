@@ -28,7 +28,7 @@ function shareMp3Single(songListID,title,savePath) {
                                 openId: openId
                             }, function(ret, err) {
                                 if (ret.status) {
-                                  console.log(JSON.stringify(savePath));
+
                                   // 单曲
                                   var Single = host + '/kmzd/m/share1.html?id='
                                   // 专辑
@@ -38,16 +38,21 @@ function shareMp3Single(songListID,title,savePath) {
                                     var wx = api.require('wx');
                                     var savePaths;
                                     if (savePath == 'at') {
-                                      console.log(10);
-                                      savePaths = host + 'logo_144x144.png'
+                                      // console.log(10);
+                                      savePaths = 'fs:/image/my/fnShareImg.jpg'
+                                      // host + 'logo_144x144.png'
                                     }else {
                                         savePaths = savePath
                                     }
+                                    var listening_description;
+
+                                    listening_description = listening_description ? listening_description : '习孔孟之道，做有德之人。';
+                                    // console.log(savePaths);
                                     wx.shareWebpage({
                                         apiKey: '',
                                         scene: 'session',
                                         title: title,
-                                        description: '',
+                                        description: listening_description,
                                         thumb: savePaths,
                                         contentUrl: Single+songListID
                                     }, function(ret, err) {
@@ -57,15 +62,14 @@ function shareMp3Single(songListID,title,savePath) {
                                               path: 'fs:' + savePath
                                           }, function(ret, err) {
                                               if (ret.status) {
-
+                                                api.toast({
+                                                    msg: '分享成功',
+                                                    duration: 2000,
+                                                    location: 'bottom'
+                                                });
                                               } else {
 
                                               }
-                                          });
-                                          api.toast({
-                                              msg: '分享成功',
-                                              duration: 2000,
-                                              location: 'bottom'
                                           });
                                         } else {
                                             api.toast({
@@ -118,10 +122,13 @@ function fnintnQQSingle(songListID,title) {
   // 听单
   var Album  =  host +'/kmzd/m/share111.html?id='
   var qq = api.require('qq');
+  var listening_description;
+
+  listening_description = listening_description ? listening_description : '习孔孟之道，做有德之人。';
   qq.shareNews({
       url: Single+songListID,
       title: title,
-      description: '',
+      description: listening_description,
       imgUrl: 'http://47.100.11.38/logo_144x144.png'
   });
   // var qq = api.require('qq');
@@ -134,7 +141,7 @@ function fnintnQQSingle(songListID,title) {
 }
 // 微信评友圈
 function initTimelineSingle(songListID,title,savePath) {
-    console.log(savePath);
+    // console.log(savePath);
     var wx = api.require('wx');
     wx.isInstalled(function(ret, err) {
         if (ret.installed) {
@@ -163,12 +170,22 @@ function initTimelineSingle(songListID,title,savePath) {
                                     var Listening = host + '/kmzd/m/share11.html?id='
                                     // 听单
                                     var Album  =  host +'/kmzd/m/share111.html?id='
+                                    var savePaths;
+                                    if (savePath == 'at') {
+                                      // console.log(10);
+                                      savePaths = 'fs:/image/my/fnShareImg.jpg'
+                                    }else {
+                                        savePaths = savePath
+                                    }
+                                    var listening_description;
+
+                                    listening_description = listening_description ? listening_description : '习孔孟之道，做有德之人。';
                                     wx.shareWebpage({
                                         apiKey: '',
                                         scene: 'timeline',
                                         title: title,
-                                        description: '',
-                                        thumb: savePath,
+                                        description: listening_description,
+                                        thumb: savePaths,
                                         contentUrl: Single+songListID
                                     }, function(ret, err) {
                                         if (ret.status) {
@@ -260,6 +277,10 @@ function shareMp3Listening(name,listening_description,l_id,savePath) {
                                   // 听单
                                   var Album  =  host +'/kmzd/m/share111.html?id='
                                     var wx = api.require('wx');
+                                    var listening_description;
+
+                                    listening_description = listening_description ? listening_description : '习孔孟之道，做有德之人。';
+
                                     wx.shareWebpage({
                                         apiKey: '',
                                         scene: 'session',
@@ -335,6 +356,10 @@ function fnintnQQListening(name,listening_description,l_id,savePath) {
   // 听单
   var Album  =  host +'/kmzd/m/share111.html?id='
   // }
+  var listening_description;
+
+  listening_description = listening_description ? listening_description : '习孔孟之道，做有德之人。';
+
     var qq = api.require('qq');
     qq.shareNews({
         url: Album + l_id,
@@ -371,7 +396,9 @@ function initTimelineListening(name,listening_description,l_id,savePath) {
                                   var Listening = host + '/kmzd/m/share11.html?id='
                                   // 听单
                                   var Album  =  host +'/kmzd/m/share111.html?id='
-                                  console.log(savePath);
+                                  var listening_description;
+
+                                  listening_description = listening_description ? listening_description : '习孔孟之道，做有德之人。';
                                     var wx = api.require('wx');
                                     wx.shareWebpage({
                                         apiKey: '',
@@ -442,12 +469,9 @@ function initTimelineListening(name,listening_description,l_id,savePath) {
 // 分享专辑
 // 分享微信
 function shareMp3Album(name,listening_description,l_id,savePath) {
-  var listening_descriptions;
-  if (listening_description == 'at') {
-    listening_descriptions = ''
-  }else {
-    listening_descriptions = listening_description;
-  }
+  var listening_description;
+
+  listening_description = listening_description ? listening_description : '习孔孟之道，做有德之人。';
   //   console.log(name);
   //   console.log(listening_description);
   //   console.log(l_id);
@@ -484,7 +508,7 @@ function shareMp3Album(name,listening_description,l_id,savePath) {
                                         apiKey: '',
                                         scene: 'session',
                                         title: name,
-                                        description: listening_descriptions,
+                                        description: listening_description,
                                         thumb: savePath,
                                         contentUrl: Listening + l_id
                                     }, function(ret, err) {
@@ -546,12 +570,9 @@ function shareMp3Album(name,listening_description,l_id,savePath) {
 }
 // QQ
 function fnintnQQAlbum(name,listening_description,l_id,savePath) {
-  var listening_descriptions;
-  if (listening_description == 'at') {
-    listening_descriptions = ''
-  }else {
-    listening_descriptions = listening_description;
-  }
+  var listening_description;
+
+  listening_description = listening_description ? listening_description : '习孔孟之道，做有德之人。';
   // 单曲
   var Single = host + '/kmzd/m/share1.html?id='
   // 专辑
@@ -562,18 +583,13 @@ function fnintnQQAlbum(name,listening_description,l_id,savePath) {
     qq.shareNews({
         url: Listening + l_id,
         title: name,
-        description: listening_descriptions,
+        description: listening_description,
         imgUrl: savePath
     });
 }
 // 微信评友圈
 function initTimelineAlbum(name,listening_description,l_id,savePath) {
-  var listening_descriptions;
-  if (listening_description == 'at') {
-    listening_descriptions = ''
-  }else {
-    listening_descriptions = listening_description;
-  }
+
   //   console.log(name);
   //   console.log(listening_description);
   //   console.log(l_id);
@@ -599,12 +615,9 @@ function initTimelineAlbum(name,listening_description,l_id,savePath) {
                                 openId: openId
                             }, function(ret, err) {
                                 if (ret.status) {
-                                  var listening_descriptions;
-                                  if (listening_description == 'at') {
-                                    listening_descriptions = ''
-                                  }else {
-                                    listening_descriptions = listening_description;
-                                  }
+                                  var listening_description;
+
+                                  listening_description = listening_description ? listening_description : '习孔孟之道，做有德之人。';
                                   // 单曲
                                   var Single = host + '/kmzd/m/share1.html?id='
                                   // 专辑
@@ -616,7 +629,7 @@ function initTimelineAlbum(name,listening_description,l_id,savePath) {
                                         apiKey: '',
                                         scene: 'timeline',
                                         title: name,
-                                        description: listening_descriptions,
+                                        description: listening_description,
                                         thumb: savePath,
                                         contentUrl: Listening + l_id
                                     }, function(ret, err) {
