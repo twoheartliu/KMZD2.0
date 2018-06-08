@@ -812,19 +812,7 @@
         $api.html(stylelist, html);
     }
     var Dqbofangid;
-// <<<<<<< HEAD
-//     function fnDangQianbofangid(id) {
-//         Dqbofangid = id;
-//     }
-//
-//     function fnOpenPlay(a) {
-//
-//       api.addEventListener({
-//             name: 'netPlaying'
-//         }, function(ret, err) {
-//             if (a == ret.value.playing) {
-//                 fnDangQianbofangid(ret.value.playing);
-// =======
+
     var bofang;
     function fnDangQianbofangid(bofangss,id) {
         Dqbofangid = id;
@@ -839,16 +827,11 @@
               var id = ret.value.playing;
               var bofangss = ret.value.bofang;
                 fnDangQianbofangid(bofangss,id);
-// >>>>>>> 1c6d9bc4e956d4a7c492a533cc335f629b320033
             }
         });
 
         var playlistid = api.pageParam.albumId;
         if (Dqbofangid == a) {
-// <<<<<<< HEAD
-//
-// =======
-// >>>>>>> 1c6d9bc4e956d4a7c492a533cc335f629b320033
           api.openWin({
               name: 'play',
               url: './play.html',
@@ -857,7 +840,8 @@
                   a: a,
                   DangQianbofangid: Dqbofangid,
                   playUrli:'/album/song_list/',
-                  ok:'play'
+                  ok:'play',
+                  bofangmoshi:api.pageParam.bofangmoshi
               }
           });
         } else {
@@ -869,7 +853,8 @@
                   a: a,
                   playlistid: playlistid,
                   playUrli:'/album/song_list/',
-                  ok:'play'
+                  ok:'play',
+                  bofangmoshi:api.pageParam.bofangmoshi
               }
           });
 
@@ -1054,7 +1039,7 @@
                                 shareMp3Single(songListID,title,savePath);
                                 // shareMp3Album(name,listening_description,l_id);
                             } else {
-                              console.log(JSON.stringify(err));
+                              // console.log(JSON.stringify(err));
                             }
                           });
 
@@ -1086,7 +1071,7 @@
                             }
                             shareMp3Album(name,listening_description,l_id,savePath);
                         } else {
-                          console.log(JSON.stringify(err));
+                          // console.log(JSON.stringify(err));
                         }
                     });
 
@@ -1123,7 +1108,7 @@
                         }
                         fnintnQQAlbum(name,listening_description,l_id,savePath);
                     } else {
-                      console.log(JSON.stringify(err));
+                      // console.log(JSON.stringify(err));
                     }
                 });
 
@@ -1151,7 +1136,7 @@
                             fnintnQQSingle(songListID,title,savePath);
                             // shareMp3Album(name,listening_description,l_id);
                         } else {
-                          console.log(JSON.stringify(err));
+                          // console.log(JSON.stringify(err));
                         }
                       });
 
@@ -1185,7 +1170,7 @@
                         }
                         fnintnQQAlbum(name,listening_description,l_id,savePath);
                     } else {
-                      console.log(JSON.stringify(err));
+                      // console.log(JSON.stringify(err));
                     }
                 });
 
@@ -1216,7 +1201,7 @@
                             initTimelineSingle(songListID,title,savePath);
                             // shareMp3Album(name,listening_description,l_id);
                         } else {
-                          console.log(JSON.stringify(err));
+                          // console.log(JSON.stringify(err));
                         }
                       });
 
@@ -1250,7 +1235,7 @@
                         }
                         initTimelineAlbum(name,listening_description,l_id,savePath);
                     } else {
-                      console.log(JSON.stringify(err));
+                      // console.log(JSON.stringify(err));
                     }
                 });
 
