@@ -68,7 +68,7 @@ function shareMp3Single(songListID,title,savePath) {
                                                     location: 'bottom'
                                                 });
                                               } else {
-
+                                                    console.log(111111);
                                               }
                                           });
                                         } else {

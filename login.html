@@ -329,10 +329,10 @@
     }
 
     function fnQQLogin() {
-        qq = api.require('qq');
+
+        var qq = api.require('qq');
         var login = function() {
             qq.login(function(ret, err) {
-              console.log(111);
                 if (ret.status) {
                   var openId = ret.openId;
                   var accessToken = ret.accessToken;
@@ -340,9 +340,12 @@
                         title: '授权成功',
                         msg: '正在打开孔孟知道...',
                     }, function(ret, err) {
+
                         if (ret) {
                             qq.getUserInfo(function(ret, err) {
+
                                 if (ret.status) {
+                                  console.log(JSON.stringify(ret));
                                     var openid = openId;
                                     var nickname = ret.info.nickname;
                                     var gender = ret.info.gender;
@@ -366,10 +369,10 @@
                                         },
                                     }, function(ret, err) {
                                         if (ret.status == 200) {
-                                          console.log(ret.data.token);
-                                          console.log(ret.data.user_id);
-                                          console.log(ret.data.nick_name);
-                                          console.log(ret.data.photo);
+                                          // console.log(ret.data.token);
+                                          // console.log(ret.data.user_id);
+                                          // console.log(ret.data.nick_name);
+                                          // console.log(ret.data.photo);
                                           var tokens = ret.data.token;
                                           $api.setStorage('token',tokens);
                                           var user_id_s = ret.data.user_id;
@@ -378,10 +381,12 @@
                                           $api.setStorage('nick_name',nick_name_s);
                                           var photo_s = ret.data.photo;
                                           $api.setStorage('photo',photo_s);
+                                          console.log(11111);
                                            api.openWin({
                                                name: 'index',
                                                url: 'index.html'
                                            });
+                                           console.log(222222);
                                         }else{
                                           netMessage(ret);
                                         }
