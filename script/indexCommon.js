@@ -262,6 +262,7 @@ function fnBoFangyinpinxinxi() {
             reciter = ret.data.reciter;
             desc = ret.data.body;
             singerName = ret.data.author_name;
+            cover_big = ret.data.cover_big;
             api.sendEvent({
                 name: 'jibenxinxi',
                 extra: {
@@ -271,7 +272,8 @@ function fnBoFangyinpinxinxi() {
                     singerName: singerName,
                     comment_total: comment_total,
                     collection: is_collection,
-                    bofangmoshiid:bofangmoshiid
+                    bofangmoshiid:bofangmoshiid,
+                    cover_big:cover_big
                 }
             });
             fnBoFangmoshiid();
@@ -321,7 +323,8 @@ function netAudioPlay() {
             titlename: titlename,
             desc: desc,
             singerName: singerName,
-            bofangmoshiid:bofangmoshiid
+            bofangmoshiid:bofangmoshiid,
+            cover_big:cover_big
         }
     });
     if(bofang == 8){

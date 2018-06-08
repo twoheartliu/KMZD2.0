@@ -48,6 +48,7 @@ function fnXunTingXinXi() {
                   singerName = ret.data.author_name;
                   comment_total = ret.data.comment_total;
                   is_collection =ret.data.is_collection;
+                  cover_big = ret.data.cover_big;
                   api.sendEvent({
                       name: 'neiJianTingGood',
                       extra: {
@@ -61,6 +62,7 @@ function fnXunTingXinXi() {
                           desc: desc,
                           reciter: reciter,
                           singerName: singerName,
+                          cover_big:cover_big
                       }
                   });
 
@@ -127,6 +129,7 @@ function fnXunTingXinXis() {
                   singerName = ret.data.author_name;
                   comment_total = ret.data.comment_total;
                   is_collection =ret.data.is_collection;
+                  cover_big = ret.data.cover_big;
                   api.sendEvent({
                       name: 'neiJianTingGood',
                       extra: {
@@ -140,6 +143,7 @@ function fnXunTingXinXis() {
                           desc: desc,
                           reciter: reciter,
                           singerName: singerName,
+                          cover_big:cover_big
                       }
                   });
 
