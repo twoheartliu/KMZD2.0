@@ -346,9 +346,12 @@
             <div class="wode_bg">
                 <div class="index_header_mvp_p">
                     <div class="user_name" id="username"></div>
-                    <div class="index_header_care" id="headerCare">
+                    <div class="" id="following">
+                        <div class="index_header_care" id="headerCare">
 
+                        </div>
                     </div>
+
                     <!-- <div class="message"><p>发私信</p></div></div> -->
                     <div class="index_header_mvp_span" id="signature"></div>
                 </div>
@@ -480,6 +483,7 @@
     var relation;
     var userId;
     var listenlist_total;
+
     // var isFirst = true;
     // function doS(){
     //     if(isFirst){
@@ -615,6 +619,16 @@
       }, function(ret, err) {
           // console.log(JSON.stringify(ret));
           if (ret.status == 200) {
+              var user_id = $api.getStorage('user_id');
+            //   console.log(user_id);
+              if (userId == user_id) {
+                  console.log('sss');
+                  var following = $api.byId('following');
+                  var self = '';
+                  following.innerHTML = '';
+
+              }
+
               //关注
               var headerCare = $api.byId('headerCare');
               if(ret.data.relation == false){
