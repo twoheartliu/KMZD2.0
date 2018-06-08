@@ -185,7 +185,7 @@
             </div>
         </div>
 
-        <ul class="search_list">
+        <ul class="search_list" id="id-history">
             <li class="search">论语 <img src="../image/delete.png" alt=""></li>
             <li class="search">格列佛游记 <img src="../image/delete.png" alt=""></li>
             <li class="search">非常非常好看的国学课 <img src="../image/delete.png" alt=""></li>
@@ -229,6 +229,7 @@
 
         clearInput();
         ShowHot();
+        openHistory();
     };
 
     function ShowHot() {
@@ -280,6 +281,24 @@
             }
         });
 
+    }
+
+    function openHistory() {
+        var history = $api.byId('id-history');
+        // console.log(words);
+        history.addEventListener('click', function(event) {
+            var self = event.target;
+            var clicks = self.innerHTML.split(' <img');
+            var result = clicks[0];
+            console.log(result);
+            api.openWin({
+                name: 'langsong_searchs',
+                url: './langsong_searchs.html',
+                pageParam: {
+                    data: result,
+                }
+            });
+        })
     }
     // api.openWin({
     //     name: 'searchs',
