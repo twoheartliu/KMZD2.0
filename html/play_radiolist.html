@@ -162,7 +162,12 @@
     };
 
     function fnbbbbbb(){
-      alret(222);
+      var list = $api.byId('radio-list');
+      $api.addCls(list, 'in');
+      $api.removeCls(list, 'in');
+              setTimeout(function() {
+                  api.closeFrame();
+              }, 350);
     }
     //接口  推荐听单
     function fnTingdanTuijian() {

@@ -781,6 +781,8 @@
         });
 
           if (connectionType == "wifi") {
+            console.log(dangqianbofangid);
+            console.log(bofang);
               if (dangqianbofangid) {
 
                 if(bofang){
@@ -976,6 +978,7 @@
     }
     //监听收藏，评论数；
     function fnJianTingBookCollection(bookId){
+      console.log(bookId);
       if(bookId != 'undefined'){
         api.ajax({
             url: host + apiUri + '/sound/' + bookId,
