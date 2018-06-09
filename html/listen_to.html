@@ -367,6 +367,7 @@
   <script type="text/javascript" src="../script/audio2.js"></script>
   <script type="text/javascript" src="../script/common.js"></script>
   <script type="text/javascript" src="../script/message.js"></script>
+  <script type="text/javascript" src="../script/wxfx.js"></script>
   <script type="text/javascript">
   var radios = ['see_you_again', 'new_soul', 'i_am_you'];
   var dqbfid;
@@ -1134,18 +1135,18 @@
                 });
             }
             if (ret.index == "0") {
-              fnOpenAddListening();
+              fnOpenAddListening(soundId);
               dialogBox.close({
                   dialogName: 'actionMenu'
               });
 
             } else if (ret.index == "1") {
-                  fnOpenPlayShare();
-                // alert(2);
-            } else {
+                // console.log(11111);
                 dialogBox.close({
                     dialogName: 'actionMenu'
                 });
+                  fnOpenPlayShare();
+
             }
             // dialogBox.close({
             //     dialogName: 'alert'
@@ -1155,7 +1156,83 @@
         });
     }
     //打开分享
+
+    //添加到听单
+    function fnOpenAddListening(soundId){
+      api.openWin({
+          name: 'addListening',
+          url: './add_listening.html',
+          pageParam: {
+            songListID:soundId,
+            ok: 'add_listening'
+          }
+      });
+    }
+
+    var timeout, rotate = 0;
+    function fnOpenPlayButton(){
+      var playButton = $api.byId('playButton');
+      var video = $api.byId('video');
+      var timeout, rotate = 0;
+      if(playButton.getAttribute("src",2)=="../image/footer_bf0.png"){
+        playButton.src="../image/footer_bf1.png";
+        // $api.addCls(video, 'Rotation');
+        startAnim();
+        // a();
+
+      }else{
+        playButton.src="../image/footer_bf0.png";
+        // $api.removeCls(video, 'Rotation');
+        stopAnim();
+        // b();
+      }
+    }
+    function startAnim() {
+        timeout = setInterval(function () {
+            var img = document.getElementById("video");
+            var rotateStyle = "rotate(" + rotate + "deg)";
+            img.style.transform = rotateStyle;
+            img.style["-moz-transform"] = rotateStyle;
+            img.style["-webkit-transform"] = rotateStyle;
+            img.style["-o-transform"] = rotateStyle;
+            img.style["-ms-transform"] = rotateStyle;
+
+            rotate += 1;
+            if (rotate > 360) {
+                rotate = 0;
+            }
+        }, 30);
+    }
+    function stopAnim() {
+      clearInterval(timeout);
+      timeout = null;
+    }
+    // function fnOpenPlayShare() {
+    //   console.log(cover_big);
+    //   console.log(soundId);
+    //   console.log(namesss);
+      //图片
+      // cover_big
+      //id
+      // soundId
+      //title
+      // namesss
+
+      // p++;
+      // console.log(p);
+    // }
     function fnOpenPlayShare() {
+      // console.log(id);
+
+      var smas;
+      if (cover_big == undefined ) {
+        cover_big = '/logo_144x144.png'
+        // fnOpenPlayShare(id, titleName,sma);
+      }else {
+        // fnOpenPlayShare(id, titleName,sma);
+        smas = cover_big
+      }
+        // console.log(sma);
         var dialogBox = api.require('dialogBox');
         dialogBox.actionMenu({
             rect: {
@@ -1200,16 +1277,88 @@
                 });
             }
             if (ret.index == "0") {
+              var imgaesFx = host +'/'+ smas;
+              // console.log(imgaesFx);
+              api.download({
+                  url: imgaesFx,
+                  savePath: 'fs:savePath/'+ smas,
+                  report: true,
+                  cache: true,
+                  allowResume: true
+              }, function(ret, err) {
+                // console.log(JSON.stringify(ret));
+                  if (ret.state == 1) {
+                      //下载成功
+                      var savePath = ret.savePath;
+                      // console.log(savePath);
+                      var songListID = soundId;
+                      var title = namesss;
+                      shareMp3Single(songListID,title,savePath);
+                      // var savePath = '';
+                      // shareMp3Single(songListID,title,savePath);
+                      // shareMp3Album(name,listening_description,l_id);
+                  } else {
+                    // console.log(JSON.stringify(err));
+                  }
+                });
                 dialogBox.close({
                     dialogName: 'actionMenu'
                 });
                 // alert(1);
             } else if (ret.index == "1") {
+              var imgaesFx = host +'/'+ smas;
+              // console.log(imgaesFx);
+              api.download({
+                  url: imgaesFx,
+                  savePath: 'fs:savePath/'+ smas,
+                  report: true,
+                  cache: true,
+                  allowResume: true
+              }, function(ret, err) {
+                // console.log(JSON.stringify(ret));
+                  if (ret.state == 1) {
+                      //下载成功
+                      var savePath = ret.savePath;
+                      // console.log(savePath);
+                      var songListID = soundId;
+                      var title = namesss;
+                      fnintnQQSingle(songListID,title,savePath);
+                      // var savePath = '';
+                      // shareMp3Single(songListID,title,savePath);
+                      // shareMp3Album(name,listening_description,l_id);
+                  } else {
+                    // console.log(JSON.stringify(err));
+                  }
+                });
                 dialogBox.close({
                     dialogName: 'actionMenu'
                 });
                 // alert(2);
             } else if (ret.index == "2") {
+              var imgaesFx = host +'/'+ smas;
+              // console.log(imgaesFx);
+              api.download({
+                  url: imgaesFx,
+                  savePath: 'fs:savePath/'+ smas,
+                  report: true,
+                  cache: true,
+                  allowResume: true
+              }, function(ret, err) {
+                // console.log(JSON.stringify(ret));
+                  if (ret.state == 1) {
+                      //下载成功
+                      var savePath = ret.savePath;
+                      // console.log(savePath);
+                      var songListID = soundId;
+                      var title = namesss;
+                      initTimelineSingle(songListID,title,savePath);
+                      // var savePath = '';
+                      // shareMp3Single(songListID,title,savePath);
+                      // shareMp3Album(name,listening_description,l_id);
+                  } else {
+                    // console.log(JSON.stringify(err));
+                  }
+                });
                 dialogBox.close({
                     dialogName: 'actionMenu'
                 });
@@ -1225,67 +1374,9 @@
             // alert(JSON.stringify(ret))
 
         });
-    }
-    //添加到听单
-    function fnOpenAddListening(){
-      api.openWin({
-          name: 'addListening',
-          url: './add_listening.html',
-          pageParam: {
-              name: 'test'
-          }
-      });
+                // alert(id);
     }
 
-    var timeout, rotate = 0;
-    function fnOpenPlayButton(){
-      var playButton = $api.byId('playButton');
-      var video = $api.byId('video');
-      var timeout, rotate = 0;
-      if(playButton.getAttribute("src",2)=="../image/footer_bf0.png"){
-        playButton.src="../image/footer_bf1.png";
-        // $api.addCls(video, 'Rotation');
-        startAnim();
-        // a();
-
-      }else{
-        playButton.src="../image/footer_bf0.png";
-        // $api.removeCls(video, 'Rotation');
-        stopAnim();
-        // b();
-      }
-    }
-    function startAnim() {
-        timeout = setInterval(function () {
-            var img = document.getElementById("video");
-            var rotateStyle = "rotate(" + rotate + "deg)";
-            img.style.transform = rotateStyle;
-            img.style["-moz-transform"] = rotateStyle;
-            img.style["-webkit-transform"] = rotateStyle;
-            img.style["-o-transform"] = rotateStyle;
-            img.style["-ms-transform"] = rotateStyle;
-
-            rotate += 1;
-            if (rotate > 360) {
-                rotate = 0;
-            }
-        }, 30);
-    }
-    function stopAnim() {
-      clearInterval(timeout);
-      timeout = null;
-    }
-    function fnOpenPlayShare() {
-      //图片
-      cover_big
-      //id
-      soundId
-      //title
-      namesss
-
-      // p++;
-      // console.log(p);
-    }
   </script>
   <script>
       var change = function($input) {

@@ -717,7 +717,7 @@ function shareMp3Album(name,listening_description,l_id,savePath) {
                                             },
                                               data: {
                                                   values: {
-                                                      id: songListID,
+                                                      id: l_id,
                                                       model: 'album',
                                                       share_to:'微信'
                                                   }
@@ -824,7 +824,7 @@ function fnintnQQAlbum(name,listening_description,l_id,savePath) {
       },
         data: {
             values: {
-                id: songListID,
+                id: l_id,
                 model: 'album',
                 share_to:'QQ'
             }
@@ -901,7 +901,7 @@ function initTimelineAlbum(name,listening_description,l_id,savePath) {
                                             },
                                               data: {
                                                   values: {
-                                                      id: songListID,
+                                                      id: l_id,
                                                       model: 'album',
                                                       share_to:'微信朋友圈'
                                                   }
