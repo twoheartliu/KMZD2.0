@@ -201,6 +201,12 @@
             margin-right: 5px;
             box-sizing: border-box;
         }
+        #footer {
+            width: 100%;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -218,6 +224,9 @@
             </div> -->
 
         </div>
+        <div id="footer" class="disnone">
+            上拉加载更多
+        </div>
     </div>
 </body>
 
@@ -229,6 +238,7 @@
 <script type="text/javascript" src="../script/wxfx.js"></script>
 <script type="text/javascript">
     var token;
+    var p = 1;
     apiready = function() {
         token = $api.getStorage('token');
         // fnTingdanZhuanJi();
@@ -261,8 +271,18 @@
         }, function() {
             //下拉刷新被触发，自动进入加载状态，使用 api.refreshHeaderLoadDone() 手动结束加载中状态
             //下拉刷新被触发，使用 api.refreshHeaderLoadDone() 结束加载中状态
-
-            fnGengDuo();
+              api.refreshHeaderLoadDone()
+        });
+        api.addEventListener({
+            name: 'scrolltobottom',
+            extra: {
+                threshold: -20 //设置距离底部多少距离时触发，默认值为0，数字类型
+            }
+        }, function(ret, err) {
+          var footer = $api.byId('footer');
+          $api.html(footer, '正在加载更多');
+            p++;
+            fnGengDuoss();
         });
     }
 
@@ -279,14 +299,21 @@
                 "version": version,
                 "session": token
             },
-
+            data: {
+                values: {
+                    p: 1
+                }
+            }
         }, function(ret, err) {
             // alert(JSON.stringify(ret));
             if(ret){
             if (ret.status == 200) {
-                    api.refreshHeaderLoadDone()
+
                 if (ret.data.fllor_info.floor_type == "block") {
+                  var footer = $api.byId('footer');
+                  $api.css(footer, 'display:none');
                     var stylelist = $api.byId('ListOfExcellentWorks');
+
                     var html = '';
                     html += '<div class="hot" id="hot">';
                     for (var i = 0; i < ret.data.list.length; i++) {
@@ -335,7 +362,95 @@
           }
         });
     }
+    function fnGengDuoss() {
 
+        var id = api.pageParam.id;
+        uri = '/index/floor_more/' + id;
+        api.ajax({
+            url: host + apiUri + uri,
+            method: 'get',
+            dataType: 'json',
+            timeout:10,
+            headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token
+            },
+            data: {
+                values: {
+                    p: p
+                }
+            }
+        }, function(ret, err) {
+            // alert(JSON.stringify(ret));
+            if(ret){
+            if (ret.status == 200) {
+
+              // console.log(JSON.stringify(ret));
+              // console.log(JSON.stringify(p));
+              if (ret.data.list) {
+                if (ret.data.fllor_info.floor_type == "block") {
+                  var footer = $api.byId('footer');
+                  $api.css(footer, 'display:none');
+
+                  // $api.html(footer, '正在加载更多');
+                    var stylelist = $api.byId('ListOfExcellentWorks');
+                    var html = '';
+                    html += '<div class="hot" id="hot">';
+                    for (var i = 0; i < ret.data.list.length; i++) {
+                      if(ret.data.fllor_info.content_type == 'album'){
+                        html += '<div class="hotC" onclick="fnSingleWin(' + ret.data.list[i].id + ',\'' + ret.data.list[i].title + '\',\'' + ret.data.fllor_info.content_type + '\');"><img src=" ' + host + '/' + ret.data.list[i].big +
+                            '" alt=""><div class="listtitle"> ' + ret.data.list[i].title + '</div></div>';
+                      }else if(ret.data.fllor_info.content_type == 'listening'){
+                        html += '<div class="hotC" onclick="fnSingleWin(' + ret.data.list[i].id + ',\'' + ret.data.list[i].title + '\',\'' + ret.data.fllor_info.content_type + '\');"><img src=" ' + listeningImg + '/' + ret.data.list[i].big +
+                            '" alt=""><div class="listtitle"> ' + ret.data.list[i].title + '</div></div>';
+                      }
+
+                    }
+                    html += '</div>';
+                    $api.html(stylelist, html);
+                    // $api.append(stylelist,html);
+                    var frameWidth = api.frameWidth;
+                    var frameHeight = api.frameHeight;
+                    var hotCs = $api.domAll('.hotC');
+                    for (var j = 0; j < ret.data.list.length; j++) {
+                        hotCs.item(j).style.width = (frameWidth - 40) / 3 + "px";
+                        hotCs.item(j).style.height = (frameWidth - 40) / 3 * 1.224 + "px";
+                    };
+                } else if (ret.data.fllor_info.floor_type == "list") {
+                    var stylelist = $api.byId('ListOfExcellentWorks');
+                    var html = '';
+                    // console.log(JSON.stringify(ret));
+
+                    for (var i = 0; i < ret.data.list.length; i++) {
+
+                        html += '<div class="egret-flex-item"><div class="egret-flex-items" tapmode="fmbtnhover" onclick="fnOpenPlay(' + ret.data.list[i].id + ')"><div class="egret-flex-item-logo"><img src="' + host + '/' + ret.data.list[
+                                i].mid + '" alt="" class=""></div><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 fl">作品：<span>' + ret.data.list[i].title +
+                            '</span></span></div><div class="egret-flex-item-shelf02"><span>' +
+                            ret.data.list[i].author_name +
+                            '</span></div><div class="egret-flex-item-shelf03"><div><img src="../image/KM_play.png" alt=""><span>' + ret.data.list[i].play_total +
+                            '</span></div><div><img src="../image/KM_zf.png" alt=""><span>' + ret.data.list[i].share_total + '</span></div><div><img src="../image/KM_dz.png" alt=""><span>' + ret.data.list[i].good_total +
+                            '</span></div></div></div></div><div class="egret-flex-item-shelf04" onclick="fnOpenPlayMore(' + ret.data.list[i].id + ',\''+ret.data.list[i].floor_name+'\',\''+ret.data.list[i].mid+'\')"><img src="../image/KM_list_more.png" alt=""></div></div><div class="hdivider"></div>';
+                    }
+                    // $api.html(stylelist, html);
+                    $api.append(stylelist,html);
+                }
+
+              } else {
+                var footer = $api.byId('footer');
+                $api.html(footer, '无更多数据');
+              }
+
+                // fnRecommendedDirectory(ret);
+                // fnAlbumIdLift(ret);
+            } else {
+                netMessage(ret);
+            }
+          }else{
+            netWork(err);
+          }
+        });
+    }
     // function fnTingdanZhuanJi() {
     //     var id = api.pageParam.id;
     //     if (id == 1) {

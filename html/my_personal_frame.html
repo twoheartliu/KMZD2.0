@@ -628,13 +628,13 @@
                   following.innerHTML = '';
 
               }
-
+              // console.log(JSON.stringify(ret));
               //关注
               var headerCare = $api.byId('headerCare');
               if(ret.data.relation == false){
-                html6 = '<img src="../image/my/care_a.png" alt="" class="indexHeaderCare1" id="indexHeaderCare11" onclick="fnOpenAddCare('+ret.data.relation+');"><img src="../image/my/personal_private_a.png" alt="" class="indexHeaderCare1" onclick="fnOpenPersonalPrivate();">';
+                html6 = '<img src="../image/my/care_a.png" alt="" class="indexHeaderCare1" id="indexHeaderCare11" onclick="fnOpenAddCare('+ret.data.relation+');"><img src="../image/my/personal_private_a.png" alt="" class="indexHeaderCare1" onclick="fnOpenPersonalPrivate(\''+ret.data.user_info.signature+'\','+ret.data.user_info.nick_name+');">';
               }else if(ret.data.relation == true){
-                html6 = '<img src="../image/my/care_g.png" alt="" class="indexHeaderCare1" id="indexHeaderCare11" onclick="fnOpenAddCare('+ret.data.relation+');"><img src="../image/my/personal_private_a.png" alt="" class="indexHeaderCare1" onclick="fnOpenPersonalPrivate();">';
+                html6 = '<img src="../image/my/care_g.png" alt="" class="indexHeaderCare1" id="indexHeaderCare11" onclick="fnOpenAddCare('+ret.data.relation+');"><img src="../image/my/personal_private_a.png" alt="" class="indexHeaderCare1" onclick="fnOpenPersonalPrivate(\''+ret.data.user_info.signature+'\','+ret.data.user_info.nick_name+');">';
               }
 
               $api.html(headerCare, html6);
@@ -851,12 +851,13 @@
             }
     }
 
-    function fnOpenPersonalPrivate( ) {
+    function fnOpenPersonalPrivate(signature,nick_name) {
         api.openWin({
             name: 'personalPrivate',
             url: './personal_private.html',
             pageParam: {
-                name: 'text'
+                nickName: signature,
+                userId:  nick_name
             }
         });
     }

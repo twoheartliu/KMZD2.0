@@ -492,7 +492,7 @@
 
         </ul>
         <div id="footer" class="disnone">
-            正在加载更多
+            上拉加载更多
         </div>
     </div>
 </body>
@@ -595,8 +595,8 @@
                       //    console.log(333);
                         //  $api.toggleCls(footer, 'disnone');
                       //  }, 3000);
-                      // var footer = $api.byId('footer');
-                      // $api.html(footer, '正在加载更多');
+                      var footer = $api.byId('footer');
+                      $api.html(footer, '正在加载更多');
                       p ++;
                       songList();
                     });
@@ -668,8 +668,8 @@
                   //    console.log(333);
                     //  $api.toggleCls(footer, 'disnone');
                   //  }, 3000);
-                  // var footer = $api.byId('footer');
-                  // $api.html(footer, '正在加载更多');
+                  var footer = $api.byId('footer');
+                  $api.html(footer, '正在加载更多');
                   p ++;
                   songList();
                 });
@@ -900,20 +900,21 @@
                   $api.html(footer, '无更多数据');
                 }else {
                 //   console.log(ret.data.length);
-                  if (ret.data.length < 10) {
-                    var footer = $api.byId('footer');
-                    // $api.css(footer, 'display:none');
-                    $api.html(footer, '无更多数据');
-                  }else {
-                    var footer = $api.byId('footer');
-                    // $api.css(footer, 'display:block');
-                    $api.html(footer, '正在加载更多');
-                  }
+                  // if (ret.data.length < 10) {
+                  //   var footer = $api.byId('footer');
+                  //   // $api.css(footer, 'display:none');
+                  //   $api.html(footer, '无更多数据');
+                  // }else {
+                  //   var footer = $api.byId('footer');
+                  //   // $api.css(footer, 'display:block');
+                  //   $api.html(footer, '正在加载更多');
+                  // }
+
                   for (var i = 0; i < ret.data.length; i++) {
                     // console.log(ret.data[i].title);
                       author_name = ((ret.data[i].author_name == null) ? "" : ret.data[i].author_name);
                       reciter = ((ret.data[i].reciter == null) ? "" : ret.data[i].reciter);
-                      console.log(ret.data[i].cover_sma);
+                      // console.log(ret.data[i].cover_sma);
                       if(ret.data[i].reciter){
                         $api.append(tuijianliebiaogequ,'<li id="id_' + ret.data[i].id + '"><div class="on_playall" onclick="fnPlay('+ ret.data[i].id +');"><span class="fl on_playall_name">' + ret.data[i].title + '</span><span></span></div><div class="author fl"  onclick="fnPlay('+ ret.data[i].id +');">作者：' + author_name +
                             '</div><div class="author fl"  onclick="fnPlay('+ ret.data[i].id +');">朗读者：' + reciter + '</div><div class="fr on_playall_img" onclick="fnOpenPlayMore(\'' + ret.data[i].cover_sma + '\',' + ret.data[i].id + ',\''+ret.data[i].title+'\');"><img src="../image/KM_list_more.png" alt=""></div></li>');
