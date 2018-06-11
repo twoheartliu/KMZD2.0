@@ -934,16 +934,32 @@
 
     }
     var Dqbofangid;
-    function fnDangQianbofangid(id) {
+    var bofang;
+    var bofangmoshi;
+    function fnDangQianbofangid(bofangss,id) {
         Dqbofangid = id;
+        bofang = bofangss;
+    }
+    function fnBoFangMoShiId(bofangmoshiss){
+      bofangmoshi = bofangmoshiss;
     }
     function fnPlay(a) {
       api.addEventListener({
             name: 'netPlaying'
         }, function(ret, err) {
             if (a == ret.value.playing) {
-                fnDangQianbofangid(ret.value.playing);
+              var id = ret.value.playing;
+              var bofangss = ret.value.bofang;
+                fnDangQianbofangid(bofangss,id);
             }
+        });
+        api.addEventListener({
+            name: 'neiJianTingBFms'
+        }, function(ret, err) {
+            bofangmoshi = ret.value.bofangmoshiid;
+
+            fnBoFangMoShiId(bofangmoshi);
+            return;
         });
         var playlistid = api.pageParam.ids;
         var playUrli = '/listening/song_list/';

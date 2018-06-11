@@ -584,14 +584,17 @@
     var playUrlis;
     var header;
     var ok;
-
+    var bofangmoshi;
     apiready = function() {
       token = $api.getStorage('token');
+      bofangmoshi = api.pageParam.bofangmoshi;
+      fnBoFangMoShiId(bofangmoshi);
       var secHeader = $api.byId('secHeader');
       $api.fixStatusBar(secHeader);
       var headerH = $api.offset(secHeader).h;
       var headerPosH = $api.offset(secHeader).h;
       header = document.querySelector('header');
+
       // 获取浏览器高度
       if (window.innerHeight)
           winHeight = window.innerHeight;
@@ -601,8 +604,9 @@
       var winHeightHeader = winHeight - headerPosH;
       $api.css(messageFrameDiv, 'height:' + winHeightHeader + 'px;');
       $api.fixIos7Bar(header);
+
       fnJianTingGood();
-      fnJianTingBFms();
+      // fnJianTingBFms();
       fnJianTingPingLunShu();
       ok = api.pageParam.ok;
       var oks = 'ok'+ok;
@@ -936,15 +940,15 @@
     }
 
 
-    function fnJianTingBFms() {
-      api.addEventListener({
-          name: 'neiJianTingBFms'
-      }, function(ret, err) {
-          bofangmoshi = ret.value.bofangmoshiid;
-          fnBoFangMoShiId(bofangmoshi);
-          return;
-      });
-    }
+    // function fnJianTingBFms() {
+    //   api.addEventListener({
+    //       name: 'neiJianTingBFms'
+    //   }, function(ret, err) {
+    //       bofangmoshi = ret.value.bofangmoshiid;
+    //       fnBoFangMoShiId(bofangmoshi);
+    //       return;
+    //   });
+    // }
     function fnJianTingGood(){
       api.addEventListener({
           name: 'neiJianTingGood'
@@ -986,7 +990,7 @@
     }
     //监听收藏，评论数；
     function fnJianTingBookCollection(bookId){
-      console.log(bookId);
+      // console.log(bookId);
       if(bookId != 'undefined'){
         api.ajax({
             url: host + apiUri + '/sound/' + bookId,
@@ -1059,6 +1063,7 @@
       id =ids;
         var eHeader = $api.byId('header')
         api.parseTapmode();
+        lo
         if(bofang == 3){
           var stylelist = $api.byId('openplayer');
           var html = '<img src="../image/play/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player">';
@@ -2120,7 +2125,7 @@
 <script>
     var change = function($input) {
         /*内容可自行定义*/
-        console.log(2222)
+        // console.log(2222)
         // console.log("123");
         adjust();
     }

@@ -422,6 +422,7 @@
                     name: 'neiJianTingBFms'
                 }, function(ret, err) {
                     bofangmoshi = ret.value.bofangmoshiid;
+
                     fnBoFangMoShiId(bofangmoshi);
                     return;
                 });
@@ -537,6 +538,7 @@
         } else if (banner_types == 5) {
             lujing = content;
         }
+        console.log(2222);
         api.openWin({
             name: lujing,
             url: lujing,
@@ -706,6 +708,7 @@
     // }
 
     function fnSingLeWin(id, name, urlNames) {
+
         if (urlNames == 'listening') {
             urlName = 'ListingsList';
         } else if (urlNames == 'album') {

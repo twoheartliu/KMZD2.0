@@ -800,6 +800,13 @@
             fnBeiYueplay();
             return false;
         }
+        api.sendEvent({
+            name: 'playPlay',
+            extra: {
+                tit: 5,
+
+            }
+        });
         api.startRecord({
             path: 'fs://luyin/' + timestamp + jubenid+'.amr'
         });

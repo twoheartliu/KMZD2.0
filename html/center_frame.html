@@ -68,6 +68,14 @@
             fnDangQianbofangid(ret.value.playing);
         });
         api.addEventListener({
+            name: 'neiJianTingBFms'
+        }, function(ret, err) {
+            bofangmoshi = ret.value.bofangmoshiid;
+
+            fnBoFangMoShiId(bofangmoshi);
+            return;
+        });
+        api.addEventListener({
             name: 'neizhiliebiaoPlay'
         }, function(ret, err) {
             var a = ret.value.a;
@@ -93,6 +101,10 @@
         //     }
         //   }
         // }
+    }
+    var bofangmoshi;
+    function fnBoFangMoShiId(bofangmoshiss){
+      bofangmoshi = bofangmoshiss;
     }
     var Dqbofangid;
     function fnDangQianbofangid(id) {
@@ -248,7 +260,8 @@
                       playid: playlistid,
                       a: a,
                       DangQianbofangid: Dqbofangid,
-                      ok:'play'
+                      ok:'play',
+                      bofangmoshi:bofangmoshi
                   }
               });
           } else {
@@ -259,7 +272,8 @@
                     bofang: bofang,
                     a: a,
                     playid: playlistid,
-                    ok:'play'
+                    ok:'play',
+                    bofangmoshi:bofangmoshi
                 },
             });
           }
@@ -274,7 +288,8 @@
                       playid: playlistid,
                       a: a,
                       DangQianbofangid: Dqbofangid,
-                      ok:'play'
+                      ok:'play',
+                      bofangmoshi:bofangmoshi
                   }
               });
           } else {
@@ -285,7 +300,8 @@
                     bofang: bofang,
                     a: a,
                     playid: playlistid,
-                    ok:'play'
+                    ok:'play',
+                    bofangmoshi:bofangmoshi
                 },
             });
           }
@@ -298,7 +314,8 @@
                     bofang: bofang,
                     a: a,
                     DangQianbofangid: Dqbofangid,
-                    ok:'caogaoplay'
+                    ok:'caogaoplay',
+                    bofangmoshi:bofangmoshi
                 },
             });
 
@@ -309,7 +326,8 @@
                 pageParam: {
                     bofang: bofang,
                     a: a,
-                    ok:'caogaoplay'
+                    ok:'caogaoplay',
+                    bofangmoshi:bofangmoshi
                 },
             });
           }
@@ -322,7 +340,8 @@
                     bofang: bofang,
                     a: a,
                     DangQianbofangid: Dqbofangid,
-                    ok:'caogaoplay'
+                    ok:'caogaoplay',
+                    bofangmoshi:bofangmoshi
                 },
             });
 
@@ -333,7 +352,8 @@
                 pageParam: {
                     bofang: bofang,
                     a: a,
-                    ok:'caogaoplay'
+                    ok:'caogaoplay',
+                    bofangmoshi:bofangmoshi
                 },
             });
           }
@@ -346,7 +366,8 @@
                       bofang: bofang,
                       a: a,
                       DangQianbofangid: Dqbofangid,
-                      ok:'playDanQu'
+                      ok:'playDanQu',
+                      bofangmoshi:bofangmoshi
                   }
               });
           } else {
@@ -356,7 +377,8 @@
                 pageParam: {
                     bofang: bofang,
                     a: a,
-                    ok:'playDanQu'
+                    ok:'playDanQu',
+                    bofangmoshi:bofangmoshi
                 },
             });
           }
@@ -370,7 +392,8 @@
                       bofang: bofang,
                       a: a,
                       DangQianbofangid: Dqbofangid,
-                      ok:'playDanQu'
+                      ok:'playDanQu',
+                      bofangmoshi:bofangmoshi
                   }
               });
           } else {
@@ -380,7 +403,8 @@
                 pageParam: {
                     bofang: bofang,
                     a: a,
-                    ok:'playDanQu'
+                    ok:'playDanQu',
+                    bofangmoshi:bofangmoshi
                 },
             });
           }
@@ -392,7 +416,7 @@
                 url: './listen_to.html',
                   pageParam: {
                       DangQianbofangid: Dqbofangid,
-                      ok:'listen_to'
+                      ok:'listen_to',
                   }
               });
           } else {
@@ -400,7 +424,7 @@
                 name: 'listenTo',
                 url: './listen_to.html',
                 pageParam: {
-                    ok:'listen_to'
+                    ok:'listen_to',
                 }
             });
           }
@@ -412,7 +436,7 @@
                 url: './listen_to.html',
                   pageParam: {
                       DangQianbofangid: Dqbofangid,
-                      ok:'listen_to'
+                      ok:'listen_to',
                   }
               });
           } else {
@@ -420,7 +444,7 @@
                 name: 'listenTo',
                 url: './listen_to.html',
                 pageParam: {
-                    ok:'listen_to'
+                    ok:'listen_to',
                 }
             });
           }
