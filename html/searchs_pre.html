@@ -412,19 +412,19 @@
 
     }
 
-    function choiceSave(j) {
-        if (historys.length == 0) {
-            return true
-        }
-        for (var i = 0; i < historys.length; i++) {
-            // console.log(historys[i]);
-            // console.log(historys[i]);
-            if (j == historys[i]) {
-                historys.splice(i, 1);
-            }
-        }
-        return true
-    }
+    // function choiceSave(j) {
+    //     if (historys.length == 0) {
+    //         return true
+    //     }
+    //     for (var i = 0; i < historys.length; i++) {
+    //         // console.log(historys[i]);
+    //         // console.log(historys[i]);
+    //         if (j == historys[i]) {
+    //             historys.splice(i, 1);
+    //         }
+    //     }
+    //     return true
+    // }
 
 
     // function openHistory() {
@@ -450,7 +450,7 @@
         // console.log('111');
         if (history !== '') {
             // console.log('222');
-            var t = '<li class="search"><div class="" onclick="openHistory(\'' + history + '\')">' + history + '</div> <img onclick="toDelete()" src="../image/delete.png" alt=""></li>';
+            var t = '<li class="search"><div class="searchs" onclick="openHistory(\'' + history + '\')">' + history + '</div> <img onclick="toDelete()" src="../image/delete.png" alt=""></li>';
 
             return t
         }
@@ -487,24 +487,43 @@
         // console.log('saveHistory in');
         // var historys = []
         // console.log(word);
+        var container = $api.byId('id-history');
         for (var i = 0; i < historys.length; i++) {
             if (word == historys[i]) {
+                console.log();
                 historys.splice(i,1);
+                // var historylist = es('.search')
+                // for (var s = 0; s < historylist.length; s++) {
+                //     var k = historylist[i].innerHTML
+                // }
             }
         }
-        console.log(2222);
+        // var historylist = es('.searchs')
+        // for (var i = 0; i < historylist.length; i++) {
+        //     var k = historylist[i].innerHTML
+        //     if (k == word) {
+        //         container.removeChild(k)
+        //     }
+        // }
+
+
+
+        // console.log(2222);
         if (historys.length > 6) {
             historys = historys.slice(1)
         }
-        historys.unshift(word);
+        historys.push(word);
             // console.log('save');
             console.log(historys);
         var s = JSON.stringify(historys);
         localStorage.savedHistory = s;
-        var container = $api.byId('id-history');
 
-        var html = templateHistory(word);
-        container.insertAdjacentHTML('afterbegin', html)
+        // var html = templateHistory(word);
+        // container.insertAdjacentHTML('afterbegin', html)
+        var container = $api.byId('id-history');
+        $api.html(container, '');
+        historys = loadHistory();
+        insertHistory(historys);
 
     }
 
@@ -587,7 +606,7 @@
                     // splice 函数可以删除数组的某一个下标, 第一个参数是要删除的元素的下标
                     // 第二个参数是要删除的元素的个数, 这里只删除一个, 所以这里是 1
                 his.splice(i, 1)
-                console.log(i);
+                // console.log(i);
 
                     // 删除后, 保存到 localStorage
                 var s = JSON.stringify(his)
