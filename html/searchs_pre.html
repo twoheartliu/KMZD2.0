@@ -287,8 +287,6 @@
         clearInput();
         ShowHot();
 
-        // openHistory();
-
         // localStorage 相关
 
 
@@ -297,7 +295,6 @@
         insertHistory(historys);
 
         OpenSearch();
-        // console.log(localStorage.savedHistory);
 
     };
 
@@ -373,32 +370,6 @@
                         });
                     })
 
-                    // hotlist.addEventListener('click', function(event) {
-                    //     var self = event.target;
-                    //     console.log(self);
-                    //     var clicks = self.innerHTML;
-                    //     saveHistory(clicks);
-                    //
-                    //
-                    //     var c = choiceSave(clicks);
-                    //     // console.log(c);
-                    //     if (c == true) {
-                    //         var history = $api.byId('id-history');
-                    //         var container = $api.byId('id-history');
-                    //
-                    //         var html = templateHistory(clicks);
-                    //         container.insertAdjacentHTML('afterbegin', html)
-                    //             // console.log('sss');
-                    //     }
-                    //
-                    //     api.openWin({
-                    //         name: 'searchs',
-                    //         url: './searchs.html',
-                    //         pageParam: {
-                    //             data: clicks,
-                    //         }
-                    //     });
-                    // })
                 }
                 // alert( JSON.stringify( ret ) );
             } else {
@@ -408,39 +379,7 @@
 
     }
 
-    // function choiceSave(j) {
-    //     if (historys.length == 0) {
-    //         return true
-    //     }
-    //     for (var i = 0; i < historys.length; i++) {
-    //         // console.log(historys[i]);
-    //         // console.log(historys[i]);
-    //         if (j == historys[i]) {
-    //             historys.splice(i, 1);
-    //         }
-    //     }
-    //     return true
-    // }
 
-
-    // function openHistory() {
-    //     var history = $api.byId('id-history');
-    //     // console.log(words);
-    //     history.addEventListener('click', function(event) {
-    //         var self = event.target;
-    //         var clicks = self.innerHTML.split('<img');
-    //         // console.log(clicks);
-    //         var result = clicks[0];
-    //         // console.log(result);
-    //         api.openWin({
-    //             name: 'searchs',
-    //             url: './searchs.html',
-    //             pageParam: {
-    //                 data: result,
-    //             }
-    //         });
-    //     })
-    // }
 
     var templateHistory = function(history) {
         // console.log('111');
@@ -487,23 +426,10 @@
         for (var i = 0; i < historys.length; i++) {
             if (word == historys[i]) {
                 historys.splice(i,1);
-                // var historylist = es('.search')
-                // for (var s = 0; s < historylist.length; s++) {
-                //     var k = historylist[i].innerHTML
-                // }
             }
         }
-        // var historylist = es('.searchs')
-        // for (var i = 0; i < historylist.length; i++) {
-        //     var k = historylist[i].innerHTML
-        //     if (k == word) {
-        //         container.removeChild(k)
-        //     }
-        // }
 
 
-
-        // console.log(2222);
         if (historys.length > 6) {
             historys = historys.slice(1)
         }
@@ -534,39 +460,6 @@
 
             if (word !== '') {
                 saveHistory(word);
-
-                // var c = choiceSave(word);
-                // // console.log(c);
-                // if (c == true) {
-                //     var history = $api.byId('id-history');
-                //
-                //     // var container = $api.byId('id-history');
-                //     // var t = templateHistory(word)
-                //     // container.insertAdjacentHTML('beforeend', t)
-                //         // while (historys.length > 6) {
-                //         //     var history = $api.byId('id-history');
-                //         //     var es = function(selector) {
-                //         //         var elements = document.querySelectorAll(selector)
-                //         //         return elements
-                //         //     }
-                //         //     var items = es('.search')
-                //         //     for (var i = 0; i < items.length; i++) {
-                //         //         var zero = items[0]
-                //         //     }
-                //         //     var r = items.split(zero, 1);
-                //         //     items = r[1]
-                //         //     // history.removeChild(firs[0]);
-                //         //     console.log('wasdsads');
-                //         //     api.openWin({
-                //         //         name: 'searchs',
-                //         //         url: './searchs.html',
-                //         //         pageParam: {
-                //         //             data: word,
-                //         //         }
-                //         //     });
-                //         // }
-                //
-                // }
 
                 api.openWin({
                     name: 'searchs',
