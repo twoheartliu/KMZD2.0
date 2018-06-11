@@ -271,21 +271,17 @@
         var winHeightHeader = winHeight - headers.h - 25;
         $api.css(messageFrameDiv, 'height:' + winHeightHeader + 'px;');
 
-        // api.addEventListener({
-        //     name: 'inputValues'
-        // }, function(ret, err){
-        //     if( ret ){
-        //         var after = ret.value.inputValues
-        //         var container = $api.byId('id-history');
-        //         var html = templateHistory(after);
-        //         container.insertAdjacentHTML('afterbegin', html)
-        //         historys.push(after)
-        //         saveHistory(after)
-        //         //  console.log(JSON.stringify(ret.value.inputValues));
-        //     }else{
-        //         //  alert( JSON.stringify( err ) );
-        //     }
-        // });
+        api.addEventListener({
+            name: 'inputValues'
+        }, function(ret, err){
+            if( ret ){
+                var after = ret.value.inputValues
+                saveHistory(after)
+                //  console.log(JSON.stringify(ret.value.inputValues));
+            }else{
+                //  alert( JSON.stringify( err ) );
+            }
+        });
 
 
         clearInput();
@@ -490,7 +486,6 @@
         var container = $api.byId('id-history');
         for (var i = 0; i < historys.length; i++) {
             if (word == historys[i]) {
-                console.log();
                 historys.splice(i,1);
                 // var historylist = es('.search')
                 // for (var s = 0; s < historylist.length; s++) {
@@ -514,7 +509,7 @@
         }
         historys.push(word);
             // console.log('save');
-            console.log(historys);
+            // console.log(historys);
         var s = JSON.stringify(historys);
         localStorage.savedHistory = s;
 
