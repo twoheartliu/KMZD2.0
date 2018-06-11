@@ -231,6 +231,29 @@
             name: 'searchs_pre',
         });
     }
+
+    var es = function(selector) {
+        var elements = document.querySelectorAll(selector)
+        if (elements.length == 0) {
+            var s = ''
+                // alert(s)
+        } else {
+            return elements
+        }
+    }
+
+    var bindEvent = function(element, eventName, callback) {
+        element.addEventListener(eventName, callback)
+    }
+
+    var bindAll = function(selector, eventName, callback) {
+        var elements = es(selector)
+        for (var i = 0; i < elements.length; i++) {
+            var e = elements[i]
+            bindEvent(e, eventName, callback)
+        }
+    }
+
     apiready = function() {
         token = $api.getStorage('token');
         var eHeader = $api.byId('headerss')
@@ -248,19 +271,30 @@
         var winHeightHeader = winHeight - headers.h - 25;
         $api.css(messageFrameDiv, 'height:' + winHeightHeader + 'px;');
 
+        api.addEventListener({
+            name: 'inputValues'
+        }, function(ret, err){
+            if( ret ){
+                var after = ret.value.inputValues
+                saveHistory(after)
+                //  console.log(JSON.stringify(ret.value.inputValues));
+            }else{
+                //  alert( JSON.stringify( err ) );
+            }
+        });
+
+
         clearInput();
         ShowHot();
-        // openHistory();
 
         // localStorage 相关
 
 
-        // 定义一个数组, 用来存储 todo
+        // 定义一个数组, 用来存储
         historys = loadHistory();
         insertHistory(historys);
 
         OpenSearch();
-        // console.log(localStorage.savedHistory);
 
     };
 
@@ -308,33 +342,24 @@
                         // console.log(JSON.stringify(data));
                         var hotword = data.keyword;
                         // console.log(JSON.stringify(hotword));
-                        words =
-                            `
-                        <li class="item">${hotword}</li>
-                        `
-                            // words += '<li class="item">' + hotword + '</li>';
-                        hotlist.insertAdjacentHTML('beforeend', words)
+                        words = '<li class="item">' + hotword + '</li>';
+                        // `<li class="item">${hotword}</li>`;
+                        // words += '<li class="item">' + hotword + '</li>';
+                        hotlist.insertAdjacentHTML('beforeend', words);
                     }
 
                     // $api.html(hotlist, words);
                     // console.log(words);
-                    hotlist.addEventListener('click', function(event) {
+                    bindAll('.item', 'click', function(event) {
                         var self = event.target;
+                        // console.log(self);
                         var clicks = self.innerHTML;
                         saveHistory(clicks);
 
 
-
-                        var c = choiceSave(clicks);
+                        // var c = choiceSave(clicks);
                         // console.log(c);
-                        if (c == true) {
-                            var history = $api.byId('id-history');
-                            var container = $api.byId('id-history');
 
-                            var html = templateHistory(clicks);
-                            container.insertAdjacentHTML('beforeend', html)
-                                // console.log('sss');
-                        }
 
                         api.openWin({
                             name: 'searchs',
@@ -344,6 +369,7 @@
                             }
                         });
                     })
+
                 }
                 // alert( JSON.stringify( ret ) );
             } else {
@@ -353,46 +379,14 @@
 
     }
 
-    function choiceSave(j) {
-        if (historys.length == 0) {
-            return true
-        }
-        for (var i = 0; i < historys.length - 1; i++) {
-            // console.log(historys[i]);
-            // console.log(historys[i]);
-            if (j == historys[i]) {
-                return false
-            }
-        }
-        return true
-    }
 
-
-    // function openHistory() {
-    //     var history = $api.byId('id-history');
-    //     // console.log(words);
-    //     history.addEventListener('click', function(event) {
-    //         var self = event.target;
-    //         var clicks = self.innerHTML.split('<img');
-    //         // console.log(clicks);
-    //         var result = clicks[0];
-    //         // console.log(result);
-    //         api.openWin({
-    //             name: 'searchs',
-    //             url: './searchs.html',
-    //             pageParam: {
-    //                 data: result,
-    //             }
-    //         });
-    //     })
-    // }
 
     var templateHistory = function(history) {
+        // console.log('111');
         if (history !== '') {
-            var t =
-                `
-                <li class="search"><div class="" onclick="openHistory('${history}')">${history}</div> <img onclick="toDelete()" src="../image/delete.png" alt=""></li>
-                    `
+            // console.log('222');
+            var t = '<li class="search"><div class="searchs" onclick="openHistory(\'' + history + '\')">' + history + '</div> <img onclick="toDelete()" src="../image/delete.png" alt=""></li>';
+
             return t
         }
     }
@@ -415,10 +409,11 @@
     var insertHistory = function(historys) {
         // 添加到 container 中
         var container = $api.byId('id-history');
+        // console.log('wwww');
         for (var i = 0; i < historys.length; i++) {
             var history = historys[i]
             var html = templateHistory(history);
-            container.insertAdjacentHTML('beforeend', html);
+            container.insertAdjacentHTML('afterbegin', html);
         }
     }
 
@@ -426,19 +421,31 @@
     var saveHistory = function(word) {
         // console.log('saveHistory in');
         // var historys = []
+        // console.log(word);
+        var container = $api.byId('id-history');
         for (var i = 0; i < historys.length; i++) {
             if (word == historys[i]) {
-                break
+                historys.splice(i,1);
             }
         }
+
+
         if (historys.length > 6) {
             historys = historys.slice(1)
         }
-        historys.push(word)
+        historys.push(word);
             // console.log('save');
             // console.log(historys);
-        var s = JSON.stringify(historys)
-        localStorage.savedHistory = s
+        var s = JSON.stringify(historys);
+        localStorage.savedHistory = s;
+
+        // var html = templateHistory(word);
+        // container.insertAdjacentHTML('afterbegin', html)
+        var container = $api.byId('id-history');
+        $api.html(container, '');
+        historys = loadHistory();
+        insertHistory(historys);
+
     }
 
     // 开始搜索并且记录搜索历史
@@ -450,41 +457,9 @@
             var w = $api.byId('search-input');
             word = w.value;
             // console.log(word);
+
             if (word !== '') {
                 saveHistory(word);
-
-                var c = choiceSave(word);
-                // console.log(c);
-                if (c == true) {
-                    var history = $api.byId('id-history');
-
-                    var container = $api.byId('id-history');
-                    var t = templateHistory(word)
-                    container.insertAdjacentHTML('beforeend', t)
-                    // while (historys.length > 6) {
-                    //     var history = $api.byId('id-history');
-                    //     var es = function(selector) {
-                    //         var elements = document.querySelectorAll(selector)
-                    //         return elements
-                    //     }
-                    //     var items = es('.search')
-                    //     for (var i = 0; i < items.length; i++) {
-                    //         var zero = items[0]
-                    //     }
-                    //     var r = items.split(zero, 1);
-                    //     items = r[1]
-                    //     // history.removeChild(firs[0]);
-                    //     console.log('wasdsads');
-                    //     api.openWin({
-                    //         name: 'searchs',
-                    //         url: './searchs.html',
-                    //         pageParam: {
-                    //             data: word,
-                    //         }
-                    //     });
-                    // }
-
-                }
 
                 api.openWin({
                     name: 'searchs',
@@ -507,6 +482,7 @@
     var deleteHistory = function(container, historyCell) {
         // 1. 找到在 container 里面的下标
         for (var i = 0; i < container.children.length; i++) {
+
             var cell = container.children[i]
                 // console.log(cell);
             if (cell === historyCell) {
@@ -518,9 +494,12 @@
                     // splice 函数可以删除数组的某一个下标, 第一个参数是要删除的元素的下标
                     // 第二个参数是要删除的元素的个数, 这里只删除一个, 所以这里是 1
                 his.splice(i, 1)
+                // console.log(i);
+
                     // 删除后, 保存到 localStorage
                 var s = JSON.stringify(his)
                 localStorage.savedHistory = s
+                    // console.log(localStorage.savedHistory);
             }
         }
     }
@@ -529,11 +508,14 @@
         // console.log('wads');
         var history = $api.byId('id-history');
         // 通过 event.target 的 class 来检查点击的是什么
+        // console.log('sss');
         history.addEventListener('click', function(event) {
+            // console.log('ssss');
             var target = event.target
             var Div = target.parentElement
             var hist = $api.byId('id-history');
-            deleteHistory(hist, Div)
+            deleteHistory(hist, Div);
+            // console.log(historys);
 
         })
     }
@@ -583,6 +565,8 @@
                 }
 
                 localStorage.removeItem('savedHistory');
+                historys = loadHistory();
+                insertHistory(historys);
 
                 var dialogBox = api.require('dialogBox');
                 dialogBox.close({
