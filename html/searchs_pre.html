@@ -396,6 +396,7 @@
         // console.log('was');
         var s = localStorage.savedHistory;
         // console.log(s);
+        // console.log(s);
         if (s == null) {
             return []
         } else {
@@ -413,7 +414,7 @@
         for (var i = 0; i < historys.length; i++) {
             var history = historys[i]
             var html = templateHistory(history);
-            container.insertAdjacentHTML('afterbegin', html);
+            container.insertAdjacentHTML('beforeend', html);
         }
     }
 
@@ -433,7 +434,7 @@
         if (historys.length > 6) {
             historys = historys.slice(1)
         }
-        historys.push(word);
+        historys.unshift(word);
             // console.log('save');
             // console.log(historys);
         var s = JSON.stringify(historys);
@@ -484,6 +485,7 @@
         for (var i = 0; i < container.children.length; i++) {
 
             var cell = container.children[i]
+
                 // console.log(cell);
             if (cell === historyCell) {
                 // 1. 删除这个 cell dom
@@ -562,6 +564,7 @@
                 var history = $api.byId('id-history');
                 while (history.firstChild) {
                     history.removeChild(history.firstChild);
+
                 }
 
                 localStorage.removeItem('savedHistory');
