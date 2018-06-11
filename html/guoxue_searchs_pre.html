@@ -100,16 +100,30 @@
 
         .search {
             line-height: 25px;
+            height: 25px;
             padding: 10px;
             border-bottom: 1px solid #ddd;
+            position: relative;
+        }
+
+        .search div {
+            width: 80%;
+            position: relative;
+            line-height: 25px;
+            z-index: 1;
         }
 
         .search img {
-            line-height: 25px;
-            height: 15px;
-            padding-top: 4px;
+            /*line-height: 15px;
+            height: 15px;*/
+            display: block;
+            width: 15px;
+            /*padding-top: 5px;*/
             position: absolute;
             right: 12px;
+            top: 0px;
+            padding: 15px;
+            z-index: 2;
         }
 
         .hot {
@@ -124,19 +138,25 @@
         .middle {
             height: 30px;
             background-color: #fff;
-            padding-top: 22px;
+            padding-top: 12px;
+            padding-bottom: 1px;
+            line-height: 30px;
         }
 
         .so_head {
             display: inline;
             float: left;
             padding-left: 10px;
+            line-height: 30px;
+            height: 30px;
         }
 
         .deleteAll {
             display: inline;
             float: right;
             padding-right: 10px;
+            line-height: 30px;
+            height: 30px;
         }
         /*.clr{clear: both;}*/
 
@@ -162,8 +182,8 @@
             热门搜索
         </div>
         <ul class="itemlist" id="id-hotlist">
-            <!-- <li class="item">西游记</li> -->
-            <!-- <li class="item">论语</li>
+            <!-- <li class="item">西游记</li>
+            <li class="item">论语</li>
             <li class="item">非常非常好看的国学课</li>
             <li class="item">非常非常好看的国学课</li>
             <li class="item">三字经</li>
@@ -186,8 +206,8 @@
         </div>
 
         <ul class="search_list" id="id-history">
-            <!-- <li class="search">论语 <img src="../image/delete.png" alt=""></li>
-            <li class="search">格列佛游记 <img src="../image/delete.png" alt=""></li>
+            <!-- <li class="search"><div class="" onclick="openHistory()">论语</div> <img onclick="toDelete()" src="../image/delete.png" alt=""></li> -->
+            <!-- <li class="search">格列佛游记 <img src="../image/delete.png" alt=""></li>
             <li class="search">非常非常好看的国学课 <img src="../image/delete.png" alt=""></li>
             <li class="search">非常非常好看的国学课 <img src="../image/delete.png" alt=""></li>
             <li class="search">三字经 <img src="../image/delete.png" alt=""></li>
@@ -382,7 +402,7 @@
         for (var i = 0; i < historys.length; i++) {
             var history = historys[i]
             var html = templateHistory(history);
-            container.insertAdjacentHTML('afterbegin', html);
+            container.insertAdjacentHTML('beforeend', html);
         }
     }
 
@@ -402,7 +422,7 @@
         if (historys.length > 6) {
             historys = historys.slice(1)
         }
-        historys.push(word);
+        historys.unshift(word);
             // console.log('save');
             // console.log(historys);
         var s = JSON.stringify(historys);
