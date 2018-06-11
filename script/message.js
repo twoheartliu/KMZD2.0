@@ -485,5 +485,11 @@ function turn_login(){
       vScrollBarEnabled: true,
       hScrollBarEnabled: true
   });
+  api.sendEvent({
+      name: 'bFaaaaa',
+      extra: {
+          bFaaaaa: 1,
 
+      }
+  });
 }

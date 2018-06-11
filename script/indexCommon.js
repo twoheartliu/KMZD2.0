@@ -306,7 +306,12 @@ function netAudioPlay() {
     myAudio.muted=false;
     myAudio.volume=1;
     myAudio.play();
-
+    api.sendEvent({
+        name: 'bFbbbbb',
+        extra: {
+            bFbbbbb: 2,
+        }
+    });
     // audio.volume=volumevalue;
     // fnBoFangmoshiid()
     api.addEventListener({
@@ -366,11 +371,30 @@ function netAudioPause() {
     }else if (bofang == 1) {
       bofang = 0;
     }
+
     api.sendEvent({
         name: 'netBoFangId',
         extra: {
             bofang: bofang,
             bofangmoshiid:bofangmoshiid
+        }
+    });
+    api.addEventListener({
+        name: 'bFaaaaa'
+    }, function(ret, err) {
+        if (ret) {
+          api.addEventListener({
+              name: 'bFbbbbb'
+          }, function(ret, err) {
+              if (ret) {
+                var myAudio = document.getElementById("myAudio");
+                myAudio.pause();
+                  myAudio.currentTime = 0;
+                  clearInterval(timer2);
+                  clearInterval(timer1);
+              }
+          });
+
         }
     });
 }
