@@ -348,7 +348,6 @@ function netAudioPlay() {
         name: 'netBoFangId',
         extra: {
             bofang: bofang,
-
         }
     });
 
