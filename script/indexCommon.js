@@ -408,12 +408,7 @@ function jindutiao() {
               }
           });
         }
-        api.sendEvent({
-            name: 'neiJianTingBFms',
-            extra: {
-                bofangmoshiid: bofangmoshiid,
-            }
-        });
+
     }, 1000)
 }
 //调整播放进度
@@ -586,6 +581,7 @@ function fnBFid(id) {
             bofang:bofangI
         }
     });
+
 
 }
 
@@ -774,6 +770,12 @@ function fndanqubofangmoshi() {
 
 function fnBFMoshi(MoShiId) {
     bofangmoshiid = MoShiId;
+    api.sendEvent({
+        name: 'neiJianTingBFms',
+        extra: {
+            bofangmoshiid: MoShiId,
+        }
+    });
 
 }
 

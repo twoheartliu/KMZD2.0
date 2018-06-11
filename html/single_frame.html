@@ -589,12 +589,12 @@
     var albumId;
     var collections;
     var goods;
-
+    var bofangmoshi;
     // 分享全局变量
     var imgaesFx , iamgFx , titleFx , idFx , briefFx;
     apiready = function() {
         token = $api.getStorage('token');
-
+        bofangmoshi = api.pageParam.bofangmoshi;
         fnAlbumAetails();
         fnAlbumTrack();
         api.addEventListener({
@@ -816,9 +816,12 @@
     var bofang;
     function fnDangQianbofangid(bofangss,id) {
         Dqbofangid = id;
-        bofang=bofangss;
+        bofang = bofangss;
     }
+    function fnBoFangMoShiId(bofangmoshiss){
+      bofangmoshi = bofangmoshiss;
 
+    }
     function fnOpenPlay(a) {
       api.addEventListener({
             name: 'netPlaying'
@@ -829,7 +832,14 @@
                 fnDangQianbofangid(bofangss,id);
             }
         });
+        api.addEventListener({
+            name: 'neiJianTingBFms'
+        }, function(ret, err) {
+            bofangmoshi = ret.value.bofangmoshiid;
 
+            fnBoFangMoShiId(bofangmoshi);
+            return;
+        });
         var playlistid = api.pageParam.albumId;
         if (Dqbofangid == a) {
           api.openWin({
@@ -841,11 +851,11 @@
                   DangQianbofangid: Dqbofangid,
                   playUrli:'/album/song_list/',
                   ok:'play',
-                  bofangmoshi:api.pageParam.bofangmoshi
+                  bofangmoshi:bofangmoshi,
+                  bofang:bofang
               }
           });
         } else {
-
           api.openWin({
               name: 'play',
               url: './play.html',
@@ -854,7 +864,8 @@
                   playlistid: playlistid,
                   playUrli:'/album/song_list/',
                   ok:'play',
-                  bofangmoshi:api.pageParam.bofangmoshi
+                  bofangmoshi:bofangmoshi,
+                  bofang:bofang
               }
           });
 
