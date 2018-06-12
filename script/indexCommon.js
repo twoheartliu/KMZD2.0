@@ -288,8 +288,8 @@ console.log(6666);
 }
 //audio标签赋值
 function fnFuZhiAudio(url) {
-    var stylelist = $api.byId('myAudio');
-    var html = '<source src="' + url + '" type="audio/mp3">';
+    var stylelist = $api.byId('yinpin');
+    var html = '<audio id="myAudio" ><source src="' + url + '" type="audio/mp3"></audio>';
     $api.html(stylelist, html);
     if (html) {
         kaishibofang();
@@ -298,10 +298,6 @@ function fnFuZhiAudio(url) {
 //开始播放
 function kaishibofang() {
     netAudioPlay();
-    var myAudio = document.getElementById("myAudio");
-    // var myAudio = document.getElementsByTagName('audio')[0];
-    // myAudio.addEventListener('timeupdate', addtime);
-    // myAudio.addEventListener('timeupdate', jindutiao);
     addtime();
     jindutiao();
 }
@@ -535,7 +531,6 @@ function fnGeDanxiaYi() {
 
     fnBoFangyinpinxinxi(play);
 }
-var playList;
 //获取歌单歌曲id
 function netPlayLieIdUrl(playlistid,playUrli) {
     if(playlistid){
@@ -557,8 +552,7 @@ function netPlayLieIdUrl(playlistid,playUrli) {
         }, function(ret, err) {
          if(ret){
           if (ret.status == 200) {
-            ///////////// playList = ret.data;
-            // console.log();
+
               fnZhuanJiZhanshi(ret);
           } else {
             netMessage(ret);
