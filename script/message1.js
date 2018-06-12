@@ -397,7 +397,7 @@ function netWorkNone(ok){
         duration: timeOut,
         location: 'middle'          
     });
-    
+
     api.openFrame({
         name: 'oops',
         url: 'oops.html',
@@ -415,18 +415,22 @@ function netWorkNone(ok){
         vScrollBarEnabled: true,
         hScrollBarEnabled: true
     });
-    api.sendEvent({
-        name: 'bFaaaaa',
-        extra: {
-            bFaaaaa: 1,
 
-        }
-    });
-    api.closeWin();
 }
 
 function turn_login(){
 
+  api.sendEvent({
+      name: 'bFaaaaa',
+      extra: {
+          bFaaaaa: 1,
+
+      }
+  });
+// api.closeWin();
+// setTimeout("Playlogin()",timeOut);
+}
+function Playlogin(){
   api.openFrame({
       name: 'login',
       url: 'login.html',
@@ -444,12 +448,4 @@ function turn_login(){
       vScrollBarEnabled: true,
       hScrollBarEnabled: true
   });
-  api.sendEvent({
-      name: 'bFaaaaa',
-      extra: {
-          bFaaaaa: 1,
-
-      }
-  });
-api.closeWin();
 }

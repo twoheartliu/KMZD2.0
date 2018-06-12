@@ -288,8 +288,8 @@ console.log(6666);
 }
 //audio标签赋值
 function fnFuZhiAudio(url) {
-    var stylelist = $api.byId('yinpin');
-    var html = '<audio id="myAudio" ><source src="' + url + '" type="audio/mp3"></audio>';
+    var stylelist = $api.byId('myAudio');
+    var html = '<source src="' + url + '" type="audio/mp3">';
     $api.html(stylelist, html);
     if (html) {
         kaishibofang();
@@ -298,8 +298,12 @@ function fnFuZhiAudio(url) {
 //开始播放
 function kaishibofang() {
     netAudioPlay();
-    addtime();
-    jindutiao();
+    var myAudio = document.getElementById("myAudio");
+    // var myAudio = document.getElementsByTagName('audio')[0];
+    myAudio.addEventListener('timeupdate', addtime);
+    myAudio.addEventListener('timeupdate', jindutiao);
+    // addtime();
+    // jindutiao();
 }
 //音频播放模块
 function netAudioPlay() {

@@ -1135,7 +1135,7 @@
                 });
             }
             if (ret.index == "0") {
-              fnOpenAddListening(soundId);
+              fnOpenAddListening();
               dialogBox.close({
                   dialogName: 'actionMenu'
               });
@@ -1158,7 +1158,7 @@
     //打开分享
 
     //添加到听单
-    function fnOpenAddListening(soundId){
+    function fnOpenAddListening(){
       api.openWin({
           name: 'addListening',
           url: './add_listening.html',
