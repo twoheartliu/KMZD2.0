@@ -20,7 +20,7 @@ function fnBoFangCaoGaoXiangXinXi(id) {
         var h;
         for (i = 0; i < ret.data.length; i++) {
           if(ret.data[i].url == id){
-              h = i
+              h = i;
           }
         }
         api.sendEvent({
@@ -168,7 +168,7 @@ function fnBoFangmoshiidsssss() {
 function initEventListennerBoFangCaoGaoXiangMoshi() {
     //监听播放模式
     api.addEventListener({
-        name: 'bofangmoshi'
+        name: 'bofangmoshicCgx'
     }, function(ret, err) {
         if (ret) {
             fnBFMoshiCgx(ret.value.bofangmoshi);

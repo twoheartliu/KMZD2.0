@@ -483,7 +483,7 @@
     </style>
 </head>
 
-<body id="body">
+<body>
     <!-- <div id="wrap" class="mh"> -->
     <!-- <img src="" alt=""> -->
     <!-- <header class="qx" id="secHeader">
@@ -933,7 +933,7 @@
         dqbfid = api.pageParam.a;
         id = api.pageParam.a;
         fnInitSwiper();
-        fnOpenChangeImg();
+        // fnOpenChangeImg();
         api.parseTapmode();
         if (!bofang) {
             var stylelist = $api.byId('openplayer');
@@ -942,6 +942,7 @@
             $api.html(stylelist, html);
             bofang = 5;
             if (id) {
+              soundId = id;
                 api.sendEvent({
                     name: 'netPlayCaoGaoXiang',
                     extra: {
@@ -977,13 +978,6 @@
                     }
                 });
             }
-            // api.sendEvent({
-            //     name: 'neizhiliebiaoPlay',
-            //     extra: {
-            //         bofang: bofang,
-            //         a: id,
-            //     }
-            // });
             fnNetAudiosPlayByID(id);
         }
         fnbofangshijian();
@@ -1068,7 +1062,7 @@
             var bofang = 5;
             var a = api.pageParam.a;
             api.sendEvent({
-                name: 'netPlayCaoGaoXiang',
+                name: 'netPlayingCaoGaoXiang',
                 extra: {
                     bofang: bofang,
                     a: a
@@ -1220,7 +1214,7 @@
         if (!bofangmoshi) {
             bofangmoshi = 0;
             api.sendEvent({
-                name: 'bofangmoshi',
+                name: 'bofangmoshicCgx',
                 extra: {
                     bofangmoshi: bofangmoshi
                 }
@@ -1234,7 +1228,7 @@
                 if (idx == 1) {
                     bofangmoshi = 1;
                     api.sendEvent({
-                        name: 'bofangmoshiDanQu',
+                        name: 'bofangmoshicCgx',
                         extra: {
                             bofangmoshi: bofangmoshi
                         }
@@ -1242,7 +1236,7 @@
                 } else if (idx == 2) {
                     bofangmoshi = 2;
                     api.sendEvent({
-                        name: 'bofangmoshiDanQu',
+                        name: 'bofangmoshicCgx',
                         extra: {
                             bofangmoshi: bofangmoshi
                         }
@@ -1250,7 +1244,7 @@
                 } else if (idx == 0){
                     bofangmoshi = 0;
                     api.sendEvent({
-                        name: 'bofangmoshiDanQu',
+                        name: 'bofangmoshicCgx',
                         extra: {
                             bofangmoshi: bofangmoshi
                         }
@@ -1258,7 +1252,7 @@
                 }else{
                   bofangmoshi = 0;
                   api.sendEvent({
-                      name: 'bofangmoshiDanQu',
+                      name: 'bofangmoshicCgx',
                       extra: {
                           bofangmoshi: bofangmoshi
                       }
@@ -1275,7 +1269,7 @@
                 if (idx == 1) {
                     bofangmoshi = 1;
                     api.sendEvent({
-                        name: 'bofangmoshiDanQu',
+                        name: 'bofangmoshicCgx',
                         extra: {
                             bofangmoshi: bofangmoshi
                         }
@@ -1283,7 +1277,7 @@
                 } else if (idx == 2) {
                     bofangmoshi = 2;
                     api.sendEvent({
-                        name: 'bofangmoshiDanQu',
+                        name: 'bofangmoshicCgx',
                         extra: {
                             bofangmoshi: bofangmoshi
                         }
@@ -1291,7 +1285,7 @@
                 } else if (idx == 0){
                     bofangmoshi = 0;
                     api.sendEvent({
-                        name: 'bofangmoshiDanQu',
+                        name: 'bofangmoshicCgx',
                         extra: {
                             bofangmoshi: bofangmoshi
                         }
@@ -1299,7 +1293,7 @@
                 }else{
                   bofangmoshi = 0;
                   api.sendEvent({
-                      name: 'bofangmoshiDanQu',
+                      name: 'bofangmoshicCgx',
                       extra: {
                           bofangmoshi: bofangmoshi
                       }
@@ -1307,7 +1301,7 @@
                 }
             };
             api.sendEvent({
-                name: 'bofangmoshiDanQu',
+                name: 'bofangmoshicCgx',
                 extra: {
                     bofangmoshi: bofangmoshi
                 }

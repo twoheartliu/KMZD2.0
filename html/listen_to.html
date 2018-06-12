@@ -416,6 +416,7 @@
           $api.css(messageFrameDiv, 'height:' + winHeightHeader + 'px;');
           $api.fixIos7Bar(header);
           dangqianbofangid = api.pageParam.DangQianbofangid;
+          bofang = api.pageParam.bofang;
           api.addEventListener({
               name: 'netPlaying'
           }, function(ret, err) {
@@ -423,8 +424,9 @@
           });
           var connectionType = api.connectionType;
             if (connectionType == "wifi") {
+
                 if (dangqianbofangid) {
-                  bofang = api.pageParam.bofang;
+
                   if(bofang){
                     fnJinRuBofangs(dangqianbofangid,bofang);
                     soundId = dangqianbofangid;
@@ -546,6 +548,7 @@
         $api.css(messageFrameDiv, 'height:' + winHeightHeader + 'px;');
         $api.fixIos7Bar(header);
         dangqianbofangid = api.pageParam.DangQianbofangid;
+        bofang = api.pageParam.bofang;
         if(dangqianbofangid){
           bookId = dangqianbofangid;
           soundId = dangqianbofangid;
@@ -557,7 +560,7 @@
         });
           if (connectionType == "wifi") {
               if (dangqianbofangid) {
-                bofang = api.pageParam.bofang;
+
                 if(bofang){
                   fnJinRuBofangs(dangqianbofangid,bofang);
                   soundId = dangqianbofangid;
@@ -618,6 +621,7 @@
               }, function(ret) {
                   if (ret.eventType == 'right') {
                       dangqianbofangid = api.pageParam.DangQianbofangid;
+
                       if (dangqianbofangid) {
                         bofang = api.pageParam.bofang;
                         if(bofang){
@@ -738,11 +742,12 @@
     }
 
     function fnJinRuBofangs(id,bofang) {
+      console.log(111);
         var eHeader = $api.byId('header')
         api.parseTapmode();
         if(bofang == 9){
           var stylelist = $api.byId('openplayer');
-          var html = '<img src="../image/play/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player">';
+          var html = '<img src="../image/play/ic_play_play.png" alt="" onclick="fnOpenPlayer();" id="player">';
           $api.html(stylelist, html);
           if (id) {
             soundId = id;
@@ -755,7 +760,7 @@
           }
         }else{
           var stylelist = $api.byId('openplayer');
-          var html = '<img src="../image/play/ic_play_play.png" alt="" onclick="fnOpenPlayer();" id="player">';
+          var html = '<img src="../image/play/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player">';
           $api.html(stylelist, html);
         }
         fnbofangshijian();
@@ -786,7 +791,7 @@
                 name: 'neizhiliebiaoPlay',
                 extra: {
                     bofang: bofang,
-                    a: 'aaa'
+                    a: 100000000000000000000
                 }
             });
         } else if (bofang == 8) {
@@ -804,7 +809,7 @@
                 name: 'netPlayUrlXunTing',
                 extra: {
                   bofang: bofang,
-                  a: 'aaa'
+                  a: 100000000000000000000
                 }
             });
         }

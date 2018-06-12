@@ -538,7 +538,6 @@
         } else if (banner_types == 5) {
             lujing = content;
         }
-        console.log(2222);
         api.openWin({
             name: lujing,
             url: lujing,
@@ -767,7 +766,7 @@
     }
 
     var Dqbofangid;
-
+    var bofang;
     function fnDangQianbofangid(id,bofangs) {
         Dqbofangid = id;
         bofang = bofangs;
@@ -776,16 +775,16 @@
     //打开熏听页面
     function fnListenWin() {
       api.addEventListener({
-            name: 'netPlaying'
+            name: 'netbofangsssssss'
         }, function(ret, err) {
-            fnDangQianbofangid(ret.value.playing,ret.value.bofang);
+            fnDangQianbofangid(ret.value.a,ret.value.bofang);
         });
         if(Dqbofangid){
           api.openWin({
               name: 'listenTo',
               url: './listen_to.html',
               pageParam: {
-                  DangQianbofangid: ret.value.playing,
+                  DangQianbofangid: Dqbofangid,
                     ok: 'listen_to',
                     bofang:bofang
               }
@@ -800,11 +799,6 @@
               }
           });
         }
-
-
-
-
-
     }
     // 打开优秀作品更多页面
     function fnOpenExcellentWorks() {
@@ -845,10 +839,10 @@
     //作品列表进入播放页面
     function fnOpenPlay(a) {
         api.addEventListener({
-            name: 'netPlaying'
+            name: 'netbofangsssssss'
         }, function(ret, err) {
-            if (a == ret.value.playing) {
-                fnDangQianbofangid(ret.value.playing);
+            if (a == ret.value.a) {
+                fnDangQianbofangid(ret.value.a,ret.value.bofang);
             }
         });
         var playlistid = api.pageParam.albumId;
@@ -862,7 +856,8 @@
                     // danQu:'danQu',
                     dangqianbofangid: Dqbofangid,
                     ok:'playDanQu',
-                    bofangmoshi:bofangmoshi
+                    bofangmoshi:bofangmoshi,
+                    bofang:bofang
                 }
             });
         } else {

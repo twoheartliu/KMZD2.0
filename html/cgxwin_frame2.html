@@ -325,15 +325,20 @@ var ok;
           }
       });
   	}
-    function fnDangQianbofangid(id){
-      Dqbofangid = id;
+
+    var bofang;
+    function fnDangQianbofangid(bofangss,id) {
+        Dqbofangid = id;
+        bofang = bofangss;
     }
     function opencaogaoyinyue(a,urlCaoGao) {
       api.addEventListener({
           name: 'netPlaying'
       }, function(ret, err) {
           if(a == ret.value.playing){
-            fnDangQianbofangid(ret.value.playing);
+            var id = ret.value.playing;
+            var bofangss = ret.value.bofang;
+              fnDangQianbofangid(bofangss,id);
           }
 
       });
@@ -344,7 +349,8 @@ var ok;
     			pageParam: {
             DangQianbofangid: Dqbofangid,
             a:urlCaoGao,
-            ok:'caogaoplay'
+            ok:'caogaoplay',
+            bofang:bofang
     			},
     			delay: 200
     		});

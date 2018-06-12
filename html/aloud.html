@@ -270,9 +270,12 @@
                 <div class="name_h1" id="jubentitle">我是标题</div>
                 <div class="name_h2" id="jubenname">我是副标题</div>
             </div>
-            <div class="name_this">
+            <div class="name_this" id="loading_bgm">
                 ·正在录制 <span id="appTime"> 00:00</span>
             </div>
+            <!-- <div class="name_this" >
+
+            </div> -->
         </div>
         <div class="name_ov">
             <div class="name_nr">
@@ -354,142 +357,157 @@
     var pathSss = 1;
     var ok;
     apiready = function() {
-      token = $api.getStorage('token');
-      path = '';
-      var CompanyInfobeiyue;
-      var secHeader = $api.byId('secHeader');
-      $api.fixStatusBar(secHeader);
-      var headeris = document.querySelector('#secHeader');
-      $api.fixIos7Bar(headeris);
-      $api.fixStatusBar(headeris);
-      var headerH = $api.offset(secHeader).h;
-
-      ok = api.pageParam.ok;
-            var oks = 'ok'+ok;
-      api.addEventListener({
-          name: oks
-      }, function(ret, err) {
-        if(ret.value.wangluo){
-          fnGetJubenlist();
-          api.addEventListener({
-              name: 'netBeiyueId'
-          }, function(ret, err) {
-              if (ret) {
-                  var inputss = ret.value.mp3;
-                  fninputvalue(inputss);
-                  if(ret.value.titleName){
-                    var stylelist = $api.byId('titleName');
-                    var html = '配乐：'+ret.value.titleName;
-                    $api.html(stylelist, html);
-                  }
-              }
-          });
-          api.addEventListener({
-              name: 'shiTingUrl'
-          }, function(ret, err) {
-            if(ret){
-              fnFuZhiJiBenXinXi(ret);
-            }
-          });
-          api.addEventListener({
-              name: 'shiTingPath'
-          }, function(ret, err) {
-            if(ret){
-              fnFuZhiPath(ret);
-            }
-          });
-        }
-      });
-
-      var connectionType = api.connectionType;
-      if(connectionType == "none"){
-      	netWorkNone(ok);
-      }else{
-        fnGetJubenlist();
-        api.addEventListener({
-            name: 'netBeiyueId'
-        }, function(ret, err) {
-            if (ret) {
-                var inputss = ret.value.mp3;
-                fninputvalue(inputss);
-                if(ret.value.titleName){
-                  var stylelist = $api.byId('titleName');
-                  var html = '配乐：'+ret.value.titleName;
-                  $api.html(stylelist, html);
-                }
-            }
-        });
-        api.addEventListener({
-            name: 'shiTingUrl'
-        }, function(ret, err) {
-          if(ret){
-            fnFuZhiJiBenXinXi(ret);
-          }
-        });
-        api.addEventListener({
-            name: 'shiTingPath'
-        }, function(ret, err) {
-          if(ret){
-            fnFuZhiPath(ret);
-          }
-        });
-      }
-
-
-    }
-    function fnFuZhiPath(data_){
-      if(data_.value.path){
+        token = $api.getStorage('token');
         path = '';
-      }
+        var CompanyInfobeiyue;
+        var secHeader = $api.byId('secHeader');
+        $api.fixStatusBar(secHeader);
+        var headeris = document.querySelector('#secHeader');
+        $api.fixIos7Bar(headeris);
+        $api.fixStatusBar(headeris);
+        var headerH = $api.offset(secHeader).h;
+
+        ok = api.pageParam.ok;
+        var oks = 'ok' + ok;
+        api.addEventListener({
+            name: oks
+        }, function(ret, err) {
+            if (ret.value.wangluo) {
+                fnGetJubenlist();
+                api.addEventListener({
+                    name: 'netBeiyueId'
+                }, function(ret, err) {
+                    if (ret) {
+                        fnFuzhiPlay(ret.value.mp3);
+
+                        if (ret.value.titleName) {
+                            var stylelist = $api.byId('titleName');
+                            var html = '配乐：' + ret.value.titleName;
+                            $api.html(stylelist, html);
+                        }
+                    }
+                });
+                api.addEventListener({
+                    name: 'shiTingUrl'
+                }, function(ret, err) {
+                    if (ret) {
+                        fnFuZhiJiBenXinXi(ret);
+                    }
+                });
+                api.addEventListener({
+                    name: 'shiTingPath'
+                }, function(ret, err) {
+                    if (ret) {
+                        fnFuZhiPath(ret);
+                    }
+                });
+            }
+        });
+
+        var connectionType = api.connectionType;
+        if (connectionType == "none") {
+            netWorkNone(ok);
+        } else {
+            fnGetJubenlist();
+            api.addEventListener({
+                name: 'netBeiyueId'
+            }, function(ret, err) {
+                if (ret) {
+                    fnFuzhiPlay(ret.value.mp3);
+                    myAudio.addEventListener('timeupdate', record_start);
+                    if (ret.value.titleName) {
+                        var stylelist = $api.byId('titleName');
+                        var html = '配乐：' + ret.value.titleName;
+                        $api.html(stylelist, html);
+                    }
+                }
+            });
+            api.addEventListener({
+                name: 'shiTingUrl'
+            }, function(ret, err) {
+                if (ret) {
+                    fnFuZhiJiBenXinXi(ret);
+                }
+            });
+            api.addEventListener({
+                name: 'shiTingPath'
+            }, function(ret, err) {
+                if (ret) {
+                    fnFuZhiPath(ret);
+                }
+            });
+        }
+    }
+    var myAudio;
+    var ccccc;
+    var loaded;
+
+    function record_start() {
+        loaded = 1;
+        var stylelist = $api.byId('loading_bgm');
+        var html = '正在录制 <span id="appTime"> 00:00</span>';
+        $api.html(stylelist, html);
+        timedCount();
+        myAudio.removeEventListener('timeupdate', record_start);
+    }
+
+    function fnFuzhiPlay(mp3) {
+        var paths = 'http://47.100.11.38/bgmp3/' + mp3;
+        var stylelist = $api.byId('yinpin');
+        var html = '<audio id="myAudio" loop="0"><source src="' + paths + '" type="audio/mp3"></audio>';
+        $api.html(stylelist, html);
+        input = 'input';
+        myAudio = document.getElementById("myAudio");
+    }
+
+    function fnFuZhiPath(data_) {
+        if (data_.value.path) {
+            path = '';
+        }
     }
     //播放背景音乐
     function fnBeiYueplay() {
-      var connectionType = api.connectionType;
-      	if(connectionType == "none"){
-          api.toast({              
-              msg:   '检测不到网络，配乐无法播放',
-              duration:  2000,
-              location:   'middle'          
-          });
-      	}else{
-          var mp3 = input;
-          var paths = 'http://47.100.11.38/bgmp3/'+mp3;
-          var stylelist = $api.byId('yinpin');
-          var html = '<audio id="myAudio" ><source src="' + paths + '" type="audio/mp3"></audio>';
-          $api.html(stylelist, html);
-          if (html) {
-              kaishibofang();
-          }
-      	}
-      }
-
-    //隐藏域存值
-    function fninputvalue(text) {
-        input = text;
+        var connectionType = api.connectionType;
+        if (connectionType == "none") {
+            api.toast({              
+                msg:   '检测不到网络，配乐无法播放',
+                duration:  2000,
+                location:   'middle'          
+            });
+        } else {
+            myAudio.play();
+            // myAudio.loop=true;
+            myAudioPlay = 1;
+            api.startRecord({
+                path: 'fs://luyin/' + timestamp + jubenid + '.amr'
+            });
+            timestamps = timestamp;
+            timeC();
+            if (!loaded) {
+                var stylelist = $api.byId('loading_bgm');
+                var html = '正在加载配乐...';
+                $api.html(stylelist, html);
+            } else {
+                var stylelist = $api.byId('loading_bgm');
+                var html = '正在录制 <span id="appTime"> 00:00</span>';
+                $api.html(stylelist, html);
+                timedCount();
+            }
+        }
     }
+
     //获取剧本基本信息
 
-    function kaishibofang(){
-      var myAudio = document.getElementById("myAudio");
-      myAudio.play();
-      myAudioPlay = 1;
-      api.startRecord({
-          path: 'fs://luyin/' + timestamp + jubenid+'.amr'
-      });
-      timestamps = timestamp;
-      timeC();
-      timedCount();
+    function fnFuZhiJiBenXinXi(data_) {
+        userId = data_.value.userId;
+        draftsId = data_.value.draftsId;
+        userRecords = data_.value.userRecords;
+        userTime = data_.value.userTime;
+        userFormate = data_.value.userFormate;
+        userSize = data_.value.userSize;
+        pathSss = 0;
+    }
 
-    }
-    function fnFuZhiJiBenXinXi(data_){
-      userId = data_.value.userId;
-      draftsId = data_.value.draftsId;
-      userRecords = data_.value.userRecords;
-      userTime = data_.value.userTime;
-      userFormate = data_.value.userFormate;
-      userSize = data_.value.userSize;
-      pathSss = 0;
-    }
     function fnGetJubenlist() {
         var id = api.pageParam.InfojubenType;
         jubenid = api.pageParam.InfojubenType;
@@ -498,31 +516,31 @@
             url: host + apiUri + uri,
             method: 'get',
             dataType: 'json',
-            timeout:10,
+            timeout: 10,
             headers: {
                 "source": api.systemType,
                 "version": version,
                 "session": token
             }
         }, function(ret, err) {
-          if(ret){
-            if (ret.status == 200) {
-                title = ret.data[0].title;
-                name = ret.data[0].author_name;
-                body = ret.data[0].body;
-                author_id = ret.data[0].author_id;
-                if (!name) {
-                    name = '';
+            if (ret) {
+                if (ret.status == 200) {
+                    title = ret.data[0].title;
+                    name = ret.data[0].author_name;
+                    body = ret.data[0].body;
+                    author_id = ret.data[0].author_id;
+                    if (!name) {
+                        name = '';
+                    }
+                    fnGetJubentitle();
+                    fnGetJubenname();
+                    fnGetJubenbody();
+                } else {
+                    netMessage(ret);
                 }
-                fnGetJubentitle();
-                fnGetJubenname();
-                fnGetJubenbody();
             } else {
-                netMessage(ret);
+                netWork(err);
             }
-          }else{
-            netWork(err);
-          }
         });
     }
     //赋值剧本标题
@@ -551,16 +569,15 @@
     }
     //返回
     function goback() {
-      var fs = api.require('fs');
-      fs.rmdir({
-          path: 'fs://luyin'
-      }, function(ret, err) {
-          if (ret.status) {
-          } else {
-              // alert(JSON.stringify(err));
-          }
-      });
-      api.closeWin();
+        var fs = api.require('fs');
+        fs.rmdir({
+            path: 'fs://luyin'
+        }, function(ret, err) {
+            if (ret.status) {} else {
+                // alert(JSON.stringify(err));
+            }
+        });
+        api.closeWin();
     }
 
     function fnReadListWin() {
@@ -596,15 +613,14 @@
                 }, function(ret, err) {
                     var index = ret.buttonIndex;
                     if (index == 1) {
-                      var fs = api.require('fs');
-                      fs.rmdir({
-                          path: 'fs://luyin'
-                      }, function(ret, err) {
-                          if (ret.status) {
-                          } else {
-                              // alert(JSON.stringify(err));
-                          }
-                      });
+                        var fs = api.require('fs');
+                        fs.rmdir({
+                            path: 'fs://luyin'
+                        }, function(ret, err) {
+                            if (ret.status) {} else {
+                                // alert(JSON.stringify(err));
+                            }
+                        });
                         var c = 0;
                         var t = '';
                         var playCollect = $api.byId('playCollect');
@@ -614,11 +630,11 @@
                     }
                 });
             } else {
-              api.toast({              
-                  msg:  '请先录音',
-                  duration:  2000,
-                  location:  'middle'          
-              });
+                api.toast({              
+                    msg:   '请先录音',
+                    duration:  2000,
+                    location:   'middle'          
+                });
 
             }
         } else {
@@ -629,76 +645,76 @@
     function fnLuYinshiting() {
         if (a == 2) {
             if (path) {
-              if(c > 9){
-                  if(userId){
-                    api.openWin({
-                        name: 'ctwin',
-                        url: './ctwin.html',
-                        pageParam: {
-                            path: path,
-                            desc: body,
-                            title: title,
-                            name: name,
-                            jubenid: jubenid,
-                            cgxid: cgxid,
-                            timestamp: timestamp,
-                            timestamps: timestamps,
-                            author_id: author_id,
-                            a:a,
-                            c:c,
-                            ok:"ctwin",
-                            userId:userId,
-                            userRecords:userRecords,
-                            draftsId:draftsId,
-                            userTime:userTime,
-                            userFormate:userFormate,
-                            userSize:userSize
-                        }
-                    });
-                  }else{
-                    api.openWin({
-                        name: 'ctwin',
-                        url: './ctwin.html',
-                        pageParam: {
-                            path: path,
-                            desc: body,
-                            title: title,
-                            name: name,
-                            jubenid: jubenid,
-                            cgxid: cgxid,
-                            timestamp: timestamp,
-                            timestamps: timestamps,
-                            author_id: author_id,
-                            a:a,
-                            c:c,
-                            ok:"ctwin"
-                        }
-                    });
-                  }
+                if (c > 9) {
+                    if (userId) {
+                        api.openWin({
+                            name: 'ctwin',
+                            url: './ctwin.html',
+                            pageParam: {
+                                path: path,
+                                desc: body,
+                                title: title,
+                                name: name,
+                                jubenid: jubenid,
+                                cgxid: cgxid,
+                                timestamp: timestamp,
+                                timestamps: timestamps,
+                                author_id: author_id,
+                                a: a,
+                                c: c,
+                                ok: "ctwin",
+                                userId: userId,
+                                userRecords: userRecords,
+                                draftsId: draftsId,
+                                userTime: userTime,
+                                userFormate: userFormate,
+                                userSize: userSize
+                            }
+                        });
+                    } else {
+                        api.openWin({
+                            name: 'ctwin',
+                            url: './ctwin.html',
+                            pageParam: {
+                                path: path,
+                                desc: body,
+                                title: title,
+                                name: name,
+                                jubenid: jubenid,
+                                cgxid: cgxid,
+                                timestamp: timestamp,
+                                timestamps: timestamps,
+                                author_id: author_id,
+                                a: a,
+                                c: c,
+                                ok: "ctwin"
+                            }
+                        });
+                    }
 
-                // path = '';
-                // timeCsss();
-              }else {
-                  // alert(JSON.stringify(ret.message));
-                  // timeCsss();
-                  var fs = api.require('fs');
-                  api.toast({              
-                      msg:   '录制时间较短，请重新录制',
-                      duration:  2000,
-                      location:   'middle'          
-                  });
-                  fs.rmdir({
-                      path: 'fs://luyin'
-                  }, function(ret, err) {
-                      if (ret.status) {} else {
-                          // alert(JSON.stringify(err));
-                      }
-                  });
-              }
+                    // path = '';
+                    // timeCsss();
+                } else {
+                    // alert(JSON.stringify(ret.message));
+                    // timeCsss();
+                    var fs = api.require('fs');
+                    api.toast({              
+                        msg:   '录制时间较短，请重新录制',
+                        duration:  2000,
+                        location:   'middle'          
+                    });
+                    fs.rmdir({
+                        path: 'fs://luyin'
+                    }, function(ret, err) {
+                        if (ret.status) {} else {
+                            // alert(JSON.stringify(err));
+                        }
+                    });
+                }
 
             } else {
                 api.toast({              
-                    msg:  '请先录音',
+                    msg:   '请先录音',
                     duration:  2000,
                     location:   'middle'          
                 });
@@ -710,9 +726,11 @@
 
     var c = 0;
     var t = '';
+
     function timeC() {
-      c = 0
+        c = 0
     }
+
     function timedCount() {
         var stylelist = $api.byId('appTime');
         // c = 0;
@@ -795,9 +813,10 @@
     }
     //点击播放并录音
     var r = null,
-            t = 0,
-            ri = null,
-            rt = null;
+        t = 0,
+        ri = null,
+        rt = null;
+
     function fnNetAudiosLuYinByID() {
         if (input) {
             fnBeiYueplay();
@@ -811,7 +830,7 @@
             }
         });
         api.startRecord({
-            path: 'fs://luyin/' + timestamp + jubenid+'.amr'
+            path: 'fs://luyin/' + timestamp + jubenid + '.amr'
         });
         timestamps = timestamp;
         timeC();
@@ -821,7 +840,7 @@
 
     function fnAletrssss() {
         api.toast({              
-            msg:  '请先暂停播放',
+            msg:   '请先暂停播放',
             duration:  2000,
             location:   'middle'          
         });
@@ -837,9 +856,10 @@
             playCollect.src = "../image/read/recording.png";
             a = 2;
             //暂停播放
-            if(myAudioPlay == 1){
-              var myAudio = document.getElementById("myAudio");
-              myAudio.pause();
+            if (myAudioPlay == 1) {
+                var myAudio = document.getElementById("myAudio");
+                myAudio.pause();
+                myAudio.currentTime = 0;
             }
 
             stopCount();
@@ -853,5 +873,4 @@
         }
 
     }
-
 </script>
