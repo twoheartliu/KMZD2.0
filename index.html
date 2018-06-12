@@ -388,7 +388,7 @@
 <script type="text/javascript">
  var token; var a; var playUrli; var playgedan; var play; var timer2; var timer1; var historyUrlArray; var y; var rets; var shunxuplays; var danquplays; var suijiplays; var bofangmoshiid; var playTime; var a; var bofang; var playlistid; var dataArray
 = new Array(); var caogaoId; var caogaoTitle; var caogaoName; var caogaoBody; var author_id; var DangQianbofangid; var titlename; var desc; var singerName; var reciter; var comment_total; var is_collection; var caogaoAuthor_id; var bookId; var danQu;
-var minuteFollow; var cover_big;
+var minuteFollow; var cover_big;var footerIP;
     apiready = function() {
       // $api.clearStorage();
             token = $api.getStorage('token');
@@ -408,6 +408,7 @@ var minuteFollow; var cover_big;
             var footer = $api.byId('footer');
             var headerH = $api.offset(secHeader).h;
             var footerH = $api.offset(footer).h;
+            footerIP = $api.fixTabBar($api.byId('footer'));
             fnOpenCenterFrame();
             api.parseTapmode();
             initEventListenner();
@@ -461,7 +462,7 @@ var minuteFollow; var cover_big;
                 url: './html/center_frame.html',
                 rect: {
                     x: (api.frameWidth - 45) / 2,
-                    y: api.frameHeight - 50,
+                    y: api.frameHeight - footerIP,
                     w: 45,
                     h: 50
                 },
@@ -477,7 +478,7 @@ var minuteFollow; var cover_big;
                 url: './html/center_frame.html',
                 rect: {
                     x: (api.frameWidth - 45) / 2,
-                    y: api.frameHeight - 50,
+                    y: api.frameHeight - footerIP,
                     w: 45,
                     h: 50,
                 },
