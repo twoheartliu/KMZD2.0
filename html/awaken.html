@@ -73,9 +73,12 @@
         });
     }
     apiready = function() {
-        var header = $api.byId('secHeader');
-        $api.fixStatusBar(header);
-        var headerPos = $api.offset(header);
+      var secHeader = $api.byId('secHeader');
+      $api.fixStatusBar(secHeader);
+      var headeris = document.querySelector('#secHeader');
+      $api.fixIos7Bar(headeris);
+      $api.fixStatusBar(headeris);
+        var headerPos = $api.offset(secHeader);
         api.openFrame({
             name: 'awaken_frame',
             url: './awaken_frame.html',

@@ -215,6 +215,9 @@
     var ok;
     apiready = function() {
         var notHeader = $api.byId('notHeader');
+        var headeris = document.querySelector('#notHeader');
+        $api.fixIos7Bar(headeris);
+        $api.fixStatusBar(headeris);
         $api.fixStatusBar(notHeader);
          ok = api.pageParam.ok;
         var oks = 'ok'+ok;

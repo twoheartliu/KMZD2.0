@@ -247,6 +247,9 @@
     apiready = function() {
         token = $api.getStorage('token');
         var eHeader = $api.byId('secHeader');
+        var headeris = document.querySelector('#secHeader');
+        $api.fixIos7Bar(headeris);
+        $api.fixStatusBar(headeris);
         $api.fixStatusBar(eHeader); //状态栏
         var headerPos = $api.offset(eHeader);
         ok = api.pageParam.ok;

@@ -164,6 +164,9 @@
     apiready = function() {
         token = $api.getStorage('token');
         var eHeader = $api.byId('header');
+        var headeris = document.querySelector('#headerss');
+        $api.fixIos7Bar(headeris);
+        $api.fixStatusBar(headeris);
         $api.fixStatusBar(eHeader);
 
         datas = api.pageParam.data;

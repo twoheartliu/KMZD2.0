@@ -96,6 +96,9 @@
     }
     var ok;
     apiready = function() {
+      var headeris = document.querySelector('#secHeader');
+      $api.fixIos7Bar(headeris);
+      $api.fixStatusBar(headeris);
       ok = api.pageParam.ok;
             var oks = 'ok'+ok;
       api.addEventListener({

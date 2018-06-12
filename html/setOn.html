@@ -69,6 +69,9 @@
     }
     apiready = function() {
         var header = $api.byId('secHeader');
+        var headeris = document.querySelector('#secHeader');
+        $api.fixIos7Bar(headeris);
+        $api.fixStatusBar(headeris);
         $api.fixStatusBar(header);
         var headerPos = $api.offset(header);
         api.openFrame({

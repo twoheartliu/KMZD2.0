@@ -479,6 +479,9 @@
       }, function(ret, err) {
         if(ret.value.wangluo){
           var secHeader = $api.byId('secHeader');
+          var headeris = document.querySelector('#secHeader');
+          $api.fixIos7Bar(headeris);
+          $api.fixStatusBar(headeris);
           $api.fixStatusBar(secHeader);
           var headerH = $api.offset(secHeader).h;
           title = api.pageParam.title;

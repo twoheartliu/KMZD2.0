@@ -222,6 +222,9 @@
 
     function fnOpenDiscussNotDetail() {
         var nHeader = $api.byId('notHeader');
+        var headeris = document.querySelector('#notHeader');
+        $api.fixIos7Bar(headeris);
+        $api.fixStatusBar(headeris);
         var headerH = $api.offset(nHeader).h;
         api.openFrame({
             name: 'discussNoticeDetailFrame',

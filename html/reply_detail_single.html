@@ -224,6 +224,9 @@
       name = api.pageParam.name;
 
         var notHeader = $api.byId('notHeader');
+        var headeris = document.querySelector('#notHeader');
+        $api.fixIos7Bar(headeris);
+        $api.fixStatusBar(headeris);
         $api.fixStatusBar(notHeader);
         fnOpenMessageNotDetail();
     }

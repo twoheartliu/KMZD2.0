@@ -128,6 +128,9 @@
         var nickName = api.pageParam.nickName;
         //用户名
         var nickNames = $api.byId('nickName');
+        var headeris = document.querySelector('#nickName');
+        $api.fixIos7Bar(headeris);
+        $api.fixStatusBar(headeris);
         $api.html(nickNames, nickName);
         var mHeader = $api.byId('mesHeader');
         $api.fixStatusBar(mHeader); //状态栏

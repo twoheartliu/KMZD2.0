@@ -206,10 +206,13 @@
     var token;
     apiready = function() {
       token = $api.getStorage('token');
-        var header = $api.byId('secHeader');
-        $api.fixStatusBar(header);
-        var headerPos = $api.offset(header);
-        var headerPosH = $api.offset(header).h;
+      var secHeader = $api.byId('secHeader');
+      $api.fixStatusBar(secHeader);
+      var headeris = document.querySelector('#secHeader');
+      $api.fixIos7Bar(headeris);
+      $api.fixStatusBar(headeris);
+        var headerPos = $api.offset(secHeader);
+        var headerPosH = $api.offset(secHeader).h;
         songListID = api.pageParam.songListID;
         // console.log(songListID);
         ok = api.pageParam.ok;

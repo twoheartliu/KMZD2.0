@@ -257,6 +257,9 @@
     apiready = function() {
         token = $api.getStorage('token');
         var eHeader = $api.byId('headerss')
+        var headeris = document.querySelector('#headerss');
+        $api.fixIos7Bar(headeris);
+        $api.fixStatusBar(headeris);
         var headers = $api.offset(eHeader);
         // var headerssx = $api.offset(eHeader).h;
         // console.log(headers.h);

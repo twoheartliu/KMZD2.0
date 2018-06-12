@@ -57,6 +57,9 @@
     var ok;
     apiready = function() {
         var dHeader = $api.byId('disHeader');
+        var headeris = document.querySelector('#disHeader');
+        $api.fixIos7Bar(headeris);
+        $api.fixStatusBar(headeris);
         $api.fixStatusBar(dHeader); //状态栏
         ok = api.pageParam.ok;
         var oks = 'ok'+ok;
