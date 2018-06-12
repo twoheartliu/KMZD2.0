@@ -179,13 +179,8 @@
 <script type="text/javascript" src="script/message1.js"></script>
 <script type="text/javascript">
     apiready = function() {
-
-        // var ele_pass_box = document.getElementsByTagName("div")[0];
-        // var ele_pass = ele_pass_box.getElementsByTagName("input")[0];
         var input = $api.byId('password');
         var img = $api.byId('img');
-
-        // var ele_eye = ele_pass_box.getElementsByTagName("i")[0];
         img.onclick = function() {
             var state = this.getAttribute("state");
             if (state === "off") {
@@ -197,7 +192,6 @@
                 img.setAttribute("state", "off");
                 img.style.opacity = 1;
             }
-            // var playCollect = $api.byId('playCollect');
             if (img.getAttribute("src", 2) == "./image/my/Invisible.png") {
                 img.src = "./image/my/visible.png";
             } else {
