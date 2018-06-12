@@ -76,7 +76,10 @@ function fnGeDanShangYis(a) {
     myAudio.currentTime = 0;
     clearInterval(timer2);
     clearInterval(timer1);
-    fnBoFangyinpinxinxis(a);
+
+    setTimeout(function(){
+        fnBoFangyinpinxinxis(a);
+    },3000)
 }
 //歌单下一首
 function fnGeDanxiaYis(a) {
@@ -86,7 +89,9 @@ function fnGeDanxiaYis(a) {
     myAudio.load();
     clearInterval(timer2);
     clearInterval(timer1);
-    fnBoFangyinpinxinxis(a);
+    setTimeout(function(){
+        fnBoFangyinpinxinxis(a);
+    },3000)
 }
 
 //当前播放id
@@ -130,7 +135,10 @@ function shunxus() {
           myAudio.currentTime = 0;
           clearInterval(timer1);
           clearInterval(timer2);
-            kaishibofang();
+
+            setTimeout(function(){
+                kaishibofang();
+            },3000)
         }
       }
 
@@ -157,7 +165,9 @@ function fndanqubofangmoshis() {
     myAudio.currentTime = 0;
     clearInterval(timer1);
     clearInterval(timer2);
-    kaishibofang();
+    setTimeout(function(){
+        kaishibofang();
+    },3000)
 
 }
 

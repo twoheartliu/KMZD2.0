@@ -767,8 +767,10 @@
     }
 
     var Dqbofangid;
-    function fnDangQianbofangid(id) {
+
+    function fnDangQianbofangid(id,bofangs) {
         Dqbofangid = id;
+        bofang = bofangs;
     }
 
     //打开熏听页面
@@ -776,39 +778,30 @@
       api.addEventListener({
             name: 'netPlaying'
         }, function(ret, err) {
-            fnDangQianbofangid(ret.value.playing);
-            if(ret.value.bofang == 8){
-              api.openWin({
-                  name: 'listenTo',
-                  url: './listen_to.html',
-                  pageParam: {
-                      DangQianbofangid: ret.value.playing,
-                        ok: 'listen_to'
-                  }
-              });
-            }else if (ret.value.bofang == 9) {
-              api.openWin({
-                  name: 'listenTo',
-                  url: './listen_to.html',
-                  pageParam: {
-                      DangQianbofangid: ret.value.playing,
-                        ok: 'listen_to'
-
-                  }
-              });
-            }
-
-              return false;
+            fnDangQianbofangid(ret.value.playing,ret.value.bofang);
         });
-
-
+        if(Dqbofangid){
           api.openWin({
               name: 'listenTo',
               url: './listen_to.html',
-              pageParam:{
-                  ok: 'listen_to'
+              pageParam: {
+                  DangQianbofangid: ret.value.playing,
+                    ok: 'listen_to',
+                    bofang:bofang
               }
           });
+        }else {
+          api.openWin({
+              name: 'listenTo',
+              url: './listen_to.html',
+              pageParam: {
+                    ok: 'listen_to'
+
+              }
+          });
+        }
+
+
 
 
 

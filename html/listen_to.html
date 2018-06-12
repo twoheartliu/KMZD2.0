@@ -708,7 +708,6 @@
         if (ret.status == 200) {
             var stylelistCollectionHtml = $api.byId('bookExtraCollectionHtml');
             if(ret.data.is_collection){
-                                    // <img src="../image/KM_play_collect.png" alt=""  onclick="fnOpenCollect();" id="collect">
               bookCollectionHtml = '<img src="../image/KM_play_collect_red.png" alt="" class="collectmusicssssssss" id="playCollect" onclick="fnOpenPlayCollect(this)" data-click="1">';
             }else{
               bookCollectionHtml = '<img src="../image/KM_play_collect.png" alt="" class="collectmusicssssssss" id="playCollect"  onclick="fnOpenPlayCollect(this)" data-click="0">';
@@ -774,33 +773,28 @@
         if (!bofang) {
             var stylelist = $api.byId('openplayer');
             var html = '';
-            html += '<img src="../image/play/ic_play_play.png" alt="" onclick="fnOpenPlayer();" id="player">';
+            html += '<img src="../image/play/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player">';
             $api.html(stylelist, html);
-            bofang = 8;
+            bofang = 9;
             api.sendEvent({
                 name: 'netPlayUrlXunTing',
                 extra: {
                   bofang: bofang,
                 }
             });
-            // api.sendEvent({
-            //     name: 'neizhiliebiaoPlay',
-            //     extra: {
-            //         bofang: bofang,
-            //     }
-            // });
+            api.sendEvent({
+                name: 'neizhiliebiaoPlay',
+                extra: {
+                    bofang: bofang,
+                    a: 'aaa'
+                }
+            });
         } else if (bofang == 8) {
             var stylelist = $api.byId('openplayer');
             var html = '';
             html += '<img src="../image/play/ic_play_play.png" alt="" onclick="fnOpenPlayer();" id="player">';
             $api.html(stylelist, html);
 
-            api.sendEvent({
-                name: 'netPlayUrlXunTing',
-                extra: {
-                  bofang: bofang,
-                }
-            });
         } else if (bofang == 9) {
             var stylelist = $api.byId('openplayer');
             var html = '';
@@ -810,6 +804,7 @@
                 name: 'netPlayUrlXunTing',
                 extra: {
                   bofang: bofang,
+                  a: 'aaa'
                 }
             });
         }

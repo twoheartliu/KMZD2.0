@@ -67,7 +67,9 @@ function fnCaoGaoXiangShangYi(a) {
     myAudio.currentTime = 0;
     clearInterval(timer2);
     clearInterval(timer1);
-    fnBoFangCaoGaoXiangXinXi(a);
+    setTimeout(function(){
+        fnBoFangCaoGaoXiangXinXi(a);
+    },3000)
 }
 //歌单下一首
 function fnCaoGaoXiangxiaYi(a) {
@@ -77,7 +79,9 @@ function fnCaoGaoXiangxiaYi(a) {
     myAudio.load();
     clearInterval(timer2);
     clearInterval(timer1);
-    fnBoFangCaoGaoXiangXinXi(a);
+    setTimeout(function(){
+        fnBoFangCaoGaoXiangXinXi(a);
+    },3000)
 }
 
 //当前播放id
@@ -116,7 +120,9 @@ function shunxuCaoGaoXiang() {
           myAudio.currentTime = 0;
           clearInterval(timer1);
           clearInterval(timer2);
-            kaishibofang();
+          setTimeout(function(){
+              kaishibofang();
+          },3000)
         }
       }
 
@@ -134,7 +140,9 @@ function bfdanquCaoGaoXiang() {
           myAudio.currentTime = 0;
           clearInterval(timer1);
           clearInterval(timer2);
-          kaishibofang();
+          setTimeout(function(){
+              kaishibofang();
+          },3000)
         }
     }, 1000);
     bofangmoshiid = 2;

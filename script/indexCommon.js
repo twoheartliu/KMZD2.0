@@ -229,7 +229,6 @@ function fnBoFangyinpinxinxi() {
     }, function(ret, err) {
       if(ret){
       if(ret.status == 200){
-console.log(6666);
             if (playlistid) {
                 api.sendEvent({
                     name: 'netbofangsssssss',
@@ -513,8 +512,17 @@ function fnGeDanShangYi() {
     if (play < 0) {
         play = rets.data.length - 1;
     }
-    fnBoFangyinpinxinxi(play);
+    setTimeout(function(){
+        fnBoFangyinpinxinxi(play);
+    },1000)
+
 }
+// var t = Date.now();
+//
+// function sleep(d){
+//     while(Date.now - t <= d);
+// }
+// sleep(1000);
 //歌单下一首
 function fnGeDanxiaYi() {
     var myAudio = document.getElementById("myAudio");
@@ -529,7 +537,9 @@ function fnGeDanxiaYi() {
         play = 0;
     }
 
-    fnBoFangyinpinxinxi(play);
+    setTimeout(function(){
+        fnBoFangyinpinxinxi(play);
+    },3000)
 }
 //获取歌单歌曲id
 function netPlayLieIdUrl(playlistid,playUrli) {
@@ -702,6 +712,7 @@ function fnUserFollow(){
 
 function fnZhuanJiZhanshi(data_) {
   rets = data_;
+  console.log(JSON.stringify(rets));
   // api.addEventListener({
   //     name: 'netPlayAotu'
   // }, function(ret, err) {
@@ -782,7 +793,9 @@ function fnSuiJiBoFangMoShiGeQuid(n) {
     myAudio.currentTime = 0;
     clearInterval(timer2);
     clearInterval(timer1);
-    fnBoFangyinpinxinxi(play);
+    setTimeout(function(){
+        fnBoFangyinpinxinxi(play);
+    },3000)
 }
 //单曲循环播放更新
 function fndanqubofangmoshi() {
@@ -790,7 +803,9 @@ function fndanqubofangmoshi() {
     myAudio.currentTime = 0;
     clearInterval(timer1);
     clearInterval(timer2);
-    fnBoFangyinpinxinxi(play);
+    setTimeout(function(){
+        fnBoFangyinpinxinxi(play);
+    },3000)
 
 }
 

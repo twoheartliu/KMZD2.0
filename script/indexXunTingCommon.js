@@ -82,103 +82,16 @@ function fnXunTingXinXi() {
     }
   });
 }
-//播放歌单音频
-function fnXunTingXinXis() {
-  fnUserFollow();
-  clearInterval(timer2);
-  clearInterval(timer1);
-  console.log(1111);
-  api.ajax({
-    url: host + apiUri + '/index/personal_music',
-    method: 'get',
-    dataType: 'json',
-    headers: {
-        "source": api.systemType,
-        "version": version,
-        "session": token
-    }
-  }, function(ret, err) {
-    if(ret){
-      if(ret.status == 200){
-        api.ajax({
-          url: host + apiUri + '/sound/' + ret.data.id,
-          method: 'get',
-          dataType: 'json',
-          headers: {
-              "source": api.systemType,
-              "version": version,
-              "session": token
-          }
-        }, function(ret, err) {
-          if(ret){
-            if(ret.status == 200){
-              fnBFids(ret.data.id);
-                  api.sendEvent({
-                      name: 'netbofangsssssss',
-                      extra: {
-                          a: ret.data.id,
-                          bofang: bofang
-                      }
-                  });
-
-                    fnFuZhiAudiossss(host+'/'+ret.data.url);
-
-
-                  titlename = ret.data.title;
-                  reciter = ret.data.reciter;
-                  desc = ret.data.body;
-                  singerName = ret.data.author_name;
-                  comment_total = ret.data.comment_total;
-                  is_collection =ret.data.is_collection;
-                  cover_big = ret.data.cover_big;
-                  api.sendEvent({
-                      name: 'neiJianTingGood',
-                      extra: {
-                          bookId:ret.data.id
-                      }
-                  });
-                  api.sendEvent({
-                      name: 'jibenxinxi',
-                      extra: {
-                          titlename: titlename,
-                          desc: desc,
-                          reciter: reciter,
-                          singerName: singerName,
-                          cover_big:cover_big
-                      }
-                  });
-
-            }else{
-              netMessage(ret);
-            }
-          }else{
-            netWork(err);
-          }
-        });
-
-      }else{
-        netMessage(ret);
-      }
-    }else{
-      netWork(err);
-    }
-  });
-}
 
 //audio标签赋值
 function fnFuZhiAudios(url) {
     var stylelist = $api.byId('yinpin');
     var html = '<audio id="myAudio" ><source src="' + url + '" type="audio/mp3"></audio>';
     $api.html(stylelist, html);
+    kaishibofangs();
 }
 
-//audio标签赋值
-function fnFuZhiAudiossss(url) {
-    var stylelist = $api.byId('yinpin');
-    var html = '<audio id="myAudio" ><source src="' + url + '" type="audio/mp3"></audio>';
-    $api.html(stylelist, html);
-    kaishibofangs()
-}
+
 //开始播放
 function kaishibofangs() {
     // netAudioPlay();
@@ -225,6 +138,7 @@ function fnXiaYiXunHuan(){
         myAudio.currentTime = 0;
         clearInterval(timer2);
         clearInterval(timer1);
+
           fnXunTingXinXis();
       }
     }
@@ -282,7 +196,7 @@ function initEventListennerBofangXunTing() {
         name: 'xunTingXiaYi'
     }, function(ret, err) {
         if (ret) {
-            fnXunTingXinXis();
+            fnXunTingXinXi();
         }
     });
     api.addEventListener({
