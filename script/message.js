@@ -496,9 +496,9 @@ function turn_login(){
 
       }
   });
-  api.closeWin();
-  api.closeToWin({
-    name: 'login'
-  });
+  // api.closeWin();
+  // api.closeToWin({
+  //   name: 'login'
+  // });
   // setTimeout("Playlogin()",timeOut);
 }

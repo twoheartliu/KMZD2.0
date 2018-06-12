@@ -427,8 +427,9 @@ function turn_login(){
 
       }
   });
-// api.closeWin();
-// setTimeout("Playlogin()",timeOut);
+  // api.closeToWin({
+  //   name: 'login'
+  // });
 }
 function Playlogin(){
   api.openFrame({

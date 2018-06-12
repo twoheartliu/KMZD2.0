@@ -300,10 +300,10 @@ function kaishibofang() {
     netAudioPlay();
     var myAudio = document.getElementById("myAudio");
     // var myAudio = document.getElementsByTagName('audio')[0];
-    myAudio.addEventListener('timeupdate', addtime);
-    myAudio.addEventListener('timeupdate', jindutiao);
-    // addtime();
-    // jindutiao();
+    // myAudio.addEventListener('timeupdate', addtime);
+    // myAudio.addEventListener('timeupdate', jindutiao);
+    addtime();
+    jindutiao();
 }
 //音频播放模块
 function netAudioPlay() {
@@ -535,6 +535,7 @@ function fnGeDanxiaYi() {
 
     fnBoFangyinpinxinxi(play);
 }
+var playList;
 //获取歌单歌曲id
 function netPlayLieIdUrl(playlistid,playUrli) {
     if(playlistid){
@@ -556,7 +557,8 @@ function netPlayLieIdUrl(playlistid,playUrli) {
         }, function(ret, err) {
          if(ret){
           if (ret.status == 200) {
-
+            ///////////// playList = ret.data;
+            // console.log();
               fnZhuanJiZhanshi(ret);
           } else {
             netMessage(ret);
