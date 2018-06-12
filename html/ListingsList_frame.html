@@ -492,7 +492,7 @@
 
         </ul>
         <div id="footer" class="disnone">
-            正在加载更多
+            上拉加载更多
         </div>
     </div>
 </body>
@@ -595,8 +595,8 @@
                       //    console.log(333);
                         //  $api.toggleCls(footer, 'disnone');
                       //  }, 3000);
-                      // var footer = $api.byId('footer');
-                      // $api.html(footer, '正在加载更多');
+                      var footer = $api.byId('footer');
+                      $api.html(footer, '正在加载更多');
                       p ++;
                       songList();
                     });
@@ -668,8 +668,8 @@
                   //    console.log(333);
                     //  $api.toggleCls(footer, 'disnone');
                   //  }, 3000);
-                  // var footer = $api.byId('footer');
-                  // $api.html(footer, '正在加载更多');
+                  var footer = $api.byId('footer');
+                  $api.html(footer, '正在加载更多');
                   p ++;
                   songList();
                 });
@@ -900,15 +900,16 @@
                   $api.html(footer, '无更多数据');
                 }else {
                 //   console.log(ret.data.length);
-                  if (ret.data.length < 10) {
-                    var footer = $api.byId('footer');
-                    // $api.css(footer, 'display:none');
-                    $api.html(footer, '无更多数据');
-                  }else {
-                    var footer = $api.byId('footer');
-                    // $api.css(footer, 'display:block');
-                    $api.html(footer, '正在加载更多');
-                  }
+                  // if (ret.data.length < 10) {
+                  //   var footer = $api.byId('footer');
+                  //   // $api.css(footer, 'display:none');
+                  //   $api.html(footer, '无更多数据');
+                  // }else {
+                  //   var footer = $api.byId('footer');
+                  //   // $api.css(footer, 'display:block');
+                  //   $api.html(footer, '正在加载更多');
+                  // }
+
                   for (var i = 0; i < ret.data.length; i++) {
                     // console.log(ret.data[i].title);
                       author_name = ((ret.data[i].author_name == null) ? "" : ret.data[i].author_name);

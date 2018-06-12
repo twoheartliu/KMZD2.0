@@ -218,7 +218,7 @@
 
         </ul>
         <div id="footer" class="disnone">
-            已经没数据了
+            上拉加载更多
         </div>
         <!-- <div class="nomessage">暂无消息01</div> -->
     </section>
@@ -270,6 +270,8 @@
                 threshold: -20 //设置距离底部多少距离时触发，默认值为0，数字类型
             }
         }, function(ret, err) {
+          var footer = $api.byId('footer');
+          $api.html(footer, '正在加载更多');
             p++;
             fnAjaxPinLuns();
         });
@@ -386,46 +388,47 @@
             }
         }, function(ret, err) {
             if (ret) {
+
                 if (ret.status == 200) {
+                    // console.log(JSON.stringify(ret.data));
                     api.refreshHeaderLoadDone();
                     var sections = $api.byId('sections');
-                    for (var i = 0; i < ret.data.list.length; i++) {
-                        if (ret.data.list[i].data_type == 'album') {
-                            data_type = 'album';
-                        } else if (ret.data.list[i].data_type == 'book') {
-                            data_type = 'book';
-                        } else if (ret.data.list[i].data_type == 'listening') {
-                            data_type = 'listening';
-                        }
-                        var photos = ret.data.list[i].photo;
-                        var photo = photos.substring(0, 4);
-                        if (photo == '') {
-                            photo = '../image/KM_tx.png'
-                        } else if (photo == 'http') {
-                            photo = ret.data.list[i].photo;
-                        } else if (photo != 'http') {
-                            photo = updatePhotoUrl + photos;
-                        }
+                    if(ret.data.list){
+                      for (var i = 0; i < ret.data.list.length; i++) {
+                          if (ret.data.list[i].data_type == 'album') {
+                              data_type = 'album';
+                          } else if (ret.data.list[i].data_type == 'book') {
+                              data_type = 'book';
+                          } else if (ret.data.list[i].data_type == 'listening') {
+                              data_type = 'listening';
+                          }
+                          var photos = ret.data.list[i].photo;
+                          var photo = photos.substring(0, 4);
+                          if (photo == '') {
+                              photo = '../image/KM_tx.png'
+                          } else if (photo == 'http') {
+                              photo = ret.data.list[i].photo;
+                          } else if (photo != 'http') {
+                              photo = updatePhotoUrl + photos;
+                          }
 
-                        function timestampToTime(timestamp) {
-                            var date = new Date(timestamp * 1000); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
-                            Y = date.getFullYear() + '年';
-                            M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '月';
-                            D = date.getDate() + '日';
-                            return Y + M + D;
-                        }
-                        var timestampToTimess = timestampToTime(ret.data.list[i].create_date);
-                        if (ret.data.list == '') {
-                            var footer = $api.byId('footer');
-                            $api.html(footer, '无更多数据');
-                        } else {
-                            if (ret.data.list.length < 10) {
-                                var footer = $api.byId('footer');
-                                $api.html(footer, '无更多数据');
-                            } else {
-                                var footer = $api.byId('footer');
-                                $api.html(footer, '正在加载更多');
-                            }
+                          function timestampToTime(timestamp) {
+                              var date = new Date(timestamp * 1000); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
+                              Y = date.getFullYear() + '年';
+                              M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '月';
+                              D = date.getDate() + '日';
+                              return Y + M + D;
+                          }
+                          var timestampToTimess = timestampToTime(ret.data.list[i].create_date);
+
+                          // if (ret.data.list.data_id) {
+                          //   console.log(1);
+                          //   // console.log(p);
+                          // } else {
+                          //   console.log(2);
+                          // }
+
+                            // console.log(1111);
                             $api.append(sections,
                                 '<li>' +
                                 '<div class="user-img"><img src="' + photo + '" alt=""></div>' +
@@ -438,10 +441,15 @@
                                 '<p>' + timestampToTimess + '</p>' +
                                 '</div>' +
                                 '</li>');
-                        }
+                          }
+                    }else{
+                      // console.log(1111);
+                      var footer = $api.byId('footer');
+                      $api.html(footer, '无更多数据');
+                    }
 
                         // console.log(ret.data.list[i].photo);
-                    }
+
 
                     // fnAjaxDetail(id);
                 }else{

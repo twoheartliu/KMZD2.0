@@ -207,7 +207,7 @@
 
   </ul>
   <div id="footer" class="disnone">
-      已经没数据了
+      上拉加载更多
   </div>
 </section>
 </body>
@@ -371,58 +371,64 @@
               if(ret){
               if (ret.status == 200) {
                 // console.log(JSON.stringify(ret));
-                var section = $api.byId('section');
-                for (var i = 0; i < ret.data.list.length; i++) {
-                    // console.log(1);
-                    // console.log(ret.data.list[i].content);
-                    var listening_cover = ret.data.list[i].friend_img;
-                    var sandBox = listening_cover.substring(0, 4);
-                    if (sandBox == 'http') {
-                        images = ret.data.list[i].friend_img;
-                    }else {
-                      images = updatePhotoUrl + listening_cover;
-                    }
-                    function timestampToTime(timestamp) {
-                        var date = new Date(timestamp * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
-                        Y = date.getFullYear() + '年';
-                        M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '月';
-                        D = date.getDate() + '日';
-                        return Y+M+D;
-                    }
-                    var timestampToTimess =  timestampToTime(ret.data.list[i].modify_date);
-                    var unread_nums;
-                    // console.log(ret.data.list[i].unread_nums);
-                    if (ret.data.list[i].unread_nums != 0) {
-                        unread_nums = '<div>'+ret.data.list[i].unread_nums+'</div>'
-                    }else {
-                        unread_nums = ''
-                    }
-                    if (ret.data.list == '') {
-                        var footer = $api.byId('footer');
-                        $api.html(footer, '无更多数据');
-                    } else {
-                        if (ret.data.list.length < 10) {
-                            var footer = $api.byId('footer');
-                            $api.html(footer, '无更多数据');
-                        } else {
-                            var footer = $api.byId('footer');
-                            $api.html(footer, '正在加载更多');
-                        }
-                          $api.append(section,'<li onclick="fnOpenprivate('+ret.data.list[i].friend_id+',\''+ret.data.list[i].friend_name+'\')">'+
-                                '<div class="user-img"><img src="'+images+'" alt=""></div>'+
-                                '<div class="user-name">'+
-                                  '<div>'+
-                                    '<p class="fl user_name_p1">'+ret.data.list[i].friend_name+'</p>'+
-                                    '<p class="fr user_name_p2">'+timestampToTimess+'</p>'+
-                                  '</div>'+
-                                  '<div class="user_name_span">'+
-                                    '<span class="user_name_span1">'+ret.data.list[i].content+'</span>'+
-                                    '<span class="user_name_span2" id="user_name_span2">'+unread_nums+'</span>'+
-                                  '</div>'+
-                                '</div>'+
-                              '</li>');
+                if (ret.data.list) {
+                  var section = $api.byId('section');
+                  for (var i = 0; i < ret.data.list.length; i++) {
+                      // console.log(1);
+                      // console.log(ret.data.list[i].content);
+                      var listening_cover = ret.data.list[i].friend_img;
+                      var sandBox = listening_cover.substring(0, 4);
+                      if (sandBox == 'http') {
+                          images = ret.data.list[i].friend_img;
+                      }else {
+                        images = updatePhotoUrl + listening_cover;
                       }
+                      function timestampToTime(timestamp) {
+                          var date = new Date(timestamp * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+                          Y = date.getFullYear() + '年';
+                          M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '月';
+                          D = date.getDate() + '日';
+                          return Y+M+D;
+                      }
+                      var timestampToTimess =  timestampToTime(ret.data.list[i].modify_date);
+                      var unread_nums;
+                      // console.log(ret.data.list[i].unread_nums);
+                      if (ret.data.list[i].unread_nums != 0) {
+                          unread_nums = '<div>'+ret.data.list[i].unread_nums+'</div>'
+                      }else {
+                          unread_nums = ''
+                      }
+                      // if (ret.data.list == '') {
+
+                      // } else {
+                      //     if (ret.data.list.length < 10) {
+                      //         var footer = $api.byId('footer');
+                      //         $api.html(footer, '无更多数据');
+                      //     } else {
+                      //         var footer = $api.byId('footer');
+                      //         $api.html(footer, '正在加载更多');
+                      //     }
+                            $api.append(section,'<li onclick="fnOpenprivate('+ret.data.list[i].friend_id+',\''+ret.data.list[i].friend_name+'\')">'+
+                                  '<div class="user-img"><img src="'+images+'" alt=""></div>'+
+                                  '<div class="user-name">'+
+                                    '<div>'+
+                                      '<p class="fl user_name_p1">'+ret.data.list[i].friend_name+'</p>'+
+                                      '<p class="fr user_name_p2">'+timestampToTimess+'</p>'+
+                                    '</div>'+
+                                    '<div class="user_name_span">'+
+                                      '<span class="user_name_span1">'+ret.data.list[i].content+'</span>'+
+                                      '<span class="user_name_span2" id="user_name_span2">'+unread_nums+'</span>'+
+                                    '</div>'+
+                                  '</div>'+
+                                '</li>');
+                        // }
+                  }
+                }else {
+                      var footer = $api.byId('footer');
+                      $api.html(footer, '无更多数据');
+
                 }
+
 
               }
           } else {

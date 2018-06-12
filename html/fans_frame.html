@@ -119,13 +119,22 @@
             height: 100px;
             line-height: 100px;
         }
+        #footer {
+            width: 100%;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+        }
     </style>
 </head>
 
 <body>
     <nav id="nav">
-        <div class="total">您已有<span id="total">0</span>粉丝</div>
+        <!-- <div class="total">您已有<span id="total">0</span>粉丝</div> -->
         <ul id="attention"></ul>
+        <div id="footer" class="disnone">
+            上拉加载更多
+        </div>
         <!-- <div class="nomessage">暂无消息</div> -->
     </nav>
 </body>
@@ -133,12 +142,13 @@
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/common.js"></script>
-<script type="text/javascript" src="../script/message.js"></script>;
+<script type="text/javascript" src="../script/message.js"></script>
 <script type="text/javascript">
     var token;
     var follow_list_photo;
     // 关注图片
     var userDeleteHtml;
+    var p = 1;
     apiready = function() {
         token = $api.getStorage('token');
         fnOpenUserButton();
@@ -170,7 +180,18 @@
         }, function() {
             //下拉刷新被触发，自动进入加载状态，使用 api.refreshHeaderLoadDone() 手动结束加载中状态
             //下拉刷新被触发，使用 api.refreshHeaderLoadDone() 结束加载中状态
-            fnOpenUserButton();
+            api.refreshHeaderLoadDone();
+        });
+        api.addEventListener({
+            name: 'scrolltobottom',
+            extra: {
+                threshold: -20 //设置距离底部多少距离时触发，默认值为0，数字类型
+            }
+        }, function(ret, err) {
+          var footer = $api.byId('footer');
+          $api.html(footer, '正在加载更多');
+            p++;
+            fnOpenUserButtonsss();
         });
     };
 
@@ -184,12 +205,17 @@
                 "source": api.systemType,
                 "version": version,
                 "session": token
+            },
+            data: {
+                values: {
+                    p: 1
+                }
             }
         }, function(ret, err) {
           if(ret){
             if (ret.status == 200) {
                 // setTimeout(function(){
-                api.refreshHeaderLoadDone()
+
                     // },1000)
                 if (ret.data == '') {
                     var attentionsss = $api.byId('attention');
@@ -197,9 +223,9 @@
                     $api.html(attentionsss, htmlss);
                 } else {
                     var attention = $api.byId('attention');
-                    var total = $api.byId('total');
-                    var totalHtml = ret.data.fans_list.length;
-                    $api.html(total, totalHtml);
+                    // var total = $api.byId('total');
+                    // var totalHtml = ret.data.fans_list.length;
+                    // $api.html(total, totalHtml);
                     html = '';
                     for (var i = 0; i < ret.data.fans_list.length; i++) {
                         var userDelete = $api.byId('userDelete');
@@ -251,7 +277,91 @@
         });
 
     }
+    function fnOpenUserButtonsss() {
 
+        api.ajax({
+            url: host + apiUri + '/user/fans',
+            method: 'get',
+            dataType: 'json',
+            timeout:10,
+            headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token
+            },
+            data: {
+                values: {
+                    p: p
+                }
+            }
+        }, function(ret, err) {
+          if(ret){
+            if (ret.status == 200) {
+                // setTimeout(function(){
+                api.refreshHeaderLoadDone()
+                    // },1000)
+                if (ret.data == '') {
+                    // var attentionsss = $api.byId('attention');
+                    // htmlss = '<li class="attention1">你还没有任何粉丝</li>';
+                    // $api.html(attentionsss, htmlss);
+                    var footer = $api.byId('footer');
+                    $api.html(footer, '无更多数据');
+                } else {
+                    var attention = $api.byId('attention');
+                    var total = $api.byId('total');
+                    var totalHtml = ret.data.fans_list.length;
+                    $api.html(total, totalHtml);
+                    // html = '';
+                    for (var i = 0; i < ret.data.fans_list.length; i++) {
+                        var userDelete = $api.byId('userDelete');
+                        var user_id = ret.data.fans_list[i].user_id;
+                        if (ret.data.relation[user_id] == 2) {
+                            userDeleteHtml = '<img src="../image/my/personal_care_a.png"   alt="' + ret.data.relation[user_id] + '"  class="userDeleteA" onclick="collectmusicFx(this)" data-click="0" id="' + user_id + '">'
+                        } else if (ret.data.relation[user_id] == 1) {
+                            userDeleteHtml = '<img src="../image/my/attention_j.png"  alt="' + ret.data.relation[user_id] + '"  class="userDeleteA" onclick="collectmusicFx(this)" data-click="0" id="' + user_id + '">'
+                        } else {
+                            userDeleteHtml = '<img src="../image/my/attention_j.png" alt="' + ret.data.relation[user_id] + '" class="userDeleteA" onclick="collectmusicFx(this)" data-click="1" id="' + user_id + '">'
+                        }
+                        var photossss = ret.data.fans_list[i].photo;
+                        if (photossss == null) {
+                            follow_list_photo = '../image/KM_tx.png'
+                        } else {
+                            var photo = photossss.substring(0, 4);
+                            if (photo == 'http') {
+                                follow_list_photo = ret.data.fans_list[i].photo;
+                            } else if (photo != 'http') {
+                                follow_list_photo = updatePhotoUrl + photossss;
+                            }
+                        }
+                        var signature = ret.data.fans_list[i].signature;
+                        var signatures;
+                        if (signature == null) {
+                            signatures = '';
+
+                        } else {
+                            signatures = ret.data.fans_list[i].signature;
+                        }
+                        $api.append(attention,
+                            '<li class="item"><div class="user-detail" onclick="fnOpenmyPersonal(' + ret.data.fans_list[i].user_id + ',\'' + ret.data.fans_list[i].nick_name + '\');"><div class="user-img"><img src="' + follow_list_photo +
+                            '" alt=""></div><div class="user-name" ><p id="userName">' + ret.data.fans_list[i]
+                            .nick_name +
+                            '</p><p class="p">' + signatures +
+                            '</p></div></div><div id="userDelete" id="userDelete_' + ret.data.fans_list[i].user_id + ' " class="userDelete" >' + userDeleteHtml + '</div></li>');
+
+                    }
+                    // $api.html(attention, html);
+
+                }
+
+            } else {
+                netMessage(ret);
+            }
+          }else{
+            netWork(err);
+          }
+        });
+
+    }
     function fnOpenmyPersonal(id, nickname) {
         api.openWin({
             name: 'myPersonal',

@@ -163,6 +163,12 @@
             white-space: nowrap;
             margin-right: 10px;
         }
+        #footer {
+            width: 100%;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -178,6 +184,9 @@
       </li> -->
 
         </ul>
+        <div id="footer" class="disnone">
+            上拉加载更多
+        </div>
         <!-- <div class="nomessage">暂无消息02</div> -->
     </section>
 </body>
@@ -188,6 +197,7 @@
     var token;
     var photo;
     var listenings;
+    var p = 1;
     apiready = function() {
         token = $api.getStorage('token');
         fnAjaxNotice();
@@ -220,6 +230,17 @@
             //下拉刷新被触发，自动进入加载状态，使用 api.refreshHeaderLoadDone() 手动结束加载中状态
             //下拉刷新被触发，使用 api.refreshHeaderLoadDone() 结束加载中状态
             fnAjaxNotice();
+        });
+        api.addEventListener({
+            name: 'scrolltobottom',
+            extra: {
+                threshold: -20 //设置距离底部多少距离时触发，默认值为0，数字类型
+            }
+        }, function(ret, err) {
+          var footer = $api.byId('footer');
+          $api.html(footer, '正在加载更多');
+            p++;
+            fnAjaxNotices();
         });
     }
 
@@ -322,7 +343,112 @@
         });
 
     }
+    function fnAjaxNotices() {
+        api.ajax({
+            url: host + apiUri + '/message/lists',
+            method: 'get',
+            dataType: 'json',
+            timeout:10,
+            headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token
+            },
+            data: {
+                values: {
+                    type: 1,
+                    p:p
+                }
+            }
+        }, function(ret, err) {
+            if (ret) {
+                // console.log(JSON.stringify(ret));
+                if (ret.status == 200) {
+                    // api.refreshHeaderLoadDone();
+                    // var html = '';
+                    if (ret.data.list) {
+                      for (var i = 0; i < ret.data.list.length; i++) {
+                          var photos = ret.data.list[i].photo;
+                          var photo = photos.substring(0, 4);
+                          if (photo == '') {
+                              photo = '../image/KM_tx.png'
+                          } else if (photo == 'http') {
+                              photo = ret.data.list[i].photo;
+                          } else if (photo != 'http') {
+                              photo = updatePhotoUrl + photos;
+                          }
+                          if (ret.data.list[i].data_type == 'album') {
+                              listenings = '<p>' + ret.data.list[i].content + '</p>';
+                          } else if (ret.data.list[i].data_type == 'listening') {
+                              listenings = '<p>「' + ret.data.list[i].content + '」</p>';
+                          } else if (ret.data.list[i].data_type == 'book') {
+                              listenings = '<p>' + ret.data.list[i].content + '</p>';;
+                          }
 
+                          function timestampToTime(timestamp) {
+                              var date = new Date(timestamp * 1000); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
+                              Y = date.getFullYear() + '年';
+                              M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '月';
+                              D = date.getDate() + '日';
+                              return Y + M + D;
+                          }
+                          var timestampToTimess = timestampToTime(ret.data.list[i].create_date);
+                          var data_type;
+                          if (ret.data.list[i].data_type == 'album') {
+                              data_type = 'album'
+                          } else if (ret.data.list[i].data_type == 'listening') {
+                              data_type = 'listening'
+                          } else if (ret.data.list[i].data_type == 'book') {
+                              data_type = 'book'
+                          }
+                          var section = $api.byId('section');
+
+                          // console.log(ret.data.list[i].type);
+                          if (ret.data.list[i].type == 'good_comment') {
+                              var TypesOf = 'good_comment';
+                                  $api.append(section,'<li onclick="fnOpennotDetail(\'' + data_type + '\',' + ret.data.list[i].data_id + ')">' +
+                                  '<div class="user-img"><img src="' + photo + '" alt=""></div>' +
+                                  '<div class="user-name"><p><span class="user-tit">' + ret.data.list[i].nick_name + '</span><span>赞了你的评论</span></p>' + listenings + '<p>' + timestampToTimess + '</p>' +
+                                  '</div>' +
+                                  '</li>');
+                          } else if (ret.data.list[i].type == 'good_listeinig') {
+                              var TypesOf = 'good_listeinig';
+                              $api.append(section, '<li onclick="fnOpennotDetail(\'' + data_type + '\',' + ret.data.list[i].data_id + ')">' +
+                                  '<div class="user-img"><img src="' + photo + '" alt=""></div>' +
+                                  '<div class="user-name"><p><span class="user-tit">' + ret.data.list[i].nick_name + '</span><span>赞了你的听单</span></p>' + listenings + '<p>' + timestampToTimess + '</p>' +
+                                  '</div>' +
+                                  '</li>');
+                          } else if (ret.data.list[i].type == 'collection') {
+                              var TypesOf = 'collection';
+                              $api.append(section, '<li onclick="fnOpennotDetail(\'' + data_type + '\',' + ret.data.list[i].data_id + ')">' +
+                                  '<div class="user-img"><img src="' + photo + '" alt=""></div>' +
+                                  '<div class="user-name"><p><span class="user-tit" >' + ret.data.list[i].nick_name + '</span><span>收藏了你的听单</span></p>' + listenings + '<p>' + timestampToTimess + '</p>' +
+                                  '</div>' +
+                                  '</li>');
+                          }
+                          // console.log(ret.data.list[i].nick_name);
+                          // ret.data[i]
+
+                          // console.log(html);
+                      }
+                    }else {
+                      var footer = $api.byId('footer');
+                      $api.html(footer, '无更多数据');
+                    }
+
+                    // $api.html(section, html);
+                    // console.log( JSON.stringify( ret ) );
+
+
+                }else{
+                  netMessage(ret);
+                }
+            } else {
+                netWork(err);
+            }
+        });
+
+    }
     function fnOpennotDetail(data_type, id) {
         if (data_type == 'album') {
             comment(id);

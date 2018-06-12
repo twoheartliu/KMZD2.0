@@ -421,6 +421,12 @@
         .items {
             position: relative;
         }
+        #footer {
+            width: 100%;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -574,6 +580,9 @@
              </div>
           </li> -->
         </ul>
+        <div id="footer" class="disnone">
+            上拉加载更多
+        </div>
     </div>
 </body>
 
@@ -592,6 +601,7 @@
     var bofangmoshi;
     // 分享全局变量
     var imgaesFx , iamgFx , titleFx , idFx , briefFx;
+    var p = 1;
     apiready = function() {
         token = $api.getStorage('token');
         bofangmoshi = api.pageParam.bofangmoshi;
@@ -606,51 +616,28 @@
             }
             return;
         });
-        api.setCustomRefreshHeaderInfo({
-            bgColor: '#f0f0f0',
-            image: {
-              pull: [
-                  'widget://image/Refresh/dropdown_anim_00.png',
-                  'widget://image/Refresh/dropdown_anim_01.png',
-                  'widget://image/Refresh/dropdown_anim_02.png',
-                  'widget://image/Refresh/dropdown_anim_03.png',
-                  'widget://image/Refresh/dropdown_anim_04.png',
-                  'widget://image/Refresh/dropdown_anim_05.png',
-                  'widget://image/Refresh/dropdown_anim_06.png',
-                  'widget://image/Refresh/dropdown_anim_07.png',
-                  'widget://image/Refresh/dropdown_anim_08.png',
-                  'widget://image/Refresh/dropdown_anim_09.png',
-                  'widget://image/Refresh/dropdown_anim_10.png',
-            ],
-            load: [
-                  'widget://image/Refresh/dropdown_anim_00.png',
-                  'widget://image/Refresh/dropdown_anim_01.png',
-                  'widget://image/Refresh/dropdown_anim_02.png',
-                  'widget://image/Refresh/dropdown_anim_03.png',
-                  'widget://image/Refresh/dropdown_anim_04.png',
-                  'widget://image/Refresh/dropdown_anim_05.png',
-          ]}
-        }, function() {
-                //下拉刷新被触发，自动进入加载状态，使用 api.refreshHeaderLoadDone() 手动结束加载中状态
-                //下拉刷新被触发，使用 api.refreshHeaderLoadDone() 结束加载中状态
-          api.addEventListener({
-              name: 'neizhiliebiaoPlaysss'
-          }, function(ret, err) {
-              if(ret.value.wangluo){
-                fnAlbumAetails();
-                fnAlbumTrack();
-              }
-              return false;
-          });
-
-            fnAlbumAetails();
-            fnAlbumTrack();
-            // fnExtraGoodssssss();
-            // $api.rmStorage('albumExtraGoodHtml');
-            // $api.rmStorage('albumExtraGood');
-
+        api.addEventListener({
+            name: 'neizhiliebiaoPlaysss'
+        }, function(ret, err) {
+            if(ret.value.wangluo){
+              fnAlbumAetails();
+              fnAlbumTrack();
+            }
+            return false;
+        });
+      api.addEventListener({
+          name: 'scrolltobottom',
+          extra: {
+              threshold: -20 //设置距离底部多少距离时触发，默认值为0，数字类型
+          }
+      }, function(ret, err) {
+        var footer = $api.byId('footer');
+        $api.html(footer, '正在加载更多');
+          p++;
+          fnAlbumTrack();
       });
     }
+
     function fnExtraGoodssssss(){
       var albumss = $api.getStorage('albumExtraGood'+albumId);
       if(albumss){
@@ -704,9 +691,9 @@
       //专辑图片
       if(data_.data.big){
         var imgstylelistss = $api.byId('imgssss');
-        var imghtmls = '<img src="http://47.100.11.38/' + data_.data.big + '" alt="">';
+        var imghtmls = '<img src="' + host + '/' + data_.data.big + '" alt="">';
         $api.html(imgstylelistss, imghtmls);
-        imgaesFx = 'http://47.100.11.38/' +  data_.data.sma;
+        imgaesFx = host + '/'  +  data_.data.sma;
         iamgFx = data_.data.sma;
       }else{
         var imgstylelistss = $api.byId('imgssss');
@@ -745,12 +732,11 @@
     }
     //接口  推荐听单
     var tingdanliebiaobiaoti;
-    var page = 1;
     function fnAlbumTrack() {
         var albumId = api.pageParam.albumId;
         uri = '/album/song_list';
         api.ajax({
-            url: host + apiUri + uri + '/' + albumId + '?p=' + page,
+            url: host + apiUri + uri + '/' + albumId,
             method: 'get',
             dataType: 'json',
             timeout:10,
@@ -758,15 +744,24 @@
                 "source": api.systemType,
                 "version": version,
                 "session": token
+            },
+            data: {
+              values: {
+                  p: p
+              }
             }
         }, function(ret, err) {
           if(ret){
             if (ret.status == 200) {
-              setTimeout(function(){
-                  api.refreshHeaderLoadDone()
-              },3000)
+              if(ret.data){
+                  fnAlbumIdLift(ret);
+              }else{
+                // console.log(1111);
+                var footer = $api.byId('footer');
+                $api.html(footer, '无更多数据');
+              }
                 // fnRecommendedDirectory(ret);
-                fnAlbumIdLift(ret);
+
             } else {
                 netMessage(ret);
             }
@@ -781,26 +776,26 @@
     function fnAlbumIdLift(data_) {
         // console.log(JSON.stringify(data_));
         var stylelist = $api.byId('tuijianliebiaogequ');
-        var html = '';
+        // var html = '';
         for (var i = 0; i < data_.data.length; i++) {
             if (data_.data[i].author_name) {
-                html += '<li  class="items"><div class="on_play" onclick="fnOpenPlay(' + data_.data[i].id + ' );"><div class="on_playall"><span class="fl on_playall_name">' + data_.data[i].title + '</span><span class="fl on_playall_names"> ' + data_
+                    $api.append(stylelist, '<li  class="items"><div class="on_play" onclick="fnOpenPlay(' + data_.data[i].id + ' );"><div class="on_playall"><span class="fl on_playall_name">' + data_.data[i].title + '</span><span class="fl on_playall_names"> ' + data_
                     .data[
                         i].author_name +
                     '</span>  </div><div class="on_playall_img"><div class="on_playall_div fl"><div class="on_playall_div_img fl"> <img src="../image/KM_play.png" alt=""></div> <div class="on_playall_div_span fl"><span>' + data_.data[i].play_total +
                     '</span> </div></div> <div class="on_playall_div fl"> <div class="on_playall_div_img fl"> <img src="../image/KM_zf.png" alt=""> </div><div class="on_playall_div_span fl"> <span>' + data_.data[i].share_total +
                     '</span> </div>  </div><div class="on_playall_div fl">  <div class="on_playall_div_img fl"><img src="../image/KM_dz.png" alt="">  </div><div class="on_playall_div_span fl"><span>' + data_.data[i].good_total +
-                    '</span></div></div></div></div><div class="on_playall_more_imgs fr" onclick="fnOpenPlayMore('+ data_.data[i].id +',\''+data_.data[i].title+'\');"><img src="../image/KM_list_more.png" alt=""></div></li>'
+                    '</span></div></div></div></div><div class="on_playall_more_imgs fr" onclick="fnOpenPlayMore('+ data_.data[i].id +',\''+data_.data[i].title+'\');"><img src="../image/KM_list_more.png" alt=""></div></li>');
             } else {
-                html += '<li  class="items"><div class="on_play" onclick="fnOpenPlay(' + data_.data[i].id + ' );"><div class="on_playall"><span class="fl on_playall_name">' + data_.data[i].title +
+                    $api.append(stylelist,'<li  class="items"><div class="on_play" onclick="fnOpenPlay(' + data_.data[i].id + ' );"><div class="on_playall"><span class="fl on_playall_name">' + data_.data[i].title +
                     '</span></div><div class="on_playall_img"><div class="on_playall_div fl"><div class="on_playall_div_img fl"> <img src="../image/KM_play.png" alt=""></div> <div class="on_playall_div_span fl"><span>' + data_.data[i].play_total +
                     '</span> </div></div> <div class="on_playall_div fl"> <div class="on_playall_div_img fl"> <img src="../image/KM_zf.png" alt=""> </div><div class="on_playall_div_span fl"> <span>' + data_.data[i].share_total +
                     '</span> </div>  </div><div class="on_playall_div fl">  <div class="on_playall_div_img fl"><img src="../image/KM_dz.png" alt="">  </div><div class="on_playall_div_span fl"><span>' + data_.data[i].good_total +
-                    '</span></div></div></div></div><div class="on_playall_more_imgs fr" onclick="fnOpenPlayMore('+ data_.data[i].id +',\''+data_.data[i].title+'\');"><img src="../image/KM_list_more.png" alt=""></div></li>'
+                    '</span></div></div></div></div><div class="on_playall_more_imgs fr" onclick="fnOpenPlayMore('+ data_.data[i].id +',\''+data_.data[i].title+'\');"><img src="../image/KM_list_more.png" alt=""></div></li>');
             }
 
         }
-        $api.html(stylelist, html);
+        // $api.html(stylelist, html);
         var stylelists = $api.byId('allPlay');
         var htmls = '<div class="playall_img fl"><img src="../image/index/KM_bofang.png" alt=""></div><div class="playall_span fl" onclick="fnOpenPlay(' + data_.data[0].id + ');">全部播放</div>';
         $api.html(stylelists, htmls);
