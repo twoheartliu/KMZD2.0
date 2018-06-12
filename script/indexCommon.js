@@ -214,6 +214,7 @@ function fnBoFangyinpinxinxi() {
     fnUserFollow();
     clearInterval(timer2);
     clearInterval(timer1);
+
     playgedan = rets.data[play].id;
     fnBFid(playgedan);
     api.ajax({
@@ -228,7 +229,7 @@ function fnBoFangyinpinxinxi() {
     }, function(ret, err) {
       if(ret){
       if(ret.status == 200){
-
+console.log(6666);
             if (playlistid) {
                 api.sendEvent({
                     name: 'netbofangsssssss',
@@ -378,24 +379,24 @@ function netAudioPause() {
             bofangmoshiid:bofangmoshiid
         }
     });
-    api.addEventListener({
-        name: 'bFaaaaa'
-    }, function(ret, err) {
-        if (ret) {
-          api.addEventListener({
-              name: 'bFbbbbb'
-          }, function(ret, err) {
-              if (ret) {
-                var myAudio = document.getElementById("myAudio");
-                myAudio.pause();
-                  myAudio.currentTime = 0;
-                  clearInterval(timer2);
-                  clearInterval(timer1);
-              }
-          });
-
-        }
-    });
+    // api.addEventListener({
+    //     name: 'bFaaaaa'
+    // }, function(ret, err) {
+    //     if (ret) {
+    //       api.addEventListener({
+    //           name: 'bFbbbbb'
+    //       }, function(ret, err) {
+    //           if (ret) {
+    //             var myAudio = document.getElementById("myAudio");
+    //             myAudio.pause();
+    //               myAudio.currentTime = 0;
+    //               clearInterval(timer2);
+    //               clearInterval(timer1);
+    //           }
+    //       });
+    //
+    //     }
+    // });
 }
 
 //获取当前歌曲的歌长
@@ -519,13 +520,15 @@ function fnGeDanxiaYi() {
     var myAudio = document.getElementById("myAudio");
     netAudioPause();
     myAudio.currentTime = 0;
-    myAudio.load();
+    // myAudio.load();
+
     clearInterval(timer2);
     clearInterval(timer1);
     play++;
     if (play > rets.data.length - 1) {
         play = 0;
     }
+
     fnBoFangyinpinxinxi(play);
 }
 //获取歌单歌曲id

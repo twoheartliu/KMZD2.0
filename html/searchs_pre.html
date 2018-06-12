@@ -235,28 +235,28 @@
     var es = function(selector) {
         var elements = document.querySelectorAll(selector)
         if (elements.length == 0) {
-            var s = ''
+            var s = '';
                 // alert(s)
         } else {
-            return elements
+            return elements;
         }
     }
 
     var bindEvent = function(element, eventName, callback) {
-        element.addEventListener(eventName, callback)
+        element.addEventListener(eventName, callback);
     }
 
     var bindAll = function(selector, eventName, callback) {
-        var elements = es(selector)
+        var elements = es(selector);
         for (var i = 0; i < elements.length; i++) {
-            var e = elements[i]
-            bindEvent(e, eventName, callback)
+            var e = elements[i];
+            bindEvent(e, eventName, callback);
         }
     }
 
     apiready = function() {
         token = $api.getStorage('token');
-        var eHeader = $api.byId('headerss')
+        var eHeader = $api.byId('headerss');
         var headers = $api.offset(eHeader);
         // var headerssx = $api.offset(eHeader).h;
         // console.log(headers.h);
@@ -275,8 +275,8 @@
             name: 'inputValues'
         }, function(ret, err){
             if( ret ){
-                var after = ret.value.inputValues
-                saveHistory(after)
+                var after = ret.value.inputValues;
+                saveHistory(after);
                 //  console.log(JSON.stringify(ret.value.inputValues));
             }else{
                 //  alert( JSON.stringify( err ) );
@@ -387,7 +387,7 @@
             // console.log('222');
             var t = '<li class="search"><div class="searchs" onclick="openHistory(\'' + history + '\')">' + history + '</div> <img onclick="toDelete()" src="../image/delete.png" alt=""></li>';
 
-            return t
+            return t;
         }
     }
 
@@ -398,11 +398,11 @@
         // console.log(s);
         // console.log(s);
         if (s == null) {
-            return []
+            return [];
         } else {
-            var t = JSON.parse(s)
+            var t = JSON.parse(s);
                 // console.log(t);
-            return t
+            return t;
         }
     }
 
@@ -412,7 +412,7 @@
         var container = $api.byId('id-history');
         // console.log('wwww');
         for (var i = 0; i < historys.length; i++) {
-            var history = historys[i]
+            var history = historys[i];
             var html = templateHistory(history);
             container.insertAdjacentHTML('beforeend', html);
         }
@@ -432,7 +432,7 @@
 
 
         if (historys.length > 6) {
-            historys = historys.slice(1)
+            historys = historys.slice(1);
         }
         historys.unshift(word);
             // console.log('save');
@@ -488,17 +488,17 @@
                 // console.log(cell);
             if (cell === historyCell) {
                 // 1. 删除这个 cell dom
-                historyCell.remove()
+                historyCell.remove();
                     // 2. 删除保存在 localStorage 里面的对应下标的数据
-                var his = loadHistory()
+                var his = loadHistory();
                     // 删除数组中的指定下标元素的方法如下(记住就好)
                     // splice 函数可以删除数组的某一个下标, 第一个参数是要删除的元素的下标
                     // 第二个参数是要删除的元素的个数, 这里只删除一个, 所以这里是 1
-                his.splice(i, 1)
+                his.splice(i, 1);
                 // console.log(i);
 
                     // 删除后, 保存到 localStorage
-                var s = JSON.stringify(his)
+                var s = JSON.stringify(his);
                 localStorage.savedHistory = s
                     // console.log(localStorage.savedHistory);
             }
@@ -512,8 +512,8 @@
         // console.log('sss');
         history.addEventListener('click', function(event) {
             // console.log('ssss');
-            var target = event.target
-            var Div = target.parentElement
+            var target = event.target;
+            var Div = target.parentElement;
             var hist = $api.byId('id-history');
             deleteHistory(hist, Div);
             // console.log(historys);
@@ -593,7 +593,7 @@
                 // console.log('sss');
                 var input = $api.byId('search-input');
                 // console.log(input.value);
-                input.value = ""
+                input.value = "";
             } else {
                 alert(JSON.stringify(err));
             }

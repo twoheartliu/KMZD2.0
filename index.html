@@ -469,7 +469,7 @@ var minuteFollow; var cover_big;
                 bounces: true,
                 bgColor: 'rgba(0,0,0,0)',
                 vScrollBarEnabled: false,
-                hScrollBarEnabled: false
+                hScrollBarEnabled: false,
             });
         } else {
             api.openFrame({
@@ -479,7 +479,7 @@ var minuteFollow; var cover_big;
                     x: (api.frameWidth - 45) / 2,
                     y: api.frameHeight - 50,
                     w: 45,
-                    h: 50
+                    h: 50,
                 },
                 pageParam: {
                     name: 'test'
@@ -487,7 +487,7 @@ var minuteFollow; var cover_big;
                 bounces: false,
                 bgColor: 'rgba(0,0,0,0)',
                 vScrollBarEnabled: false,
-                hScrollBarEnabled: false
+                hScrollBarEnabled: false,
             });
         }
     }
@@ -549,7 +549,7 @@ var minuteFollow; var cover_big;
                 h: $api.dom('#main').offsetHeight
             },
             index: 0,
-            frames: frames
+            frames: frames,
         }, function(ret, err) {
 
         });
@@ -661,7 +661,7 @@ var minuteFollow; var cover_big;
                 if (ret.buttonIndex == 1) {
                     // 关闭当前的主Widget，就可以实现推出APP的效果
                     api.closeWidget({
-                        silent: true //直接退出，无需提示
+                        silent: true, //直接退出，无需提示
                     });
                 }
             });
@@ -698,7 +698,7 @@ var minuteFollow; var cover_big;
                 });
             } else {
                 // alert(3);
-                return;
+                return false;
             }
             // alert(JSON.stringify(index));
 
@@ -706,7 +706,7 @@ var minuteFollow; var cover_big;
     }
 
     function OpenSearch() {
-      
+
         api.openWin({
             name: 'searchs_pre',
             url: './html/searchs_pre.html',
