@@ -250,13 +250,15 @@
                     }
 
 
-                    lists += '<li id="listen_' + l_id + '"><div class="message_frame_cycle" >' +
+                    lists = '<li id="listen_' + l_id + '"><div class="message_frame_cycle" >' +
                         '<div class="message_frame_cycle_img"><img src=" ' + imgs + ' " onclick=fnOpenList(' + l_id + ') alt=""></div><div class="message_frame_cycle_div fl">' +
                         '<div class="message_frame_cycle_div_1 col" onclick=fnOpenList(' + l_id + ')>' + listenName + '</div><div class="message_frame_cycle_div_3 fl">' +
                         '<div class="message_frame_cycle_div_3fl"><div class="pos collection_frame fl" onclick=fnOpenList(' + l_id + ') >创建者：' + nickName +
-                        '</div><div class="pos collection_frame_img3 fr"><img src="../image/shanchu.png" onclick=fnDeleteList(' + l_id + ') alt=""></div></div></div></div></div></li>'
+                        '</div><div class="pos collection_frame_img3 fr"><img src="../image/shanchu.png" onclick=fnDeleteList(' + l_id + ') alt=""></div></div></div></div></div></li>';
+
+                    container.insertAdjacentHTML('afterbegin', lists)
                 }
-                $api.html(container, lists);
+                // $api.html(container, lists);
                 // console.log(lists);
                 // console.log(id);
                 // alert( JSON.stringify( ret ) );
