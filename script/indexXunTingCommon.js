@@ -87,6 +87,7 @@ function fnXunTingXinXis() {
   fnUserFollow();
   clearInterval(timer2);
   clearInterval(timer1);
+  console.log(1111);
   api.ajax({
     url: host + apiUri + '/index/personal_music',
     method: 'get',
