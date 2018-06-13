@@ -622,7 +622,7 @@
               var user_id = $api.getStorage('user_id');
             //   console.log(user_id);
               if (userId == user_id) {
-                  console.log('sss');
+                  // console.log('sss');
                   var following = $api.byId('following');
                   var self = '';
                   following.innerHTML = '';
@@ -632,9 +632,9 @@
               //关注
               var headerCare = $api.byId('headerCare');
               if(ret.data.relation == false){
-                html6 = '<img src="../image/my/care_a.png" alt="" class="indexHeaderCare1" id="indexHeaderCare11" onclick="fnOpenAddCare('+ret.data.relation+');"><img src="../image/my/personal_private_a.png" alt="" class="indexHeaderCare1" onclick="fnOpenPersonalPrivate(\''+ret.data.user_info.signature+'\','+ret.data.user_info.nick_name+');">';
+                html6 = '<img src="../image/my/care_a.png" alt="" class="indexHeaderCare1" id="indexHeaderCare11" onclick="fnOpenAddCare('+ret.data.relation+');"><img src="../image/my/personal_private_a.png" alt="" class="indexHeaderCare1" onclick="fnOpenPersonalPrivate(\''+ret.data.user_info.signature+'\',\''+ret.data.user_info.nick_name+'\');">';
               }else if(ret.data.relation == true){
-                html6 = '<img src="../image/my/care_g.png" alt="" class="indexHeaderCare1" id="indexHeaderCare11" onclick="fnOpenAddCare('+ret.data.relation+');"><img src="../image/my/personal_private_a.png" alt="" class="indexHeaderCare1" onclick="fnOpenPersonalPrivate(\''+ret.data.user_info.signature+'\','+ret.data.user_info.nick_name+');">';
+                html6 = '<img src="../image/my/care_g.png" alt="" class="indexHeaderCare1" id="indexHeaderCare11" onclick="fnOpenAddCare('+ret.data.relation+');"><img src="../image/my/personal_private_a.png" alt="" class="indexHeaderCare1" onclick="fnOpenPersonalPrivate(\''+ret.data.user_info.signature+'\',\''+ret.data.user_info.nick_name+'\');">';
               }
 
               $api.html(headerCare, html6);
@@ -852,12 +852,13 @@
     }
 
     function fnOpenPersonalPrivate(signature,nick_name) {
+      // console.log(123123);
         api.openWin({
             name: 'personalPrivate',
             url: './personal_private.html',
             pageParam: {
-                nickName: signature,
-                userId:  nick_name
+                nickName: nick_name,
+                userId:  userId
             }
         });
     }

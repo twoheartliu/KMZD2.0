@@ -125,6 +125,7 @@
 
                 // console.log( JSON.stringify( ret ) );
                 if (ret.status == 200) {
+                  // alert(11);
                   var personalPrivateFrame = 1;
                   api.sendEvent({
                       name: 'personalPrivateFrame',
@@ -194,6 +195,7 @@
                           '</div>';
                     }
                     $api.prepend(main,html);
+                    // console.log(html);
                   }
 
                 }
@@ -298,31 +300,32 @@
                   }
               },function(ret, err){
                   if (ret) {
-                    var h=document.body.clientHeight;
-                    var osTop = document.documentElement.scrollTop || document.body.scrollTop;
-                        document.documentElement.scrollTop = document.body.scrollTop = h;
-                    var now = new Date();
-                    var year = now.getFullYear()+'年';       //年
-                    var month = now.getMonth() + 1 +'月';     //月
-                    var day = now.getDate() + '日';            //日
-                    var hh = now.getHours() + ':';            //时
-                    var mm = now.getMinutes() + ':';          //分
-                    var ss = now.getSeconds();           //秒
-                    var main = $api.byId('main');
-                    var photos = updatePhotoUrl + photo;
-                    html = '<div class="private">'+
-                              '<div class="fr img"><img src="'+ photos +'" alt=""></div>'+
-                              '<div class="fr shijianfr">'+
-                                  '<div>'+year+month+day+'  '+hh+mm+ss+'</div>'+
-                              '</div>'+
-                              '<div class="clr"></div>'+
-                              '<div class="name"><div class="fr">'+msg+'</div></div>'+
-                              '<div class="clr"></div>'+
-                          '</div>';
-                      $api.append(main,html)
-                    // var mcg = 1;
-                    // fnGetSixin(mcg);
-                      // console.log( JSON.stringify( ret ) );
+                    if (ret.status == 200) {
+                      var h=document.body.clientHeight;
+                      var osTop = document.documentElement.scrollTop || document.body.scrollTop;
+                          document.documentElement.scrollTop = document.body.scrollTop = h;
+                      var now = new Date();
+                      var year = now.getFullYear()+'年';       //年
+                      var month = now.getMonth() + 1 +'月';     //月
+                      var day = now.getDate() + '日';            //日
+                      var hh = now.getHours() + ':';            //时
+                      var mm = now.getMinutes() + ':';          //分
+                      var ss = now.getSeconds();           //秒
+                      var main = $api.byId('main');
+                      var photos = updatePhotoUrl + photo;
+                      html = '<div class="private">'+
+                                '<div class="fr img"><img src="'+ photos +'" alt=""></div>'+
+                                '<div class="fr shijianfr">'+
+                                    '<div>'+year+month+day+'  '+hh+mm+ss+'</div>'+
+                                '</div>'+
+                                '<div class="clr"></div>'+
+                                '<div class="name"><div class="fr">'+msg+'</div></div>'+
+                                '<div class="clr"></div>'+
+                            '</div>';
+                        $api.append(main,html)
+
+                    }
+
                   } else {
                       console.log( JSON.stringify( err ) );
                   }
