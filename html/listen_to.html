@@ -1009,9 +1009,8 @@
       var toolbarlist = document.getElementsByClassName('collectmusicssssssss')[0];
       var click = clicktoolitem.getAttribute("data-click");
       if (click == 0) {
-          // 点开
-          clicktoolitem.setAttribute("data-click", 1);
-          toolbarlist.src = "../image/KM_play_collect_red.png";
+        console.log(bookId);
+        console.log(token);
           var uri = '/extra/collection';
           api.ajax({
               url: host + apiUri + uri + '/' + bookId,
@@ -1030,6 +1029,8 @@
           }, function(ret, err) {
             if(ret){
               if (ret.status == 200) {
+                clicktoolitem.setAttribute("data-click", 1);
+                toolbarlist.src = "../image/KM_play_collect_red.png";
                   if(ret.data == "inc"){
                     api.toast({              
                         msg:   '收藏成功',
@@ -1051,9 +1052,6 @@
             }
           });
       } else {
-          // 关闭
-          clicktoolitem.setAttribute("data-click", 0);
-          toolbarlist.src = "../image/KM_play_collect.png";
           var uri = '/extra/collection';
           api.ajax({
               url: host + apiUri + uri + '/' + bookId,
@@ -1072,6 +1070,8 @@
           }, function(ret, err) {
             if(ret){
               if (ret.status == 200) {
+                clicktoolitem.setAttribute("data-click", 0);
+                toolbarlist.src = "../image/KM_play_collect.png";
                   if(ret.data == "dec"){
                     api.toast({              
                         msg:   '已取消收藏',
