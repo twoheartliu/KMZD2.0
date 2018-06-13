@@ -82,19 +82,12 @@
         /*导航样式*/
 
         #nav {
-            height: 48px;
+            height: 5px;
             background-color: #fff;
             /*box-shadow: 0px 1px 40px 0px #ccc;*/
             border-bottom: 2px solid transparent;
         }
 
-        #nav p{
-            line-height: 48px;
-            height: 48px;
-            /*box-shadow: 0px 1px 40px 0px #ccc;*/
-            border-bottom: 2px solid transparent;
-            margin-left: 8px;
-        }
 
         #tabs {
             display: flex;
@@ -138,7 +131,7 @@
             <div class="tab" tapmode="active" onclick="fnSelectTab(1,this)">作者</div>
             <div class="tab " tapmode="active" onclick="fnSelectTab(2,this)">专辑</div>
         </div> -->
-        <p>共找到 x 个结果</p>
+        <!-- <p>共找到 x 个结果</p> -->
     </nav>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
@@ -172,19 +165,19 @@
         listenInput();
 
 
-        api.addEventListener({
-            name: 'guoxue-result'
-        }, function(ret, err){
-            if( ret ){
-                //  console.log( JSON.stringify( ret ) );
-                total = ret.value.total;
-                // console.log(total);
-                var navs = $api.byId('nav');
-                $api.html(navs, '<p>共找到'+ total +'个结果</p>')
-            }else{
-                 alert( JSON.stringify( err ) );
-            }
-        });
+        // api.addEventListener({
+        //     name: 'guoxue-result'
+        // }, function(ret, err){
+        //     if( ret ){
+        //         //  console.log( JSON.stringify( ret ) );
+        //         total = ret.value.total;
+        //         // console.log(total);
+        //         var navs = $api.byId('nav');
+        //         $api.html(navs, '<p>共找到'+ total +'个结果</p>')
+        //     }else{
+        //          alert( JSON.stringify( err ) );
+        //     }
+        // });
 
 
 

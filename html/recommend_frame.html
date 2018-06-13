@@ -339,13 +339,17 @@
                     var stylelist = $api.byId('ListOfExcellentWorks');
                     var html = '';
                     // console.log(JSON.stringify(ret));
-
+                    var author_name;
                     for (var i = 0; i < ret.data.list.length; i++) {
-
+                      if (ret.data.list[i].author_name == null) {
+                        author_name = '';
+                      }else {
+                        author_name = ret.data.list[i].author_name;
+                      }
                         html += '<div class="egret-flex-item"><div class="egret-flex-items" tapmode="fmbtnhover" onclick="fnOpenPlay(' + ret.data.list[i].id + ')"><div class="egret-flex-item-logo"><img src="' + host + '/' + ret.data.list[
                                 i].mid + '" alt="" class=""></div><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 fl">作品：<span>' + ret.data.list[i].title +
                             '</span></span></div><div class="egret-flex-item-shelf02"><span>' +
-                            ret.data.list[i].author_name +
+                            author_name +
                             '</span></div><div class="egret-flex-item-shelf03"><div><img src="../image/KM_play.png" alt=""><span>' + ret.data.list[i].play_total +
                             '</span></div><div><img src="../image/KM_zf.png" alt=""><span>' + ret.data.list[i].share_total + '</span></div><div><img src="../image/KM_dz.png" alt=""><span>' + ret.data.list[i].good_total +
                             '</span></div></div></div></div><div class="egret-flex-item-shelf04" onclick="fnOpenPlayMore(' + ret.data.list[i].id + ',\''+ret.data.list[i].floor_name+'\',\''+ret.data.list[i].mid+'\')"><img src="../image/KM_list_more.png" alt=""></div></div><div class="hdivider"></div>';
@@ -421,13 +425,17 @@
                     var stylelist = $api.byId('ListOfExcellentWorks');
                     var html = '';
                     // console.log(JSON.stringify(ret));
-
+                    var author_name;
                     for (var i = 0; i < ret.data.list.length; i++) {
-
+                      if (ret.data.list[i].author_name == null) {
+                        author_name = '';
+                      }else {
+                        author_name = ret.data.list[i].author_name;
+                      }
                         html += '<div class="egret-flex-item"><div class="egret-flex-items" tapmode="fmbtnhover" onclick="fnOpenPlay(' + ret.data.list[i].id + ')"><div class="egret-flex-item-logo"><img src="' + host + '/' + ret.data.list[
                                 i].mid + '" alt="" class=""></div><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 fl">作品：<span>' + ret.data.list[i].title +
                             '</span></span></div><div class="egret-flex-item-shelf02"><span>' +
-                            ret.data.list[i].author_name +
+                            author_name +
                             '</span></div><div class="egret-flex-item-shelf03"><div><img src="../image/KM_play.png" alt=""><span>' + ret.data.list[i].play_total +
                             '</span></div><div><img src="../image/KM_zf.png" alt=""><span>' + ret.data.list[i].share_total + '</span></div><div><img src="../image/KM_dz.png" alt=""><span>' + ret.data.list[i].good_total +
                             '</span></div></div></div></div><div class="egret-flex-item-shelf04" onclick="fnOpenPlayMore(' + ret.data.list[i].id + ',\''+ret.data.list[i].floor_name+'\',\''+ret.data.list[i].mid+'\')"><img src="../image/KM_list_more.png" alt=""></div></div><div class="hdivider"></div>';

@@ -470,24 +470,28 @@
         }, function(ret) {
             if (ret.eventType == 'cancel') {
                 dialogBox.close({
-                    dialogName: 'discount'
+                    dialogName: 'actionMenu'
                 });
             }
             if (ret.index == "0") {
                 fnOpenAddListening(id);
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'actionMenu'
                 });
             } else if (ret.index == "1") {
               if (sma == undefined) {
+                  dialogBox.close({
+                      dialogName: 'actionMenu'
+                  });
                 var sma = '/logo_144x144.png'
                 fnOpenPlayShare(id, titleName,sma);
               }else {
+                  dialogBox.close({
+                      dialogName: 'actionMenu'
+                  });
                 fnOpenPlayShare(id, titleName,sma);
               }
-                // dialogBox.close({
-                //     dialogName: 'alert'
-                // });
+
                 // api.openWin({
                 //   name: 'playDiscuss',
                 //   url: './play_discuss.html',
@@ -496,11 +500,11 @@
                 // alert("删除");
 
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'actionMenu'
                 });
             } else {
                 dialogBox.close({
-                    dialogName: 'alert'
+                    dialogName: 'actionMenu'
                 });
             }
         });
