@@ -306,6 +306,14 @@ function netAudioPlay() {
     myAudio.muted=false;
     myAudio.volume=1;
     myAudio.play();
+    // var agoraVideo = api.require('agoraVideo');
+    // agoraVideo.isSpeakerphoneEnabled(function(ret) {
+    //     if (ret.status) {
+    //         alert('扬声器');
+    //     }else{
+    //         alert('ssss');
+    //     }
+    // });
     api.sendEvent({
         name: 'bFbbbbb',
         extra: {
