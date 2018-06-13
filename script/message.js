@@ -488,7 +488,7 @@ function turn_login(){
 //   api.closeToWin({
 //     name: 'login'
 // });
-
+$api.rmStorage('token');
   api.sendEvent({
       name: 'bFaaaaa',
       extra: {
@@ -497,8 +497,8 @@ function turn_login(){
       }
   });
   // api.closeWin();
-  // api.closeToWin({
-  //   name: 'login'
-  // });
+  api.closeToWin({
+    name: 'login'
+  });
   // setTimeout("Playlogin()",timeOut);
 }

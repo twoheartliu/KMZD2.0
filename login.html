@@ -89,10 +89,23 @@
 <script type="text/javascript">
     var wx, qq, weibo;
     var userInfos = JSON.stringify($api.getStorage("userInfo"));
+    var token;
     apiready = function() {
-
+      token = $api.getStorage('token');
+      if(token){
+        setTimeout("fnIndex()",500);
+      }
     }
-
+    function fnIndex(){
+      api.openWin({
+          name: 'index',
+          url: './index.html',
+          slidBackEnabled:false,
+          pageParam: {
+              name: 'test'
+          }
+      });
+    }
     function fntuichuWBLogin() {
         var weiXin = api.require('weiXin');
         weiXin.cancelAuth(function(ret, err) {
@@ -197,7 +210,8 @@
                                     $api.setStorage('login_way',login_way_s);
                                      api.openWin({
                                          name: 'index',
-                                         url: 'index.html'
+                                         url: 'index.html',
+                                         slidBackEnabled:false,
                                      });
                                   }else{
                                     netMessage(ret);
@@ -281,7 +295,8 @@
                                           $api.setStorage('login_way',login_way_s);
                                            api.openWin({
                                                name: 'index',
-                                               url: 'index.html'
+                                               url: 'index.html',
+                                               slidBackEnabled:false,
                                            });
                                         }else{
                                           netMessage(ret);

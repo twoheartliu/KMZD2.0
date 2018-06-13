@@ -419,7 +419,7 @@ function netWorkNone(ok){
 }
 
 function turn_login(){
-
+$api.rmStorage('token');
   api.sendEvent({
       name: 'bFaaaaa',
       extra: {
@@ -427,9 +427,9 @@ function turn_login(){
 
       }
   });
-  // api.closeToWin({
-  //   name: 'login'
-  // });
+  api.closeToWin({
+    name: 'login'
+  });
 }
 function Playlogin(){
   api.openFrame({
