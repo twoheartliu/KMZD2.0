@@ -274,6 +274,14 @@
               api.refreshHeaderLoadDone()
         });
         api.addEventListener({
+            name: 'neiJianTingBFms'
+        }, function(ret, err) {
+            bofangmoshi = ret.value.bofangmoshiid;
+
+            fnBoFangMoShiId(bofangmoshi);
+            return;
+        });
+        api.addEventListener({
             name: 'scrolltobottom',
             extra: {
                 threshold: -20 //设置距离底部多少距离时触发，默认值为0，数字类型
@@ -285,7 +293,10 @@
             fnGengDuoss();
         });
     }
-
+    var bofangmoshi;
+    function fnBoFangMoShiId(bofangmoshiss){
+      bofangmoshi = bofangmoshiss;
+    }
     function fnGengDuo() {
         var id = api.pageParam.id;
         uri = '/index/floor_more/' + id;
@@ -587,10 +598,11 @@
                 });
                 // alert(2);
             } else if (ret.index == "2") {
+              dialogBox.close({
+                  dialogName: 'actionMenu'
+              });
                 fnOpenPlayShare(ids, textName , mid);
-                // dialogBox.close({
-                //     dialogName: 'actionMenu'
-                // });
+
                 // alert(3);
             } else {
                 dialogBox.close({
@@ -616,13 +628,52 @@
             }
         });
     }
+
+
+    var Dqbofangid;
+    var bofang;
+    function fnDangQianbofangid(id,bofangs) {
+        Dqbofangid = id;
+        bofang = bofangs;
+    }
     //作品列表进入播放页面
-    function fnOpenPlay() {
-        api.openWin({
-            name: 'play',
-            url: './play.html',
-            ok:'play'
-        });
+    function fnOpenPlay(a) {
+      api.addEventListener({
+          name: 'netbofangsssssss'
+      }, function(ret, err) {
+          if (a == ret.value.a) {
+              fnDangQianbofangid(ret.value.a,ret.value.bofang);
+          }
+      });
+      var playlistid = api.pageParam.albumId;
+      if (Dqbofangid == a) {
+
+          api.openWin({
+              name: 'playDanQu',
+              url: './playDanQu.html',
+              pageParam: {
+                  a: a,
+                  // danQu:'danQu',
+                  dangqianbofangid: Dqbofangid,
+                  ok:'playDanQu',
+                  bofangmoshi:bofangmoshi,
+                  bofang:bofang
+              }
+          });
+      } else {
+
+          api.openWin({
+              name: 'playDanQu',
+              url: './playDanQu.html',
+              pageParam: {
+                  a: a,
+                  // danQu:'danQu',
+                  ok:'playDanQu',
+                  bofangmoshi:bofangmoshi
+              }
+          });
+
+      }
 
     }
     //打开分享
@@ -694,7 +745,7 @@
                       // shareMp3Single(songListID,title,savePath);
                       // shareMp3Album(name,listening_description,l_id);
                   } else {
-                    console.log(JSON.stringify(err));
+                    // console.log(JSON.stringify(err));
                   }
                 });
                 dialogBox.close({
@@ -723,7 +774,7 @@
                       // shareMp3Single(songListID,title,savePath);
                       // shareMp3Album(name,listening_description,l_id);
                   } else {
-                    console.log(JSON.stringify(err));
+                    // console.log(JSON.stringify(err));
                   }
                 });
                 dialogBox.close({
@@ -752,7 +803,7 @@
                       // shareMp3Single(songListID,title,savePath);
                       // shareMp3Album(name,listening_description,l_id);
                   } else {
-                    console.log(JSON.stringify(err));
+                    // console.log(JSON.stringify(err));
                   }
                 });
                 dialogBox.close({

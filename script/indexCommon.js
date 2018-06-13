@@ -303,9 +303,11 @@ function kaishibofang() {
 //音频播放模块
 function netAudioPlay() {
     var myAudio = document.getElementById("myAudio");
-    myAudio.muted=false;
-    myAudio.volume=1;
+    // myAudio.muted=false;
+    // myAudio.volume=1;
     myAudio.play();
+    var audioStreamer = api.require('audioStreamer');
+audioStreamer.onNormal();
     // var agoraVideo = api.require('agoraVideo');
     // agoraVideo.isSpeakerphoneEnabled(function(ret) {
     //     if (ret.status) {
