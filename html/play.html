@@ -488,7 +488,11 @@
             <img src="../image/KM__play_share.png" alt="">
         </div> -->
     </header>
+
     <div id="wrap" class="mh">
+      <!-- <div  id="loading_bgm">
+          正在缓冲.....
+      </div> -->
         <!-- <img src="" alt=""> -->
         <div id="main" class="qx">
 
@@ -510,6 +514,7 @@
                     </div> -->
                 </div>
             </div>
+
         </div>
         <ul id="action" class="qx">
             <li class="collect" id="bookExtraCollectionHtml">
@@ -538,11 +543,11 @@
         <div id="control" class="qx">
             <div id="slider">
                 <span class="s" id="kaishijishi">
-                  <!-- 00:00 -->
+                  00:00
                 </span>
                 <input type="range" id="range" name="range" min="0" max="100" step="1" value="0" class="red" />
                 <span class="e" id="zongshichang">
-                  <!-- 00:00 -->
+                  00:00
                 </span>
             </div>
             <ul id="panel">
@@ -600,6 +605,7 @@
       header = document.querySelector('header');
       bofangmoshi = api.pageParam.bofangmoshi;
       fnBoFangMoShiId(bofangmoshi);
+      fnFuCeng();
       // 获取浏览器高度
       if (window.innerHeight)
           winHeight = window.innerHeight;
@@ -941,6 +947,24 @@
               });
           }
       }
+    }
+
+    function fnFuCeng(){
+      api.addEventListener({
+          name: 'aaaaaaPlay'
+      }, function(ret, err) {
+          aaaaaa = ret.value.aaaaaa;
+          if(aaaaaa == 2){
+            var stylelist = $api.byId('loading_bgm');
+            var html = '111';
+            $api.html(stylelist, html);
+          }else if (aaaaaa == 1) {
+            var stylelist = $api.byId('loading_bgm');
+            var html = '3333';
+            $api.html(stylelist, html);
+          }
+          return false;
+      });
     }
     function fnJianTingGood(){
       api.addEventListener({

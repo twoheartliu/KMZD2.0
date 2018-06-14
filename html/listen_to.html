@@ -342,7 +342,7 @@
       	</div> -->
         </nav>
         <section>
-          <div class="item-sort item-sorts">
+          <div class="item-sort item-sorts" onclick="fnDelete();">
             <img src="../image/play/delete.png" alt="">
           </div>
           <div class="item-sort item-sorts" id="bookExtraCollectionHtml">
@@ -1009,8 +1009,6 @@
       var toolbarlist = document.getElementsByClassName('collectmusicssssssss')[0];
       var click = clicktoolitem.getAttribute("data-click");
       if (click == 0) {
-        console.log(bookId);
-        console.log(token);
           var uri = '/extra/collection';
           api.ajax({
               url: host + apiUri + uri + '/' + bookId,
@@ -1210,23 +1208,44 @@
       clearInterval(timeout);
       timeout = null;
     }
-    // function fnOpenPlayShare() {
-    //   console.log(cover_big);
-    //   console.log(soundId);
-    //   console.log(namesss);
-      //图片
-      // cover_big
-      //id
-      // soundId
-      //title
-      // namesss
 
-      // p++;
-      // console.log(p);
-    // }
+    function fnDelete(){
+    api.ajax({
+        url: host + apiUri + '/index/unlike/' + soundId,
+        method: 'post',
+        dataType: 'json',
+        headers: {
+            "source": api.systemType,
+            "version": version,
+            "session": token
+        }
+    }, function(ret, err) {
+      if(ret){
+      if (ret.status == 200) {
+        api.toast({              
+            msg:  '已删除',
+            duration:  timeOut,
+            location:   'middle'          
+        });
+        var c = bookId;
+        api.sendEvent({
+            name: 'xunTingXiaYi',
+            extra: {
+                c: c
+            }
+        });
+        var player = $api.byId('player');
+        player.src = "../image/play/ic_play_pause.png";
+      } else {
+          netMessage(ret);
+      }
+    }else{
+      netWork(err);
+    }
+    });
+  }
+
     function fnOpenPlayShare() {
-      // console.log(id);
-
       var smas;
       if (cover_big == undefined ) {
         cover_big = '/logo_144x144.png'

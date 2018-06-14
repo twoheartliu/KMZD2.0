@@ -2,6 +2,10 @@
 
 //播放歌单音频
 function fnBoFangCaoGaoXiangXinXi(id) {
+  var myAudio = document.getElementById("myAudio");
+  if(myAudio){
+    myAudio.pause();
+  }
   clearInterval(timer1);
   clearInterval(timer2);
     api.ajax({
