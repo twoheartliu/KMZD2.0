@@ -244,10 +244,10 @@
                 var securitycente_Imgqq = $api.byId('securitycente_Imgqq');
                 var isImgQQ = '';
                 if (is_qqImg == 1) {
-                  alert(1);
+                  // alert(1);
                     isImgQQ = '<img src="../image/my/Bindings.png" alt="" class="collectmusicQQ" onclick="collectmusicQQ(this)" data-click="1">'
                 } else {
-                  alert(2);
+                  // alert(2);
                     isImgQQ = '<img src="../image/my/Binding.png" alt="" class="collectmusicQQ" onclick="collectmusicQQ(this)" data-click="0">'
                 }
                 $api.html(securitycente_Imgqq, isImgQQ);
@@ -525,16 +525,31 @@
                                                 }
                                             });
                                         } else {
-                                            alert(err.code);
+                                          api.toast({
+                                              msg: err.code,
+                                              duration: 2000,
+                                              location: 'middle'
+                                          });
+                                            // alert(err.code);
                                         }
                                     });
 
                                 } else {
-                                    alert(err.code);
+                                  api.toast({
+                                      msg: err.code,
+                                      duration: 2000,
+                                      location: 'middle'
+                                  });
+                                    // alert(err.code);
                                 }
                             });
                         } else {
-                            alert(err.code);
+                          api.toast({
+                              msg: err.code,
+                              duration: 2000,
+                              location: 'middle'
+                          });
+                            // alert(err.code);
                         }
                     });
                 } else {
