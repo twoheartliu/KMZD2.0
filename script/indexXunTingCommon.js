@@ -38,7 +38,8 @@ function fnXunTingXinXi() {
                       name: 'netbofangsssssss',
                       extra: {
                           a: ret.data.id,
-                          bofang: bofang
+                          bofang: bofang,
+                          playType:playType
                       }
                   });
 
@@ -128,7 +129,8 @@ function kaishibofangs() {
     api.sendEvent({
         name: 'netBoFangId',
         extra: {
-            bofang: bofang
+            bofang: bofang,
+            playType:playType
         }
     });
     fnXiaYiXunHuan();
@@ -156,7 +158,8 @@ function fnBFids(id) {
         name: 'netPlaying',
         extra: {
             playing: DangQianbofangid,
-            bofang:bofang
+            bofang:bofang,
+            playType:playType
         }
     });
 }
@@ -165,7 +168,8 @@ function fnBOFangJians(bofangs, aa) {
     if(aa){
         a = aa;
     }
-    bofang = bofangs;
+    bofang = bofangs,
+    playType=playType
 }
 
 function fnCollections(cccc){

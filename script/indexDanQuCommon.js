@@ -25,7 +25,8 @@ function fnBoFangyinpinxinxis(id) {
                   name: 'netbofangsssssss',
                   extra: {
                       a: id,
-                      bofang: bofang
+                      bofang: bofang,
+                      playType:playType
                   }
               });
               if(ret.data.user_id){
@@ -105,6 +106,8 @@ function fnBFids(id) {
         name: 'netPlaying',
         extra: {
             playing: DangQianbofangid,
+            bofang:bofang,
+            playType:playType
         }
     });
 }

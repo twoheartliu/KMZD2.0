@@ -363,13 +363,13 @@
           url: './playDanQu.html',
           pageParam: {
             a: id,
-            ok: 'playDanQu'
+            ok: 'playDanQu',
+            playType:'playDanQu'
           }
       });
     }
     //打开更多
     function fnOpenPlayMore(ids, titleName,sma) {
-      console.log(sma);
         var dialogBox = api.require('dialogBox');
         dialogBox.actionMenu({
             rect: {
@@ -453,7 +453,6 @@
     //打开分享
     function fnOpenPlayShare(id,titleName , sma) {
       // console.log(id);
-        console.log(sma);
         var smas;
         if (sma == 'null') {
           smas = '/logo_144x144.png'
@@ -535,7 +534,6 @@
             } else if (ret.index == "1") {
               // console.log(sma);
               var imgaesFx = host +'/'+ smas;
-              console.log(imgaesFx);
               api.download({
                   url: imgaesFx,
                   savePath: 'fs:savePath/'+ smas,
@@ -555,7 +553,7 @@
                       // shareMp3Single(songListID,title,savePath);
                       // shareMp3Album(name,listening_description,l_id);
                   } else {
-                    console.log(JSON.stringify(err));
+                    // console.log(JSON.stringify(err));
                   }
                 });
                 dialogBox.close({
@@ -584,7 +582,7 @@
                       // shareMp3Single(songListID,title,savePath);
                       // shareMp3Album(name,listening_description,l_id);
                   } else {
-                    console.log(JSON.stringify(err));
+                    // console.log(JSON.stringify(err));
                   }
                 });
                 dialogBox.close({

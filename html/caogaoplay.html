@@ -585,6 +585,7 @@
     var namesss;
     var bookId;
     var ok;
+    var playType;
     apiready = function() {
         var secHeader = $api.byId('secHeader');
         $api.fixStatusBar(secHeader);
@@ -900,7 +901,7 @@
     function fnDangQianbofangid(id) {
         Dqbofangid = id;
     }
-playType = api.pageParam.playType;
+
     function fnJinRuBofangs(id,bofang,playType) {
         var eHeader = $api.byId('header');
         api.parseTapmode();
@@ -916,23 +917,9 @@ playType = api.pageParam.playType;
                       id: id
                   }
               });
-              api.sendEvent({
-                  name: 'neizhiliebiaoPlay',
-                  extra: {
-                      bofang: bofang,
-                      a: id,
-                      playType:playType
-                  }
-              });
+
           }
         }else{
-          api.sendEvent({
-              name: 'neizhiliebiaoPlay',
-              extra: {
-                  bofang: bofang,
-                  playType:playType
-              }
-          });
           var stylelist = $api.byId('openplayer');
           var html = '<img src="../image/play/ic_play_play.png" alt="" onclick="fnOpenPlayer();" id="player">';
           $api.html(stylelist, html);
@@ -951,6 +938,7 @@ playType = api.pageParam.playType;
         } else {
             var bofang = api.pageParam.bofang;
         }
+        playType = api.pageParam.playType;
         dqbfid = api.pageParam.a;
         id = api.pageParam.a;
         fnInitSwiper();
@@ -961,14 +949,15 @@ playType = api.pageParam.playType;
             var html = '';
             html += '<img src="../image/play/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player"></div>';
             $api.html(stylelist, html);
-            bofang = 5;
+            bofang = 3;
             if (id) {
               soundId = id;
                 api.sendEvent({
                     name: 'netPlayCaoGaoXiang',
                     extra: {
                       bofang: bofang,
-                        id: id
+                        id: id,
+                        playType:playType
                     }
                 });
             }
@@ -977,15 +966,16 @@ playType = api.pageParam.playType;
                 extra: {
                     bofang: bofang,
                     a: id,
+                    playType:playType
                 }
             });
             fnNetAudiosPlayByID(id);
-        } else if (bofang == 4) {
+        } else if (bofang == 2) {
             var stylelist = $api.byId('openplayer');
             var html = '';
             html += '<img src="../image/play/ic_play_play.png" alt="" onclick="fnOpenPlayer();" id="player"></div>';
             $api.html(stylelist, html);
-        } else if (bofang == 5) {
+        } else if (bofang == 3) {
             var stylelist = $api.byId('openplayer');
             var html = '';
             html += '<img src="../image/play/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player"></div>';
@@ -995,7 +985,8 @@ playType = api.pageParam.playType;
                     name: 'netPlayCaoGaoXiang',
                     extra: {
                       bofang: bofang,
-                        id: id
+                        id: id,
+                        playType:playType
                     }
                 });
             }
@@ -1080,13 +1071,14 @@ playType = api.pageParam.playType;
         var player = $api.byId('player');
         if (player.getAttribute("src", 2) == "../image/play/ic_play_play.png") {
             player.src = "../image/play/ic_play_pause.png";
-            var bofang = 5;
+            var bofang = 3;
             var a = api.pageParam.a;
             api.sendEvent({
                 name: 'netPlayingCaoGaoXiang',
                 extra: {
                     bofang: bofang,
-                    a: a
+                    a: a,
+                    playType :playType
                 }
             });
             api.sendEvent({
@@ -1094,6 +1086,7 @@ playType = api.pageParam.playType;
                 extra: {
                     bofang: bofang,
                     a: a,
+                    playType :playType,
                 }
             });
             fnOpenChangeImg();
@@ -1105,13 +1098,14 @@ playType = api.pageParam.playType;
                     netAudioPausess: 2222
                 }
             });
-            var bofang = 4;
+            var bofang = 2;
             var a = api.pageParam.a;
             api.sendEvent({
                 name: 'neizhiliebiaoPlay',
                 extra: {
                     bofang: bofang,
                     a: a,
+                    playType :playType,
                 }
             });
         }
@@ -1194,25 +1188,27 @@ playType = api.pageParam.playType;
     //播放
     function fnNetAudiosPlayByID(id) {
         if (id) {
-            var bofang = 4;
+            var bofang = 2;
             api.sendEvent({
                 name: 'neizhiliebiaoPlay',
                 extra: {
                     bofang: bofang,
                     a: id,
+                    playType :playType
 
                 }
             });
             fnJiBenXinXi()
             fnbofangshijian();
         } else {
-            var bofang = 4;
+            var bofang = 2;
             var a = api.pageParam.a;
             api.sendEvent({
                 name: 'neizhiliebiaoPlay',
                 extra: {
                     bofang: bofang,
                     a: a,
+                    playType :playType
                 }
             });
             fnJiBenXinXi();
@@ -1471,7 +1467,6 @@ playType = api.pageParam.playType;
     var change = function($input) {
         /*内容可自行定义*/
         adjust();
-        console.log(222);
     }
     $('input').RangeSlider({
         callback: change

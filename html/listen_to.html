@@ -384,6 +384,7 @@
   var soundId;
   var namesss;
   var ok;
+  var playType;
     function goback () {
       api.closeWin({name:'listenTo'});
     }
@@ -417,6 +418,8 @@
           $api.fixIos7Bar(header);
           dangqianbofangid = api.pageParam.DangQianbofangid;
           bofang = api.pageParam.bofang;
+          playType = api.pageParam.playType;
+
           api.addEventListener({
               name: 'netPlaying'
           }, function(ret, err) {
@@ -428,7 +431,7 @@
                 if (dangqianbofangid) {
 
                   if(bofang){
-                    fnJinRuBofangs(dangqianbofangid,bofang);
+                    fnJinRuBofangs(dangqianbofangid,bofang,playType);
                     soundId = dangqianbofangid;
                     bookId == dangqianbofangid;
                     fnJianTingBookCollection(bookId);
@@ -489,8 +492,9 @@
                         dangqianbofangid = api.pageParam.DangQianbofangid;
                         if (dangqianbofangid) {
                           bofang = api.pageParam.bofang;
+                          playType = api.pageParam.playType;
                           if(bofang){
-                            fnJinRuBofangs(dangqianbofangid,bofang);
+                            fnJinRuBofangs(dangqianbofangid,bofang,playType);
                             soundId = dangqianbofangid;
                             bookId == dangqianbofangid;
                             fnJianTingBookCollection(bookId);
@@ -549,6 +553,8 @@
         $api.fixIos7Bar(header);
         dangqianbofangid = api.pageParam.DangQianbofangid;
         bofang = api.pageParam.bofang;
+        playType = api.pageParam.playType;
+
         if(dangqianbofangid){
           bookId = dangqianbofangid;
           soundId = dangqianbofangid;
@@ -562,7 +568,7 @@
               if (dangqianbofangid) {
 
                 if(bofang){
-                  fnJinRuBofangs(dangqianbofangid,bofang);
+                  fnJinRuBofangs(dangqianbofangid,bofang,playType);
                   soundId = dangqianbofangid;
                   bookId == dangqianbofangid;
                   fnJianTingBookCollection(bookId);
@@ -624,8 +630,9 @@
 
                       if (dangqianbofangid) {
                         bofang = api.pageParam.bofang;
+                        playType = api.pageParam.playType;
                         if(bofang){
-                          fnJinRuBofangs(dangqianbofangid,bofang);
+                          fnJinRuBofangs(dangqianbofangid,bofang,playType);
                           soundId = dangqianbofangid;
                           bookId == dangqianbofangid;
                           fnJianTingBookCollection(bookId);
@@ -741,11 +748,11 @@
       });
     }
 
-    function fnJinRuBofangs(id,bofang) {
-      console.log(111);
+    function fnJinRuBofangs(id,bofang ,playType) {
+
         var eHeader = $api.byId('header')
         api.parseTapmode();
-        if(bofang == 9){
+        if(bofang == 3){
           var stylelist = $api.byId('openplayer');
           var html = '<img src="../image/play/ic_play_play.png" alt="" onclick="fnOpenPlayer();" id="player">';
           $api.html(stylelist, html);
@@ -774,6 +781,7 @@
         } else {
             var bofang = api.pageParam.bofang;
         }
+        playType = api.pageParam.playType;
         api.parseTapmode();
         if (!bofang) {
             var stylelist = $api.byId('openplayer');
@@ -785,12 +793,14 @@
                 name: 'netPlayUrlXunTing',
                 extra: {
                   bofang: bofang,
+                  playType:playType
                 }
             });
             api.sendEvent({
                 name: 'neizhiliebiaoPlay',
                 extra: {
                     bofang: bofang,
+                    playType:playType,
                     a: 100000000000000000000
                 }
             });
@@ -902,7 +912,8 @@
                 name: 'netPlayXunTing',
                 extra: {
                     bofang: bofang,
-                    a:soundId
+                    a:soundId,
+                    playType:playType
                 }
             });
             api.sendEvent({
@@ -924,6 +935,7 @@
                 name: 'neizhiliebiaoPlay',
                 extra: {
                     bofang: bofang,
+                    playType:playType
                 }
             });
 
@@ -1210,39 +1222,39 @@
     }
 
     function fnDelete(){
-    api.ajax({
-        url: host + apiUri + '/index/unlike/' + soundId,
-        method: 'post',
-        dataType: 'json',
-        headers: {
-            "source": api.systemType,
-            "version": version,
-            "session": token
-        }
-    }, function(ret, err) {
-      if(ret){
-      if (ret.status == 200) {
-        api.toast({              
-            msg:  '已删除',
-            duration:  timeOut,
-            location:   'middle'          
-        });
-        var c = bookId;
-        api.sendEvent({
-            name: 'xunTingXiaYi',
-            extra: {
-                c: c
-            }
-        });
-        var player = $api.byId('player');
-        player.src = "../image/play/ic_play_pause.png";
-      } else {
-          netMessage(ret);
-      }
-    }else{
-      netWork(err);
-    }
-    });
+      api.ajax({
+          url: host + apiUri + '/index/unlike/' + soundId,
+          method: 'post',
+          dataType: 'json',
+          headers: {
+              "source": api.systemType,
+              "version": version,
+              "session": token
+          }
+      }, function(ret, err) {
+          if(ret){
+              if (ret.status == 200) {
+                api.toast({              
+                    msg:  '已删除',
+                    duration:  timeOut,
+                    location:   'middle'          
+                });
+                var c = bookId;
+                api.sendEvent({
+                    name: 'xunTingXiaYi',
+                    extra: {
+                        c: c
+                    }
+                });
+                var player = $api.byId('player');
+                player.src = "../image/play/ic_play_pause.png";
+              } else {
+                  netMessage(ret);
+              }
+          }else{
+            netWork(err);
+          }
+      });
   }
 
     function fnOpenPlayShare() {

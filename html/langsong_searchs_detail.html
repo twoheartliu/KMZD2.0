@@ -297,13 +297,8 @@
                         $api.html(footer, '正在加载更多');
                       }
                   }
-                    // var html = '';
-                    // setTimeout(function(){
-                    //     api.refreshHeaderLoadDone()
-                    // },3000)
                     var container = $api.byId('id-container');
                     for (var i = 0; i < ret.data.length; i++) {
-                        // console.log(JSON.stringify(ret.data[i]));
                         var data = ret.data[i];
                         var author = data.author_name;
                         var id = data.id;
@@ -317,36 +312,6 @@
                             '<li onclick="fnOpenList('+ id +')"><div class="message_frame_cycle"><div class="message_frame_cycle_div fl"><div class="message_frame_cycle_div_3 fl"><div class="message_frame_cycle_div_3fl"><div class="message_frame_cycle_div_2 col" id="id-title">' +
                             title + '</div><div class="message_frame_cycle_div_1 col" >作者:<span>' + author + '</span></div></div><div class="pos collection_frame fl"><span>' + body + '</span></div></div></div></div></div></li>');
                     }
-                    // html.replace(keyword, "<font color=red>"+keyword+"</font>")
-                    // console.log(html);
-
-
-
-
-                    // $api.html(container, html);
-
-                    // function keyLight(id, key, bgColor) {
-                    //     var oDiv = document.getElementById(id),
-                    //         sText = oDiv.innerHTML,
-                    //         Color = Color || "red",
-                    //         sKey = "<span style='color: " + Color + ";'>"+key+"</span>",
-                    //         num = -1,
-                    //         rStr = new RegExp(key, "g"),
-                    //         rHtml = new RegExp("\<.*?\>", "ig"), //匹配html元素
-                    //         aHtml = sText.match(rHtml); //存放html元素的数组
-                    //     sText = sText.replace(rHtml, '{~}'); //替换html标签
-                    //     sText = sText.replace(rStr, sKey); //替换key
-                    //     sText = sText.replace(/{~}/g, function() { //恢复html标签
-                    //         num++;
-                    //         return aHtml[num];
-                    //     });
-                    //
-                    //     oDiv.innerHTML = sText;
-                    // }
-                    //
-                    // var key1 = keyLight('id-container', keyword)
-
-
 
                     api.sendEvent({
                         name: 'langsong-result',
@@ -368,14 +333,9 @@
 
     function fnOpenList(id) {
         lujing = './playDanQu.html';
-        // titles = '专辑';
-        // console.log('hwwaw');
-        console.log(id);
         api.openWin({
             name: 'playDanQu',
             url: lujing,
-            // console.log('lujing');
-            // console.log(id);
             pageParam: {
                 a: id,
             }

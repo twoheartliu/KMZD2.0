@@ -578,6 +578,7 @@
     var soundId;
     var namesss;
     var ok;
+    var playType;
     apiready = function() {
       token = $api.getStorage('token');
       var secHeader = $api.byId('secHeader');
@@ -632,8 +633,9 @@
                 if (dangqianbofangid) {
 
                   bofang = api.pageParam.bofang;
+                  playType = api.pageParam.playType;
                   if(bofang){
-                    fnJinRuBofangs(dangqianbofangid,bofang);
+                    fnJinRuBofangs(dangqianbofangid,bofang,playType);
                     soundId = dangqianbofangid;
                     bookId == dangqianbofangid;
                     fnBookExtraGoodssssss(bookId);
@@ -697,9 +699,10 @@
                     if (ret.eventType == 'right') {
                         dangqianbofangid = api.pageParam.DangQianbofangid;
                         if (dangqianbofangid) {
+                          playType = api.pageParam.playType;
                           bofang = api.pageParam.bofang;
                           if(bofang){
-                            fnJinRuBofangs(dangqianbofangid,bofang);
+                            fnJinRuBofangs(dangqianbofangid,bofang,playType);
                             soundId = dangqianbofangid;
                             bookId == dangqianbofangid;
                             fnBookExtraGoodssssss(bookId);
@@ -766,8 +769,9 @@
           if (connectionType == "wifi") {
             if (dangqianbofangid) {
               bofang = api.pageParam.bofang;
+              playType = api.pageParam.playType;
               if(bofang){
-                fnJinRuBofangs(dangqianbofangid,bofang);
+                fnJinRuBofangs(dangqianbofangid,bofang,playType);
                 soundId = dangqianbofangid;
                 bookId == dangqianbofangid;
                 fnBookExtraGoodssssss(bookId);
@@ -832,8 +836,9 @@
                       dangqianbofangid = api.pageParam.DangQianbofangid;
                       if (dangqianbofangid) {
                         bofang = api.pageParam.bofang;
+                        playType = api.pageParam.playType;
                         if(bofang){
-                          fnJinRuBofangs(dangqianbofangid,bofang);
+                          fnJinRuBofangs(dangqianbofangid,bofang,playType);
                           soundId = dangqianbofangid;
                           bookId == dangqianbofangid;
                           fnBookExtraGoodssssss(bookId);
@@ -994,10 +999,10 @@
       });
     }
 
-    function fnJinRuBofangs(id,bofang) {
+    function fnJinRuBofangs(id,bofang,playType) {
         var eHeader = $api.byId('header')
         api.parseTapmode();
-        if(bofang == 7){
+        if(bofang == 3){
           var stylelist = $api.byId('openplayer');
           var html = '<img src="../image/play/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player">';
           $api.html(stylelist, html);
@@ -1032,6 +1037,7 @@
 
         dqbfid = api.pageParam.a;
         id = api.pageParam.a;
+        playType = api.pageParam.playType;
         fnInitSwiper();
         api.parseTapmode();
         if (!bofang) {
@@ -1039,14 +1045,15 @@
             var html = '';
             html += '<img src="../image/play/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player">';
             $api.html(stylelist, html);
-            bofang = 7;
+            bofang = 3;
             if (id) {
               soundId = id;
                 api.sendEvent({
                     name: 'netPlayUrlDanQu',
                     extra: {
                       bofang: bofang,
-                        id: id
+                        id: id,
+                        playType:playType
                     }
                 });
             }
@@ -1054,16 +1061,17 @@
                 name: 'neizhiliebiaoPlay',
                 extra: {
                     bofang: bofang,
-                    a: id
+                    a: id,
+                    playType:playType
                 }
             });
             fnNetAudiosPlayByID(id);
-        } else if (bofang == 6) {
+        } else if (bofang == 2) {
             var stylelist = $api.byId('openplayer');
             var html = '';
             html += '<img src="../image/play/ic_play_play.png" alt="" onclick="fnOpenPlayer();" id="player">';
             $api.html(stylelist, html);
-        } else if (bofang == 7) {
+        } else if (bofang == 3) {
             var stylelist = $api.byId('openplayer');
             var html = '';
             html += '<img src="../image/play/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player">';
@@ -1074,7 +1082,8 @@
                     name: 'netPlayUrlDanQu',
                     extra: {
                       bofang: bofang,
-                        id: id
+                        id: id,
+                        playType:playType
                     }
                 });
             }
@@ -1162,20 +1171,23 @@
         var player = $api.byId('player');
         if (player.getAttribute("src", 2) == "../image/play/ic_play_play.png") {
             player.src = "../image/play/ic_play_pause.png";
-            var bofang = 7;
+            var bofang = 3;
             var a = api.pageParam.a;
+
             api.sendEvent({
                 name: 'netPlayDanQu',
                 extra: {
                     bofang: bofang,
-                    a: a
+                    a: a,
+                    playType:playType
                 }
             });
             api.sendEvent({
                 name: 'neizhiliebiaoPlay',
                 extra: {
                     bofang: bofang,
-                    a: a
+                    a: a,
+                    playType:playType
                 }
             });
             fnOpenChangeImg();
@@ -1187,13 +1199,14 @@
                     netAudiopauses: 222
                 }
             });
-            var bofang = 6;
+            var bofang = 2;
             var a = api.pageParam.a;
             api.sendEvent({
                 name: 'neizhiliebiaoPlay',
                 extra: {
                     bofang: bofang,
-                    a: a
+                    a: a,
+                    playType:playType
                 }
             });
 
@@ -1294,13 +1307,14 @@
           }, function(ret, err) {
             if(ret){
             if (ret.status == 200) {
-                var bofang = 7;
+                var bofang = 3;
                 var a = id;
                 api.sendEvent({
                     name: 'neizhiliebiaoPlay',
                     extra: {
                         bofang: bofang,
-                        a: a
+                        a: a,
+                        playType:playType
                     }
                 });
                 fnJiBenXinXi();
@@ -1330,13 +1344,14 @@
             }, function(ret, err) {
               if(ret){
             if (ret.status == 200) {
-              var bofang = 7;
+              var bofang = 2;
               var a = api.pageParam.a;
               api.sendEvent({
                   name: 'neizhiliebiaoPlay',
                   extra: {
                       bofang: bofang,
-                      a: a
+                      a: a,
+                      playType:playType
                   }
               });
               fnJiBenXinXi();
@@ -1707,7 +1722,7 @@
                     h: height
                 },
                 pageParam: {
-                    id:playId
+                    id:playId,
                 }
             });
         }

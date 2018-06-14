@@ -31,7 +31,8 @@ function fnBoFangCaoGaoXiangXinXi(id) {
             name: 'netbofangsssssss',
             extra: {
                 a: ret.data[h].url,
-                bofang: bofang
+                bofang: bofang,
+                playType:playType
             }
         });
         api.sendEvent({
@@ -95,6 +96,8 @@ function fnBFidCaoGaoXiang(id) {
         name: 'netPlaying',
         extra: {
             playing: DangQianbofangid,
+            bofang:bofang,
+            playType:playType
         }
     });
 }

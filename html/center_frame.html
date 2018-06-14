@@ -41,22 +41,23 @@
     var playType;
     apiready = function() {
         var stylelist = $api.byId('centerVedeo');
-
-        var html = '<div onclick="fnOpenPlay( ' + playType + ');"><img src="../image/footer_bf2.png" alt=""></div>';
+        var html = '<div onclick="fnOpenPlay( \'' + playType + '\');"><img src="../image/footer_bf2.png" alt=""></div>';
         $api.html(stylelist, html);
         api.addEventListener({
             name: 'netbofangsssssss'
         }, function(ret, err) {
             var a = ret.value.a;
             var bofang = JSON.stringify(ret.value.bofang);
-            var playType = JSON.stringify(ret.value.playType);
+            var playType = ret.value.playType;
             var playlistid = ret.value.playlistid;
             var playUrli = ret.value.playUrli;
             if (playlistid) {
-                fnBOFangJian(bofang, a, playlistid, playType);
+                fnBOFangJian(playType);
+                fnFuZhi(bofang, playType, a, playlistid);
                 return false;
             } else {
-                fnBOFangJian(bofang, a, playType);
+                fnBOFangJian(playType);
+                fnFuZhi(bofang, playType, a);
                 return false;
             }
             return false;
@@ -70,7 +71,6 @@
             name: 'neiJianTingBFms'
         }, function(ret, err) {
             bofangmoshi = ret.value.bofangmoshiid;
-
             fnBoFangMoShiId(bofangmoshi);
             return;
         });
@@ -79,7 +79,7 @@
         }, function(ret, err) {
             var a = ret.value.a;
             var bofang = JSON.stringify(ret.value.bofang);
-            var playType = JSON.stringify(ret.value.playType);
+            var playType = ret.value.playType;
             var playlistid = ret.value.playlistid;
             var playUrli = ret.value.playUrli;
             if (playlistid) {
@@ -87,7 +87,7 @@
                 fnFuZhi(bofang, playType, a, playlistid);
                 return false;
             } else {
-                fnFuZhi(bofang, playType, a, playlistid);
+                fnFuZhi(bofang, playType, a);
                 fnBOFangJian();
                 return false;
             }
@@ -115,22 +115,16 @@
         api.addEventListener({
             name: 'netBoFangId'
         }, function(ret, err) {
-            var bofang = JSON.stringify(ret.value.bofang);
-
-            var playType = ret.value.playType;
-
+            bofang = JSON.stringify(ret.value.bofang);
+            playType = ret.value.playType;
             if (bofang == 2) {
                 var stylelist = $api.byId('centerVedeo');
-                var html = '<div onclick="fnOpenPlay( ' + playType + ');"><img src="../image/footer_bf2.png" alt=""></div>';
+                var html = '<div onclick="fnOpenPlay( \'' + playType + '\');"><img src="../image/footer_bf2.png" alt=""></div>';
                 $api.html(stylelist, html);
             } else if (bofang == 3) {
                 var stylelist = $api.byId('centerVedeo');
-                var html = '<div onclick="fnOpenPlay( ' + playType + ');"><img src="../image/footer_bf3.png" alt=""></div>';
+                var html = '<div onclick="fnOpenPlay( \'' + playType + '\');"><img src="../image/footer_bf3.png" alt=""></div>';
                 $api.html(stylelist, html);
-            }else{
-              var stylelist = $api.byId('centerVedeo');
-              var html = '<div onclick="fnOpenPlay( ' + playType + ');"><img src="../image/footer_bf2.png" alt=""></div>';
-              $api.html(stylelist, html);
             }
             if (playlistid) {
                 api.sendEvent({
@@ -156,16 +150,12 @@
         });
         if (bofang == 2) {
             var stylelist = $api.byId('centerVedeo');
-            var html = '<div onclick="fnOpenPlay(' + playType + ');"><img src="../image/footer_bf2.png" alt=""></div>';
+            var html = '<div onclick="fnOpenPlay(\'' + playType + '\');"><img src="../image/footer_bf2.png" alt=""></div>';
             $api.html(stylelist, html);
         } else if (bofang == 3) {
             var stylelist = $api.byId('centerVedeo');
-            var html = '<div onclick="fnOpenPlay(' + playType + ');"><img src="../image/footer_bf3.png" alt=""></div>';
+            var html = '<div onclick="fnOpenPlay(\'' + playType + '\');"><img src="../image/footer_bf3.png" alt=""></div>';
             $api.html(stylelist, html);
-        }else{
-          var stylelist = $api.byId('centerVedeo');
-          var html = '<div onclick="fnOpenPlay(' + playType + ');"><img src="../image/footer_bf2.png" alt=""></div>';
-          $api.html(stylelist, html);
         }
         if (playlistid) {
             api.sendEvent({
