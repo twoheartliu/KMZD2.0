@@ -610,7 +610,7 @@
       //   bofangmoshi = 0;
       //   fnBoFangMoShiId(bofangmoshi);
       // }
-
+      fnBoFangPlayType();
       fnJianTingBFms();
       fnJianTingGood();
       fnJianTingPingLunShu();
@@ -889,6 +889,24 @@
       }
     }
     //1233
+
+    function fnBoFangPlayType(){
+      api.addEventListener({
+          name: 'netBoFangPlayType'
+      }, function(ret, err) {
+          fnPlayType(ret.value.bofang,ret.value.playType);
+      });
+    }
+    function fnPlayType(bofangs,playTypes){
+      bofang = bofangs;
+      playType =playTypes;
+      if(bofang == 2){
+        player.src = "../image/play/ic_play_play.png";
+      }else if (bofang == 3) {
+        player.src = "../image/play/ic_play_pause.png";
+      }
+    }
+
     var bookGoodHtml;
     function fnBookExtraGoodssssss(){
       var bookss = $api.getStorage('bookExtraGood'+bookId);

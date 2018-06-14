@@ -317,28 +317,37 @@ function record_starts(){
         }
     });
   }
+
   myAudio.removeEventListener('timeupdate', record_starts);
 }
 function record_startSs(){
   var myAudio = document.getElementById("myAudio");
   readyStateS = myAudio.readyState
   if(readyStateS == 4){
+
     myAudio.removeEventListener('readyState', record_startSs);
   }
 
 }
 function record_systemType(){
-  if(api.systemType == 'ios'){
-    api.sendEvent({
-        name: 'aaaaaaPlay',
-        extra: {
-            aaaaaa: aaaaaa,
-        }
-    });
-  }else{
+console.log(2222);
+  api.sendEvent({
+      name: 'netBoFangPlayType',
+      extra: {
+          bofang: 2,
+          playType:playType
+      }
+  });
+  myAudio.removeEventListener('pause', record_systemType);
+}
 
-    myAudio.removeEventListener('pause', record_systemType);
+function record_startsssssss(){
+  if(myAudio.currentTime >0){
+    myAudio.addEventListener('pause', record_systemType);
+    myAudio.removeEventListener('timeupdate', record_startsssssss);
   }
+
+
 }
 //音频播放模块
 function netAudioPlay() {
@@ -351,7 +360,7 @@ function netAudioPlay() {
   });
     var myAudio = document.getElementById("myAudio");
     myAudio.addEventListener('timeupdate', record_starts);
-    myAudio.addEventListener('pause', record_systemType);
+    myAudio.addEventListener('timeupdate', record_startsssssss);
     myAudio.addEventListener('readyState', record_startSs);
     myAudio.play();
     if(myAudio.networkState == 3){
@@ -408,16 +417,8 @@ function netAudioPlay() {
             cover_big:cover_big
         }
     });
-    if(bofang == 8){
-      bofang = 9;
-    }else if(bofang == 6){
-      bofang = 7;
-    }else if (bofang == 4) {
-      bofang = 5;
-    }else if (bofang == 2) {
+    if(bofang == 2) {
       bofang = 3;
-    }else if(!bofang){
-      bofang = 1;
     }
 
     api.sendEvent({
@@ -450,16 +451,8 @@ function netAudioPause() {
     //     }
     // });
     // myAudio.muted=true();
-    if (bofang == 9) {
-      bofang = 8;
-    }else if(bofang == 7){
-      bofang = 6;
-    }else if (bofang == 5) {
-      bofang = 4;
-    }else if (bofang == 3) {
+    if (bofang == 3) {
       bofang = 2;
-    }else if (bofang == 1) {
-      bofang = 0;
     }
 
     api.sendEvent({
