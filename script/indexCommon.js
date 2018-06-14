@@ -241,7 +241,8 @@ function fnBoFangyinpinxinxi() {
                         playlistid: playlistid,
                         bofang: bofang,
                         playUrli:playUrli,
-                        bofangmoshiid:bofangmoshiid
+                        bofangmoshiid:bofangmoshiid,
+                        playType:playType,
                     }
                 });
             }
@@ -327,15 +328,15 @@ function record_startSs(){
 
 }
 function record_systemType(){
-  if(api.systemType == ios){
-    console.log(111);
-    // if(){
-    //
-    // }else{
-    //   myAudio.removeEventListener('readyState', record_startSs);
-    // }
+  if(api.systemType == 'ios'){
+    api.sendEvent({
+        name: 'aaaaaaPlay',
+        extra: {
+            aaaaaa: aaaaaa,
+        }
+    });
   }else{
-    console.log(222);
+
     myAudio.removeEventListener('pause', record_systemType);
   }
 }
@@ -423,6 +424,7 @@ function netAudioPlay() {
         name: 'netBoFangId',
         extra: {
             bofang: bofang,
+            playType:playType
         }
     });
 
@@ -464,7 +466,8 @@ function netAudioPause() {
         name: 'netBoFangId',
         extra: {
             bofang: bofang,
-            bofangmoshiid:bofangmoshiid
+            bofangmoshiid:bofangmoshiid,
+            playType:playType
         }
     });
     // api.addEventListener({
@@ -606,12 +609,6 @@ function fnGeDanShangYi() {
     },1000)
 
 }
-// var t = Date.now();
-//
-// function sleep(d){
-//     while(Date.now - t <= d);
-// }
-// sleep(1000);
 //歌单下一首
 function fnGeDanxiaYi() {
     var myAudio = document.getElementById("myAudio");
@@ -699,11 +696,13 @@ function netPlayLieIdUrlAll(playlistid,playUrli,is_play_all) {
 function fnBFid(id) {
     DangQianbofangid = id;
     var bofangI = bofang;
+    var playTypes = playType;
     api.sendEvent({
         name: 'netPlaying',
         extra: {
             playing: DangQianbofangid,
-            bofang:bofangI
+            bofang:bofangI,
+            playType:playTypes
         }
     });
 
@@ -919,7 +918,7 @@ function fnBoFangmoshiid() {
     }
 }
 
-function fnBOFangJian(bofangs, aa, playlist,playUrlis) {
+function fnBOFangJian(bofangs, aa, playlist,playUrlis,playTypes) {
     if (playlistid) {
         playlistid = playlist;
         playUrli = playUrli;
@@ -929,14 +928,8 @@ function fnBOFangJian(bofangs, aa, playlist,playUrlis) {
 
     }
     bofang = bofangs;
+    playType=playTypes;
 }
-// function fnBOFangJianss(bofangs, aa, danQus) {
-//
-//         a = aa;
-//         bofang = bofangs;
-//         danQu = danQus;
-//
-// }
 function fnCollection(cccc){
   is_collection = cccc;
 }
@@ -1042,10 +1035,11 @@ function initEventListennerBofang() {
         var a = ret.value.a;
         var playlistid = ret.value.playlistid;
         var playUrli = ret.value.playUrli;
+        var playType = ret.value.playType;
         if (playlistid) {
-            fnBOFangJian(bofang, a, playlistid,playUrli);
+            fnBOFangJian(bofang, a, playlistid,playUrli,playType);
         } else {
-            fnBOFangJian(bofang, a);
+            fnBOFangJian(bofang, a,playType);
         }
     });
     api.addEventListener({
