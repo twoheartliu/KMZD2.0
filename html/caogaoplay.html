@@ -619,8 +619,9 @@
                 if (connectionType == "wifi") {
                   if (dangqianbofangid) {
                     bofang = api.pageParam.bofang;
+                    playType = api.pageParam.playType;
                     if(bofang){
-                      fnJinRuBofangs(dangqianbofangid,bofang);
+                      fnJinRuBofangs(dangqianbofangid,bofang,playType);
                       soundId = dangqianbofangid;
                       bookId == dangqianbofangid;
                     }else{
@@ -681,8 +682,9 @@
                             dangqianbofangid = api.pageParam.DangQianbofangid;
                             if (dangqianbofangid) {
                               bofang = api.pageParam.bofang;
+                              playType = api.pageParam.playType;
                               if(bofang){
-                                fnJinRuBofangs(dangqianbofangid,bofang);
+                                fnJinRuBofangs(dangqianbofangid,bofang,playType);
                                 soundId = dangqianbofangid;
                                 bookId == dangqianbofangid;
                               }else{
@@ -732,8 +734,10 @@
                   }, function(ret, err) {
                       aa = ret.value.a;
                       bofangs = ret.value.bofang;
-                      fnA(aa, bofangs);
-                      fnAAaa(aa, bofangs);
+                      playType = ret.value.playType;
+
+                      fnA(aa, bofangs,playType);
+                      fnAAaa(aa, bofangs,playType);
                       return;
                   });
                   fnJinRuBofang();
@@ -754,8 +758,9 @@
               if (connectionType == "wifi") {
                 if (dangqianbofangid) {
                   bofang = api.pageParam.bofang;
+                  playType = api.pageParam.playType;
                   if(bofang){
-                    fnJinRuBofangs(dangqianbofangid,bofang);
+                    fnJinRuBofangs(dangqianbofangid,bofang,playType);
                     soundId = dangqianbofangid;
                     bookId == dangqianbofangid;
                   }else{
@@ -816,8 +821,9 @@
                           dangqianbofangid = api.pageParam.DangQianbofangid;
                           if (dangqianbofangid) {
                             bofang = api.pageParam.bofang;
+                            playType = api.pageParam.playType;
                             if(bofang){
-                              fnJinRuBofangs(dangqianbofangid,bofang);
+                              fnJinRuBofangs(dangqianbofangid,bofang,playType);
                               soundId = dangqianbofangid;
                               bookId == dangqianbofangid;
                             }else{
@@ -894,11 +900,11 @@
     function fnDangQianbofangid(id) {
         Dqbofangid = id;
     }
-
-    function fnJinRuBofangs(id,bofang) {
+playType = api.pageParam.playType;
+    function fnJinRuBofangs(id,bofang,playType) {
         var eHeader = $api.byId('header');
         api.parseTapmode();
-        if(bofang == 5){
+        if(bofang == 3){
           var stylelist = $api.byId('openplayer');
           var html = '<img src="../image/play/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player">';
           $api.html(stylelist, html);
@@ -910,8 +916,23 @@
                       id: id
                   }
               });
+              api.sendEvent({
+                  name: 'neizhiliebiaoPlay',
+                  extra: {
+                      bofang: bofang,
+                      a: id,
+                      playType:playType
+                  }
+              });
           }
         }else{
+          api.sendEvent({
+              name: 'neizhiliebiaoPlay',
+              extra: {
+                  bofang: bofang,
+                  playType:playType
+              }
+          });
           var stylelist = $api.byId('openplayer');
           var html = '<img src="../image/play/ic_play_play.png" alt="" onclick="fnOpenPlayer();" id="player">';
           $api.html(stylelist, html);
