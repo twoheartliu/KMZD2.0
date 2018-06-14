@@ -338,12 +338,22 @@ console.log(2222);
           playType:playType
       }
   });
-  myAudio.removeEventListener('pause', record_systemType);
+  myAudio.removeEventListener('abort', record_systemType);
 }
-
+function record_systemTypes(){
+console.log(3333);
+  api.sendEvent({
+      name: 'netBoFangPlayType',
+      extra: {
+          bofang: 2,
+          playType:playType
+      }
+  });
+  myAudio.removeEventListener('error', record_systemTypes);
+}
 function record_startsssssss(){
   if(myAudio.currentTime >0){
-    myAudio.addEventListener('pause', record_systemType);
+
     myAudio.removeEventListener('timeupdate', record_startsssssss);
   }
 
@@ -362,6 +372,8 @@ function netAudioPlay() {
     myAudio.addEventListener('timeupdate', record_starts);
     myAudio.addEventListener('timeupdate', record_startsssssss);
     myAudio.addEventListener('readyState', record_startSs);
+    myAudio.addEventListener('abort', record_systemType);
+    myAudio.addEventListener('error', record_systemTypes);
     myAudio.play();
     if(myAudio.networkState == 3){
       setTimeout(function(){
