@@ -2,6 +2,10 @@
 
 //播放歌单音频
 function fnXunTingXinXi() {
+  var myAudio = document.getElementById("myAudio");
+  if(myAudio){
+    myAudio.pause();
+  }
   fnUserFollow();
   clearInterval(timer2);
   clearInterval(timer1);

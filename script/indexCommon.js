@@ -211,6 +211,10 @@
 
 //播放歌单音频
 function fnBoFangyinpinxinxi() {
+  var myAudio = document.getElementById("myAudio");
+  if(myAudio){
+    myAudio.pause();
+  }
     fnUserFollow();
     clearInterval(timer2);
     clearInterval(timer1);
@@ -300,14 +304,68 @@ function kaishibofang() {
     addtime();
     jindutiao();
 }
+var aaaaaa;
+var readyStateS;
+function record_starts(){
+  aaaaaa = 2;
+  if(aaaaaa == 2){
+    api.sendEvent({
+        name: 'aaaaaaPlay',
+        extra: {
+            aaaaaa: aaaaaa,
+        }
+    });
+  }
+  myAudio.removeEventListener('timeupdate', record_starts);
+}
+function record_startSs(){
+  var myAudio = document.getElementById("myAudio");
+  readyStateS = myAudio.readyState
+  if(readyStateS == 4){
+    myAudio.removeEventListener('readyState', record_startSs);
+  }
+
+}
+function record_systemType(){
+  if(api.systemType == ios){
+    console.log(111);
+    // if(){
+    //
+    // }else{
+    //   myAudio.removeEventListener('readyState', record_startSs);
+    // }
+  }else{
+    console.log(222);
+    myAudio.removeEventListener('pause', record_systemType);
+  }
+}
 //音频播放模块
 function netAudioPlay() {
+  aaaaaa = 1;
+  api.sendEvent({
+      name: 'aaaaaaPlay',
+      extra: {
+          aaaaaa: aaaaaa,
+      }
+  });
     var myAudio = document.getElementById("myAudio");
-    // myAudio.muted=false;
-    // myAudio.volume=1;
+    myAudio.addEventListener('timeupdate', record_starts);
+    myAudio.addEventListener('pause', record_systemType);
+    myAudio.addEventListener('readyState', record_startSs);
     myAudio.play();
-    var audioStreamer = api.require('audioStreamer');
-audioStreamer.onNormal();
+    if(myAudio.networkState == 3){
+      setTimeout(function(){
+        myAudio.pause();
+        myAudio.play();
+      },500)
+    }
+
+    // alert();
+    api.startRecord({
+        path: 'fs://luyin/ssssssssssssss.amr'
+    });
+    // var audioStreamer = api.require('audioStreamer');
+    // audioStreamer.onNormal();
     // var agoraVideo = api.require('agoraVideo');
     // agoraVideo.isSpeakerphoneEnabled(function(ret) {
     //     if (ret.status) {
@@ -331,6 +389,13 @@ audioStreamer.onNormal();
             netAudioPause();
         }
     });
+    // var phoneListener = api.require('phoneListener');
+    // phoneListener.headphonePluggedListener({
+    //         enable : false
+    //     },
+    //     function(ret) {
+    //      alert(JSON.stringify(ret));
+    // });
     initEventListennerBoFangMoshi();
     api.sendEvent({
         name: 'jibenxinxi',
@@ -368,6 +433,20 @@ audioStreamer.onNormal();
 function netAudioPause() {
     var myAudio = document.getElementById("myAudio");
     myAudio.pause();
+
+    // api.stopRecord(function(ret, err) {
+    //     if (ret) {
+    //         path = ret.path;
+    //         duration = ret.duration;
+    //     }
+    // });
+    // fs.rmdir({
+    //     path: 'fs://luyin'
+    // }, function(ret, err) {
+    //     if (ret.status) {} else {
+    //         // alert(JSON.stringify(err));
+    //     }
+    // });
     // myAudio.muted=true();
     if (bofang == 9) {
       bofang = 8;
@@ -722,7 +801,6 @@ function fnUserFollow(){
 
 function fnZhuanJiZhanshi(data_) {
   rets = data_;
-  console.log(JSON.stringify(rets));
   // api.addEventListener({
   //     name: 'netPlayAotu'
   // }, function(ret, err) {
@@ -750,7 +828,7 @@ function suiji() {
     var Range = 0 - rets.data.length;
     // console.log(Range);
     var Rand = Math.random();
-    // console.log(Rand);
+    console.log(Rand);
     var n = rets.data.length + Math.floor((Math.random()) * (0 - rets.data.length));
     suijiplays = setInterval(function() {
         if (myAudio.ended) {
