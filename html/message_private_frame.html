@@ -207,7 +207,7 @@
 
   </ul>
   <div id="footer" class="disnone">
-      上拉加载更多
+      正在加载更多
   </div>
 </section>
 </body>
@@ -293,6 +293,8 @@
               // console.log(JSON.stringify(ret));
               if(ret){
               if (ret.status == 200) {
+                var footer = $api.byId('footer');
+                $api.html(footer, '上拉加载更多');
                 api.refreshHeaderLoadDone()
                 // console.log(JSON.stringify(ret));
                 var html = '';
@@ -374,6 +376,8 @@
                 if (ret.data.list) {
                   var section = $api.byId('section');
                   for (var i = 0; i < ret.data.list.length; i++) {
+                    var footer = $api.byId('footer');
+                    $api.html(footer, '上拉加载更多');
                       // console.log(1);
                       // console.log(ret.data.list[i].content);
                       var listening_cover = ret.data.list[i].friend_img;
@@ -421,6 +425,7 @@
                                     '</div>'+
                                   '</div>'+
                                 '</li>');
+
                         // }
                   }
                 }else {

@@ -30,6 +30,7 @@
             overflow: hidden;
             /*background: red;*/
         }
+        .img img{width: 100%;}
         .shijian{
             /*width: 100%;*/
             height: 50px;
@@ -52,6 +53,7 @@
 <body id="body">
     <div id="main">
     </div>
+    <div style="width: 100%;height: 100px;"></div>
     <a href="javascript:;" id="btn" title=""></a>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
@@ -67,6 +69,7 @@
     token = $api.getStorage('token');
     photo = $api.getStorage('photo');
     userId = api.pageParam.userId;
+
     fnOpenchatbox();
     fnGetSixin();
     api.setCustomRefreshHeaderInfo({
@@ -145,6 +148,7 @@
                   //   }
                   // }
                   // var sortObj = ss.sort(compare("create_date"));
+
                   for (var i = 0; i < ret.data.length; i++) {
 
                     var listening_cover = ret.data[i].sender_image;
@@ -171,7 +175,6 @@
                       }
                     timestampToTimess = timetrans(ret.data[i].create_date);
 
-
                     var html = ''
                     if (userId == ret.data[i].receiver_id) {
                       html += '<div class="private">'+
@@ -194,6 +197,9 @@
                               '<div class="clr"></div>'+
                           '</div>';
                     }
+                    var h=document.body.clientHeight;
+                    var osTop = document.documentElement.scrollTop || document.body.scrollTop;
+                        document.documentElement.scrollTop = document.body.scrollTop = h;
                     $api.prepend(main,html);
                     // console.log(html);
                   }
@@ -279,7 +285,6 @@
     }, function(ret, err) {
         if (ret) {
             // alert(JSON.stringify(ret));
-            // console.log(JSON.stringify(ret));
             var msg = ret.msg;
             if (ret.msg) {
               api.ajax({
@@ -312,7 +317,17 @@
                       var mm = now.getMinutes() + ':';          //分
                       var ss = now.getSeconds();           //秒
                       var main = $api.byId('main');
-                      var photos = updatePhotoUrl + photo;
+
+                      // var listening_cover = ret.data[i].listening_cover;
+                      var photos;
+                      var sandBox = photo.substring(0, 4);
+                      if (sandBox == 'http') {
+                          photos =  photo;
+                      }else {
+                           photos = updatePhotoUrl + photo;
+                      }
+
+                      // console.log(photos);
                       html = '<div class="private">'+
                                 '<div class="fr img"><img src="'+ photos +'" alt=""></div>'+
                                 '<div class="fr shijianfr">'+

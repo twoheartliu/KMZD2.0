@@ -968,6 +968,8 @@
                 }, function(ret, err) {
                   if(ret){
                     if(ret.status == 200){
+                      var nick_name_s = text;
+                      $api.setStorage('nick_name',nick_name_s);
                       fninfo();
                       api.sendEvent({
                           name: 'netNickName',
