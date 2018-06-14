@@ -617,6 +617,7 @@
       $api.css(messageFrameDiv, 'height:' + winHeightHeader + 'px;');
       $api.fixIos7Bar(header);
       fnJianTingGood();
+      fnBoFangPlayType()
       // fnJianTingBFms();
       fnJianTingPingLunShu();
       ok = api.pageParam.ok;
@@ -1357,7 +1358,22 @@
             }
         });
     }
-
+    function fnBoFangPlayType(){
+      api.addEventListener({
+          name: 'netBoFangPlayType'
+      }, function(ret, err) {
+          fnPlayType(ret.value.bofang,ret.value.playType);
+      });
+    }
+    function fnPlayType(bofangs,playTypes){
+      bofang = bofangs;
+      playType =playTypes;
+      if(bofang == 2){
+        player.src = "../image/play/ic_play_play.png";
+      }else if (bofang == 3) {
+        player.src = "../image/play/ic_play_pause.png";
+      }
+    }
     //赋值歌词、总时长、标题
     function fnJiBenXinXi() {
         api.addEventListener({

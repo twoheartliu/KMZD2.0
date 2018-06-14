@@ -605,6 +605,7 @@
         $api.css(messageFrameDiv, 'height:' + winHeightHeader + 'px;');
         fnJianTingGood();
         fnJianTingBFms();
+        fnBoFangPlayType()
         ok = api.pageParam.ok;
         var oks = 'ok'+ok;
         api.addEventListener({
@@ -860,6 +861,22 @@
                   });
               }
           }
+    }
+    function fnBoFangPlayType(){
+      api.addEventListener({
+          name: 'netBoFangPlayType'
+      }, function(ret, err) {
+          fnPlayType(ret.value.bofang,ret.value.playType);
+      });
+    }
+    function fnPlayType(bofangs,playTypes){
+      bofang = bofangs;
+      playType =playTypes;
+      if(bofang == 2){
+        player.src = "../image/play/ic_play_play.png";
+      }else if (bofang == 3) {
+        player.src = "../image/play/ic_play_pause.png";
+      }
     }
     function fnJianTingGood(){
       api.addEventListener({
