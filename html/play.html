@@ -465,6 +465,8 @@
             display: block;
             margin: 0 auto;
         }
+        .ImgGif{position: absolute;top: calc((100% - 100px)/2);left: calc((100% - 100px)/2);z-index: 99999;}
+        .ImgGif img{width: 100px;height: 100px;}
     </style>
 </head>
 
@@ -559,6 +561,7 @@
             </ul>
         </div>
     </div>
+    <div class="ImgGif" id="ImgGif"></div>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/common.js"></script>
@@ -966,13 +969,15 @@
       }, function(ret, err) {
           aaaaaa = ret.value.aaaaaa;
           if(aaaaaa == 2){
-            var stylelist = $api.byId('loading_bgm');
-            var html = '111';
-            $api.html(stylelist, html);
+            var ImgGif = $api.byId('ImgGif');
+            var html = '<img src="../res/07afa72bcd521a3eb459777328a775a4.gif" alt="">';
+
+            $api.html(ImgGif, html);
+
           }else if (aaaaaa == 1) {
-            var stylelist = $api.byId('loading_bgm');
-            var html = '3333';
-            $api.html(stylelist, html);
+            var ImgGif = $api.byId('ImgGif');
+            var html = '<img src="../res/07afa72bcd521a3eb459777328a775a4.gif" alt="">';
+            $api.html(ImgGif, html);
           }
           return false;
       });

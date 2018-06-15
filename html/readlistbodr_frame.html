@@ -85,14 +85,23 @@
         }
         .zanwushuju_div{width: 100%;height: 200px;line-height: 200px;}
         .zanwushuju_div p{text-align: center;}
+        #footer {
+            width: 100%;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+        }
     </style>
 </head>
 
 <body>
-    <div class="body">
+    <!-- <div class="body">
         <div class="sousuo"><input type="text" placeholder="搜作者，诗词名称，诗词内容"></div>
-    </div>
+    </div> -->
     <div id="jubenlist">
+    </div>
+    <div id="footer" class="disnone">
+        正在加载数据
     </div>
 </body>
 
@@ -102,9 +111,21 @@
 <script type="text/javascript" src="../script/message.js"></script>
 <script type="text/javascript">
     var token;
+    var p = 1
     apiready = function() {
         token = $api.getStorage('token');
         fnGetJubenlist();
+        api.addEventListener({
+            name: 'scrolltobottom',
+            extra: {
+                threshold: -20 //设置距离底部多少距离时触发，默认值为0，数字类型
+            }
+        }, function(ret, err) {
+          var footer = $api.byId('footer');
+          $api.html(footer, '正在加载更多');
+          p ++;
+          fnGetJubenlist();
+        });
     };
 
     function fnGetJubenlist() {
@@ -119,7 +140,12 @@
                 "source": api.systemType,
                 "version": version,
                 "session": token
-            }
+            },
+              data: {
+                  values: {
+                      p: p
+                  }
+              }
         }, function(ret, err) {
             // alert(JSON.stringify(ret));
             if (ret) {
@@ -136,19 +162,24 @@
     }
 
     function fnUpdateLyricList(data_) {
-        if (data_.data) {
-            var stylelist = $api.byId('jubenlist');
-            var html = '';
-            for (var i = 0; i < data_.data.length; i++) {
-                html += '<div class="bodyLi" onclick="fnLangdujubenWin(' + data_.data[i].id + ');"> <div class="body_li"><div class="body_li_1">' + data_.data[i].title + ' （' + data_.data[i].author_name +
-                    '）</div><div class="body_li_3"><div class="body_li_2">' + data_.data[i].body + '</div></div><div class="body_li_4"><img src="../image/my/index_y.png" alt=""></div></div></div>';
-            }
-            $api.html(stylelist, html);
-        } else {
-            var stylelists = $api.byId('jubenlist');
-            var htmls = '<div class="zanwushuju_div"><p>暂无数据</p></div>';
-            $api.html(stylelists, htmls);
+        if (p == 1 && data_.data == '') {
+          var stylelists = $api.byId('jubenlist');
+          var htmls = '<div class="zanwushuju_div"><p>暂无数据</p></div>';
+          $api.html(stylelists, htmls);
+          var footer = $api.byId('footer');
+          $api.html(footer, '');
+        }else if (data_.data) {
+          var stylelist = $api.byId('jubenlist');
+          // var html = '';
+          for (var i = 0; i < data_.data.length; i++) {
+              $api.append(stylelist, '<div class="bodyLi" onclick="fnLangdujubenWin(' + data_.data[i].id + ');"> <div class="body_li"><div class="body_li_1">' + data_.data[i].title + ' （' + data_.data[i].author_name +
+                  '）</div><div class="body_li_3"><div class="body_li_2">' + data_.data[i].body + '</div></div><div class="body_li_4"><img src="../image/my/index_y.png" alt=""></div></div></div>');
+          }
+        }else {
+          var footer = $api.byId('footer');
+          $api.html(footer, '无更多数据');
         }
+
     }
 
     function fnLangdujubenWin(InfojubenType) {
