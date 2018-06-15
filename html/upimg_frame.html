@@ -495,8 +495,8 @@ var data;
         // console.log('sss');
         // var user_id = $api.getStorage('user_id')
         var uri = '/user/del_baby/' + foo;
-        // console.log(host + apiUri + uri);
-        // console.log(foo);
+        console.log(host + apiUri + uri);
+        console.log(foo);
         api.ajax({
             url: host + apiUri + uri,
             method: 'post',
@@ -611,68 +611,67 @@ var data;
             });
         } else if (sourceType == 2) {
             //手机相册选图片
-            var obj = api.require('UIMediaScanner');
-            obj.open({
-                type: 'picture',
-                column: 4,
-                max: 1,
-                sort: {
-                    key: 'time',
-                    order: 'desc'
-                },
-                texts: {
-                    stateText: '已选择*项',
-                    cancelText: '取消',
-                    finishText: '完成'
-                },
-                styles: {
-                    bg: '#fff',
-                    mark: {
-                        icon: '',
-                        position: 'bottom_right',
-                        size: 20
-                    },
-                    nav: {
-                        bg: '#eee',
-                        stateColor: '#000',
-                        stateSize: 18,
-                        cancleBg: 'rgba(0,0,0,0)',
-                        cancelColor: '#000',
-                        cancelSize: 18,
-                        finishBg: 'rgba(0,0,0,0)',
-                        finishColor: '#000',
-                        finishSize: 18
-                    }
-                }
-            }, function(ret) {
-                //将选择的图像进行剪辑
-                if (ret.eventType == 'cancel') {} else if (ret.list.length > 0) {
-                    $api.byId('box').style.visibility = 'visible';
-                    var FNImageClip = api.require('FNImageClip');
-                    FNImageClip.open({
-                        rect: {
-                            x: 0,
-                            y: 0,
-                            w: api.winWidth,
-                            h: api.winHeight - document.querySelector('#box').offsetHeight
-                        },
-                        srcPath: ret.list[0].path,
-                        mode: 'image',
-                        style: {
-                            mask: 'rgba(0,0,0,0.75)',
-                            clip: {
-                                w: 200,
-                                h: 200,
-                                x: (api.frameWidth - 200) / 2,
-                                y: (api.frameHeight - 200) / 2,
-                                borderColor: '#0f0',
-                                borderWidth: 0,
-                                appearance: 'rectangle'
-                            }
-                        },
-                    }, function(ret, err) {});
-                }
+            api.getPicture({
+                sourceType: 'album',
+                encodingType: 'jpg',
+                mediaValue: 'pic',
+                destinationType: 'url',
+                allowEdit: true,
+                quality: 50,
+                targetWidth: 100,
+                targetHeight: 100,
+                saveToPhotoAlbum: false
+            }, function(ret, err) {
+                if (ret) {
+                    var stylelist = $api.byId('tx');
+                    var html = '<img src=" ' + updatePhotoUrl + ret.data.photo + '">';
+                    $api.html(stylelist, html);
+                  // console.log(ret.data);
+                  var token = $api.getStorage('token');
+                  api.ajax({
+                      url: host + apiUri + '/user/edit',
+                      method: 'post',
+                      dataType: 'json',
+                      timeout:10,
+                      headers: {
+                          "source": api.systemType,
+                          "version": version,
+                          "session": token
+                      },
+                      data: {
+                          values: {
+                              "name": 'photo',
+                              "value": ret.data,
+                          }
+                      }
+                  },function(ret, err){
+                      if (ret) {
+                        if (ret.status == 200) {
+                          fnUploadImage(ret);
+                        }
+                          // alert( JSON.stringify( ret ) );
+                          // console.log(JSON.stringify( ret ));
 
+                      } else {
+                        api.toast({
+                            msg: '上传失败',
+                            duration: 2000,
+                            location: 'middle'
+                        });
+
+                      }
+                  });
+                } else {
+                  alert(ret.message);
+                  $api.rmStorage('token');
+                  api.openWin({
+                      name: 'login',
+                      url: '../login.html',
+                      pageParam: {
+                          name: 'test'
+                      }
+                  });
+                }
             });
         }
     }
