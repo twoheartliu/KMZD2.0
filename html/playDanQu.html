@@ -465,6 +465,8 @@
             display: block;
             margin: 0 auto;
         }
+        .ImgGif{position: absolute;top: calc((100% - 100px)/2);left: calc((100% - 100px)/2);z-index: 99999;}
+        .ImgGif img{width: 100px;height: 100px;}
     </style>
 </head>
 
@@ -550,6 +552,7 @@
             </ul>
         </div>
     </div>
+    <div class="ImgGif" id="ImgGif"></div>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/common.js"></script>
@@ -610,6 +613,7 @@
       //   bofangmoshi = 0;
       //   fnBoFangMoShiId(bofangmoshi);
       // }
+      fnFuCeng()
       fnBoFangPlayType();
       fnJianTingBFms();
       fnJianTingGood();
@@ -888,8 +892,26 @@
           }
       }
     }
-    //1233
+    //加载时的图片
+    function fnFuCeng(){
+      api.addEventListener({
+          name: 'aaaaaaPlay'
+      }, function(ret, err) {
+          aaaaaa = ret.value.aaaaaa;
+          if(aaaaaa == 2){
+            var ImgGif = $api.byId('ImgGif');
+            var html = '';
 
+            $api.html(ImgGif, html);
+
+          }else if (aaaaaa == 1) {
+            var ImgGif = $api.byId('ImgGif');
+            var html = '<img src="../res/16d7767d-7281-4d04-910f-b8d7de9d4724.gif" alt="">';
+            $api.html(ImgGif, html);
+          }
+          return false;
+      });
+    }
     function fnBoFangPlayType(){
       api.addEventListener({
           name: 'netBoFangPlayType'
