@@ -6,23 +6,69 @@
     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
     <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
     <title>孔孟之道</title>
+    <style media="screen">
+      *{padding: 0;margin: 0;}
+      body{overflow: hidden;}
+      #messageFrameDiv{width: 100%;overflow: hidden;position: relative;}
+      img{width: 100%;position: relative;z-index: 0;display: block;}
+      .class3s{width: 40px;height: 20px;border-radius: 10px;background: rgba(0,0,0,0.4);text-align: center;position: absolute;right: 10px;z-index: 1;top:20px;}
+    </style>
 </head>
 
-<body>
+<body id="body">
+  <div id="secHeader"></div>
+  <div id="messageFrameDiv">
+    <!-- <img src="./image/iowa-1080x1920.png" alt=""> -->
+  </div>
 </body>
 </html>
 <script type="text/javascript" src="script/api.js"></script>
 <script type="text/javascript">
+    // var i = 3;
     apiready = function() {
-      api.openWin({
-          name: 'login',
-          url: './login.html',
-          slidBackEnabled:false,
-      });
-      setTimeout(function(){
-            api.closeWin();
-      },1000)
+      var messageFrameDiv = $api.byId('messageFrameDiv');
+      var html = '<img src="./image/iowa-1080x1920.png" alt="" /><div class="class3s" id="class3s">6</div>'
+      $api.html(messageFrameDiv, html);
 
+      var secHeader = $api.byId('secHeader');
+      $api.fixStatusBar(secHeader);
+      var headeris = document.querySelector('#secHeader');
+      $api.fixIos7Bar(headeris);
+      $api.fixStatusBar(headeris);
+      var headerPos = $api.offset(secHeader);
+      var headerPosH = $api.offset(secHeader).h;
+
+      var timer = window.setInterval("run();", 1000);
+
+      // 获取浏览器高度
+      if (window.innerHeight)
+          winHeight = window.innerHeight;
+      else if ((document.body) && (document.body.clientHeight))
+          winHeight = document.body.clientHeight;
+      var messageFrameDiv = $api.byId('messageFrameDiv');
+      var winHeightHeader = winHeight - headerPosH ;
+      $api.css(messageFrameDiv, 'height:' + winHeightHeader + 'px;');
+    }
+    function run(){
+      var s = document.getElementById("class3s");
+          if(s.innerHTML == 0){
+            doS();
+            clearInterval(timer);
+            return false;
+          }
+          s.innerHTML = s.innerHTML * 1 - 1;
+    }
+    var isFirst = true;
+    function doS(){
+        if(isFirst){
+          console.log(111);
+          api.openWin({
+              name: 'login',
+              url: './login.html',
+              slidBackEnabled:false,
+          });
+            isFirst = false;
+      }
     }
 
 </script>
