@@ -54,10 +54,10 @@ function fnXunTingXinXi() {
                       var userId = ret.data.user_id;
                       var userUrl = ret.data.url;
                       url = userRecord + userId + '/'+ userUrl;
-                      fnFuZhiAudios(url);
+                      fnFuZhiAudio(url);
 
                     }else{
-                      fnFuZhiAudios(host+'/'+ret.data.url);
+                      fnFuZhiAudio(host+'/'+ret.data.url);
                     }
                   }
                   titlename = ret.data.title;
@@ -101,60 +101,7 @@ function fnXunTingXinXi() {
   });
 }
 
-//audio标签赋值
-function fnFuZhiAudios(url) {
-    var stylelist = $api.byId('yinpin');
-    var html = '<audio id="myAudio" ><source src="' + url + '" type="audio/mp3"></audio>';
-    $api.html(stylelist, html);
-    kaishibofangs();
-}
 
-
-//开始播放
-function kaishibofangs() {
-    // netAudioPlay();
-    var myAudio = document.getElementById("myAudio");
-    myAudio.play();
-    if(myAudio.networkState == 3){
-      setTimeout(function(){
-        myAudio.pause();
-        myAudio.play();
-      },500)
-    }
-    addtime();
-    jindutiao();
-    api.sendEvent({
-        name: 'jibenxinxi',
-        extra: {
-            titlename: titlename,
-            desc: desc,
-            singerName: singerName,
-        }
-    });
-    if(bofang == 8){
-      bofang = 9;
-    }else if(bofang == 6){
-      bofang = 7;
-    }else if (bofang == 4) {
-      bofang = 5;
-    }else if (bofang == 2) {
-      bofang = 3;
-    }else if(bofang == 0){
-      bofang = 1;
-    }else if (!bofang) {
-      bofang = 1;
-    }
-
-    api.sendEvent({
-        name: 'netBoFangId',
-        extra: {
-            bofang: bofang,
-            playType:playType
-        }
-    });
-    fnXiaYiXunHuan();
-
-}
 function fnXiaYiXunHuan(){
   setInterval(function() {
     if(myAudio){

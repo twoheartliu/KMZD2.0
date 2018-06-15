@@ -316,6 +316,7 @@ function kaishibofang() {
 var aaaaaa;
 var readyStateS;
 function record_starts(){
+  console.log(777);
   var myAudio = document.getElementById("myAudio");
   timesss = myAudio.currentTime
   if(timesss > 0){
@@ -356,6 +357,7 @@ function fnJianTing(sss){
 
 //音频播放模块
 function netAudioPlay() {
+  console.log(6666);
   aaaaaa = 1;
   api.sendEvent({
       name: 'aaaaaaPlay',

@@ -280,7 +280,8 @@
        .title p{
          font-size: 13px;
        }
-
+       .ImgGif{position: absolute;top: calc((100% - 100px)/2);left: calc((100% - 100px)/2);z-index: 99999;}
+       .ImgGif img{width: 100px;height: 100px;}
       </style>
   </head>
   <body>
@@ -360,6 +361,7 @@
           </div>
         </section>
       </div>
+      <div class="ImgGif" id="ImgGif"></div>
   </body>
   <script type="text/javascript" src="../script/api.js"></script>
   <script type="text/javascript" src="../script/zepto.js"></script>
@@ -389,6 +391,7 @@
       api.closeWin({name:'listenTo'});
     }
     apiready = function(){
+
       token = $api.getStorage('token');
       var header = $api.byId('header');
       var headeris = document.querySelector('#header');
@@ -400,7 +403,8 @@
       var header = document.querySelector('header');
       fnJianTingGood();
       fnJianTingPingLunShu();
-       fnBoFangPlayType()
+       fnBoFangPlayType();
+       fnFuCeng();
       ok = api.pageParam.ok;
       playType = api.pageParam.playType;
       console.log(playType);
@@ -679,7 +683,30 @@
       }
 
       // fnOpenListenFrame();
+
     };
+    //加载时的图片
+    function fnFuCeng(){
+      console.log(9999);
+      api.addEventListener({
+          name: 'aaaaaaPlay'
+      }, function(ret, err) {
+          aaaaaa = ret.value.aaaaaa;
+          if(aaaaaa == 2){
+            var ImgGif = $api.byId('ImgGif');
+            var html = '';
+
+            $api.html(ImgGif, html);
+
+          }else if (aaaaaa == 1) {
+            console.log(12313256465);
+            var ImgGif = $api.byId('ImgGif');
+            var html = '<img src="../res/16d7767d-7281-4d04-910f-b8d7de9d4724.gif" alt="">';
+            $api.html(ImgGif, html);
+          }
+          return false;
+      });
+    }
     function fnBoFangPlayType(){
       api.addEventListener({
           name: 'netBoFangPlayType'
