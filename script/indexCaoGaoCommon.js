@@ -42,10 +42,24 @@ function fnBoFangCaoGaoXiangXinXi(id) {
                 bofangmoshiid:bofangmoshiid
             }
         });
-        var userId = ret.data[h].user_id;
-        var userUrl = ret.data[h].url;
-        var url = userRecord + userId + '/'+ userUrl;
-        fnFuZhiAudio(url);
+
+        var urlUrl = ret.data[h].url;
+        var sandBox = urlUrl.substring(0, 4);
+        if (sandBox == 'http') {
+            url =  urlUrl;
+            fnFuZhiAudio(url);
+        }else {
+          if(ret.data[h].user_id){
+
+            var userId = ret.data[h].user_id;
+            var userUrl = ret.data[h].url;
+            var url = userRecord + userId + '/'+ userUrl;
+            fnFuZhiAudio(url);
+
+          }else{
+            fnFuZhiAudio(host+'/'+ret.data[h].url);
+          }
+        }
         titlename = ret.data[h].title;
         desc = ret.data[h].body;
         api.sendEvent({

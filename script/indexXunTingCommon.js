@@ -5,6 +5,7 @@ function fnXunTingXinXi() {
   var myAudio = document.getElementById("myAudio");
   if(myAudio){
     myAudio.pause();
+    console.log(22222);
   }
   fnUserFollow();
   clearInterval(timer2);
@@ -43,10 +44,22 @@ function fnXunTingXinXi() {
                       }
                   });
 
+                  var urlUrl = ret.data.url;
+                  var sandBox = urlUrl.substring(0, 4);
+                  if (sandBox == 'http') {
+                      url =  urlUrl;
+                      fnFuZhiAudios(url);
+                  }else {
+                    if(ret.data.user_id){
+                      var userId = ret.data.user_id;
+                      var userUrl = ret.data.url;
+                      url = userRecord + userId + '/'+ userUrl;
+                      fnFuZhiAudios(url);
 
-                  fnFuZhiAudios(host+'/'+ret.data.url);
-
-
+                    }else{
+                      fnFuZhiAudios(host+'/'+ret.data.url);
+                    }
+                  }
                   titlename = ret.data.title;
                   reciter = ret.data.reciter;
                   desc = ret.data.body;
@@ -102,6 +115,12 @@ function kaishibofangs() {
     // netAudioPlay();
     var myAudio = document.getElementById("myAudio");
     myAudio.play();
+    if(myAudio.networkState == 3){
+      setTimeout(function(){
+        myAudio.pause();
+        myAudio.play();
+      },500)
+    }
     addtime();
     jindutiao();
     api.sendEvent({
@@ -165,11 +184,9 @@ function fnBFids(id) {
 }
 
 function fnBOFangJians(bofangs, aa) {
-    if(aa){
-        a = aa;
-    }
-    bofang = bofangs,
-    playType=playType
+
+    bofang = bofangs;
+    playType = aa
 }
 
 function fnCollections(cccc){
@@ -195,8 +212,9 @@ function initEventListennerBofangXunTing() {
   }, function(ret, err) {
       if (ret) {
           var bofang = ret.value.bofang;
+          var playType = ret.value.playType;
           fnXunTingXinXi();
-          fnBOFangJian(bofang);
+          fnBOFangJians(bofang,playType);
       }
   });
     //下一首
@@ -210,7 +228,7 @@ function initEventListennerBofangXunTing() {
     api.addEventListener({
         name: 'netPlayXunTing'
     }, function(ret, err) {
-      fnBOFangJian(ret.value.bofang);
+      fnBOFangJian(ret.value.bofang,ret.value.playType,ret.value.a);
       kaishibofangs();
         // netAudioPlay();
         // addtime();

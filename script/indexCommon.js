@@ -254,15 +254,23 @@ function fnBoFangyinpinxinxi() {
                     bofangmoshiid:bofangmoshiid
                 }
             });
-            if(ret.data.user_id){
-              var userId = ret.data.user_id;
-              var userUrl = ret.data.url;
-              url = userRecord + userId + '/'+ userUrl;
-              fnFuZhiAudio(url);
+            var urlUrl = ret.data.url;
+            var sandBox = urlUrl.substring(0, 4);
+            if (sandBox == 'http') {
+                url =  urlUrl;
+                fnFuZhiAudio(url);
+            }else {
+              if(ret.data.user_id){
+                var userId = ret.data.user_id;
+                var userUrl = ret.data.url;
+                url = userRecord + userId + '/'+ userUrl;
+                fnFuZhiAudio(url);
 
-            }else{
-              fnFuZhiAudio(host+'/'+ret.data.url);
+              }else{
+                fnFuZhiAudio(host+'/'+ret.data.url);
+              }
             }
+
             titlename = ret.data.title;
             reciter = ret.data.reciter;
             desc = ret.data.body;
@@ -329,36 +337,20 @@ function record_startSs(){
   }
 
 }
-function record_systemType(){
-console.log(2222);
-  api.sendEvent({
-      name: 'netBoFangPlayType',
-      extra: {
-          bofang: 2,
-          playType:playType
-      }
-  });
-  myAudio.removeEventListener('abort', record_systemType);
+// function record_startSs(){
+//   var myAudio = document.getElementById("myAudio");
+//   readyStateS = myAudio.readyState
+//   if(readyStateS == 4){
+//
+//     myAudio.removeEventListener('readyState', record_startSs);
+//   }
+//
+// }
+var aaa;
+function fnJianTing(sss){
+  aaa = sss;
 }
-function record_systemTypes(){
-console.log(3333);
-  api.sendEvent({
-      name: 'netBoFangPlayType',
-      extra: {
-          bofang: 2,
-          playType:playType
-      }
-  });
-  myAudio.removeEventListener('error', record_systemTypes);
-}
-function record_startsssssss(){
-  if(myAudio.currentTime >0){
 
-    myAudio.removeEventListener('timeupdate', record_startsssssss);
-  }
-
-
-}
 //音频播放模块
 function netAudioPlay() {
   aaaaaa = 1;
@@ -370,22 +362,49 @@ function netAudioPlay() {
   });
     var myAudio = document.getElementById("myAudio");
     myAudio.addEventListener('timeupdate', record_starts);
-    myAudio.addEventListener('timeupdate', record_startsssssss);
     myAudio.addEventListener('readyState', record_startSs);
-    myAudio.addEventListener('abort', record_systemType);
-    myAudio.addEventListener('error', record_systemTypes);
     myAudio.play();
     if(myAudio.networkState == 3){
       setTimeout(function(){
         myAudio.pause();
         myAudio.play();
-      },500)
+      },1000)
     }
-
-    // alert();
-    api.startRecord({
-        path: 'fs://luyin/ssssssssssssss.amr'
+    var phoneListener = api.require('phoneListener');
+    phoneListener.headphonePluggedListener({
+            enable : true
+        },function(ret) {
+          if(ret.state == false){
+           if(aaa == 'undefined'){
+             fnJianTing('false');
+           }else if(aaa == 'true'){
+             netAudioPause();
+             api.sendEvent({
+                 name: 'netBoFangId',
+                 extra: {
+                     bofang: 2,
+                     playType:playType
+                 }
+             });
+             api.sendEvent({
+                 name: 'netBoFangPlayType',
+                 extra: {
+                     bofang: 2,
+                     playType:playType
+                 }
+             });
+             fnJianTing('false');
+           }else if(aaa == 'false'){
+             fnJianTing('true');
+           }
+        }else if(ret.state == true){
+          fnJianTing('true');
+        }
     });
+    // alert();
+    // api.startRecord({
+    //     path: 'fs://luyin/ssssssssssssss.amr'
+    // });
     // var audioStreamer = api.require('audioStreamer');
     // audioStreamer.onNormal();
     // var agoraVideo = api.require('agoraVideo');
@@ -923,14 +942,13 @@ function fnBoFangmoshiid() {
     }
 }
 
-function fnBOFangJian(bofangs, aa, playlist,playUrlis,playTypes) {
+function fnBOFangJian(bofangs,playTypes, aa, playlist,playUrlis) {
     if (playlistid) {
         playlistid = playlist;
         playUrli = playUrli;
     }
     if(aa) {
         a = aa;
-
     }
     bofang = bofangs;
     playType=playTypes;
@@ -1042,9 +1060,9 @@ function initEventListennerBofang() {
         var playUrli = ret.value.playUrli;
         var playType = ret.value.playType;
         if (playlistid) {
-            fnBOFangJian(bofang, a, playlistid,playUrli,playType);
+            fnBOFangJian(bofang ,playType, a, playlistid,playUrli);
         } else {
-            fnBOFangJian(bofang, a,playType);
+            fnBOFangJian(bofang ,playType, a);
         }
     });
     api.addEventListener({

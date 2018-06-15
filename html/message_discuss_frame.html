@@ -218,7 +218,7 @@
 
         </ul>
         <div id="footer" class="disnone">
-            上拉加载更多
+            没有消息
         </div>
         <!-- <div class="nomessage">暂无消息01</div> -->
     </section>
@@ -298,6 +298,18 @@
             if (ret) {
                 if (ret.status == 200) {
                   // console.log(JSON.stringify(ret));
+                  if(dret.data.list.length>=10){
+                    var footer = $api.byId('footer');
+                    $api.html(footer, '上拉加载更多');
+                  }else{
+                    var footer = $api.byId('footer');
+                    $api.html(footer, '无更多消息');
+                  }
+
+                  if(!ret.data.list){
+                    var footer = $api.byId('footer');
+                    $api.html(footer, '没有消息');
+                  }
                     p = 1;
                     api.refreshHeaderLoadDone();
                     var sections = $api.byId('sections');

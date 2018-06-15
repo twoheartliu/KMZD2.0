@@ -314,6 +314,7 @@
                           // alert(111);
                           $api.html(stylelist, html);
                       } else {
+
                         var stylelists = $api.byId('wrap');
                         var htmls = '';
                         for (var i = 0; i < ret.data.length; i++) {
@@ -333,8 +334,17 @@
                           }
 
                         }
-                        var footer = $api.byId('footer');
-                        $api.html(footer, '上拉加载更多');
+                        if(ret.data.length>=10){
+                          var footer = $api.byId('footer');
+                          $api.html(footer, '上拉加载更多');
+                        }else{
+                          var footer = $api.byId('footer');
+                          $api.html(footer, '无更多数据');
+                        }
+                        if(!ret.data){
+                          var footer = $api.byId('footer');
+                          $api.html(footer, '暂无数据');
+                        }
                         $api.html(stylelists, htmls);
                         api.sendEvent({
                             name: 'netNum',

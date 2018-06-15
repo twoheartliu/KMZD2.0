@@ -29,14 +29,21 @@ function fnBoFangyinpinxinxis(id) {
                       playType:playType
                   }
               });
-              if(ret.data.user_id){
-                var userId = ret.data.user_id;
-                var userUrl = ret.data.url;
-                url = userRecord + userId + '/'+ userUrl;
-                fnFuZhiAudio(url);
+              var urlUrl = ret.data.url;
+              var sandBox = urlUrl.substring(0, 4);
+              if (sandBox == 'http') {
+                  url =  urlUrl;
+                  fnFuZhiAudio(url);
+              }else {
+                if(ret.data.user_id){
+                  var userId = ret.data.user_id;
+                  var userUrl = ret.data.url;
+                  url = userRecord + userId + '/'+ userUrl;
+                  fnFuZhiAudio(url);
 
-              }else{
-                fnFuZhiAudio(host+'/'+ret.data.url);
+                }else{
+                  fnFuZhiAudio(host+'/'+ret.data.url);
+                }
               }
 
               titlename = ret.data.title;

@@ -175,13 +175,16 @@
             duration: 2000,
             location: 'middle'
         });
-        // $api.clearStorage();
-        api.openWin({
-            name: 'login',
-            url: '../login.html',
-            pageParam: {
-                ok: 'login'
+        api.sendEvent({
+            name: 'bFaaaaa',
+            extra: {
+                bFaaaaa: 1,
+
             }
+        });
+        // $api.clearStorage();
+        api.closeToWin({
+          name: 'login'
         });
     }
 

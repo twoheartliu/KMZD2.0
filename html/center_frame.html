@@ -181,75 +181,80 @@
     }
 
     function fnOpenPlay(playType) {
-        if (playType) {
-            if (bofang == 2) {
-                if (Dqbofangid == a) {
-                    api.openWin({
-                        name: playType,
-                        url: './' + playType + '.html',
-                        pageParam: {
-                            bofang: bofang,
-                            playid: playlistid,
-                            a: a,
-                            DangQianbofangid: Dqbofangid,
-                            ok: playType,
-                            bofangmoshi: bofangmoshi,
-                            playType: playType
-                        }
-                    });
-                } else {
-                    api.openWin({
-                        name: playType,
-                        url: './' + playType + '.html',
-                        pageParam: {
-                            bofang: bofang,
-                            a: a,
-                            playid: playlistid,
-                            ok: playType,
-                            bofangmoshi: bofangmoshi,
-                            playType: playType
-                        }
-                    });
-                }
+        if (playType == 'undefined') {
+          console.log(playType);
+          api.openWin({
+              name: 'listenTo',
+              url: './listen_to.html',
+              pageParam: {
+                  ok: 'listen_to',
+                  playType: 'listen_to'
+              }
+          });
 
-            } else if (bofang == 3) {
-                if (Dqbofangid == a) {
-                    api.openWin({
-                        name: playType,
-                        url: './' + playType + '.html',
-                        pageParam: {
-                            bofang: bofang,
-                            playid: playlistid,
-                            a: a,
-                            DangQianbofangid: Dqbofangid,
-                            ok: playType,
-                            bofangmoshi: bofangmoshi,
-                            playType: playType
-                        }
-                    });
-                } else {
-                    api.openWin({
-                        name: playType,
-                        url: './' + playType + '.html',
-                        pageParam: {
-                            bofang: bofang,
-                            a: a,
-                            playid: playlistid,
-                            ok: playType,
-                            bofangmoshi: bofangmoshi,
-                            playType: playType
-                        }
-                    });
-                }
-            }
         } else {
-            api.openWin({
-                name: 'listenTo',
-                url: './listen_to.html',
-                pageParam: {
-                    ok: 'listen_to'
-                }
-            });
+          console.log(playType);
+          if (bofang == 2) {
+              if (Dqbofangid == a) {
+                  api.openWin({
+                      name: playType,
+                      url: './' + playType + '.html',
+                      pageParam: {
+                          bofang: bofang,
+                          playid: playlistid,
+                          a: a,
+                          DangQianbofangid: Dqbofangid,
+                          ok: playType,
+                          bofangmoshi: bofangmoshi,
+                          playType: playType
+                      }
+                  });
+              } else {
+                  api.openWin({
+                      name: playType,
+                      url: './' + playType + '.html',
+                      pageParam: {
+                          bofang: bofang,
+                          a: a,
+                          playid: playlistid,
+                          ok: playType,
+                          bofangmoshi: bofangmoshi,
+                          playType: playType
+                      }
+                  });
+              }
+
+          } else if (bofang == 3) {
+              if (Dqbofangid == a) {
+                  api.openWin({
+                      name: playType,
+                      url: './' + playType + '.html',
+                      pageParam: {
+                          bofang: bofang,
+                          playid: playlistid,
+                          a: a,
+                          DangQianbofangid: Dqbofangid,
+                          ok: playType,
+                          bofangmoshi: bofangmoshi,
+                          playType: playType
+                      }
+                  });
+              } else {
+                  api.openWin({
+                      name: playType,
+                      url: './' + playType + '.html',
+                      pageParam: {
+                          bofang: bofang,
+                          a: a,
+                          playid: playlistid,
+                          ok: playType,
+                          bofangmoshi: bofangmoshi,
+                          playType: playType
+                      }
+                  });
+              }
+          }
+
         }
 
     }
