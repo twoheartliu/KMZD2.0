@@ -80,6 +80,7 @@
             background: url(../image/play/scheduleliving.png) no-repeat left center;
             padding-left: 10px;
             color: #e13430;
+            /*color: #000;*/
             -webkit-background-size: 10px 13px;
             background-size: 10px 13px;
         }
@@ -138,12 +139,14 @@
     var tingdanliebiaobiaoti;
     var token;
     var playUrli;
+    var Dqbofangid;
     apiready = function() {
         var list = $api.byId('radio-list');
         $api.addCls(list, 'in');
         token = $api.getStorage('token');
         playlistid = api.pageParam.playlistid;
         playUrli = api.pageParam.playUrli;
+        Dqbofangid = api.pageParam.Dqbofangid;
         fnGeDanMingCheng();
         fnTingdanTuijian();
     };
@@ -254,15 +257,35 @@
         for (var i = 0; i < data_.data.length; i++) {
           if(data_.data[i].reciter){
             if(data_.data[i].author_name){
-              html += '<li class="active" tapmode="focus" onclick="fnPlayGeQu(' + data_.data[i].id + ');"><div><p>' + data_.data[i].title + '</p><label>作者:' + data_.data[i].author_name + ' &nbsp;&nbsp;&nbsp;朗诵：' + data_.data[i].reciter + '</label></div></li>';
+              if(data_.data[i].id == Dqbofangid){
+                html += '<li class="active" tapmode="focus" onclick="fnPlayGeQu(' + data_.data[i].id + ');"><div><p>' + data_.data[i].title + '</p><label>作者:' + data_.data[i].author_name + ' &nbsp;&nbsp;&nbsp;朗诵：' + data_.data[i].reciter + '</label></div></li>';
+              }else{
+                html += '<li tapmode="focus" onclick="fnPlayGeQu(' + data_.data[i].id + ');"><div><p>' + data_.data[i].title + '</p><label>作者:' + data_.data[i].author_name + ' &nbsp;&nbsp;&nbsp;朗诵：' + data_.data[i].reciter + '</label></div></li>';
+              }
+
             }else{
-              html += '<li class="active" tapmode="focus" onclick="fnPlayGeQu(' + data_.data[i].id + ');"><div><p>' + data_.data[i].title + '</p><label>朗诵：' + data_.data[i].reciter + '</label></div></li>';
+              if(data_.data[i].id == Dqbofangid){
+                html += '<li class="active" tapmode="focus" onclick="fnPlayGeQu(' + data_.data[i].id + ');"><div><p>' + data_.data[i].title + '</p><label>朗诵：' + data_.data[i].reciter + '</label></div></li>';
+              }else{
+                html += '<li tapmode="focus" onclick="fnPlayGeQu(' + data_.data[i].id + ');"><div><p>' + data_.data[i].title + '</p><label>朗诵：' + data_.data[i].reciter + '</label></div></li>';
+              }
+
             }
           }else{
             if(data_.data[i].author_name){
-              html += '<li class="active" tapmode="focus" onclick="fnPlayGeQu(' + data_.data[i].id + ');"><div><p>' + data_.data[i].title + '</p><label>作者:' + data_.data[i].author_name + '</label></div></li>';
+              if(data_.data[i].id == Dqbofangid){
+                html += '<li class="active" tapmode="focus" onclick="fnPlayGeQu(' + data_.data[i].id + ');"><div><p>' + data_.data[i].title + '</p><label>作者:' + data_.data[i].author_name + '</label></div></li>';
+              }else{
+                html += '<li tapmode="focus" onclick="fnPlayGeQu(' + data_.data[i].id + ');"><div><p>' + data_.data[i].title + '</p><label>作者:' + data_.data[i].author_name + '</label></div></li>';
+              }
+
             }else{
-              html += '<li class="active" tapmode="focus" onclick="fnPlayGeQu(' + data_.data[i].id + ');"><div><p>' + data_.data[i].title + '</p><label>作者:</label></div></li>';
+              if(data_.data[i].id == Dqbofangid){
+                html += '<li class="active" tapmode="focus" onclick="fnPlayGeQu(' + data_.data[i].id + ');"><div><p>' + data_.data[i].title + '</p><label>作者:</label></div></li>';
+              }else{
+                html += '<li tapmode="focus" onclick="fnPlayGeQu(' + data_.data[i].id + ');"><div><p>' + data_.data[i].title + '</p><label>作者:</label></div></li>';
+              }
+
             }
           }
         }
