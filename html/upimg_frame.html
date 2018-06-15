@@ -120,6 +120,14 @@
             font-size: 18px;
             font-weight: 800;
             /*color: #03a9f4;*/
+            position: relative;
+        }
+        .delBaby {
+            position: absolute;
+            right: 16px;
+            font-size: 13px;
+            font-weight: 500;
+
         }
 
         #header {
@@ -451,6 +459,7 @@
     }
 
 // 显示宝宝信息
+var data;
     function fn222222(data) {
         var aaaa = data.baby.length;
         var baby = data.baby;
@@ -459,6 +468,7 @@
             var htmls = '';
             for (var i = 0; i < aaaa; i++) {
                 var sex;
+                var sexs = baby[i].sex
                 if (baby[i].sex == 0) {
                     sex = '未填写';
                 }
@@ -470,14 +480,48 @@
                 }
                 var j = i + 1;
                 var mydate = timestampToTime(baby[i].birthday);
-                htmls += '<div class="upimg_div"><div class="fl">宝宝' + j + '</div></div><ul id="baby"><li onclick="fnSetGenderBaby(' + data.baby[i].baby_id + ');"><div class="fl">性别</div><div class="fr"> > </div><div class="fr" id="sexBaby' + data.baby[
+                // console.log(baby[i].birthday);
+                // console.log(mydate);
+                // var mydates = baby[i].birthday
+                htmls += '<div class="boxing"><div class="upimg_div"><div class="fl">宝宝' + j + '</div><div class="delBaby" onclick="delBaby('+data.baby[i].baby_id+')">删除</div></div><ul id="baby"><li onclick="fnSetGenderBaby(' + data.baby[i].baby_id + ');"><div class="fl">性别</div><div class="fr"> > </div><div class="fr" id="sexBaby' + data.baby[
                         i].baby_id + '">' + sex +
                     '</div></li><li id="dateShowBtn"><div class="fl">生日</div><div class="fr"> > </div><div class="fr" id="date"><input onclick="fnSetBabyBirth('+ data.baby[i].baby_id +');" type="text" id="dateSelectorTwo" class="dateSelectorOne" placeholder="' + mydate +
-                    '" readonly="readonly"></div></li></ul>';
+                    '" readonly="readonly"></div></li></ul></div>';
             }
             $api.html(stylelists, htmls);
         }
     }
+    function delBaby(foo) {
+        // console.log('sss');
+        // var user_id = $api.getStorage('user_id')
+        var uri = '/user/del_baby/' + foo;
+        console.log(host + apiUri + uri);
+        console.log(foo);
+        api.ajax({
+            url: host + apiUri + uri,
+            method: 'post',
+            dataType: 'json',
+            timeout:10,
+            headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token,
+            },
+        },function(ret, err){
+            if (ret) {
+                console.log( JSON.stringify( ret ) );
+                var cell = document.querySelector('.boxing')
+                $api.remove(cell);
+                fninfo();
+                console.log('sss');
+            } else {
+                // console.log( JSON.stringify( err ) );
+            }
+        });
+
+    }
+
+
     //添加宝宝信息
     function fnBabyAdd() {
         api.openWin({
@@ -487,19 +531,8 @@
                 ok: 'BabyAdd'
             }
         });
-
-        // var htmls = '';
-        // htmls += '<div class="upimg_div"><div class="fl">宝宝' + j + '</div></div><ul id="baby"><li onclick="fnSetGender();"><div class="fl">性别</div><div class="fr"> > </div><div class="fr" id="sex">' + sex +
-        //     '</div></li><li id="dateShowBtn"><div class="fl">生日</div><div class="fr"> > </div><div class="fr" id="date"><input type="text" id="dateSelectorTwo" class="dateSelectorOne" placeholder="' + mydate +
-        //     '" readonly="readonly"></div></li></ul>';
-        // var id = $api.byId('baby');
-        // x += 1;
-        // $api.append(id, '<div class="upimg_div">宝宝' + x + '</div>');
-        // $api.append(id, '<li onclick="fnSetGender();"><div class="fl">性别</div><div class="fr"> > </div><div class="fr">未填写</div></li>');
-        // $api.append(id, '<li><div class="fl" id="">年龄</div><div class="fr"> > </div><div class="fr"><input type="text" readonly="readonly" id="dateSelectorOne' + x + '"	class="dateSelectorOne"  placeholder="选择日期"></div></li>');
-        // var dateSelectorOnes = 'dateSelectorOne' + x;
-        // new Mdate(dateSelectorOnes);
     }
+
     // 时间戳转换成年月日
     function timestampToTime(timestamp) {
         var date = new Date(timestamp * 1000); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
