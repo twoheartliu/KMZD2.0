@@ -723,8 +723,9 @@
                   w: 130,
                   h: 35,
                   corner: 2,
-                  bg: '#e0e',
-                  size: 12
+                  bg: '#ccc',
+                  size: 12,
+                  color:'#fff'
               },
               right: {
                   marginB: 7,
@@ -732,10 +733,12 @@
                   w: 130,
                   h: 35,
                   corner: 2,
-                  bg: '#e0e',
-                  size: 12
+                  bg: '#ccc',
+                  size: 12,
+                  color:'#fff'
               }
-          }
+          },
+          tapClose: true
       }, function(ret) {
           if (ret.eventType == 'left') {
             // alert("确认删除");
@@ -761,7 +764,7 @@
                 // }
             },function(ret, err){
                 if (ret) {
-                    // console.log( JSON.stringify( ret ) );
+                    console.log( JSON.stringify( ret ) );
                     if (ret.status == 200) {
                       fnProductList();
                     }
