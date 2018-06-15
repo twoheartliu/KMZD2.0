@@ -316,17 +316,20 @@ function kaishibofang() {
 var aaaaaa;
 var readyStateS;
 function record_starts(){
-  aaaaaa = 2;
-  if(aaaaaa == 2){
-    api.sendEvent({
-        name: 'aaaaaaPlay',
-        extra: {
-            aaaaaa: aaaaaa,
-        }
-    });
+  var myAudio = document.getElementById("myAudio");
+  timesss = myAudio.currentTime
+  if(timesss > 0){
+    aaaaaa = 2;
+    if(aaaaaa == 2){
+      api.sendEvent({
+          name: 'aaaaaaPlay',
+          extra: {
+              aaaaaa: aaaaaa,
+          }
+      });
+    }
+    myAudio.removeEventListener('timeupdate', record_starts);
   }
-
-  myAudio.removeEventListener('timeupdate', record_starts);
 }
 function record_startSs(){
   var myAudio = document.getElementById("myAudio");

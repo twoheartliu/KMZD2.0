@@ -13,16 +13,18 @@
             background-color: transparent;
             overflow: hidden;
         }
-
+        .body {
+            curser:pointer;
+        }
         #mask {
-            height: 25%;
+            height: 40%;
         }
 
         #radio-list {
             -webkit-transition: all .3s;
             transition: all .3s;
             -webkit-transform: translateY(100%);
-            height: 75%;
+            height: 60%;
             display: -webkit-box;
             display: -webkit-flex;
             display: flex;
@@ -37,9 +39,10 @@
         }
 
         #radio-list h2 {
-            color: #272930;
+            color: #666;
             font-size: 16px;
             padding: 14px;
+            font-weight: 900;
             background-color: #eaeaea;
         }
 
@@ -64,6 +67,8 @@
             /*background: url(../image/ic_arrow_general.png) no-repeat 96% center;*/
             -webkit-background-size: 18px;
             background-size: 18px;
+            color: red;
+
         }
 
         #radio-list li.focus {
@@ -76,8 +81,12 @@
 
         #radio-list li.active p {
             background: url(../image/play/scheduleliving.png) no-repeat left center;
-            padding-left: 10px;
-            color: #e13430;
+            padding-left: 20px;
+            margin-left: 5px;
+            color: #A0071F;
+            font-size: 15px;
+            font-weight: 900;
+            /*color: #000;*/
             -webkit-background-size: 10px 13px;
             background-size: 10px 13px;
         }
@@ -87,17 +96,23 @@
         }
 
         #radio-list li div {
-            font-size: 16px;
-            color: #272930;
+            font-size: 14px;
+            color: #666;
+
             border-bottom: 1px solid #ddd;
         }
 
         #radio-list li label {
             margin-bottom: 10px;
-            font-size: 12px;
-            color: #787878;
+            font-size: 10px;
+            color: #666;
         }
-
+        #radio-list li.active label {
+            margin-bottom: 10px;
+            font-size: 12px;
+            margin-left: 5px;
+            color: #000;
+        }
         #radio-list li .arr {
             float: right;
             width: 10%;
