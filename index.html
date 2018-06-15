@@ -420,6 +420,7 @@ var minuteFollow; var cover_big;var footerIP; var playType;
             initEventListennerBofangXunTing();
             initEventListennerBoFangCaoGaoXiangMoshi();
             initEventListennerBofangCaoGaoXiang();
+            fnJianTing();
             //
             adjust();
             funIniGroup();
@@ -605,7 +606,7 @@ var minuteFollow; var cover_big;var footerIP; var playType;
           if(ret){
             if (ret.status == 200) {
                 api.toast({
-                    msg: '签到成功',
+                    msg: '签到成功,已连续签到'+ ret.data.sign_count +' 天',
                     duration: 2000,
                     location: 'middle'
                 });

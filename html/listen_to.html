@@ -402,6 +402,8 @@
       fnJianTingPingLunShu();
        fnBoFangPlayType()
       ok = api.pageParam.ok;
+      playType = api.pageParam.playType;
+      console.log(playType);
       var oks = 'ok'+ok;
       api.addEventListener({
           name: oks
@@ -792,41 +794,43 @@
     }
 
     function fnJinRuBofang(bofang) {
+
         if (bofang) {
             var bofang = bofang;
         } else {
             var bofang = api.pageParam.bofang;
         }
-        playType = api.pageParam.playType;
+
         api.parseTapmode();
         if (!bofang) {
             var stylelist = $api.byId('openplayer');
             var html = '';
             html += '<img src="../image/play/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player">';
             $api.html(stylelist, html);
-            bofang = 9;
+            bofang = 3;
             api.sendEvent({
                 name: 'netPlayUrlXunTing',
                 extra: {
                   bofang: bofang,
-                  playType:playType
+                  playType:playType,
+                  a: 100000000000000000000
                 }
             });
-            api.sendEvent({
-                name: 'neizhiliebiaoPlay',
-                extra: {
-                    bofang: bofang,
-                    playType:playType,
-                    a: 100000000000000000000
-                }
-            });
-        } else if (bofang == 8) {
+            // api.sendEvent({
+            //     name: 'neizhiliebiaoPlay',
+            //     extra: {
+            //         bofang: bofang,
+            //         playType:playType,
+            //
+            //     }
+            // });
+        } else if (bofang == 2) {
             var stylelist = $api.byId('openplayer');
             var html = '';
             html += '<img src="../image/play/ic_play_play.png" alt="" onclick="fnOpenPlayer();" id="player">';
             $api.html(stylelist, html);
 
-        } else if (bofang == 9) {
+        } else if (bofang == 3) {
             var stylelist = $api.byId('openplayer');
             var html = '';
             html += '<img src="../image/play/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player">';
@@ -923,7 +927,7 @@
         var player = $api.byId('player');
         if (player.getAttribute("src", 2) == "../image/play/ic_play_play.png") {
             player.src = "../image/play/ic_play_pause.png";
-            var bofang = 9;
+            var bofang = 3;
             api.sendEvent({
                 name: 'netPlayXunTing',
                 extra: {
@@ -946,7 +950,7 @@
                     netAudiopauses: 222
                 }
             });
-            var bofang = 8;
+            var bofang = 2;
             api.sendEvent({
                 name: 'neizhiliebiaoPlay',
                 extra: {

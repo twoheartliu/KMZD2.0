@@ -225,7 +225,7 @@
 
         </div>
         <div id="footer" class="disnone">
-            上拉加载更多
+            暂无数据
         </div>
     </div>
 </body>
@@ -319,7 +319,14 @@
             // alert(JSON.stringify(ret));
             if(ret){
             if (ret.status == 200) {
-
+              if (ret.data.list) {
+                if(ret.data.list.length>=10){
+                  var footer = $api.byId('footer');
+                  $api.html(footer, '上拉加载更多');
+                }else{
+                  var footer = $api.byId('footer');
+                  $api.html(footer, '无更多数据');
+                }
                 if (ret.data.fllor_info.floor_type == "block") {
                   var footer = $api.byId('footer');
                   $api.css(footer, 'display:none');
@@ -369,6 +376,10 @@
                 }
                 // fnRecommendedDirectory(ret);
                 // fnAlbumIdLift(ret);
+              } else {
+                var footer = $api.byId('footer');
+                $api.html(footer, '无更多数据');
+              }
             } else {
                 netMessage(ret);
             }
@@ -404,6 +415,12 @@
               // console.log(JSON.stringify(ret));
               // console.log(JSON.stringify(p));
               if (ret.data.list) {
+                if(ret.data.list.length>10){
+
+                }else{
+                  var footer = $api.byId('footer');
+                  $api.html(footer, '上拉加载更多');
+                }
                 if (ret.data.fllor_info.floor_type == "block") {
                   var footer = $api.byId('footer');
                   $api.css(footer, 'display:none');

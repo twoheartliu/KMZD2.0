@@ -208,7 +208,7 @@
 
   </ul>
   <div id="footer" class="disnone">
-      正在加载更多
+      没有消息
   </div>
 </section>
 </body>
@@ -294,8 +294,18 @@
               // console.log(JSON.stringify(ret));
               if(ret){
               if (ret.status == 200) {
-                var footer = $api.byId('footer');
-                $api.html(footer, '上拉加载更多');
+
+                if(dret.data.list.length>=10){
+                  var footer = $api.byId('footer');
+                  $api.html(footer, '上拉加载更多');
+                }else{
+                  var footer = $api.byId('footer');
+                  $api.html(footer, '无更多消息');
+                }
+                if(!ret.data.list){
+                  var footer = $api.byId('footer');
+                  $api.html(footer, '没有消息');
+                }
                 api.refreshHeaderLoadDone()
                 // console.log(JSON.stringify(ret));
                 var html = '';

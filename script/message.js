@@ -408,7 +408,9 @@ function netMessage(ret){
     });
 
   }
-
+  if(ret.status == 10902){
+    setTimeout("turn_logins()",2100);
+  }
 }
 function netWork(err){
   if(err.code == 0){
@@ -465,25 +467,7 @@ function netWorkNone(ok){
         hScrollBarEnabled: true
     });
 }
-function Playlogin(){
-  api.openFrame({
-      name: 'login',
-      url: '../login.html',
-      rect: {
-          x: 0,
-          y: 0,
-          w: 'auto',
-          h: 'auto'
-      },
-      pageParam: {
-          name: 'test'
-      },
-      bounces: true,
-      bgColor: 'rgba(0,0,0,0)',
-      vScrollBarEnabled: true,
-      hScrollBarEnabled: true
-  });
-}
+
 function turn_login(){
 //   api.closeToWin({
 //     name: 'login'
@@ -501,4 +485,24 @@ $api.rmStorage('token');
     name: 'login'
   });
   // setTimeout("Playlogin()",timeOut);
+}
+function turn_logins(){
+$api.rmStorage('token');
+  api.sendEvent({
+      name: 'bFaaaaa',
+      extra: {
+          bFaaaaa: 1,
+
+      }
+  });
+  api.sendEvent({
+      name: 'wwwwwwww',
+      extra: {
+          wwwwwwww: 10902,
+
+      }
+  });
+  api.closeToWin({
+    name: 'login'
+  });
 }

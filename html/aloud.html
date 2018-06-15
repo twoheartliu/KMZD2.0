@@ -443,16 +443,19 @@
     var loaded;
 
     function record_start() {
+      if(myAudio.currentTime>0){
         loaded = 1;
         var stylelist = $api.byId('loading_bgm');
         var html = '正在录制 <span id="appTime"> 00:00</span>';
         $api.html(stylelist, html);
         timedCount();
         myAudio.removeEventListener('timeupdate', record_start);
+      }
     }
 
     function fnFuzhiPlay(mp3) {
         var paths = 'http://47.100.11.38/bgmp3/' + mp3;
+        // console.log(mp3);
         var stylelist = $api.byId('yinpin');
         var html = '<audio id="myAudio" loop="0"><source src="' + paths + '" type="audio/mp3"></audio>';
         $api.html(stylelist, html);

@@ -510,9 +510,9 @@
     </div>
     <div id="con">
         <div class="playall" >
-            <div class="p13px" id="allPlay">
+            <div class="p13px" id="allPlay" onclick="fnOpenPlay();">
                 <div class="playall_img fl"><img src="../image/index/KM_bofang.png" alt=""></div>
-                <div class="playall_span fl" onclick="fnOpenPlay();">全部播放</div>
+                <div class="playall_span fl" >全部播放</div>
             </div>
         </div>
         <ul class="on" id="tuijianliebiaogequ">
@@ -581,7 +581,7 @@
           </li> -->
         </ul>
         <div id="footer" class="disnone">
-            上拉加载更多
+            暂无数据
         </div>
     </div>
 </body>
@@ -701,6 +701,7 @@
           if(ret){
             if (ret.status == 200) {
                 // setTimeout(function(){
+
                 titleFx = ret.data.title;
                 idFx = ret.data.id;
                 briefFx = ret.data.brief;
@@ -807,6 +808,13 @@
     //接口  听单展示
     function fnAlbumIdLift(data_) {
         // console.log(JSON.stringify(data_));
+        if(data_.data.length>=10){
+          var footer = $api.byId('footer');
+          $api.html(footer, '上拉加载更多');
+        }else{
+          var footer = $api.byId('footer');
+          $api.html(footer, '无更多数据');
+        }
         var stylelist = $api.byId('tuijianliebiaogequ');
         // var html = '';
         for (var i = 0; i < data_.data.length; i++) {
