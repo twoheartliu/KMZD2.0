@@ -285,6 +285,7 @@
         }
         //调接口
         function fnProductList() {
+          // console.log(p);
             api.ajax({
                 url: host + apiUri + '/user/records',
                 method: 'get',
@@ -307,15 +308,12 @@
                     // },3000)
                       var data = ret.data;
                       var len = ret.data.length;
-                      var stylelist = $api.byId('wrap');
-                      var html = '';
-                      if (data == ' ') {
-                          html = '<div class="noHistory">您还没有上传作品，赶快去朗诵自己的作品吧~</div>';
-                          // alert(111);
-                          $api.html(stylelist, html);
-                      } else {
+
+
+
 
                         var stylelists = $api.byId('wrap');
+                        // console.log(222);
                         var htmls = '';
                         for (var i = 0; i < ret.data.length; i++) {
                           if(ret.data[i].author_name = "null"){
@@ -352,13 +350,16 @@
                                 productNum: len
                             }
                         });
-                      }
+
 
 
                   }else{
                     // console.log(1111);
                     var footer = $api.byId('footer');
-                    $api.html(footer, '无更多数据');
+                    $api.html(footer, '');
+                    var stylelist = $api.byId('wrap');
+                    var html = '<div class="noHistory">您还没有上传作品，赶快去朗诵自己的作品吧~</div>';
+                    $api.html(stylelist, html);
                   }
 
                 } else {
@@ -766,6 +767,8 @@
                 if (ret) {
                     console.log( JSON.stringify( ret ) );
                     if (ret.status == 200) {
+                      console.log(1111);
+                      var p = 1;
                       fnProductList();
                     }
                 } else {
