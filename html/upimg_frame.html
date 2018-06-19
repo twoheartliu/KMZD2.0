@@ -394,7 +394,7 @@
             },
         }, function(ret, err) {
           if(ret){
-            // console.log(JSON.stringify(ret));
+            console.log(JSON.stringify(ret));
             if (ret.status == 200) {
                 //昵称
                 var stylelist = $api.byId('nickName');
@@ -577,8 +577,7 @@ var data;
                 quality: 96,
                 saveToPhotoAlbum: false
             }, function(ret, err) {
-                var data = ret.data;
-                if (!data == '') {
+                if (ret.data) {
                     $api.byId('box').style.visibility = 'visible';
                     var FNImageClip = api.require('FNImageClip');
                     FNImageClip.open({
@@ -617,60 +616,124 @@ var data;
                 mediaValue: 'pic',
                 destinationType: 'url',
                 allowEdit: true,
-                quality: 50,
-                targetWidth: 100,
-                targetHeight: 100,
-                saveToPhotoAlbum: false
+                quality: 100,
             }, function(ret, err) {
-                if (ret) {
-                    var stylelist = $api.byId('tx');
-                    var html = '<img src=" ' + updatePhotoUrl + ret.data.photo + '">';
-                    $api.html(stylelist, html);
-                  // console.log(ret.data);
-                  var token = $api.getStorage('token');
-                  api.ajax({
-                      url: host + apiUri + '/user/edit',
-                      method: 'post',
-                      dataType: 'json',
-                      timeout:10,
-                      headers: {
-                          "source": api.systemType,
-                          "version": version,
-                          "session": token
-                      },
-                      data: {
-                          values: {
-                              "name": 'photo',
-                              "value": ret.data,
-                          }
-                      }
-                  },function(ret, err){
-                      if (ret) {
-                        if (ret.status == 200) {
-                          fnUploadImage(ret);
+                if (ret.data) {
+                    api.ajax({
+                        url: host + apiUri + '/upload/user_photo',
+                        method: 'post',
+                        dataType: 'json',
+                        timeout:10,
+                        headers: {
+                            "source": api.systemType,
+                            "version": version,
+                            "session": token
+                        },
+                        data: {
+                            files: {
+                                photo: ret.data
+                            }
                         }
-                          // alert( JSON.stringify( ret ) );
-                          // console.log(JSON.stringify( ret ));
+                    }, function(ret, err) {
+                      if(ret){
+                        if (ret.status == 200) {
 
-                      } else {
-                        api.toast({
-                            msg: '上传失败',
-                            duration: 2000,
-                            location: 'middle'
-                        });
+                            api.ajax({
+                                url: host + apiUri + '/user/edit',
+                                method: 'post',
+                                dataType: 'json',
+                                timeout:10,
+                                headers: {
+                                    "source": api.systemType,
+                                    "version": version,
+                                    "session": token
+                                },
+                                data: {
+                                    values: {
+                                        "name": 'photo',
+                                        "value": ret.data,
+                                    }
+                                }
+                            }, function(ret, err) {
+                                // console.log(ret.status);
+                                if(ret){
+                                if (ret.status == 200) {
 
+                                    // $api.byId('tx').innerHTML = '<img src=" ' + updatePhotoUrl + ret.data. + ' ">';
+
+                                    api.ajax({
+                                        url: host + apiUri + '/user/info',
+                                        method: 'get',
+                                        dataType: 'json',
+                                        timeout:10,
+                                        headers: {
+                                            "source": api.systemType,
+                                            "version": version,
+                                            "session": token
+                                        },
+                                    }, function(ret, err) {
+                                      if(ret){
+                                        if (ret.status == 200) {
+                                            // $api.byId('tx').innerHTML = '<img src=" ' + updatePhotoUrl + ret.data.photo + ' ">';
+                                            var stylelist = $api.byId('tx');
+                                            var html = '<img src=" ' + updatePhotoUrl + ret.data.photo + '">';
+                                            $api.html(stylelist, html);
+                                            api.sendEvent({
+                                                name: 'netTitlePhoto',
+                                                extra: {
+                                                    titlePhoto: '<img src=" ' + updatePhotoUrl + ret.data.photo + '">'
+                                                }
+                                            });
+                                            api.toast({
+                                                msg: '上传成功',
+                                                duration: 3000,
+                                                location: 'middle'
+                                            });
+                                        } else {
+                                            netMessage(ret);
+                                        }
+                                      } else{
+                                          netWork(err);
+                                        }
+                                    });
+                                } else {
+                                    netMessage(err);
+                                }
+                              }else{
+                                netWork(err);
+                              }
+                            });
+                        } else {
+                            netMessage(err);
+                        }
+                      }else{
+                        netWork(err);
                       }
-                  });
+                    });
+
+
+
+
+
+
+
+
+                    // var stylelist = $api.byId('tx');
+                    // var html = '<img src=" ' + updatePhotoUrl + ret.data.photo + '">';
+                    // $api.html(stylelist, html);
+                  // console.log(ret.data);
+
+
                 } else {
-                  alert(ret.message);
-                  $api.rmStorage('token');
-                  api.openWin({
-                      name: 'login',
-                      url: '../login.html',
-                      pageParam: {
-                          name: 'test'
-                      }
-                  });
+                //   alert(ret.message);
+                //   $api.rmStorage('token');
+                //   api.openWin({
+                //       name: 'login',
+                //       url: '../login.html',
+                //       pageParam: {
+                //           name: 'test'
+                //       }
+                //   });
                 }
             });
         }
