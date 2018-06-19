@@ -163,6 +163,8 @@
                     // function getLocalTime(nS) {
                     //    return new Date(parseInt(nS) * 1000).toLocaleString().replace(/年|月/g, "-").replace(/日/g, " ");
                     // }
+
+                    var timestampToTimess = timetrans(ret.data[i].create_date);
                     function timetrans(date){
                           var date = new Date(date*1000);//如果date为13位不需要乘1000
                           var Y = date.getFullYear() + '年';
@@ -171,16 +173,46 @@
                           var h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
                           var m = (date.getMinutes() <10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
                           var s = (date.getSeconds() <10 ? '0' + date.getSeconds() : date.getSeconds());
-                          return Y+M+D+h+m+s;
+                          return Y+M+D+' '+h+m+s;
                       }
-                    timestampToTimess = timetrans(ret.data[i].create_date);
+
+                    // var timestampToTimess =  timestampToTime(ret.data.list[i].modify_date);
+                    // console.log(timestampToTimess);
+                    var time = timestampToTimess;
+
+                    // 时间统一函数
+                    function getTimeText(argument) {
+                        var timeS = argument;
+                        var todayT = ''; //
+                        var yestodayT = '';
+                        var timeCha = getTimeS(timeS);
+                        timeS = timeS.slice(-8);
+                        todayT = new Date().getHours()*60*60*1000 + new Date().getMinutes()*60*1000 + new Date().getSeconds()*1000;
+                        yestodayT = todayT + 24*60*60*1000;
+                        if(timeCha > yestodayT) {
+                            return argument.slice(0,11);
+                        }
+                        if(timeCha > todayT && timeCha < yestodayT) {
+                            return '昨天'+timeS.slice(0,5);
+                        }
+                        if(timeCha < todayT) {
+                            return timeS.slice(0,5);
+                        }
+                    }
+                    // 时间戳获取
+                    function getTimeS(argument) {
+                        var timeS = argument;
+                        timeS = timeS.replace(/[年月]/g,'/').replace(/[日]/,'');
+                        return new Date().getTime() - new Date(timeS).getTime() - 1000; //有一秒的误差
+                    }
+                    var timeText = getTimeText(time);
 
                     var html = ''
                     if (userId == ret.data[i].receiver_id) {
                       html += '<div class="private">'+
                                 '<div class="fr img"><img src="'+ images +'" alt=""></div>'+
                                 '<div class="fr shijianfr">'+
-                                    '<div>'+timestampToTimess+'</div>'+
+                                    '<div>'+timeText+'</div>'+
                                 '</div>'+
                                 '<div class="clr"></div>'+
                                 '<div class="name"><div class="fr">'+ret.data[i].content+'</div></div>'+
@@ -190,7 +222,7 @@
                        html += '<div class="private">'+
                               '<div class="fl img"><img src="'+ images +'" alt=""></div>'+
                               '<div class="fl shijian">'+
-                                  '<div>'+timestampToTimess+'</div>'+
+                                  '<div>'+timeText+'</div>'+
                               '</div>'+
                               '<div class="clr"></div>'+
                               '<div class="name"><div class="fl">'+ret.data[i].content+'</div></div>'+
@@ -314,7 +346,7 @@
                       var month = now.getMonth() + 1 +'月';     //月
                       var day = now.getDate() + '日';            //日
                       var hh = now.getHours() + ':';            //时
-                      var mm = now.getMinutes() + ':';          //分
+                      var mm = now.getMinutes() ;          //分
                       var ss = now.getSeconds();           //秒
                       var main = $api.byId('main');
 
@@ -331,7 +363,7 @@
                       html = '<div class="private">'+
                                 '<div class="fr img"><img src="'+ photos +'" alt=""></div>'+
                                 '<div class="fr shijianfr">'+
-                                    '<div>'+year+month+day+'  '+hh+mm+ss+'</div>'+
+                                    '<div>'+hh+mm+'</div>'+
                                 '</div>'+
                                 '<div class="clr"></div>'+
                                 '<div class="name"><div class="fr">'+msg+'</div></div>'+
