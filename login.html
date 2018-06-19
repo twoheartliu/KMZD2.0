@@ -98,14 +98,11 @@
     var userInfos = JSON.stringify($api.getStorage("userInfo"));
     var token;
     apiready = function() {
-      api.openWin({
-          name: 'index',
-          url: './index.html',
-          slidBackEnabled:false,
-          pageParam: {
-              name: 'test'
-          }
-      });
+
+
+      // fnMaskLayer();
+      setTimeout("fnIndex()",500);
+
     }
     // 遮罩层
     function fnMaskLayer() {
