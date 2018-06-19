@@ -459,7 +459,6 @@
         fnPlayHistory();
 
     }
-
     function getScrollTop() {
         var scrollTop = 0;
         if (document.documentElement && document.documentElement.scrollTop) {
@@ -470,7 +469,6 @@
         // alert(scrollTop)
         return scrollTop;
     }
-
     // 播放切换按钮
     function fnOpenPlayCollect() {
         var playCollect = $api.byId('playCollect');
@@ -482,7 +480,6 @@
     };
     // 全选按钮
     var alls;
-
     function selectAll() {
         var chckBoxSign = document.getElementById("ckb"); //ckb 全选/反选的选择框id
         var chckBox = document.getElementsByName("checkBox");
@@ -564,11 +561,13 @@
         // console.log(checked_counts);
         if (checked_counts === objarray) {
             // console.log(1);
+            // console.log(checked_counts);
             var chckBoxSign = document.getElementById("ckb"); //ckb 全选/反选的选择框id
             $api.attr(chckBoxSign, 'checked', 'true');
         }
         if (checked_counts != objarray) {
             // console.log(11);
+            // console.log(checked_counts);
             var chckBoxSign = document.getElementById("ckb");
             $api.removeAttr(chckBoxSign, 'checked') //ckb 全选/反选的选择框id
         }
@@ -584,7 +583,6 @@
             }
         });
     }
-
     //调接口
     function fnPlayHistory() {
         var uri = '/user/play_history';
@@ -722,7 +720,6 @@
             }
         });
     }
-
     function fndeleteMore() {
         var dialogBox = api.require('dialogBox');
         dialogBox.alert({
