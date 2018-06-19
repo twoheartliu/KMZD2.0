@@ -312,11 +312,13 @@ function kaishibofang() {
     netAudioPlay();
     addtime();
     jindutiao();
+    var myAudio = document.getElementById("myAudio");
+    myAudio.addEventListener('timeupdate', record_starts);
+    myAudio.addEventListener('readyState', record_startSs);
 }
 var aaaaaa;
 var readyStateS;
 function record_starts(){
-  console.log(777);
   var myAudio = document.getElementById("myAudio");
   timesss = myAudio.currentTime
   if(timesss > 0){
@@ -357,7 +359,9 @@ function fnJianTing(sss){
 
 //音频播放模块
 function netAudioPlay() {
-  console.log(6666);
+  var myAudio = document.getElementById("myAudio");
+  // myAudio.autoplay=true;
+  myAudio.play();
   aaaaaa = 1;
   api.sendEvent({
       name: 'aaaaaaPlay',
@@ -365,10 +369,10 @@ function netAudioPlay() {
           aaaaaa: aaaaaa,
       }
   });
-    var myAudio = document.getElementById("myAudio");
-    myAudio.addEventListener('timeupdate', record_starts);
-    myAudio.addEventListener('readyState', record_startSs);
-    myAudio.play();
+
+    // myAudio.addEventListener('timeupdate', record_starts);
+    // myAudio.addEventListener('readyState', record_startSs);
+
     if(myAudio.networkState == 3){
       setTimeout(function(){
         myAudio.pause();
@@ -407,9 +411,9 @@ function netAudioPlay() {
         }
     });
     // alert();
-    // api.startRecord({
-    //     path: 'fs://luyin/ssssssssssssss.amr'
-    // });
+    api.startRecord({
+        path: 'fs://luyin/ssssssssssssss.amr'
+    });
     // var audioStreamer = api.require('audioStreamer');
     // audioStreamer.onNormal();
     // var agoraVideo = api.require('agoraVideo');
