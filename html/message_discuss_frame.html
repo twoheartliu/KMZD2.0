@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="copyright" content="www.apicloud.com" />
     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no" />
     <title>孔孟之道--评论</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
     <style>
@@ -331,15 +332,48 @@
                         } else if (photo != 'http') {
                             photo = updatePhotoUrl + photos;
                         }
+                        var timestampToTimess = timetrans(ret.data.list[i].create_date);
+                        function timetrans(date){
+                              var date = new Date(date*1000);//如果date为13位不需要乘1000
+                              var Y = date.getFullYear() + '年';
+                              var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '月';
+                              var D = (date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate()) + '日';
+                              var h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
+                              var m = (date.getMinutes() <10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
+                              var s = (date.getSeconds() <10 ? '0' + date.getSeconds() : date.getSeconds());
+                              return Y+M+D+' '+h+m+s;
+                          }
 
-                        function timestampToTime(timestamp) {
-                            var date = new Date(timestamp * 1000); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
-                            Y = date.getFullYear() + '年';
-                            M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '月';
-                            D = date.getDate() + '日';
-                            return Y + M + D;
+                        // var timestampToTimess =  timestampToTime(ret.data.list[i].modify_date);
+                        // console.log(timestampToTimess);
+                        var time = timestampToTimess;
+
+                        // 时间统一函数
+                        function getTimeText(argument) {
+                            var timeS = argument;
+                            var todayT = ''; //
+                            var yestodayT = '';
+                            var timeCha = getTimeS(timeS);
+                            timeS = timeS.slice(-8);
+                            todayT = new Date().getHours()*60*60*1000 + new Date().getMinutes()*60*1000 + new Date().getSeconds()*1000;
+                            yestodayT = todayT + 24*60*60*1000;
+                            if(timeCha > yestodayT) {
+                                return argument.slice(0,11);
+                            }
+                            if(timeCha > todayT && timeCha < yestodayT) {
+                                return '昨天'+timeS.slice(0,5);
+                            }
+                            if(timeCha < todayT) {
+                                return timeS.slice(0,5);
+                            }
                         }
-                        var timestampToTimess = timestampToTime(ret.data.list[i].create_date);
+                        // 时间戳获取
+                        function getTimeS(argument) {
+                            var timeS = argument;
+                            timeS = timeS.replace(/[年月]/g,'/').replace(/[日]/,'');
+                            return new Date().getTime() - new Date(timeS).getTime() - 1000; //有一秒的误差
+                        }
+                        var timeText = getTimeText(time);
                         html +=
                             '<li>' +
                             '<div class="user-img"><img src="' + photo + '" alt=""></div>' +
@@ -349,7 +383,7 @@
                             '<div class="discuss">' +
                             '<span>' + ret.data.list[i].origin_content + '</span>' +
                             '</div>' +
-                            '<p>' + timestampToTimess + '</p>' +
+                            '<p>' + timeText + '</p>' +
                             '</div>' +
                             '</li>'
                             // console.log(ret.data.list[i].photo);
