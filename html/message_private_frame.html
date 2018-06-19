@@ -295,7 +295,7 @@
               if(ret){
               if (ret.status == 200) {
 
-                if(dret.data.list.length>=10){
+                if(ret.data.list.length>=10){
                   var footer = $api.byId('footer');
                   $api.html(footer, '上拉加载更多');
                 }else{
@@ -350,8 +350,6 @@
                         '</li>'
                 }
                 $api.html(section, html);
-                console.log(html);
-
               }
           } else {
               netMessage(ret);
