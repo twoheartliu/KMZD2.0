@@ -55,7 +55,7 @@
             border-bottom: 1px solid #f2f2f2;
         }
 
-        .message_frame_cycle_img {
+        /*.message_frame_cycle_img {
             max-width: 80px;
             min-width: 80px;
             margin-left: 0.5em;
@@ -69,8 +69,7 @@
             width: 80px;
             -webkit-box-align: center;
             vertical-align: top;
-            /*border-radius: 5px;*/
-        }
+        }*/
 
         .message_frame_cycle_div {
             overflow: hidden;
@@ -253,12 +252,11 @@
                     var author_name = singleList[i].author_name;
                     // console.log(id);
 
-                    if (img == null) {
-                        imgs = "../image/KM_album.png";
-                    } else {
-                        var img_header = 'http://47.100.11.38/';
-                        imgs = img_header + img;
-                    }
+                    // if (img == null) {
+                    //     imgs = "../image/KM_album.png";
+                    // } else {
+                    //     //
+                    // }
 
                     if (author_name == null) {
                         author = "";
@@ -268,10 +266,10 @@
 
 
                     lists = '<li id="single_' + id + '"><div class="message_frame_cycle">' +
-                        '<div class="message_frame_cycle_img"><img src=" ' + imgs + ' " onclick=fnOpenList(' + id + ') alt=""></div><div class="message_frame_cycle_div fl">' +
+                        '<div class="message_frame_cycle_img"></div><div class="message_frame_cycle_div fl" onclick=fnOpenList(' + id + ')>' +
                         '<div class="message_frame_cycle_div_1 col" onclick=fnOpenList(' + id + ')>' + title + '</div><div class="message_frame_cycle_div_3 fl">' +
                         '<div class="message_frame_cycle_div_3fl"><div class="pos collection_frame fl" onclick=fnOpenList(' + id + ')>作者：' + author +
-                        '</div><div class="pos collection_frame_img3 fr"><img src="../image/shanchu.png" onclick=fnDeleteList(' + id + ') alt=""></div></div></div></div></div></li>';
+                        '</div></div></div></div><div class="pos collection_frame_img3 fr"><img src="../image/shanchu.png" onclick=fnDeleteList(' + id + ') alt=""></div></div></li>';
 
                     container.insertAdjacentHTML('beforeend', lists)
                 }

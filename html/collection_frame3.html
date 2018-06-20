@@ -232,15 +232,14 @@
                     var title = listenList[i].title;
                     var nickName = listenList[i].nick_name;
                     var listenName = listenList[i].listening_name;
-                    var img = listenList[i].ablum_cover;
+                    var img = listenList[i].listening_cover;
                     var author_name = listenList[i].author_name;
                     // console.log(id);
-
-                    if (img == null) {
-                        imgs = "../image/KM_album.png";
+                    // console.log(img)
+                    if (img == "") {
+                        imgs = "../image/my/fnShareImg.jpg";
                     } else {
-                        var img_header = 'http://47.100.11.38/';
-                        imgs = img_header + img;
+                        imgs = listeningImg + img;
                     }
 
                     if (nickName == null) {
