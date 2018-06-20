@@ -53,6 +53,7 @@
             padding: 5px 0;
             background: #fff;
             border-bottom: 1px solid #f2f2f2;
+            position: relative;
         }
 
         .message_frame_cycle_img {
@@ -90,6 +91,7 @@
 
         .message_frame_cycle_div_3fl {
             color: #666;
+            /*position: relative;*/
         }
 
         .message_frame_cycle_div_3fl_span {
@@ -125,12 +127,18 @@
         }
 
         .collection_frame_img3 {
-            width: 16px;
-            margin: 0 10px;
+            width: 25px;
+            height: 25px;
+            font-size: 30px;
+            text-align: center;
         }
 
         .collection_frame_img3 img {
             width: 100%;
+            position: absolute;
+            top: 20%;
+            right: 10px;
+            transform: translateY(-50%);
         }
 
         .active {
@@ -273,7 +281,7 @@
                         '<div class="message_frame_cycle_img"><img src=" ' + imgs + ' " onclick=fnOpenList(' + id + ') alt=""></div><div class="message_frame_cycle_div fl">' +
                         '<div class="message_frame_cycle_div_1 col" onclick=fnOpenList(' + id + ')>' + title + '</div><div class="message_frame_cycle_div_3 fl">' +
                         '<div class="message_frame_cycle_div_3fl"><div class="pos collection_frame fl" onclick=fnOpenList(' + id + ') >作者：' + author +
-                        '</div><div class="pos collection_frame_img3 fr"><img src="../image/shanchu.png" onclick=fnDeleteList(' + id + ') alt=""></div></div></div></div></div></li>'
+                        '</div><div class="pos collection_frame_img3 fr"><img src="../image/del.png" onclick=fnDeleteList(' + id + ') alt=""></div></div></div></div></div></li>'
 
                     container.insertAdjacentHTML('beforeend', lists)
                 }

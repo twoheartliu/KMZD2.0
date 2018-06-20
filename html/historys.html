@@ -136,7 +136,11 @@
         }
 
         .message_frame_cycle_div_3fl_img img {
-            width: 100%;
+            width: 50%;
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
         }
 
         .active {
@@ -402,6 +406,7 @@
                     </div>
                 </div>
             </li> -->
+
         </ul>
     </div>
     <div class="footer active">
@@ -623,14 +628,14 @@
                                 .item_id + '" name="checkBox"  onclick="fnOpenselect()"/></div><div class="message_frame_cycle_div fl" ><div class="message" onclick="fnPlayWin();"><div class="message_frame_cycle_div_1 col">' +
                                 itemName + '</div><div class="message_frame_cycle_div_2 col">作者:<span>' + author + '</span>&nbsp;&nbsp;&nbsp;&nbsp; 朗诵者:<span>' + reciter +
                                 '</span></div></div><div class="message_frame_cycle_div_3 fl" onclick=" fndelete(' + ret.data[i].item_id +
-                                ')"> <div class="message_frame_cycle_div_3fl " ><span class="message_frame_cycle_div_3fl_img fr">×</span></div></div></div></div></li>';
+                                ')"> <div class="message_frame_cycle_div_3fl " ><span class="message_frame_cycle_div_3fl_img fr"><img src="../image/del.png" alt=""></span></div></div></div></div></li>';
 
                         } else {
                             html1 +=
                                 '<li id="id_' + ret.data[i].item_id + '"><div class="message_frame_cycle" ><div class="message_frame_cycle_imgs hy-checkk"><input class="hy-radio" type="checkbox" ng-model="item.checked1" value="' + ret.data[i]
                                 .item_id + '" name="checkBox"  onclick="fnOpenselect()"/></div><div class="message_frame_cycle_div fl"><div class="message" onclick="fnPlayWin();"><div class="message_frame_cycle_div_1 col">' +
                                 itemName + '</div><div class="message_frame_cycle_div_2 col"><span>作者:' + author + '</span></div></div><div class="message_frame_cycle_div_3 fl" onclick=" fndelete(' + ret.data[i].item_id +
-                                ')"> <div class="message_frame_cycle_div_3fl "><span class="message_frame_cycle_div_3fl_img fr">×</span></div></div></div></div></li>';
+                                ')"> <div class="message_frame_cycle_div_3fl "><span class="message_frame_cycle_div_3fl_img fr"><img src="../image/del.png" alt=""></span></div></div></div></div></li>';
                         }
                         $api.html(stylelist1, html1);
 
