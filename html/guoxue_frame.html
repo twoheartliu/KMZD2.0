@@ -73,11 +73,12 @@
           margin: 17px 2px 0 2px;
           display: inline-block;
         }
-
+        .div_img{width: 100%;text-align: center;}
+        .tdtext{text-align: center;}
         table {
 
             width: 99.5%;
-            text-align: center;
+            text-align: left;
             overflow-x: hidden;
             /*文本居中*/
             border-collapse: collapse;
@@ -89,6 +90,7 @@
         table tr {
             background: #fff;
             width: 100%;
+
         }
 
         table td {
@@ -101,6 +103,7 @@
             font: 500 14px Arial;
             height: 45px;
             font-size: 12px;
+            padding: 0 5px;
         }
 
         table tr td {
@@ -133,8 +136,8 @@
             background: none;
         }
         #view_history , #RecommendedDirectory,#directory {}
-        #directory {
-            margin-bottom: 60px;
+        .h50 {
+            height: 50px;
         }
     </style>
 </head>
@@ -154,6 +157,7 @@
 
     <table id="RecommendedDirectory"></table>
     <table id="directory"></table>
+    <div class="h50"></div>
 </body>
 
 </html>
@@ -283,17 +287,17 @@
         var r = 1;
         for (var i = 0; i < ret.data.length; i++) {
             if (c == 1) {
-                html += '<td rowspan="2" onclick="guoxue_frame(' + ret.data[i].id + ',\'' + ret.data[i].name + '\')"><div class="div_img"><img src="../image/guoxueguan/KM_MX.png" alt=""></div>' + ret.data[i].name + '</td>';
+                html += '<td rowspan="2" class="tdtext" onclick="guoxue_frame(' + ret.data[i].id + ',\'' + ret.data[i].name + '\')"><div class="div_img"><img src="../image/guoxueguan/KM_MX.png" alt=""></div>' + ret.data[i].name + '</td>';
             } else {
                 html += '<td data="' + r + '" c="' + c + '" onclick="guoxue_frame(' + ret.data[i].id + ',\'' + ret.data[i].name + '\')">' + ret.data[i].name + '</td>';
             }
-            if (r == 2 && c == 7) {
+            if (r == 2 && c == 5) {
                 html += '</tr><tr>';
             }
-            if (c % 4 == 0 && c != 8 && r == 1) {
+            if (c % 3 == 0 && c != 6 && r == 1) {
                 r++;
                 html += '</tr><tr>';
-            } else if ((c - 3) % 4 == 0 && c != 8 && r != 1) {
+            } else if ((c - 2) % 3 == 0 && c != 6 && r != 1) {
                 r++;
                 html += '</tr><tr>';
             }
@@ -331,18 +335,20 @@
     }
     //赋值目录
     function fnDirectory(ret) {
+
         var stylelist = $api.byId('directory');
         var html = '';
         for (var i = 0; i < ret.data.length; i++) {
             if (ret.data[i].p_id == 0) {
-                html += '<tr class="bg"></tr><tr class="td_bg"><td colspan="4"><div class="fl colspan_img"><img src="../image/guoxueguan/KM_gxjds.png" alt=""></div><div class="fl colspan_div">' + ret.data[i].name + '</div></td></tr><tr>'
+                html += '<tr class="bg"></tr><tr class="td_bg"><td colspan="3"><div class="fl colspan_img"><img src="../image/guoxueguan/KM_gxjds.png" alt=""></div><div class="fl colspan_div">' + ret.data[i].name + '</div></td></tr><tr>'
             }
             var y = 0;
             for (var s = 0; s < ret.data.length; s++) {
+
                 if (ret.data[s].p_id != 0 && ret.data[s].p_id == ret.data[i].id) {
-                    html += '<td  onclick="guoxue_frame(' + ret.data[s].id + ',\'' + ret.data[s].name + '\')">' + ret.data[s].name + '</td>';
+                    html += '<td onclick="guoxue_frame(' + ret.data[s].id + ',\'' + ret.data[s].name + '\')">' + ret.data[s].name + '</td>';
                     y++;
-                    if (y > 3 && y % 4 == 0) {
+                    if (y > 2 && y % 3 == 0) {
                         html += '</tr><tr>';
                     }
                 }
