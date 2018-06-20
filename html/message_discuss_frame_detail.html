@@ -222,6 +222,9 @@ var ids;
     apiready = function() {
       token = $api.getStorage('token');
         var nHeader = $api.byId('notHeader');
+        var headeris = document.querySelector('#notHeader');
+        $api.fixIos7Bar(headeris);
+        $api.fixStatusBar(headeris);
         var nHeaderPos = $api.offset(nHeader);
         var headerH = $api.offset(nHeader).h;
         // var notHeader = $api.byId('notHeader');

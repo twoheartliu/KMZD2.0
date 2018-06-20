@@ -340,7 +340,65 @@ function initTimelineSingle(songListID,title,savePath) {
         }
     });
 }
+// QQ空间
+function fnQQZoneSingle(songListID,title,savePath) {
+  alert(1);
+  // 单曲
+  var Single = host + '/kmzd/m/share1.html?id='
+  // 专辑
+  var Listening = host + '/kmzd/m/share11.html?id='
+  // 听单
+  var Album  =  host +'/kmzd/m/share111.html?id='
+  var qq = api.require('qq');
+  var listening_description;
 
+  listening_description = listening_description ? listening_description : '习孔孟之道，做有德之人。';
+  qq.shareNews({
+      type: '',
+      url: Single+songListID,
+      title: title,
+      description: listening_description,
+      imgUrl: savePath
+      // 'http://47.100.11.38/logo_144x144.png'
+  });
+
+  api.ajax({
+    url: host + apiUri + '/extra/share',
+    method: 'post',
+    dataType: 'json',
+    timeout:10,
+    headers: {
+        "source": api.systemType,
+        "version": version,
+        "session": token
+    },
+      data: {
+          values: {
+              id: songListID,
+              model: 'book',
+              share_to:'QQ'
+          }
+      }
+  },function(ret, err){
+      if (ret) {
+        api.toast({
+            msg: '分享成功',
+            duration: 2000,
+            location: 'middle'
+        });
+          // console.log( JSON.stringify( ret ) );
+      } else {
+          console.log( JSON.stringify( err ) );
+      }
+  });
+  // var qq = api.require('qq');
+  //   qq.shareNews({
+  //       url: 'http://baidu.com',
+  //       title: title,
+  //       description: '',
+  //       imgUrl: ''
+  //   });
+}
 
 // 分享听单
 // 分享微信
@@ -655,7 +713,58 @@ function initTimelineListening(name,listening_description,l_id,savePath) {
         }
     });
 }
+// QQ空间
+function fnQQZoneListening(name,listening_description,l_id,savePath) {
+  // var TypesAll;
+  // 单曲
+  var Single = host + '/kmzd/m/share1.html?id='
+  // 专辑
+  var Listening = host + '/kmzd/m/share11.html?id='
+  // 听单
+  var Album  =  host +'/kmzd/m/share111.html?id='
+  // }
+  var listening_description;
 
+  listening_description = listening_description ? listening_description : '习孔孟之道，做有德之人。';
+    var qq = api.require('qq');
+    qq.shareNews({
+        type: '',
+        url: Album + l_id,
+        title: name,
+        description: listening_description,
+        imgUrl: imgUrlListening_cover,
+
+    });
+    api.ajax({
+      url: host + apiUri + '/extra/share',
+      method: 'post',
+      dataType: 'json',
+      timeout:10,
+      headers: {
+          "source": api.systemType,
+          "version": version,
+          "session": token
+      },
+        data: {
+            values: {
+                id: songListID,
+                model: 'listen',
+                share_to:'QQ'
+            }
+        }
+    },function(ret, err){
+        if (ret) {
+          api.toast({
+              msg: '分享成功',
+              duration: 2000,
+              location: 'middle'
+          });
+            // console.log( JSON.stringify( ret ) );
+        } else {
+            console.log( JSON.stringify( err ) );
+        }
+    });
+}
 
 
 // 分享专辑
@@ -974,6 +1083,56 @@ function initTimelineAlbum(name,listening_description,l_id,savePath) {
                 duration: 2000,
                 location: 'middle'
             });
+        }
+    });
+}
+// QQ空间
+function fnQQZoneAlbum(name,listening_description,l_id,savePath) {
+  var listening_description;
+
+  listening_description = listening_description ? listening_description : '习孔孟之道，做有德之人。';
+  // 单曲
+  var Single = host + '/kmzd/m/share1.html?id='
+  // 专辑
+  var Listening = host + '/kmzd/m/share11.html?id='
+  // 听单
+  var Album  =  host +'/kmzd/m/share111.html?id='
+    var qq = api.require('qq');
+    qq.shareNews({
+        type: '',
+        url: Listening + l_id,
+        title: name,
+        description: listening_description,
+        imgUrl: savePath,
+
+    });
+    api.ajax({
+      url: host + apiUri + '/extra/share',
+      method: 'post',
+      dataType: 'json',
+      timeout:10,
+      headers: {
+          "source": api.systemType,
+          "version": version,
+          "session": token
+      },
+        data: {
+            values: {
+                id: l_id,
+                model: 'album',
+                share_to:'QQ'
+            }
+        }
+    },function(ret, err){
+        if (ret) {
+          api.toast({
+              msg: '分享成功',
+              duration: 2000,
+              location: 'middle'
+          });
+            // console.log( JSON.stringify( ret ) );
+        } else {
+            console.log( JSON.stringify( err ) );
         }
     });
 }
