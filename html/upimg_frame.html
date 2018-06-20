@@ -672,6 +672,9 @@ var data;
                 destinationType: 'url',
                 allowEdit: true,
                 quality: 100,
+                targetWidth: 500,
+                targetHeight: 500,
+                saveToPhotoAlbum: false
             }, function(ret, err) {
                 if (ret.data) {
                     api.ajax({
@@ -765,19 +768,6 @@ var data;
                         netWork(err);
                       }
                     });
-
-
-
-
-
-
-
-
-                    // var stylelist = $api.byId('tx');
-                    // var html = '<img src=" ' + updatePhotoUrl + ret.data.photo + '">';
-                    // $api.html(stylelist, html);
-                  // console.log(ret.data);
-
 
                 } else {
                 //   alert(ret.message);
