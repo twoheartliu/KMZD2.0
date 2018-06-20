@@ -77,7 +77,7 @@
 </head>
 
 <body>
-    <div class="Unbinding_name">为了您的账户安全，我们会向您的手机发送</div>
+    <div class="Unbinding_name" id="Unbinding_name"></div>
     <div class="code">
         <!-- <img src="./image/login/login_password.png" alt=""> -->
         <input type="text" placeholder="请输入验证码" id="verificationCode">
@@ -95,11 +95,10 @@
 <script type="text/javascript" src="../script/message.js"></script>
 <script type="text/javascript">
     var wait = 60;
-    var mobile;
     var token;
     apiready = function() {
         token = $api.getStorage('token');
-        mobile = api.pageParam.mobile;
+        var mobile = api.pageParam.mobile;
         var wait = 60;
         document.getElementById("button").onclick = function() {
             var buttons = document.getElementById("button");
@@ -107,6 +106,10 @@
             time(this);
             fnVerification();
         }
+        var Unbinding_name = $api.byId('Unbinding_name');
+        var sandBox = mobile.substring(3, 7);
+        var sandBoxs = mobile.replace(sandBox, '****');
+        $api.html(Unbinding_name, '为了您的' + sandBoxs + ' 账户安全，我们会向您的手机发送验证码');
     }
 
     function fnVerification() {
