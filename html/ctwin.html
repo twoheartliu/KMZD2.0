@@ -269,6 +269,8 @@
 
         .zyld_text {
             margin: 20px 0;
+            max-height: 305px;
+            overflow: auto;
         }
 
         .replyValue {
@@ -291,10 +293,15 @@
         }
         input[type=range] {
             -webkit-appearance: none;
-            width: 80%;
+            width: 63%;
             border-radius: 10px;
             display: block;
             margin: 0 auto;
+            position: absolute;
+            /*bottom: 4px;*/
+            top: 34px;
+            left: 18%;
+            height: 5px;
             /*这个属性设置使填充进度条时的图形为圆角*/
             /*background: -webkit-linear-gradient(#059CFA, #059CFA) no-repeat;*/
             /*background: -webkit-linear-gradient(#059CFA, #059CFA) no-repeat;*/
@@ -303,14 +310,18 @@
 
         input[type=range]::-webkit-slider-thumb {
             -webkit-appearance: none;
-            height: 20px;
-            width: 20px;
+            height: 15px;
+            width: 15px;
             margin-top: -5px;
+
+            margin-left: 0.5px;
+            /*margin-right: -5px*/
             /*使滑块超出轨道部分的偏移量相等*/
             background: #ffffff;
             border-radius: 50%;
             /*外观设置为圆形*/
             border: solid 0.025em rgba(205, 224, 230, 0.5);
+            /*border: solid 0.1em blue;*/
             /*设置边框*/
             box-shadow: 0 .025em .025em #3b4547;
             /*添加底部阴影*/
@@ -321,25 +332,25 @@
         }
 
         input[type=range]::-webkit-slider-runnable-track {
-            height: 10px;
-            border-radius: 10px;
+            height: 5px;
+            border-radius: 2.5px;
             /*将轨道设为圆角的*/
-            box-shadow: 0 1px 1px #def3f8, inset 0 .125em .125em #0d1112;
+            /*box-shadow: 0 1px 1px #def3f8, inset 0 .125em .125em #0d1112;*/
             /*轨道内置阴影效果*/
         }
 
         input[type=range]::-ms-fill-lower {
             /*进度条已填充的部分*/
-            height: 22px;
-            border-radius: 10px;
-            background: linear-gradient(to right, #ff0000, #1abc9c 100%, #123);
+            height: 15px;
+            border-radius: 5px;
+            /*background: linear-gradient(to right, #ff0000, #1abc9c 100%, #123);*/
             /*background: red !important;*/
         }
 
         input[type=range]::-ms-fill-upper {
             /*进度条未填充的部分*/
-            height: 22px;
-            border-radius: 10px;
+            height: 15px;
+            /*border-radius: 10px;*/
             background: #ffffff;
         }
 
@@ -352,14 +363,15 @@
         }
 
         input[type=range]::-moz-range-progress {
-            background: linear-gradient(to right, #059CFA, white 100%, white);
-            height: 13px;
-            border-radius: 10px;
+            /*background: linear-gradient(to right, #059CFA, white 100%, white);*/
+            height: 5px;
+            /*border-radius: 5px;*/
         }
 
         .red {
-            background: #000;
+            background: #89211b;
         }
+
         #slider {
             height: 50px;
             position: relative;
@@ -369,7 +381,8 @@
 
         #slider span {
             position: absolute;
-            bottom: 0;
+            /*bottom: 0;*/
+            top: 30px;
             font-size: 12px;
             color: #ccc;
         }
@@ -381,6 +394,83 @@
         #slider .e {
             right: 10px;
         }
+        /*.ImgGif{position: absolute;top: -5px;left: 18%;z-index: 99999;}
+        .loading{
+            width: 300px;
+            margin: 0 auto;
+        }*/
+        /*#ImgGif .loading span{
+            display: inline-block;
+            position: relative;
+            width: 4px;
+            height: 4px;
+            margin-right: 5px;
+            border-radius: 50%;
+            background: #999;
+            -webkit-animation: load 4s ease infinite;
+            margin-left: 10px;
+            opacity: 0;
+        }*/
+
+        /*#ImgGif .loading span:last-child{
+            margin-right: 0px;
+        }
+        @-webkit-keyframes load{
+            0%{
+                opacity: 1;
+            }
+            100%{
+                opacity: 0;
+            }
+        }
+        #ImgGif .loading span:nth-child(1){
+            -webkit-animation-delay:0.1s;
+        }
+        #ImgGif .loading span:nth-child(2){
+            -webkit-animation-delay:0.4s;
+        }
+        #ImgGif .loading span:nth-child(3){
+            -webkit-animation-delay:0.7s;
+        }
+        #ImgGif .loading span:nth-child(4){
+            -webkit-animation-delay:1s;
+        }
+        #ImgGif .loading span:nth-child(5){
+            -webkit-animation-delay:1.3s;
+        }
+        #ImgGif .loading span:nth-child(6){
+            -webkit-animation-delay:1.6s;
+        }
+        #ImgGif .loading span:nth-child(7){
+            -webkit-animation-delay:1.9s;
+        }
+        #ImgGif .loading span:nth-child(8){
+            -webkit-animation-delay:2.2s;
+        }
+        #ImgGif .loading span:nth-child(9){
+            -webkit-animation-delay:2.5s;
+        }
+        #ImgGif .loading span:nth-child(10){
+            -webkit-animation-delay:2.8s;
+        }
+        #ImgGif .loading span:nth-child(11){
+            -webkit-animation-delay:3.1s;
+        }
+        #ImgGif .loading span:nth-child(12){
+            -webkit-animation-delay:3.4s;
+        }
+        #ImgGif .loading span:nth-child(13){
+            -webkit-animation-delay:3.7s;
+        }
+        #ImgGif .loading span:nth-child(14){
+            -webkit-animation-delay:4s;
+        }*/
+        /*#ImgGif .loading span:nth-child(15){
+            -webkit-animation-delay:4.3s;
+        }
+        #ImgGif .loading span:nth-child(16){
+            -webkit-animation-delay:4.6s;
+        }*/
     </style>
 </head>
 
@@ -422,7 +512,6 @@
             <div class="zyld_text">
                 <div class="p20px">
                     <p id="jubenbody">
-                      <!-- 1234564654546545456 -->
                     </p>
                 </div>
 
@@ -445,6 +534,7 @@
             <span class="e" id="totalTime">
               00:00
             </span>
+            <!-- <div class="ImgGif" id="ImgGif"><div class="loading"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div></div> -->
         </div>
     </footer>
 

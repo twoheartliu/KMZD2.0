@@ -261,7 +261,7 @@
          background: #89211b;
        }
        .qx{
-         /*padding-top: 10px;*/
+         position: relative;
        }
        .title{
          width: 100%;
@@ -280,8 +280,87 @@
        .title p{
          font-size: 13px;
        }
-       .ImgGif{position: absolute;top: calc((100% - 100px)/2);left: calc((100% - 100px)/2);z-index: 99999;}
-       .ImgGif img{width: 100px;height: 100px;}
+       .ImgGif{    position: absolute;top: calc((100%)/2 - 11px);left: 11%;z-index: 99999;}
+       /*.ImgGif img{width: 100px;height: 100px;}*/
+       .loading{
+           width: 300px;
+           /*height: 15px;*/
+           margin: 0 auto;
+           /*margin-top:100px;*/
+       }
+       #ImgGif .loading span{
+           display: inline-block;
+           position: relative;
+           width: 4px;
+           height: 4px;
+           /*height: 100%;*/
+           margin-right: 5px;
+           border-radius: 50%;
+           background: #999;
+           -webkit-animation: load 4s ease infinite;
+           margin-left: 10px;
+           opacity: 0;
+       }
+
+       #ImgGif .loading span:last-child{
+           margin-right: 0px;
+       }
+       @-webkit-keyframes load{
+           0%{
+               opacity: 1;
+           }
+           100%{
+               opacity: 0;
+           }
+       }
+       #ImgGif .loading span:nth-child(1){
+           -webkit-animation-delay:0.1s;
+       }
+       #ImgGif .loading span:nth-child(2){
+           -webkit-animation-delay:0.4s;
+       }
+       #ImgGif .loading span:nth-child(3){
+           -webkit-animation-delay:0.7s;
+       }
+       #ImgGif .loading span:nth-child(4){
+           -webkit-animation-delay:1s;
+       }
+       #ImgGif .loading span:nth-child(5){
+           -webkit-animation-delay:1.3s;
+       }
+       #ImgGif .loading span:nth-child(6){
+           -webkit-animation-delay:1.6s;
+       }
+       #ImgGif .loading span:nth-child(7){
+           -webkit-animation-delay:1.9s;
+       }
+       #ImgGif .loading span:nth-child(8){
+           -webkit-animation-delay:2.2s;
+       }
+       #ImgGif .loading span:nth-child(9){
+           -webkit-animation-delay:2.5s;
+       }
+       #ImgGif .loading span:nth-child(10){
+           -webkit-animation-delay:2.8s;
+       }
+       #ImgGif .loading span:nth-child(11){
+           -webkit-animation-delay:3.1s;
+       }
+       #ImgGif .loading span:nth-child(12){
+           -webkit-animation-delay:3.4s;
+       }
+       #ImgGif .loading span:nth-child(13){
+           -webkit-animation-delay:3.7s;
+       }
+       #ImgGif .loading span:nth-child(14){
+           -webkit-animation-delay:4s;
+       }
+       #ImgGif .loading span:nth-child(15){
+           -webkit-animation-delay:4.3s;
+       }
+       #ImgGif .loading span:nth-child(16){
+           -webkit-animation-delay:4.6s;
+       }
       </style>
   </head>
   <body>
@@ -336,6 +415,9 @@
             <!--外层容器-->
             <!-- <progress max="100" value="0" id="pg"></progress> -->
             <span class="playTime" id="zongshichang">00:00</span>
+            <div class="ImgGif" id="ImgGif">
+
+            </div>
           </div>
         <!-- <div id="slider">
       		<span class="s">13:00:00</span>
@@ -687,7 +769,6 @@
     };
     //加载时的图片
     function fnFuCeng(){
-      console.log(9999);
       api.addEventListener({
           name: 'aaaaaaPlay'
       }, function(ret, err) {
@@ -695,13 +776,11 @@
           if(aaaaaa == 2){
             var ImgGif = $api.byId('ImgGif');
             var html = '';
-
             $api.html(ImgGif, html);
 
           }else if (aaaaaa == 1) {
-            console.log(12313256465);
             var ImgGif = $api.byId('ImgGif');
-            var html = '<img src="../res/16d7767d-7281-4d04-910f-b8d7de9d4724.gif" alt="">';
+            var html = '<div class="loading"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>';
             $api.html(ImgGif, html);
           }
           return false;
