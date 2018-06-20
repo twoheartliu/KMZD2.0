@@ -394,7 +394,7 @@
             },
         }, function(ret, err) {
           if(ret){
-            console.log(JSON.stringify(ret));
+            // console.log(JSON.stringify(ret));
             if (ret.status == 200) {
                 //昵称
                 var stylelist = $api.byId('nickName');
@@ -494,28 +494,76 @@ var data;
     function delBaby(foo) {
         // console.log('sss');
         // var user_id = $api.getStorage('user_id')
-        var uri = '/user/del_baby/' + foo;
-        console.log(host + apiUri + uri);
-        console.log(foo);
-        api.ajax({
-            url: host + apiUri + uri,
-            method: 'post',
-            dataType: 'json',
-            timeout:10,
-            headers: {
-                "source": api.systemType,
-                "version": version,
-                "session": token,
+        var dialogBox = api.require('dialogBox');
+        dialogBox.alert({
+            texts: {
+                content: '确定要删除吗？',
+                leftBtnTitle: '取消',
+                rightBtnTitle: '确认'
             },
-        },function(ret, err){
-            if (ret) {
-                console.log( JSON.stringify( ret ) );
-                var cell = document.querySelector('.boxing')
-                $api.remove(cell);
-                fninfo();
-                console.log('sss');
-            } else {
-                // console.log( JSON.stringify( err ) );
+            styles: {
+                bg: '#fff',
+                w: 300,
+                content: {
+                    color: '#000',
+                    size: 14
+                },
+                left: {
+                    marginB: 15,
+                    marginL: 20,
+                    w: 100,
+                    h: 35,
+                    corner: 2,
+                    bg: '#ccc',
+                    color: '#fff',
+                    size: 12
+                },
+                right: {
+                    marginB: 15,
+                    marginL: 60,
+                    w: 100,
+                    h: 35,
+                    corner: 2,
+                    bg: '#ccc',
+                    color: '#fff',
+                    size: 12
+                }
+            }
+        }, function(ret) {
+            if (ret.eventType == 'right') {
+                var uri = '/user/del_baby/' + foo;
+                // console.log(host + apiUri + uri);
+                // console.log(foo);
+                api.ajax({
+                    url: host + apiUri + uri,
+                    method: 'post',
+                    dataType: 'json',
+                    timeout:10,
+                    headers: {
+                        "source": api.systemType,
+                        "version": version,
+                        "session": token,
+                    },
+                },function(ret, err){
+                    if (ret) {
+                        // console.log( JSON.stringify( ret ) );
+                        var cell = document.querySelector('.boxing')
+                        $api.remove(cell);
+                        fninfo();
+                        // console.log('sss');
+                        var dialogBox = api.require('dialogBox');
+                        dialogBox.close({
+                            dialogName: 'alert'
+                        });
+                    } else {
+                        // console.log( JSON.stringify( err ) );
+                    }
+                });
+            } else if (ret.eventType == 'left') {
+                var dialogBox = api.require('dialogBox');
+                dialogBox.close({
+                    dialogName: 'alert'
+                });
             }
         });
 
