@@ -1250,15 +1250,18 @@
                 text: '微信',
                 icon: 'widget://image/weixin.png'
             }, {
+                text: '朋友圈',
+                icon: 'widget://image/friends.png'
+            }, {
                 text: 'QQ',
                 icon: 'widget://image/qq.png'
             }, {
-                text: '朋友圈',
-                icon: 'widget://image/friends.png'
+                text: 'QQ空间',
+                icon: 'widget://image/QQkongjian.png'
             }],
             styles: {
                 bg: '#FFF',
-                column: 3,
+                column: 4,
                 itemText: {
                     color: '#000',
                     size: 12,
@@ -1329,22 +1332,6 @@
                 });
                 // alert(1);
             } else if (ret.index == "1") {
-                if (Types == 'Single') {
-
-                    var savePath = '';
-                    fnintnQQSingle(songListID,title,savePath);
-                }else {
-                  // console.log(name);
-                  // console.log(listening_description);
-                  // console.log(l_id);
-                  // console.log(imgUrlListening_cover);
-                    fnintnQQListening(name,listening_description,l_id,imgUrlListening_cover);
-                }
-                dialogBox.close({
-                    dialogName: 'actionMenu'
-                });
-                // alert(2);
-            } else if (ret.index == "2") {
               if (Types == 'Single') {
                   var savePath = '';
                   initTimelineSingle(songListID,title,savePath);
@@ -1374,6 +1361,40 @@
                 });
 
                 // alert(3);
+            } else if (ret.index == "2") {
+              if (Types == 'Single') {
+
+                  var savePath = '';
+                  fnQQZoneSingle(songListID,title,savePath);
+              }else {
+                // console.log(name);
+                // console.log(listening_description);
+                // console.log(l_id);
+                // console.log(imgUrlListening_cover);
+                  fnQQZoneListening(name,listening_description,l_id,imgUrlListening_cover);
+              }
+              dialogBox.close({
+                  dialogName: 'actionMenu'
+              });
+              // alert(2);
+
+
+            }else if (ret.index == "3") {
+              if (Types == 'Single') {
+
+                  var savePath = 'undefined';
+                  fnintnQQSingle(songListID,title,savePath);
+              }else {
+                // console.log(name);
+                // console.log(listening_description);
+                // console.log(l_id);
+                // console.log(imgUrlListening_cover);
+                  fnintnQQListening(name,listening_description,l_id,imgUrlListening_cover);
+              }
+              dialogBox.close({
+                  dialogName: 'actionMenu'
+              });
+              // alert(2);
             } else {
                 dialogBox.close({
                     dialogName: 'actionMenu'
