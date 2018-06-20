@@ -539,18 +539,18 @@
                     text: '微信',
                     icon: 'widget://image/weixin.png'
                 }, {
-                    text: 'QQ空间',
-                    icon: 'widget://image/QQkongjian.png'
-                }, {
                     text: '朋友圈',
                     icon: 'widget://image/friends.png'
                 }, {
                   text: 'QQ',
                   icon: 'widget://image/qq.png'
+                }, {
+                    text: 'QQ空间',
+                    icon: 'widget://image/QQkongjian.png'
                 }],
                 styles: {
                     bg: '#FFF',
-                    column: 3,
+                    column: 4,
                     itemText: {
                         color: '#000',
                         size: 12,
@@ -604,34 +604,6 @@
                     // alert(1);
                 } else if (ret.index == "1") {
                   var imgaesFx = host +'/'+ sma;
-                  api.download({
-                      url: imgaesFx,
-                      savePath: 'fs:savePath/'+ sma,
-                      report: true,
-                      cache: true,
-                      allowResume: true
-                  }, function(ret, err) {
-                    // console.log(JSON.stringify(ret));
-                      if (ret.state == 1) {
-                          //下载成功
-                          var savePath = ret.savePath;
-                          // console.log(savePath);
-                          var songListID = id;
-                          var title = titleName;
-                          fnintnQQSingle(songListID,title,savePath);
-                          // var savePath = '';
-                          // shareMp3Single(songListID,title,savePath);
-                          // shareMp3Album(name,listening_description,l_id);
-                      } else {
-                        // console.log(JSON.stringify(err));
-                      }
-                    });
-                    dialogBox.close({
-                        dialogName: 'actionMenu'
-                    });
-                    // alert(2);
-                } else if (ret.index == "2") {
-                  var imgaesFx = host +'/'+ sma;
                   // console.log(imgaesFx);
                   api.download({
                       url: imgaesFx,
@@ -659,7 +631,7 @@
                         dialogName: 'actionMenu'
                     });
                     // alert(3);
-                } else if (ret.index == "3") {
+                } else if (ret.index == "2") {
                   var imgaesFx = host +'/'+ sma;
                   api.download({
                       url: imgaesFx,
@@ -686,6 +658,36 @@
                     dialogBox.close({
                         dialogName: 'actionMenu'
                     });
+
+                } else if (ret.index == "3") {
+                  var imgaesFx = host +'/'+ sma;
+                  api.download({
+                      url: imgaesFx,
+                      savePath: 'fs:savePath/'+ sma,
+                      report: true,
+                      cache: true,
+                      allowResume: true
+                  }, function(ret, err) {
+                    // console.log(JSON.stringify(ret));
+                      if (ret.state == 1) {
+                          //下载成功
+                          var savePath = ret.savePath;
+                          // console.log(savePath);
+                          var songListID = id;
+                          var title = titleName;
+                          fnintnQQSingle(songListID,title,savePath);
+                          // var savePath = '';
+                          // shareMp3Single(songListID,title,savePath);
+                          // shareMp3Album(name,listening_description,l_id);
+                      } else {
+                        // console.log(JSON.stringify(err));
+                      }
+                    });
+                    dialogBox.close({
+                        dialogName: 'actionMenu'
+                    });
+                    // alert(2);
+
                 } else {
                     dialogBox.close({
                         dialogName: 'actionMenu'

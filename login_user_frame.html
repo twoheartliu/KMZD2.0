@@ -204,6 +204,7 @@
       var phones = $api.byId('phone');
       phone = $api.byId('phone').value;
       var phoneRegular = /^(13[0-9]|15[012356789]|17[0135678]|18[0-9]|14[579])[0-9]{8}$/;
+      var filter  = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
       if (phone == '') {
           api.toast({
               msg: '该用户不存在',
@@ -212,14 +213,107 @@
           });
           return;
       } else if (!phoneRegular.test(phone)) {
-          api.toast({
-              msg: '该用户不存在',
-              duration: 2000,
-              location: 'middle'
-          });
-          phones.value = '';
-          return;
-      }else{
+          // api.toast({
+          //     msg: '该用户不存在',
+          //     duration: 2000,
+          //     location: 'middle'
+          // });
+          // phones.value = '';
+          // return;
+          if (!filter.test(phone)) {
+            api.toast({
+                msg: '该用户不存在',
+                duration: 2000,
+                location: 'middle'
+            });
+            phones.value = '';
+            return;
+
+          }else {
+            var passwords = $api.byId('password');
+            password = $api.byId('password').value;
+            var passwordRegular = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
+            if (password == '') {
+                api.toast({
+                    msg: '密码错误',
+                    duration: 2000,
+                    location: 'middle'
+                });
+                return;
+            } else {
+              var str = password;
+              if (str == null || str.length < 6) {
+                api.toast({
+                    msg: '密码错误',
+                    duration: 2000,
+                    location: 'middle'
+                });
+                  return;
+              }
+              var reg = new RegExp(/^(?![^a-zA-Z]+$)(?!\D+$)/);
+              if (!reg.test(str)){
+                api.toast({
+                    msg: '密码错误',
+                    duration: 2000,
+                    location: 'middle'
+                });
+                return;
+              }else{
+                if(phone){
+                  if(password){
+                    api.ajax({
+                        url: host + apiUri + '/login/phone',
+                        method: 'post',
+                        dataType: 'json',
+                        timeout:10,
+                        data: {
+                          values:{
+                            "mobile":	phone,
+                            "password":	password
+                          },
+                        },
+                        headers: {
+                          "source":api.systemType,
+                          "version":version
+                        },
+                    }, function(ret, err) {
+                        if (ret.status == 200) {
+                          var tokens = ret.data.token;
+                          $api.setStorage('token',tokens);
+                          var user_id_s = ret.data.user_id;
+                          $api.setStorage('user_id',user_id_s);
+                          var nick_name_s = ret.data.nick_name;
+                          $api.setStorage('nick_name',nick_name_s);
+                          var photo_s = ret.data.photo;
+                          $api.setStorage('photo',photo_s);
+                          var login_way_s = ret.data.login_way;
+                          $api.setStorage('login_way',login_way_s);
+                          $api.byId('password').value = '';
+                           api.openWin({
+                               name: 'index',
+                               url: 'index.html',
+                               slidBackEnabled:false,
+                               pageParam: {
+                                   name: 'test'
+                               }
+                           });
+                        }else{
+                          netMessage(ret);
+                        }
+                    });
+                  }else{
+                    api.toast({
+                        msg: '验证码错误',
+                        duration: 2000,
+                        location: 'middle'
+                    });
+                  }
+                  }
+                }
+              }
+
+          }
+      }else {
         var passwords = $api.byId('password');
         password = $api.byId('password').value;
         var passwordRegular = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
@@ -324,27 +418,30 @@
 			});
 
 		}
-    function fnSjyanzheng() {
-      var phones = $api.byId('phone');
-      phone = $api.byId('phone').value;
-      var phoneRegular = /^(13[0-9]|15[012356789]|17[0135678]|18[0-9]|14[579])[0-9]{8}$/;
-      if (phone == '') {
-          api.toast({
-              msg: '该用户不存在',
-              duration: 2000,
-              location: 'middle'
-          });
-          return;
-      } else if (!phoneRegular.test(phone)) {
-          api.toast({
-              msg: '该用户不存在',
-              duration: 2000,
-              location: 'middle'
-          });
-          phones.value = '';
-          return;
-      }
-    }
+    // function fnSjyanzheng() {
+    //   var phones = $api.byId('phone');
+    //   phone = $api.byId('phone').value;
+    //   var phoneRegular = /^(13[0-9]|15[012356789]|17[0135678]|18[0-9]|14[579])[0-9]{8}$/;
+    //   if (phone == '') {
+    //       api.toast({
+    //           msg: '该用户不存在',
+    //           duration: 2000,
+    //           location: 'middle'
+    //       });
+    //       return;
+    //   } else {
+    //     if (!phoneRegular.test(phone)) {
+    //         api.toast({
+    //             msg: '该用户不存在',
+    //             duration: 2000,
+    //             location: 'middle'
+    //         });
+    //         // phones.value = '';
+    //         return;
+    //     }
+    //   }
+    //
+    // }
     function fnPswordYanZheng() {
       var passwords = $api.byId('password');
       password = $api.byId('password').value;

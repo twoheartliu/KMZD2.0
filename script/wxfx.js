@@ -349,7 +349,7 @@ function initTimelineSingle(songListID,title,savePath) {
 }
 // QQ空间
 function fnQQZoneSingle(songListID,title,savePath) {
-  alert(1);
+  // alert(1);
   // 单曲
   var Single = host + '/kmzd/m/share1.html?id='
   // 专辑
@@ -580,7 +580,6 @@ function fnintnQQListening(name,listening_description,l_id,savePath) {
         }
     },function(ret, err){
         if (ret) {
-          alert(1);
           api.toast({
               msg: '分享成功',
               duration: 2000,
