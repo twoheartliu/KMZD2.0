@@ -155,16 +155,26 @@
             frames: [{
                 name: 'billBoardHotframe',
                 url: './bill_board_read_frame.html',
+                bounces: true,
+                vScrollBarEnabled: false,
+                hScrollBarEnabled: false,
                 // pageParam:{category:'国友榜'}
             },{
                 name: 'billBoardFriendFrame',
                 url: './bill_board_friend_frame.html',
+                bounces: true,
+                vScrollBarEnabled: false,
+                hScrollBarEnabled: false,
                 // pageParam:{category:'朗诵榜'}
             },{
                 name: 'billBoardReadframe',
                 url: './bill_board_hot_frame.html',
+                bounces: true,
+                vScrollBarEnabled: false,
+                hScrollBarEnabled: false,
                 // pageParam:{category:'热听榜'}
             }]
+
         }, function(ret, err){
             var tabs = $api.domAll('#tabs>.tab');
             for(var i = 0;i < 3;i++){

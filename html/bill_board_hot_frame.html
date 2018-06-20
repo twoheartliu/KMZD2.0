@@ -264,7 +264,40 @@
   var token;
     apiready = function(){
       token = $api.getStorage('token');
+
       fnOpenHot();
+      api.setCustomRefreshHeaderInfo({
+          bgColor: '#f0f0f0',
+          image: {
+              pull: [
+                  'widget://image/Refresh/dropdown_anim_00.png',
+                  'widget://image/Refresh/dropdown_anim_01.png',
+                  'widget://image/Refresh/dropdown_anim_02.png',
+                  'widget://image/Refresh/dropdown_anim_03.png',
+                  'widget://image/Refresh/dropdown_anim_04.png',
+                  'widget://image/Refresh/dropdown_anim_05.png',
+                  'widget://image/Refresh/dropdown_anim_06.png',
+                  'widget://image/Refresh/dropdown_anim_07.png',
+                  'widget://image/Refresh/dropdown_anim_08.png',
+                  'widget://image/Refresh/dropdown_anim_09.png',
+                  'widget://image/Refresh/dropdown_anim_10.png',
+              ],
+              load: [
+                  'widget://image/Refresh/dropdown_anim_00.png',
+                  'widget://image/Refresh/dropdown_anim_01.png',
+                  'widget://image/Refresh/dropdown_anim_02.png',
+                  'widget://image/Refresh/dropdown_anim_03.png',
+                  'widget://image/Refresh/dropdown_anim_04.png',
+                  'widget://image/Refresh/dropdown_anim_05.png',
+              ]
+          }
+      }, function() {
+          //下拉刷新被触发，自动进入加载状态，使用 api.refreshHeaderLoadDone() 手动结束加载中状态
+          //下拉刷新被触发，使用 api.refreshHeaderLoadDone() 结束加载中状态
+
+          fnOpenHot();
+
+      });
     };
     //调接口
     function fnOpenHot(){
@@ -281,6 +314,7 @@
       }, function(ret, err) {
           if(ret){
             if (ret.status == 200) {
+                api.refreshHeaderLoadDone();
               // console.log(JSON.stringify(ret));
                 var len= ret.data.length;
                 // console.log(len);
@@ -414,7 +448,7 @@
     }
 
     //打开分享
-    function fnOpenPlayShare(id,titleName , sma) {
+    function fnOpenPlayShare(id,titleName,sma) {
       // console.log(sma);
       // console.log(sma);
       var smas;
@@ -437,15 +471,18 @@
                 text: '微信',
                 icon: 'widget://image/weixin.png'
             }, {
-                text: 'QQ',
-                icon: 'widget://image/qq.png'
+                text: 'QQ空间',
+                icon: 'widget://image/QQkongjian.png'
             }, {
                 text: '朋友圈',
                 icon: 'widget://image/friends.png'
+            },{
+              text: 'QQ',
+              icon: 'widget://image/qq.png'
             }],
             styles: {
                 bg: '#FFF',
-                column: 3,
+                column: 4,
                 itemText: {
                     color: '#000',
                     size: 12,
@@ -556,7 +593,35 @@
                     dialogName: 'actionMenu'
                 });
                 // alert(3);
-            } else {
+            } else if (ret.index == "3") {
+              var imgaesFx = host +'/'+ smas;
+              // console.log(imgaesFx);
+              api.download({
+                  url: imgaesFx,
+                  savePath: 'fs:savePath/'+ smas,
+                  report: true,
+                  cache: true,
+                  allowResume: true
+              }, function(ret, err) {
+                // console.log(JSON.stringify(ret));
+                  if (ret.state == 1) {
+                      //下载成功
+                      var savePath = ret.savePath;
+                      // console.log(savePath);
+                      var songListID = id;
+                      var title = titleName;
+                      fnQQZoneSingle(songListID,title,savePath);
+                      // var savePath = '';
+                      // shareMp3Single(songListID,title,savePath);
+                      // shareMp3Album(name,listening_description,l_id);
+                  } else {
+                    console.log(JSON.stringify(err));
+                  }
+                });
+                dialogBox.close({
+                    dialogName: 'actionMenu'
+                });
+            }else {
                 dialogBox.close({
                     dialogName: 'actionMenu'
                 });

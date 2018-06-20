@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="../css/swiper.min.css">
     <link rel="stylesheet" href="../css/iconfont.css">
     <style>
+        body{margin-bottom: 30px;}
         .fr {
             float: right;
         }
@@ -352,6 +353,8 @@
             width: 16px;
             line-height: 16px;
         }
+        .botten{border-bottom: 1px solid #ccc;}
+        .botten:last-child{border-bottom: none;}
     </style>
 </head>
 
@@ -731,9 +734,9 @@
         var stylelist = $api.byId('reading_aloud_recommended');
         var html = '';
         for (var i = 0; i < data_.data.length; i++) {
-            html += '<div class="p20px clr"><div class="clr read_frame_LD"><div class="fl read_frame_LDh1">' + data_.data[i].title + '</div><div class="fr read_frame_LDld" onclick="fnLangduWin(' + data_.data[i].id +
+            html += '<div class="p20px clr botten"><div class="clr read_frame_LD"><div class="fl read_frame_LDh1">' + data_.data[i].title + '</div><div class="fr read_frame_LDld" onclick="fnLangduWin(' + data_.data[i].id +
                 ')"><img src="../image/read/KM_ld.png" alt=""><span>朗读</span></div></div><div class="clr read_frame_LDh2">' + data_.data[i].author_name + '|' + data_.data[i].category_name + '</div><div class="read_frame_LDh3 clr">' + data_.data[i].body +
-                '</div><div class="clr read_frame_DZ"><div class="fl read_frame_DZimg"><img src="../image/read/KM_read_frame_DZr.png" alt=""><span>' + data_.data[i].view_total + '人读过</span></div></div></div><div class="huise"></div>';
+                '</div><div class="clr read_frame_DZ"><div class="fl read_frame_DZimg"><img src="../image/read/KM_read_frame_DZr.png" alt=""><span>' + data_.data[i].view_total + '人读过</span></div></div></div>';
         }
         $api.html(stylelist, html);
 
