@@ -120,14 +120,17 @@
             font-size: 18px;
             font-weight: 800;
             /*color: #03a9f4;*/
-            position: relative;
+            /*position: relative;*/
         }
         .delBaby {
-            position: absolute;
-            right: 16px;
-            font-size: 13px;
-            font-weight: 500;
+            width: 20px;
+        }
 
+        .delBaby img {
+            width: 6%;
+            position: absolute;
+            right: 27px;
+            top: 17px;
         }
 
         #header {
@@ -161,6 +164,10 @@
             font-size: 14px;
             line-height: 45px;
             color: #ccc;
+        }
+
+        .boxing {
+            position: relative;
         }
     </style>
 </head>
@@ -483,7 +490,7 @@ var data;
                 // console.log(baby[i].birthday);
                 // console.log(mydate);
                 // var mydates = baby[i].birthday
-                htmls += '<div class="boxing"><div class="upimg_div"><div class="fl">宝宝' + j + '</div><div class="delBaby" onclick="delBaby('+data.baby[i].baby_id+')">删除</div></div><ul id="baby"><li onclick="fnSetGenderBaby(' + data.baby[i].baby_id + ');"><div class="fl">性别</div><div class="fr"> > </div><div class="fr" id="sexBaby' + data.baby[
+                htmls += '<div class="boxing"><div class="upimg_div"><div class="fl">宝宝' + j + '</div><div class="delBaby" onclick="delBaby('+data.baby[i].baby_id+')"><img src="../image/del.png" alt=""></div></div><ul id="baby"><li onclick="fnSetGenderBaby(' + data.baby[i].baby_id + ');"><div class="fl">性别</div><div class="fr"> > </div><div class="fr" id="sexBaby' + data.baby[
                         i].baby_id + '">' + sex +
                     '</div></li><li id="dateShowBtn"><div class="fl">生日</div><div class="fr"> > </div><div class="fr" id="date"><input onclick="fnSetBabyBirth('+ data.baby[i].baby_id +');" type="text" id="dateSelectorTwo" class="dateSelectorOne" placeholder="' + mydate +
                     '" readonly="readonly"></div></li></ul></div>';
