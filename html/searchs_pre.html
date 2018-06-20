@@ -434,9 +434,10 @@
         }
 
 
-        if (historys.length > 6) {
-            historys = historys.slice(1);
+        if (historys.length > 5) {
+            historys = historys.slice(0, -1)
         }
+        
         historys.unshift(word);
             // console.log('save');
             // console.log(historys);

@@ -351,11 +351,6 @@
                         var clicks = self.innerHTML;
                         saveHistory(clicks);
 
-
-                        // var c = choiceSave(clicks);
-                        // console.log(c);
-
-
                         api.openWin({
                             name: 'guoxue_searchs',
                             url: './guoxue_searchs.html',
@@ -422,8 +417,8 @@
         }
 
 
-        if (historys.length > 6) {
-            historys = historys.slice(1)
+        if (historys.length > 5) {
+            historys = historys.slice(0, -1)
         }
         historys.unshift(word);
             // console.log('save');
