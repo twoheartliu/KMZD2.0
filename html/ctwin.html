@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
     <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
-    <title>孔孟之道--朗读</title>
+    <title>孔孟之道--朗诵</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
     <link rel="stylesheet" type="text/css" href="../css/style.css" />
     <style>
@@ -478,7 +478,7 @@
     <header id="secHeader">
         <div class="header_fls fl" onclick="goback();"><img src="../image/icon_back.png" alt=""></div>
         <div class="header_fl fr" onclick="fnLuYinBaoCun();"><span>保存</span></div>
-        <div class="header_center">朗读</div>
+        <div class="header_center">朗诵</div>
     </header>
     <div id="yinpin">
         <!-- <audio id="myAudio" >
@@ -770,6 +770,7 @@
       shiTingBody = str5;
   		$api.html(stylelist, html);
   	}
+    // 播放按钮
     function fnOpenPlayCollect() {
         var playCollect = $api.byId('playCollect');
         if(path){
@@ -852,7 +853,6 @@
             fnGetAddTime(cur);
             fnGetTotalTime(lenth);
         }, 1000)
-
     }
 
     function goback() {

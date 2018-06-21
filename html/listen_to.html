@@ -1032,6 +1032,7 @@
     function fnOpenPlayer() {
         var player = $api.byId('player');
         if (player.getAttribute("src", 2) == "../image/play/ic_play_play.png") {
+
             player.src = "../image/play/ic_play_pause.png";
             var bofang = 3;
             api.sendEvent({
@@ -1050,12 +1051,14 @@
             });
         } else {
             player.src = "../image/play/ic_play_play.png";
+            // 这个应该是暂停的散发事件
             api.sendEvent({
                 name: 'netAudiopauseXunTing',
                 extra: {
                     netAudiopauses: 222
                 }
             });
+            // 函数不清楚是什么散发的是什么
             var bofang = 2;
             api.sendEvent({
                 name: 'neizhiliebiaoPlay',
@@ -1064,6 +1067,10 @@
                     playType:playType
                 }
             });
+
+
+
+
 
         }
     }
@@ -1335,18 +1342,18 @@
             img.style["-webkit-transform"] = rotateStyle;
             img.style["-o-transform"] = rotateStyle;
             img.style["-ms-transform"] = rotateStyle;
-
             rotate += 1;
             if (rotate > 360) {
                 rotate = 0;
             }
         }, 30);
     }
+
     function stopAnim() {
       clearInterval(timeout);
       timeout = null;
     }
-
+    // 删除
     function fnDelete(){
       api.ajax({
           url: host + apiUri + '/index/unlike/' + soundId,
@@ -1381,8 +1388,8 @@
             netWork(err);
           }
       });
-  }
-
+    }
+    // 分享
     function fnOpenPlayShare() {
       var smas;
       if (cover_big == undefined ) {
