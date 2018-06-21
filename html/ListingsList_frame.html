@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
     <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
-    <title>听单列表</title>
+    <title>单个听单的详情（列表）</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
     <style media="screen">
         body {}
@@ -492,7 +492,7 @@
 
         </ul>
         <div id="footer" class="disnone">
-            暂无数据
+            <!-- 暂无数据 -->
         </div>
     </div>
 </body>
@@ -896,20 +896,21 @@
                 var tuijianliebiaogequ = $api.byId('tuijianliebiaogequ');
                 var author_name;
                 var reciter;
+                console.log(p);
+                if (p == 1) {
+                    if (ret.data == '') {
+                        var footer = $api.byId('footer');
+                        $api.html(footer, '暂无数据');
+                    } else if (ret.data.length < 8) {
+                        var footer = $api.byId('footer');
+                        // $api.css(footer, 'display:none');
+                        $api.remove(footer);
+                    }
+                }
                 if (ret.data == '') {
                   var footer = $api.byId('footer');
-                  $api.html(footer, '无更多数据');
+                  $api.html(footer, '暂无数据');
                 }else {
-                //   console.log(ret.data.length);
-                  // if (ret.data.length < 10) {
-                  //   var footer = $api.byId('footer');
-                  //   // $api.css(footer, 'display:none');
-                  //   $api.html(footer, '无更多数据');
-                  // }else {
-                  //   var footer = $api.byId('footer');
-                  //   // $api.css(footer, 'display:block');
-                  //   $api.html(footer, '正在加载更多');
-                  // }
                   if(ret.data.length>=10){
                     var footer = $api.byId('footer');
                     $api.html(footer, '上拉加载更多');

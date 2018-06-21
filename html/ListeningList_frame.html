@@ -150,7 +150,7 @@
 <body>
     <ul id="ListeningListFrame"></ul>
     <div id="footer" class="disnone">
-        上拉加载更多
+        还未创建听单
     </div>
 </body>
 
@@ -303,21 +303,26 @@
           }, function(ret, err) {
               if (ret) {
                   if (ret.status == 200) {
-                    if (ret.data == '') {
-                      var footer = $api.byId('footer');
-                      $api.html(footer, '无更多数据');
-                    }else {
-                    //   console.log(ret.data.length);
-                      // if (ret.data.length < 10) {
-                      //   var footer = $api.byId('footer');
-                      //   // $api.css(footer, 'display:none');
-                      //   $api.html(footer, '无更多数据');
-                      // }else {
-                        var footer = $api.byId('footer');
-                        // $api.css(footer, 'display:block');
-                        $api.html(footer, '上拉加载更多');
-                      // }
-                    }
+                      if (p == 1) {
+                          if (ret.data == '') {
+                              var footer = $api.byId('footer');
+                              $api.html(footer, '还没有创建听单');
+                          }
+                          if (ret.data.length < 8) {
+                              var footer = $api.byId('footer');
+                              // $api.css(footer, 'display:none');
+                              $api.remove(footer);
+                          }
+                      } else {
+                          if (ret.data == '') {
+                            var footer = $api.byId('footer');
+                            $api.html(footer, '没有更多了');
+                          }else {
+                              var footer = $api.byId('footer');
+                              $api.html(footer, '上拉加载更多');
+                          }
+                      }
+
                           api.refreshHeaderLoadDone()
                       var id = $api.byId('ListeningListFrame');
                       for (var i = 0; i < ret.data.length; i++) {
