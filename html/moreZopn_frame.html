@@ -228,7 +228,8 @@
 
     </div>
     <div id="footer" class="disnone">
-        正在加载更多
+        <!-- 正在加载更多 -->
+        <!-- 还未上传朗诵作品 -->
     </div>
 </body>
 
@@ -238,6 +239,7 @@
 <script type="text/javascript">
     var token;
     var p = 1;
+    var isFirst = true;
     apiready = function() {
             token = $api.getStorage('token');
             fnProductList();
@@ -370,6 +372,35 @@
         }, function(ret, err) {
             // console.log(JSON.stringify(ret.status));
             if (ret.status == 200) {
+                if (p == 1) {
+                    if (ret.data == '') {
+                        var footer = $api.byId('footer');
+                        var t =
+                        `
+                        还未上传朗诵作品
+                        `
+                        $api.html(footer, t);
+
+                    } else if (ret.data.length < 8) {
+                        var footer = $api.byId('footer');
+                        // $api.css(footer, 'display:none');
+                        $api.remove(footer);
+                    }
+                } else {
+                    if (ret.data == '') {
+                        var footer = $api.byId('footer');
+                        var t =
+                        `
+                        没有更多结果了
+                        `
+                        $api.html(footer, '没有更多结果了');
+                        isFirst = false;
+                    } else {
+                            var footer = $api.byId('footer');
+                            $api.html(footer, '上拉加载更多');
+
+                    }
+                }
                 if (ret.data == '') {
                   var footer = $api.byId('footer');
                   $api.html(footer, '无更多数据');

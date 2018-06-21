@@ -191,8 +191,8 @@
             </li> -->
         </ul>
     </ul>
-    <div id="footer" onclick="fnOpenMore();" class="disnone">
-        点击加载更多
+    <div id="footer" class="disnone">
+        上拉加载更多
     </div>
 </body>
 
@@ -207,34 +207,52 @@
 
 
     apiready = function() {
-    type = api.pageParam.type;
-    token = $api.getStorage('token');
-    fnSearchMore();
-    // api.addEventListener({
-    //     name: 'scrolltobottom',
-    //     extra: {
-    //         threshold: -20 //设置距离底部多少距离时触发，默认值为0，数字类型
-    //     }
-    // }, function(ret, err) {
-    //   p ++;
-    //   console.log(p);
-
-
-    // });
+        type = api.pageParam.type;
+        token = $api.getStorage('token');
+        fnSearchMore();
+        api.addEventListener({
+            name: 'scrolltobottom',
+            extra: {
+                threshold: -20 //设置距离底部多少距离时触发，默认值为0，数字类型
+            }
+        }, function(ret, err) {
+            p++;
+            loadlist();
+        });
     }
 
+    // function fnSearchMore() {
+    //     api.addEventListener({
+    //         name: 'inputValues'
+    //     }, function(ret, err){
+    //         if( ret ){
+    //             keys = ret.value.inputValues;
+    //             if(keys){
+    //                 fnAaaaa(keys);
+    //                 return false;
+    //             }
+    //             return false;
+    //         }else{
+    //         }
+    //         return false;
+    //     });
+    //     keys = api.pageParam.keywords;
+    //     // console.log(keys);
+    //     loadlist(keys);
+    // }
 
-    function fnOpenMore() {
-        p++;
-        loadlist();
-        // console.log(p);
-    }
+    // function fnOpenMore() {
+    //     p++;
+    //     loadlist();
+    //     // console.log(p);
+    // }
 
     var aaaaa;
     var ccccc;
     var eeeee;
     var keys;
     var isFirst = true;
+
     function fnSearchMore() {
         api.addEventListener({
             name: 'inputValues'
@@ -292,7 +310,7 @@
                             if (ret.data == '') {
                                 var footer = $api.byId('footer');
                                 var t =
-                                `
+                                    `
                                 没有搜索到与“${keys}”匹配的结果
                                 `
                                 $api.html(footer, t);
@@ -305,14 +323,14 @@
                             if (ret.data == '') {
                                 var footer = $api.byId('footer');
                                 var t =
-                                `
+                                    `
                                 没有更多结果了
                                 `
                                 $api.html(footer, '没有更多结果了');
                                 isFirst = false;
                             } else {
-                                    var footer = $api.byId('footer');
-                                    $api.html(footer, '点击加载更多');
+                                var footer = $api.byId('footer');
+                                $api.html(footer, '上拉加载更多');
 
                             }
                         }

@@ -133,7 +133,7 @@
         <!-- <div class="total">已关注了<span id="total">0</span>人</div> -->
         <ul id="attention"></ul>
         <div id="footer" class="disnone">
-            上拉加载更多
+            <!-- 上拉加载更多 -->
         </div>
         <!-- <div class="nomessage">暂无消息</div> -->
     </nav>
@@ -149,6 +149,7 @@
     // 关注图片
     var userDeleteHtml;
     var p = 1;
+    var isFirst = true;
     apiready = function() {
         token = $api.getStorage('token');
         api.addEventListener({
@@ -277,7 +278,7 @@
                       }else{
                         // console.log(1111);
                         var footer = $api.byId('footer');
-                        $api.html(footer, '无更多数据');
+                        $api.html(footer, '没有更多结果了');
                       }
 
                     // $api.html(attention, html);
@@ -328,7 +329,7 @@
                                 productNum: totalHtml
                             }
                         });
-                        // html = '';
+                        var html = '';
                         for (var i = 0; i < ret.data.follow_list.length; i++) {
                             var userDelete = $api.byId('userDelete');
 
