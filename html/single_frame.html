@@ -602,6 +602,7 @@
     // 分享全局变量
     var imgaesFx , iamgFx , titleFx , idFx , briefFx;
     var p = 1;
+    var isFirst = true;
     apiready = function() {
         token = $api.getStorage('token');
         bofangmoshi = api.pageParam.bofangmoshi;
@@ -766,7 +767,6 @@
     }
     //接口  推荐听单
     var tingdanliebiaobiaoti;
-    var isFirst = true;
     function fnAlbumTrack() {
         var albumId = api.pageParam.albumId;
         uri = '/album/song_list';

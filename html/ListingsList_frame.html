@@ -530,7 +530,7 @@
     var p = 1;
     var ok;
 
-
+    var isFirst = true;
     apiready = function() {
             ok = api.pageParam.ok;
             var oks = 'ok'+ok;
@@ -596,8 +596,8 @@
                         //  $api.toggleCls(footer, 'disnone');
                       //  }, 3000);
                       var footer = $api.byId('footer');
-                      $api.html(footer, '正在加载更多');
-                      p ++;
+                      $api.html(footer, '没有更多结果了');
+                      p++;
                       songList();
                     });
 
@@ -669,8 +669,9 @@
                     //  $api.toggleCls(footer, 'disnone');
                   //  }, 3000);
                   var footer = $api.byId('footer');
-                  $api.html(footer, '正在加载更多');
-                  p ++;
+                  $api.html(footer, '没有更多结果了');
+                //   isFirst = false;
+                  p++;
                   songList();
                 });
             }
