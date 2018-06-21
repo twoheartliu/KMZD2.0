@@ -35,15 +35,15 @@
           width: 50px;height: 50px;line-height: 50px;text-align: center;z-index: 10;background: #f2f2f2;position: absolute;right: 0;top: 0;
         }
         .soundtrack_frameDiv2 img {width: 14px;height: 8px;}
-        #con ul {display:none; padding:10px;}
+        #con ul {display:none;}
         #con ul.on {display:block;}
-        #con ul li { border-bottom:1px solid #e6e6e6; text-indent:10px;overflow: hidden;}
-        #con ul li div span{display: block;height: 25px;line-height: 25px;}
+        #con ul li { border-bottom:1px solid #e6e6e6; text-indent:10px;overflow: hidden;height: 47px;padding: 10px 0;}
+        #con ul li div span{display: block;}
         .on_li_divImg img{width: 37px;height: 37px;padding: 5px;}
         .on_li_divImg1 img{width: 15px;height: 15px;padding: 16px;}
         .soundtrack_title{padding: 0 10px;margin: 14px 0;}
         .soundtrack_title b{color: red;}
-
+        .fnSoundtrackList span{height: 47px;line-height: 47px;}
     </style>
 </head>
 
@@ -108,9 +108,10 @@ var token;
   		var stylelist = $api.byId('con');
   		var html = '';
   		 for (var i = 0; i < data_.data.length; i++) {
-        html += '<ul class="on">  <li onclick="fnSoundtrackList(' + data_.data[i].style_id + ');"><div class="on_li_divImg fl">  <img src="../image/play/KM_soundtrackBF.png" alt=""></div><div class="fl" id = "title"><span >' + data_.data[i].name + '</span></div></li></ul>';
+        html += '<ul class="on">  <li onclick="fnSoundtrackList(' + data_.data[i].style_id + ');"><div class="on_li_divImg fl">  <img src="../image/play/KM_soundtrackBF.png" alt=""></div><div class="fl fnSoundtrackList" id = "title"><span >' + data_.data[i].name + '</span></div></li></ul>';
   		}
   		$api.html(stylelist, html);
+      console.log(html);
       //aSpan[0].className = 'on';
       //console.log(aSpan.length);
 
