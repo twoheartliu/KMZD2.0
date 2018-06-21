@@ -238,6 +238,7 @@
 <script type="text/javascript">
     var token;
     var p = 1;
+    var isFirst = true;
     apiready = function() {
             token = $api.getStorage('token');
             fnProductList();
@@ -278,7 +279,7 @@
                     }
                 }, function(ret, err) {
                   var footer = $api.byId('footer');
-                  $api.html(footer, '正在加载更多');
+                  $api.html(footer, '没有更多结果了');
                     p++;
                     fnProductLists();
                 });
@@ -332,16 +333,26 @@
                           }
 
                         }
-                        if(ret.data.length>=10){
-                          var footer = $api.byId('footer');
-                          $api.html(footer, '上拉加载更多');
-                        }else{
-                          var footer = $api.byId('footer');
-                          $api.html(footer, '无更多数据');
-                        }
-                        if(!ret.data){
-                          var footer = $api.byId('footer');
-                          $api.html(footer, '暂无数据');
+                        if (p == 1) {
+                             if (ret.data.length < 8) {
+                                var footer = $api.byId('footer');
+                                // $api.css(footer, 'display:none');
+                                $api.remove(footer);
+                            }
+                        } else {
+                            if (ret.data == '') {
+                                var footer = $api.byId('footer');
+                                var t =
+                                `
+                                没有更多结果了
+                                `
+                                $api.html(footer, '没有更多结果了');
+                                isFirst = false;
+                            } else {
+                                    var footer = $api.byId('footer');
+                                    $api.html(footer, '上拉加载更多');
+
+                            }
                         }
                         $api.html(stylelists, htmls);
                         api.sendEvent({
@@ -431,7 +442,7 @@
                   }else{
                     // console.log(1111);
                     var footer = $api.byId('footer');
-                    $api.html(footer, '无更多数据');
+                    $api.html(footer, '没有更多结果了');
                   }
 
                 } else {
