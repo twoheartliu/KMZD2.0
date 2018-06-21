@@ -118,13 +118,15 @@
         api.addEventListener({
             name: 'scrolltobottom',
             extra: {
-                threshold: -20 //设置距离底部多少距离时触发，默认值为0，数字类型
+                threshold: 20 //设置距离底部多少距离时触发，默认值为0，数字类型
             }
         }, function(ret, err) {
+          console.log(111);
           var footer = $api.byId('footer');
           $api.html(footer, '正在加载更多');
           p ++;
           fnGetJubenlist();
+
         });
     };
 

@@ -184,7 +184,7 @@
             </li> -->
         </ul>
     </nav>
-    <div id="footer" onclick="fnOpenMore();" class="disnone">
+    <div id="footer" class="disnone">
         <!-- 点击加载更多 -->
     </div>
 </body>
@@ -204,25 +204,19 @@
         type = api.pageParam.type;
         token = $api.getStorage('token');
         fnSearchMore();
-        // api.addEventListener({
-        //     name: 'scrolltobottom',
-        //     extra: {
-        //         threshold: -20 //设置距离底部多少距离时触发，默认值为0，数字类型
-        //     }
-        // }, function(ret, err) {
-        //   p ++;
+        api.addEventListener({
+            name: 'scrolltobottom',
+            extra: {
+                threshold: -20 //设置距离底部多少距离时触发，默认值为0，数字类型
+            }
+        }, function(ret, err) {
+          p ++;
         //   console.log(p);
 
 
-        // });
+        });
     }
 
-
-    function fnOpenMore() {
-        p++;
-        loadlist();
-        // console.log(p);
-    }
 
     var aaaaa;
     var ccccc;
@@ -307,7 +301,7 @@
                                 isFirst = false;
                             } else {
                                     var footer = $api.byId('footer');
-                                    $api.html(footer, '点击加载更多');
+                                    $api.html(footer, '上拉加载更多');
 
                             }
                         }
