@@ -295,18 +295,42 @@
               // console.log(JSON.stringify(ret));
               if(ret){
               if (ret.status == 200) {
+                  if(!ret.data.list){
+                    var footer = $api.byId('footer');
+                    $api.html(footer, '没有消息');
+                  }
+                  if (p == 1) {
+                       if (ret.data.list.length < 8) {
+                          var footer = $api.byId('footer');
+                          // $api.css(footer, 'display:none');
+                          $api.remove(footer);
+                      }
+                  } else {
+                      if (ret.data.list == '') {
+                          var footer = $api.byId('footer');
+                          var t =
+                          `
+                          没有更多结果了
+                          `
+                          $api.html(footer, '没有更多结果了');
+                      } else {
+                              var footer = $api.byId('footer');
+                              $api.html(footer, '上拉加载更多');
 
-                if(ret.data.list.length>=10){
-                  var footer = $api.byId('footer');
-                  $api.html(footer, '上拉加载更多');
-                }else{
-                  var footer = $api.byId('footer');
-                  $api.html(footer, '无更多消息');
-                }
-                if(!ret.data.list){
-                  var footer = $api.byId('footer');
-                  $api.html(footer, '没有消息');
-                }
+                      }
+                  }
+
+                // if(ret.data.list.length>=10){
+                //   var footer = $api.byId('footer');
+                //   $api.html(footer, '上拉加载更多');
+                // }else{
+                //   var footer = $api.byId('footer');
+                //   $api.html(footer, '无更多消息');
+                // }
+                // if(!ret.data.list){
+                //   var footer = $api.byId('footer');
+                //   $api.html(footer, '没有消息');
+                // }
                 api.refreshHeaderLoadDone()
                 // console.log(JSON.stringify(ret));
                 var html = '';

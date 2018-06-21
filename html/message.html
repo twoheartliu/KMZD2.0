@@ -305,22 +305,28 @@
                 var messages, comments, notify;
                 if (ret.data.message == 0) {
                   messages = '';
-                } else if (ret.data.message < 100) {
+                } else if (ret.data.message < 10) {
                     messages = '<p>'+ret.data.message+'</p>';
+                } else if (ret.data.message < 100 && ret.data.message > 10) {
+                    messages = '<p style="width: 25px">'+ret.data.message+'</p>';
                 } else {
                     messages = '<p>99+</p>';
                 }
                 if (ret.data.comment == 0) {
                     comments = '';
-                } else if (ret.data.comment < 100) {
+                } else if (ret.data.comment < 10) {
                     comments = '<p>'+ret.data.comment+'</p>';
+                } else if (ret.data.message < 100 && ret.data.message > 10) {
+                    messages = '<p style="width: 25px">'+ret.data.message+'</p>';
                 } else {
                     comments = '<p>99+</p>';
                 }
                 if (ret.data.notify == 0) {
                     notifys = '';
-                } else if (ret.data.notify < 100) {
+                } else if (ret.data.notify < 10) {
                     notifys = '<p>'+ret.data.notify+'</p>';
+                } else if (ret.data.message < 100 && ret.data.message > 10) {
+                    messages = '<p style="width: 25px">'+ret.data.message+'</p>';
                 } else {
                     notifys = '<p>99+</p>';
                 }

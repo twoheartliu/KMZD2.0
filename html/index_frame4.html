@@ -536,8 +536,10 @@
                     if (total == 0) {
                         var htmlnumIndex4 = ''
                         $api.html(numIndex4, htmlnumIndex4);
+                    } else if (total < 10) {
+                        messages = '<p>'+total+'</p>';
                     } else {
-                        var htmlnumIndex4 = '<p>' + total + '</p>'
+                        var htmlnumIndex4 = '<p style="width: 25px">' + total + '</p>'
                         $api.html(numIndex4, htmlnumIndex4);
                     }
                 } else {

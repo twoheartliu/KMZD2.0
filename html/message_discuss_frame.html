@@ -300,19 +300,40 @@
             if (ret) {
                 if (ret.status == 200) {
                   // console.log(JSON.stringify(ret));
-                  if(ret.data.list.length>=10){
-                    var footer = $api.byId('footer');
-                    $api.html(footer, '上拉加载更多');
-                  }else{
-                    var footer = $api.byId('footer');
-                    $api.html(footer, '无更多消息');
+                  if (p == 1) {
+                       if (ret.data.list.length < 8) {
+                          var footer = $api.byId('footer');
+                          // $api.css(footer, 'display:none');
+                          $api.remove(footer);
+                      }
+                  } else {
+                      if (ret.data.list == '') {
+                          var footer = $api.byId('footer');
+                          var t =
+                          `
+                          没有更多结果了
+                          `
+                          $api.html(footer, '没有更多结果了');
+                      } else {
+                              var footer = $api.byId('footer');
+                              $api.html(footer, '上拉加载更多');
+
+                      }
                   }
 
-                  if(!ret.data.list){
-                    var footer = $api.byId('footer');
-                    $api.html(footer, '没有消息');
-                  }
-                    p = 1;
+                //   if(ret.data.list.length>=10){
+                //     var footer = $api.byId('footer');
+                //     $api.html(footer, '上拉加载更多');
+                //   }else{
+                //     var footer = $api.byId('footer');
+                //     $api.html(footer, '无更多消息');
+                //   }
+                  //
+                //   if(!ret.data.list){
+                //     var footer = $api.byId('footer');
+                //     $api.html(footer, '没有消息');
+                //   }
+                //     p = 1;
                     api.refreshHeaderLoadDone();
                     var sections = $api.byId('sections');
                     var html = '';
@@ -479,7 +500,7 @@
                     }else{
                       // console.log(1111);
                       var footer = $api.byId('footer');
-                      $api.html(footer, '无更多数据');
+                      $api.html(footer, '无更多消息');
                     }
 
                         // console.log(ret.data.list[i].photo);
