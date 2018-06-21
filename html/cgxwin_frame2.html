@@ -222,6 +222,8 @@
         .active {
             display: none;
         }
+        .list_name{width: calc(100% - 50px);}
+        .list_img{width: 50px;}
     </style>
 </head>
 
@@ -314,7 +316,20 @@ var ok;
               var stylelist = $api.byId('lists');
                   var html = '';
               for (var i = 0; i < ret.data.length; i++) {
-                html +='<div class="egret-flex-item" tapmode="fmbtnhover" onclick="opencaogaoyinyue(' + ret.data[i].drafts_id + ',\'' + ret.data[i].url + '\');"><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 col fl" >' + ret.data[i].title + '</span><span class="span2 col fl">&nbsp; &nbsp; &nbsp;</span><img class="span4 col fr" onclick="dialogBox_actionMenu(' + ret.data[i].drafts_id + ');" src="../image/KM_list_more.png"alt=""/></div></div></div>';
+                html +=
+                '<div class="egret-flex-item" tapmode="fmbtnhover">'+
+                    '<div class="egret-flex-item-shelf" >'+
+                      '<div class="egret-flex-item-shelf01">'+
+                        '<div class="fl list_name"  onclick="opencaogaoyinyue(' + ret.data[i].drafts_id + ',\'' + ret.data[i].url + '\');">'+
+                          '<span class="span1 col fl" >' + ret.data[i].title + '</span>'+
+                          '<span class="span2 col fl">&nbsp; &nbsp; &nbsp;</span>'+
+                        '</div>'+
+                      '<div class="fr list_img">'+
+                        '<img class="span4 col fr" onclick="dialogBox_actionMenu(' + ret.data[i].drafts_id + ');" src="../image/KM_list_more.png"alt=""/>'+
+                      '</div>'+
+                      '</div>'+
+                    '</div>'+
+                  '</div>';
                 $api.html(stylelist, html);
               }
             } else {
@@ -446,7 +461,7 @@ var ok;
                             data: {
                                 values: {
                                     "script_id": ret.data[h].script_id,
-                                    "title": ret.data[h].time,
+                                    "title": ret.data[h].title,
                                     "author_id": ret.data[h].author_id,
                                     "lyric": ret.data[h].body,
                                     "records": ret.data[h].url,

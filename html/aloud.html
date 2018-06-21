@@ -356,6 +356,7 @@
     var draftsId;
     var pathSss = 1;
     var ok;
+    var isFirst = true;
     apiready = function() {
         token = $api.getStorage('token');
         path = '';
@@ -599,8 +600,12 @@
             }
         });
     }
+
+
+    // 在这里添加要限制的代码
     //进入背景音乐列表
     function fnSoundtrackWin() {
+      if (isFirst) {
         api.openWin({
             name: 'soundtrack',
             url: './soundtrack.html',
@@ -608,6 +613,14 @@
                 ok: 'soundtrack'
             }
         });
+      }else {
+        api.toast({              
+            msg:   '请先暂停后再选背景音乐',
+            duration:  2000,
+            location:   'middle'          
+        });
+      }
+
 
     }
 
@@ -862,20 +875,24 @@
             playCollect.src = "../image/read/recordingStart.png";
             fnNetAudiosLuYinByID();
             a = 1;
+            isFirst = false;
         } else {
             playCollect.src = "../image/read/recording.png";
             a = 2;
             //暂停播放
             if (myAudioPlay == 1) {
+                isFirst = true;
                 var myAudio = document.getElementById("myAudio");
                 myAudio.pause();
                 myAudio.currentTime = 0;
+
             }
 
             stopCount();
             //暂停录音
             api.stopRecord(function(ret, err) {
                 if (ret) {
+                    isFirst = true;
                     path = ret.path;
                     duration = ret.duration;
                 }
