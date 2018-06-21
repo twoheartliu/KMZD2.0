@@ -581,7 +581,7 @@
           </li> -->
         </ul>
         <div id="footer" class="disnone">
-            暂无数据
+            <!-- 暂无数据 -->
         </div>
     </div>
 </body>
@@ -664,7 +664,8 @@
           }
       }, function(ret, err) {
         var footer = $api.byId('footer');
-        $api.html(footer, '正在加载更多');
+        $api.html(footer, '没有更多结果了');
+        isFirst = false;
           p++;
           fnAlbumTrack();
       });
@@ -765,6 +766,7 @@
     }
     //接口  推荐听单
     var tingdanliebiaobiaoti;
+    var isFirst = true;
     function fnAlbumTrack() {
         var albumId = api.pageParam.albumId;
         uri = '/album/song_list';
@@ -789,9 +791,9 @@
               if(ret.data){
                   fnAlbumIdLift(ret);
               }else{
-                // console.log(1111);
-                var footer = $api.byId('footer');
-                $api.html(footer, '无更多数据');
+                // // console.log(1111);
+                // var footer = $api.byId('footer');
+                // $api.html(footer, '无更多数据');
               }
                 // fnRecommendedDirectory(ret);
 
@@ -808,37 +810,55 @@
     //接口  听单展示
     function fnAlbumIdLift(data_) {
         // console.log(JSON.stringify(data_));
-        if(data_.data.length>=10){
-          var footer = $api.byId('footer');
-          $api.html(footer, '上拉加载更多');
-        }else{
-          var footer = $api.byId('footer');
-          $api.html(footer, '无更多数据');
-        }
-        var stylelist = $api.byId('tuijianliebiaogequ');
-        // var html = '';
-        for (var i = 0; i < data_.data.length; i++) {
-            if (data_.data[i].author_name) {
-                    $api.append(stylelist, '<li  class="items"><div class="on_play" onclick="fnOpenPlay(' + data_.data[i].id + ' );"><div class="on_playall"><span class="fl on_playall_name">' + data_.data[i].title + '</span><span class="fl on_playall_names"> ' + data_
-                    .data[
-                        i].author_name +
-                    '</span>  </div><div class="on_playall_img"><div class="on_playall_div fl"><div class="on_playall_div_img fl"> <img src="../image/KM_play.png" alt=""></div> <div class="on_playall_div_span fl"><span>' + data_.data[i].play_total +
-                    '</span> </div></div> <div class="on_playall_div fl"> <div class="on_playall_div_img fl"> <img src="../image/KM_zf.png" alt=""> </div><div class="on_playall_div_span fl"> <span>' + data_.data[i].share_total +
-                    '</span> </div>  </div><div class="on_playall_div fl">  <div class="on_playall_div_img fl"><img src="../image/KM_dz.png" alt="">  </div><div class="on_playall_div_span fl"><span>' + data_.data[i].good_total +
-                    '</span></div></div></div></div><div class="on_playall_more_imgs fr" onclick="fnOpenPlayMore('+ data_.data[i].id +',\''+data_.data[i].title+'\');"><img src="../image/KM_list_more.png" alt=""></div></li>');
+        if (isFirst) {
+            if (p == 1) {
+                 if (data_ < 8) {
+                    var footer = $api.byId('footer');
+                    // $api.css(footer, 'display:none');
+                    $api.remove(footer);
+                }
             } else {
-                    $api.append(stylelist,'<li  class="items"><div class="on_play" onclick="fnOpenPlay(' + data_.data[i].id + ' );"><div class="on_playall"><span class="fl on_playall_name">' + data_.data[i].title +
-                    '</span></div><div class="on_playall_img"><div class="on_playall_div fl"><div class="on_playall_div_img fl"> <img src="../image/KM_play.png" alt=""></div> <div class="on_playall_div_span fl"><span>' + data_.data[i].play_total +
-                    '</span> </div></div> <div class="on_playall_div fl"> <div class="on_playall_div_img fl"> <img src="../image/KM_zf.png" alt=""> </div><div class="on_playall_div_span fl"> <span>' + data_.data[i].share_total +
-                    '</span> </div>  </div><div class="on_playall_div fl">  <div class="on_playall_div_img fl"><img src="../image/KM_dz.png" alt="">  </div><div class="on_playall_div_span fl"><span>' + data_.data[i].good_total +
-                    '</span></div></div></div></div><div class="on_playall_more_imgs fr" onclick="fnOpenPlayMore('+ data_.data[i].id +',\''+data_.data[i].title+'\');"><img src="../image/KM_list_more.png" alt=""></div></li>');
+                if (data_ == '') {
+                    var footer = $api.byId('footer');
+                    var t =
+                    `
+                    没有更多结果了
+                    `
+                    $api.html(footer, '没有更多结果了');
+                    isFirst = false;
+                } else {
+                        var footer = $api.byId('footer');
+                        $api.html(footer, '上拉加载更多');
+
+                }
             }
 
+            var stylelist = $api.byId('tuijianliebiaogequ');
+            // var html = '';
+            for (var i = 0; i < data_.data.length; i++) {
+                if (data_.data[i].author_name) {
+                        $api.append(stylelist, '<li  class="items"><div class="on_play" onclick="fnOpenPlay(' + data_.data[i].id + ' );"><div class="on_playall"><span class="fl on_playall_name">' + data_.data[i].title + '</span><span class="fl on_playall_names"> ' + data_
+                        .data[
+                            i].author_name +
+                        '</span>  </div><div class="on_playall_img"><div class="on_playall_div fl"><div class="on_playall_div_img fl"> <img src="../image/KM_play.png" alt=""></div> <div class="on_playall_div_span fl"><span>' + data_.data[i].play_total +
+                        '</span> </div></div> <div class="on_playall_div fl"> <div class="on_playall_div_img fl"> <img src="../image/KM_zf.png" alt=""> </div><div class="on_playall_div_span fl"> <span>' + data_.data[i].share_total +
+                        '</span> </div>  </div><div class="on_playall_div fl">  <div class="on_playall_div_img fl"><img src="../image/KM_dz.png" alt="">  </div><div class="on_playall_div_span fl"><span>' + data_.data[i].good_total +
+                        '</span></div></div></div></div><div class="on_playall_more_imgs fr" onclick="fnOpenPlayMore('+ data_.data[i].id +',\''+data_.data[i].title+'\');"><img src="../image/KM_list_more.png" alt=""></div></li>');
+                } else {
+                        $api.append(stylelist,'<li  class="items"><div class="on_play" onclick="fnOpenPlay(' + data_.data[i].id + ' );"><div class="on_playall"><span class="fl on_playall_name">' + data_.data[i].title +
+                        '</span></div><div class="on_playall_img"><div class="on_playall_div fl"><div class="on_playall_div_img fl"> <img src="../image/KM_play.png" alt=""></div> <div class="on_playall_div_span fl"><span>' + data_.data[i].play_total +
+                        '</span> </div></div> <div class="on_playall_div fl"> <div class="on_playall_div_img fl"> <img src="../image/KM_zf.png" alt=""> </div><div class="on_playall_div_span fl"> <span>' + data_.data[i].share_total +
+                        '</span> </div>  </div><div class="on_playall_div fl">  <div class="on_playall_div_img fl"><img src="../image/KM_dz.png" alt="">  </div><div class="on_playall_div_span fl"><span>' + data_.data[i].good_total +
+                        '</span></div></div></div></div><div class="on_playall_more_imgs fr" onclick="fnOpenPlayMore('+ data_.data[i].id +',\''+data_.data[i].title+'\');"><img src="../image/KM_list_more.png" alt=""></div></li>');
+                }
+
+            }
+            // $api.html(stylelist, html);
+            var stylelists = $api.byId('allPlay');
+            var htmls = '<div class="playall_img fl"><img src="../image/index/KM_bofang.png" alt=""></div><div class="playall_span fl" onclick="fnOpenPlay(' + data_.data[0].id + ');">全部播放</div>';
+            $api.html(stylelists, htmls);
         }
-        // $api.html(stylelist, html);
-        var stylelists = $api.byId('allPlay');
-        var htmls = '<div class="playall_img fl"><img src="../image/index/KM_bofang.png" alt=""></div><div class="playall_span fl" onclick="fnOpenPlay(' + data_.data[0].id + ');">全部播放</div>';
-        $api.html(stylelists, htmls);
+
     }
 
     function fnTingdanZhanshibiaoti(data_) {
