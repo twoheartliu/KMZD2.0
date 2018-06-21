@@ -228,6 +228,7 @@
     var ccccc;
     var eeeee;
     var keys;
+    var isFirst = true;
 
     function fnSearchMore() {
         api.addEventListener({
@@ -260,84 +261,87 @@
         if (!i) {
             i = keys;
         }
-        api.ajax({
-            url: host + apiUri + '/search/',
-            method: 'get',
-            dataType: 'json',
-            timeout: 10,
-            headers: {
-                "source": api.systemType,
-                "version": version,
-                "session": token,
-            },
-            data: {
-                values: {
-                    keywords: i,
-                    p: p,
-                    type: 'user',
+        if (isFirst) {
+            api.ajax({
+                url: host + apiUri + '/search/',
+                method: 'get',
+                dataType: 'json',
+                timeout: 10,
+                headers: {
+                    "source": api.systemType,
+                    "version": version,
+                    "session": token,
                 },
-            },
-        }, function(ret, err) {
-            if (ret) {
-                // console.log(JSON.stringify(ret));
-                if (ret.status === 200) {
-                    if (p == 1) {
-                        if (ret.data == '') {
-                            var footer = $api.byId('footer');
-                            var t =
-                            `
-                            没有搜索到与“${keys}”匹配的结果
-                            `
-                            $api.html(footer, t);
-                        } else if (ret.data.length < 8) {
-                            var footer = $api.byId('footer');
-                            // $api.css(footer, 'display:none');
-                            $api.remove(footer);
-                        }
-                    } else {
-                        if (ret.data == '') {
-                            var footer = $api.byId('footer');
-                            var t =
-                            `
-                            没有更多结果了
-                            `
-                            $api.html(footer, '没有更多结果了');
-                        } else {
+                data: {
+                    values: {
+                        keywords: i,
+                        p: p,
+                        type: 'user',
+                    },
+                },
+            }, function(ret, err) {
+                if (ret) {
+                    // console.log(JSON.stringify(ret));
+                    if (ret.status === 200) {
+                        if (p == 1) {
+                            if (ret.data == '') {
                                 var footer = $api.byId('footer');
-                                $api.html(footer, '点击加载更多');
+                                var t =
+                                `
+                                没有搜索到与“${keys}”匹配的结果
+                                `
+                                $api.html(footer, t);
+                            } else if (ret.data.length < 8) {
+                                var footer = $api.byId('footer');
+                                // $api.css(footer, 'display:none');
+                                $api.remove(footer);
+                            }
+                        } else {
+                            if (ret.data == '') {
+                                var footer = $api.byId('footer');
+                                var t =
+                                `
+                                没有更多结果了
+                                `
+                                $api.html(footer, '没有更多结果了');
+                                isFirst = false;
+                            } else {
+                                    var footer = $api.byId('footer');
+                                    $api.html(footer, '点击加载更多');
 
+                            }
                         }
-                    }
-                    // var html = '';
-                    // setTimeout(function(){
-                    //     api.refreshHeaderLoadDone()
-                    // },3000)
-                    var container = $api.byId('id-container');
-                    for (var i = 0; i < ret.data.length; i++) {
-                        // console.log(JSON.stringify(ret.data[i]));
-                        var data = ret.data[i];
-                        var id = data.id;
-                        var img = updatePhotoUrl + data.photo;
-                        var nickname = data.nick_name;
-                        var sign = data.signature;
-                        // console.log(JSON.stringify(data));
-                        // console.log(img);
+                        // var html = '';
+                        // setTimeout(function(){
+                        //     api.refreshHeaderLoadDone()
+                        // },3000)
+                        var container = $api.byId('id-container');
+                        for (var i = 0; i < ret.data.length; i++) {
+                            // console.log(JSON.stringify(ret.data[i]));
+                            var data = ret.data[i];
+                            var id = data.id;
+                            var img = updatePhotoUrl + data.photo;
+                            var nickname = data.nick_name;
+                            var sign = data.signature;
+                            // console.log(JSON.stringify(data));
+                            // console.log(img);
 
-                        if (data.photo == '') {
-                            img = "../image/KM_tx.png";
+                            if (data.photo == '') {
+                                img = "../image/KM_tx.png";
+                            }
+
+                            $api.append(container,
+                                '<li onclick="fnOpenmyPersonal(' + id + ',\'' + nickname + '\');" class="item"><div class="user-detail"><div class="user-img"><img src="' + img + '" alt=""></div><div class="user-name"><p>' + nickname +
+                                '</p></div><div class="user-bio"><p>' + sign + '</p></div></div><div class="add"></div></li>');
                         }
 
-                        $api.append(container,
-                            '<li onclick="fnOpenmyPersonal(' + id + ',\'' + nickname + '\');" class="item"><div class="user-detail"><div class="user-img"><img src="' + img + '" alt=""></div><div class="user-name"><p>' + nickname +
-                            '</p></div><div class="user-bio"><p>' + sign + '</p></div></div><div class="add"></div></li>');
+
                     }
-
-
+                } else {
+                    alert(JSON.stringify(err));
                 }
-            } else {
-                alert(JSON.stringify(err));
-            }
-        });
+            });
+        }
 
     }
 
