@@ -134,7 +134,7 @@
         <!-- <div class="total">您已有<span id="total">0</span>粉丝</div> -->
         <ul id="attention"></ul>
         <div id="footer" class="disnone">
-            上拉加载更多
+            <!-- 上拉加载更多 -->
         </div>
         <!-- <div class="nomessage">暂无消息</div> -->
     </nav>
@@ -150,6 +150,7 @@
     // 关注图片
     var userDeleteHtml;
     var p = 1;
+    var isFirst = true;
     apiready = function() {
         token = $api.getStorage('token');
         fnOpenUserButton();
@@ -189,8 +190,13 @@
                 threshold: -20 //设置距离底部多少距离时触发，默认值为0，数字类型
             }
         }, function(ret, err) {
+            if (data_ < 8) {
+               var footer = $api.byId('footer');
+               // $api.css(footer, 'display:none');
+               $api.remove(footer);
+           }
           var footer = $api.byId('footer');
-          $api.html(footer, '正在加载更多');
+          $api.html(footer, '没有更多结果了');
             p++;
             fnOpenUserButtonsss();
         });
