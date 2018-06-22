@@ -594,7 +594,7 @@
                     $api.html(stylelist, html);
                     //签名
                     var stylelist1 = $api.byId('signature');
-                    if (ret.data.signature == null) {
+                    if (!ret.data.signature) {
                         var html1 = '您还没有填写签名';
                         $api.html(stylelist1, html1);
                     } else {

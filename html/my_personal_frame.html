@@ -673,7 +673,7 @@
               $api.html(headerImg, html4);
               //签名
               var stylelist1 = $api.byId('signature');
-              if (ret.data.user_info.signature == null) {
+              if (!ret.data.user_info.signature) {
                   var html1 = '还没有填写签名';
                   $api.html(stylelist1, html1);
               } else {
