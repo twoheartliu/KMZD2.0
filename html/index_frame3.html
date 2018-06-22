@@ -485,6 +485,9 @@
 <script type="text/javascript" src="../script/message.js"></script>
 <script type="text/javascript">
     var token;
+    //这个是个人主页返回来的id
+    var indexframe3My;
+    var indexframe3MyFalse;
     apiready = function() {
             token = $api.getStorage('token');
             fnBanners();
@@ -507,6 +510,30 @@
                     }
                 });
             }
+            fnIndexframe3My();
+        }
+        function fnIndexframe3My() {
+          api.addEventListener({
+              name: 'indexframe3My'
+          }, function(ret, err) {
+
+            var userFollowType = document.getElementById('user_' + ret.value.indexframe3My).value;
+            var userButton = document.getElementById('userButton' + ret.value.indexframe3My);
+            if (userButton.getAttribute("src", 2) == "../image/read/care.png") {
+                userButton.src = "../image/read/care1.png";
+            }
+            indexframe3My = ret.value.indexframe3My;
+          });
+          api.addEventListener({
+              name: 'indexframe3MyFalse'
+          }, function(ret, err) {
+            var userFollowType = document.getElementById('user_' + ret.value.indexframe3MyFalseId).value;
+            var userButton = document.getElementById('userButton' + ret.value.indexframe3MyFalseId);
+            if (userButton.getAttribute("src", 1) == "../image/read/care1.png") {
+                userButton.src = "../image/read/care.png";
+            }
+            // indexframe3My = ret.value.indexframe3My;
+          });
         }
         //  banner 接口
     function fnBanners() {
@@ -739,7 +766,6 @@
                 '</div><div class="clr read_frame_DZ"><div class="fl read_frame_DZimg"><img src="../image/read/KM_read_frame_DZr.png" alt=""><span>' + data_.data[i].view_total + '人读过</span></div></div></div>';
         }
         $api.html(stylelist, html);
-
     }
     //调国友推荐接口
     function fnRecommendFriends() {
@@ -791,7 +817,7 @@
                         '<span class="name">' + nickname + '</span>' +
                         '<span  > <img src="../image/read/care.png" alt="" class="userButton" id="userButton' + ret.data[i].user_id + '" onclick="fnOpenUserButton(\'' + ret.data[i].user_id + '\',\'' + ret.data[i].nick_name + '\')" ></span>' +
                         '</p>' +
-                        '<p class="p">  ' +
+                        '<p class="p">' +
                         '<span>粉丝</span><span>' + fans + '</span>  ' +
                         '<span>作品</span><span>' + product + '</span>' +
                         '</p>' +
@@ -880,13 +906,19 @@
     //     });
     //
     // }
-
+    var logid;
     //加关注
     function fnOpenUserButton(id, nickname) {
-
         var userFollowType = document.getElementById('user_' + id).value;
         var userButton = document.getElementById('userButton' + id);
-        if (userFollowType == 1) {
+
+          if (indexframe3My == id) {
+            fnOpenmyPersonal(id, nickname);
+          }else {
+            if (logid == id) {
+                fnOpenmyPersonal(id, nickname);
+
+            }else {
             userFollowType = document.getElementById('user_' + id).value = 0;
             var dialogBox = api.require('dialogBox');
             dialogBox.alert({
@@ -925,6 +957,7 @@
                 }
             }, function(ret) {
                 if (ret.eventType == 'right') {
+                    logid = id;
                     api.ajax({
                         url: host + apiUri + '/user/follow',
                         method: 'post',
@@ -958,9 +991,12 @@
                 }
             });
 
-        } else {
+            }
+
+          // var userFollowType = document.getElementById('user_' + id).value;
+          // console.log(userFollowType);
             //说明已关注，执行页面跳转
-            fnOpenmyPersonal(id, nickname);
+            //
         }
     }
 
@@ -972,7 +1008,8 @@
             pageParam: {
                 userId: id,
                 nickName: nickname,
-                ok:'my_personal'
+                ok:'my_personal',
+                WhetherToAdd : '1'
             },
         });
     };
