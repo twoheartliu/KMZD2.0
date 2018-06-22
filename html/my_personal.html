@@ -86,7 +86,7 @@
         var nickName1 = $api.byId('nickName');
         $api.fixStatusBar(header);
         var headerPos = $api.offset(header).h;
-
+        var WhetherToAdd = api.pageParam.WhetherToAdd;
         // console.log(nickName);
         ok = api.pageParam.ok;
         var oks = 'ok'+ok;
@@ -110,7 +110,8 @@
                 },
                 pageParam: {
                     userId: userId,
-                    nickName: nickName
+                    nickName: nickName,
+                    WhetherToAdd: WhetherToAdd
                 },
                 bounces: false,
             });

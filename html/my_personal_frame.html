@@ -632,8 +632,23 @@
               //关注
               var headerCare = $api.byId('headerCare');
               if(ret.data.relation == false){
+                console.log(1111111111111);
+                api.sendEvent({
+                    name: 'indexframe3MyFalse',
+                    extra: {
+                        indexframe3MyFalse: 'indexframe3MyFalse',
+                        indexframe3MyFalseId: userId
+                    }
+                });
                 html6 = '<img src="../image/my/care_a.png" alt="" class="indexHeaderCare1" id="indexHeaderCare11" onclick="fnOpenAddCare('+ret.data.relation+');"><img src="../image/my/personal_private_a.png" alt="" class="indexHeaderCare1" onclick="fnOpenPersonalPrivate(\''+ret.data.user_info.signature+'\',\''+ret.data.user_info.nick_name+'\');">';
               }else if(ret.data.relation == true){
+                console.log(2222222222);
+                api.sendEvent({
+                    name: 'indexframe3My',
+                    extra: {
+                        indexframe3My: userId
+                    }
+                });
                 html6 = '<img src="../image/my/care_g.png" alt="" class="indexHeaderCare1" id="indexHeaderCare11" onclick="fnOpenAddCare('+ret.data.relation+');"><img src="../image/my/personal_private_a.png" alt="" class="indexHeaderCare1" onclick="fnOpenPersonalPrivate(\''+ret.data.user_info.signature+'\',\''+ret.data.user_info.nick_name+'\');">';
               }
 
