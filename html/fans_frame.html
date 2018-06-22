@@ -120,11 +120,99 @@
             height: 100px;
             line-height: 100px;
         }
+
         #footer {
             width: 100%;
             height: 50px;
             line-height: 50px;
             text-align: center;
+        }
+        /*加载loading的样式css 到结束*/
+
+        #loadEffect {
+            position: fixed;
+            top: 33.33%;
+            left: calc((50%) - 25px);
+        }
+
+        .loadEffect {
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            margin: 0 auto;
+            /*margin-top:100px;*/
+            /*position: fixed;*/
+        }
+
+        .loadEffect span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #ccc;
+            position: absolute;
+            -webkit-animation: load 1.04s ease infinite;
+        }
+
+        @-webkit-keyframes load {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0.2;
+            }
+        }
+
+        .loadEffect span:nth-child(1) {
+            left: 0;
+            top: 50%;
+            margin-top: -4px;
+            -webkit-animation-delay: 0.13s;
+        }
+
+        .loadEffect span:nth-child(2) {
+            left: 7px;
+            top: 7px;
+            -webkit-animation-delay: 0.26s;
+        }
+
+        .loadEffect span:nth-child(3) {
+            left: 50%;
+            top: 0;
+            margin-left: -4px;
+            -webkit-animation-delay: 0.39s;
+        }
+
+        .loadEffect span:nth-child(4) {
+            top: 7px;
+            right: 7px;
+            -webkit-animation-delay: 0.52s;
+        }
+
+        .loadEffect span:nth-child(5) {
+            right: 0;
+            top: 50%;
+            margin-top: -4px;
+            -webkit-animation-delay: 0.65s;
+        }
+
+        .loadEffect span:nth-child(6) {
+            right: 7px;
+            bottom: 7px;
+            -webkit-animation-delay: 0.78s;
+        }
+
+        .loadEffect span:nth-child(7) {
+            bottom: 0;
+            left: 50%;
+            margin-left: -4px;
+            -webkit-animation-delay: 0.91s;
+        }
+
+        .loadEffect span:nth-child(8) {
+            bottom: 7px;
+            left: 7px;
+            -webkit-animation-delay: 1.04s;
         }
     </style>
 </head>
@@ -138,6 +226,9 @@
         </div>
         <!-- <div class="nomessage">暂无消息</div> -->
     </nav>
+    <!-- 加载loading的dom -->
+    <div id="loadEffect"></div>
+    <!-- ~~~~ -->
 </body>
 
 </html>
@@ -152,6 +243,10 @@
     var p = 1;
     var isFirst = true;
     apiready = function() {
+        // 刚开始的时候加载loading
+        var loadEffect = $api.byId('loadEffect');
+        htmlloadEffect = '<div class="loadEffect"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>'
+        $api.html(loadEffect, htmlloadEffect);
         token = $api.getStorage('token');
         fnOpenUserButton();
         api.setCustomRefreshHeaderInfo({
@@ -191,12 +286,12 @@
             }
         }, function(ret, err) {
             if (data_ < 8) {
-               var footer = $api.byId('footer');
-               // $api.css(footer, 'display:none');
-               $api.remove(footer);
-           }
-          var footer = $api.byId('footer');
-          $api.html(footer, '没有更多结果了');
+                var footer = $api.byId('footer');
+                // $api.css(footer, 'display:none');
+                $api.remove(footer);
+            }
+            var footer = $api.byId('footer');
+            $api.html(footer, '没有更多结果了');
             p++;
             fnOpenUserButtonsss();
         });
@@ -207,7 +302,7 @@
             url: host + apiUri + '/user/fans',
             method: 'get',
             dataType: 'json',
-            timeout:10,
+            timeout: 10,
             headers: {
                 "source": api.systemType,
                 "version": version,
@@ -219,78 +314,84 @@
                 }
             }
         }, function(ret, err) {
-          if(ret){
-            if (ret.status == 200) {
-                // setTimeout(function(){
+            if (ret) {
+                if (ret.status == 200) {
+                    // setTimeout(function(){
 
                     // },1000)
-                if (ret.data == '') {
-                    var attentionsss = $api.byId('attention');
-                    htmlss = '<li class="attention1">你还没有任何粉丝</li>';
-                    $api.html(attentionsss, htmlss);
-                } else {
-                    var attention = $api.byId('attention');
-                    // var total = $api.byId('total');
-                    // var totalHtml = ret.data.fans_list.length;
-                    // $api.html(total, totalHtml);
-                    html = '';
-                    for (var i = 0; i < ret.data.fans_list.length; i++) {
-                        var userDelete = $api.byId('userDelete');
-                        var user_id = ret.data.fans_list[i].user_id;
-                        if (ret.data.relation[user_id] == 2) {
-                            userDeleteHtml = '<img src="../image/my/personal_care_a.png"   alt="' + ret.data.relation[user_id] + '"  class="userDeleteA" onclick="collectmusicFx(this)" data-click="0" id="' + user_id + '">'
-                        } else if (ret.data.relation[user_id] == 1) {
-                            userDeleteHtml = '<img src="../image/my/attention_j.png"  alt="' + ret.data.relation[user_id] + '"  class="userDeleteA" onclick="collectmusicFx(this)" data-click="0" id="' + user_id + '">'
-                        } else {
-                            userDeleteHtml = '<img src="../image/my/attention_j.png" alt="' + ret.data.relation[user_id] + '" class="userDeleteA" onclick="collectmusicFx(this)" data-click="1" id="' + user_id + '">'
-                        }
-                        var photossss = ret.data.fans_list[i].photo;
-                        if (photossss == null) {
-                            follow_list_photo = '../image/KM_tx.png'
-                        } else {
-                            var photo = photossss.substring(0, 4);
-                            if (photo == 'http') {
-                                follow_list_photo = ret.data.fans_list[i].photo;
-                            } else if (photo != 'http') {
-                                follow_list_photo = updatePhotoUrl + photossss;
+                    // 这个是关闭loading再掉通第一个接口的地方加
+                    var loadEffect = $api.byId('loadEffect');
+                    htmlloadEffect = '';
+                    $api.html(loadEffect, htmlloadEffect);
+                    // ~~~~~~~~~~~~~~
+                    if (ret.data == '') {
+                        var attentionsss = $api.byId('attention');
+                        htmlss = '<li class="attention1">你还没有任何粉丝</li>';
+                        $api.html(attentionsss, htmlss);
+                    } else {
+                        var attention = $api.byId('attention');
+                        // var total = $api.byId('total');
+                        // var totalHtml = ret.data.fans_list.length;
+                        // $api.html(total, totalHtml);
+                        html = '';
+                        for (var i = 0; i < ret.data.fans_list.length; i++) {
+                            var userDelete = $api.byId('userDelete');
+                            var user_id = ret.data.fans_list[i].user_id;
+                            if (ret.data.relation[user_id] == 2) {
+                                userDeleteHtml = '<img src="../image/my/personal_care_a.png"   alt="' + ret.data.relation[user_id] + '"  class="userDeleteA" onclick="collectmusicFx(this)" data-click="0" id="' + user_id + '">'
+                            } else if (ret.data.relation[user_id] == 1) {
+                                userDeleteHtml = '<img src="../image/my/attention_j.png"  alt="' + ret.data.relation[user_id] + '"  class="userDeleteA" onclick="collectmusicFx(this)" data-click="0" id="' + user_id + '">'
+                            } else {
+                                userDeleteHtml = '<img src="../image/my/attention_j.png" alt="' + ret.data.relation[user_id] + '" class="userDeleteA" onclick="collectmusicFx(this)" data-click="1" id="' + user_id + '">'
                             }
-                        }
-                        var signature = ret.data.fans_list[i].signature;
-                        var signatures;
-                        if (signature == null) {
-                            signatures = '';
+                            var photossss = ret.data.fans_list[i].photo;
+                            if (photossss == null) {
+                                follow_list_photo = '../image/KM_tx.png'
+                            } else {
+                                var photo = photossss.substring(0, 4);
+                                if (photo == 'http') {
+                                    follow_list_photo = ret.data.fans_list[i].photo;
+                                } else if (photo != 'http') {
+                                    follow_list_photo = updatePhotoUrl + photossss;
+                                }
+                            }
+                            var signature = ret.data.fans_list[i].signature;
+                            var signatures;
+                            if (signature == null) {
+                                signatures = '';
 
-                        } else {
-                            signatures = ret.data.fans_list[i].signature;
+                            } else {
+                                signatures = ret.data.fans_list[i].signature;
+                            }
+                            html +=
+                                '<li class="item"><div class="user-detail" onclick="fnOpenmyPersonal(' + ret.data.fans_list[i].user_id + ',\'' + ret.data.fans_list[i].nick_name + '\');"><div class="user-img"><img src="' + follow_list_photo +
+                                '" alt=""></div><div class="user-name" ><p id="userName">' + ret.data.fans_list[i]
+                                .nick_name +
+                                '</p><p class="p">' + signatures +
+                                '</p></div></div><div id="userDelete" id="userDelete_' + ret.data.fans_list[i].user_id + ' " class="userDelete" >' + userDeleteHtml + '</div></li>'
+
                         }
-                        html +=
-                            '<li class="item"><div class="user-detail" onclick="fnOpenmyPersonal(' + ret.data.fans_list[i].user_id + ',\'' + ret.data.fans_list[i].nick_name + '\');"><div class="user-img"><img src="' + follow_list_photo +
-                            '" alt=""></div><div class="user-name" ><p id="userName">' + ret.data.fans_list[i]
-                            .nick_name +
-                            '</p><p class="p">' + signatures +
-                            '</p></div></div><div id="userDelete" id="userDelete_' + ret.data.fans_list[i].user_id + ' " class="userDelete" >' + userDeleteHtml + '</div></li>'
+                        $api.html(attention, html);
 
                     }
-                    $api.html(attention, html);
 
+                } else {
+                    netMessage(ret);
                 }
-
             } else {
-                netMessage(ret);
+                netWork(err);
             }
-          }else{
-            netWork(err);
-          }
         });
 
     }
+
     function fnOpenUserButtonsss() {
 
         api.ajax({
             url: host + apiUri + '/user/fans',
             method: 'get',
             dataType: 'json',
-            timeout:10,
+            timeout: 10,
             headers: {
                 "source": api.systemType,
                 "version": version,
@@ -302,73 +403,75 @@
                 }
             }
         }, function(ret, err) {
-          if(ret){
-            if (ret.status == 200) {
-                // setTimeout(function(){
-                api.refreshHeaderLoadDone()
-                    // },1000)
-                if (ret.data == '') {
-                    // var attentionsss = $api.byId('attention');
-                    // htmlss = '<li class="attention1">你还没有任何粉丝</li>';
-                    // $api.html(attentionsss, htmlss);
-                    var footer = $api.byId('footer');
-                    $api.html(footer, '无更多数据');
-                } else {
-                    var attention = $api.byId('attention');
-                    var total = $api.byId('total');
-                    var totalHtml = ret.data.fans_list.length;
-                    $api.html(total, totalHtml);
-                    // html = '';
-                    for (var i = 0; i < ret.data.fans_list.length; i++) {
-                        var userDelete = $api.byId('userDelete');
-                        var user_id = ret.data.fans_list[i].user_id;
-                        if (ret.data.relation[user_id] == 2) {
-                            userDeleteHtml = '<img src="../image/my/personal_care_a.png"   alt="' + ret.data.relation[user_id] + '"  class="userDeleteA" onclick="collectmusicFx(this)" data-click="0" id="' + user_id + '">'
-                        } else if (ret.data.relation[user_id] == 1) {
-                            userDeleteHtml = '<img src="../image/my/attention_j.png"  alt="' + ret.data.relation[user_id] + '"  class="userDeleteA" onclick="collectmusicFx(this)" data-click="0" id="' + user_id + '">'
-                        } else {
-                            userDeleteHtml = '<img src="../image/my/attention_j.png" alt="' + ret.data.relation[user_id] + '" class="userDeleteA" onclick="collectmusicFx(this)" data-click="1" id="' + user_id + '">'
-                        }
-                        var photossss = ret.data.fans_list[i].photo;
-                        if (photossss == null) {
-                            follow_list_photo = '../image/KM_tx.png'
-                        } else {
-                            var photo = photossss.substring(0, 4);
-                            if (photo == 'http') {
-                                follow_list_photo = ret.data.fans_list[i].photo;
-                            } else if (photo != 'http') {
-                                follow_list_photo = updatePhotoUrl + photossss;
+            if (ret) {
+                if (ret.status == 200) {
+                    // setTimeout(function(){
+                    api.refreshHeaderLoadDone()
+                        // },1000)
+                    if (ret.data == '') {
+                        // var attentionsss = $api.byId('attention');
+                        // htmlss = '<li class="attention1">你还没有任何粉丝</li>';
+                        // $api.html(attentionsss, htmlss);
+                        var footer = $api.byId('footer');
+                        $api.html(footer, '无更多数据');
+                    } else {
+                        var attention = $api.byId('attention');
+                        var total = $api.byId('total');
+                        var totalHtml = ret.data.fans_list.length;
+                        $api.html(total, totalHtml);
+                        // html = '';
+                        for (var i = 0; i < ret.data.fans_list.length; i++) {
+                            var userDelete = $api.byId('userDelete');
+                            var user_id = ret.data.fans_list[i].user_id;
+                            if (ret.data.relation[user_id] == 2) {
+                                userDeleteHtml = '<img src="../image/my/personal_care_a.png"   alt="' + ret.data.relation[user_id] + '"  class="userDeleteA" onclick="collectmusicFx(this)" data-click="0" id="' + user_id + '">'
+                            } else if (ret.data.relation[user_id] == 1) {
+                                userDeleteHtml = '<img src="../image/my/attention_j.png"  alt="' + ret.data.relation[user_id] + '"  class="userDeleteA" onclick="collectmusicFx(this)" data-click="0" id="' + user_id + '">'
+                            } else {
+                                userDeleteHtml = '<img src="../image/my/attention_j.png" alt="' + ret.data.relation[user_id] + '" class="userDeleteA" onclick="collectmusicFx(this)" data-click="1" id="' + user_id + '">'
                             }
-                        }
-                        var signature = ret.data.fans_list[i].signature;
-                        var signatures;
-                        if (signature == null) {
-                            signatures = '';
+                            var photossss = ret.data.fans_list[i].photo;
+                            if (photossss == null) {
+                                follow_list_photo = '../image/KM_tx.png'
+                            } else {
+                                var photo = photossss.substring(0, 4);
+                                if (photo == 'http') {
+                                    follow_list_photo = ret.data.fans_list[i].photo;
+                                } else if (photo != 'http') {
+                                    follow_list_photo = updatePhotoUrl + photossss;
+                                }
+                            }
+                            var signature = ret.data.fans_list[i].signature;
+                            var signatures;
+                            if (signature == null) {
+                                signatures = '';
 
-                        } else {
-                            signatures = ret.data.fans_list[i].signature;
+                            } else {
+                                signatures = ret.data.fans_list[i].signature;
+                            }
+                            $api.append(attention,
+                                '<li class="item"><div class="user-detail" onclick="fnOpenmyPersonal(' + ret.data.fans_list[i].user_id + ',\'' + ret.data.fans_list[i].nick_name + '\');"><div class="user-img"><img src="' +
+                                follow_list_photo +
+                                '" alt=""></div><div class="user-name" ><p id="userName">' + ret.data.fans_list[i]
+                                .nick_name +
+                                '</p><p class="p">' + signatures +
+                                '</p></div></div><div id="userDelete" id="userDelete_' + ret.data.fans_list[i].user_id + ' " class="userDelete" >' + userDeleteHtml + '</div></li>');
+
                         }
-                        $api.append(attention,
-                            '<li class="item"><div class="user-detail" onclick="fnOpenmyPersonal(' + ret.data.fans_list[i].user_id + ',\'' + ret.data.fans_list[i].nick_name + '\');"><div class="user-img"><img src="' + follow_list_photo +
-                            '" alt=""></div><div class="user-name" ><p id="userName">' + ret.data.fans_list[i]
-                            .nick_name +
-                            '</p><p class="p">' + signatures +
-                            '</p></div></div><div id="userDelete" id="userDelete_' + ret.data.fans_list[i].user_id + ' " class="userDelete" >' + userDeleteHtml + '</div></li>');
+                        // $api.html(attention, html);
 
                     }
-                    // $api.html(attention, html);
 
+                } else {
+                    netMessage(ret);
                 }
-
             } else {
-                netMessage(ret);
+                netWork(err);
             }
-          }else{
-            netWork(err);
-          }
         });
 
     }
+
     function fnOpenmyPersonal(id, nickname) {
         api.openWin({
             name: 'myPersonal',
@@ -376,7 +479,7 @@
             pageParam: {
                 userId: id,
                 nickName: nickname,
-                ok:'my_personal'
+                ok: 'my_personal'
             }
         });
 
@@ -429,7 +532,7 @@
                         url: host + apiUri + '/user/follow',
                         method: 'post',
                         dataType: 'json',
-                        timeout:10,
+                        timeout: 10,
                         headers: {
                             "source": api.systemType,
                             "version": version,
@@ -441,21 +544,21 @@
                             }
                         }
                     }, function(ret, err) {
-                      if(ret){
-                        if (ret.status == 200) {
-                            toolbarlist.setAttribute("data-click", 1);
-                            toolbarlist.src = "../image/my/personal_care_a.png";
-                            // fnAttention();
+                        if (ret) {
+                            if (ret.status == 200) {
+                                toolbarlist.setAttribute("data-click", 1);
+                                toolbarlist.src = "../image/my/personal_care_a.png";
+                                // fnAttention();
 
-                            // var userDelete = $api.byId('userDelete');
-                            // var userDeleteID = userDelete + ret;
-                            // html += '<img src="../image/my/attention_j.png" alt="" class="userDeleteA">';
+                                // var userDelete = $api.byId('userDelete');
+                                // var userDeleteID = userDelete + ret;
+                                // html += '<img src="../image/my/attention_j.png" alt="" class="userDeleteA">';
+                            } else {
+                                netMessage(ret);
+                            }
                         } else {
-                            netMessage(ret);
+                            netWork(err);
                         }
-                      }else{
-                        netWork(err);
-                      }
                         // $api.html(user, html);
                         // console.log(html);
                     });
@@ -514,33 +617,33 @@
                         url: host + apiUri + '/user/follow',
                         method: 'post',
                         dataType: 'json',
-                        timeout:10,
+                        timeout: 10,
                         headers: {
                             "source": api.systemType,
                             "version": version,
                             "session": token
                         }
                     }, function(ret, err) {
-                      if(ret){
-                        if (ret.status == 200) {
-                            if (img_alt == 1) {
-                                toolbarlist.setAttribute("data-click", 0);
-                                toolbarlist.src = "../image/my/attention_j.png";
-                            } else if (img_alt == 2) {
-                                toolbarlist.setAttribute("data-click", 0);
-                                toolbarlist.src = "../image/my/personal_care_a.png";
-                            }
-                            // fnAttention();
+                        if (ret) {
+                            if (ret.status == 200) {
+                                if (img_alt == 1) {
+                                    toolbarlist.setAttribute("data-click", 0);
+                                    toolbarlist.src = "../image/my/attention_j.png";
+                                } else if (img_alt == 2) {
+                                    toolbarlist.setAttribute("data-click", 0);
+                                    toolbarlist.src = "../image/my/personal_care_a.png";
+                                }
+                                // fnAttention();
 
-                            // var userDelete = $api.byId('userDelete');
-                            // var userDeleteID = userDelete + ret;
-                            // html += '<img src="../image/my/attention_j.png" alt="" class="userDeleteA">';
+                                // var userDelete = $api.byId('userDelete');
+                                // var userDeleteID = userDelete + ret;
+                                // html += '<img src="../image/my/attention_j.png" alt="" class="userDeleteA">';
+                            } else {
+                                netMessage(ret);
+                            }
                         } else {
-                            netMessage(ret);
+                            netWork(err);
                         }
-                      }else{
-                        netWork(err);
-                      }
                         // $api.html(user, html);
                         // console.log(html);
                     });

@@ -83,13 +83,109 @@
             text-decoration: none;
             color: #777;
         }
-        .zanwushuju_div{width: 100%;height: 200px;line-height: 200px;}
-        .zanwushuju_div p{text-align: center;}
+
+        .zanwushuju_div {
+            width: 100%;
+            height: 200px;
+            line-height: 200px;
+        }
+
+        .zanwushuju_div p {
+            text-align: center;
+        }
+
         #footer {
             width: 100%;
             height: 50px;
             line-height: 50px;
             text-align: center;
+        }
+        /*加载loading的样式css 到结束*/
+
+        #loadEffect {
+            position: fixed;
+            top: 33.33%;
+            left: calc((50%) - 25px);
+        }
+
+        .loadEffect {
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            margin: 0 auto;
+            /*margin-top:100px;*/
+            /*position: fixed;*/
+        }
+
+        .loadEffect span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #ccc;
+            position: absolute;
+            -webkit-animation: load 1.04s ease infinite;
+        }
+
+        @-webkit-keyframes load {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0.2;
+            }
+        }
+
+        .loadEffect span:nth-child(1) {
+            left: 0;
+            top: 50%;
+            margin-top: -4px;
+            -webkit-animation-delay: 0.13s;
+        }
+
+        .loadEffect span:nth-child(2) {
+            left: 7px;
+            top: 7px;
+            -webkit-animation-delay: 0.26s;
+        }
+
+        .loadEffect span:nth-child(3) {
+            left: 50%;
+            top: 0;
+            margin-left: -4px;
+            -webkit-animation-delay: 0.39s;
+        }
+
+        .loadEffect span:nth-child(4) {
+            top: 7px;
+            right: 7px;
+            -webkit-animation-delay: 0.52s;
+        }
+
+        .loadEffect span:nth-child(5) {
+            right: 0;
+            top: 50%;
+            margin-top: -4px;
+            -webkit-animation-delay: 0.65s;
+        }
+
+        .loadEffect span:nth-child(6) {
+            right: 7px;
+            bottom: 7px;
+            -webkit-animation-delay: 0.78s;
+        }
+
+        .loadEffect span:nth-child(7) {
+            bottom: 0;
+            left: 50%;
+            margin-left: -4px;
+            -webkit-animation-delay: 0.91s;
+        }
+
+        .loadEffect span:nth-child(8) {
+            bottom: 7px;
+            left: 7px;
+            -webkit-animation-delay: 1.04s;
         }
     </style>
 </head>
@@ -101,8 +197,11 @@
     <div id="jubenlist">
     </div>
     <div id="footer" class="disnone">
-        正在加载数据
+        <!-- 正在加载数据 -->
     </div>
+    <!-- 加载loading的dom -->
+    <div id="loadEffect"></div>
+    <!-- ~~~~ -->
 </body>
 
 </html>
@@ -113,6 +212,11 @@
     var token;
     var p = 1
     apiready = function() {
+        // 刚开始的时候加载loading
+        var loadEffect = $api.byId('loadEffect');
+        htmlloadEffect = '<div class="loadEffect"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>'
+        $api.html(loadEffect, htmlloadEffect);
+
         token = $api.getStorage('token');
         fnGetJubenlist();
         api.addEventListener({
@@ -121,11 +225,11 @@
                 threshold: 20 //设置距离底部多少距离时触发，默认值为0，数字类型
             }
         }, function(ret, err) {
-          console.log(111);
-          var footer = $api.byId('footer');
-          $api.html(footer, '正在加载更多');
-          p ++;
-          fnGetJubenlist();
+            console.log(111);
+            var footer = $api.byId('footer');
+            $api.html(footer, '正在加载更多');
+            p++;
+            fnGetJubenlist();
 
         });
     };
@@ -143,15 +247,20 @@
                 "version": version,
                 "session": token
             },
-              data: {
-                  values: {
-                      p: p
-                  }
-              }
+            data: {
+                values: {
+                    p: p
+                }
+            }
         }, function(ret, err) {
             // alert(JSON.stringify(ret));
             if (ret) {
                 if (ret.status == 200) {
+                    // 这个是关闭loading再掉通第一个接口的地方加
+                    var loadEffect = $api.byId('loadEffect');
+                    htmlloadEffect = '';
+                    $api.html(loadEffect, htmlloadEffect);
+                    // ~~~~~~~~~~~~~~
                     fnUpdateLyricList(ret);
                 } else {
                     netMessage(ret);
@@ -165,21 +274,23 @@
 
     function fnUpdateLyricList(data_) {
         if (p == 1 && data_.data == '') {
-          var stylelists = $api.byId('jubenlist');
-          var htmls = '<div class="zanwushuju_div"><p>暂无数据</p></div>';
-          $api.html(stylelists, htmls);
-          var footer = $api.byId('footer');
-          $api.html(footer, '');
-        }else if (data_.data) {
-          var stylelist = $api.byId('jubenlist');
-          // var html = '';
-          for (var i = 0; i < data_.data.length; i++) {
-              $api.append(stylelist, '<div class="bodyLi" onclick="fnLangdujubenWin(' + data_.data[i].id + ');"> <div class="body_li"><div class="body_li_1">' + data_.data[i].title + ' （' + data_.data[i].author_name +
-                  '）</div><div class="body_li_3"><div class="body_li_2">' + data_.data[i].body + '</div></div><div class="body_li_4"><img src="../image/my/index_y.png" alt=""></div></div></div>');
-          }
-        }else {
-          var footer = $api.byId('footer');
-          $api.html(footer, '无更多数据');
+            var stylelists = $api.byId('jubenlist');
+            var htmls = '<div class="zanwushuju_div"><p>暂无数据</p></div>';
+            $api.html(stylelists, htmls);
+            var footer = $api.byId('footer');
+            $api.html(footer, '');
+        } else if (data_.data) {
+            var stylelist = $api.byId('jubenlist');
+            // var html = '';
+            var footer = $api.byId('footer');
+            $api.html(footer, '上拉加载更多');
+            for (var i = 0; i < data_.data.length; i++) {
+                $api.append(stylelist, '<div class="bodyLi" onclick="fnLangdujubenWin(' + data_.data[i].id + ');"> <div class="body_li"><div class="body_li_1">' + data_.data[i].title + ' （' + data_.data[i].author_name +
+                    '）</div><div class="body_li_3"><div class="body_li_2">' + data_.data[i].body + '</div></div><div class="body_li_4"><img src="../image/my/index_y.png" alt=""></div></div></div>');
+            }
+        } else {
+            var footer = $api.byId('footer');
+            $api.html(footer, '无更多数据');
         }
 
     }

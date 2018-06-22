@@ -138,11 +138,99 @@
         .egret-flex-item-under img {
             width: 20px;
         }
+
         #footer {
             width: 100%;
             height: 50px;
             line-height: 50px;
             text-align: center;
+        }
+        /*加载loading的样式css 到结束*/
+
+        #loadEffect {
+            position: fixed;
+            top: 33.33%;
+            left: calc((50%) - 25px);
+        }
+
+        .loadEffect {
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            margin: 0 auto;
+            /*margin-top:100px;*/
+            /*position: fixed;*/
+        }
+
+        .loadEffect span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #ccc;
+            position: absolute;
+            -webkit-animation: load 1.04s ease infinite;
+        }
+
+        @-webkit-keyframes load {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0.2;
+            }
+        }
+
+        .loadEffect span:nth-child(1) {
+            left: 0;
+            top: 50%;
+            margin-top: -4px;
+            -webkit-animation-delay: 0.13s;
+        }
+
+        .loadEffect span:nth-child(2) {
+            left: 7px;
+            top: 7px;
+            -webkit-animation-delay: 0.26s;
+        }
+
+        .loadEffect span:nth-child(3) {
+            left: 50%;
+            top: 0;
+            margin-left: -4px;
+            -webkit-animation-delay: 0.39s;
+        }
+
+        .loadEffect span:nth-child(4) {
+            top: 7px;
+            right: 7px;
+            -webkit-animation-delay: 0.52s;
+        }
+
+        .loadEffect span:nth-child(5) {
+            right: 0;
+            top: 50%;
+            margin-top: -4px;
+            -webkit-animation-delay: 0.65s;
+        }
+
+        .loadEffect span:nth-child(6) {
+            right: 7px;
+            bottom: 7px;
+            -webkit-animation-delay: 0.78s;
+        }
+
+        .loadEffect span:nth-child(7) {
+            bottom: 0;
+            left: 50%;
+            margin-left: -4px;
+            -webkit-animation-delay: 0.91s;
+        }
+
+        .loadEffect span:nth-child(8) {
+            bottom: 7px;
+            left: 7px;
+            -webkit-animation-delay: 1.04s;
         }
     </style>
 </head>
@@ -150,8 +238,12 @@
 <body>
     <ul id="ListeningListFrame"></ul>
     <div id="footer" class="disnone">
-        上拉加载更多
+        <!-- 上拉加载更多 -->
     </div>
+
+    <!-- 加载loading的dom -->
+    <div id="loadEffect"></div>
+    <!-- ~~~~ -->
 </body>
 
 </html>
@@ -164,49 +256,55 @@
     var listeningImg;
     var p = 1;
     apiready = function() {
+        // 刚开始的时候加载loading
+        var loadEffect = $api.byId('loadEffect');
+        htmlloadEffect = '<div class="loadEffect"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>'
+        $api.html(loadEffect, htmlloadEffect);
+
         token = $api.getStorage('token');
         ListenList();
         var userIds = api.pageParam.userId;
         api.setCustomRefreshHeaderInfo({
             bgColor: '#f0f0f0',
             image: {
-              pull: [
-                  'widget://image/Refresh/dropdown_anim_00.png',
-                  'widget://image/Refresh/dropdown_anim_01.png',
-                  'widget://image/Refresh/dropdown_anim_02.png',
-                  'widget://image/Refresh/dropdown_anim_03.png',
-                  'widget://image/Refresh/dropdown_anim_04.png',
-                  'widget://image/Refresh/dropdown_anim_05.png',
-                  'widget://image/Refresh/dropdown_anim_06.png',
-                  'widget://image/Refresh/dropdown_anim_07.png',
-                  'widget://image/Refresh/dropdown_anim_08.png',
-                  'widget://image/Refresh/dropdown_anim_09.png',
-                  'widget://image/Refresh/dropdown_anim_10.png',
-            ],
-            load: [
-                  'widget://image/Refresh/dropdown_anim_00.png',
-                  'widget://image/Refresh/dropdown_anim_01.png',
-                  'widget://image/Refresh/dropdown_anim_02.png',
-                  'widget://image/Refresh/dropdown_anim_03.png',
-                  'widget://image/Refresh/dropdown_anim_04.png',
-                  'widget://image/Refresh/dropdown_anim_05.png',
-          ]}
+                pull: [
+                    'widget://image/Refresh/dropdown_anim_00.png',
+                    'widget://image/Refresh/dropdown_anim_01.png',
+                    'widget://image/Refresh/dropdown_anim_02.png',
+                    'widget://image/Refresh/dropdown_anim_03.png',
+                    'widget://image/Refresh/dropdown_anim_04.png',
+                    'widget://image/Refresh/dropdown_anim_05.png',
+                    'widget://image/Refresh/dropdown_anim_06.png',
+                    'widget://image/Refresh/dropdown_anim_07.png',
+                    'widget://image/Refresh/dropdown_anim_08.png',
+                    'widget://image/Refresh/dropdown_anim_09.png',
+                    'widget://image/Refresh/dropdown_anim_10.png',
+                ],
+                load: [
+                    'widget://image/Refresh/dropdown_anim_00.png',
+                    'widget://image/Refresh/dropdown_anim_01.png',
+                    'widget://image/Refresh/dropdown_anim_02.png',
+                    'widget://image/Refresh/dropdown_anim_03.png',
+                    'widget://image/Refresh/dropdown_anim_04.png',
+                    'widget://image/Refresh/dropdown_anim_05.png',
+                ]
+            }
         }, function() {
-                //下拉刷新被触发，自动进入加载状态，使用 api.refreshHeaderLoadDone() 手动结束加载中状态
-                //下拉刷新被触发，使用 api.refreshHeaderLoadDone() 结束加载中状态
+            //下拉刷新被触发，自动进入加载状态，使用 api.refreshHeaderLoadDone() 手动结束加载中状态
+            //下拉刷新被触发，使用 api.refreshHeaderLoadDone() 结束加载中状态
 
-                      ListenList();
-            });
-            api.addEventListener({
-                name: 'scrolltobottom',
-                extra: {
-                    threshold: -20 //设置距离底部多少距离时触发，默认值为0，数字类型
-                }
-            }, function(ret, err) {
-              p ++;
+            ListenList();
+        });
+        api.addEventListener({
+            name: 'scrolltobottom',
+            extra: {
+                threshold: -20 //设置距离底部多少距离时触发，默认值为0，数字类型
+            }
+        }, function(ret, err) {
+            p++;
             //   console.log(p);
-              ListenLists();
-            });
+            ListenLists();
+        });
     }
 
 
@@ -230,6 +328,13 @@
             if (ret) {
                 // console.log(JSON.stringify(ret.data));
                 if (ret.status == 200) {
+                    // 这个是关闭loading再掉通第一个接口的地方加
+                    var loadEffect = $api.byId('loadEffect');
+                    htmlloadEffect = '';
+                    $api.html(loadEffect, htmlloadEffect);
+                    // ~~~~~~~~~~~~~~
+
+
                     // console.log(JSON.stringify(ret.data));
                     var ids = $api.byId('ListeningListFrame');
                     var html = '';
@@ -237,7 +342,9 @@
                         var listening_cover = listeningImg + ret.data[i].listening_cover;
                         // console.log(listening_cover);
                         if (ret.data[i].listening_cover == '') {
-                            html += '<li id="listen_' + ret.data[i].userId + '" class="p20pxs"><div class="egret-flex-item" tapmode="fmbtnhover"><div class="egret-flex-item-logo" onclick="fnOpenPlay(' + ret.data[i].userId + ')"><img src="../image/my/fnShareImg.jpg" alt="" class=""></div><div class="egret-flex-item-shelf"> <div class="egret-flex-item-shelf01" onclick="fnOpenPlay(' + ret.data[i].l_id + ')"><span class="span1 fl"><span>' + ret.data[i].listening_name +
+                            html += '<li id="listen_' + ret.data[i].userId + '" class="p20pxs"><div class="egret-flex-item" tapmode="fmbtnhover"><div class="egret-flex-item-logo" onclick="fnOpenPlay(' + ret.data[i].userId +
+                                ')"><img src="../image/my/fnShareImg.jpg" alt="" class=""></div><div class="egret-flex-item-shelf"> <div class="egret-flex-item-shelf01" onclick="fnOpenPlay(' + ret.data[i].l_id +
+                                ')"><span class="span1 fl"><span>' + ret.data[i].listening_name +
                                 '</span></span><span class="span3 fr"></span></div><div class="egret-flex-item-shelf03" onclick="fnOpenPlay(' + ret.data[i].l_id + ')"><div><img src="../image/KM_play.png" alt=""><span>' +
                                 ret.data[i].play_total + '</span></div><div><img src="../image/KM_zf.png" alt=""><span>' + ret.data[i].share_total + '</span></div><div><img src="../image/KM_dz.png" alt=""><span>' +
                                 ret.data[i].good_total + '</span></div></div></div></div></li>';
@@ -275,46 +382,51 @@
             data: {
                 values: {
                     id: userIds,
-                    p:p
+                    p: p
                 }
             },
         }, function(ret, err) {
             if (ret) {
                 // console.log(JSON.stringify(ret.data));
                 if (ret.status == 200) {
-                    if (ret.data == '') {
-                      var footer = $api.byId('footer');
-                      $api.html(footer, '无更多数据');
-                    }else {
-                    //   console.log(ret.data.length);
-                      if (ret.data.length < 10) {
-                        var footer = $api.byId('footer');
-                        // $api.css(footer, 'display:none');
-                        $api.html(footer, '无更多数据');
-                      }else {
-                        var footer = $api.byId('footer');
-                        // $api.css(footer, 'display:block');
-                        $api.html(footer, '正在加载更多');
-                      }
-                  }
                     // console.log(JSON.stringify(ret.data));
-                    setTimeout(function(){
+                    if (ret.data == '') {
+                        var footer = $api.byId('footer');
+                        $api.html(footer, '无更多数据');
+                    } else {
+                        //   console.log(ret.data.length);
+                        if (ret.data.length < 10) {
+                            var footer = $api.byId('footer');
+                            // $api.css(footer, 'display:none');
+                            $api.html(footer, '无更多数据');
+                        } else {
+                            var footer = $api.byId('footer');
+                            // $api.css(footer, 'display:block');
+                            $api.html(footer, '正在加载更多');
+                        }
+                    }
+
+                    setTimeout(function() {
                         api.refreshHeaderLoadDone()
-                    },3000)
+                    }, 3000)
                     var ids = $api.byId('ListeningListFrame');
                     var html = '';
                     for (var i = 0; i < ret.data.length; i++) {
                         var listening_cover = listeningImg + ret.data[i].listening_cover;
                         // console.log(listening_cover);
                         if (ret.data[i].listening_cover == '') {
-                            $api.append(ids, '<li id="listen_' + ret.data[i].userId + '" class="p20pxs"><div class="egret-flex-item" tapmode="fmbtnhover"><div class="egret-flex-item-logo" onclick="fnOpenPlay(' + ret.data[i].userId + ')"><img src="../image/my/fnShareImg.jpg" alt="" class=""></div><div class="egret-flex-item-shelf"> <div class="egret-flex-item-shelf01" onclick="fnOpenPlay(' + ret.data[i].l_id + ')"><span class="span1 fl"><span>' + ret.data[i].listening_name +
+                            $api.append(ids, '<li id="listen_' + ret.data[i].userId + '" class="p20pxs"><div class="egret-flex-item" tapmode="fmbtnhover"><div class="egret-flex-item-logo" onclick="fnOpenPlay(' + ret.data[i].userId +
+                                ')"><img src="../image/my/fnShareImg.jpg" alt="" class=""></div><div class="egret-flex-item-shelf"> <div class="egret-flex-item-shelf01" onclick="fnOpenPlay(' + ret.data[i].l_id +
+                                ')"><span class="span1 fl"><span>' + ret.data[i].listening_name +
                                 '</span></span><span class="span3 fr"></span></div><div class="egret-flex-item-shelf03" onclick="fnOpenPlay(' + ret.data[i].l_id + ')"><div><img src="../image/KM_play.png" alt=""><span>' +
                                 ret.data[i].play_total + '</span></div><div><img src="../image/KM_zf.png" alt=""><span>' + ret.data[i].share_total + '</span></div><div><img src="../image/KM_dz.png" alt=""><span>' +
                                 ret.data[i].good_total + '</span></div></div></div></div></li>');
                         } else {
 
-                            $api.append(ids, '<li id="listen_' + ret.data[i].userIds + '" class="p20pxs"><div class="egret-flex-item" tapmode="fmbtnhover"><div class="egret-flex-item-logo" onclick="fnOpenPlay(' + ret.data[i].userIds + ')"><img src="' +
-                                listening_cover + '" alt="" class=""></div><div class="egret-flex-item-shelf"> <div class="egret-flex-item-shelf01" onclick="fnOpenPlay(' + ret.data[i].l_id + ')"><span class="span1 fl"><span>' + ret.data[i].listening_name +
+                            $api.append(ids, '<li id="listen_' + ret.data[i].userIds + '" class="p20pxs"><div class="egret-flex-item" tapmode="fmbtnhover"><div class="egret-flex-item-logo" onclick="fnOpenPlay(' + ret.data[i].userIds +
+                                ')"><img src="' +
+                                listening_cover + '" alt="" class=""></div><div class="egret-flex-item-shelf"> <div class="egret-flex-item-shelf01" onclick="fnOpenPlay(' + ret.data[i].l_id + ')"><span class="span1 fl"><span>' + ret.data[
+                                    i].listening_name +
                                 '</span></span><span class="span3 fr"></span></div><div class="egret-flex-item-shelf03" onclick="fnOpenPlay(' + ret.data[i].l_id + ')"><div><img src="../image/KM_play.png" alt=""><span>' +
                                 ret.data[i].play_total + '</span></div><div><img src="../image/KM_zf.png" alt=""><span>' + ret.data[i].share_total + '</span></div><div><img src="../image/KM_dz.png" alt=""><span>' +
                                 ret.data[i].good_total + '</span></div></div></div></div></li>');
