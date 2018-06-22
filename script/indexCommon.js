@@ -952,6 +952,9 @@ function fnBoFangmoshiid() {
 }
 
 function fnBOFangJian(bofangs,playTypes, aa, playlist,playUrlis) {
+  // id
+  console.log(bofangs);
+  // 自定义的东西
     if (playlistid) {
         playlistid = playlist;
         playUrli = playUrli;

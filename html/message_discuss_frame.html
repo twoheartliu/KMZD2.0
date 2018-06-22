@@ -719,7 +719,13 @@
                         ok:dataType
                     }
                 });
-              }else{
+              }else if (ret.status == 10804) {
+                  api.toast({
+                      msg: '该听单已被删除',
+                      duration: 2000,
+                      location: 'middle'
+                  });
+              } else{
                 netMessage(ret);
               }
             } else {
@@ -757,7 +763,14 @@
                         ok:dataType
                     }
                 });
-              }else{
+              }else if (ret.status == 10804) {
+                  api.toast({
+                      msg: '该听单已被删除',
+                      duration: 2000,
+                      location: 'middle'
+                  });
+              } else{
+
                 netMessage(ret);
               }
             } else {
