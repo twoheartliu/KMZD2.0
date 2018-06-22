@@ -276,9 +276,11 @@
         });
     }
     apiready = function() {
-        fnshowTips();
+
 
         token = $api.getStorage('token');
+        // console.log(token);
+        fnshowTips();
         api.setStatusBarStyle({
             style: 'light',
             color: '#000'
@@ -340,7 +342,6 @@
                             if (ret.data == 'info_complete') {
                                 var tips = $api.byId('tips');
                                 $api.addCls(tips, 'hide');
-                                fnshowTips();
                             }
                             fninfo();
                         } else {
@@ -750,7 +751,6 @@
                                             if (ret.data == 'info_complete') {
                                                 var tips = $api.byId('tips');
                                                 $api.addCls(tips, 'hide');
-                                                fnshowTips();
                                             }
 
                                             // $api.byId('tx').innerHTML = '<img src=" ' + updatePhotoUrl + ret.data. + ' ">';
@@ -874,7 +874,6 @@
                                     if (ret.data == 'info_complete') {
                                         var tips = $api.byId('tips');
                                         $api.addCls(tips, 'hide');
-                                        fnshowTips();
                                     }
                                     // $api.byId('tx').innerHTML = '<img src=" ' + updatePhotoUrl + ret.data. + ' ">';
 
@@ -1034,7 +1033,6 @@
                         if (ret.data == 'info_complete') {
                             var tips = $api.byId('tips');
                             $api.addCls(tips, 'hide');
-                            fnshowTips();
                         }
 
                         var stylelist12 = $api.byId('sex');
@@ -1157,7 +1155,6 @@
                             if (ret.data == 'info_complete') {
                                 var tips = $api.byId('tips');
                                 $api.addCls(tips, 'hide');
-                                fnshowTips();
                             }
 
                             var nick_name_s = text;
@@ -1283,13 +1280,12 @@
                 }, function(ret, err) {
 
                     if (ret) {
-                        console.log('sss');
-                        console.log(JSON.stringify(ret));
                         if (ret.status == 200) {
+                            // console.log(JSON.stringify(ret.data));
                             if (ret.data == 'info_complete') {
                                 var tips = $api.byId('tips');
                                 $api.addCls(tips, 'hide');
-                                fnshowTips();
+
                             }
 
                             fninfo();
@@ -1356,10 +1352,11 @@
                 "session": token,
             },
         }, function(ret, err) {
+            // console.log(JSON.stringify(ret.data))
             if (ret.status == 200) {
-                console.log(JSON.stringify(ret.data.perfect_info))
-                var totalInfo = ret.data.perfect_info
-                    //  totalInfo 为 0 显示提醒， totalInfo 为 1 不显示
+
+                var  totalInfo = ret.data.perfect_info
+                //  totalInfo 为 0 显示提醒， totalInfo 为 1 不显示
                 if (totalInfo == 1) {
                     var tips = $api.byId('tips');
                     $api.addCls(tips, 'hide');
