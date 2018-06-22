@@ -101,7 +101,7 @@ function fnXunTingXinXi() {
   });
 }
 
-
+// 应该是下一曲
 function fnXiaYiXunHuan(){
   setInterval(function() {
     if(myAudio){
@@ -129,7 +129,7 @@ function fnBFids(id) {
         }
     });
 }
-
+  // 播放间
 function fnBOFangJians(bofangs, aa) {
 
     bofang = bofangs;
@@ -175,6 +175,9 @@ function initEventListennerBofangXunTing() {
     api.addEventListener({
         name: 'netPlayXunTing'
     }, function(ret, err) {
+      // bofang 的 id
+      // playType 是listen_to
+      // a 是 id
       fnBOFangJian(ret.value.bofang,ret.value.playType,ret.value.a);
       kaishibofangs();
         // netAudioPlay();
@@ -190,12 +193,18 @@ function initEventListennerBofangXunTing() {
             netAudioPause();
         }
     });
-    // //监听暂停音频
+    //监听暂停音频
     // api.addEventListener({
-    //     name: 'netAudiopauseXunTing'
+    //     name: 'neizhiliebiaoPlay'
     // }, function(ret, err) {
     //     if (ret) {
-    //         netAudioPause();
+    //       // console.log(111);
+    //       // netAudioPause();
+    //       //   var myAudio = document.getElementById("myAudio");
+    //       //   if (!myAudio) {
+    //       //       myAudio.play();
+    //       //   }
+    //
     //     }
     // });
 }
