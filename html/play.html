@@ -1050,15 +1050,9 @@
       }, function(ret, err) {
           aaaaaa = ret.value.aaaaaa;
           if(aaaaaa == 2){
-            var ImgGif = $api.byId('ImgGif');
 
-            var html = '';
-
-            $api.html(ImgGif, html);
           }else if (aaaaaa == 1) {
-            var ImgGif = $api.byId('ImgGif');
-            var html = '<div class="loading"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>';
-            $api.html(ImgGif, html);
+
           }
           return false;
       });
@@ -1103,7 +1097,11 @@
     }
     //监听收藏，评论数；
     function fnJianTingBookCollection(bookId){
+
       if(bookId != 'undefined'){
+        var ImgGif = $api.byId('ImgGif');
+        var html = '<div class="loading"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>';
+        $api.html(ImgGif, html);
         api.ajax({
             url: host + apiUri + '/sound/' + bookId,
             method: 'get',
@@ -1115,7 +1113,6 @@
             }
         }, function(ret, err) {
           if(ret){
-
           if (ret.status == 200) {
               var stylelistCollectionHtml = $api.byId('bookExtraCollectionHtml');
                 if(ret.data.is_collection){
@@ -1435,6 +1432,9 @@
             name: 'zongJinDusss'
         }, function(ret, err) {
             if (ret.value.html) {
+              var ImgGif = $api.byId('ImgGif');
+              var html = '';
+              $api.html(ImgGif, html);
                 var stylelist = $api.byId('zongshichang');
                 var html = ret.value.html;
                 $api.html(stylelist, html);
@@ -1641,8 +1641,12 @@
     }
     //播放
     function fnNetAudiosPlayByID(id) {
+
         if (id) {
           uri = '/sound';
+          var ImgGif = $api.byId('ImgGif');
+          var html = '<div class="loading"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>';
+          $api.html(ImgGif, html);
           api.ajax({
               url: host + apiUri + uri + '/' + id,
               method: 'get',
@@ -1654,6 +1658,7 @@
                   "session": token
               }
           }, function(ret, err) {
+
             if(ret){
             if (ret.status == 200) {
                 netAudioss = ret;
@@ -1689,6 +1694,9 @@
 
         } else {
             uri = '/sound';
+            var ImgGif = $api.byId('ImgGif');
+            var html = '<div class="loading"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>';
+            $api.html(ImgGif, html);
             api.ajax({
                 url: host + apiUri + uri + '/' + dqbfid,
                 method: 'get',

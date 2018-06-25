@@ -448,6 +448,10 @@
         loaded = 1;
         var stylelist = $api.byId('loading_bgm');
         var html = '正在录制 <span id="appTime"> 00:00</span>';
+        //带背景时解决了县录音后播放的问题
+        api.startRecord({
+            path: 'fs://luyin/' + timestamp + jubenid + '.amr'
+        });
         $api.html(stylelist, html);
         timedCount();
         myAudio.removeEventListener('timeupdate', record_start);
@@ -489,9 +493,8 @@
 
                 }
             });
-            api.startRecord({
-                path: 'fs://luyin/' + timestamp + jubenid + '.amr'
-            });
+            console.log(22222222);
+
             timestamps = timestamp;
             timeC();
             if (!loaded) {
@@ -499,9 +502,14 @@
                 var html = '正在加载配乐...';
                 $api.html(stylelist, html);
             } else {
+
                 var stylelist = $api.byId('loading_bgm');
                 var html = '正在录制 <span id="appTime"> 00:00</span>';
                 $api.html(stylelist, html);
+                console.log(333333333);
+                // api.startRecord({
+                //     path: 'fs://luyin/' + timestamp + jubenid + '.amr'
+                // });
                 timedCount();
             }
         }
@@ -852,6 +860,7 @@
 
             }
         });
+        console.log(111111);
         api.startRecord({
             path: 'fs://luyin/' + timestamp + jubenid + '.amr'
         });

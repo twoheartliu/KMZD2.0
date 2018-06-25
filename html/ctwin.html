@@ -616,6 +616,9 @@
 
     }
     function fnFuZhiAudio() {
+      var ImgGif = $api.byId('ImgGif');
+      var html = '<div class="loading"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>';
+      $api.html(ImgGif, html);
       if(path){
          userId = api.pageParam.userId;
          userRecords = api.pageParam.userRecords;
@@ -703,6 +706,9 @@
 
     //赋值播放时间
   	function fnGetAddTime(cur) {
+      var ImgGif = $api.byId('ImgGif');
+      var html = '';
+      $api.html(ImgGif, html);
   		var stylelist = $api.byId('addTime');
       var html= '00:00';
       var cur = parseInt(cur);

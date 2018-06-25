@@ -981,7 +981,6 @@
           if(aaaaaa == 2){
             var ImgGif = $api.byId('ImgGif');
             var html = '';
-
             $api.html(ImgGif, html);
 
           }else if (aaaaaa == 1) {
@@ -1082,6 +1081,9 @@
     //监听收藏，评论数；
     function fnJianTingBookCollection(bookId){
       uri = '/sound';
+      var ImgGif = $api.byId('ImgGif');
+      var html = '<div class="loading"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>';
+      $api.html(ImgGif, html);
       api.ajax({
           url: host + apiUri + uri + '/' + bookId,
           method: 'get',
@@ -1274,6 +1276,9 @@
             name: 'zongJinDusss'
         }, function(ret, err) {
             if (ret.value.html) {
+              var ImgGif = $api.byId('ImgGif');
+              var html = '';
+              $api.html(ImgGif, html);
                 var stylelist = $api.byId('zongshichang');
                 var html = ret.value.html;
                 $api.html(stylelist, html);
@@ -1415,6 +1420,9 @@
     function fnNetAudiosPlayByID(id) {
         if (id) {
           uri = '/sound';
+          var ImgGif = $api.byId('ImgGif');
+          var html = '<div class="loading"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>';
+          $api.html(ImgGif, html);
           api.ajax({
               url: host + apiUri + uri + '/' + id,
               method: 'get',
@@ -1452,6 +1460,9 @@
 
         } else {
             uri = '/sound';
+            var ImgGif = $api.byId('ImgGif');
+            var html = '<div class="loading"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>';
+            $api.html(ImgGif, html);
             api.ajax({
                 url: host + apiUri + uri + '/' + dqbfid,
                 method: 'get',

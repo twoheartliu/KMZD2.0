@@ -8,9 +8,9 @@
     <title>孔孟之道</title>
     <style media="screen">
       *{padding: 0;margin: 0;}
-      body{overflow: hidden;}
+      body{overflow: hidden;background-size: 100% 100%;background-repeat: no-repeat;}
       #messageFrameDiv{width: 100%;overflow: hidden;position: relative;}
-      img{width: 100%;position: relative;z-index: 0;display: block;}
+      img{width: 100%;position: relative;z-index: 0;display: }
       .class3s{width: 40px;height: 20px;border-radius: 10px;background: rgba(0,0,0,0.4);text-align: center;position: absolute;right: 10px;z-index: 1;top:20px;}
     </style>
 </head>
@@ -37,28 +37,33 @@
       $api.fixStatusBar(headeris);
       var headerPos = $api.offset(secHeader);
       var headerPosH = $api.offset(secHeader).h;
-
-      var timer = window.setInterval("run();", 1000);
-
+      // 闪屏广告
+      // var timer = window.setInterval("run();", 1000);
+      doS();
       // 获取浏览器高度
       if (window.innerHeight)
           winHeight = window.innerHeight;
       else if ((document.body) && (document.body.clientHeight))
           winHeight = document.body.clientHeight;
+          var  body = $api.byId('body');
+          $api.css(body, 'block;background-image: url(./image/iowa-1080x1920.png);');
+
+
       var messageFrameDiv = $api.byId('messageFrameDiv');
       var winHeightHeader = winHeight - headerPosH ;
       $api.css(messageFrameDiv, 'height:' + winHeightHeader + 'px;');
     }
-    function run(){
-      var s = document.getElementById("class3s");
-          if(s.innerHTML == 0){
-            doS();
-
-            return false;
-            clearInterval(timer);
-          }
-          s.innerHTML = s.innerHTML * 1 - 1;
-    }
+    // 闪屏广告的计算
+    // function run(){
+    //   var s = document.getElementById("class3s");
+    //       if(s.innerHTML == 0){
+    //         doS();
+    //
+    //         return false;
+    //         clearInterval(timer);
+    //       }
+    //       s.innerHTML = s.innerHTML * 1 - 1;
+    // }
     var isFirst = true;
     function doS(){
         if(isFirst){
