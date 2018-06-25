@@ -169,22 +169,34 @@
 
     function dialogBox_alert4() {
         // $api.rmStorage('login');
-        $api.rmStorage('token');
-        api.toast({
-            msg: '已退出！',
-            duration: 2000,
-            location: 'middle'
-        });
-        api.sendEvent({
-            name: 'bFaaaaa',
-            extra: {
-                bFaaaaa: 1,
-
+        api.confirm({
+            title: '退出登录',
+            msg: '确定要退出吗',
+            buttons: ['确定', '取消']
+        }, function(ret, err) {
+            var index = ret.buttonIndex;
+            if (index == 1) {
+                $api.rmStorage('token');
+                api.toast({
+                    msg: '已退出！',
+                    duration: 2000,
+                    location: 'middle'
+                });
+                api.sendEvent({
+                    name: 'bFaaaaa',
+                    extra: {
+                        bFaaaaa: 1,
+                    }
+                });
+                // $api.clearStorage();
+                api.closeToWin({
+                  name: 'login'
+                });
+            } else {
+              return;
             }
-        });
-        // $api.clearStorage();
-        api.closeToWin({
-          name: 'login'
+
+
         });
     }
 
