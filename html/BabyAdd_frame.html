@@ -190,10 +190,14 @@
     var html4 = '';
 
     function Timestamp() {
+        var d = new Date()
+        var year = (d.getFullYear()).toString()
+        var month = (d.getMonth() + 1).toString()
+        var day = (d.getDate()).toString()
         api.openPicker({
             type: 'date',
-            date: '2014-05-01',
-            // date: year + '年' + month + '月01日',
+            // date: '2014-05-01',
+            date: year + '-' + month + '-' + day,
             title: '选择时间'
         }, function(ret, err) {
             if (ret) {

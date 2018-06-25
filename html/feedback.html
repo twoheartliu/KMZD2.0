@@ -61,7 +61,7 @@
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/common.js"></script>
-<script type="text/javascript" src="../script/message.js"></script>;
+<script type="text/javascript" src="../script/message.js"></script>
 <script type="text/javascript">
     var type;
     var contact;
@@ -138,7 +138,7 @@
             if (ret) {
                 //  alert( JSON.stringify( ret.value.content ) );
                 content = ret.value.content
-                // console.log(content);
+                    // console.log(content);
             } else {
                 alert(JSON.stringify(err));
             }
@@ -147,62 +147,65 @@
     }
 
     function fnAjaxCreate(type, contact, content) {
-        if (!contact.match(/^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/)) {
-            api.toast({
-                msg: '请输入正确的手机号',
-                duration: 2000,
-                location: 'middle'
-            });
-        } else {
-            if (content == undefined) {
-
+        if (contact) {
+            if (!contact.match(/^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/)) {
                 api.toast({
-                    msg: '请填写要反馈的内容',
+                    msg: '请输入正确的手机号',
                     duration: 2000,
                     location: 'middle'
                 });
+                return;
             }
-            if (type == undefined) {
-                type = 1;
-            }
-            // console.log(type);
-            // console.log(contact);
-            // console.log(content);
-            api.ajax({
-                url: host + apiUri + '/system/feedback',
-                method: 'post',
-                dataType: 'json',
-                timeout:10,
-                headers: {
-                    "source": api.systemType,
-                    "version": version,
-                    "session": token,
-                },
-                data: {
-                    values: {
-                        'contact': contact,
-                        'type': type,
-                        'content': content,
-                    }
-                }
-            }, function(ret, err) {
-                if (ret) {
-                    if (ret.status == 200) {
-                        api.toast({
-                            msg: '提交成功',
-                            duration: 2000,
-                            location: 'middle'
-                        });
-                        setTimeout(function() {
-                            api.closeWin();
-                        }, 2000)
-                    }else{
-                      netMessage(ret);
-                    }
-                }else{
-                  netWork(err);
-                }
+        }
+        // console.log(content);
+        if (content == undefined) {
+            api.toast({
+                msg: '请填写要反馈的内容',
+                duration: 2000,
+                location: 'middle'
             });
         }
+        if (type == undefined) {
+            type = 1;
+        }
+        // console.log(type);
+        // console.log(contact);
+        // console.log(content);
+        api.ajax({
+            url: host + apiUri + '/system/feedback',
+            method: 'post',
+            dataType: 'json',
+            timeout: 10,
+            headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token,
+            },
+            data: {
+                values: {
+                    'contact': contact,
+                    'type': type,
+                    'content': content,
+                }
+            }
+        }, function(ret, err) {
+            if (ret) {
+                if (ret.status == 200) {
+                    api.toast({
+                        msg: '提交成功',
+                        duration: 2000,
+                        location: 'middle'
+                    });
+                    setTimeout(function() {
+                        api.closeWin();
+                    }, 2000)
+                } else {
+                    netMessage(ret);
+                }
+            } else {
+                netWork(err);
+            }
+        });
+
     }
 </script>

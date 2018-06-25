@@ -305,10 +305,14 @@
     var html4;
 
     function Timestamp() {
+        var d = new Date()
+        var year = (d.getFullYear()).toString()
+        var month = (d.getMonth() + 1).toString()
+        var day = (d.getDate()).toString()
         api.openPicker({
             type: 'date',
-            date: '2014-05-01',
-            // date: year + '年' + month + '月01日',
+            // date: '2014-05-01',
+            date: year + '-' + month + '-' + day,
             title: '选择时间'
         }, function(ret, err) {
             if (ret) {
@@ -363,10 +367,14 @@
     function fnSetBabyBirth(id) {
         // console.log(id);
         // console.log(ret);
+        var d = new Date()
+        var year = (d.getFullYear()).toString()
+        var month = (d.getMonth() + 1).toString()
+        var day = (d.getDate()).toString()
         api.openPicker({
             type: 'date',
-            date: '2014-05-01',
-            // date: year + '年' + month + '月01日',
+            // date: '2014-05-01',
+            date: year + '-' + month + '-' + day,
             title: '选择时间'
         }, function(ret, err) {
             if (ret) {
@@ -664,6 +672,10 @@
                 quality: 96,
                 saveToPhotoAlbum: false
             }, function(ret, err) {
+                // console.log(ret);
+                if (ret == undefined) {
+                    return;
+                }
                 if (ret.data) {
                     $api.byId('box').style.visibility = 'visible';
                     var FNImageClip = api.require('FNImageClip');
@@ -708,6 +720,9 @@
                 targetHeight: 500,
                 saveToPhotoAlbum: false
             }, function(ret, err) {
+                if (ret == undefined) {
+                    return;
+                }
                 if (ret.data) {
                     api.ajax({
                         url: host + apiUri + '/upload/user_photo',
@@ -727,7 +742,6 @@
                     }, function(ret, err) {
                         if (ret) {
                             if (ret.status == 200) {
-
                                 api.ajax({
                                     url: host + apiUri + '/user/edit',
                                     method: 'post',
