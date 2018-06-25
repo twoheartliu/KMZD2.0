@@ -86,14 +86,23 @@ function shareMp3Single(songListID,title,savePath) {
                                                     }
                                                 },function(ret, err){
                                                     if (ret) {
+                                                      api.addEventListener({
+                                                          name:'resume'
+                                                      }, function(ret, err){
+                                                        api.toast({
+                                                            msg: '分享成功',
+                                                            duration: 2000,
+                                                            location: 'middle'
+                                                        });
+                                                      });
+
+                                                        // console.log( JSON.stringify( ret ) );
+                                                    } else {
                                                       api.toast({
-                                                          msg: '分享成功',
+                                                          msg: '失败',
                                                           duration: 2000,
                                                           location: 'middle'
                                                       });
-                                                        // console.log( JSON.stringify( ret ) );
-                                                    } else {
-                                                        console.log( JSON.stringify( err ) );
                                                     }
                                                 });
                                               // } else {
@@ -195,14 +204,21 @@ function fnintnQQSingle(songListID,title,savePath) {
       }
   },function(ret, err){
       if (ret) {
+        api.addEventListener({
+            name:'resume'
+        }, function(ret, err){
+          api.toast({
+              msg: '分享成功',
+              duration: 2000,
+              location: 'middle'
+          });
+        });
+      } else {
         api.toast({
-            msg: '分享成功',
+            msg: '失败',
             duration: 2000,
             location: 'middle'
         });
-          console.log( JSON.stringify( ret ) );
-      } else {
-          console.log( JSON.stringify( err ) );
       }
   });
   // var qq = api.require('qq');
@@ -282,14 +298,22 @@ function initTimelineSingle(songListID,title,savePath) {
                                               }
                                           },function(ret, err){
                                               if (ret) {
-                                                api.toast({
-                                                    msg: '分享成功',
-                                                    duration: 2000,
-                                                    location: 'middle'
+                                                api.addEventListener({
+                                                    name:'resume'
+                                                }, function(ret, err){
+                                                  api.toast({
+                                                      msg: '分享成功',
+                                                      duration: 2000,
+                                                      location: 'middle'
+                                                  });
                                                 });
                                                   // console.log( JSON.stringify( ret ) );
                                               } else {
-                                                  console.log( JSON.stringify( err ) );
+                                                api.toast({
+                                                    msg: '失败',
+                                                    duration: 2000,
+                                                    location: 'middle'
+                                                });
                                               }
                                           });
                                           // var fs = api.require('fs');
@@ -388,14 +412,22 @@ function fnQQZoneSingle(songListID,title,savePath) {
       }
   },function(ret, err){
       if (ret) {
-        api.toast({
-            msg: '分享成功',
-            duration: 2000,
-            location: 'middle'
+        api.addEventListener({
+            name:'resume'
+        }, function(ret, err){
+          api.toast({
+              msg: '分享成功',
+              duration: 2000,
+              location: 'middle'
+          });
         });
           // console.log( JSON.stringify( ret ) );
       } else {
-          console.log( JSON.stringify( err ) );
+        api.toast({
+            msg: '失败',
+            duration: 2000,
+            location: 'middle'
+        });
       }
   });
   // var qq = api.require('qq');
@@ -470,14 +502,22 @@ function shareMp3Listening(name,listening_description,l_id,savePath) {
                                               }
                                           },function(ret, err){
                                               if (ret) {
-                                                api.toast({
-                                                    msg: '分享成功',
-                                                    duration: 2000,
-                                                    location: 'middle'
+                                                api.addEventListener({
+                                                    name:'resume'
+                                                }, function(ret, err){
+                                                  api.toast({
+                                                      msg: '分享成功',
+                                                      duration: 2000,
+                                                      location: 'middle'
+                                                  });
                                                 });
                                                   // console.log( JSON.stringify( ret ) );
                                               } else {
-                                                  console.log( JSON.stringify( err ) );
+                                                api.toast({
+                                                    msg: '失败',
+                                                    duration: 2000,
+                                                    location: 'middle'
+                                                });
                                               }
                                           });
                                           // var fs = api.require('fs');
@@ -580,14 +620,22 @@ function fnintnQQListening(name,listening_description,l_id,savePath) {
         }
     },function(ret, err){
         if (ret) {
-          api.toast({
-              msg: '分享成功',
-              duration: 2000,
-              location: 'middle'
+          api.addEventListener({
+              name:'resume'
+          }, function(ret, err){
+            api.toast({
+                msg: '分享成功',
+                duration: 2000,
+                location: 'middle'
+            });
           });
             // console.log( JSON.stringify( ret ) );
         } else {
-            console.log( JSON.stringify( err ) );
+          api.toast({
+              msg: '失败',
+              duration: 2000,
+              location: 'middle'
+          });
         }
     });
 }
@@ -651,14 +699,22 @@ function initTimelineListening(name,listening_description,l_id,savePath) {
                                               }
                                           },function(ret, err){
                                               if (ret) {
-                                                api.toast({
-                                                    msg: '分享成功',
-                                                    duration: 2000,
-                                                    location: 'middle'
+                                                api.addEventListener({
+                                                    name:'resume'
+                                                }, function(ret, err){
+                                                  api.toast({
+                                                      msg: '分享成功',
+                                                      duration: 2000,
+                                                      location: 'middle'
+                                                  });
                                                 });
                                                   // console.log( JSON.stringify( ret ) );
                                               } else {
-                                                  console.log( JSON.stringify( err ) );
+                                                api.toast({
+                                                    msg: '失败',
+                                                    duration: 2000,
+                                                    location: 'middle'
+                                                });
                                               }
                                           });
                                           // var fs = api.require('fs');
@@ -761,14 +817,22 @@ function fnQQZoneListening(name,listening_description,l_id,savePath) {
         }
     },function(ret, err){
         if (ret) {
-          api.toast({
-              msg: '分享成功',
-              duration: 2000,
-              location: 'middle'
+          api.addEventListener({
+              name:'resume'
+          }, function(ret, err){
+            api.toast({
+                msg: '分享成功',
+                duration: 2000,
+                location: 'middle'
+            });
           });
             // console.log( JSON.stringify( ret ) );
         } else {
-            console.log( JSON.stringify( err ) );
+          api.toast({
+              msg: '失败',
+              duration: 2000,
+              location: 'middle'
+          });
         }
     });
 }
@@ -840,14 +904,22 @@ function shareMp3Album(name,listening_description,l_id,savePath) {
                                               }
                                           },function(ret, err){
                                               if (ret) {
-                                                api.toast({
-                                                    msg: '分享成功',
-                                                    duration: 2000,
-                                                    location: 'middle'
+                                                api.addEventListener({
+                                                    name:'resume'
+                                                }, function(ret, err){
+                                                  api.toast({
+                                                      msg: '分享成功',
+                                                      duration: 2000,
+                                                      location: 'middle'
+                                                  });
                                                 });
                                                   // console.log( JSON.stringify( ret ) );
                                               } else {
-                                                  console.log( JSON.stringify( err ) );
+                                                api.toast({
+                                                    msg: '失败',
+                                                    duration: 2000,
+                                                    location: 'middle'
+                                                });
                                               }
                                           });
                                           // var fs = api.require('fs');
@@ -947,14 +1019,22 @@ function fnintnQQAlbum(name,listening_description,l_id,savePath) {
         }
     },function(ret, err){
         if (ret) {
-          api.toast({
-              msg: '分享成功',
-              duration: 2000,
-              location: 'middle'
+          api.addEventListener({
+              name:'resume'
+          }, function(ret, err){
+            api.toast({
+                msg: '分享成功',
+                duration: 2000,
+                location: 'middle'
+            });
           });
             // console.log( JSON.stringify( ret ) );
         } else {
-            console.log( JSON.stringify( err ) );
+          api.toast({
+              msg: '失败',
+              duration: 2000,
+              location: 'middle'
+          });
         }
     });
 }
@@ -1024,14 +1104,22 @@ function initTimelineAlbum(name,listening_description,l_id,savePath) {
                                               }
                                           },function(ret, err){
                                               if (ret) {
-                                                api.toast({
-                                                    msg: '分享成功',
-                                                    duration: 2000,
-                                                    location: 'middle'
+                                                api.addEventListener({
+                                                    name:'resume'
+                                                }, function(ret, err){
+                                                  api.toast({
+                                                      msg: '分享成功',
+                                                      duration: 2000,
+                                                      location: 'middle'
+                                                  });
                                                 });
                                                   // console.log( JSON.stringify( ret ) );
                                               } else {
-                                                  console.log( JSON.stringify( err ) );
+                                                api.toast({
+                                                    msg: '失败',
+                                                    duration: 2000,
+                                                    location: 'middle'
+                                                });
                                               }
                                           });
                                           var fs = api.require('fs');
@@ -1132,14 +1220,22 @@ function fnQQZoneAlbum(name,listening_description,l_id,savePath) {
         }
     },function(ret, err){
         if (ret) {
-          api.toast({
-              msg: '分享成功',
-              duration: 2000,
-              location: 'middle'
+          api.addEventListener({
+              name:'resume'
+          }, function(ret, err){
+            api.toast({
+                msg: '分享成功',
+                duration: 2000,
+                location: 'middle'
+            });
           });
             // console.log( JSON.stringify( ret ) );
         } else {
-            console.log( JSON.stringify( err ) );
+          api.toast({
+              msg: '失败',
+              duration: 2000,
+              location: 'middle'
+          });
         }
     });
 }
