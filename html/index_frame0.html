@@ -700,7 +700,7 @@
                 }
                 s_length = (data_.data[i].content.length < column * row) ? data_.data[i].content.length : column * row;
                 for (var s = 0; s < s_length; s++) {
-
+                  
                     if (data_.data[i].floor_type == "block") {
                         if (data_.data[i].content_type == "album") {
                           var cccc = column;
@@ -805,6 +805,8 @@
         } else if (urlNames == 'album') {
             urlName = 'single';
         }
+        console.log(name);
+        console.log(bofangmoshi);
         api.openWin({
             name: urlName,
             url: './' + urlName + '.html',
