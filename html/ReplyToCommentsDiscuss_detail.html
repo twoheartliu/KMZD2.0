@@ -279,41 +279,63 @@ var ok;
         	}
     }
 
+    function countValue(s) {
+        var len = 0
+        var valueLen = s.length
+        for (var i = 0; i < valueLen; i++) {
+            if (s.charCodeAt(i)>127 || s.charCodeAt(i)==94) {
+                len += 2;
+            } else {
+                len ++;
+            }
+        }
+        return len
+    }
+
     function replySend() {
         var replyValue = $api.byId('replyValue').value;
-        api.ajax({
-            url: host + apiUri + uris,
-            method: 'post',
-            dataType: 'json',
-            timeout:10,
-            headers: {
-                "source": api.systemType,
-                "version": version,
-                "session": token
-            },
-            data: {
-                values: {
-                    'id': albumId,
-                    'comment': replyValue,
+        var result = countValue(replyValue);
+        if (result < 4) {
+            api.toast({
+                msg: '请输入不少于2个汉字或4个字符',
+                duration: 2000,
+                location: 'middle'
+            });
+        } else {
+            api.ajax({
+                url: host + apiUri + uris,
+                method: 'post',
+                dataType: 'json',
+                timeout:10,
+                headers: {
+                    "source": api.systemType,
+                    "version": version,
+                    "session": token
+                },
+                data: {
+                    values: {
+                        'id': albumId,
+                        'comment': replyValue,
+                    }
                 }
-            }
-        }, function(ret, err) {
-                if(ret){
-                if (ret.status == 200) {
-                  api.sendEvent({
-                      name: 'gengXin',
-                      extra: {
-                          albumId: albumId
-                      }
-                  });
-                  api.closeWin();
-                } else {
-                netMessage(ret);
-                }
-              }else{
-                netWork(err);
-              }
-        });
+            }, function(ret, err) {
+                    if(ret){
+                    if (ret.status == 200) {
+                      api.sendEvent({
+                          name: 'gengXin',
+                          extra: {
+                              albumId: albumId
+                          }
+                      });
+                      api.closeWin();
+                    } else {
+                    netMessage(ret);
+                    }
+                  }else{
+                    netWork(err);
+                  }
+            });
+        }
     }
 </script>
 
