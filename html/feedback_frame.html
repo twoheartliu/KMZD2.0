@@ -161,7 +161,9 @@
             height: 100px;
             line-height: 25px;
             display: block;
-            margin: 0 auto;
+            /*margin: 0 auto;*/
+            margin-left: 5px;
+            margin-top: 5px;
             resize: none;
             overflow: scroll;
             text-shadow: 2rem;
@@ -237,18 +239,26 @@
             width: 100%;
             height: 50px;
             line-height: 50px;
+            border-bottom: 1px solid #efefef;
         }
 
         .textarea_input input {
             width: 100%;
             height: 50px;
+            margin-left: 5px;
+        }
+
+        .corner {
+            position: relative;
+            top: -10px;
+            color: red;
         }
     </style>
 </head>
 
 <body>
     <div class="description">
-        选择反馈类型
+        选择反馈类型<span class="corner">*</span>
     </div>
     <div class="Single row">
         <div class="col"><input class="hy-radio" type="radio" name="radio" value="1" checked='checked' onclick="getValue(this.value)" />产品建议</div>
@@ -256,7 +266,7 @@
         <div class="col"><input class="hy-radio" type="radio" name="radio" value="3" onclick="getValue(this.value)" />缺少内容</div>
     </div>
     <div class="description">
-        描述
+        描述<span class="corner">*</span>
     </div>
 
     <div class="textarea">
