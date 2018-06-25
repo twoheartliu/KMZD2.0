@@ -386,14 +386,13 @@
                 },
             }, function(ret, err) {
                 if (ret) {
-                    // console.log(JSON.stringify(ret));
+                    console.log(JSON.stringify(ret));
                     if (ret.status === 200) {
                         // 这个是关闭loading再掉通第一个接口的地方加
                         var loadEffect = $api.byId('loadEffect');
                         htmlloadEffect = '';
                         $api.html(loadEffect, htmlloadEffect);
                         // ~~~~~~~~~~~~~~
-
                         if (p == 1) {
                             if (ret.data == '') {
                                 var footer = $api.byId('footer');
@@ -419,7 +418,6 @@
                             } else {
                                 var footer = $api.byId('footer');
                                 $api.html(footer, '上拉加载更多');
-
                             }
                         }
                         // var html = '';
