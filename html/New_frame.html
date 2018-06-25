@@ -291,31 +291,30 @@
                                 // console.log(JSON.stringify( ret ));
 
                             } else {
-
-                              alert(ret.message);
-                              $api.rmStorage('token');
-                              api.openWin({
-                                  name: 'login',
-                                  url: '../login.html',
-                                  pageParam: {
-                                      name: 'test'
-                                  }
+                              var CoverImg = $api.byId('Cover_img');
+                              CoverImg.innerHTML = '<img src="../image/my/fnShareImg/01.jpg">';
+                              api.toast({
+                                  msg: '取消上传',
+                                  duration: 2000,
+                                  location: 'middle'
                               });
+                                fnUploadImage(ret);
+
                             }
                         });
 
 
                         // console.log(CoverImg.innerHTML = '<img src="http://nfyx.cn/app/img/' + ret.data + '">');
                     } else {
-                      alert(ret.message);
-                      $api.rmStorage('token');
-                      api.openWin({
-                          name: 'login',
-                          url: '../login.html',
-                          pageParam: {
-                              name: 'test'
-                          }
+                      var CoverImg = $api.byId('Cover_img');
+                      CoverImg.innerHTML = '<img src="../image/my/fnShareImg/01.jpg">';
+                      api.toast({
+                          msg: '上传失败',
+                          duration: 2000,
+                          location: 'middle'
                       });
+                      fnUploadImage(ret);
+
                     }
                 });
             } else if (index == 1) {
@@ -361,24 +360,26 @@
                               // console.log(JSON.stringify( ret ));
 
                           } else {
+                            var CoverImg = $api.byId('Cover_img');
+                            CoverImg.innerHTML = '<img src="../image/my/fnShareImg/01.jpg">';
                             api.toast({
-                                msg: '上传失败',
+                                msg: '取消上传',
                                 duration: 2000,
                                 location: 'middle'
                             });
+                            fnUploadImage(ret);
 
                           }
                       });
                     } else {
-                      alert(ret.message);
-                      $api.rmStorage('token');
-                      api.openWin({
-                          name: 'login',
-                          url: '../login.html',
-                          pageParam: {
-                              name: 'test'
-                          }
+                      var CoverImg = $api.byId('Cover_img');
+                      CoverImg.innerHTML = '<img src="../image/my/fnShareImg/01.jpg">';
+                      api.toast({
+                          msg: '上传失败',
+                          duration: 2000,
+                          location: 'middle'
                       });
+                      fnUploadImage(ret);
                     }
                 });
 
@@ -396,7 +397,7 @@
         widget = ['/image/my/fnShareImg/01.jpg','/image/my/fnShareImg/02.jpg','/image/my/fnShareImg/03.jpg','/image/my/fnShareImg/04.jpg','/image/my/fnShareImg/05.jpg','/image/my/fnShareImg/06.jpg','/image/my/fnShareImg/07.jpg','/image/my/fnShareImg/08.jpg',]
         dialogBox.share({
             rect: {
-                w: 300,
+                w: 350,
                 h: 200
             },
             items: [{
@@ -435,7 +436,7 @@
                     marginT: 0
                 },
                 itemIcon: {
-                    size: 65
+                    size: 75
                 }
             },
             // 点击灰色部分弹框消失

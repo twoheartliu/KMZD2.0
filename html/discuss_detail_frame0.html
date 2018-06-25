@@ -722,7 +722,6 @@
                                     i].content + '</div><div class="reply"><div  onclick="fnOpenMessageNotDetail(' + ret.data[i].comment_id + ', \'' + ret.data[i].nick_name + '\')">回复</div></div></div>';
                             }
                             $api.html(stylelist, html);
-                            // console.log(html);
 
                         }
                     }
@@ -760,7 +759,14 @@
         var conner_num = parseInt(stylelist.innerText);
         if (click == 0) {
             // 点开
-
+            if (uris == '/listening/comment/') {
+                var uri = '/listening/detail/';
+                var model = 'listen_c';
+            } else if (uris == '/album/comment/') {
+                var uri = '/album/';
+                var model = 'album_c';
+            }
+                        console.log(model);
             uri = '/extra/good';
             api.ajax({
                 url: host + apiUri + uri + '/' + img_id,
@@ -775,7 +781,7 @@
                 data: {
                     values: {
                         "type": 'inc',
-                        "model": 'album_c',
+                        "model": ''+model+'',
                     },
                 },
             }, function(ret, err) {
@@ -802,7 +808,12 @@
             });
         } else {
             // 关闭
-
+            // 点开
+            if (uris == '/listening/comment/') {
+                var model = 'listen_c';
+            } else if (uris == '/album/comment/') {
+                var model = 'album_c';
+            }
             uri = '/extra/good';
             api.ajax({
                 url: host + apiUri + uri + '/' + img_id,
@@ -817,7 +828,7 @@
                 data: {
                     values: {
                         "type": 'dec',
-                        "model": 'album_c',
+                        "model": ''+model+'',
                     }
                 }
             }, function(ret, err) {
