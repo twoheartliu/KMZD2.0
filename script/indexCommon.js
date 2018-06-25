@@ -576,6 +576,16 @@ function adjust() {
 function addtime() {
     var myAudio = document.getElementById("myAudio");
     timer2 = setInterval(function() {
+
+        if(myAudio.ended){
+          api.sendEvent({
+              name: 'xuntingAutoNext',
+              extra: {
+                  xuntingAutoNext: 'xuntingAutoNext'
+              }
+          });
+        }
+
         curs = parseInt(myAudio.currentTime);
         lenth = myAudio.duration;
         temp = curs;
@@ -860,7 +870,7 @@ function suiji() {
     var Range = 0 - rets.data.length;
     // console.log(Range);
     var Rand = Math.random();
-    console.log(Rand);
+    // console.log(Rand);
     var n = rets.data.length + Math.floor((Math.random()) * (0 - rets.data.length));
     suijiplays = setInterval(function() {
         if (myAudio.ended) {
@@ -953,7 +963,7 @@ function fnBoFangmoshiid() {
 
 function fnBOFangJian(bofangs,playTypes, aa, playlist,playUrlis) {
   // id
-  console.log(bofangs);
+  // console.log(bofangs);
   // 自定义的东西
     if (playlistid) {
         playlistid = playlist;

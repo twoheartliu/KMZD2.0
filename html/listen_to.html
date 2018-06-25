@@ -496,8 +496,8 @@
       api.addEventListener({
           name: oks
       }, function(ret, err) {
-        console.log(ret);
-        console.log(ret.value.wangluo);
+        // console.log(ret);
+        // console.log(ret.value.wangluo);
         if(ret.value.wangluo){
 
           // 获取浏览器高度
@@ -834,6 +834,9 @@
     //监听收藏，评论数；
     function fnJianTingBookCollection(bookId){
       soundId = bookId;
+      var ImgGif = $api.byId('ImgGif');
+      var html = '<div class="loading"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>';
+      $api.html(ImgGif, html);
       api.ajax({
           url: host + apiUri + '/sound/' + bookId,
           method: 'get',
@@ -1018,6 +1021,9 @@
             name: 'zongJinDusss'
         }, function(ret, err) {
             if (ret.value.html) {
+              var ImgGif = $api.byId('ImgGif');
+              var html = '';
+              $api.html(ImgGif, html);
                 var stylelist = $api.byId('zongshichang');
                 var html = ret.value.html;
                 $api.html(stylelist, html);
@@ -1033,9 +1039,11 @@
     }
     //播放、暂停
     function fnOpenPlayer() {
+      // console.log(44444444444444444);
         var player = $api.byId('player');
         if (player.getAttribute("src", 2) == "../image/play/ic_play_play.png") {
             player.src = "../image/play/ic_play_pause.png";
+            // console.log('1111111111111111111111');
             // 暂时不知道啥用可能没用
             var bofang = 3;
             api.sendEvent({
@@ -1053,6 +1061,8 @@
                 }
             });
         } else {
+
+          // console.log('222222222222222222');
             player.src = "../image/play/ic_play_play.png";
             // 这个应该是暂停的散发事件
             api.sendEvent({
@@ -1062,6 +1072,7 @@
                 }
             });
             // 函数不清楚是什么散发的是什么
+
             var bofang = 2;
             api.sendEvent({
                 name: 'neizhiliebiaoPlay',

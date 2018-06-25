@@ -5,7 +5,7 @@ function fnXunTingXinXi() {
   var myAudio = document.getElementById("myAudio");
   if(myAudio){
     myAudio.pause();
-    console.log(22222);
+    // console.log(22222);
   }
   fnUserFollow();
   clearInterval(timer2);
@@ -164,6 +164,14 @@ function initEventListennerBofangXunTing() {
           fnBOFangJians(bofang,playType);
       }
   });
+  //熏听自动下一首
+  api.addEventListener({
+      name: 'xuntingAutoNext'
+  }, function(ret, err) {
+      if (ret) {
+          fnXunTingXinXi();
+      }
+  });
     //下一首
     api.addEventListener({
         name: 'xunTingXiaYi'
@@ -178,6 +186,13 @@ function initEventListennerBofangXunTing() {
       // bofang 的 id
       // playType 是listen_to
       // a 是 id
+      // console.log(11111);
+      var myAudio = document.getElementById("myAudio");
+      if(myAudio){
+        myAudio.play();
+        // console.log(3333333333);
+      }
+
       fnBOFangJian(ret.value.bofang,ret.value.playType,ret.value.a);
       kaishibofangs();
         // netAudioPlay();
@@ -185,6 +200,11 @@ function initEventListennerBofangXunTing() {
         // jindutiao();
 
     });
+    // console.log(12121212121);
+    // var player = document.getElementById("myAudio");
+    // player.addEventListener("timeupdate",function functionName() {
+    //   console.log(123456789);
+    // });
     //监听暂停音频
     api.addEventListener({
         name: 'netAudiopauseXunTing'
