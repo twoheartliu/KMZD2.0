@@ -852,6 +852,18 @@
 
                   $api.html(stylelistCollectionHtml, albumCollectionHtml);
 
+              }else if (ret.status == 10804) {
+                api.toast({
+                    msg: '该听单已被删除',
+                    duration: 2000,
+                    location: 'middle'
+                });
+                setTimeout(function() {
+                  api.closeWin({
+                      name: 'ListingsList'
+                  });
+                }, 2000)
+
               } else {
                   netMessage(ret);
               }
