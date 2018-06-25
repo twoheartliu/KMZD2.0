@@ -672,6 +672,10 @@
                 quality: 96,
                 saveToPhotoAlbum: false
             }, function(ret, err) {
+                // console.log(ret);
+                if (ret == undefined) {
+                    return;
+                }
                 if (ret.data) {
                     $api.byId('box').style.visibility = 'visible';
                     var FNImageClip = api.require('FNImageClip');
@@ -716,6 +720,9 @@
                 targetHeight: 500,
                 saveToPhotoAlbum: false
             }, function(ret, err) {
+                if (ret == undefined) {
+                    return;
+                }
                 if (ret.data) {
                     api.ajax({
                         url: host + apiUri + '/upload/user_photo',
@@ -735,7 +742,6 @@
                     }, function(ret, err) {
                         if (ret) {
                             if (ret.status == 200) {
-
                                 api.ajax({
                                     url: host + apiUri + '/user/edit',
                                     method: 'post',
