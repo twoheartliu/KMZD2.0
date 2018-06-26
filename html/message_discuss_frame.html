@@ -299,38 +299,24 @@
         }, function(ret, err) {
             if (ret) {
                 if (ret.status == 200) {
-                  // console.log(JSON.stringify(ret));
                   if (p == 1) {
-                       if (ret.data.list.length < 8) {
-                          var footer = $api.byId('footer');
-                          // $api.css(footer, 'display:none');
-                          $api.remove(footer);
+                      if (ret.data.list == "") {
+                        var footer = $api.byId('footer');
+                        $api.html(footer, '暂无评论');
+                      }else if (!ret.data.list == '' && ret.data.list.length < 8  ) {
+                        var footer = $api.byId('footer');
+                        $api.html(footer, '');
                       }
                   } else {
                       if (ret.data.list == '') {
                           var footer = $api.byId('footer');
-                          var t ='没有更多结果了'
                           $api.html(footer, '没有更多结果了');
                       } else {
-                              var footer = $api.byId('footer');
-                              $api.html(footer, '上拉加载更多');
+                          var footer = $api.byId('footer');
+                          $api.html(footer, '上拉加载更多');
 
                       }
                   }
-
-                //   if(ret.data.list.length>=10){
-                //     var footer = $api.byId('footer');
-                //     $api.html(footer, '上拉加载更多');
-                //   }else{
-                //     var footer = $api.byId('footer');
-                //     $api.html(footer, '无更多消息');
-                //   }
-                  //
-                //   if(!ret.data.list){
-                //     var footer = $api.byId('footer');
-                //     $api.html(footer, '没有消息');
-                //   }
-                //     p = 1;
                     api.refreshHeaderLoadDone();
                     var sections = $api.byId('sections');
                     var html = '';
@@ -362,9 +348,6 @@
                               var s = (date.getSeconds() <10 ? '0' + date.getSeconds() : date.getSeconds());
                               return Y+M+D+' '+h+m+s;
                           }
-
-                        // var timestampToTimess =  timestampToTime(ret.data.list[i].modify_date);
-                        // console.log(timestampToTimess);
                         var time = timestampToTimess;
 
                         // 时间统一函数
@@ -405,7 +388,7 @@
                             '<p>' + timeText + '</p>' +
                             '</div>' +
                             '</li>'
-              }
+                    }
 
                     $api.html(sections, html);
 
@@ -442,6 +425,24 @@
             if (ret) {
 
                 if (ret.status == 200) {
+                  if (p == 1) {
+                      if (ret.data.list == "") {
+                        var footer = $api.byId('footer');
+                        $api.html(footer, '暂无评论');
+                      }else if (!ret.data.list == '' && ret.data.list.length < 8  ) {
+                        var footer = $api.byId('footer');
+                        $api.html(footer, '');
+                      }
+                  } else {
+                      if (ret.data.list == '') {
+                          var footer = $api.byId('footer');
+                          $api.html(footer, '没有更多结果了');
+                      } else {
+                              var footer = $api.byId('footer');
+                              $api.html(footer, '上拉加载更多');
+
+                      }
+                  }
                     // console.log(JSON.stringify(ret.data));
                     api.refreshHeaderLoadDone();
                     var sections = $api.byId('sections');
@@ -494,10 +495,6 @@
                                 '</div>' +
                                 '</li>');
                           }
-                    }else{
-                      // console.log(1111);
-                      var footer = $api.byId('footer');
-                      $api.html(footer, '无更多消息');
                     }
 
                         // console.log(ret.data.list[i].photo);
@@ -680,11 +677,9 @@
                       location: 'middle'
                   });
               }else{
-                console.log(JSON.stringify(ret));
                 netMessage(ret);
               }
             } else {
-              console.log(JSON.stringify(err));
                 netWork(err);
 
             }
@@ -777,11 +772,9 @@
                       location: 'middle'
                   });
               } else{
-                console.log(JSON.stringify(ret));
                 netMessage(ret);
               }
             } else {
-              console.log(JSON.stringify(err));
                 netWork(err);
                 // console.log(JSON.stringify(err));
             }
