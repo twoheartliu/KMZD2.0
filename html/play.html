@@ -679,6 +679,7 @@
     var ok;
     var bofangmoshi;
     var playType;
+    var listen_to_ = 1;
     apiready = function() {
       token = $api.getStorage('token');
       var secHeader = $api.byId('secHeader');
@@ -692,7 +693,14 @@
       bofangmoshi = api.pageParam.bofangmoshi;
       fnBoFangMoShiId(bofangmoshi);
       fnFuCeng();
-
+      // 下一曲散发出来的0
+      api.addEventListener({
+          name: 'listen_to_'
+      }, function(ret, err) {
+          if (ret) {
+            listen_to_ = ret.value.listen_to_;
+          }
+      });
       // 获取浏览器高度
       if (window.innerHeight)
           winHeight = window.innerHeight;
@@ -1616,6 +1624,10 @@
     }
     //上一曲
     function fnOpenPlayershangyi() {
+      if (listen_to_ == 1) {
+        return false;
+      }
+        listen_to_ = 1;
         var player = $api.byId('player');
         player.src = "../image/play/ic_play_pause.png";
         var c = 1;
@@ -1629,6 +1641,11 @@
     }
     //下一曲
     function fnOpenPlayerxiayi() {
+      if (listen_to_ == 1) {
+        return false;
+      }
+
+        listen_to_ = 1;
         var c = 2;
         api.sendEvent({
             name: 'GeDanxiayi',

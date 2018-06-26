@@ -470,6 +470,7 @@
   var namesss;
   var ok;
   var playType;
+  var listen_to_ = 1;
     function goback () {
       api.closeWin({name:'listenTo'});
     }
@@ -493,6 +494,15 @@
       // 从上个页面取值 listen_to
       playType = api.pageParam.playType;
       // console.log(playType);
+
+      // 下一曲散发出来的0
+      api.addEventListener({
+          name: 'listen_to_'
+      }, function(ret, err) {
+          if (ret) {
+            listen_to_ = ret.value.listen_to_;
+          }
+      });
       var oks = 'ok'+ok;
       api.addEventListener({
           name: oks
@@ -1136,17 +1146,27 @@
             }
         });
     }
+
     //下一曲
     function fnOpenPlayerxiayi() {
-        var c = api.pageParam.a;
-        api.sendEvent({
-            name: 'xunTingXiaYi',
-            extra: {
-                c: c
-            }
-        });
-        var player = $api.byId('player');
-        player.src = "../image/play/ic_play_pause.png";
+        if (listen_to_ == 1) {
+          return false;
+        }
+
+          listen_to_ = 1;
+          var c = api.pageParam.a;
+          api.sendEvent({
+              name: 'xunTingXiaYi',
+              extra: {
+                  c: c
+              }
+          });
+          var player = $api.byId('player');
+          player.src = "../image/play/ic_play_pause.png";
+
+
+
+
 
     }
 
