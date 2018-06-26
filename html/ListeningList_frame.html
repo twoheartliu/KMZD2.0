@@ -131,11 +131,15 @@
 
         .egret-flex-item-under {
             position: absolute;
-            right: 10px;
+            right: -20px;
             top: 15px;
+            width: 50px;
+            height: 50px;
         }
 
         .egret-flex-item-under img {
+            display: block;
+            margin: 0 auto;
             width: 20px;
         }
 
@@ -238,7 +242,7 @@
 <body>
     <ul id="ListeningListFrame"></ul>
     <div id="footer" class="disnone">
-        还未创建听单
+
     </div>
     <!-- 加载loading的dom -->
     <div id="loadEffect"></div>
@@ -400,15 +404,20 @@
         }, function(ret, err) {
             if (ret) {
                 if (ret.status == 200) {
+                  console.log(1);
                     if (p == 1) {
+                      console.log(2);
+
                         if (ret.data == '') {
+                          console.log(3);
+
                             var footer = $api.byId('footer');
                             $api.html(footer, '还没有创建听单');
                         }
-                        if (ret.data.length < 8) {
+                        if (ret.data.length < 8 && !ret.data == '') {
                             var footer = $api.byId('footer');
-                            // $api.css(footer, 'display:none');
-                            $api.remove(footer);
+                            $api.css(footer, '');
+                            // $api.remove(footer);
                         }
                     } else {
                         if (ret.data == '') {
@@ -463,6 +472,7 @@
     }
 
     function ListenList() {
+
         var token = $api.getStorage('token');
         api.ajax({
             url: host + apiUri + '/listening',
@@ -482,6 +492,25 @@
         }, function(ret, err) {
             if (ret) {
                 if (ret.status == 200) {
+                    if (p == 1) {
+                        if (ret.data == '') {
+                            var footer = $api.byId('footer');
+                            $api.html(footer , '还没有创建听单');
+                        }
+                        if (ret.data.length < 8 && !ret.data == '') {
+                            var footer = $api.byId('footer');
+                            $api.css(footer, '');
+                            // $api.remove(footer);
+                        }
+                    } else {
+                        if (ret.data == '') {
+                            var footer = $api.byId('footer');
+                            $api.html(footer, '没有更多了');
+                        } else {
+                            var footer = $api.byId('footer');
+                            $api.html(footer, '上拉加载更多');
+                        }
+                    }
                     // 这个是关闭loading再掉通第一个接口的地方加
                     var loadEffect = $api.byId('loadEffect');
                     htmlloadEffect = '';

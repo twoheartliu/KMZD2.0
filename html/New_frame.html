@@ -144,19 +144,16 @@
         }
     }
     function fnUploadImage(ret) {
-      // var bar = $api.byId('bar').value;
+
       var CoverImg = ret.data;
-      if (CoverImg == '') {
-        var CoverImg = $api.byId('Cover_img');
-        CoverImg.innerHTML = '<img src="../image/my/fnShareImg.jpg">'
-      }else {
+
         api.sendEvent({
             name: 'NewCoverImg',
             extra: {
                 CoverImg: CoverImg,
             }
         });
-      }
+
     }
     function fnUploadImages(index) {
 
@@ -281,6 +278,8 @@
                               if (ret.status == 200) {
                                 fnUploadImage(ret);
                               }else {
+                                var CoverImg = $api.byId('Cover_img');
+                                CoverImg.innerHTML = '<img src="../image/my/fnShareImg.jpg">'
                                 api.toast({
                                     msg: '上传失败',
                                     duration: 2000,
