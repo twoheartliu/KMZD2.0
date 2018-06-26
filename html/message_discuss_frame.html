@@ -673,10 +673,18 @@
                         ok:dataType
                     }
                 });
+              }else if (ret.status == 10804) {
+                  api.toast({
+                      msg: '该听单已被删除',
+                      duration: 2000,
+                      location: 'middle'
+                  });
               }else{
+                console.log(JSON.stringify(ret));
                 netMessage(ret);
               }
             } else {
+              console.log(JSON.stringify(err));
                 netWork(err);
 
             }
@@ -723,9 +731,11 @@
                       location: 'middle'
                   });
               } else{
+                // console.log(JSON.stringify(ret));
                 netMessage(ret);
               }
             } else {
+              // console.log(JSON.stringify(err));
                 netWork(err);
             }
         });
@@ -767,10 +777,11 @@
                       location: 'middle'
                   });
               } else{
-
+                console.log(JSON.stringify(ret));
                 netMessage(ret);
               }
             } else {
+              console.log(JSON.stringify(err));
                 netWork(err);
                 // console.log(JSON.stringify(err));
             }

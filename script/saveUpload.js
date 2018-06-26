@@ -191,6 +191,7 @@ function fnLuYinBaoCun() {
                     if (ret.eventType == 'right') {
 
                         if(userId){
+                          console.log(title);
                           uri = '/user/records';
                           api.ajax({
                               url: host + apiUri + uri,
@@ -279,7 +280,7 @@ function fnLuYinBaoCun() {
                                       data: {
                                           values: {
                                               "script_id": jubenid,
-                                              "title": name,
+                                              "title": title,
                                               "author_id": author_id,
                                               "lyric": body,
                                               "records": ret.data.records,
