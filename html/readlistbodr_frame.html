@@ -225,7 +225,7 @@
                 threshold: 20 //设置距离底部多少距离时触发，默认值为0，数字类型
             }
         }, function(ret, err) {
-            console.log(111);
+            // console.log(111);
             var footer = $api.byId('footer');
             $api.html(footer, '正在加载更多');
             p++;
@@ -285,8 +285,13 @@
             var footer = $api.byId('footer');
             $api.html(footer, '上拉加载更多');
             for (var i = 0; i < data_.data.length; i++) {
-                $api.append(stylelist, '<div class="bodyLi" onclick="fnLangdujubenWin(' + data_.data[i].id + ');"> <div class="body_li"><div class="body_li_1">' + data_.data[i].title + ' （' + data_.data[i].author_name +
-                    '）</div><div class="body_li_3"><div class="body_li_2">' + data_.data[i].body + '</div></div><div class="body_li_4"><img src="../image/my/index_y.png" alt=""></div></div></div>');
+                var author = data_.data[i].author_name
+                if (author) {
+                    author = `(${author})`
+                } else {
+                    author = ''
+                }
+                $api.append(stylelist, '<div class="bodyLi" onclick="fnLangdujubenWin(' + data_.data[i].id + ');"> <div class="body_li"><div class="body_li_1">' + data_.data[i].title + ''+ author +'</div><div class="body_li_3"><div class="body_li_2">' + data_.data[i].body + '</div></div><div class="body_li_4"><img src="../image/my/index_y.png" alt=""></div></div></div>');
             }
         } else {
             var footer = $api.byId('footer');
