@@ -174,13 +174,9 @@
             fnGetDirectory();
             fnGetView_history();
         } else {
-            api.openWin({
-                name: 'login',
-                url: '../login.html',
-                pageParam: {
-                    ok: 'login'
-                }
-            });
+          api.closeToWin({
+            name: 'login'
+          });
         }
 
               api.setCustomRefreshHeaderInfo({

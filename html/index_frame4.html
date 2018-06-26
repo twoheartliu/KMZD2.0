@@ -527,7 +527,7 @@
         }, function(ret, err) {
             if (ret) {
                 // console.log(JSON.stringify(ret));
-                if (ret.status = 200) {
+                if (ret.status == 200) {
                     var message = ret.data.message;
                     var comment = ret.data.comment;
                     var notify = ret.data.notify;
@@ -539,6 +539,7 @@
                         $api.html(numIndex4, htmlnumIndex4);
                     } else if (total < 10) {
                         messages = '<p>'+total+'</p>';
+                        $api.html(numIndex4, messages);
                     } else {
                         var htmlnumIndex4 = '<p style="width: 20px;">' + total + '</p>'
                         $api.html(numIndex4, htmlnumIndex4);

@@ -98,22 +98,24 @@
     var userInfos = JSON.stringify($api.getStorage("userInfo"));
     var token;
     apiready = function() {
-// <<<<<<< HEAD
+      fnMaskLayer();
+      initEventListenner();
 
-
-      // fnMaskLayer();
-    //   setTimeout("fnIndex()",500);
-
-// =======
-      // api.openWin({
-      //     name: 'index',
-      //     url: './index.html',
-      //     slidBackEnabled:false,
-      //     pageParam: {
-      //         name: 'test'
-      //     }
-      // });
-// >>>>>>> parent of 03a9996... xgx
+      token = $api.getStorage('token');
+      // console.log(token);
+      functionName();
+    }
+    function functionName() {
+      if (typeof(token) != "undefined")
+      {
+        setTimeout(function(){
+          api.openWin({
+              name: 'index',
+              url: './index.html',
+              slidBackEnabled:false,
+          });
+        },1000);
+      }
     }
     // 遮罩层
     function fnMaskLayer() {
@@ -359,4 +361,25 @@
             }
         });
     };
+    // 初始值是否退出应用
+    function initEventListenner() {
+        // 拦截Android的返回键，在首页点击返回键，提示退出应用
+        api.addEventListener({
+            name: 'keyback'
+        }, function(ret, err) {
+            api.confirm({
+                title: '提示',
+                msg: '是否退出应用',
+                buttons: ['确定', '取消']
+            }, function(ret, err) {
+                if (ret.buttonIndex == 1) {
+                    // 关闭当前的主Widget，就可以实现推出APP的效果
+                    api.closeWidget({
+                        silent: true, //直接退出，无需提示
+                    });
+                }
+            });
+        });
+    }
+
 </script>
