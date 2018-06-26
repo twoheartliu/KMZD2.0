@@ -233,7 +233,16 @@ function fnBoFangyinpinxinxi() {
     }, function(ret, err) {
       if(ret){
       if(ret.status == 200){
+        setTimeout(function(){
+            api.sendEvent({
+                name: 'listen_to_',
+                extra: {
+                    listen_to_ : 0
+                }
+            });
+          },1000)
             if (playlistid) {
+
                 api.sendEvent({
                     name: 'netbofangsssssss',
                     extra: {

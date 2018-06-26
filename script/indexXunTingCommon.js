@@ -7,6 +7,7 @@ function fnXunTingXinXi() {
     myAudio.pause();
     // console.log(22222);
   }
+
   fnUserFollow();
   clearInterval(timer2);
   clearInterval(timer1);
@@ -34,6 +35,14 @@ function fnXunTingXinXi() {
         }, function(ret, err) {
           if(ret){
             if(ret.status == 200){
+            setTimeout(function(){
+                api.sendEvent({
+                    name: 'listen_to_',
+                    extra: {
+                        listen_to_ : 0
+                    }
+                });
+              },1000)
               fnBFids(ret.data.id);
                   api.sendEvent({
                       name: 'netbofangsssssss',
