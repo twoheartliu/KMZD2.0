@@ -531,6 +531,50 @@
     function fnGetJubenlist() {
         var id = api.pageParam.InfojubenType;
         jubenid = api.pageParam.InfojubenType;
+        // console.log(jubenid);
+        api.addEventListener({
+            name: 'scpritId'
+        }, function(ret, err){
+            if( ret ){
+                // console.log(JSON.stringify(ret.value.scpritId));
+                var scpritId = ret.value.scpritId
+                var uri = '/script/detail/' + scpritId;
+                api.ajax({
+                    url: host + apiUri + uri,
+                    method: 'get',
+                    dataType: 'json',
+                    timeout: 10,
+                    headers: {
+                        "source": api.systemType,
+                        "version": version,
+                        "session": token
+                    }
+                }, function(ret, err) {
+                    if (ret) {
+                        if (ret.status == 200) {
+                            title = ret.data[0].title;
+                            name = ret.data[0].author_name;
+                            body = ret.data[0].body;
+                            author_id = ret.data[0].author_id;
+                            if (!name) {
+                                name = '';
+                            }
+                            fnGetJubentitle();
+                            fnGetJubenname();
+                            fnGetJubenbody();
+                        } else {
+                            netMessage(ret);
+                        }
+                    } else {
+                        netWork(err);
+                    }
+                });
+
+            }else{
+                 alert( JSON.stringify( err ) );
+            }
+        });
+
         var uri = '/script/detail/' + jubenid;
         api.ajax({
             url: host + apiUri + uri,

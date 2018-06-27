@@ -274,43 +274,58 @@
 
     }
 
-    function fnUpdateLyricList(data_) {
-        if (p == 1 && data_.data == '') {
-            var stylelists = $api.byId('jubenlist');
-            var htmls = '<div class="zanwushuju_div"><p>暂无数据</p></div>';
-            $api.html(stylelists, htmls);
-            var footer = $api.byId('footer');
-            $api.html(footer, '');
-        } else if (data_.data) {
-            var stylelist = $api.byId('jubenlist');
-            // var html = '';
-            var footer = $api.byId('footer');
-            $api.html(footer, '上拉加载更多');
-            for (var i = 0; i < data_.data.length; i++) {
-                var author = data_.data[i].author_name
-                if (author) {
-                    author = `(${author})`
-                } else {
-                    author = ''
-                }
-                $api.append(stylelist, '<div class="bodyLi" onclick="fnLangdujubenWin(' + data_.data[i].id + ');"> <div class="body_li"><div class="body_li_1">' + data_.data[i].title + ''+ author +'</div><div class="body_li_3"><div class="body_li_2">' + data_.data[i].body + '</div></div><div class="body_li_4"><img src="../image/my/index_y.png" alt=""></div></div></div>');
+    function fnUpdateLyricList(ret) {
+        if (p == 1) {
+            if (ret.data == "") {
+              var footer = $api.byId('footer');
+              $api.html(footer, '暂无评论');
+            }else if (!ret.data == '' && ret.data.length < 8  ) {
+              var footer = $api.byId('footer');
+              $api.html(footer, '');
             }
         } else {
-            var footer = $api.byId('footer');
-            $api.html(footer, '无更多数据');
+            if (ret.data == '') {
+                var footer = $api.byId('footer');
+                $api.html(footer, '没有更多结果了');
+            } else {
+                    var footer = $api.byId('footer');
+                    $api.html(footer, '上拉加载更多');
+
+            }
+        }
+
+        var stylelist = $api.byId('jubenlist');
+        // var html = '';
+        var footer = $api.byId('footer');
+        $api.html(footer, '上拉加载更多');
+        for (var i = 0; i < ret.data.length; i++) {
+            var author = ret.data[i].author_name
+            if (author) {
+                author = `(${author})`
+            } else {
+                author = ''
+            }
+            $api.append(stylelist, '<div class="bodyLi" onclick="fnLangdujubenWin(' + ret.data[i].id + ');"> <div class="body_li"><div class="body_li_1">' + ret.data[i].title + ''+ author +'</div><div class="body_li_3"><div class="body_li_2">' + ret.data[i].body + '</div></div><div class="body_li_4"><img src="../image/my/index_y.png" alt=""></div></div></div>');
         }
 
     }
 
-    function fnLangdujubenWin(InfojubenType) {
+    function fnLangdujubenWin(a) {
         api.openWin({
             name: 'aloud',
             url: './aloud.html',
             delay: 200,
             pageParam: {
-                InfojubenType: InfojubenType,
                 ok: 'aloud'
             },
         });
+
+        api.sendEvent({
+            name: 'scpritId',
+            extra: {
+                scpritId: a,
+            }
+        });
+
     }
 </script>
