@@ -481,8 +481,18 @@
             display: block;
             margin: 0 auto;
         }
-        .ImgGif{position: absolute;top: calc((100% - 100px)/2);left: calc((100% - 100px)/2);z-index: 99999;}
-        .ImgGif img{width: 100px;height: 100px;}
+
+        .ImgGif {
+            position: absolute;
+            top: calc((100% - 100px)/2);
+            left: calc((100% - 100px)/2);
+            z-index: 99999;
+        }
+
+        .ImgGif img {
+            width: 100px;
+            height: 100px;
+        }
     </style>
 </head>
 
@@ -565,7 +575,7 @@
             </ul>
         </div>
     </div>
-            <div class="ImgGif" id="ImgGif"></div>
+    <div class="ImgGif" id="ImgGif"></div>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/swiper.min.js"></script>
@@ -591,60 +601,209 @@
     var bookId;
     var ok;
     var playType;
+    var drafts_id;
+    var token;
     apiready = function() {
-        var secHeader = $api.byId('secHeader');
-        $api.fixStatusBar(secHeader);
-        var headeris = document.querySelector('#secHeader');
-        $api.fixIos7Bar(headeris);
-        $api.fixStatusBar(headeris);
-        var headerH = $api.offset(secHeader).h;
-        var headerPosH = $api.offset(secHeader).h;
-        var header = document.querySelector('header');
-        $api.fixIos7Bar(header);
-        if (window.innerHeight)
-            winHeight = window.innerHeight;
-        else if ((document.body) && (document.body.clientHeight))
-            winHeight = document.body.clientHeight;
-        var messageFrameDiv = $api.byId('wrap');
-        var winHeightHeader = winHeight - headerPosH;
-        $api.css(messageFrameDiv, 'height:' + winHeightHeader + 'px;');
-        fnJianTingGood();
-        fnJianTingBFms();
-        fnBoFangPlayType();
-                fnFuCeng()
-        ok = api.pageParam.ok;
-        var oks = 'ok'+ok;
-        api.addEventListener({
-              name: oks
-          }, function(ret, err) {
-            if(ret.value.wangluo){
-              dangqianbofangid = api.pageParam.DangQianbofangid;
-              // console.log(bookId);
-              api.addEventListener({
-                  name: 'netPlaying'
-              }, function(ret, err) {
-                  fnDangQianbofangid(ret.value.playing);
-              });
-                if (connectionType == "wifi") {
-                  if (dangqianbofangid) {
-                    bofang = api.pageParam.bofang;
-                    playType = api.pageParam.playType;
-                    // console.log(playType);
-                    if(bofang){
-                      fnJinRuBofangs(dangqianbofangid,bofang,playType);
-                      soundId = dangqianbofangid;
-                      bookId == dangqianbofangid;
+            token = $api.getStorage('token');
+            var secHeader = $api.byId('secHeader');
+            $api.fixStatusBar(secHeader);
+            var headeris = document.querySelector('#secHeader');
+            $api.fixIos7Bar(headeris);
+            $api.fixStatusBar(headeris);
+            var headerH = $api.offset(secHeader).h;
+            var headerPosH = $api.offset(secHeader).h;
+            var header = document.querySelector('header');
+            $api.fixIos7Bar(header);
+            if (window.innerHeight)
+                winHeight = window.innerHeight;
+            else if ((document.body) && (document.body.clientHeight))
+                winHeight = document.body.clientHeight;
+            var messageFrameDiv = $api.byId('wrap');
+            var winHeightHeader = winHeight - headerPosH;
+            $api.css(messageFrameDiv, 'height:' + winHeightHeader + 'px;');
+            fnJianTingGood();
+            fnJianTingBFms();
+            fnBoFangPlayType();
+            fnFuCeng()
+            ok = api.pageParam.ok;
+            var oks = 'ok' + ok;
+            api.addEventListener({
+                name: oks
+            }, function(ret, err) {
+                if (ret.value.wangluo) {
+                    dangqianbofangid = api.pageParam.DangQianbofangid;
+                    drafts_id = api.pageParam.drafts_id;
+                    // console.log(bookId);
+                    api.addEventListener({
+                        name: 'netPlaying'
+                    }, function(ret, err) {
+                        fnDangQianbofangid(ret.value.playing);
+                    });
+                    if (connectionType == "wifi") {
+                        if (dangqianbofangid) {
+                            bofang = api.pageParam.bofang;
+                            playType = api.pageParam.playType;
+                            // console.log(playType);
+                            if (bofang) {
+                                fnJinRuBofangs(dangqianbofangid, bofang, playType);
+                                soundId = dangqianbofangid;
+                                bookId == dangqianbofangid;
 
-                    }else{
-                      fnJinRuBofangs(dangqianbofangid);
-                      soundId = dangqianbofangid;
-                      bookId == dangqianbofangid;
+                            } else {
+                                fnJinRuBofangs(dangqianbofangid);
+                                soundId = dangqianbofangid;
+                                bookId == dangqianbofangid;
+                            }
+                        } else {
+                            bookId = api.pageParam.a;
+                            soundId = api.pageParam.a;
+                            fnJinRuBofang();
+                        }
+                    } else {
+                        var dialogBox = api.require('dialogBox');
+                        dialogBox.alert({
+                            texts: {
+                                title: '您正在使用移动数据网络进行播放，是否继续播放',
+                                leftBtnTitle: '暂不播放',
+                                rightBtnTitle: '继续播放'
+                            },
+                            styles: {
+                                bg: '#fff',
+                                w: 300,
+                                title: {
+                                    marginT: 20,
+                                    icon: 'widget://res/gou.png',
+                                    iconSize: 40,
+                                    titleSize: 14,
+                                    titleColor: '#666'
+                                },
+                                content: {
+                                    color: '#ccc',
+                                    size: 14
+                                },
+                                left: {
+                                    marginB: 7,
+                                    marginL: 20,
+                                    w: 130,
+                                    h: 35,
+                                    corner: 2,
+                                    bg: '#ccc',
+                                    color: '#FFF',
+                                    size: 12
+                                },
+                                right: {
+                                    marginB: 7,
+                                    marginL: 10,
+                                    w: 130,
+                                    h: 35,
+                                    corner: 2,
+                                    bg: '#89211b',
+                                    color: '#fff',
+                                    size: 12
+                                }
+                            }
+                        }, function(ret) {
+                            if (ret.eventType == 'right') {
+                                dangqianbofangid = api.pageParam.DangQianbofangid;
+
+                                drafts_id = api.pageParam.drafts_id;
+                                // console.log(dangqianbofangid);
+                                if (dangqianbofangid) {
+                                    bofang = api.pageParam.bofang;
+                                    // console.log(bofang);
+                                    playType = api.pageParam.playType;
+                                    // console.log(playType);
+                                    if (bofang) {
+                                        fnJinRuBofangs(dangqianbofangid, bofang, playType);
+                                        soundId = dangqianbofangid;
+                                        bookId == dangqianbofangid;
+                                    } else {
+                                        fnJinRuBofangs(dangqianbofangid);
+                                        soundId = dangqianbofangid;
+                                        bookId == dangqianbofangid;
+                                    }
+                                } else {
+                                    bookId = api.pageParam.a;
+
+                                    soundId = api.pageParam.a;
+                                    fnJinRuBofang();
+                                }
+                                var dialogBox = api.require('dialogBox');
+                                dialogBox.close({
+                                    dialogName: 'alert'
+                                });
+                            } else if (ret.eventType == 'left') {
+                                var stylelist = $api.byId('openplayer');
+                                var html = '<img src="../image/play/ic_play_play.png" alt=""  id="player">';
+                                $api.html(stylelist, html);
+                                var dialogBox = api.require('dialogBox');
+                                var stylelistkaishijishi = $api.byId('kaishijishi');
+                                var htmlkaishijishi = '00:00';
+                                $api.html(stylelistkaishijishi, htmlkaishijishi);
+                                var stylelistzongshichang = $api.byId('zongshichang');
+                                var htmlzongshichang = '00:00';
+                                $api.html(stylelistzongshichang, htmlzongshichang);
+                                api.closeWin();
+                                dialogBox.close({
+                                    dialogName: 'alert'
+                                });
+                            }
+                        });
                     }
-                  } else {
-                    bookId = api.pageParam.a;
-                    soundId = api.pageParam.a;
-                      fnJinRuBofang();
-                  }
+
+                    api.addEventListener({
+                        name: 'netPlaying'
+                    }, function(ret, err) {
+                        fnDangQianbofangid(ret.value.playing);
+                    });
+                    var DangQianbofangid = api.pageParam.DangQianbofangid;
+                    if (DangQianbofangid) {
+                        fnJinRuBofangs(DangQianbofangid);
+                    } else {
+                        api.addEventListener({
+                            name: 'neizhiliebiaoPlaysss'
+                        }, function(ret, err) {
+                            aa = ret.value.a;
+                            bofangs = ret.value.bofang;
+                            playType = ret.value.playType;
+                            fnA(aa, bofangs, playType);
+                            fnAAaa(aa, bofangs, playType);
+                            return;
+                        });
+                        fnJinRuBofang();
+                    }
+                }
+            });
+
+            var connectionType = api.connectionType;
+            if (connectionType == "none") {
+                netWorkNone(ok);
+            } else {
+                dangqianbofangid = api.pageParam.DangQianbofangid;
+                api.addEventListener({
+                    name: 'netPlaying'
+                }, function(ret, err) {
+                    fnDangQianbofangid(ret.value.playing);
+                });
+                if (connectionType == "wifi") {
+                    if (dangqianbofangid) {
+                        bofang = api.pageParam.bofang;
+                        playType = api.pageParam.playType;
+                        if (bofang) {
+                            fnJinRuBofangs(dangqianbofangid, bofang, playType);
+                            soundId = dangqianbofangid;
+                            bookId == dangqianbofangid;
+                        } else {
+                            fnJinRuBofangs(dangqianbofangid);
+                            soundId = dangqianbofangid;
+                            bookId == dangqianbofangid;
+                        }
+                    } else {
+                        bookId = api.pageParam.a;
+                        drafts_id = api.pageParam.drafts_id;
+                        soundId = api.pageParam.a;
+                        fnJinRuBofang();
+                    }
                 } else {
                     var dialogBox = api.require('dialogBox');
                     dialogBox.alert({
@@ -691,25 +850,21 @@
                     }, function(ret) {
                         if (ret.eventType == 'right') {
                             dangqianbofangid = api.pageParam.DangQianbofangid;
-                            // console.log(dangqianbofangid);
                             if (dangqianbofangid) {
-                              bofang = api.pageParam.bofang;
-                              // console.log(bofang);
-                              playType = api.pageParam.playType;
-                              // console.log(playType);
-                              if(bofang){
-                                fnJinRuBofangs(dangqianbofangid,bofang,playType);
-                                soundId = dangqianbofangid;
-                                bookId == dangqianbofangid;
-                              }else{
-                                fnJinRuBofangs(dangqianbofangid);
-                                soundId = dangqianbofangid;
-                                bookId == dangqianbofangid;
-                              }
+                                bofang = api.pageParam.bofang;
+                                playType = api.pageParam.playType;
+                                if (bofang) {
+                                    fnJinRuBofangs(dangqianbofangid, bofang, playType);
+                                    soundId = dangqianbofangid;
+                                    bookId == dangqianbofangid;
+                                } else {
+                                    fnJinRuBofangs(dangqianbofangid);
+                                    soundId = dangqianbofangid;
+                                    bookId == dangqianbofangid;
+                                }
                             } else {
-                              bookId = api.pageParam.a;
-
-                              soundId = api.pageParam.a;
+                                bookId = api.pageParam.a;
+                                soundId = api.pageParam.a;
                                 fnJinRuBofang();
                             }
                             var dialogBox = api.require('dialogBox');
@@ -734,249 +889,111 @@
                         }
                     });
                 }
-
-              api.addEventListener({
-                  name: 'netPlaying'
-              }, function(ret, err) {
-                  fnDangQianbofangid(ret.value.playing);
-              });
-              var DangQianbofangid = api.pageParam.DangQianbofangid;
-              if (DangQianbofangid) {
-                  fnJinRuBofangs(DangQianbofangid);
-              } else {
-                  api.addEventListener({
-                      name: 'neizhiliebiaoPlaysss'
-                  }, function(ret, err) {
-                      aa = ret.value.a;
-                      bofangs = ret.value.bofang;
-                      playType = ret.value.playType;
-
-                      fnA(aa, bofangs,playType);
-                      fnAAaa(aa, bofangs,playType);
-                      return;
-                  });
-                  fnJinRuBofang();
-              }
             }
-          });
+        }
+        //加载时的图片
+    function fnFuCeng() {
+        api.addEventListener({
+            name: 'aaaaaaPlay'
+        }, function(ret, err) {
+            aaaaaa = ret.value.aaaaaa;
+            if (aaaaaa == 2) {
+                var ImgGif = $api.byId('ImgGif');
+                var html = '';
 
-          var connectionType = api.connectionType;
-          if(connectionType == "none"){
-          	netWorkNone(ok);
-          }else{
-            dangqianbofangid = api.pageParam.DangQianbofangid;
-            api.addEventListener({
-                name: 'netPlaying'
-            }, function(ret, err) {
-                fnDangQianbofangid(ret.value.playing);
-            });
-              if (connectionType == "wifi") {
-                if (dangqianbofangid) {
-                  bofang = api.pageParam.bofang;
-                  console.log(bofang);
-                  playType = api.pageParam.playType;
-                  console.log(playType);
-                  if(bofang){
-                    fnJinRuBofangs(dangqianbofangid,bofang,playType);
-                    soundId = dangqianbofangid;
-                    bookId == dangqianbofangid;
-                  }else{
-                    fnJinRuBofangs(dangqianbofangid);
-                    soundId = dangqianbofangid;
-                    bookId == dangqianbofangid;
-                  }
-                } else {
-                  bookId = api.pageParam.a;
-                  console.log(bookId);
-                  soundId = api.pageParam.a;
-                  console.log(soundId);
-                    fnJinRuBofang();
-                }
-              } else {
-                  var dialogBox = api.require('dialogBox');
-                  dialogBox.alert({
-                      texts: {
-                          title: '您正在使用移动数据网络进行播放，是否继续播放',
-                          leftBtnTitle: '暂不播放',
-                          rightBtnTitle: '继续播放'
-                      },
-                      styles: {
-                          bg: '#fff',
-                          w: 300,
-                          title: {
-                              marginT: 20,
-                              icon: 'widget://res/gou.png',
-                              iconSize: 40,
-                              titleSize: 14,
-                              titleColor: '#666'
-                          },
-                          content: {
-                              color: '#ccc',
-                              size: 14
-                          },
-                          left: {
-                              marginB: 7,
-                              marginL: 20,
-                              w: 130,
-                              h: 35,
-                              corner: 2,
-                              bg: '#ccc',
-                              color: '#FFF',
-                              size: 12
-                          },
-                          right: {
-                              marginB: 7,
-                              marginL: 10,
-                              w: 130,
-                              h: 35,
-                              corner: 2,
-                              bg: '#89211b',
-                              color: '#fff',
-                              size: 12
-                          }
-                      }
-                  }, function(ret) {
-                      if (ret.eventType == 'right') {
-                          dangqianbofangid = api.pageParam.DangQianbofangid;
-                          if (dangqianbofangid) {
-                            bofang = api.pageParam.bofang;
-                            playType = api.pageParam.playType;
-                            if(bofang){
-                              fnJinRuBofangs(dangqianbofangid,bofang,playType);
-                              soundId = dangqianbofangid;
-                              bookId == dangqianbofangid;
-                            }else{
-                              fnJinRuBofangs(dangqianbofangid);
-                              soundId = dangqianbofangid;
-                              bookId == dangqianbofangid;
-                            }
-                          } else {
-                            bookId = api.pageParam.a;
-                            soundId = api.pageParam.a;
-                              fnJinRuBofang();
-                          }
-                          var dialogBox = api.require('dialogBox');
-                          dialogBox.close({
-                              dialogName: 'alert'
-                          });
-                      } else if (ret.eventType == 'left') {
-                          var stylelist = $api.byId('openplayer');
-                          var html = '<img src="../image/play/ic_play_play.png" alt=""  id="player">';
-                          $api.html(stylelist, html);
-                          var dialogBox = api.require('dialogBox');
-                          var stylelistkaishijishi = $api.byId('kaishijishi');
-                          var htmlkaishijishi = '00:00';
-                          $api.html(stylelistkaishijishi, htmlkaishijishi);
-                          var stylelistzongshichang = $api.byId('zongshichang');
-                          var htmlzongshichang = '00:00';
-                          $api.html(stylelistzongshichang, htmlzongshichang);
-                          api.closeWin();
-                          dialogBox.close({
-                              dialogName: 'alert'
-                          });
-                      }
-                  });
-              }
-          }
-    }
-    //加载时的图片
-    function fnFuCeng(){
-      api.addEventListener({
-          name: 'aaaaaaPlay'
-      }, function(ret, err) {
-          aaaaaa = ret.value.aaaaaa;
-          if(aaaaaa == 2){
-            var ImgGif = $api.byId('ImgGif');
-            var html = '';
+                $api.html(ImgGif, html);
 
-            $api.html(ImgGif, html);
-
-          }else if (aaaaaa == 1) {
-            var ImgGif = $api.byId('ImgGif');
-            var html = '<img src="../res/16d7767d-7281-4d04-910f-b8d7de9d4724.gif" alt="">';
-            $api.html(ImgGif, html);
-          }
-          return false;
-      });
-    }
-    function fnBoFangPlayType(){
-      api.addEventListener({
-          name: 'netBoFangPlayType'
-      }, function(ret, err) {
-          fnPlayType(ret.value.bofang,ret.value.playType);
-      });
-    }
-    function fnPlayType(bofangs,playTypes){
-      bofang = bofangs;
-      playType =playTypes;
-      if(bofang == 2){
-        player.src = "../image/play/ic_play_play.png";
-      }else if (bofang == 3) {
-        player.src = "../image/play/ic_play_pause.png";
-      }
-    }
-    function fnJianTingGood(){
-      api.addEventListener({
-          name: 'neiJianTingGood'
-      }, function(ret, err) {
-          bofangmoshi = ret.value.bofangmoshiid;
-          fnOpenChangeImg(bofangmoshi);
-          return;
-      });
+            } else if (aaaaaa == 1) {
+                var ImgGif = $api.byId('ImgGif');
+                var html = '<img src="../res/16d7767d-7281-4d04-910f-b8d7de9d4724.gif" alt="">';
+                $api.html(ImgGif, html);
+            }
+            return false;
+        });
     }
 
-    function fnJianTingBFms(){
-      api.addEventListener({
-          name: 'neiJianTingBFms'
-      }, function(ret, err) {
-          bofangmoshi = ret.value.bofangmoshiid;
-          fnBoFangMoShiId(bofangmoshi);
-          return;
-      });
+    function fnBoFangPlayType() {
+        api.addEventListener({
+            name: 'netBoFangPlayType'
+        }, function(ret, err) {
+            fnPlayType(ret.value.bofang, ret.value.playType);
+        });
     }
-    function fnBoFangMoShiId(bofangMoShiId){
-      bofangmoshi = bofangMoShiId;
-      var stylelist = $api.byId('imagesImg');
-      var html = '';
-      if(bofangmoshi == 1){
-        html = '<img src="../image/play/play_change1.png" alt="" id="img">';
-      }else if(bofangmoshi == 2){
-        html = '<img src="../image/play/play_change2.png" alt="" id="img">';
-      }else if(bofangmoshi == 0){
-        html = '<img src="../image/play/play_change0.png" alt="" id="img">';
-      }else if(bofangmoshi == 'undefined'){
-        html = '<img src="../image/play/play_change0.png" alt="" id="img">';
-      }else{
-        html = '<img src="../image/play/play_change0.png" alt="" id="img">';
-      }
-      $api.html(stylelist, html);
-      fnOpenChangeImg();
+
+    function fnPlayType(bofangs, playTypes) {
+        bofang = bofangs;
+        playType = playTypes;
+        if (bofang == 2) {
+            player.src = "../image/play/ic_play_play.png";
+        } else if (bofang == 3) {
+            player.src = "../image/play/ic_play_pause.png";
+        }
     }
+
+    function fnJianTingGood() {
+        api.addEventListener({
+            name: 'neiJianTingGood'
+        }, function(ret, err) {
+            bofangmoshi = ret.value.bofangmoshiid;
+            fnOpenChangeImg(bofangmoshi);
+            return;
+        });
+    }
+
+    function fnJianTingBFms() {
+        api.addEventListener({
+            name: 'neiJianTingBFms'
+        }, function(ret, err) {
+            bofangmoshi = ret.value.bofangmoshiid;
+            fnBoFangMoShiId(bofangmoshi);
+            return;
+        });
+    }
+
+    function fnBoFangMoShiId(bofangMoShiId) {
+        bofangmoshi = bofangMoShiId;
+        var stylelist = $api.byId('imagesImg');
+        var html = '';
+        if (bofangmoshi == 1) {
+            html = '<img src="../image/play/play_change1.png" alt="" id="img">';
+        } else if (bofangmoshi == 2) {
+            html = '<img src="../image/play/play_change2.png" alt="" id="img">';
+        } else if (bofangmoshi == 0) {
+            html = '<img src="../image/play/play_change0.png" alt="" id="img">';
+        } else if (bofangmoshi == 'undefined') {
+            html = '<img src="../image/play/play_change0.png" alt="" id="img">';
+        } else {
+            html = '<img src="../image/play/play_change0.png" alt="" id="img">';
+        }
+        $api.html(stylelist, html);
+        fnOpenChangeImg();
+    }
+
     function fnDangQianbofangid(id) {
         Dqbofangid = id;
     }
 
-    function fnJinRuBofangs(id,bofang,playType) {
+    function fnJinRuBofangs(id, bofang, playType) {
         var eHeader = $api.byId('header');
         api.parseTapmode();
-        if(bofang == 3){
-          var stylelist = $api.byId('openplayer');
-          var html = '<img src="../image/play/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player">';
-          $api.html(stylelist, html);
-          if (id) {
-            soundId = id;
-              api.sendEvent({
-                  name: 'netPlayingCaoGaoXiang',
-                  extra: {
-                      id: id
-                  }
-              });
+        if (bofang == 3) {
+            var stylelist = $api.byId('openplayer');
+            var html = '<img src="../image/play/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player">';
+            $api.html(stylelist, html);
+            if (id) {
+                soundId = id;
+                api.sendEvent({
+                    name: 'netPlayingCaoGaoXiang',
+                    extra: {
+                        id: id
+                    }
+                });
 
-          }
-        }else{
-          var stylelist = $api.byId('openplayer');
-          var html = '<img src="../image/play/ic_play_play.png" alt="" onclick="fnOpenPlayer();" id="player">';
-          $api.html(stylelist, html);
+            }
+        } else {
+            var stylelist = $api.byId('openplayer');
+            var html = '<img src="../image/play/ic_play_play.png" alt="" onclick="fnOpenPlayer();" id="player">';
+            $api.html(stylelist, html);
         }
         fnInitSwiper();
         fnOpenChangeImg();
@@ -1005,13 +1022,13 @@
             $api.html(stylelist, html);
             bofang = 3;
             if (id) {
-              soundId = id;
+                soundId = id;
                 api.sendEvent({
                     name: 'netPlayCaoGaoXiang',
                     extra: {
-                      bofang: bofang,
+                        bofang: bofang,
                         id: id,
-                        playType:playType
+                        playType: playType
                     }
                 });
             }
@@ -1020,7 +1037,7 @@
                 extra: {
                     bofang: bofang,
                     a: id,
-                    playType:playType
+                    playType: playType
                 }
             });
             fnNetAudiosPlayByID(id);
@@ -1038,9 +1055,9 @@
                 api.sendEvent({
                     name: 'netPlayCaoGaoXiang',
                     extra: {
-                      bofang: bofang,
+                        bofang: bofang,
                         id: id,
-                        playType:playType
+                        playType: playType
                     }
                 });
             }
@@ -1065,10 +1082,10 @@
                 var stylelist = $api.byId('kaishijishi');
                 var html = ret.value.bofangshijian;
                 $api.html(stylelist, html);
-            }else{
-              var stylelist = $api.byId('kaishijishi');
-              var html = '00:00';
-              $api.html(stylelist, html);
+            } else {
+                var stylelist = $api.byId('kaishijishi');
+                var html = '00:00';
+                $api.html(stylelist, html);
             }
         });
         //总时长
@@ -1079,15 +1096,16 @@
                 var stylelist = $api.byId('zongshichang');
                 var html = ret.value.html;
                 $api.html(stylelist, html);
-            }else{
-              var stylelist = $api.byId('zongshichang');
-              var html = '00:00';
-              $api.html(stylelist, html);
+            } else {
+                var stylelist = $api.byId('zongshichang');
+                var html = '00:00';
+                $api.html(stylelist, html);
             }
         });
     }
-    function fnNamesss(titlenamesss){
-      namesss = titlenamesss;
+
+    function fnNamesss(titlenamesss) {
+        namesss = titlenamesss;
     }
     //赋值歌词\标题
     function fnJiBenXinXi() {
@@ -1117,8 +1135,9 @@
         });
     }
     var titlesNames;
-    function fuBiaoTi(titlesName){
-      titlesNames = titlesName;
+
+    function fuBiaoTi(titlesName) {
+        titlesNames = titlesName;
     }
     //播放、暂停
     function fnOpenPlayer() {
@@ -1132,7 +1151,7 @@
                 extra: {
                     bofang: bofang,
                     a: a,
-                    playType :playType
+                    playType: playType
                 }
             });
             api.sendEvent({
@@ -1140,7 +1159,7 @@
                 extra: {
                     bofang: bofang,
                     a: a,
-                    playType :playType,
+                    playType: playType,
                 }
             });
             fnOpenChangeImg();
@@ -1159,7 +1178,7 @@
                 extra: {
                     bofang: bofang,
                     a: a,
-                    playType :playType,
+                    playType: playType,
                 }
             });
         }
@@ -1174,20 +1193,20 @@
                 var lenth = ret.value.lenth;
                 var cur = ret.value.cur;
                 var a = cur / lenth;
-                var ccc = JSON.stringify(cur/lenth  * 100);
+                var ccc = JSON.stringify(cur / lenth * 100);
                 var sssss;
-                if(!cur){
-                  range.value = 0;
-                  range.style.background = 'linear-gradient(to left, #89211b 100%, #f2f2f2 0,#f2f2f2  )';
-                }else{
-                  range.value = ccc;
-                  sssss = 100 - range.value;
-                  // if(ccc > 99){
-                  //   range.value = 105;
-                  //   sssss = 0;
-                  // }
-                  //不渐变
-                  range.style.background = 'linear-gradient(to left, #89211b ' + sssss + '%, #f2f2f2 0,#f2f2f2  )';
+                if (!cur) {
+                    range.value = 0;
+                    range.style.background = 'linear-gradient(to left, #89211b 100%, #f2f2f2 0,#f2f2f2  )';
+                } else {
+                    range.value = ccc;
+                    sssss = 100 - range.value;
+                    // if(ccc > 99){
+                    //   range.value = 105;
+                    //   sssss = 0;
+                    // }
+                    //不渐变
+                    range.style.background = 'linear-gradient(to left, #89211b ' + sssss + '%, #f2f2f2 0,#f2f2f2  )';
                 }
                 // range.style.background = 'linear-gradient(to left, #89211b ' + sssss + '%, #000 0,#000  )';
                 // range.css( 'background', 'linear-gradient(to right, #059CFA, white ' + range.value + '%, white)' );
@@ -1248,7 +1267,7 @@
                 extra: {
                     bofang: bofang,
                     a: id,
-                    playType :playType
+                    playType: playType
 
                 }
             });
@@ -1262,7 +1281,7 @@
                 extra: {
                     bofang: bofang,
                     a: a,
-                    playType :playType
+                    playType: playType
                 }
             });
             fnJiBenXinXi();
@@ -1312,7 +1331,7 @@
                             bofangmoshi: bofangmoshi
                         }
                     });
-                } else if (idx == 0){
+                } else if (idx == 0) {
                     bofangmoshi = 0;
                     api.sendEvent({
                         name: 'bofangmoshicCgx',
@@ -1320,14 +1339,14 @@
                             bofangmoshi: bofangmoshi
                         }
                     });
-                }else{
-                  bofangmoshi = 0;
-                  api.sendEvent({
-                      name: 'bofangmoshicCgx',
-                      extra: {
-                          bofangmoshi: bofangmoshi
-                      }
-                  });
+                } else {
+                    bofangmoshi = 0;
+                    api.sendEvent({
+                        name: 'bofangmoshicCgx',
+                        extra: {
+                            bofangmoshi: bofangmoshi
+                        }
+                    });
                 }
             };
         } else {
@@ -1353,7 +1372,7 @@
                             bofangmoshi: bofangmoshi
                         }
                     });
-                } else if (idx == 0){
+                } else if (idx == 0) {
                     bofangmoshi = 0;
                     api.sendEvent({
                         name: 'bofangmoshicCgx',
@@ -1361,14 +1380,14 @@
                             bofangmoshi: bofangmoshi
                         }
                     });
-                }else{
-                  bofangmoshi = 0;
-                  api.sendEvent({
-                      name: 'bofangmoshicCgx',
-                      extra: {
-                          bofangmoshi: bofangmoshi
-                      }
-                  });
+                } else {
+                    bofangmoshi = 0;
+                    api.sendEvent({
+                        name: 'bofangmoshicCgx',
+                        extra: {
+                            bofangmoshi: bofangmoshi
+                        }
+                    });
                 }
             };
             api.sendEvent({
@@ -1384,7 +1403,7 @@
         api.openWin({
             name: 'choicePlayer',
             url: './choice_player.html',
-            ok:'choice_player'
+            ok: 'choice_player'
         });
     };
 
@@ -1400,7 +1419,73 @@
     }
     //上传草稿
     function fnOpenPlayShare() {
+        api.ajax({
+            url: host + apiUri + '/user/drafts/' + drafts_id,
+            method: 'get',
+            dataType: 'json',
+            timeout: 10,
+            headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token
+            }
+        }, function(ret, err) {
+          if (ret) {
+            if (ret.status == 200) {
+                api.ajax({
+                    url: host + apiUri + '/user/records',
+                    method: 'post',
+                    dataType: 'json',
+                    timeout: 10,
+                    headers: {
+                        "source": api.systemType,
+                        "version": version,
+                        "session": token
+                    },
+                    data: {
+                        values: {
+                            title: ret.data.title,
+                            author_id: ret.data.author_id,
+                            script_id: ret.data.script_id,
+                            lyric: ret.data.body,
+                            records: ret.data.url,
+                            format: ret.data.formate,
+                            size: ret.data.size,
+                            time: ret.data.time,
+                            drafts_id: drafts_id
+                        }
+                    }
+                }, function(ret, err) {
+                  if (ret) {
+                    if (ret.status == 200) {
+                        api.toast({
+                            msg: '上传成功',
+                            duration: 2000,
+                            location: 'middle'
+                        });
+                        // 成功之后散发一个事件回到草稿箱的时候让他刷新列表
+                        api.sendEvent({
+                            name: 'caogaoplay',
+                            extra: {
+                                caogaoplay: 'caogaoplay'
+                            }
+                        });
+                    }else {
+                      netMessage(ret);
+                    }
+                  }else {
+                    netWork(err);
+                  }
 
+                });
+            }else {
+              netMessage(ret);
+            }
+          }else {
+            netWork(err);
+          }
+
+        });
     }
     //添加到听单
     function fnOpenAddListening() {
@@ -1430,7 +1515,7 @@
                 },
                 pageParam: {
                     Dqbofangid: Dqbofangid,
-                    titlesNames:titlesNames
+                    titlesNames: titlesNames
                 }
             });
         } else {
@@ -1446,7 +1531,7 @@
                     h: height
                 },
                 pageParam: {
-                    titlesNames:titlesNames
+                    titlesNames: titlesNames
                 }
             });
         }

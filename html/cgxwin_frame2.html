@@ -295,6 +295,12 @@ var ok;
       }else{
       	fnGetBeiJingYinYueTypelist();
       }
+      api.addEventListener({
+          name: 'caogaoplay'
+      }, function(ret, err) {
+          // console.log(JSON.stringify( ret ));
+        fnGetBeiJingYinYueTypelist();
+      });
     }
     function fnGetBeiJingYinYueTypelist() {
       uri = '/user/drafts';
@@ -365,7 +371,8 @@ var ok;
             a:urlCaoGao,
             ok:'caogaoplay',
             bofang:bofang,
-            playType:'caogaoplay'
+            playType:'caogaoplay',
+            drafts_id: a
     			},
     			delay: 200
     		});
@@ -376,7 +383,8 @@ var ok;
     			pageParam: {
     				a : urlCaoGao,
             ok:'caogaoplay',
-            playType:'caogaoplay'
+            playType:'caogaoplay',
+            drafts_id: a
     			},
     			delay: 200
     		});
