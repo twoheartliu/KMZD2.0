@@ -298,7 +298,7 @@
             <div class="name_bt_s" id="playCollectssss" onclick="fnLuYinshiting();"></div>
         </div>
         <!-- <div class="p20px"> -->
-        <div class="aloud_frame_bg_bottom" onclick="fnReadListWin()">
+        <div class="aloud_frame_bg_bottom" onclick="fnSelectType()">
             更换剧本
         </div>
         <div class="aloud_py">
@@ -494,7 +494,7 @@
 
                 }
             });
-            console.log(22222222);
+            // console.log(22222222);
 
             timestamps = timestamp;
             timeC();
@@ -507,7 +507,7 @@
                 var stylelist = $api.byId('loading_bgm');
                 var html = '正在录制 <span id="appTime"> 00:00</span>';
                 $api.html(stylelist, html);
-                console.log(333333333);
+                // console.log(333333333);
                 // api.startRecord({
                 //     path: 'fs://luyin/' + timestamp + jubenid + '.amr'
                 // });
@@ -600,13 +600,10 @@
         api.closeWin();
     }
 
-    function fnReadListWin() {
+    function fnSelectType() {
         api.openWin({
-            name: 'readlist',
-            url: './readlist.html',
-            pageParam: {
-                ok: 'readlist'
-            }
+            name: 'selectType',
+            url: './selectType.html',
         });
     }
 

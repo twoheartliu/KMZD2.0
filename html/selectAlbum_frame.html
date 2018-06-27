@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <meta name="format-detection" content="telephone=no" />
+    <title>孔孟之道--选择朗读内容</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .fl {
+            float: left;
+        }
+
+        .fr {
+            float: right;
+        }
+
+        .clr {
+            clear: both;
+        }
+
+        .body {
+            width: 100%;
+            background: #fff;
+        }
+
+        .sousuo {
+            padding: 5px;
+            background: #cccccc;
+        }
+
+        .sousuo input {
+            color: #ccc;
+            width: 100%;
+            height: 30px;
+            line-height: 30px;
+            border-radius: 5px;
+            border: 1px solid #ececec;
+            background-color: #fff;
+            outline: none;
+        }
+
+        .bodyLi {
+            /*padding: 5px;*/
+        }
+
+        .div {
+            /*width: 100%;*/
+            height: 50px;
+            line-height: 50px;
+            border-bottom: 1px solid #ccc;
+            position: relative;
+        }
+
+        .bodyLi .index_name_div_img {
+            width: 23px;
+            position: relative;
+            top: 10px;
+            margin-left: 5px;
+            display: block;
+        }
+
+        span {
+            text-decoration: none;
+            color: #777;
+        }
+
+        .index_name_div_imgr {
+            height: 50px;
+            line-height: 50px;
+            display: block;
+        }
+
+        .index_name_div_imgr img {
+            width: 9px;
+            padding: 15px;
+        }
+
+        .index_name_div_span {
+            font-size: 16px;
+            line-height: 45px;
+            display: block;
+        }
+
+        .body_li_4 {
+            /*width: 30px;*/
+            height: 30px;
+            border-radius: 15px;
+            float: right;
+            text-align: center;
+            color: #ccc;
+        }
+
+        .zanwushuju_div {
+            width: 100%;
+            height: 200px;
+            line-height: 200px;
+        }
+
+        .zanwushuju_div p {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <div class="body">
+        <div class="sousuo"><input type="text" placeholder="搜作者，诗词名称，诗词内容"></div>
+    </div> -->
+    <div class="bodyLi" id="typejubenlist">
+        <!-- <div onclick="fnReadListBodr();">
+          <img src="../image/readlist.png" alt="">
+          <span>《唐诗三百首》</span>
+      </div> -->
+
+    </div>
+</body>
+
+</html>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/message.js"></script>
+<script type="text/javascript">
+    var token;
+    var id;
+    var name;
+    apiready = function() {
+        token = $api.getStorage('token');
+        id = api.pageParam.albumId;
+        name = api.pageParam.albumName;
+        showAlbum();
+    };
+
+    function showAlbum() {
+        console.log('sss');
+        var uri = '/script/album?c_id=';
+        api.ajax({
+            url: host + apiUri + uri + id,
+            method: 'get',
+            dataType: 'json',
+            timeout: 10,
+            headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token
+            }
+        }, function(ret, err) {
+            // console.log(JSON.stringify(ret));
+            if (ret) {
+                if (ret.status == 200) {
+                    // fnUpdateLyricList(ret);
+                    for (var i = 0; i < ret.data.length; i++) {
+                        var data = ret.data[i]
+                        var albumNameId = data.type_id
+                        var albumName = data.name
+
+                        var cell = '<div class="div" onclick="selectAlbum(' + albumNameId + ',\'' + albumName + '\');"><span class="index_name_div_span fl">' + albumName +
+                            '</span><div class="index_name_div_imgr fr"><div class="body_li_4"><img src="../image/my/index_y.png" alt=""></div></div></div><div class="clr"></div>'
+
+                        var container = $api.byId('typejubenlist')
+                        container.insertAdjacentHTML('beforeend', cell)
+                    }
+                } else {
+                    netMessage(ret);
+                }
+            } else {
+                netWork(err);
+            }
+        });
+    }
+</script>
