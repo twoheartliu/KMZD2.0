@@ -262,11 +262,9 @@
                     </div>
                 </div>
             </div> -->
-
         </div>
     </div>
 </body>
-
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/common.js"></script>
@@ -279,6 +277,7 @@ var token;
 var jubenid;
 var ok;
     apiready = function() {
+
       token = $api.getStorage('token');
       ok = api.pageParam.ok;
             var oks = 'ok'+ok;
@@ -296,8 +295,6 @@ var ok;
       }else{
       	fnGetBeiJingYinYueTypelist();
       }
-
-
     }
     function fnGetBeiJingYinYueTypelist() {
       uri = '/user/drafts';
@@ -358,6 +355,7 @@ var ok;
           }
 
       });
+
       if(Dqbofangid == urlCaoGao){
         api.openWin({
     			name: 'caogaoplay',

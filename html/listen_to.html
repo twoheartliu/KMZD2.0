@@ -472,7 +472,8 @@
   var playType;
   var listen_to_ = 1;
     function goback () {
-      api.closeWin({name:'listenTo'});
+      api.closeWin();
+
     }
     apiready = function(){
       // 这些是获取必要的条件以及适配代码
@@ -532,9 +533,7 @@
           });
           var connectionType = api.connectionType;
             if (connectionType == "wifi") {
-
                 if (dangqianbofangid) {
-
                   if(bofang){
                     fnJinRuBofangs(dangqianbofangid,bofang,playType);
                     soundId = dangqianbofangid;
@@ -782,6 +781,28 @@
 
       // fnOpenListenFrame();
 
+    // 熏听的播放按钮
+    api.addEventListener({
+        name: 'footer_bf3'
+    }, function(ret, err) {
+        if (ret) {
+          var stylelist = $api.byId('openplayer');
+          var stylelist = $api.byId('openplayer');
+          var html = '<img src="../image/play/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player">';
+          $api.html(stylelist, html);
+
+        }
+    });
+
+    api.addEventListener({
+        name: 'footer_bf2'
+    }, function(ret, err) {
+        if (ret) {
+          var html = '';
+          html += '<img src="../image/play/ic_play_play.png" alt="" onclick="fnOpenPlayer();" id="player">';
+          $api.html(stylelist, html);
+        }
+    });
     };
     //加载时的图片
     function fnFuCeng(){

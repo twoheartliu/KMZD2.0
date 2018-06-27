@@ -497,9 +497,8 @@
         </header> -->
     <header id="secHeader" class="clear">
         <div class="egret-img"><img src="../image/icon_back.png" alt="" onclick="api.closeWin();"></div>
-        <div class="egret-txt" id="title">
-        </div>
-        <div class="header_fr" onclick="fnOpenPlayShare; ">
+        <div class="egret-txt" id="title"></div>
+        <div class="header_fr" onclick="fnOpenPlayShare(); ">
             <img src="../image/fabu3.png" alt="">
         </div>
     </header>
@@ -585,8 +584,10 @@
     var id;
     var bofangmoshi;
     var Dqbofangid;
+    // 本地音频路径
     var soundId;
     var namesss;
+    // 本地音频路径
     var bookId;
     var ok;
     var playType;
@@ -618,6 +619,7 @@
           }, function(ret, err) {
             if(ret.value.wangluo){
               dangqianbofangid = api.pageParam.DangQianbofangid;
+              // console.log(bookId);
               api.addEventListener({
                   name: 'netPlaying'
               }, function(ret, err) {
@@ -627,10 +629,12 @@
                   if (dangqianbofangid) {
                     bofang = api.pageParam.bofang;
                     playType = api.pageParam.playType;
+                    // console.log(playType);
                     if(bofang){
                       fnJinRuBofangs(dangqianbofangid,bofang,playType);
                       soundId = dangqianbofangid;
                       bookId == dangqianbofangid;
+
                     }else{
                       fnJinRuBofangs(dangqianbofangid);
                       soundId = dangqianbofangid;
@@ -687,9 +691,12 @@
                     }, function(ret) {
                         if (ret.eventType == 'right') {
                             dangqianbofangid = api.pageParam.DangQianbofangid;
+                            // console.log(dangqianbofangid);
                             if (dangqianbofangid) {
                               bofang = api.pageParam.bofang;
+                              // console.log(bofang);
                               playType = api.pageParam.playType;
+                              // console.log(playType);
                               if(bofang){
                                 fnJinRuBofangs(dangqianbofangid,bofang,playType);
                                 soundId = dangqianbofangid;
@@ -701,6 +708,7 @@
                               }
                             } else {
                               bookId = api.pageParam.a;
+
                               soundId = api.pageParam.a;
                                 fnJinRuBofang();
                             }
@@ -765,7 +773,9 @@
               if (connectionType == "wifi") {
                 if (dangqianbofangid) {
                   bofang = api.pageParam.bofang;
+                  console.log(bofang);
                   playType = api.pageParam.playType;
+                  console.log(playType);
                   if(bofang){
                     fnJinRuBofangs(dangqianbofangid,bofang,playType);
                     soundId = dangqianbofangid;
@@ -777,7 +787,9 @@
                   }
                 } else {
                   bookId = api.pageParam.a;
+                  console.log(bookId);
                   soundId = api.pageParam.a;
+                  console.log(soundId);
                     fnJinRuBofang();
                 }
               } else {
@@ -1386,74 +1398,9 @@
             }
         });
     }
-    //打开分享
+    //上传草稿
     function fnOpenPlayShare() {
-        var dialogBox = api.require('dialogBox');
-        dialogBox.actionMenu({
-            rect: {
-                h: 150
-            },
-            texts: {
-                cancel: '取消'
-            },
-            items: [{
-                text: '微信',
-                icon: 'widget://image/weixin.png'
-            }, {
-                text: 'QQ',
-                icon: 'widget://image/qq.png'
-            }, {
-                text: '朋友圈',
-                icon: 'widget://image/friends.png'
-            }],
-            styles: {
-                bg: '#FFF',
-                column: 3,
-                itemText: {
-                    color: '#000',
-                    size: 12,
-                    marginT: 8
-                },
-                itemIcon: {
-                    size: 30
-                },
-                cancel: {
-                    bg: 'fs://icon.png',
-                    color: '#000',
-                    h: 44,
-                    size: 14
-                }
-            },
-            tapClose: true
-        }, function(ret) {
-            if (ret.eventType == 'cancel') {
-                dialogBox.close({
-                    dialogName: 'actionMenu'
-                });
-            }
-            if (ret.index == "0") {
-                dialogBox.close({
-                    dialogName: 'actionMenu'
-                });
-            } else if (ret.index == "1") {
-                dialogBox.close({
-                    dialogName: 'actionMenu'
-                });
-            } else if (ret.index == "2") {
-                dialogBox.close({
-                    dialogName: 'actionMenu'
-                });
-            } else {
-                dialogBox.close({
-                    dialogName: 'actionMenu'
-                });
-            }
-            dialogBox.close({
-                dialogName: 'actionMenu'
-            })
-            // alert(JSON.stringify(ret))
 
-        });
     }
     //添加到听单
     function fnOpenAddListening() {

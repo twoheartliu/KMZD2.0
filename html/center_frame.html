@@ -41,6 +41,7 @@
     var a;
     var playType;
     apiready = function() {
+
         var stylelist = $api.byId('centerVedeo');
         var html = '<div onclick="fnOpenPlay( \'' + playType + '\');"><img src="../image/footer_bf2.png" alt=""></div>';
         $api.html(stylelist, html);
@@ -122,10 +123,23 @@
                 var stylelist = $api.byId('centerVedeo');
                 var html = '<div onclick="fnOpenPlay( \'' + playType + '\');"><img src="../image/footer_bf2.png" alt=""></div>';
                 $api.html(stylelist, html);
+                api.sendEvent({
+                    name: 'footer_bf2',
+                    extra: {
+                        footer_bf2 : 'footer_bf2'
+                    }
+                });
             } else if (bofang == 3) {
                 var stylelist = $api.byId('centerVedeo');
                 var html = '<div onclick="fnOpenPlay( \'' + playType + '\');"><img src="../image/footer_bf3.png" alt=""></div>';
                 $api.html(stylelist, html);
+                api.sendEvent({
+                    name: 'footer_bf3',
+                    extra: {
+                        footer_bf3 : 'footer_bf3'
+                    }
+                });
+
             }
             if (playlistid) {
                 api.sendEvent({
@@ -153,10 +167,22 @@
             var stylelist = $api.byId('centerVedeo');
             var html = '<div onclick="fnOpenPlay(\'' + playType + '\');"><img src="../image/footer_bf2.png" alt=""></div>';
             $api.html(stylelist, html);
+            api.sendEvent({
+                name: 'footer_bf2',
+                extra: {
+                    footer_bf2 : 'footer_bf2'
+                }
+            });
         } else if (bofang == 3) {
             var stylelist = $api.byId('centerVedeo');
             var html = '<div onclick="fnOpenPlay(\'' + playType + '\');"><img src="../image/footer_bf3.png" alt=""></div>';
             $api.html(stylelist, html);
+            api.sendEvent({
+                name: 'footer_bf3',
+                extra: {
+                    footer_bf3 : 'footer_bf3'
+                }
+            });
         }
         if (playlistid) {
             api.sendEvent({
