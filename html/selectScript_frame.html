@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no"><meta name="format-detection" content="telephone=no" />
+    <title>孔孟之道--选择剧本</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .body {
+            width: 100%;
+            background: #fff;
+        }
+
+        .sousuo {
+            padding: 5px;
+            background: #cccccc;
+        }
+
+        .sousuo input {
+            color: #ccc;
+            width: 100%;
+            height: 30px;
+            line-height: 30px;
+            border-radius: 5px;
+            border: 1px solid #ececec;
+            background-color: #fff;
+            outline: none;
+        }
+
+        .bodyLi {
+            padding: 5px;
+            overflow: hidden;
+        }
+
+        .body_li {
+            width: 100%;
+            line-height: 25px;
+            color: #000;
+            position: relative;
+        }
+
+        .body_li_1 {
+            font-size: 16px;
+        }
+
+        .body_li_2 {
+            font-size: 14px;
+            width: 300px;
+            overflow: hidden;
+            height: 30px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            float: left;
+            color: #ccc;
+        }
+
+        .body_li_4 {
+            width: 10px;
+            border-radius: 5px;
+            float: right;
+            text-align: center;
+            color: #ccc;
+            position: absolute;
+            top: 8px;
+            right: 10px;
+            /*margin-top: -8px;*/
+            /*z-index: 10000;*/
+        }
+
+        .body_li_3 {
+            border-bottom: 1px solid #ccc;
+            overflow: hidden;
+        }
+
+        span {
+            text-decoration: none;
+            color: #777;
+        }
+
+        .zanwushuju_div {
+            width: 100%;
+            height: 200px;
+            line-height: 200px;
+        }
+
+        .zanwushuju_div p {
+            text-align: center;
+        }
+
+        #footer {
+            width: 100%;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+        }
+        /*加载loading的样式css 到结束*/
+
+        #loadEffect {
+            position: fixed;
+            top: 33.33%;
+            left: calc((50%) - 25px);
+        }
+
+        .loadEffect {
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            margin: 0 auto;
+            /*margin-top:100px;*/
+            /*position: fixed;*/
+        }
+
+        .loadEffect span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #ccc;
+            position: absolute;
+            -webkit-animation: load 1.04s ease infinite;
+        }
+
+        @-webkit-keyframes load {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0.2;
+            }
+        }
+
+        .loadEffect span:nth-child(1) {
+            left: 0;
+            top: 50%;
+            margin-top: -4px;
+            -webkit-animation-delay: 0.13s;
+        }
+
+        .loadEffect span:nth-child(2) {
+            left: 7px;
+            top: 7px;
+            -webkit-animation-delay: 0.26s;
+        }
+
+        .loadEffect span:nth-child(3) {
+            left: 50%;
+            top: 0;
+            margin-left: -4px;
+            -webkit-animation-delay: 0.39s;
+        }
+
+        .loadEffect span:nth-child(4) {
+            top: 7px;
+            right: 7px;
+            -webkit-animation-delay: 0.52s;
+        }
+
+        .loadEffect span:nth-child(5) {
+            right: 0;
+            top: 50%;
+            margin-top: -4px;
+            -webkit-animation-delay: 0.65s;
+        }
+
+        .loadEffect span:nth-child(6) {
+            right: 7px;
+            bottom: 7px;
+            -webkit-animation-delay: 0.78s;
+        }
+
+        .loadEffect span:nth-child(7) {
+            bottom: 0;
+            left: 50%;
+            margin-left: -4px;
+            -webkit-animation-delay: 0.91s;
+        }
+
+        .loadEffect span:nth-child(8) {
+            bottom: 7px;
+            left: 7px;
+            -webkit-animation-delay: 1.04s;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <div class="body">
+        <div class="sousuo"><input type="text" placeholder="搜作者，诗词名称，诗词内容"></div>
+    </div> -->
+    <div id="jubenlist">
+    </div>
+    <div id="footer" class="disnone">
+        <!-- 正在加载数据 -->
+    </div>
+    <!-- 加载loading的dom -->
+    <div id="loadEffect"></div>
+    <!-- ~~~~ -->
+</body>
+
+</html>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/message.js"></script>
+<script type="text/javascript">
+    var token;
+    var id;
+    var name;
+    var p = 1;
+    apiready = function() {
+        id = api.pageParam.albumId;
+        name = api.pageParam.albumName;
+        // 刚开始的时候加载loading
+        var loadEffect = $api.byId('loadEffect');
+        htmlloadEffect = '<div class="loadEffect"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>'
+        $api.html(loadEffect, htmlloadEffect);
+
+        token = $api.getStorage('token');
+        showAlbum();
+        api.addEventListener({
+            name: 'scrolltobottom',
+            extra: {
+                threshold: 20 //设置距离底部多少距离时触发，默认值为0，数字类型
+            }
+        }, function(ret, err) {
+            // console.log(111);
+            var footer = $api.byId('footer');
+            $api.html(footer, '正在加载更多');
+            p++;
+            showAlbum();
+
+        });
+    };
+
+    function showAlbum() {
+        var uri = '/script/' + id;
+        api.ajax({
+            url: host + apiUri + uri,
+            method: 'get',
+            dataType: 'json',
+            timeout: 10,
+            headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token
+            },
+            data: {
+                values: {
+                    p: p
+                }
+            }
+        }, function(ret, err) {
+            if (ret) {
+                if (ret.status == 200) {
+                    // 这个是关闭loading再掉通第一个接口的地方加
+                    var loadEffect = $api.byId('loadEffect');
+                    htmlloadEffect = '';
+                    $api.html(loadEffect, htmlloadEffect);
+                    // ~~~~~~~~~~~~~~
+                    fnUpdateLyricList(ret);
+                } else {
+                    netMessage(ret);
+                }
+            } else {
+                netWork(err);
+            }
+        });
+
+    }
+
+    function fnUpdateLyricList(data_) {
+        if (p == 1 && data_.data == '') {
+            var stylelists = $api.byId('jubenlist');
+            var htmls = '<div class="zanwushuju_div"><p>暂无数据</p></div>';
+            $api.html(stylelists, htmls);
+            var footer = $api.byId('footer');
+            $api.html(footer, '');
+        } else if (data_.data) {
+            var stylelist = $api.byId('jubenlist');
+            // var html = '';
+            var footer = $api.byId('footer');
+            $api.html(footer, '上拉加载更多');
+            for (var i = 0; i < data_.data.length; i++) {
+                var author = data_.data[i].author_name
+                if (author) {
+                    author = `(${author})`
+                } else {
+                    author = ''
+                }
+                $api.append(stylelist, '<div class="bodyLi" onclick="fnLangdujubenWin(' + data_.data[i].id + ');"> <div class="body_li"><div class="body_li_1">' + data_.data[i].title + ''+ author +'</div><div class="body_li_3"><div class="body_li_2">' + data_.data[i].body + '</div></div><div class="body_li_4"><img src="../image/my/index_y.png" alt=""></div></div></div>');
+            }
+        } else {
+            var footer = $api.byId('footer');
+            $api.html(footer, '无更多数据');
+        }
+
+    }
+
+    function fnLangdujubenWin(InfojubenType) {
+        api.openWin({
+            name: 'aloud',
+            url: './aloud.html',
+            delay: 200,
+            pageParam: {
+                InfojubenType: InfojubenType,
+                ok: 'aloud'
+            },
+        });
+    }
+</script>

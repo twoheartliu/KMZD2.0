@@ -139,7 +139,7 @@
     };
 
     function showAlbum() {
-        console.log('sss');
+        // console.log('sss');
         var uri = '/script/album?c_id=';
         api.ajax({
             url: host + apiUri + uri + id,
@@ -156,12 +156,19 @@
             if (ret) {
                 if (ret.status == 200) {
                     // fnUpdateLyricList(ret);
+                    // console.log(JSON.stringify(ret));
+                    if (ret.data == "") {
+                        var container = $api.byId('typejubenlist')
+                        container.insertAdjacentHTML('beforeend', '<div class="zanwushuju_div"><p>暂无数据</p></div>')
+                    }
+                    
                     for (var i = 0; i < ret.data.length; i++) {
                         var data = ret.data[i]
-                        var albumNameId = data.type_id
+                        var albumId = data.type_id
                         var albumName = data.name
 
-                        var cell = '<div class="div" onclick="selectAlbum(' + albumNameId + ',\'' + albumName + '\');"><span class="index_name_div_span fl">' + albumName +
+
+                        var cell = '<div class="div" onclick="selectScript(' + albumId + ',\'' + albumName + '\');"><span class="index_name_div_span fl">' + albumName +
                             '</span><div class="index_name_div_imgr fr"><div class="body_li_4"><img src="../image/my/index_y.png" alt=""></div></div></div><div class="clr"></div>'
 
                         var container = $api.byId('typejubenlist')
@@ -172,6 +179,17 @@
                 }
             } else {
                 netWork(err);
+            }
+        });
+    }
+
+    function selectScript(a, b) {
+        api.openWin({
+            name: 'selectScript',
+            url: './selectScript.html',
+            pageParam: {
+                albumId: a,
+                albumName: b,
             }
         });
     }
