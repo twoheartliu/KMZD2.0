@@ -141,13 +141,19 @@
         var weiXin = api.require('weiXin');
         weiXin.cancelAuth(function(ret, err) {
             if (ret.status) {
-                api.alert({
-                    msg: '退出成功'
-                });
+              api.toast({              
+                  msg:  '退出成功',
+                  duration:  2000,
+                  location:   'middle'          
+              });
+
             } else {
-                api.alert({
-                    msg: err.msg
-                });
+              api.toast({              
+                  msg:  err.msg,
+                  duration:  2000,
+                  location:   'middle'          
+              });
+
             }
         });
     }
@@ -261,99 +267,115 @@
                         });
                           // alert(JSON.stringify(ret));
                       } else {
-                          alert(err.code);
+                        api.toast({              
+                            msg:  '登录失败',
+                            duration:  2000,
+                            location:   'middle'          
+                        });
+
                       }
                   });
               } else {
-                  alert(err.code);
+                api.toast({              
+                    msg:  '登录失败',
+                    duration:  2000,
+                    location:   'middle'          
+                });
               }
             });
           } else {
-              alert('当前设备未安装微信客户端');
+              api.toast({              
+                  msg:  '当前设备未安装微信客户端',
+                  duration:  2000,
+                  location:   'middle'          
+              });
           }
       });
     }
 
     function fnQQLogin() {
         var qq = api.require('qq');
-        var login = function() {
-            qq.login(function(ret, err) {
-                if (ret.status) {
-                  var openId = ret.openId;
-                  var accessToken = ret.accessToken;
-                  api.toast({
-                      msg:  '正在跳转孔孟之道',
-                      duration:  2000,
-                      location:   'middle'          
-                  });
-                  setTimeout(function(){
-                    qq.getUserInfo(function(ret, err) {
-                        if (ret.status) {
-                            var openid = openId;
-                            var nickname = ret.info.nickname;
-                            var gender = ret.info.gender;
-                            var figureurl_qq_2 = ret.info.figureurl_qq_2;
-                            api.ajax({
-                                url: host + apiUri + '/login/qq',
-                                method: 'post',
-                                dataType: 'json',
-                                timeout:10,
-                                data: {
-                                  values:{
-                                    "openid":	openid,
-                                    "nickname":	nickname,
-                                    "sex": gender,
-                                    "headimgurl":	figureurl_qq_2
-                                  },
-                                },
-                                headers: {
-                                  "source":api.systemType,
-                                  "version":version
-                                },
-                            }, function(ret, err) {
-                                if (ret.status == 200) {
-                                  var tokens = ret.data.token;
-                                  $api.setStorage('token',tokens);
-                                  var user_id_s = ret.data.user_id;
-                                  $api.setStorage('user_id',user_id_s);
-                                  var nick_name_s = ret.data.nick_name;
-                                  $api.setStorage('nick_name',nick_name_s);
-                                  var photo_s = ret.data.photo;
-                                  $api.setStorage('photo',photo_s);
-                                  var login_way_s = ret.data.login_way;
-                                  $api.setStorage('login_way',login_way_s);
-                                   api.openWin({
-                                       name: 'index',
-                                       url: 'index.html',
-                                       slidBackEnabled:false,
-                                   });
-                                }else{
-                                  netMessage(ret);
-                                }
-                            });
-                        } else {
+        // var login = function() {
 
-                            // alert(JSON.stringify(err));
-                        }
-                    });
-                  },2000)
-
-                } else {
-                    // var toast = new auiToast();
-                    // var toast.fail({
-                    //     title: "授权失败",
-                    //     duration: 1500
-                    // });
-                }
-            });
-        };
+        // };
         qq.installed(function(ret, err) {
             if (ret.status) {
-                login();
+              qq.login(function(ret, err) {
+                  if (ret.status) {
+                    var openId = ret.openId;
+                    var accessToken = ret.accessToken;
+                    api.toast({
+                        msg:  '正在跳转孔孟之道',
+                        duration:  1000,
+                        location:   'middle'          
+                    });
+                    setTimeout(function(){
+                      qq.getUserInfo(function(ret, err) {
+                          if (ret.status) {
+                              var openid = openId;
+                              var nickname = ret.info.nickname;
+                              var gender = ret.info.gender;
+                              var figureurl_qq_2 = ret.info.figureurl_qq_2;
+                              api.ajax({
+                                  url: host + apiUri + '/login/qq',
+                                  method: 'post',
+                                  dataType: 'json',
+                                  timeout:10,
+                                  data: {
+                                    values:{
+                                      "openid":	openid,
+                                      "nickname":	nickname,
+                                      "sex": gender,
+                                      "headimgurl":	figureurl_qq_2
+                                    },
+                                  },
+                                  headers: {
+                                    "source":api.systemType,
+                                    "version":version
+                                  },
+                              }, function(ret, err) {
+                                  if (ret.status == 200) {
+                                    var tokens = ret.data.token;
+                                    $api.setStorage('token',tokens);
+                                    var user_id_s = ret.data.user_id;
+                                    $api.setStorage('user_id',user_id_s);
+                                    var nick_name_s = ret.data.nick_name;
+                                    $api.setStorage('nick_name',nick_name_s);
+                                    var photo_s = ret.data.photo;
+                                    $api.setStorage('photo',photo_s);
+                                    var login_way_s = ret.data.login_way;
+                                    $api.setStorage('login_way',login_way_s);
+                                     api.openWin({
+                                         name: 'index',
+                                         url: 'index.html',
+                                         slidBackEnabled:false,
+                                     });
+                                  }else{
+                                    netMessage(ret);
+                                  }
+                              });
+                          } else {
+
+                              // alert(JSON.stringify(err));
+                          }
+                      });
+                    },1000)
+
+                  } else {
+                      // var toast = new auiToast();
+                      // var toast.fail({
+                      //     title: "授权失败",
+                      //     duration: 1500
+                      // });
+                  }
+              });
             } else {
-                api.alert({
-                    msg: "当前设备未安装QQ客户端"
-                });
+              api.toast({
+                  msg:  '当前设备未安装QQ客户端',
+                  duration:  2000,
+                  location:   'middle'          
+              });
+
             }
         });
     };
