@@ -276,14 +276,14 @@
 
     function fnQQLogin() {
         var qq = api.require('qq');
-        var login = function() {
+        // var login = function() {
             qq.login(function(ret, err) {
                 if (ret.status) {
                   var openId = ret.openId;
                   var accessToken = ret.accessToken;
                   api.toast({
                       msg:  '正在跳转孔孟之道',
-                      duration:  2000,
+                      duration:  1000,
                       location:   'middle'          
                   });
                   setTimeout(function(){
@@ -336,7 +336,7 @@
                             // alert(JSON.stringify(err));
                         }
                     });
-                  },2000)
+                  },1000)
 
                 } else {
                     // var toast = new auiToast();
@@ -346,7 +346,7 @@
                     // });
                 }
             });
-        };
+        // };
         qq.installed(function(ret, err) {
             if (ret.status) {
                 login();
