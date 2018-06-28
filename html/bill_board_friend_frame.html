@@ -208,6 +208,12 @@
                 var htmls = '';
                 for(var i = 0; i < len; i++){
                   var photo = ret.data[i].photo;
+                  var zan = ret.data[i].good_total
+                  if (zan) {
+                      zan = zan
+                  } else {
+                      zan = '0'
+                  }
                   // console.log(photo)
                     var photo = ret.data[i].photo.indexOf('http://')
                     if(photo != -1 ){
@@ -264,7 +270,7 @@
                           '</li>'+
                           '<li class="col ">'+
                             '<p>被赞</p>'+
-                            '<p><span class="num">'+ret.data[i].good_total+'</span>次</p>'+
+                            '<p><span class="num">'+zan+'</span>次</p>'+
                           '</li>'+
                         '</ul>'+
                       '</div>';
