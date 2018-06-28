@@ -141,13 +141,19 @@
         var weiXin = api.require('weiXin');
         weiXin.cancelAuth(function(ret, err) {
             if (ret.status) {
-                api.alert({
-                    msg: '退出成功'
-                });
+              api.toast({              
+                  msg:  '退出成功',
+                  duration:  2000,
+                  location:   'middle'          
+              });
+
             } else {
-                api.alert({
-                    msg: err.msg
-                });
+              api.toast({              
+                  msg:  err.msg,
+                  duration:  2000,
+                  location:   'middle'          
+              });
+
             }
         });
     }
@@ -261,15 +267,28 @@
                         });
                           // alert(JSON.stringify(ret));
                       } else {
-                          alert(err.code);
+                        api.toast({              
+                            msg:  '登录失败',
+                            duration:  2000,
+                            location:   'middle'          
+                        });
+
                       }
                   });
               } else {
-                  alert(err.code);
+                api.toast({              
+                    msg:  '登录失败',
+                    duration:  2000,
+                    location:   'middle'          
+                });
               }
             });
           } else {
-              alert('当前设备未安装微信客户端');
+              api.toast({              
+                  msg:  '当前设备未安装微信客户端',
+                  duration:  2000,
+                  location:   'middle'          
+              });
           }
       });
     }
@@ -351,9 +370,12 @@
                   }
               });
             } else {
-                api.alert({
-                    msg: "当前设备未安装QQ客户端"
-                });
+              api.toast({
+                  msg:  '当前设备未安装QQ客户端',
+                  duration:  2000,
+                  location:   'middle'          
+              });
+
             }
         });
     };
