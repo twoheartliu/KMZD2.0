@@ -1105,6 +1105,7 @@
     function fnOpenPlayShare(id,sma,titleName) {
       // console.log(id);
       var smas;
+
       if (sma == undefined ) {
         smas = '/logo_144x144.png'
         // fnOpenPlayShare(id, titleName,sma);
@@ -1112,6 +1113,7 @@
         // fnOpenPlayShare(id, titleName,sma);
         smas = sma
       }
+
         // console.log(sma);
         var dialogBox = api.require('dialogBox');
         dialogBox.actionMenu({
@@ -1165,12 +1167,11 @@
               // console.log(imgaesFx);
               api.download({
                   url: imgaesFx,
-                  savePath: 'fs:savePath/'+ smas,
+                  savePath: 'fs://savePath/'+ smas,
                   report: true,
                   cache: true,
                   allowResume: true
               }, function(ret, err) {
-                // console.log(JSON.stringify(ret));
                   if (ret.state == 1) {
                       //下载成功
                       var savePath = ret.savePath;
@@ -1194,7 +1195,7 @@
               // console.log(imgaesFx);
               api.download({
                   url: imgaesFx,
-                  savePath: 'fs:savePath/'+ smas,
+                  savePath: 'fs://savePath/'+ smas,
                   report: true,
                   cache: true,
                   allowResume: true
@@ -1223,7 +1224,7 @@
               // console.log(imgaesFx);
               api.download({
                   url: imgaesFx,
-                  savePath: 'fs:savePath/'+ smas,
+                  savePath: 'fs://savePath/'+ smas,
                   report: true,
                   cache: true,
                   allowResume: true
@@ -1252,7 +1253,7 @@
               // console.log(imgaesFx);
               api.download({
                   url: imgaesFx,
-                  savePath: 'fs:savePath/'+ smas,
+                  savePath: 'fs://savePath/'+ smas,
                   report: true,
                   cache: true,
                   allowResume: true

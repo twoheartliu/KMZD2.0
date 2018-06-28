@@ -1228,6 +1228,9 @@
                 });
             }
             if (ret.index == "0") {
+              dialogBox.close({
+                  dialogName: 'actionMenu'
+              });
                 uri = '/extra/list_collection/';
                 api.ajax({
                     url: host + apiUri + uri + songListID,
@@ -1254,16 +1257,18 @@
                         netMessage(ret);
                     }
                 });
-                dialogBox.close({
-                    dialogName: 'actionMenu'
-                });
+
             } else if (ret.index == "1") {
+              dialogBox.close({
+                  dialogName: 'actionMenu'
+              });
                 fnOpenAddListening(songListID);
-                dialogBox.close({
-                    dialogName: 'actionMenu'
-                });
+
                 // alert(2);
             } else if (ret.index == "2") {
+              dialogBox.close({
+                  dialogName: 'actionMenu'
+              });
                 var Types = 'Single'
                 fnOpenPlayShare(cover_sma,songListID,title,Types);
                 // dialogBox.close({
@@ -1395,12 +1400,15 @@
                 // console.log(imgaesFx);
                 api.download({
                     url: imgaesFx,
-                    savePath: 'fs:savePath/'+ cover_sma,
+                    savePath: 'fs://savePath/'+ cover_sma,
                     report: true,
                     cache: true,
                     allowResume: true
                 }, function(ret, err) {
                     if (ret.state == 1) {
+                      dialogBox.close({
+                          dialogName: 'actionMenu'
+                      });
                         //下载成功
                         var savePath = ret.savePath;
                         shareMp3Single(songListID,title,savePath);
@@ -1414,9 +1422,13 @@
 
 
               }else {
+                dialogBox.close({
+                    dialogName: 'actionMenu'
+                });
+
                 api.download({
                     url: imgUrlListening_cover,
-                    savePath: 'fs:savePath/'+ imgUrlListening_Fs,
+                    savePath: 'fs://savePath/'+ imgUrlListening_Fs,
                     report: true,
                     cache: true,
                     allowResume: true
@@ -1443,7 +1455,7 @@
               }else {
                 api.download({
                     url: imgUrlListening_cover,
-                    savePath: 'fs:savePath/'+ imgUrlListening_Fs,
+                    savePath: 'fs://savePath/'+ imgUrlListening_Fs,
                     report: true,
                     cache: true,
                     allowResume: true

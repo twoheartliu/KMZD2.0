@@ -275,73 +275,69 @@
     }
 
     function fnQQLogin() {
-
         var qq = api.require('qq');
         var login = function() {
             qq.login(function(ret, err) {
                 if (ret.status) {
                   var openId = ret.openId;
                   var accessToken = ret.accessToken;
-                    api.alert({
-                        title: '授权成功',
-                        msg: '正在打开孔孟知道...',
-                    }, function(ret, err) {
-
-                        if (ret) {
-                            qq.getUserInfo(function(ret, err) {
-
-                                if (ret.status) {
-                                    var openid = openId;
-                                    var nickname = ret.info.nickname;
-                                    var gender = ret.info.gender;
-                                    var figureurl_qq_2 = ret.info.figureurl_qq_2;
-                                    api.ajax({
-                                        url: host + apiUri + '/login/qq',
-                                        method: 'post',
-                                        dataType: 'json',
-                                        timeout:10,
-                                        data: {
-                                          values:{
-                                            "openid":	openid,
-                                            "nickname":	nickname,
-                                            "sex": gender,
-                                            "headimgurl":	figureurl_qq_2
-                                          },
-                                        },
-                                        headers: {
-                                          "source":api.systemType,
-                                          "version":version
-                                        },
-                                    }, function(ret, err) {
-                                        if (ret.status == 200) {
-                                          var tokens = ret.data.token;
-                                          $api.setStorage('token',tokens);
-                                          var user_id_s = ret.data.user_id;
-                                          $api.setStorage('user_id',user_id_s);
-                                          var nick_name_s = ret.data.nick_name;
-                                          $api.setStorage('nick_name',nick_name_s);
-                                          var photo_s = ret.data.photo;
-                                          $api.setStorage('photo',photo_s);
-                                          var login_way_s = ret.data.login_way;
-                                          $api.setStorage('login_way',login_way_s);
-                                           api.openWin({
-                                               name: 'index',
-                                               url: 'index.html',
-                                               slidBackEnabled:false,
-                                           });
-                                        }else{
-                                          netMessage(ret);
-                                        }
-                                    });
-                                } else {
-
-                                    // alert(JSON.stringify(err));
+                  api.toast({
+                      msg:  '正在跳转孔孟之道',
+                      duration:  2000,
+                      location:   'middle'          
+                  });
+                  setTimeout(function(){
+                    qq.getUserInfo(function(ret, err) {
+                        if (ret.status) {
+                            var openid = openId;
+                            var nickname = ret.info.nickname;
+                            var gender = ret.info.gender;
+                            var figureurl_qq_2 = ret.info.figureurl_qq_2;
+                            api.ajax({
+                                url: host + apiUri + '/login/qq',
+                                method: 'post',
+                                dataType: 'json',
+                                timeout:10,
+                                data: {
+                                  values:{
+                                    "openid":	openid,
+                                    "nickname":	nickname,
+                                    "sex": gender,
+                                    "headimgurl":	figureurl_qq_2
+                                  },
+                                },
+                                headers: {
+                                  "source":api.systemType,
+                                  "version":version
+                                },
+                            }, function(ret, err) {
+                                if (ret.status == 200) {
+                                  var tokens = ret.data.token;
+                                  $api.setStorage('token',tokens);
+                                  var user_id_s = ret.data.user_id;
+                                  $api.setStorage('user_id',user_id_s);
+                                  var nick_name_s = ret.data.nick_name;
+                                  $api.setStorage('nick_name',nick_name_s);
+                                  var photo_s = ret.data.photo;
+                                  $api.setStorage('photo',photo_s);
+                                  var login_way_s = ret.data.login_way;
+                                  $api.setStorage('login_way',login_way_s);
+                                   api.openWin({
+                                       name: 'index',
+                                       url: 'index.html',
+                                       slidBackEnabled:false,
+                                   });
+                                }else{
+                                  netMessage(ret);
                                 }
                             });
                         } else {
+
                             // alert(JSON.stringify(err));
                         }
                     });
+                  },2000)
+
                 } else {
                     // var toast = new auiToast();
                     // var toast.fail({

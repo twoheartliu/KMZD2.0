@@ -75,7 +75,7 @@
           display: inline-block;
         }
         .div_img{width: 100%;text-align: center;}
-        .tdtext{text-align: center;}
+        .tdtext{text-align: center;line-height: 30px;}
         table {
 
             width: 99.5%;
@@ -284,7 +284,7 @@
         var r = 1;
         for (var i = 0; i < ret.data.length; i++) {
             if (c == 1) {
-                html += '<td rowspan="2" class="tdtext" onclick="guoxue_frame(' + ret.data[i].id + ',\'' + ret.data[i].name + '\')"><div class="div_img"><img src="../image/guoxueguan/KM_MX.png" alt=""></div>' + ret.data[i].name + '</td>';
+                html += '<td rowspan="2" class="tdtext"><div class="div_img"><img src="../image/guoxueguan/KM_MX.png" alt=""></div>热门推荐</td>';
             } else {
                 html += '<td data="' + r + '" c="' + c + '" onclick="guoxue_frame(' + ret.data[i].id + ',\'' + ret.data[i].name + '\')">' + ret.data[i].name + '</td>';
             }
