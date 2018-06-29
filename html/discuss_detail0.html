@@ -234,7 +234,17 @@
         name = api.pageParam.name;
         uris = api.pageParam.uris;
         ok = api.pageParam.ok;
-        listeningCover = api.pageParam.listeningCover;
+        // listeningCover = api.pageParam.listeningCover;
+        var listening = api.pageParam.listeningCover;
+        var album = api.pageParam.albumCover;
+        // console.log(album);
+        // console.log(listening);
+        if (listening !== undefined) {
+            listeningCover = listening
+        }
+        if (album !== undefined) {
+            listeningCover = album
+        }
         // console.log(listeningCover);
         var oks = 'ok'+ok;
         api.addEventListener({

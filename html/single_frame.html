@@ -698,6 +698,7 @@
     var imgaesFx, iamgFx, titleFx, idFx, briefFx;
     var p = 1;
     var isFirst = true;
+    var bigCover;
     apiready = function() {
         // 刚开始的时候加载loading
         var loadEffect = $api.byId('loadEffect');
@@ -827,6 +828,8 @@
     //接口  听单展示
     function fnAlbumAetailsList(data_) {
         //专辑图片
+        // console.log(host + data_.data.big);
+        bigCover = host + '/' + data_.data.big;
         if (data_.data.big) {
             var imgstylelistss = $api.byId('imgssss');
             var imghtmls = '<img src="' + host + '/' + data_.data.big + '" alt="">';
@@ -1608,6 +1611,7 @@
     //打开评论详情
     function fnOpenDiscussDetail(id, name) {
         // var albumId = id;
+        // console.log(bigCover);
         var uris = '/album/comment/';
         api.openWin({
             name: 'discussDetail0',
@@ -1616,7 +1620,8 @@
                 albumId: albumId,
                 uris: uris,
                 name: name,
-                ok: 'discuss_detail0'
+                ok: 'discuss_detail0',
+                albumCover: bigCover,
             }
         });
     }
