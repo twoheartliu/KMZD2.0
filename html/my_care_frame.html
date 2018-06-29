@@ -499,68 +499,98 @@
         var toolbarlist = document.getElementById(img_id);
         var click = toolbarlist.getAttribute("data-click");
         if (click == 0) {
-            var dialogBox = api.require('dialogBox');
-            dialogBox.alert({
-                texts: {
-                    content: '确定要取消关注吗？',
-                    leftBtnTitle: '取消',
-                    rightBtnTitle: '确认'
-                },
-                styles: {
-                    bg: '#fff',
-                    w: 300,
-                    content: {
-                        color: '#000',
-                        size: 14
+          api.confirm({
+              title: '取消关注',
+              msg: '确定要取消关注吗？',
+              buttons: ['确定', '取消']
+          }, function(ret, err) {
+              var index = ret.buttonIndex;
+              if (index == 1) {
+                // console.log(id);
+                api.ajax({
+                    url: host + apiUri + '/user/follow',
+                    method: 'post',
+                    dataType: 'json',
+                    timeout: 10,
+                    headers: {
+                        "source": api.systemType,
+                        "version": version,
+                        "session": token
                     },
-                    left: {
-                        marginB: 15,
-                        marginL: 20,
-                        w: 100,
-                        h: 35,
-                        corner: 2,
-                        bg: '#ccc',
-                        color: '#fff',
-                        size: 12
-                    },
-                    right: {
-                        marginB: 15,
-                        marginL: 60,
-                        w: 100,
-                        h: 35,
-                        corner: 2,
-                        bg: '#ccc',
-                        color: '#fff',
-                        size: 12
-                    }
-                }
-            }, function(ret) {
-                if (ret.eventType == 'right') {
-                    // console.log(id);
-                    api.ajax({
-                        url: host + apiUri + '/user/follow',
-                        method: 'post',
-                        dataType: 'json',
-                        timeout: 10,
-                        headers: {
-                            "source": api.systemType,
-                            "version": version,
-                            "session": token
-                        },
-                        data: {
-                            values: {
-                                follow_id: img_id
-                            }
+                    data: {
+                        values: {
+                            follow_id: img_id
                         }
-                    }, function(ret, err) {
-                        // console.log(JSON.stringify(ret));
-                        // var user = $api.byId('userDelete_' + id + '');
-                        // html = ''
-                        if (ret) {
-                            if (ret.status == 200) {
-                                toolbarlist.setAttribute("data-click", 1);
-                                toolbarlist.src = "../image/my/attention_j.png";
-                                totalHtml--;
+                    }
+                }, function(ret, err) {
+                    // console.log(JSON.stringify(ret));
+                    // var user = $api.byId('userDelete_' + id + '');
+                    // html = ''
+                    if (ret) {
+                        if (ret.status == 200) {
+                            toolbarlist.setAttribute("data-click", 1);
+                            toolbarlist.src = "../image/my/attention_j.png";
+                            totalHtml--;
+                            var total = $api.byId('total');
+                            $api.html(total, totalHtml);
+                            api.sendEvent({
+                                name: 'netNums',
+                                extra: {
+                                    productNum: totalHtml
+                                }
+                            });
+                            // fnAttention();
+
+                            // var userDelete = $api.byId('userDelete');
+                            // var userDeleteID = userDelete + ret;
+                            // html += '<img src="../image/my/attention_j.png" alt="" class="userDeleteA">';
+                        } else {
+                            netMessage(ret);
+                        }
+                    } else {
+                        netWork(err);
+                    }
+                    // $api.html(user, html);
+                    // console.log(html);
+                });
+              } else {
+                return;
+              }
+          });
+        } else {
+          api.confirm({
+              title: '添加关注',
+              msg: '确定要添加关注吗？',
+              buttons: ['确定', '取消']
+          }, function(ret, err) {
+              var index = ret.buttonIndex;
+              if (index == 1) {
+                // console.log(id);
+                api.ajax({
+                    url: host + apiUri + '/user/follow',
+                    method: 'post',
+                    dataType: 'json',
+                    timeout: 10,
+                    headers: {
+                        "source": api.systemType,
+                        "version": version,
+                        "session": token
+                    },
+                    data: {
+                        values: {
+                            follow_id: img_id
+                        }
+                    }
+                }, function(ret, err) {
+                    // console.log(JSON.stringify(ret));
+                    // var user = $api.byId('userDelete_' + id + '');
+                    // html = ''
+                    if (ret) {
+                        if (ret.status == 200) {
+                            if (img_alt == 1) {
+                                toolbarlist.setAttribute("data-click", 0);
+                                toolbarlist.src = "../image/my/personal_care.png";
+                                totalHtml++;
                                 var total = $api.byId('total');
                                 $api.html(total, totalHtml);
                                 api.sendEvent({
@@ -569,143 +599,41 @@
                                         productNum: totalHtml
                                     }
                                 });
-                                // fnAttention();
-
-                                // var userDelete = $api.byId('userDelete');
-                                // var userDeleteID = userDelete + ret;
-                                // html += '<img src="../image/my/attention_j.png" alt="" class="userDeleteA">';
-                            } else {
-                                netMessage(ret);
+                            } else if (img_alt == 2) {
+                                toolbarlist.setAttribute("data-click", 0);
+                                toolbarlist.src = "../image/my/personal_care_a.png";
+                                totalHtml++;
+                                var total = $api.byId('total');
+                                $api.html(total, totalHtml);
+                                api.sendEvent({
+                                    name: 'netNums',
+                                    extra: {
+                                        productNum: totalHtml
+                                    }
+                                });
                             }
-                        } else {
-                            netWork(err);
-                        }
-                        // $api.html(user, html);
-                        // console.log(html);
-                    });
+                            // fnAttention();
 
-                    var dialogBox = api.require('dialogBox');
-                    dialogBox.close({
-                        dialogName: 'alert'
-                    });
-                } else if (ret.eventType == 'left') {
-                    var dialogBox = api.require('dialogBox');
-                    dialogBox.close({
-                        dialogName: 'alert'
-                    });
-                }
-            });
-        } else {
-            var dialogBox = api.require('dialogBox');
-            dialogBox.alert({
-                texts: {
-                    content: '确定要添加关注吗？',
-                    leftBtnTitle: '取消',
-                    rightBtnTitle: '确认'
-                },
-                styles: {
-                    bg: '#fff',
-                    w: 300,
-                    content: {
-                        color: '#000',
-                        size: 14
-                    },
-                    left: {
-                        marginB: 15,
-                        marginL: 20,
-                        w: 100,
-                        h: 35,
-                        corner: 2,
-                        bg: '#ccc',
-                        color: '#fff',
-                        size: 12
-                    },
-                    right: {
-                        marginB: 15,
-                        marginL: 60,
-                        w: 100,
-                        h: 35,
-                        corner: 2,
-                        bg: '#ccc',
-                        color: '#fff',
-                        size: 12
+                            // var userDelete = $api.byId('userDelete');
+                            // var userDeleteID = userDelete + ret;
+                            // html += '<img src="../image/my/attention_j.png" alt="" class="userDeleteA">';
+                        } else {
+                            netMessage(ret);
+                        }
+                    } else {
+                        netWork(err);
                     }
-                }
-            }, function(ret) {
-                if (ret.eventType == 'right') {
-                    // console.log(id);
-                    api.ajax({
-                        url: host + apiUri + '/user/follow',
-                        method: 'post',
-                        dataType: 'json',
-                        timeout: 10,
-                        headers: {
-                            "source": api.systemType,
-                            "version": version,
-                            "session": token
-                        },
-                        data: {
-                            values: {
-                                follow_id: img_id
-                            }
-                        }
-                    }, function(ret, err) {
-                        // console.log(JSON.stringify(ret));
-                        // var user = $api.byId('userDelete_' + id + '');
-                        // html = ''
-                        if (ret) {
-                            if (ret.status == 200) {
-                                if (img_alt == 1) {
-                                    toolbarlist.setAttribute("data-click", 0);
-                                    toolbarlist.src = "../image/my/personal_care.png";
-                                    totalHtml++;
-                                    var total = $api.byId('total');
-                                    $api.html(total, totalHtml);
-                                    api.sendEvent({
-                                        name: 'netNums',
-                                        extra: {
-                                            productNum: totalHtml
-                                        }
-                                    });
-                                } else if (img_alt == 2) {
-                                    toolbarlist.setAttribute("data-click", 0);
-                                    toolbarlist.src = "../image/my/personal_care_a.png";
-                                    totalHtml++;
-                                    var total = $api.byId('total');
-                                    $api.html(total, totalHtml);
-                                    api.sendEvent({
-                                        name: 'netNums',
-                                        extra: {
-                                            productNum: totalHtml
-                                        }
-                                    });
-                                }
-                                // fnAttention();
+                    // $api.html(user, html);
+                    // console.log(html);
+                });
+              } else {
+                return;
+              }
+          });
 
-                                // var userDelete = $api.byId('userDelete');
-                                // var userDeleteID = userDelete + ret;
-                                // html += '<img src="../image/my/attention_j.png" alt="" class="userDeleteA">';
-                            } else {
-                                netMessage(ret);
-                            }
-                        } else {
-                            netWork(err);
-                        }
-                        // $api.html(user, html);
-                        // console.log(html);
-                    });
 
-                    var dialogBox = api.require('dialogBox');
-                    dialogBox.close({
-                        dialogName: 'alert'
-                    });
-                } else if (ret.eventType == 'left') {
-                    var dialogBox = api.require('dialogBox');
-                    dialogBox.close({
-                        dialogName: 'alert'
-                    });
-                }
-            });
+
+
         }
 
     }
