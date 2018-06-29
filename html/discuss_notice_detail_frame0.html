@@ -285,6 +285,8 @@
         token = $api.getStorage('token');
         soundId = api.pageParam.soundId;
         uris = api.pageParam.uris;
+        albumCover = api.pageParam.albumCover;
+        console.log(albumCover);
         // console.log(uris);
         // name = api.pageParam.name;
         ListenToTheListOfComments();
@@ -355,10 +357,11 @@
           if (ret.status == 200) {
               var stylelist = $api.byId('details');
               var html = '';
+              var cover = albumCover ? albumCover : '../image/index/pic.jpg'
               if (ret.data.author_name) {
               html =
               '  <div class="nav-left fl"  onclick="fnPlayHTML('+ret.data.id+');">'+
-                    '<div class="nav-img"><img src="../image/index/pic.jpg" alt=""></div>'+
+                    '<div class="nav-img"><img src="'+cover+'" alt=""></div>'+
                     '<div class="nav-txt">'+
                         '<p class="nav-txt_name">'+ret.data.title+'</p>'+
                         '<p class="nav-txt_p">'+ret.data.author_name+'</p> '+
@@ -367,7 +370,7 @@
                 '<div class="clear"></div>'
               } else {
                 html = '  <div class="nav-left fl"  onclick="fnPlayHTML('+ret.data.id+');">'+
-                      '<div class="nav-img"><img src="../image/index/pic.jpg" alt=""></div>'+
+                      '<div class="nav-img"><img src="'+cover+'" alt=""></div>'+
                       '<div class="nav-txt">'+
                           '<p class="nav-txt_name">'+ret.data.title+'</p>'+
                       '</div>'+

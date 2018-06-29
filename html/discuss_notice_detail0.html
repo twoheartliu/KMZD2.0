@@ -217,8 +217,9 @@
     var uris;
     var name;
     var ok;
-    apiready = function(){
-
+    apiready = function() {
+        albumCover = api.pageParam.albumCover;
+        // console.log(albumCover);
         var notHeader = $api.byId('notHeader');
         var headeris = document.querySelector('#notHeader');
         $api.fixIos7Bar(headeris);
@@ -229,11 +230,39 @@
         uris = api.pageParam.uris;
         name = api.pageParam.name;
         ok = api.pageParam.ok;
-              var oks = 'ok'+ok;
+
+        var oks = 'ok' + ok;
         api.addEventListener({
             name: oks
         }, function(ret, err) {
-          if(ret.value.wangluo){
+            if (ret.value.wangluo) {
+                api.openFrame({
+                    name: 'ReplyToCommentsSingle',
+                    url: './ReplyToComments_single.html',
+                    rect: {
+                        x: 0,
+                        y: api.frameHeight - 55,
+                        w: 'auto',
+                        h: 'auto'
+                    },
+                    pageParam: {
+                        soundId: soundId,
+                        uris: uris,
+                        name: name,
+                    },
+                    customRefreshHeader: 'UIPullRefreshFlash',
+                    bounces: true,
+                    bgColor: 'rgba(0,0,0,0)',
+                    vScrollBarEnabled: false,
+                    hScrollBarEnabled: false
+                });
+            }
+        });
+
+        var connectionType = api.connectionType;
+        if (connectionType == "none") {
+            netWorkNone(ok);
+        } else {
             api.openFrame({
                 name: 'ReplyToCommentsSingle',
                 url: './ReplyToComments_single.html',
@@ -254,43 +283,16 @@
                 vScrollBarEnabled: false,
                 hScrollBarEnabled: false
             });
-          }
-        });
-
-        var connectionType = api.connectionType;
-        if(connectionType == "none"){
-        	netWorkNone(ok);
-        }else{
-          api.openFrame({
-              name: 'ReplyToCommentsSingle',
-              url: './ReplyToComments_single.html',
-              rect: {
-                  x: 0,
-                  y: api.frameHeight - 55,
-                  w: 'auto',
-                  h: 'auto'
-              },
-              pageParam: {
-                  soundId: soundId,
-                  uris: uris,
-                  name: name
-              },
-              customRefreshHeader: 'UIPullRefreshFlash',
-              bounces: true,
-              bgColor: 'rgba(0,0,0,0)',
-              vScrollBarEnabled: false,
-              hScrollBarEnabled: false
-          });
         }
 
     }
 
-    function fnOpenDiscussNotDetail(){
+    function fnOpenDiscussNotDetail() {
         var nHeader = $api.byId('notHeader');
         var headerH = $api.offset(nHeader).h;
         name = api.pageParam.name;
-          soundId = api.pageParam.soundId;
-          uris = api.pageParam.uris;
+        soundId = api.pageParam.soundId;
+        uris = api.pageParam.uris;
         api.openFrame({
             name: 'discussNoticeDetailFrame0',
             url: './discuss_notice_detail_frame0.html',
@@ -301,9 +303,10 @@
                 h: api.frameHeight
             },
             pageParam: {
-              soundId: soundId,
-              uris: uris,
-              name:name
+                soundId: soundId,
+                uris: uris,
+                name: name,
+                albumCover: albumCover,
             },
             bounces: false,
             bgColor: 'rgba(0,0,0,0)',
