@@ -1419,73 +1419,87 @@
     }
     //上传草稿
     function fnOpenPlayShare() {
-        api.ajax({
-            url: host + apiUri + '/user/drafts/' + drafts_id,
-            method: 'get',
-            dataType: 'json',
-            timeout: 10,
-            headers: {
-                "source": api.systemType,
-                "version": version,
-                "session": token
-            }
-        }, function(ret, err) {
-          if (ret) {
-            if (ret.status == 200) {
-                api.ajax({
-                    url: host + apiUri + '/user/records',
-                    method: 'post',
-                    dataType: 'json',
-                    timeout: 10,
-                    headers: {
-                        "source": api.systemType,
-                        "version": version,
-                        "session": token
-                    },
-                    data: {
-                        values: {
-                            title: ret.data.title,
-                            author_id: ret.data.author_id,
-                            script_id: ret.data.script_id,
-                            lyric: ret.data.body,
-                            records: ret.data.url,
-                            format: ret.data.formate,
-                            size: ret.data.size,
-                            time: ret.data.time,
-                            drafts_id: drafts_id
-                        }
-                    }
-                }, function(ret, err) {
-                  if (ret) {
-                    if (ret.status == 200) {
-                        api.toast({
-                            msg: '上传成功',
-                            duration: 2000,
-                            location: 'middle'
-                        });
-                        // 成功之后散发一个事件回到草稿箱的时候让他刷新列表
-                        api.sendEvent({
-                            name: 'caogaoplay',
-                            extra: {
-                                caogaoplay: 'caogaoplay'
+
+      api.confirm({
+          title: '发布作品',
+          msg: '确定要发布作品吗',
+          buttons: ['确定', '取消']
+      }, function(ret, err) {
+          var index = ret.buttonIndex;
+          if (index == 1) {
+            api.ajax({
+                url: host + apiUri + '/user/drafts/' + drafts_id,
+                method: 'get',
+                dataType: 'json',
+                timeout: 10,
+                headers: {
+                    "source": api.systemType,
+                    "version": version,
+                    "session": token
+                }
+            }, function(ret, err) {
+              if (ret) {
+                if (ret.status == 200) {
+                    api.ajax({
+                        url: host + apiUri + '/user/records',
+                        method: 'post',
+                        dataType: 'json',
+                        timeout: 10,
+                        headers: {
+                            "source": api.systemType,
+                            "version": version,
+                            "session": token
+                        },
+                        data: {
+                            values: {
+                                title: ret.data.title,
+                                author_id: ret.data.author_id,
+                                script_id: ret.data.script_id,
+                                lyric: ret.data.body,
+                                records: ret.data.url,
+                                format: ret.data.formate,
+                                size: ret.data.size,
+                                time: ret.data.time,
+                                drafts_id: drafts_id
                             }
-                        });
-                    }else {
-                      netMessage(ret);
-                    }
-                  }else {
-                    netWork(err);
-                  }
+                        }
+                    }, function(ret, err) {
+                      if (ret) {
+                        if (ret.status == 200) {
+                          // 成功之后散发一个事件回到草稿箱的时候让他刷新列表
+                          api.sendEvent({
+                              name: 'caogaoplay',
+                              extra: {
+                                  caogaoplay: 'caogaoplay'
+                              }
+                          });
+                            api.toast({
+                                msg: '上传成功',
+                                duration: 2000,
+                                location: 'middle'
+                            });
 
-                });
-            }else {
-              netMessage(ret);
-            }
-          }else {
-            netWork(err);
+                        }else {
+                          netMessage(ret);
+                        }
+                      }else {
+                        netWork(err);
+                      }
+
+                    });
+                }else {
+                  netMessage(ret);
+                }
+              }else {
+                netWork(err);
+              }
+
+            });
+          } else {
+            return;
           }
+      });
 
-        });
     }
     //添加到听单
     function fnOpenAddListening() {
