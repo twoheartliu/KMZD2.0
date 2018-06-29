@@ -804,6 +804,20 @@
           $api.html(stylelist, html);
         }
     });
+    api.addEventListener({
+        name: 'startAnim'
+    }, function(ret, err) {
+        if (ret) {
+          startAnim();
+        }
+    });
+    api.addEventListener({
+        name: 'stopAnim'
+    }, function(ret, err) {
+        if (ret) {
+          stopAnim();
+        }
+    });
     };
     //加载时的图片
     function fnFuCeng(){
@@ -1370,7 +1384,7 @@
           }
       });
     }
-
+    // 没用了~~
     var timeout, rotate = 0;
     function fnOpenPlayButton(){
       var playButton = $api.byId('playButton');

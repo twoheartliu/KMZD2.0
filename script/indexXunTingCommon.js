@@ -3,17 +3,16 @@
 //播放歌单音频
 function fnXunTingXinXi() {
   var myAudio = document.getElementById("myAudio");
-  if(myAudio){
-    myAudio.pause();
-    // console.log(22222);
-    api.stopRecord(function(ret, err) {
-    if (ret) {
-        var path = ret.path;
-        var duration = ret.duration;
-    }
-});
+      if(myAudio){
+        myAudio.pause();
+        // console.log(22222);
+        api.stopRecord(function(ret, err) {
+        if (ret) {
+            var path = ret.path;
+            var duration = ret.duration;
+        }
+      });
   }
-
   fnUserFollow();
   clearInterval(timer2);
   clearInterval(timer1);
@@ -41,6 +40,7 @@ function fnXunTingXinXi() {
         }, function(ret, err) {
           if(ret){
             if(ret.status == 200){
+
             setTimeout(function(){
                 api.sendEvent({
                     name: 'listen_to_',
@@ -89,6 +89,12 @@ function fnXunTingXinXi() {
                       }
                   });
                   api.sendEvent({
+                      name: 'startAnim',
+                      extra: {
+                          bookId:'startAnim'
+                      }
+                  });
+                  api.sendEvent({
                       name: 'jibenxinxi',
                       extra: {
                           titlename: titlename,
@@ -98,7 +104,6 @@ function fnXunTingXinXi() {
                           cover_big:cover_big
                       }
                   });
-
             }else{
               netMessage(ret);
             }
@@ -232,6 +237,7 @@ function initEventListennerBofangXunTing() {
             netAudioPause();
         }
     });
+
     //监听暂停音频
     // api.addEventListener({
     //     name: 'neizhiliebiaoPlay'
