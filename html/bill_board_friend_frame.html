@@ -234,6 +234,12 @@
                     for (var i = 0; i < len; i++) {
                         var photo = ret.data[i].photo;
                         // console.log(photo)
+                        var zan = ret.data[i].good_total
+                        if (zan) {
+                            zan = zan
+                        } else {
+                            zan = '0'
+                        }
                         var photo = ret.data[i].photo.indexOf('http://')
                         if (photo != -1) {
                             // title = ret.data[i].photo;
@@ -242,7 +248,7 @@
                                 '<div class="user-logo" onclick="fnOpenmyPersonal(\'' + ret.data[i].user_id + '\',\'' + ret.data[i].nick_name + '\');">' +
                                 '<div class="user-img">' +
                                 '<div class="logo-img"><img src="' + ret.data[i].photo + '" alt=""></div>' +
-                                '<p >' + ret.data[i].nick_name + ' </p>'  +
+                                '<p >' + ret.data[i].nick_name + ' </p>' +
                                 '</div>' +
                                 '</div>' + '<p class="signature">' + ret.data[i].signature + ' </p>' +
                                 '<ul class="row">' +
@@ -260,7 +266,7 @@
                                 '</li>' +
                                 '<li class="col ">' +
                                 '<p>被赞</p>' +
-                                '<p><span class="num">' + ret.data[i].good_total + '</span>次</p>' +
+                                '<p><span class="num">' + zan + '</span>次</p>' +
                                 '</li>' +
                                 '</ul>' +
                                 '</div>';
@@ -271,7 +277,7 @@
                                 '<div class="user-logo" onclick="fnOpenmyPersonal(\'' + ret.data[i].user_id + '\',\'' + ret.data[i].nick_name + '\');">' +
                                 '<div class="user-img">' +
                                 '<div class="logo-img"><img src="' + updatePhotoUrl + ret.data[i].photo + '" alt=""></div>' +
-                                '<p >' + ret.data[i].nick_name + ' </p>'  +
+                                '<p >' + ret.data[i].nick_name + ' </p>' +
                                 '</div>' +
                                 '</div>' + '<p class="signature">' + ret.data[i].signature + ' </p>' +
                                 '<ul class="row">' +
@@ -289,7 +295,7 @@
                                 '</li>' +
                                 '<li class="col ">' +
                                 '<p>被赞</p>' +
-                                '<p><span class="num">' + ret.data[i].good_total + '</span>次</p>' +
+                                '<p><span class="num">' + zan + '</span>次</p>' +
                                 '</li>' +
                                 '</ul>' +
                                 '</div>';
