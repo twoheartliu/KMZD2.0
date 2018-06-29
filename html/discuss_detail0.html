@@ -234,6 +234,8 @@
         name = api.pageParam.name;
         uris = api.pageParam.uris;
         ok = api.pageParam.ok;
+        listeningCover = api.pageParam.listeningCover;
+        // console.log(listeningCover);
         var oks = 'ok'+ok;
         api.addEventListener({
             name: oks
@@ -306,7 +308,8 @@
             pageParam: {
                 albumId: albumId,
                 uris: uris,
-                name: name
+                name: name,
+                listeningCover: listeningCover,
             },
             bounces: false,
             bgColor: 'rgba(0,0,0,0)',
