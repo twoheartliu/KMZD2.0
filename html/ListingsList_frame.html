@@ -608,6 +608,7 @@
     var ok;
 
     var isFirst = true;
+    var ListingsListIndex0;
     apiready = function() {
             // 刚开始的时候加载loading
             var loadEffect = $api.byId('loadEffect');
@@ -615,6 +616,9 @@
             $api.html(loadEffect, htmlloadEffect);
 
             ok = api.pageParam.ok;
+            ListingsListIndex0 = api.pageParam.ListingsListIndex0;
+            // console.log(ListingsListIndex0);
+
             var oks = 'ok'+ok;
             api.addEventListener({
                 name: oks
@@ -634,7 +638,13 @@
                         }
                         return;
                     });
-                    songList();
+
+                    if (typeof(ListingsListIndex0) != "undefined")
+                    {
+                      songListindex();
+                    }else {
+                      songList();
+                    }
                     api.setCustomRefreshHeaderInfo({
                         bgColor: '#f0f0f0',
                         image: {
@@ -681,7 +691,12 @@
                       var footer = $api.byId('footer');
                       $api.html(footer, '没有更多结果了');
                       p++;
-                      songList();
+                      if (typeof(ListingsListIndex0) != "undefined")
+                      {
+                        songListindex();
+                      }else {
+                        songList();
+                      }
                     });
 
                 }
@@ -709,7 +724,12 @@
                     }
                     return;
                 });
-                songListindex();
+                if (typeof(ListingsListIndex0) != "undefined")
+                {
+                  songListindex();
+                }else {
+                  songList();
+                }
                 api.setCustomRefreshHeaderInfo({
                     bgColor: '#f0f0f0',
                     image: {
@@ -757,7 +777,12 @@
                   $api.html(footer, '没有更多结果了');
                 //   isFirst = false;
                   p++;
-                  songListindex();
+                  if (typeof(ListingsListIndex0) != "undefined")
+                  {
+                    songListindex();
+                  }else {
+                    songList();
+                  }
                 });
             }
         }
