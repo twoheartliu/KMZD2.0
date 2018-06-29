@@ -5,178 +5,129 @@ function fnLuYinBaoCun() {
         //拷贝文件
         if (path) {
             if (c > 9) {
-                var dialogBox = api.require('dialogBox');
-                dialogBox.alert({
-                    texts: {
-                        title: '选择保存方式',
-                        content: '保存后将清除试听文件',
-                        leftBtnTitle: '草稿箱',
-                        rightBtnTitle: '发布作品'
-                    },
-                    styles: {
-                        bg: '#fff',
-                        w: 300,
-                        title: {
-                            marginT: 20,
-                            icon: 'widget://res/gou.png',
-                            iconSize: 40,
-                            titleSize: 14,
-                            titleColor: '#000'
+              api.confirm({
+                  title: '选择保存方式',
+                  msg: '保存后将清除试听文件',
+                  buttons: ['草稿箱', '发布作品']
+              }, function(ret, err) {
+                var systemType = api.systemType;
+                if(systemType == "ios"){
+                  var pathAdd = path.substring(39,76);
+                  $api.setStorage('pathAdd',pathAdd);
+                }
+                  var index = ret.buttonIndex;
+                  if (index == 1) {
+                    uri = '/user/save_drafts/' + draftsId;
+                    api.ajax({
+                        url: host + apiUri + uri,
+                        method: 'post',
+                        dataType: 'json',
+                        timeout:10,
+                        headers: {
+                            "source": api.systemType,
+                            "version": version,
+                            "session": token
                         },
-                        content: {
-                            color: '#000',
-                            size: 14
-                        },
-                        left: {
-                            marginB: 7,
-                            marginL: 20,
-                            w: 130,
-                            h: 35,
-                            corner: 2,
-                            bg: '#f2f2f2',
-                            color: '#000',
-                            size: 12
-                        },
-                        right: {
-                            marginB: 7,
-                            marginL: 10,
-                            w: 130,
-                            h: 35,
-                            corner: 2,
-                            bg: '#f2f2f2',
-                            color: '#000',
-                            size: 12
+                        data: {
+                            values: {
+                                "script_id": jubenid,
+                                "title": title,
+                                "author_id": author_id,
+                                "lyric": body,
+                                "records": userRecords,
+                                "format": userFormate,
+                                "size": userSize,
+                                "time": userTime,
+                            }
                         }
-                    },
-                    tapClose: true
-                }, function(ret) {
-                    var systemType = api.systemType;
-                    if(systemType == "ios"){
-                      var pathAdd = path.substring(39,76);
-                      $api.setStorage('pathAdd',pathAdd);
-                    }
-                    if (ret.eventType == 'left') {
-
-                        uri = '/user/save_drafts/' + draftsId;
-                        api.ajax({
-                            url: host + apiUri + uri,
-                            method: 'post',
-                            dataType: 'json',
-                            timeout:10,
-                            headers: {
-                                "source": api.systemType,
-                                "version": version,
-                                "session": token
-                            },
-                            data: {
-                                values: {
-                                    "script_id": jubenid,
-                                    "title": title,
-                                    "author_id": author_id,
-                                    "lyric": body,
-                                    "records": userRecords,
-                                    "format": userFormate,
-                                    "size": userSize,
-                                    "time": userTime,
-                                }
-                            }
-                        }, function(ret, err) {
-                            if(ret){
-                              if (ret.status == 200) {
-                                  api.toast({              
-                                      msg:   '已保存',
-                                      duration:  2000,
-                                      location:   'middle'          
-                                  });
-                                  api.sendEvent({
-                                      name: 'shiTingPath',
-                                      extra: {
-                                        path:2,
-                                      }
-                                  });
-                                  var fs = api.require('fs');
-                                  fs.rmdir({
-                                      path: 'fs://luyin'
-                                  }, function(ret, err) {
-                                      if (ret.status) {} else {
-                                          // alert(JSON.stringify(err));
-                                      }
-                                  });
-                                  path = '';
-                                  timeCsss();
-                              } else {
-                                  netMessage(ret);
-                              }
-                            }else{
-                              netWork(err);
-                            }
-                        });
-                        var dialogBox = api.require('dialogBox');
-                        dialogBox.close({
-                            dialogName: 'alert'
-                        });
-                    }
-                    if (ret.eventType == 'right') {
-                          uri = '/user/records';
-                          api.ajax({
-                              url: host + apiUri + uri,
-                              method: 'post',
-                              dataType: 'json',
-                              timeout:10,
-                              headers: {
-                                  "source": api.systemType,
-                                  "version": version,
-                                  "session": token
-                              },
-                              data: {
-                                  values: {
-                                      "script_id": jubenid,
-                                      "title": title,
-                                      "author_id": author_id,
-                                      "lyric": body,
-                                      "records": userRecords,
-                                      "format": userFormate,
-                                      "size": userSize,
-                                      "time": userTime,
+                    }, function(ret, err) {
+                        if(ret){
+                          if (ret.status == 200) {
+                              api.toast({              
+                                  msg:   '已保存',
+                                  duration:  2000,
+                                  location:   'middle'          
+                              });
+                              api.sendEvent({
+                                  name: 'shiTingPath',
+                                  extra: {
+                                    path:2,
                                   }
-                              }
-                          }, function(ret, err) {
-                              if(ret){
-                                if (ret.status == 200) {
-                                    api.toast({              
-                                        msg:   '已上传',
-                                        duration:  2000,
-                                        location:   'middle'          
-                                    });
-                                    api.sendEvent({
-                                        name: 'shiTingPath',
-                                        extra: {
-                                          path:2,
-                                        }
-                                    });
-                                    var fs = api.require('fs');
-                                    fs.rmdir({
-                                        path: 'fs://luyin'
-                                    }, function(ret, err) {
-                                        if (ret.status) {} else {
-                                            alert(JSON.stringify(err));
-                                        }
-                                    });
-                                    path = '';
-                                    timeCsss();
-                                } else {
-                                    netMessage(ret);
-                                }
-                              }else{
-                                netWork(err);
-                              }
-                          });
-                        var dialogBox = api.require('dialogBox');
-                        dialogBox.close({
-                            dialogName: 'alert'
-                        });
-                    }
-                });
+                              });
+                              var fs = api.require('fs');
+                              fs.rmdir({
+                                  path: 'fs://luyin'
+                              }, function(ret, err) {
+                                  if (ret.status) {} else {
+                                      // alert(JSON.stringify(err));
+                                  }
+                              });
+                              path = '';
+                              timeCsss();
+                          } else {
+                              netMessage(ret);
+                          }
+                        }else{
+                          netWork(err);
+                        }
+                    });
+                  } else {
+                    uri = '/user/records';
+                    api.ajax({
+                        url: host + apiUri + uri,
+                        method: 'post',
+                        dataType: 'json',
+                        timeout:10,
+                        headers: {
+                            "source": api.systemType,
+                            "version": version,
+                            "session": token
+                        },
+                        data: {
+                            values: {
+                                "script_id": jubenid,
+                                "title": title,
+                                "author_id": author_id,
+                                "lyric": body,
+                                "records": userRecords,
+                                "format": userFormate,
+                                "size": userSize,
+                                "time": userTime,
+                            }
+                        }
+                    }, function(ret, err) {
+                        if(ret){
+                          if (ret.status == 200) {
+                              api.toast({              
+                                  msg:   '已上传',
+                                  duration:  2000,
+                                  location:   'middle'          
+                              });
+                              api.sendEvent({
+                                  name: 'shiTingPath',
+                                  extra: {
+                                    path:2,
+                                  }
+                              });
+                              var fs = api.require('fs');
+                              fs.rmdir({
+                                  path: 'fs://luyin'
+                              }, function(ret, err) {
+                                  if (ret.status) {} else {
+                                      alert(JSON.stringify(err));
+                                  }
+                              });
+                              path = '';
+                              timeCsss();
+                          } else {
+                              netMessage(ret);
+                          }
+                        }else{
+                          netWork(err);
+                        }
+                    });
+                  }
+              });
             } else {
                 // alert(JSON.stringify(ret.message));
                 timeCsss();

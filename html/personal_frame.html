@@ -869,92 +869,30 @@
     }
 
     function fnalert(id) {
-        // console.log(id);
-        var dialogBox = api.require('dialogBox');
-        dialogBox.alert({
-            texts: {
-                title: '确认删除',
-                // content: '送你一个超级礼包，内有超值福利，先到先得，点击领取 >>',
-                leftBtnTitle: '取消',
-                rightBtnTitle: '确认'
-            },
-            styles: {
-                bg: '#fff',
-                w: 300,
-                title: {
-                    marginT: 20,
-                    icon: 'widget://res/gou.png',
-                    iconSize: 40,
-                    titleSize: 14,
-                    titleColor: '#000'
-                },
-                content: {
-                    color: '#000',
-                    size: 14
-                },
-                left: {
-                    marginB: 7,
-                    marginL: 20,
-                    w: 130,
-                    h: 35,
-                    corner: 2,
-                    bg: '#ccc',
-                    size: 12,
-                    color: '#fff'
-                },
-                right: {
-                    marginB: 7,
-                    marginL: 10,
-                    w: 130,
-                    h: 35,
-                    corner: 2,
-                    bg: '#ccc',
-                    size: 12,
-                    color: '#fff'
-                }
-            },
-            tapClose: true
-        }, function(ret) {
-            if (ret.eventType == 'left') {
-                // alert("确认删除");
-                var dialogBox = api.require('dialogBox');
-                dialogBox.close({
-                    dialogName: 'alert'
-                });
-            } else {
-                // alert("确认删除");
-                api.ajax({
-                    url: host + apiUri + '/user/del_records/' + id,
-                    method: 'post',
-                    dataType: 'json',
-                    headers: {
-                        "source": api.systemType,
-                        "version": version,
-                        "session": token
-                    },
-                    // data: {
-                    //     values: {
-                    //         name: 'haha'
-                    //     }
-                    // }
-                }, function(ret, err) {
-                    if (ret) {
-                        console.log(JSON.stringify(ret));
-                        if (ret.status == 200) {
-                            console.log(1111);
-                            var p = 1;
-                            fnProductList();
-                        }
-                    } else {
-                        // alert( JSON.stringify( err ) );
-                    }
-                });
-
-                var dialogBox = api.require('dialogBox');
-                dialogBox.close({
-                    dialogName: 'alert'
-                });
-            }
-        });
+      // alert("确认删除");
+      api.ajax({
+          url: host + apiUri + '/user/del_records/' + id,
+          method: 'post',
+          dataType: 'json',
+          headers: {
+              "source": api.systemType,
+              "version": version,
+              "session": token
+          },
+          // data: {
+          //     values: {
+          //         name: 'haha'
+          //     }
+          // }
+      }, function(ret, err) {
+          if (ret) {
+              if (ret.status == 200) {
+                  var p = 1;
+                  fnProductList();
+              }
+          } else {
+              // alert( JSON.stringify( err ) );
+          }
+      });
     }
 </script>
