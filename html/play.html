@@ -704,7 +704,7 @@
     var playType;
     var listen_to_ = 1;
     apiready = function() {
-        albumCover = api.pageParam.albumCover
+        // albumCover = api.pageParam.albumCover
         // console.log(albumCover);
         token = $api.getStorage('token');
         var secHeader = $api.byId('secHeader');
@@ -1150,6 +1150,9 @@
             }, function(ret, err) {
                 if (ret) {
                     if (ret.status == 200) {
+                        // console.log(JSON.stringify(ret.data.cover_mid));
+                        albumCover = host + '/' + ret.data.cover_mid
+                        // console.log(albumCover);
                         var stylelistCollectionHtml = $api.byId('bookExtraCollectionHtml');
                         if (ret.data.is_collection) {
                             bookCollectionHtml = '<img src="../image/KM_play_collect_red.png" alt="" class="collectmusicssss" id="playCollect" onclick="fnOpenPlayCollect(this)" data-click="1"><p>收藏</p>';
