@@ -409,6 +409,8 @@ function netMessage(ret){
 
   }
   if(ret.status == 10902){
+    message = ret.message;
+    data = ret.data;
     setTimeout("turn_logins()",2100);
   }
 }

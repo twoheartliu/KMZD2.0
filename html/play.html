@@ -105,7 +105,7 @@
         .egret-txt {
             display: block;
             margin: 0 auto;
-            width: 75%;
+            width: 70%;
             color: #fff;
             text-align: center;
             line-height: 50px;
@@ -571,6 +571,13 @@
         #ImgGif .loading span:nth-child(16) {
             -webkit-animation-delay: 4.6s;
         }
+        .inner{ width:100%;
+                display: inline;
+                white-space: nowrap;/*规定段落中的文本不进行换行*/
+                overflow-x:scroll;/*水平方向，超出部分添加滚动机制*/
+                float:left;/*一定要设置左侧浮动*/
+                overflow-y:hidden
+              }
     </style>
 </head>
 
@@ -585,6 +592,9 @@
     <header id="secHeader" class="clear">
         <div class="egret-img"><img src="../image/icon_back.png" alt="" onclick="api.closeWin();"></div>
         <div class="egret-txt" id="title">
+          <div class="inner">
+              <p class="txt" id="txt"></p>
+          </div>
         </div>
         <div class="header_fr" id="headerFr">
             <div onclick="fnOpenPlayShare();">
@@ -1525,10 +1535,11 @@
                 }
                 //赋值标题
                 if (ret.value.titlename) {
-                    var stylelist = $api.byId('title');
-                    var html2 = ret.value.titlename;
-                    $api.html(stylelist, html2);
-                    fnNamesss(ret.value.titlename);
+
+                  var stylelist = $api.byId('txt');
+                  var html2 = ret.value.titlename;
+                  $api.html(stylelist, html2);
+                  fnNamesss(ret.value.titlename);
                 }
                 if (ret.value.cover_big) {
                     fnCover_big(ret.value.cover_big);

@@ -1,4 +1,6 @@
 var timeOut = 2000;
+var message;
+var data;
 function netMessage(ret){
 
   if(ret.status == 10101){
@@ -360,9 +362,12 @@ function netMessage(ret){
     // });
   }
   if(ret.status == 10902){
+      message = ret.message;
+      data = ret.data;
     setTimeout("turn_logins()",2100);
   }
 }
+
 function netWork(err){
   if(err.code == 0){
     api.toast({              
@@ -446,7 +451,8 @@ $api.rmStorage('token');
   api.sendEvent({
       name: 'wwwwwwww',
       extra: {
-          wwwwwwww: 10902,
+          message: message,
+          data:  data
 
       }
   });
