@@ -329,8 +329,6 @@
                     destinationType: 'url',
                     allowEdit: true,
                     quality: 100,
-                    targetWidth: 500,
-                    targetHeight: 500,
                     saveToPhotoAlbum: false
                 }, function(ret, err) {
                     if (ret) {
@@ -354,6 +352,7 @@
                       },function(ret, err){
                           if (ret) {
                             if (ret.status == 200) {
+                            // console.log(JSON.stringify(ret));
                               fnUploadImage(ret);
                             }
                               // alert( JSON.stringify( ret ) );

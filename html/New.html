@@ -155,14 +155,15 @@ var ok;
         api.addEventListener({
             name: 'NewCoverImg'
         }, function(ret, err) {
-            // console.log(JSON.stringify( ret ));
+            // console.log(JSON.stringify( ret.value.CoverImg ));
             CoverImg = ret.value.CoverImg;
+            console.log(JSON.stringify(CoverImg));
         });
         api.addEventListener({
             name: 'NewCoverDivInput'
         }, function(ret, err) {
             CoverDivInput = ret.value.CoverDivInput
-                // console.log(JSON.stringify());
+                console.log(JSON.stringify(CoverDivInput));
         });
     }
 
