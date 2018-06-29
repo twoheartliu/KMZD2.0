@@ -1540,13 +1540,15 @@
     };
     //打开评论详情
     function fnOpenDiscussDetail() {
+        // console.log(imgUrlListening_cover);
         api.openWin({
             name: 'discussDetail0',
             url: './discuss_detail0.html',
             pageParam: {
                 albumId: ids,
                 uris: '/listening/comment/',
-                name: name
+                name: name,
+                listeningCover: imgUrlListening_cover,
             }
         });
     }
