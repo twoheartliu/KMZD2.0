@@ -787,7 +787,7 @@
     }, function(ret, err) {
         if (ret) {
           var stylelist = $api.byId('openplayer');
-          var stylelist = $api.byId('openplayer');
+
           var html = '<img src="../image/play/ic_play_pause.png" alt="" onclick="fnOpenPlayer();" id="player">';
           $api.html(stylelist, html);
 
@@ -798,6 +798,7 @@
         name: 'footer_bf2'
     }, function(ret, err) {
         if (ret) {
+          var stylelist = $api.byId('openplayer');
           var html = '';
           html += '<img src="../image/play/ic_play_play.png" alt="" onclick="fnOpenPlayer();" id="player">';
           $api.html(stylelist, html);

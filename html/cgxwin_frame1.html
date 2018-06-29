@@ -357,12 +357,14 @@
 
 
                   }else{
+                    api.refreshHeaderLoadDone();
                     // console.log(1111);
                     var footer = $api.byId('footer');
                     $api.html(footer, '无更多数据');
                   }
 
                 } else {
+                  api.refreshHeaderLoadDone();
                     // alert(JSON.stringify(err));
                 }
 
@@ -435,6 +437,7 @@
                   }
 
                 } else {
+                  api.refreshHeaderLoadDone();
                     // alert(JSON.stringify(err));
                 }
 

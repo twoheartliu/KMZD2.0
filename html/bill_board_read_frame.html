@@ -400,9 +400,11 @@
                         $api.html(section, html1);
                     }
                 } else {
+                  api.refreshHeaderLoadDone();
                     netMessage(ret);
                 }
             } else {
+              api.refreshHeaderLoadDone();
                 netWork(err);
             }
 

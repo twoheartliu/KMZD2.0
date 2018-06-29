@@ -829,44 +829,72 @@
         });
     }
     function fndeleteMore() {
-        var dialogBox = api.require('dialogBox');
-        dialogBox.alert({
-            texts: {
-                content: '确定要删除吗？',
-                leftBtnTitle: '取消',
-                rightBtnTitle: '确认'
-            },
-            styles: {
-                bg: '#fff',
-                w: 300,
-                content: {
-                    color: '#000',
-                    size: 14
-                },
-                left: {
-                    marginB: 15,
-                    marginL: 20,
-                    w: 100,
-                    h: 35,
-                    corner: 2,
-                    bg: '#ccc',
-                    color: '#fff',
-                    size: 12
-                },
-                right: {
-                    marginB: 15,
-                    marginL: 60,
-                    w: 100,
-                    h: 35,
-                    corner: 2,
-                    bg: '#ccc',
-                    color: '#fff',
-                    size: 12
+      api.confirm({
+          title: '删除',
+          msg: '确定要删除吗',
+          buttons: ['确定', '取消']
+      }, function(ret, err) {
+          var index = ret.buttonIndex;
+          if (index == 1) {
+            if (alls == true) {
+                api.ajax({
+                    url: host + apiUri + "/user/del_history",
+                    method: 'post',
+                    dataType: 'json',
+                    headers: {
+                        "source": api.systemType,
+                        "version": version,
+                        "session": token,
+                    },
+                    data: {
+                        values: {
+                            id: 'all',
+                        },
+                    }
+                }, function(ret, err) {
+                    // console.log(JSON.stringify(ret));
+                    // console.log(JSON.stringify(err));
+                    if (ret.status == 200) {
+                        var playButton = document.getElementById('btnhref');
+                        var html = playButton.value = '编辑';
+                        $api.html(playButton, html);
+                        fnPlayHistory();
+                        fnFooterActives();
+
+                        var dialogBox = api.require('dialogBox');
+                        dialogBox.close({
+                            dialogName: 'alert'
+                        });
+                    } else {
+                        //  alert( JSON.stringify( err ) );
+                    }
+                });
+            } else {
+                var str = document.getElementsByName("checkBox");
+                var objarray = str.length;
+                var chestr = "";
+                // var chestr = new array();
+                var checked_counts = 0;
+                for (var j = 0; j < objarray; j++) {
+                    if (str[j].checked) {
+                        chestr += str[j].value + ",";
+                        //  console.log(chestr);
+                    }
+                    console.log(chestr);
+                    if (str[j].checked) { //被选中的checkbox
+                        checked_counts++;
+
+                    }
                 }
-            }
-        }, function(ret) {
-            if (ret.eventType == 'right') {
-                if (alls == true) {
+                // console.log(checked_counts);
+                if (chestr == "") {
+                    api.toast({
+                        msg: '请先选择一个想要删除的记录～！',
+                        duration: 2000,
+                        location: 'middle'
+                    });
+                } else if (checked_counts == objarray) {
+
                     api.ajax({
                         url: host + apiUri + "/user/del_history",
                         method: 'post',
@@ -885,6 +913,7 @@
                         // console.log(JSON.stringify(ret));
                         // console.log(JSON.stringify(err));
                         if (ret.status == 200) {
+                            // console.log(333);
                             var playButton = document.getElementById('btnhref');
                             var html = playButton.value = '编辑';
                             $api.html(playButton, html);
@@ -900,106 +929,45 @@
                         }
                     });
                 } else {
-                    var str = document.getElementsByName("checkBox");
-                    var objarray = str.length;
-                    var chestr = "";
-                    // var chestr = new array();
-                    var checked_counts = 0;
-                    for (var j = 0; j < objarray; j++) {
-                        if (str[j].checked) {
-                            chestr += str[j].value + ",";
-                            //  console.log(chestr);
-                        }
-                        console.log(chestr);
-                        if (str[j].checked) { //被选中的checkbox
-                            checked_counts++;
-
-                        }
-                    }
-                    // console.log(checked_counts);
-                    if (chestr == "") {
-                        api.toast({
-                            msg: '请先选择一个想要删除的记录～！',
-                            duration: 2000,
-                            location: 'middle'
-                        });
-                    } else if (checked_counts == objarray) {
-
-                        api.ajax({
-                            url: host + apiUri + "/user/del_history",
-                            method: 'post',
-                            dataType: 'json',
-                            headers: {
-                                "source": api.systemType,
-                                "version": version,
-                                "session": token,
+                    api.ajax({
+                        url: host + apiUri + "/user/del_history",
+                        method: 'post',
+                        dataType: 'json',
+                        headers: {
+                            "source": api.systemType,
+                            "version": version,
+                            "session": token,
+                        },
+                        data: {
+                            values: {
+                                id: chestr,
                             },
-                            data: {
-                                values: {
-                                    id: 'all',
-                                },
-                            }
-                        }, function(ret, err) {
-                            // console.log(JSON.stringify(ret));
-                            // console.log(JSON.stringify(err));
-                            if (ret.status == 200) {
-                                // console.log(333);
-                                var playButton = document.getElementById('btnhref');
-                                var html = playButton.value = '编辑';
-                                $api.html(playButton, html);
-                                fnPlayHistory();
-                                fnFooterActives();
+                        }
+                    }, function(ret, err) {
+                        // console.log(JSON.stringify(err));
+                        if (ret.status == 200) {
+                            // console.log(66666);
+                            var playButton = document.getElementById('btnhref');
+                            var html = playButton.value = '编辑';
+                            $api.html(playButton, html);
+                            fnPlayHistory();
+                            fnFooterActives();
 
-                                var dialogBox = api.require('dialogBox');
-                                dialogBox.close({
-                                    dialogName: 'alert'
-                                });
-                            } else {
-                                //  alert( JSON.stringify( err ) );
-                            }
-                        });
-                    } else {
-                        api.ajax({
-                            url: host + apiUri + "/user/del_history",
-                            method: 'post',
-                            dataType: 'json',
-                            headers: {
-                                "source": api.systemType,
-                                "version": version,
-                                "session": token,
-                            },
-                            data: {
-                                values: {
-                                    id: chestr,
-                                },
-                            }
-                        }, function(ret, err) {
-                            // console.log(JSON.stringify(err));
-                            if (ret.status == 200) {
-                                // console.log(66666);
-                                var playButton = document.getElementById('btnhref');
-                                var html = playButton.value = '编辑';
-                                $api.html(playButton, html);
-                                fnPlayHistory();
-                                fnFooterActives();
-
-                                var dialogBox = api.require('dialogBox');
-                                dialogBox.close({
-                                    dialogName: 'alert'
-                                });
-                            } else {
-                                //  alert( JSON.stringify( err ) );
-                            }
-                        });
-                    }
+                            var dialogBox = api.require('dialogBox');
+                            dialogBox.close({
+                                dialogName: 'alert'
+                            });
+                        } else {
+                            //  alert( JSON.stringify( err ) );
+                        }
+                    });
                 }
-            } else if (ret.eventType == 'left') {
-                var dialogBox = api.require('dialogBox');
-                dialogBox.close({
-                    dialogName: 'alert'
-                });
             }
-        });
+          } else {
+            return;
+          }
+      });
+        
 
     }
 </script>

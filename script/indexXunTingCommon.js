@@ -6,6 +6,12 @@ function fnXunTingXinXi() {
   if(myAudio){
     myAudio.pause();
     // console.log(22222);
+    api.stopRecord(function(ret, err) {
+    if (ret) {
+        var path = ret.path;
+        var duration = ret.duration;
+    }
+});
   }
 
   fnUserFollow();
@@ -66,7 +72,7 @@ function fnXunTingXinXi() {
                       fnFuZhiAudio(url);
 
                     }else{
-                      fnFuZhiAudio(host+'/'+ret.data.url);
+                      fnFuZhiAudio(playHost+'/'+ret.data.url);
                     }
                   }
                   titlename = ret.data.title;
@@ -200,10 +206,14 @@ function initEventListennerBofangXunTing() {
       if(myAudio){
         myAudio.play();
         // console.log(3333333333);
+        api.startRecord({
+            path: 'fs://luyin/ssssssssssssss.amr'
+        });
       }
 
       fnBOFangJian(ret.value.bofang,ret.value.playType,ret.value.a);
       kaishibofangs();
+
         // netAudioPlay();
         // addtime();
         // jindutiao();

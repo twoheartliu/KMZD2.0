@@ -413,9 +413,9 @@
                 htmlloadEffect = '';
                 $api.html(loadEffect, htmlloadEffect);
                 // ~~~~~~~~~~~~~~
-                setTimeout(function() {
+                // setTimeout(function() {
                     api.refreshHeaderLoadDone()
-                }, 3000)
+                // }, 3000)
                 var data = ret.data;
                 var len = ret.data.length;
                 var stylelist = $api.byId('wrap');
@@ -458,6 +458,7 @@
 
 
             } else {
+              api.refreshHeaderLoadDone();
                 // alert(JSON.stringify(err));
             }
 

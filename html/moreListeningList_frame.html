@@ -329,6 +329,7 @@
             if (ret) {
                 // console.log(JSON.stringify(ret.data));
                 if (ret.status == 200) {
+                  api.refreshHeaderLoadDone();
                     // 这个是关闭loading再掉通第一个接口的地方加
                     var loadEffect = $api.byId('loadEffect');
                     htmlloadEffect = '';
@@ -362,10 +363,11 @@
 
                     $api.html(ids, html);
                 } else {
+                  api.refreshHeaderLoadDone();
                     netMessage(ret);
                 }
             } else {
-                //
+                api.refreshHeaderLoadDone();
             }
         });
     }

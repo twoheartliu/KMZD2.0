@@ -413,14 +413,15 @@
         }, function(ret, err) {
           if(ret){
             if (ret.status == 200) {
+              api.refreshHeaderLoadDone();
               if(ret.data == ''){
                 var stylelist = $api.byId('allcommentS');
                 var html = '暂无评论,<span style="color:blue;" onclick="ReplyToCommentsDiscuss_detail()">去评论</span>';
                 $api.html(stylelist, html);
               }else{
-              setTimeout(function(){
+              // setTimeout(function(){
                   api.refreshHeaderLoadDone()
-              },3000)
+              // },3000)
               var stylelists = $api.byId('allcommentS');
               var htmls = '所有评论';
               $api.html(stylelists, htmls);
@@ -496,9 +497,11 @@
                 $api.html(stylelist, html);
               }
             } else {
+              api.refreshHeaderLoadDone();
               netMessage(ret);
             }
           }else{
+            api.refreshHeaderLoadDone();
             netWork(err);
             }
         });

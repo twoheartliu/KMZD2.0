@@ -299,6 +299,7 @@
         }, function(ret, err) {
             if (ret) {
                 if (ret.status == 200) {
+                  api.refreshHeaderLoadDone();
                   if (p == 1) {
                       if (ret.data.list == "") {
                         var footer = $api.byId('footer');
@@ -394,10 +395,12 @@
 
 
                 }else{
+                  api.refreshHeaderLoadDone();
                   netMessage(ret);
                 }
                 // console.log( JSON.stringify( ret ) );
             } else {
+              api.refreshHeaderLoadDone();
                 netWork(err);
             }
         });

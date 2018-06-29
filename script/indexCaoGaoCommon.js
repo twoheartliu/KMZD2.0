@@ -57,7 +57,7 @@ function fnBoFangCaoGaoXiangXinXi(id) {
             fnFuZhiAudio(url);
 
           }else{
-            fnFuZhiAudio(host+'/'+ret.data[h].url);
+            fnFuZhiAudio(playHost+'/'+ret.data[h].url);
           }
         }
         titlename = ret.data[h].title;

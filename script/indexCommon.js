@@ -276,7 +276,7 @@ function fnBoFangyinpinxinxi() {
                 fnFuZhiAudio(url);
 
               }else{
-                fnFuZhiAudio(host+'/'+ret.data.url);
+                fnFuZhiAudio(playHost+'/'+ret.data.url);
               }
             }
 
@@ -485,7 +485,12 @@ function netAudioPlay() {
 function netAudioPause() {
     var myAudio = document.getElementById("myAudio");
     myAudio.pause();
-
+    api.stopRecord(function(ret, err) {
+        if (ret) {
+            var path = ret.path;
+            var duration = ret.duration;
+        }
+    });
     // api.stopRecord(function(ret, err) {
     //     if (ret) {
     //         path = ret.path;

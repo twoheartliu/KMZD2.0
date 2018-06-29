@@ -50,7 +50,7 @@ function fnBoFangyinpinxinxis(id) {
                   fnFuZhiAudio(url);
 
                 }else{
-                  fnFuZhiAudio(host+'/'+ret.data.url);
+                  fnFuZhiAudio(playHost+'/'+ret.data.url);
                 }
               }
 

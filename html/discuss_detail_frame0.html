@@ -564,6 +564,7 @@
 
             if (ret) {
                 if (ret.status == 200) {
+                  api.refreshHeaderLoadDone();
                     var stylelist = $api.byId('details');
                     var html = '';
                     if (ret.data.title) {
@@ -608,9 +609,11 @@
                     // fnRecitationScriptRecommend(ret);
                     $api.html(stylelist, html);
                 } else {
+                  api.refreshHeaderLoadDone();
                     netMessage(ret);
                 }
             } else {
+              api.refreshHeaderLoadDone();
                 netWork(err);
             }
 
@@ -638,6 +641,7 @@
         }, function(ret, err) {
             if (ret) {
                 if (ret.status == 200) {
+                  api.refreshHeaderLoadDone();
                     if (ret.data == '') {
                         var stylelist = $api.byId('allcommentS');
                         var html = '暂无评论,<span style="color:blue;" onclick="ReplyToCommentsDiscuss_detail()">去评论</span>';
@@ -727,9 +731,11 @@
                         }
                     }
                 } else {
+                  api.refreshHeaderLoadDone();
                     netMessage(ret);
                 }
             } else {
+              api.refreshHeaderLoadDone();
                 netWork(err);
             }
         });

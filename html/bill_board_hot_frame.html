@@ -358,10 +358,12 @@
                         $api.html(section, html2);
                     }
                 } else {
+                  api.refreshHeaderLoadDone();
                     netMessage(ret);
                 }
 
             } else {
+              api.refreshHeaderLoadDone();
                 netWork(err);
             }
 
