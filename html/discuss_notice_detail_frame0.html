@@ -286,8 +286,15 @@
         soundId = api.pageParam.soundId;
         uris = api.pageParam.uris;
         albumCover = api.pageParam.albumCover;
+        // console.log(albumCover);
+        var tail = albumCover.slice(-4)
+        console.log(tail);
+        if (tail == 'null') {
+            albumCover = '../image/my/fnShareImg.jpg'
+        } else {
+            albumCover = albumCover
+        }
         console.log(albumCover);
-        // console.log(uris);
         // name = api.pageParam.name;
         ListenToTheListOfComments();
         fnDetails(soundId);
