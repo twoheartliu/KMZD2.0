@@ -74,12 +74,14 @@
     apiready = function() {
       ok = api.pageParam.ok;
       var oks = 'ok'+ok;
+      var ListingsListIndex0 = api.pageParam.ListingsListIndex0;
       api.addEventListener({
         name: oks
       }, function(ret, err) {
       if(ret.value.wangluo){
         var albumId = api.pageParam.albumId;
         var floor_name = api.pageParam.floor_name;
+
         if(floor_name){
           var stylelist = $api.byId('floor_name');
           var html = floor_name;
@@ -101,7 +103,8 @@
                 h: 'auto'
             },
             pageParam: {
-                ids: albumId
+                ids: albumId,
+                ListingsListIndex0:ListingsListIndex0
             },
             customRefreshHeader: 'UIPullRefreshFlash',
             bounces: true,
@@ -138,7 +141,7 @@
             },
             pageParam: {
                 ids: albumId,
-                index0:pk
+                ListingsListIndex0:ListingsListIndex0
             },
             customRefreshHeader: 'UIPullRefreshFlash',
             bounces: true,

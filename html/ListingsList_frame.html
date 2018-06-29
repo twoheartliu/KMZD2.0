@@ -1456,31 +1456,43 @@
     }
     // 删除单曲
     function DeleteSingle(songListID) {
-        // console.log(ids);
-        api.ajax({
-            url: host + apiUri + '/listening/del_song/' + songListID,
-            method: 'post',
-            headers: {
-                "source": api.systemType,
-                "version": version,
-                "session": token
-            },
-            data: {
-                values: {
-                    'id': songListID,
-                    'l_id': ids
-                }
-            },
-        }, function(ret, err) {
-            if (ret.status == 200) {
-                var songListIDs = 'id_' + songListID;
-                var id_items = $api.byId(songListIDs); //找到li标签上的id
-                $api.remove(id_items);
+      api.confirm({
+          title: '退出登录',
+          msg: '确定要退出吗',
+          buttons: ['确定', '取消']
+      }, function(ret, err) {
+          var index = ret.buttonIndex;
+          if (index == 1) {
+            // console.log(ids);
+            api.ajax({
+                url: host + apiUri + '/listening/del_song/' + songListID,
+                method: 'post',
+                headers: {
+                    "source": api.systemType,
+                    "version": version,
+                    "session": token
+                },
+                data: {
+                    values: {
+                        'id': songListID,
+                        'l_id': ids
+                    }
+                },
+            }, function(ret, err) {
+                if (ret.status == 200) {
+                    var songListIDs = 'id_' + songListID;
+                    var id_items = $api.byId(songListIDs); //找到li标签上的id
+                    $api.remove(id_items);
 
-            } else {
-                netMessage(ret);
-            }
-        });
+                } else {
+                    netMessage(ret);
+                }
+            });
+          } else {
+            return;
+          }
+      });
+
 
     }
     //添加到听单

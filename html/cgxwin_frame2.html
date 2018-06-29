@@ -392,6 +392,7 @@ var ok;
 
   	}
     function dialogBox_actionMenu(s) {
+
         var dialogBox = api.require('dialogBox');
         dialogBox.actionMenu({
             rect: {
@@ -505,41 +506,54 @@ var ok;
                     dialogName: 'actionMenu'
                 });
             } else if (index == 1) {
-              uri = '/user/del_drafts';
-              api.ajax({
-                  url: host + apiUri + uri,
-                  method: 'post',
-                  dataType: 'json',
-                  timeout:10,
-                  headers: {
-                      "source": api.systemType,
-                      "version": version,
-                      "session": token
-                  },
-                  data:{
-                    values:{
-                      id:s
-                    }
-                  }
+              dialogBox.close({
+                  dialogName: 'actionMenu'
+              });
+              api.confirm({
+                  title: '退出登录',
+                  msg: '确定要退出吗',
+                  buttons: ['确定', '取消']
               }, function(ret, err) {
-                  if(ret){
-                    if (ret.status == 200) {
-                      api.toast({              
-                      	msg:  '删除成功',
-                      	duration:  2000,
-                      	location:   'middle'          
-                      });
-                      fnGetBeiJingYinYueTypelist();
-                    } else {
-                        netMessage(ret);
-                    }
-                  }else{
-                    netWork(err);
+                  var index = ret.buttonIndex;
+                  if (index == 1) {
+                    uri = '/user/del_drafts';
+                    api.ajax({
+                        url: host + apiUri + uri,
+                        method: 'post',
+                        dataType: 'json',
+                        timeout:10,
+                        headers: {
+                            "source": api.systemType,
+                            "version": version,
+                            "session": token
+                        },
+                        data:{
+                          values:{
+                            id:s
+                          }
+                        }
+                    }, function(ret, err) {
+                        if(ret){
+                          if (ret.status == 200) {
+                            api.toast({              
+                              msg:  '删除成功',
+                              duration:  2000,
+                              location:   'middle' 
+                            });
+                            fnGetBeiJingYinYueTypelist();
+                          } else {
+                              netMessage(ret);
+                          }
+                        }else{
+                          netWork(err);
+                        }
+                    });
+                  } else {
+                    return;
                   }
               });
-                dialogBox.close({
-                    dialogName: 'actionMenu'
-                });
+
+
 
             }
             dialogBox.close({

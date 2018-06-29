@@ -730,56 +730,15 @@
         });
     }
     function fnalert(id) {
-      // console.log(id);
-      var dialogBox = api.require('dialogBox');
-      dialogBox.alert({
-          texts: {
-              title: '确认删除',
-              // content: '送你一个超级礼包，内有超值福利，先到先得，点击领取 >>',
-              leftBtnTitle: '取消',
-              rightBtnTitle: '确认'
-          },
-          styles: {
-              bg: '#fff',
-              w: 300,
-              title: {
-                  marginT: 20,
-                  icon: 'widget://res/gou.png',
-                  iconSize: 40,
-                  titleSize: 14,
-                  titleColor: '#000'
-              },
-              content: {
-                  color: '#000',
-                  size: 14
-              },
-              left: {
-                  marginB: 7,
-                  marginL: 20,
-                  w: 130,
-                  h: 35,
-                  corner: 2,
-                  bg: '#e0e',
-                  size: 12
-              },
-              right: {
-                  marginB: 7,
-                  marginL: 10,
-                  w: 130,
-                  h: 35,
-                  corner: 2,
-                  bg: '#e0e',
-                  size: 12
-              }
-          }
-      }, function(ret) {
-          if (ret.eventType == 'left') {
-            // alert("确认删除");
-              var dialogBox = api.require('dialogBox');
-              dialogBox.close({
-                  dialogName: 'alert'
-              });
-          }else {
+
+
+      api.confirm({
+          title: '删除',
+          msg: '确认删除',
+          buttons: ['确定', '取消']
+      }, function(ret, err) {
+          var index = ret.buttonIndex;
+          if (index == 1) {
             // alert("确认删除");
             api.ajax({
                 url: host + apiUri + '/user/del_records/' + id,
@@ -805,12 +764,10 @@
                     // alert( JSON.stringify( err ) );
                 }
             });
-
-              var dialogBox = api.require('dialogBox');
-              dialogBox.close({
-                  dialogName: 'alert'
-              });
+          } else {
+            return;
           }
       });
+      
     }
 </script>

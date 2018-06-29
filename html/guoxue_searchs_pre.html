@@ -510,63 +510,31 @@
 
     // 清空所有历史记录
     function deleteAll() {
-        var dialogBox = api.require('dialogBox');
-        dialogBox.alert({
-            texts: {
-                content: '确定要删除吗？',
-                leftBtnTitle: '取消',
-                rightBtnTitle: '确认'
-            },
-            styles: {
-                bg: '#fff',
-                w: 300,
-                content: {
-                    color: '#000',
-                    size: 14
-                },
-                left: {
-                    marginB: 15,
-                    marginL: 20,
-                    w: 100,
-                    h: 35,
-                    corner: 2,
-                    bg: '#ccc',
-                    color: '#fff',
-                    size: 12
-                },
-                right: {
-                    marginB: 15,
-                    marginL: 60,
-                    w: 100,
-                    h: 35,
-                    corner: 2,
-                    bg: '#ccc',
-                    color: '#fff',
-                    size: 12
-                }
+      api.confirm({
+          title: '删除',
+          msg: '确定要删除吗？',
+          buttons: ['确定', '取消']
+      }, function(ret, err) {
+          var index = ret.buttonIndex;
+          if (index == 1) {
+            var history = $api.byId('id-history');
+            while (history.firstChild) {
+                history.removeChild(history.firstChild);
             }
-        }, function(ret) {
-            if (ret.eventType == 'right') {
-                var history = $api.byId('id-history');
-                while (history.firstChild) {
-                    history.removeChild(history.firstChild);
-                }
 
-                localStorage.removeItem('guoxueHistory');
-                historys = loadHistory();
-                insertHistory(historys);
+            localStorage.removeItem('guoxueHistory');
+            historys = loadHistory();
+            insertHistory(historys);
 
-                var dialogBox = api.require('dialogBox');
-                dialogBox.close({
-                    dialogName: 'alert'
-                });
-            } else if (ret.eventType == 'left') {
-                var dialogBox = api.require('dialogBox');
-                dialogBox.close({
-                    dialogName: 'alert'
-                });
-            }
-        });
+            var dialogBox = api.require('dialogBox');
+            dialogBox.close({
+                dialogName: 'alert'
+            });
+          } else {
+            return;
+          }
+      });
+
 
     }
 
