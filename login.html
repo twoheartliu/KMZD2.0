@@ -65,8 +65,11 @@
         }
         /*#fnMaskLayer {width: 100%;height: 100%;}*/
         .fnMaskLayer {width: 100%;height: 100%;position: absolute;top: 0;background: rgba(0,0,0,0.5);}
-        .fnMaskLayer div{width: 100%;height: 100px;background: rgba(0,0,0,0.8);color: #fff;position: absolute;top: calc(50% - 100px);line-height: 100px;text-align: center;}
-        .fnMaskLayer div p{width: 100%;color: #fff;display: block;}
+        .fnMaskLayer div{background: #fff;color: #000;position: absolute;top: calc(25%);line-height: 20px;text-align: center;margin: 40px;padding: 30px 18px;border: 0px solid #fff;}
+        .fnMaskLayer h3{display: block;margin-bottom: 15px;}
+        .fnMaskLayer div p{color: #000;display: block;text-align: left;text-indent: 2rem;text-align: 12px;}
+        .fnMaskLayer div .clr{height: 20px;}
+        .buttion{color: #000;font-size: 16px;float: right;padding: 4px 10px;}
     </style>
 </head>
 
@@ -104,6 +107,8 @@
       token = $api.getStorage('token');
       // console.log(token);
       functionName();
+
+
     }
     function functionName() {
       if (typeof(token) != "undefined")
@@ -123,7 +128,16 @@
           name: 'wwwwwwww'
       }, function(ret, err) {
         var fnMaskLayer = $api.byId('fnMaskLayer');
-        html = '<div class="fnMaskLayer"><div>当前正在维护</div></div>'
+        $api.css(fnMaskLayer, 'display:block');
+
+        html = '<div class="fnMaskLayer">'+
+                '<div>'+
+                '<h3>'+ret.value.message+'</h3>'+
+                '<p>'+ret.value.data+'</p>'+
+                  '<p class="clr"></p>'+
+                  '<span class="buttion" onclick="buttion();">确定</span>'+
+            '</div>'+
+            '</div>'
         $api.html(fnMaskLayer, html);
       });
     }
@@ -399,5 +413,9 @@
             });
         });
     }
+    function buttion() {
+      var fnMaskLayer = $api.byId('fnMaskLayer');
+      $api.css(fnMaskLayer, 'display:none');
 
+    }
 </script>

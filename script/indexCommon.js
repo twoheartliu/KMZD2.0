@@ -491,6 +491,12 @@ function netAudioPause() {
             var duration = ret.duration;
         }
     });
+    api.sendEvent({
+        name: 'stopAnim',
+        extra: {
+            bookId:'stopAnim'
+        }
+    });
     // api.stopRecord(function(ret, err) {
     //     if (ret) {
     //         path = ret.path;
