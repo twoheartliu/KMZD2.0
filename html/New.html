@@ -157,13 +157,11 @@ var ok;
         }, function(ret, err) {
             // console.log(JSON.stringify( ret.value.CoverImg ));
             CoverImg = ret.value.CoverImg;
-            console.log(JSON.stringify(CoverImg));
         });
         api.addEventListener({
             name: 'NewCoverDivInput'
         }, function(ret, err) {
-            CoverDivInput = ret.value.CoverDivInput
-                console.log(JSON.stringify(CoverDivInput));
+            CoverDivInput = ret.value.CoverDivInput;
         });
     }
 
@@ -188,6 +186,7 @@ var ok;
           CoverImgs = CoverImg;
         }
         // console.log(CoverImgs);
+        console.log(CoverImgs);
         api.ajax({
             url: host + apiUri + '/listening/create',
             method: 'post',
