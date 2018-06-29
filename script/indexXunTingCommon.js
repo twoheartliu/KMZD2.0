@@ -214,6 +214,13 @@ function initEventListennerBofangXunTing() {
         api.startRecord({
             path: 'fs://luyin/ssssssssssssss.amr'
         });
+        api.sendEvent({
+            name: 'startAnim',
+            extra: {
+                bookId:'startAnim'
+            }
+        });
+
       }
 
       fnBOFangJian(ret.value.bofang,ret.value.playType,ret.value.a);
