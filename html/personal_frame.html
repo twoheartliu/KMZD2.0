@@ -484,6 +484,7 @@
                 }
 
             } else {
+              api.refreshHeaderLoadDone();
                 // alert(JSON.stringify(err));
             }
 
@@ -641,7 +642,18 @@
                 dialogBox.close({
                     dialogName: 'actionMenu'
                 });
-                fnalert(id);
+                api.confirm({
+                    title: '删除',
+                    msg: '确定要删除吗',
+                    buttons: ['确定', '取消']
+                }, function(ret, err) {
+                    var index = ret.buttonIndex;
+                    if (index == 1) {
+                        fnalert(id);
+                    } else {
+                      return;
+                    }
+                });
             } else {
                 dialogBox.close({
                     dialogName: 'actionMenu'

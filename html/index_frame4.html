@@ -739,9 +739,11 @@
                     }
 
                 } else {
+                  api.refreshHeaderLoadDone();
                     netMessage(ret);
                 }
             } else {
+              api.refreshHeaderLoadDone();
                 netWork(err);
             }
         });

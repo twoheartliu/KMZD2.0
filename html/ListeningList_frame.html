@@ -405,12 +405,9 @@
         }, function(ret, err) {
             if (ret) {
                 if (ret.status == 200) {
-                  console.log(1);
                     if (p == 1) {
-                      console.log(2);
 
                         if (ret.data == '') {
-                          console.log(3);
 
                             var footer = $api.byId('footer');
                             $api.html(footer, '还没有创建听单');
@@ -493,6 +490,7 @@
         }, function(ret, err) {
             if (ret) {
                 if (ret.status == 200) {
+                  api.refreshHeaderLoadDone();
                     if (p == 1) {
                         if (ret.data == '') {
                             var footer = $api.byId('footer');
@@ -550,9 +548,11 @@
                     $api.html(id, html);
 
                 } else {
+                  api.refreshHeaderLoadDone();
                     netMessage(ret);
                 }
             } else {
+              api.refreshHeaderLoadDone();
                 netWork(err);
             }
         });
@@ -642,6 +642,7 @@
                     dialogName: 'actionMenu'
                 });
             } else if (index == 0) {
+                var dialogBox = api.require('dialogBox');
                 dialogBox.close({
                     dialogName: 'actionMenu'
                 });
@@ -653,10 +654,24 @@
                     }
                 });
             } else if (index == 1) {
+              var dialogBox = api.require('dialogBox');
                 dialogBox.close({
                     dialogName: 'actionMenu'
                 });
-                DeleteList(id);
+                api.confirm({
+                    title: '删除',
+                    msg: '确定要删除吗',
+                    buttons: ['确定', '取消']
+                }, function(ret, err) {
+                    var index = ret.buttonIndex;
+                    if (index == 1) {
+                        DeleteList(id);
+                    } else {
+                      return;
+                    }
+                });
+
+
                 // console.log(id);
             }
             dialogBox.close({
