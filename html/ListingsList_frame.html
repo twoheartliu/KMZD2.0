@@ -692,7 +692,7 @@
                 netWorkNone();
 
             } else {
-
+                var index0 = api.pageParam.index0;
 
                 //赋值源代码
                 wx = api.require('wx');
@@ -709,7 +709,7 @@
                     }
                     return;
                 });
-                songList();
+                songListindex();
                 api.setCustomRefreshHeaderInfo({
                     bgColor: '#f0f0f0',
                     image: {
@@ -757,7 +757,7 @@
                   $api.html(footer, '没有更多结果了');
                 //   isFirst = false;
                   p++;
-                  songList();
+                  songListindex();
                 });
             }
         }
@@ -1047,6 +1047,75 @@
 
 
     }
+
+    // 首页进入的列表接口
+    function songListindex() {
+        api.ajax({
+          url: host + apiUri + '/listening/song_list/' + ids,
+          method: 'get',
+          headers: {
+              "source": api.systemType,
+              "version": version,
+              "session": token
+          },
+            data: {
+                values: {
+                    id: ids,
+                    p: p
+                }
+            }
+        },function(ret, err){
+            if (ret) {
+              if (ret.status == 200) {
+                var tuijianliebiaogequ = $api.byId('tuijianliebiaogequ');
+                var author_name;
+                var reciter;
+                // console.log(p);
+                if (p == 1) {
+                    if (ret.data == '') {
+                        var footer = $api.byId('footer');
+                        $api.html(footer, '暂无数据');
+                    } else if (ret.data.length < 8) {
+                        var footer = $api.byId('footer');
+                        // $api.css(footer, 'display:none');
+                        $api.remove(footer);
+                    }
+                }
+                if (ret.data == '') {
+                  var footer = $api.byId('footer');
+                  $api.html(footer, '暂无数据');
+                }else {
+                  if(ret.data.length>=10){
+                    var footer = $api.byId('footer');
+                    $api.html(footer, '上拉加载更多');
+                  }else{
+                    var footer = $api.byId('footer');
+                    $api.html(footer, '无更多数据');
+                  }
+                  for (var i = 0; i < ret.data.length; i++) {
+                    // console.log(ret.data[i].title);
+                      author_name = ((ret.data[i].author_name == null) ? "" : ret.data[i].author_name);
+                      reciter = ((ret.data[i].reciter == null) ? "" : ret.data[i].reciter);
+                      if(ret.data[i].reciter){
+                        $api.append(tuijianliebiaogequ,'<li id="id_' + ret.data[i].id + '"><div class="on_playall" onclick="fnPlay('+ ret.data[i].id +');"><span class="fl on_playall_name">' + ret.data[i].title + '</span><span></span></div><div class="author fl"  onclick="fnPlay('+ ret.data[i].id +');">作者：' + author_name +
+                            '</div><div class="author fl"  onclick="fnPlay('+ ret.data[i].id +');">朗读者：' + reciter + '</div><div class="fr on_playall_img" onclick="fnOpenPlayMoreindex0(\'' + ret.data[i].cover_sma + '\',' + ret.data[i].id + ',\''+ret.data[i].title+'\');"><img src="../image/KM_list_more.png" alt=""></div></li>');
+                      }else{
+                        $api.append(tuijianliebiaogequ,'<li id="id_' + ret.data[i].id + '"><div class="on_playall" onclick="fnPlay('+ ret.data[i].id +');"><span class="fl on_playall_name">' + ret.data[i].title + '</span><span></span></div><div class="author fl"  onclick="fnPlay('+ ret.data[i].id +');">作者：' + author_name +
+                            '</div><div class="author fl"  onclick="fnPlay('+ ret.data[i].id +');"></div><div class="fr on_playall_img" onclick="fnOpenPlayMoreindex0(\''+ret.data[i].cover_sma+'\',' + ret.data[i].id + ',\''+ret.data[i].title+'\');"><img src="../image/KM_list_more.png" alt=""></div></li>');
+                      }
+
+                  }
+                }
+              }
+                // console.log( JSON.stringify( ret ) );
+            } else {
+                // console.log( JSON.stringify( err ) );
+            }
+        });
+
+
+    }
+
     var Dqbofangid;
     var bofang;
     var bofangmoshi;
@@ -1289,6 +1358,100 @@
             // })
             // alert(JSON.stringify(ret))
 
+        });
+    }
+    //首页打开更多
+    function fnOpenPlayMoreindex0(cover_sma,songListID,title) {
+        // 单曲id
+        // console.log(songListID);
+        var dialogBox = api.require('dialogBox');
+        dialogBox.actionMenu({
+            rect: {
+                h: 150
+            },
+            texts: {
+                cancel: '取消'
+            },
+            items: [{
+                text: '收藏',
+                icon: 'widget://image/KM_hxs.png'
+            }, {
+                text: '添加到听单',
+                icon: 'widget://image/KM_play_add_gray.png'
+            }, {
+                text: '分享',
+                icon: 'widget://image/KM_ListingsListGd.png'
+            }],
+            styles: {
+                bg: '#FFF',
+                column: 3,
+                itemText: {
+                    color: '#000',
+                    size: 12,
+                    marginT: 8
+                },
+                itemIcon: {
+                    size: 30
+                },
+                cancel: {
+                    bg: 'fs://icon.png',
+                    color: '#000',
+                    h: 44,
+                    size: 14
+                }
+            },
+            tapClose: true
+        }, function(ret) {
+            if (ret.eventType == 'cancel') {
+                dialogBox.close({
+                    dialogName: 'actionMenu'
+                });
+            }
+            if (ret.index == "0") {
+              dialogBox.close({
+                  dialogName: 'actionMenu'
+              });
+                uri = '/extra/list_collection/';
+                api.ajax({
+                    url: host + apiUri + uri + songListID,
+                    method: 'post',
+                    dataType: 'json',
+                    headers: {
+                        "source": api.systemType,
+                        "version": version,
+                        "session": token
+                    },
+                    data: {
+                        values: {
+                            "model": 'book',
+                        }
+                    }
+                }, function(ret, err) {
+                    if (ret.status == 200) {
+                        api.toast({              
+                            msg:   '已收藏',
+                            duration:  2000,
+                            location:   'middle'          
+                        });
+                    } else {
+                        netMessage(ret);
+                    }
+                });
+
+            } else if (ret.index == "1") {
+              dialogBox.close({
+                  dialogName: 'actionMenu'
+              });
+                fnOpenAddListening(songListID);
+
+                // alert(2);
+            } else if (ret.index == "2") {
+              dialogBox.close({
+                  dialogName: 'actionMenu'
+              });
+                var Types = 'Single'
+                fnOpenPlayShare(cover_sma,songListID,title,Types);
+            }
         });
     }
     // 删除单曲

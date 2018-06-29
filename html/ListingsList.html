@@ -115,6 +115,7 @@
       }else{
         var albumId = api.pageParam.albumId;
         var floor_name = api.pageParam.floor_name;
+        var pk = api.pageParam.pk;
         if(floor_name){
           var stylelist = $api.byId('floor_name');
           var html = floor_name;
@@ -136,7 +137,8 @@
                 h: 'auto'
             },
             pageParam: {
-                ids: albumId
+                ids: albumId,
+                index0:pk
             },
             customRefreshHeader: 'UIPullRefreshFlash',
             bounces: true,
