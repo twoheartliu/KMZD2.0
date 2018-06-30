@@ -415,10 +415,19 @@
                             // console.log(JSON.stringify(ret.data[i]));
                             var data = ret.data[i];
                             var id = data.id;
-                            var img = updatePhotoUrl + data.photo;
+                            var tail = data.photo;
+                            var header = tail.slice(0, 7);
+                            // console.log(header);
+                            if (header == 'http://') {
+                                img = tail
+                            } else {
+                                img = updatePhotoUrl + tail
+                            }
+                            // var img = updatePhotoUrl + ;
+
                             var nickname = data.nick_name;
                             var sign = data.signature;
-                            // console.log(JSON.stringify(data));
+                            // console.log(JSON.stringify(img));
                             // console.log(img);
 
                             if (data.photo == '') {
