@@ -223,9 +223,10 @@
                 "session": token,
             },
         }, function(ret, err) {
+          if (ret) {
             if (ret.status == 200) {
                 var data = ret.data;
-                // console.log(JSON.stringify(data));
+                // console.log(JSON.stringify(ret.data));
                 var listenList = ret.data.listening_list;
                 var lists = '';
                 var imgs;
@@ -257,22 +258,32 @@
                         nickName = nickName;
                     }
 
+                    if (l_id == null) {
+                      break;
+                    }else {
+                      lists = '<li id="listen_' + l_id + '"><div class="message_frame_cycle" >' +
+                          '<div class="message_frame_cycle_img"><img src=" ' + imgs + ' " onclick=fnOpenList(' + l_id + ') alt=""></div><div class="message_frame_cycle_div fl">' +
+                          '<div class="message_frame_cycle_div_1 col" onclick=fnOpenList(' + l_id + ')>' + listenName + '</div><div class="message_frame_cycle_div_3 fl">' +
+                          '<div class="message_frame_cycle_div_3fl"><div class="pos collection_frame fl" onclick=fnOpenList(' + l_id + ') >创建者：' + nickName +
+                          '</div><div class="pos collection_frame_img3 fr"><img src="../image/del.png" onclick=fnDeleteList(' + l_id + ') alt=""></div></div></div></div></div></li>';
 
-                    lists = '<li id="listen_' + l_id + '"><div class="message_frame_cycle" >' +
-                        '<div class="message_frame_cycle_img"><img src=" ' + imgs + ' " onclick=fnOpenList(' + l_id + ') alt=""></div><div class="message_frame_cycle_div fl">' +
-                        '<div class="message_frame_cycle_div_1 col" onclick=fnOpenList(' + l_id + ')>' + listenName + '</div><div class="message_frame_cycle_div_3 fl">' +
-                        '<div class="message_frame_cycle_div_3fl"><div class="pos collection_frame fl" onclick=fnOpenList(' + l_id + ') >创建者：' + nickName +
-                        '</div><div class="pos collection_frame_img3 fr"><img src="../image/del.png" onclick=fnDeleteList(' + l_id + ') alt=""></div></div></div></div></div></li>';
+                      container.insertAdjacentHTML('beforeend', lists)
+                    }
 
-                    container.insertAdjacentHTML('beforeend', lists)
                 }
                 // $api.html(container, lists);
                 // console.log(lists);
                 // console.log(id);
                 // alert( JSON.stringify( ret ) );
             } else {
-                alert(JSON.stringify(err));
+              netMessage(ret);
+
+                // alert(JSON.stringify(err));
             }
+          }else {
+              netWork(err);
+          }
+
         });
     }
 
@@ -330,7 +341,7 @@
                               dialogName: 'alert'
                           });
                       } else {
-                          // netMessage(ret);
+                          netMessage(ret);
                       }
                   } else {
                       netWork(err);
