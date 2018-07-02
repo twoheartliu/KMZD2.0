@@ -396,10 +396,7 @@
                         if (p == 1) {
                             if (ret.data == '') {
                                 var footer = $api.byId('footer');
-                                var t =
-                                    `
-                                没有搜索到与“${keys}”匹配的结果
-                                `
+                                var t ='没有搜索到与“'+keys+'”匹配的结果'
                                 $api.html(footer, t);
                             } else if (ret.data.length < 8) {
                                 var footer = $api.byId('footer');
@@ -409,10 +406,6 @@
                         } else {
                             if (ret.data == '') {
                                 var footer = $api.byId('footer');
-                                var t =
-                                    `
-                                没有更多结果了
-                                `
                                 $api.html(footer, '没有更多结果了');
                                 isFirst = false;
                             } else {

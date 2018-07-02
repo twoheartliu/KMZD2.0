@@ -527,22 +527,31 @@
         api.addEventListener({
             name: 'indexframe3My'
         }, function(ret, err) {
-
-            var userFollowType = document.getElementById('user_' + ret.value.indexframe3My).value;
+            // var userFollowType = document.getElementById('user_' + ret.value.indexframe3My).value;
             var userButton = document.getElementById('userButton' + ret.value.indexframe3My);
-            if (userButton.getAttribute("src", 2) == "../image/read/care.png") {
-                userButton.src = "../image/read/care1.png";
+            if (userButton == null ) {
+
+            }else {
+              if (userButton.getAttribute("src", 2) == "../image/read/care.png") {
+                  userButton.src = "../image/read/care1.png";
+              }
             }
+
             indexframe3My = ret.value.indexframe3My;
         });
         api.addEventListener({
             name: 'indexframe3MyFalse'
         }, function(ret, err) {
-            var userFollowType = document.getElementById('user_' + ret.value.indexframe3MyFalseId).value;
+            // var userFollowType = document.getElementById('user_' + ret.value.indexframe3MyFalseId).value;
             var userButton = document.getElementById('userButton' + ret.value.indexframe3MyFalseId);
-            if (userButton.getAttribute("src", 1) == "../image/read/care1.png") {
-                userButton.src = "../image/read/care.png";
+            if (userButton == null ) {
+
+            }else {
+              if (userButton.getAttribute("src", 1) == "../image/read/care1.png") {
+                  userButton.src = "../image/read/care.png";
+              }
             }
+
             // indexframe3My = ret.value.indexframe3My;
         });
     }
