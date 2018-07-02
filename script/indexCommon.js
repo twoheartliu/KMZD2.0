@@ -231,6 +231,7 @@ function fnBoFangyinpinxinxi() {
           "session": token
       }
     }, function(ret, err) {
+      console.log(JSON.stringify(ret));
       if(ret){
       if(ret.status == 200){
         setTimeout(function(){
@@ -242,7 +243,7 @@ function fnBoFangyinpinxinxi() {
             });
           },1000)
             if (playlistid) {
-
+                console.log(JSON.stringify(playlistid));
                 api.sendEvent({
                     name: 'netbofangsssssss',
                     extra: {
