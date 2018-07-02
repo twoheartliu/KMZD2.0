@@ -37,55 +37,21 @@
             -webkit-flex: 1;
             flex: 1;
         }
-        /*header {
-            display: -webkit-box;
-            display: -webkit-flex;
-            display: flex;
-            height: 50px;
-        }
-
-        header div {
-            font-size: 14px;
-            color: #fff;
-            text-align: center;
-            line-height: 49px;
-            -webkit-box-flex: 1;
-            -webkit-flex: 1;
-            flex: 1;
-        }
-
-        header i {
-            display: block;
-            width: 53px;
-            height: 49px;
-            margin-top: 5px;
-        }
-
-        header .back {
-            background: url(../image/icon_back.png) no-repeat;
-            background-size: 40%;
-            -webkit-background-size: contain;
-            background-size: contain;
-        }
-
-        header .more {
-            background: url() no-repeat;
-            -webkit-background-size: contain;
-            background-size: contain;
-        }*/
 
         header {
+            width: 100%;
             height: 50px;
             background-color: transparent;
             /*overflow: hidden;*/
         }
 
         .egret-img {
-            display: block;
-            float: left;
+            /*display: block;
+            float: left;*/
             /*padding-left: 18px;*/
-            width: 45px;
-            height: 50px;
+            /*width: 15%;*/
+            width: 50px;
+            display: inline-block;
         }
 
         .egret-imgs {
@@ -102,34 +68,24 @@
             padding: 15px;
         }
 
-        .egret-txt {
-            display: block;
-            margin: 0 auto;
-            width: 70%;
-            color: #fff;
-            text-align: center;
-            line-height: 50px;
-            height: 50px;
-            font-size: 16px;
-            /*vertical-align: top;*/
-        }
-
         .header_fr {
-            width: 30px;
-            height: 30px;
-            padding: 10px 20px 10px 10px;
+            /*width: 15%;*/
+            width: 50px;
+            /*padding: 10px 0px 10px 0px;*/
             line-height: 30px;
             font-size: 15px;
             color: #fff;
-            position: absolute;
-            right: 5px;
-            bottom: -0px;
-            /*display: inline-block;*/
+            /*position: absolute;*/
+            /*right: 5px;
+            bottom: -0px;*/
+            float: right;
+            display: inline-block;
             /*display: none;*/
         }
 
         .header_fr img {
-            width: 100%;
+            width: 60%;
+            padding: 15px;
         }
 
         #action {
@@ -233,13 +189,6 @@
         #panel .prev.focus {
             background-image: url(../image/play/ic_play_pre_s.png);
         }
-        /*#panel .play {
-            background-image: url(../image/play/ic_play_play.png);
-        }
-
-        #panel .play.focus {
-            background-image: url(../image/play/ic_play_play_s.png);
-        }*/
 
         #panel .pause {
             background-image: url(../image/play/ic_play_pause.png);
@@ -571,13 +520,43 @@
         #ImgGif .loading span:nth-child(16) {
             -webkit-animation-delay: 4.6s;
         }
-        .inner{ width:100%;
-                display: inline;
-                white-space: nowrap;/*规定段落中的文本不进行换行*/
-                overflow-x:scroll;/*水平方向，超出部分添加滚动机制*/
-                float:left;/*一定要设置左侧浮动*/
-                overflow-y:hidden
-              }
+
+        .info {
+            /*display: block;*/
+            /*width: 70%;*/
+            width: calc(100% - 110px);
+            color: #fff;
+            line-height: 50px;
+            height: 50px;
+            font-size: 16px;
+            overflow: hidden;
+            margin-top: 5px;
+            /*margin-right: 20px;*/
+            /*border: 1px solid red;*/
+            display: inline-block;
+            /*vertical-align: top;*/
+        }
+
+        .inner {
+            /*width: 100%;*/
+            width: 600px;
+            height: 17px;
+            line-height: 17px;
+            overflow: hidden;
+            margin: auto;
+            /*border: 1px solid blue;*/
+            position: relative;
+            /*text-align: center;*/
+            margin-top: 15px;
+        }
+
+        .inner p {
+            display: inline-block;
+            /*border: 1px solid green;*/
+            position: absolute;
+            /*left: 115.5px;*/
+            left: 0px;
+        }
     </style>
 </head>
 
@@ -591,18 +570,19 @@
   </header> -->
     <header id="secHeader" class="clear">
         <div class="egret-img"><img src="../image/icon_back.png" alt="" onclick="api.closeWin();"></div>
-        <div class="egret-txt" id="title">
-          <div class="inner">
-              <p class="txt" id="txt"></p>
-          </div>
+        <div id="info" class="info">
+            <div class="inner">
+                <p class="txt" id='txt'></p>
+            </div>
         </div>
         <div class="header_fr" id="headerFr">
             <div onclick="fnOpenPlayShare();">
                 <img src="../image/KM__play_share.png" alt="">
             </div>
-            <!-- <div class="header_fr" onclick="fnOpenPlayShare(); ">
-            <img src="../image/KM__play_share.png" alt="">
-        </div> -->
+        </div>
+        <!-- <div class="header_fr" onclick="fnOpenPlayShare(); ">
+            <img src="../image/KM__play_share.png" alt="">-->
+
     </header>
 
     <div id="wrap" class="mh">
@@ -713,9 +693,12 @@
     var bofangmoshi;
     var playType;
     var listen_to_ = 1;
+    var titleName;
+    var html2;
     apiready = function() {
         // albumCover = api.pageParam.albumCover
         // console.log(albumCover);
+        // console.log(titleName);
         token = $api.getStorage('token');
         var secHeader = $api.byId('secHeader');
         var headeris = document.querySelector('#secHeader');
@@ -1162,7 +1145,7 @@
                     if (ret.status == 200) {
                         // console.log(JSON.stringify(ret.data.cover_mid));
                         albumCover = host + '/' + ret.data.cover_mid
-                        // console.log(albumCover);
+                            // console.log(albumCover);
                         var stylelistCollectionHtml = $api.byId('bookExtraCollectionHtml');
                         if (ret.data.is_collection) {
                             bookCollectionHtml = '<img src="../image/KM_play_collect_red.png" alt="" class="collectmusicssss" id="playCollect" onclick="fnOpenPlayCollect(this)" data-click="1"><p>收藏</p>';
@@ -1263,6 +1246,119 @@
         jindutiao();
         fnBookExtraGoodssssss();
     }
+
+    // function addCss(m) {
+    //     if (document.all) { // document.createStyleSheet(url)
+    //         window.style = `".inner p {left: ${m}px;}"`;
+    //         document.createStyleSheet("javascript:style");
+    //     } else { //document.createElement(style)
+    //         var style = document.createElement('style');
+    //         style.type = 'text/css';
+    //         style.innerHTML = `".inner p {left: ${m}px;}"`;
+    //         console.log(style.innerHTML);
+    //         document.getElementsByTagName('HEAD').item(0).appendChild(style);
+    //     }
+    // }
+
+    function init() {
+        var info = document.getElementById('info');
+        var div = info.getElementsByTagName('div')[0];
+        var p = document.getElementsByTagName('p')[0];
+        var p_w = p.offsetWidth;
+        var div_w = info.offsetWidth;
+        // console.log(p_w);
+        // addCss(moveTitle)
+        // var info_w = info.offsetWidth;
+        // div.style.width = div_w + "px";
+        if (div_w > p_w) {
+            var moveTitle = 0.5 * div_w - 0.5 * p_w;
+            var txtsss = document.querySelector('.txt');
+            txtsss.style.left = moveTitle + "px";
+        } else {
+            // return false
+            var txtsss = document.querySelector('.txt');
+            txtsss.style.left = 0 + 'px';
+            var text = document.querySelector('.txt').innerHTML
+                //将文本字符串转换为数组
+            var arr = text.split("");
+            // console.log(arr);
+            //拿到数组的第一个元素，并从数组中删除
+            var first = arr.shift();
+            //将第一个元素添加到数组的最后
+            arr.push(first);
+            //将数组再组合成一个字符串
+            text = arr.join("");
+            document.querySelector('.txt').innerHTML = text;
+            //每隔一秒做一遍前6步
+            setTimeout("init()", 1000);
+        }
+    }
+
+    // function scroll() {
+    // var info = document.getElementById('info');
+    // var div = info.getElementsByTagName('div')[0];
+    // var p = document.getElementsByTagName('p')[0];
+    // var p_w = p.offsetWidth;
+    // var div_w = info.offsetWidth;
+    // console.log(p_w);
+    // addCss(moveTitle)
+    // if (div_w > p_w) {
+    //     var moveTitle = 0.5 * div_w - 0.5 * p_w
+    //     var txtsss = document.querySelector('.txt');
+    //     txtsss.style.left = moveTitle + "px";
+    //     return false;
+    // }
+    //     div.innerHTML += div.innerHTML;
+    //     console.log(div.innerHTML);
+    //
+    //     setInterval(function() {
+    //         if (p_w <= info.scrollLeft) {
+    //             info.scrollLeft -= p_w;
+    //         } else {
+    //             info.scrollLeft++;
+    //         }
+    //     }, 30);
+    // }
+    // function showTitle() {
+    //     var outDiv = document.querySelector('.out');
+    //     var inDiv = document.querySelector('.in');
+    //     var x = 0;
+    //     var y = 1;
+    //     console.log(outDiv.offsetWidth)
+    //     console.log(inDiv.offsetWidth)
+    //
+    //     function moveLeft() {
+    //         y = 0;
+    //         x -= 1;
+    //         inDiv.style.left = x + "px";
+    //         var s = Math.abs(parseInt(inDiv.style.left))
+    //             console.log(s);
+    //         if (s > inDiv.offsetWidth) {
+    //             reSet()
+    //         }
+    //     }
+    //
+    //     function reSet() {
+    //         inDiv.style.left = 0
+    //         x = 0;
+    //         option()
+    //
+    //     }
+    //
+    //     function option() {
+    //         if (y == 1) {
+    //             y = 1
+    //             if (outDiv.offsetWidth < inDiv.offsetWidth) {
+    //                 flag = setInterval(moveLeft, 50);
+    //             } else {
+    //                 return
+    //             }
+    //         } else {
+    //             return;
+    //         }
+    //     }
+    //     option()
+    // }
 
     function fnJinRuBofang(bofang) {
         var eHeader = $api.byId('header')
@@ -1521,6 +1617,7 @@
         }, function(ret, err) {
             if (ret) {
                 //赋值歌词
+                // console.log(ret);
                 if (ret.value.desc) {
                     if (ret.value.desc != "非文本内容") {
                         var str1 = JSON.stringify(ret.value.desc);
@@ -1535,18 +1632,24 @@
                 }
                 //赋值标题
                 if (ret.value.titlename) {
+                    var stylelist = $api.byId('txt');
+                    html2 = ret.value.titlename;
+                    $api.html(stylelist, html2);
+                    // console.log('sss');
+                    // showTitle();
+                    init();
 
-                  var stylelist = $api.byId('txt');
-                  var html2 = ret.value.titlename;
-                  $api.html(stylelist, html2);
-                  fnNamesss(ret.value.titlename);
+                    fnNamesss(ret.value.titlename);
                 }
                 if (ret.value.cover_big) {
                     fnCover_big(ret.value.cover_big);
                 }
             }
         });
+
     }
+
+
     var cover_big;
 
     function fnCover_big(cover_bigs) {
@@ -1555,6 +1658,7 @@
 
     function fnNamesss(titlenamesss) {
         namesss = titlenamesss;
+        // showTitle()
     }
     //播放、暂停
     function fnOpenPlayer() {
