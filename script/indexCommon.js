@@ -280,7 +280,15 @@ function fnBoFangyinpinxinxi() {
                 fnFuZhiAudio(playHost+'/'+ret.data.url);
               }
             }
-
+            // api.sendEvent({
+            //     name: 'jibenxinxi',
+            //     extra: {
+            //         titlename: titlename,
+            //         desc: desc,
+            //         singerName: singerName,
+            //         author_id: author_id
+            //     }
+            // });
             titlename = ret.data.title;
             reciter = ret.data.reciter;
             desc = ret.data.body;
@@ -643,16 +651,6 @@ function addtime() {
               }
           });
         }
-
-          api.sendEvent({
-              name: 'jibenxinxi',
-              extra: {
-                  titlename: titlename,
-                  desc: desc,
-                  singerName: singerName,
-                  author_id: author_id
-              }
-          });
 
     }, 1000);
 }
