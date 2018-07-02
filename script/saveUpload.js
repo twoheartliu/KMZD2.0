@@ -1,6 +1,17 @@
 //保存
 function fnLuYinBaoCun() {
+  var loadEffect = $api.byId('loadEffect');
+  htmlloadEffect = '<div class="loadEffect"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>'
+  $api.html(loadEffect, htmlloadEffect);
+  // api.toast({              
+  //     msg:   '正在保存，请稍后...',
+  //     duration:  500,
+  //     location:   'middle'          
+  // });
+  setTimeout(function(){
     if (a == 2) {
+      // 刚开始的时候加载loading
+
         //fs 文件管理 删除  拷贝  移除等
         //拷贝文件
         if (path) {
@@ -44,6 +55,10 @@ function fnLuYinBaoCun() {
                       }, function(ret, err) {
                           if(ret){
                             if (ret.status == 200) {
+                              // 刚开始的时候加载loading
+                              var loadEffect = $api.byId('loadEffect');
+                              htmlloadEffect = ''
+                              $api.html(loadEffect, htmlloadEffect);
                                 api.toast({              
                                     msg:   '已保存',
                                     duration:  2000,
@@ -146,7 +161,7 @@ function fnLuYinBaoCun() {
 
                   } else {
                     if(userId){
-                      console.log(title);
+                      // console.log(title);
                       uri = '/user/records';
                       api.ajax({
                           url: host + apiUri + uri,
@@ -300,6 +315,7 @@ function fnLuYinBaoCun() {
                 });
             }
         } else {
+          console.log(JSON.stringify(path));
             api.toast({              
                 msg:   '请先录音',
                 duration:  2000,
@@ -310,6 +326,8 @@ function fnLuYinBaoCun() {
     } else {
         fnAletrssss();
     }
+  },500)
+
 }
 function timeCsss(){
   var stylelist = $api.byId('appTime');
