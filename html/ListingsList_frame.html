@@ -880,6 +880,7 @@
                   $api.html(stylelistCollectionHtml, albumCollectionHtml);
 
               }else if (ret.status == 10804) {
+
                 api.refreshHeaderLoadDone();
                 api.toast({
                     msg: '该听单已被删除',
@@ -887,9 +888,7 @@
                     location: 'middle'
                 });
                 setTimeout(function() {
-                  api.closeWin({
-                      name: 'ListingsList'
-                  });
+                api.closeWin();
                 }, 2000)
 
               } else {

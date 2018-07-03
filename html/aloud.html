@@ -255,13 +255,97 @@
         .name_ov {
             overflow: hidden;
         }
+        #loadEffect {
+            position: fixed;
+            top: 33.33%;
+            left: calc((50%) - 25px);
+        }
+
+        .loadEffect {
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            margin: 0 auto;
+            /*margin-top:100px;*/
+            /*position: fixed;*/
+        }
+
+        .loadEffect span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #ccc;
+            position: absolute;
+            -webkit-animation: load 1.04s ease infinite;
+        }
+
+        @-webkit-keyframes load {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0.2;
+            }
+        }
+        .loadEffect span:nth-child(1) {
+            left: 0;
+            top: 50%;
+            margin-top: -4px;
+            -webkit-animation-delay: 0.13s;
+        }
+
+        .loadEffect span:nth-child(2) {
+            left: 7px;
+            top: 7px;
+            -webkit-animation-delay: 0.26s;
+        }
+
+        .loadEffect span:nth-child(3) {
+            left: 50%;
+            top: 0;
+            margin-left: -4px;
+            -webkit-animation-delay: 0.39s;
+        }
+
+        .loadEffect span:nth-child(4) {
+            top: 7px;
+            right: 7px;
+            -webkit-animation-delay: 0.52s;
+        }
+
+        .loadEffect span:nth-child(5) {
+            right: 0;
+            top: 50%;
+            margin-top: -4px;
+            -webkit-animation-delay: 0.65s;
+        }
+
+        .loadEffect span:nth-child(6) {
+            right: 7px;
+            bottom: 7px;
+            -webkit-animation-delay: 0.78s;
+        }
+
+        .loadEffect span:nth-child(7) {
+            bottom: 0;
+            left: 50%;
+            margin-left: -4px;
+            -webkit-animation-delay: 0.91s;
+        }
+
+        .loadEffect span:nth-child(8) {
+            bottom: 7px;
+            left: 7px;
+            -webkit-animation-delay: 1.04s;
+        }
     </style>
 </head>
 
 <body>
     <header id="secHeader">
         <div class="header_fls fl" onclick="goback();"><img src="../image/icon_back.png" alt=""></div>
-        <div class="header_fl fr" onclick="fnLuYinBaoCun();"><span>保存</span></div>
+        <div class="header_fl fr" onclick="fnsetInterval();"><span>保存</span></div>
         <!-- <div class="header_fl fr" onclick="fnLuYinShangChuan();"><span>上传</span></div> -->
         <div class="header_center">朗诵</div>
     </header>
@@ -361,6 +445,7 @@
     var pathSss = 1;
     var ok;
     var isFirst = true;
+
     apiready = function() {
         token = $api.getStorage('token');
         path = '';
@@ -442,6 +527,29 @@
                 }
             });
         }
+        // logding 图片的散发事件saveUpload.js
+        // var aloudKeepOn = false;
+        api.addEventListener({
+            name: 'aloudLoding'
+        }, function(ret, err) {
+            if (ret) {
+              var loadEffect = $api.byId('loadEffect');
+              htmlloadEffect = '<div class="loadEffect"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>'
+              $api.html(loadEffect, htmlloadEffect);
+            }
+        });
+        // var aloudKeepOn = false;
+        api.addEventListener({
+            name: 'aloudLodings'
+        }, function(ret, err) {
+            if (ret) {
+              var loadEffect = $api.byId('loadEffect');
+              htmlloadEffect = ''
+              $api.html(loadEffect, htmlloadEffect);
+            }
+        });
+
+
     }
     var myAudio;
     var ccccc;
@@ -456,6 +564,7 @@
         api.startRecord({
             path: 'fs://luyin/' + timestamp + jubenid + '.amr'
         });
+
         $api.html(stylelist, html);
         timedCount();
         myAudio.removeEventListener('timeupdate', record_start);
@@ -905,9 +1014,11 @@
 
             }
         });
+        // console.log(11111);
         api.startRecord({
             path: 'fs://luyin/' + timestamp + jubenid + '.amr'
         });
+        // console.log(path);
         timestamps = timestamp;
         timeC();
         timedCount();
@@ -929,7 +1040,21 @@
             fnNetAudiosLuYinByID();
             a = 1;
             isFirst = false;
+
+            var keepOn = true;
+            // 控制是否一直亮屏灭屏
+            api.setKeepScreenOn({
+                keepOn: keepOn
+            });
+            // api.sendEvent({
+            //     name: 'aloudKeepOn',
+            //     extra: {
+            //         aloudKeepOn: keepOn
+            //     }
+            // });
+
         } else {
+
             playCollect.src = "../image/read/recording.png";
             a = 2;
             //暂停播放
@@ -938,9 +1063,7 @@
                 var myAudio = document.getElementById("myAudio");
                 myAudio.pause();
                 myAudio.currentTime = 0;
-
             }
-
             stopCount();
             //暂停录音
             api.stopRecord(function(ret, err) {
@@ -948,8 +1071,28 @@
                     isFirst = true;
                     path = ret.path;
                     duration = ret.duration;
+                    api.sendEvent({
+                        name: 'judgmentLoding',
+                        extra: {
+                            judgmentLoding: 'judgmentLoding'
+                        }
+                    });
                 }
             });
+
+            // 设置屏幕灭屏
+            var keepOn = false;
+            api.setKeepScreenOn({
+                keepOn: keepOn
+            });
+
+            // api.sendEvent({
+            //     name: 'aloudKeepOn',
+            //     extra: {
+            //         aloudKeepOn: keepOn
+            //     }
+            // });
+
         }
 
     }

@@ -62,10 +62,85 @@
             display: none;
         }
         /*轮播图 */
+        /*img {*/
+      		/*display: block;*/
+      	/*}*/
+      	/*p {*/
+      		/*margin: 0;*/
+      		/*padding: 1rem 1rem;*/
+      		/*font-size: 1rem;*/
+      		/*line-height: 1.4;*/
+      	/*}*/
+      	.pagination {
+      		width: 100%;
+      		left: 0;
+      		bottom: 10px;
+      		position: absolute;
+      		text-align: center;
+      		-webkit-transition: 300ms;
+      		transition: 300ms;
+      		z-index: 10;
+      		-webkit-transform: translate3d(0, 0, 0);
+      		transform: translate3d(0, 0, 0);
+      	}
+      	.pagination span {
+      		width: 8px;
+      		height: 8px;
+      		display: inline-block;
+      		border-radius: 100%;
+      		background: #fff;
+      		opacity: .5;
+      		margin: 0 3px;
+      	}
+      	.pagination span.active {
+      		opacity: 1;
+      		background: #007AFF;
+      	}
+      	.pic-panel {
+      		width: 100%;
+      		position: relative;
+      		overflow: hidden;
+      	}
+      	.pic-list {
+      		width: 100%;
+      		position: relative;
+      	}
+      	.pic-list li {
+      		position: absolute;
+      		left: 0;
+      		top: 0;
+      		width: 100%;
+      	}
+      	.pic-list .re {
+      		position: relative;
+      		z-index: 2;
+      	}
+      	.pic-list li img {
+      		width: 100%;
+      	}
+      	.pic-list li a {
+      		-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      	}
+      	@media screen and (min-width: 600px) {
+      		.pic-box {
+      			position: relative;
+      			top: 0;
+      			left: 25%;
+      			width: 50%;
+      		}
+      		.pic-list li:nth-child(2) {
+      			left: 100%;
+      		}
+      		.pic-list li:last-child {
+      			left: -100%;
+      		}
+      		.pic-list li img {
+      			padding: 0 0.125rem;
+      			-webkit-box-sizing: border-box;
+      			box-sizing: border-box;
+      		}
+      	}
 
-        .swiper-container img {
-            width: 100%;
-        }
         /* 八大导航 */
 
         .nav {
@@ -375,17 +450,18 @@
 
 <body>
     <!-- 轮播图 -->
-    <div class="swiper-container">
-
-        <div class="swiper-wrapper" id="id-banner">
-            <!-- <div class="swiper-slide" onclick="">
-                <img src="../image/index/KM_swiper1.jpg" alt="">
+          <div id="picPanel" class="pic-panel">
+            <div id="picBox" class="pic-box">
+              <ul id="picList" class="pic-list">
+                <!-- <li class="re">
+                					<a href="#">
+                						<img src="img/1.jpg" />
+                					</a>
+                				</li> -->
+              </ul>
             </div>
-            <div class="swiper-slide" onclick="">
-                <img src="../image/index/KM_swiper2.jpg" alt="">
-            </div> -->
-        </div>
-    </div>
+          </div>
+
 
     <!-- 八大导航 -->
     <div class="nav">
@@ -455,9 +531,9 @@
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript" src="../script/index.js"></script>
-<script type="text/javascript" src="../script/swiper.min.js"></script>
 <script type="text/javascript" src="../script/message.js"></script>
 <script type="text/javascript" src="../script/wxfx.js"></script>
+<script type="text/javascript" src="../script/photoSlider-1.21.js"></script>
 
 
 </html>
@@ -507,7 +583,7 @@
                 }, function() {
                     //下拉刷新被触发，自动进入加载状态，使用 api.refreshHeaderLoadDone() 手动结束加载中状态
                     //下拉刷新被触发，使用 api.refreshHeaderLoadDone() 结束加载中状态
-
+                      fnBanners();
                     fnHomePageLayout();
                 });
                 api.addEventListener({
@@ -519,7 +595,8 @@
                     return;
                 });
             }
-            //   fnInitSwiper();
+              // fnInitSwiper();
+
         }
         var bofangmoshi;
         function fnBoFangMoShiId(bofangmoshiss){
@@ -565,16 +642,18 @@
                         imgs = uploadsBanner + img
                             //   console.log(imgs)
                     }
-                    var stylelist = $api.byId('id-banner');
+                    var stylelist = $api.byId('picList');
                     // <div class="swiper-wrapper"></div>
-                    banners += '<div class="swiper-slide" onclick="fnOpenBanners(\'' + banner_id + '\',\'' + title + '\',\'' + description + '\',\'' + banner_types + '\',\'' + content + '\')"><img src="' + imgs + '" alt=""></div>';
+                    if (i == 0) {
+                      banners += '<li class="re" onclick="fnOpenBanners(\'' + banner_id + '\',\'' + title + '\',\'' + description + '\',\'' + banner_types + '\',\'' + content + '\')"><img src="' + imgs + '" alt=""></li>'
+                    }else {
+                      banners += '<li onclick="fnOpenBanners(\'' + banner_id + '\',\'' + title + '\',\'' + description + '\',\'' + banner_types + '\',\'' + content + '\')"><img src="' + imgs + '" alt=""></li>'
+                    }
                     // <div class="swiper-slide" onclick=""><img src="../image/index/KM_swiper1.jpg" alt=""></div>
                     // \'' + banner_id + '\',\''+ title +'\',\''+ description +'\',\''+ banner_types +'\',\''+ content +'\'
                     // <img src="http://47.100.11.38/kmzd/public/uploads/banner/banner_2.jpg" alt="">
                 }
                 $api.html(stylelist, banners);
-
-                // console.log(banners);
                 // console.log(JSON.stringify( ret ));
                 // alert( JSON.stringify( ret ) );
                 fnInitSwiper();
@@ -840,17 +919,21 @@
     }
 
     function fnInitSwiper() {
-        var mySwiper = new Swiper('.swiper-container', {
-            autoplay: true, //可选选项，自动滑动
-            loop: true
+      // document.addEventListener('DOMContentLoaded',function(){
+        photoSlide({
+          wrap: document.getElementById('picBox'),
+          loop: true,
+          autoPlay: true,
+          autoTime: 4000,
+          pagination: true
         });
-    };
-    // function fnInitSwiper() {
+      // }, false);
     //     var mySwiper = new Swiper('.swiper-container', {
-    //         autoplay: true,//可选选项，自动滑动
+    //         autoplay: true, //可选选项，自动滑动
     //         loop: true
     //     });
-    // };
+    };
+
     function fnGuoxueWin() {
         api.openWin({
             name: 'guoxue',
@@ -1308,10 +1391,6 @@
             }
         });
     }
+
+
 </script>
-<!-- <script type="text/javascript">
-
-
-    fnInitSwiper()
-
-</script> -->
