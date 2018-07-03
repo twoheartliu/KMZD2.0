@@ -763,6 +763,10 @@
         var lujing;
         var song_id;
         var titles;
+        if (!content) {
+            return false;
+        }
+
         if (banner_types == 1) {
             lujing = openBrowser(content);
             // console.log(lujing);
@@ -788,10 +792,14 @@
             lujing = content;
         } else if (banner_types == 7) {
             lujing = content;
+            // console.log(content);
+
+        } else {
+            return
         }
 
         api.openWin({
-            name: lujing,
+            name: 'lujing',
             url: lujing,
             // console.log('lujing');
             pageParam: {
@@ -807,6 +815,7 @@
                 // bofangmoshi:bofangmoshi,
                 frameUrl: frames,
                 titles: titles,
+                ok: 'index',
             }
         });
 
