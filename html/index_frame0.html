@@ -670,21 +670,21 @@
 
 
     // 打开浏览器
-    function openBrowser(s) {
-        api.openApp({
-            androidPkg: 'android.intent.action.VIEW',
-            mimeType: 'text/html',
-            uri: s,
-            iosUrl: s,
-        }, function(ret, err) {
-            if (ret) {
-                // alert(JSON.stringify(ret));
-            } else {
-                // alert(JSON.stringify(err));
-            }
-        });
-
-    }
+    // function openBrowser(s) {
+    //     api.openApp({
+    //         androidPkg: 'android.intent.action.VIEW',
+    //         mimeType: 'text/html',
+    //         uri: s,
+    //         iosUrl: s,
+    //     }, function(ret, err) {
+    //         if (ret) {
+    //             // alert(JSON.stringify(ret));
+    //         } else {
+    //             // alert(JSON.stringify(err));
+    //         }
+    //     });
+    //
+    // }
 
     function fnOpenBanners(banner_id, title, description, banner_types, content) {
         var lujing;
@@ -692,7 +692,8 @@
         var titles;
         var frames;
         if (banner_types == 1) {
-            lujing = openBrowser(content);
+            // lujing = openBrowser(content);
+            lujing = content;
             // console.log(lujing);
         } else if (banner_types == 2) {
             lujing = './playDanQu.html';
@@ -733,6 +734,7 @@
         });
 
     }
+
 
     // console.log(token);
     function fnHomePageLayout() {
