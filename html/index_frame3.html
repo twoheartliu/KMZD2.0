@@ -767,7 +767,9 @@
             song_id = content;
             titles = '听单';
         } else if (banner_types == 5) {
-            lujing = content;
+            lujing = '../res/to_user.html';
+            frames = content;
+            titles = title;
         }
 
         api.openWin({
@@ -783,7 +785,10 @@
                 albumId: song_id,
                 floor_name: titles,
                 a: song_id,
-                ok: lujing
+                ok:lujing,
+                bofangmoshi:bofangmoshi,
+                frameUrl: frames,
+                titles: titles,
             }
         });
 
