@@ -711,8 +711,8 @@
     var playType;
     var listen_to_ = 1;
     apiready = function() {
-        // albumCover = api.pageParam.albumCover
-        // console.log(albumCover);
+        albumCover = api.pageParam.albumCover
+        console.log(albumCover);
         token = $api.getStorage('token');
         var secHeader = $api.byId('secHeader');
         var headeris = document.querySelector('#secHeader');
@@ -1890,7 +1890,7 @@
     };
     // 打开评论页面
     function fnOpenPlayDiscuss() {
-        // console.log(albumCover);
+        // console.log('sss');
         var uris = '/sound/comment/';
         api.openWin({
             name: 'discussNoticeDetail0',
