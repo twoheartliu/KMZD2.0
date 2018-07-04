@@ -307,19 +307,28 @@
     var name;
     var commentaAlbumGoodHtml;
     var commentExtraGoods;
+    var albumCover;
     apiready = function() {
             token = $api.getStorage('token');
             soundId = api.pageParam.soundId;
             uris = api.pageParam.uris;
-            albumCover = api.pageParam.albumCover;
-            // console.log(albumCover);
-            var tail = albumCover.slice(-4)
-                // console.log(tail);
-            if (tail == 'null') {
-                albumCover = '../image/my/fnShareImg.jpg'
-            } else {
-                albumCover = albumCover
-            }
+            api.addEventListener({
+                name: 'singleCover'
+            }, function(ret, err) {
+                if (ret) {
+                    alert(ret)
+                        //  console.log( JSON.stringify( ret ) );
+                } else {
+                    alert(JSON.stringify(err));
+                }
+            });
+            // var tail = albumCover.slice(-4)
+            // console.log(tail);
+            // if (tail == 'null') {
+            // albumCover = '../image/my/fnShareImg.jpg'
+            // } else {
+            // albumCover = albumCover
+            // }
             // console.log(albumCover);
             // name = api.pageParam.name;
             ListenToTheListOfComments();
@@ -392,11 +401,14 @@
                 if (ret.status == 200) {
                     var stylelist = $api.byId('details');
                     var html = '';
-                    //   var cover = albumCover ? albumCover : '../image/my/fnShareImg.jpg'
+                    var totalCovers = host + '/' + ret.data.cover_mid;
+                    var cover = '../image/my/fnShareImg.jpg'
+                    var newCover = totalCovers ? totalCovers : cover
+                    // console.log(JSON.stringify(ret.data));
                     if (ret.data.author_name) {
                         html =
                             '  <div class="nav-left fl"  onclick="fnPlayHTML(' + ret.data.id + ');">' +
-                            '<div class="nav-img"><img src="' + albumCover + '" alt=""></div>' +
+                            '<div class="nav-img"><img src="' + newCover + '" alt=""></div>' +
                             '<div class="nav-txt">' +
                             '<p class="nav-txt_name">' + ret.data.title + '</p>' +
                             '<p class="nav-txt_p">' + ret.data.author_name + '</p> ' +
@@ -405,7 +417,7 @@
                             '<div class="clear"></div>'
                     } else {
                         html = '  <div class="nav-left fl"  onclick="fnPlayHTML(' + ret.data.id + ');">' +
-                            '<div class="nav-img"><img src="' + albumCover + '" alt=""></div>' +
+                            '<div class="nav-img"><img src="' + newCover + '" alt=""></div>' +
                             '<div class="nav-txt">' +
                             '<p class="nav-txt_name">' + ret.data.title + '</p>' +
                             '</div>' +
