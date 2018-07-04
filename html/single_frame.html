@@ -700,13 +700,8 @@
     var isFirst = true;
     var bigCover;
     apiready = function() {
-        // 刚开始的时候加载loading
-        var loadEffect = $api.byId('loadEffect');
-        htmlloadEffect = '<div class="loadEffect"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>'
-        $api.html(loadEffect, htmlloadEffect);
-
         token = $api.getStorage('token');
-        console.log(token);
+        // console.log(token);
         bofangmoshi = api.pageParam.bofangmoshi;
         fnAlbumAetails();
         fnAlbumTrack();
@@ -807,7 +802,7 @@
             if (ret) {
                 if (ret.status == 200) {
                     // setTimeout(function(){
-
+                    // console.log(JSON.stringify(ret.data));
                     titleFx = ret.data.title;
                     idFx = ret.data.id;
                     briefFx = ret.data.brief;
@@ -826,10 +821,12 @@
 
     }
     //接口  听单展示
+
     function fnAlbumAetailsList(data_) {
         //专辑图片
         // console.log(host + data_.data.big);
         bigCover = host + '/' + data_.data.big;
+        // console.log(bigCover);
         if (data_.data.big) {
             var imgstylelistss = $api.byId('imgssss');
             var imghtmls = '<img src="' + host + '/' + data_.data.big + '" alt="">';
@@ -917,11 +914,6 @@
     }
     //接口  听单展示
     function fnAlbumIdLift(data_) {
-        // 这个是关闭loading再掉通第一个接口的地方加
-        var loadEffect = $api.byId('loadEffect');
-        htmlloadEffect = '';
-        $api.html(loadEffect, htmlloadEffect);
-        // ~~~~~~~~~~~~~~
         // console.log(JSON.stringify(data_));
         if (isFirst) {
             if (p == 1) {
@@ -1613,7 +1605,7 @@
         // console.log(bigCover);
         var uris = '/album/comment/';
         api.openWin({
-            name: 'discussDetail0',
+            name: 'discuss_detail0',
             url: './discuss_detail0.html',
             pageParam: {
                 albumId: albumId,

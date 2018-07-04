@@ -481,7 +481,8 @@
             name = api.pageParam.name;
             albumId = api.pageParam.albumId;
             uris = api.pageParam.uris;
-            listeningCover = api.pageParam.listeningCover;
+            Covers = api.pageParam.Covers;
+            // console.log(Covers);
             ListenToTheListOfComments();
             fnDetails();
             api.addEventListener({
@@ -568,7 +569,7 @@
                   api.refreshHeaderLoadDone();
                     var stylelist = $api.byId('details');
                     var html = '';
-                    var cover = listeningCover ? listeningCover : '../image/my/fnShareImg.jpg';
+                    var cover = Covers ? Covers : '../image/my/fnShareImg.jpg';
                     if (ret.data.title) {
                         if (ret.data.author_name != null) {
                             if (ret.data.brief) {
