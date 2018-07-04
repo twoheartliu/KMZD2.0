@@ -586,6 +586,40 @@
             fnRecommendFriends();
             fnreadingAloudRecommended();
             fnCategory();
+            api.setCustomRefreshHeaderInfo({
+                bgColor: '#f0f0f0',
+                image: {
+                    pull: [
+                        'widget://image/Refresh/dropdown_anim_00.png',
+                        'widget://image/Refresh/dropdown_anim_01.png',
+                        'widget://image/Refresh/dropdown_anim_02.png',
+                        'widget://image/Refresh/dropdown_anim_03.png',
+                        'widget://image/Refresh/dropdown_anim_04.png',
+                        'widget://image/Refresh/dropdown_anim_05.png',
+                        'widget://image/Refresh/dropdown_anim_06.png',
+                        'widget://image/Refresh/dropdown_anim_07.png',
+                        'widget://image/Refresh/dropdown_anim_08.png',
+                        'widget://image/Refresh/dropdown_anim_09.png',
+                        'widget://image/Refresh/dropdown_anim_10.png',
+                    ],
+                    load: [
+                        'widget://image/Refresh/dropdown_anim_00.png',
+                        'widget://image/Refresh/dropdown_anim_01.png',
+                        'widget://image/Refresh/dropdown_anim_02.png',
+                        'widget://image/Refresh/dropdown_anim_03.png',
+                        'widget://image/Refresh/dropdown_anim_04.png',
+                        'widget://image/Refresh/dropdown_anim_05.png',
+
+                    ]
+                }
+            }, function() {
+                //下拉刷新被触发，自动进入加载状态，使用 api.refreshHeaderLoadDone() 手动结束加载中状态
+                //下拉刷新被触发，使用 api.refreshHeaderLoadDone() 结束加载中状态
+                // fnBanners();
+                fnRecommendFriends();
+                fnreadingAloudRecommended();
+                fnCategory();
+            });
         } else {
             $api.rmStorage('token');
             api.openWin({
@@ -836,6 +870,7 @@
         }, function(ret, err) {
             if (ret) {
                 if (ret.status == 200) {
+                  api.refreshHeaderLoadDone()
                     fnCategoryAlbum(ret);
                 } else {
                     netMessage(ret);
@@ -883,6 +918,7 @@
             // alert(JSON.stringify(ret));
             if (ret) {
                 if (ret.status == 200) {
+                  api.refreshHeaderLoadDone()
                     fnRecitationScriptRecommend(ret);
                 } else {
                     netMessage(ret);
@@ -921,6 +957,7 @@
             // alert(JSON.stringify(ret));
             if (ret) {
                 if (ret.status == 200) {
+                  api.refreshHeaderLoadDone()
                     // console.log(ret.data.length);
                     var data = ret.data;
                     var len = ret.data.length;
