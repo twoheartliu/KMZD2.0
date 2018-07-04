@@ -239,13 +239,14 @@
         var album = api.pageParam.albumCover;
         // console.log(album);
         // console.log(listening);
-        if (!listening) {
-            listeningCover = listening
-        }
-        if (!album) {
-            listeningCover = album
-        }
-        // console.log(listeningCover);
+        // if (!listening) {
+        //     listeningCover = listening
+        // }
+        // if (!album) {
+        //     listeningCover = album
+        // }
+        Covers = listening ? listening : album;
+        console.log(Covers);
         var oks = 'ok'+ok;
         api.addEventListener({
             name: oks
@@ -306,6 +307,7 @@
         var nHeader = $api.byId('notHeader');
         var headerH = $api.offset(nHeader).h;
         uris = api.pageParam.uris;
+        // console.log(listeningCover);
         api.openFrame({
             name: 'discussDetailFrame0',
             url: './discuss_detail_frame0.html',
@@ -319,7 +321,7 @@
                 albumId: albumId,
                 uris: uris,
                 name: name,
-                listeningCover: listeningCover,
+                Covers: Covers,
             },
             bounces: false,
             bgColor: 'rgba(0,0,0,0)',

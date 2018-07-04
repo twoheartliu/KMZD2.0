@@ -808,6 +808,7 @@
                   // ~~~~~~~~~~~~~~
                   api.refreshHeaderLoadDone()
                   var single = $api.byId('single');
+                //   console.log(ret.data);
                   // 听单id
                   l_id = ret.data.linstening_info.l_id;
                   // 听单简介
@@ -835,6 +836,7 @@
                   // 判断用户听单封面信息
                   var listening_cover = ret.data.linstening_info.listening_cover;
                   imgUrlListening_cover = ret.data.linstening_info.listening_cover;
+                //   console.log(imgUrlListening_cover);
                   var sandBox = listening_cover.substring(0, 8);
                   if (sandBox == 'sand_box') {
                       var sandBoxs = listening_cover.replace(/sand_box/, '..');
