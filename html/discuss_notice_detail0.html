@@ -217,6 +217,7 @@
     var uris;
     var name;
     var ok;
+    var singleCover;
     apiready = function() {
         albumCover = api.pageParam.albumCover;
         // console.log(albumCover);
@@ -230,6 +231,10 @@
         uris = api.pageParam.uris;
         name = api.pageParam.name;
         ok = api.pageParam.ok;
+        console.log(uris);
+        // console.log(Covers);
+
+
 
         var oks = 'ok' + ok;
         api.addEventListener({
@@ -306,7 +311,6 @@
                 soundId: soundId,
                 uris: uris,
                 name: name,
-                albumCover: albumCover,
             },
             bounces: false,
             bgColor: 'rgba(0,0,0,0)',
