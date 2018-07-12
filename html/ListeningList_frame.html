@@ -404,6 +404,7 @@
             }
         }, function(ret, err) {
             if (ret) {
+                // console.log(JSON.stringify(ret.data));
                 if (ret.status == 200) {
                     if (p == 1) {
 
@@ -431,6 +432,7 @@
                     var id = $api.byId('ListeningListFrame');
                     for (var i = 0; i < ret.data.length; i++) {
                         var listening_cover = ret.data[i].listening_cover;
+                        // console.log(listening_cover);
                         var sandBox = listening_cover.substring(0, 8);
                         if (sandBox == 'sand_box') {
                             var sandBoxs = listening_cover.replace(/sand_box/, '..');
@@ -488,6 +490,7 @@
                 }
             }
         }, function(ret, err) {
+            // console.log(JSON.stringify(ret));
             if (ret) {
                 if (ret.status == 200) {
                   api.refreshHeaderLoadDone();

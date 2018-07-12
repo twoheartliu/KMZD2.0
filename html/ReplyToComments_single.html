@@ -46,17 +46,34 @@
 
     }
     function ReplyToCommentsDiscuss_detail() {
-      api.openWin({
-          name: 'ReplyToCommentsDiscussDetailSingle',
-          url: './ReplyToCommentsDiscuss_detail_single.html',
-          pageParam: {
-              soundId: soundId,
-              uris: uris,
-              name: name,
-              ok:'ReplyToCommentsDiscuss_detail_single'
-          },
-          reload : true
-      });
+      var token = $api.getStorage('token');
+      if (token) {
+        api.openWin({
+            name: 'ReplyToCommentsDiscussDetailSingle',
+            url: './ReplyToCommentsDiscuss_detail_single.html',
+            pageParam: {
+                soundId: soundId,
+                uris: uris,
+                name: name,
+                ok:'ReplyToCommentsDiscuss_detail_single'
+            },
+            reload : true
+        });
+
+      }else {
+        api.openWin({
+            name: 'token',
+            url: './token.html',
+            slidBackEnabled:false,
+            reload: true,
+            animation: {
+             type:"none",
+             subType:"from_right",
+             duration:300
+           },
+        });
+      }
+
 
     }
 </script>

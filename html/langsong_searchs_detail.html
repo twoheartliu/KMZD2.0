@@ -298,6 +298,7 @@
         $api.html(loadEffect, htmlloadEffect);
 
         token = $api.getStorage('token');
+        // console.log(token);
         fnSearchMore();
         api.addEventListener({
             name: 'scrolltobottom',
@@ -405,6 +406,7 @@
                         var container = $api.byId('id-container');
                         for (var i = 0; i < ret.data.length; i++) {
                             var data = ret.data[i];
+                            // console.log(JSON.stringify(data));
                             var author = data.author_name;
                             var id = data.id;
                             var body = data.body;
@@ -438,13 +440,32 @@
     var lujing;
 
     function fnOpenList(id) {
-        lujing = './playDanQu.html';
-        api.openWin({
-            name: 'playDanQu',
-            url: lujing,
-            pageParam: {
-                a: id,
-            }
-        });
+        // console.log(id);
+        var token = $api.getStorage('token');
+        if (token) {
+            api.openWin({
+                name: 'aloud',
+                url: './aloud.html',
+                delay: 200,
+                pageParam: {
+                    InfojubenType: id,
+                    ok: 'aloud'
+                },
+            });
+
+        }else {
+            api.openWin({
+                name: 'token',
+                url: './token.html',
+                slidBackEnabled:false,
+                reload: true,
+                animation: {
+                 type:"none",
+                 subType:"from_right",
+                 duration:300
+               },
+            });
+        }
+
     }
 </script>

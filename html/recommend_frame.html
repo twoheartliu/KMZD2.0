@@ -4,10 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
-    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no"><meta name="format-detection" content="telephone=no" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <meta name="format-detection" content="telephone=no" />
     <title>孔孟之道--听单</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
     <style>
+        html,
+        body {
+            min-height: 100%;
+            position: relative;
+            margin-bottom: 30px;
+        }
+
         .fr {
             float: right;
         }
@@ -16,12 +24,16 @@
             float: left;
         }
 
-        .p20px {
-            padding: 0px 20px;
+        .clear {
+            clear: both;
         }
 
-        .clr {
-            overflow: hidden;
+        .mt20 {
+            margin-top: 20px;
+        }
+
+        .p20px {
+            padding: 0 20px;
         }
 
         .row {
@@ -36,51 +48,6 @@
             margin: 0 5px;
             position: relative;
         }
-        /* 听单推荐 */
-
-        .hot>.hotC {
-            position: relative;
-            float: left;
-            padding: 4px;
-            box-sizing: border-box;
-            background-clip: content-box;
-            text-align: center;
-            font-size: 20px;
-            /*padding-top:10px;*/
-        }
-
-        .sectionTitle {
-            margin-bottom: 10px;
-        }
-
-        .sectionTitle .TD_div {
-            font-size: 18px;
-            color: #1a1a1a;
-        }
-
-        .sectionTitle .more {
-            color: #666;
-            font-size: 14px;
-        }
-
-        .hotC>img {
-            width: 100%;
-            height: auto;
-        }
-
-        .listtitle {
-            font-size: 10px;
-            color: #000;
-        }
-
-        .recommend {
-            width: 100%;
-            margin-bottom: 10px;
-        }
-
-        .recommend_frame_img img {
-            width: 100%;
-        }
 
         .hdivider {
             width: 100%;
@@ -88,10 +55,201 @@
             background-color: #b2b2b2;
         }
 
+        .hdivider:last-child {
+            display: none;
+        }
+        /*轮播图 */
+        /*轮播图 */
+        /*img {*/
+        /*display: block;*/
+        /*}*/
+        /*p {*/
+        /*margin: 0;*/
+        /*padding: 1rem 1rem;*/
+        /*font-size: 1rem;*/
+        /*line-height: 1.4;*/
+        /*}*/
+
+        .pagination {
+            width: 100%;
+            left: 0;
+            bottom: 10px;
+            position: absolute;
+            text-align: center;
+            -webkit-transition: 300ms;
+            transition: 300ms;
+            z-index: 10;
+            -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+        }
+
+        .pagination span {
+            width: 8px;
+            height: 8px;
+            display: inline-block;
+            border-radius: 100%;
+            background: #fff;
+            opacity: .5;
+            margin: 0 3px;
+        }
+
+        .pagination span.active {
+            opacity: 1;
+            background: #666;
+        }
+
+        .pic-panel {
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pic-list {
+            width: 100%;
+            position: relative;
+        }
+
+        .pic-list li {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+        }
+
+        .pic-list .re {
+            position: relative;
+            z-index: 2;
+        }
+
+        .pic-list li img {
+            width: 100%;
+        }
+
+        .pic-list li a {
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        }
+
+        @media screen and (min-width: 600px) {
+            .pic-box {
+                position: relative;
+                top: 0;
+                left: 25%;
+                width: 50%;
+            }
+            .pic-list li:nth-child(2) {
+                left: 100%;
+            }
+            .pic-list li:last-child {
+                left: -100%;
+            }
+            .pic-list li img {
+                padding: 0 0.125rem;
+                -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+            }
+        }
+        /* 八大导航 */
+
+        .nav {
+            /*padding: 8px;*/
+            margin-bottom: 20px;
+            display: -webkit-box;
+            display: -webkit-flex;
+        }
+
+        .navbar {
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+            position: relative;
+            /*float: left; padding: 4px; box-sizing: border-box; background-clip: content-box;*/
+            text-align: center;
+            font-size: 14px;
+            color: #1a1a1a;
+        }
+
+        .navbar img {
+            width: 60px;
+            height: 60px;
+            display: block;
+            text-align: center;
+            margin: 0 auto;
+            /*padding-top: 20px;*/
+        }
+        /*.navbar-item-hov { background-color: rgba(254, 242, 228, 0.7); }*/
+
+        .navbar-item-active {
+            color: #D43C33;
+        }
+        /* 听单推荐 */
+
+        .hot {
+            width: 100%;
+            /* margin: 0 auto; */
+            /*text-align: center;*/
+            overflow: hidden;
+        }
+
+        .hotC {
+            position: relative;
+            float: left;
+            /*border-radius: 5px;*/
+            padding: 5px;
+            box-sizing: border-box;
+            background-clip: content-box;
+            text-align: center;
+            font-size: 20px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            word-break: break-all;
+        }
+
+        .sectionTitle {
+            margin-bottom: 10px;
+            /*margin: 10px 0;*/
+        }
+
+        .sectionTitle .TD_div {
+            font-size: 16px;
+            color: #1a1a1a;
+            padding-top: 2px;
+            margin-top: 10px;
+        }
+
+        .sectionTitle .more {
+            color: #666;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+
+        .hotC img {
+            /*border-radius: 10px;*/
+            width: 100%;
+        }
+
+        .listtitle {
+            font-size: 12px;
+            color: #000;
+            height: 24px;
+            line-height: 12px;
+            text-align: left;
+        }
+
+        .listtitle div {
+            word-wrap: break-word;
+        }
+        /*个性化推荐 */
+
         .egret-flex-item {
             display: -webkit-box;
             -webkit-box-align: center;
             height: 100px;
+        }
+
+        .egret-flex-item-zuopin {
+            display: -webkit-box;
+            -webkit-box-align: center;
+            height: 85px;
         }
 
         .egret-flex-items {
@@ -99,6 +257,13 @@
             -webkit-box-align: center;
             height: 100px;
             width: 80%;
+        }
+
+        .egret-flex-items-zuopin {
+            display: -webkit-box;
+            -webkit-box-align: center;
+            height: 85px;
+            width: 90%;
         }
 
         .egret-flex-item-logo {
@@ -123,16 +288,37 @@
             -webkit-box-align: center;
         }
 
+        .egret-flex-item-shelf-zp {
+            overflow: hidden;
+            -webkit-box-flex: 2;
+            -webkit-box-align: center;
+            margin-left: -25px;
+        }
+
         .egret-flex-item-shelf div {
             text-overflow: ellipsis;
             white-space: nowrap;
             overflow: hidden;
             height: 22px;
             line-height: 22px;
-            /*margin-top: 5px;*/
+        }
+
+        .egret-flex-item-shelf-zp div {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            height: 22px;
+            line-height: 22px;
         }
 
         .egret-flex-item-shelf .egret-flex-item-shelf01 .span1 {
+            /*font-size: 13px;*/
+            font-size: 15px;
+            color: #000;
+        }
+
+        .egret-flex-item-shelf-zp .egret-flex-item-shelf01 .span1 {
+            /*font-size: 13px;*/
             font-size: 15px;
             color: #000;
         }
@@ -143,10 +329,58 @@
             margin: 0 5px;
         }
 
-        .egret-flex-item-shelf .egret-flex-item-shelf01 .span3 {
+        .egret-flex-item-shelf-zp .egret-flex-item-shelf02 .span2 {
+            font-size: 12px;
+            color: #ff3db8;
+            margin: 0 5px;
+        }
+
+        .egret-flex-item-shelf .egret-flex-item-shelf-title .span3 {
             font-size: 12px;
             color: #ccc;
-            vertical-align: top;
+        }
+
+        .egret-flex-item-shelf-zp .egret-flex-item-shelf-title .span3 {
+            font-size: 12px;
+            color: #ccc;
+        }
+
+        .egret-flex-item-shelf .egret-flex-item-shelf-title {
+            /* margin-top: 25px; */
+        }
+
+        .egret-flex-item-shelf .egret-flex-item-shelf-title .span1 {
+            /*font-size: 13px;*/
+            font-size: 15px;
+            color: #000;
+        }
+
+        .egret-flex-item-shelf-zp .egret-flex-item-shelf-title .span1 {
+            /*font-size: 13px;*/
+            font-size: 15px;
+            color: #000;
+        }
+
+        .egret-flex-item-shelf .egret-flex-item-shelf-author .span2 {
+            font-size: 12px;
+            color: #ff3db8;
+            margin: 0 5px;
+        }
+
+        .egret-flex-item-shelf-zp .egret-flex-item-shelf-author .span2 {
+            font-size: 12px;
+            color: #ff3db8;
+            margin: 0 5px;
+        }
+
+        .egret-flex-item-shelf .egret-flex-item-shelf-author .span3 {
+            font-size: 12px;
+            color: #ccc;
+        }
+
+        .egret-flex-item-shelf-zp .egret-flex-item-shelf-author .span3 {
+            font-size: 12px;
+            color: #ccc;
         }
 
         .egret-flex-item-shelf04 {
@@ -155,6 +389,7 @@
             -webkit-box-flex: 1;
             -webkit-box-align: center;
             height: 65px;
+            margin-top: 13px;
         }
 
         .egret-flex-item-shelf04 img {
@@ -164,18 +399,54 @@
 
         .egret-flex-item-shelf .egret-flex-item-shelf02 {
             font-size: 12px;
-            color: #ccc;
+            color: #666;
+        }
+
+        .egret-flex-item-shelf-zp .egret-flex-item-shelf02 {
+            font-size: 12px;
+            color: #666;
         }
 
         .egret-flex-item-shelf .egret-flex-item-shelf02 span {
             font-size: 13px;
-            color: #000;
+            color: #ccc;
+        }
+
+        .egret-flex-item-shelf-zp .egret-flex-item-shelf02 span {
+            font-size: 13px;
+            color: #ccc;
+        }
+
+        .egret-flex-item-shelf .egret-flex-item-shelf-author {
+            font-size: 12px;
+            color: #666;
+            /*float: left;*/
+        }
+
+        .egret-flex-item-shelf-zp .egret-flex-item-shelf-author {
+            font-size: 12px;
+            color: #666;
+            /*float: left;*/
+        }
+
+        .egret-flex-item-shelf .egret-flex-item-shelf-author span {
+            font-size: 13px;
+            color: #ccc;
+        }
+
+        .egret-flex-item-shelf-zp .egret-flex-item-shelf-author span {
+            font-size: 13px;
+            color: #ccc;
+        }
+
+        .egret-flex-item-shelf03 {
+            line-height: 20px;
         }
 
         .egret-flex-item-shelf03 div {
             float: left;
-            /*line-height: 20px;*/
-            /*margin: 5px 3px;*/
+            /*line-height: 20px;
+        margin: 5px 0px;*/
         }
 
         .egret-flex-item-shelf03 div img {
@@ -192,6 +463,31 @@
             color: #b2b2b2;
         }
 
+        .egret-flex-item-shelf-zuopin {
+            line-height: 20px;
+            /*float: left;*/
+        }
+
+        .egret-flex-item-shelf-zuopin div {
+            /*line-height: 20px;
+        margin: 5px 0px;*/
+            float: left;
+        }
+
+        .egret-flex-item-shelf-zuopin div img {
+            width: 12px;
+            height: 12px;
+            line-height: 12px;
+            margin: 0 2px;
+        }
+
+        .egret-flex-item-shelf-zuopin div span {
+            line-height: 22px;
+            vertical-align: top;
+            font-size: 11px;
+            color: #b2b2b2;
+        }
+
         .egret-flex-item-shelf .egret-flex-item-redclassify {
             color: #E03F40;
             border: 1px solid #E03F40;
@@ -202,13 +498,25 @@
             box-sizing: border-box;
         }
 
-        #footer {
-            width: 100%;
-            height: 50px;
-            line-height: 50px;
-            text-align: center;
+        .egret-flex-item-shelf-zp .egret-flex-item-redclassify {
+            color: #E03F40;
+            border: 1px solid #E03F40;
+            font-size: inherit;
+            padding: 0 0.1em;
+            /*border-radius: 1px;*/
+            margin-right: 5px;
+            box-sizing: border-box;
         }
 
+        .w100 {
+            width: 100%;
+        }
+
+        #floorId {
+            width: 100%;
+            margin: 0 auto;
+        }
+        /*.fmbtnhover { background: #D8D9DA; }*/
         /*加载loading的样式css 到结束*/
 
         #loadEffect {
@@ -297,6 +605,22 @@
             -webkit-animation-delay: 1.04s;
         }
 
+        .egret-flex-item-logo .zuopinImg {
+            width: 30px;
+            height: 30px;
+            margin: 0 auto;
+            display: block;
+            margin-left: 8px;
+        }
+
+        #footer {
+            width: 100%;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            background-color: white;
+        }
+
     </style>
 </head>
 
@@ -332,6 +656,8 @@
 <script type="text/javascript">
     var token;
     var p = 1;
+    var NoQQ;
+    var NoWeiXin;
     apiready = function() {
 
 
@@ -455,6 +781,7 @@
                             var stylelist = $api.byId('ListOfExcellentWorks');
                             var html = '';
                             // console.log(JSON.stringify(ret));
+
                             var author_name;
                             for (var i = 0; i < ret.data.list.length; i++) {
                                 if (ret.data.list[i].author_name == null) {
@@ -462,14 +789,42 @@
                                 } else {
                                     author_name = ret.data.list[i].author_name;
                                 }
-                                html += '<div class="egret-flex-item"><div class="egret-flex-items" tapmode="fmbtnhover" onclick="fnOpenPlay(' + ret.data.list[i].id + ')"><div class="egret-flex-item-logo"><img src="' + host + '/' + ret.data.list[
-                                        i].mid + '" alt="" class=""></div><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 fl"><span>' + ret.data.list[i].title +
-                                    '</span></span></div><div class="egret-flex-item-shelf02"><span>' +
-                                    author_name +
-                                    '</span></div><div class="egret-flex-item-shelf03"><div><img src="../image/KM_play.png" alt=""><span>' + ret.data.list[i].play_total +
-                                    '</span></div><div><img src="../image/KM_zf.png" alt=""><span>' + ret.data.list[i].share_total + '</span></div><div><img src="../image/KM_dz.png" alt=""><span>' + ret.data.list[i].good_total +
-                                    '</span></div></div></div></div><div class="egret-flex-item-shelf04" onclick="fnOpenPlayMore(' + ret.data.list[i].id + ',\'' + ret.data.list[i].floor_name + '\',\'' + ret.data.list[i].mid +
-                                    '\')"><img src="../image/KM_list_more.png" alt=""></div></div><div class="hdivider"></div>';
+
+                                var cover = host + '/' + ret.data.list[i].mid;
+                                if (ret.data.list[i].mid == null) {
+                                    cover = '../image/tingIcon.png'
+                                }
+                                // console.log(cover);
+
+                                var type = ret.data.fllor_info.content_type;
+                                if (type == 'record') {
+                                    if (ret.data.list[i].nick_name) {
+                                        var nick = '朗诵者:' + ret.data.list[i].nick_name;
+                                    } else {
+                                        nick = '';
+                                    }
+
+                                    html += '<div class="egret-flex-item-zuopin"><div class="egret-flex-items-zuopin" tapmode="fmbtnhover" onclick="fnOpenPlay(' + ret.data.list[i].id + ')"><div class="egret-flex-item-logo"><img src="' +
+                                        cover + '" alt="" class="zuopinImg"></div><div class="egret-flex-item-shelf-zp"><div class="egret-flex-item-shelf-title"><span class="span1 fl"><span>' + ret.data.list[i].title +
+                                        '</span></span></div><div class="egret-flex-item-shelf-author"><span>作者：' +
+                                        author_name +
+                                        '</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>' +
+                                        nick +
+                                        '</span></div><div class="egret-flex-item-shelf-zuopin"><div><img src="../image/KM_play.png" alt=""><span>' + ret.data.list[i].play_total +
+                                        '</span></div><div><img src="../image/KM_zf.png" alt=""><span>' + ret.data.list[i].share_total + '</span></div><div><img src="../image/KM_dz.png" alt=""><span>' + ret.data.list[i].good_total +
+                                        '</span></div></div></div></div><div class="egret-flex-item-shelf04" onclick="fnOpenPlayMore(' + ret.data.list[i].id + ',\'' + ret.data.list[i].floor_name + '\',\'' + ret.data.list[i].mid +
+                                        '\')"><img src="../image/KM_list_more.png" alt=""></div></div><div class="hdivider"></div>';
+                                } else if (type == 'song') {
+                                    html += '<div class="egret-flex-item"><div class="egret-flex-items" tapmode="fmbtnhover" onclick="fnOpenPlay(' + ret.data.list[i].id + ')"><div class="egret-flex-item-logo"><img src="' + cover +
+                                        '" alt="" class=""></div><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 fl"><span>' + ret.data.list[i].title +
+                                        '</span></span></div><div class="egret-flex-item-shelf02"><span>作者：' +
+                                        author_name +
+                                        '</span></div><div class="egret-flex-item-shelf03"><div><img src="../image/KM_play.png" alt=""><span>' + ret.data.list[i].play_total +
+                                        '</span></div><div><img src="../image/KM_zf.png" alt=""><span>' + ret.data.list[i].share_total + '</span></div><div><img src="../image/KM_dz.png" alt=""><span>' + ret.data.list[i].good_total +
+                                        '</span></div></div></div></div><div class="egret-flex-item-shelf04" onclick="fnOpenPlayMore(' + ret.data.list[i].id + ',\'' + ret.data.list[i].floor_name + '\',\'' + ret.data.list[i].mid +
+                                        '\')"><img src="../image/KM_list_more.png" alt=""></div></div><div class="hdivider"></div>';
+                                }
+
                             }
                             $api.html(stylelist, html);
                         }
@@ -561,14 +916,38 @@
                                 } else {
                                     author_name = ret.data.list[i].author_name;
                                 }
-                                html += '<div class="egret-flex-item"><div class="egret-flex-items" tapmode="fmbtnhover" onclick="fnOpenPlay(' + ret.data.list[i].id + ')"><div class="egret-flex-item-logo"><img src="' + host + '/' + ret.data.list[
-                                        i].mid + '" alt="" class=""></div><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 fl">作品：<span>' + ret.data.list[i].title +
-                                    '</span></span></div><div class="egret-flex-item-shelf02"><span>' +
-                                    author_name +
-                                    '</span></div><div class="egret-flex-item-shelf03"><div><img src="../image/KM_play.png" alt=""><span>' + ret.data.list[i].play_total +
-                                    '</span></div><div><img src="../image/KM_zf.png" alt=""><span>' + ret.data.list[i].share_total + '</span></div><div><img src="../image/KM_dz.png" alt=""><span>' + ret.data.list[i].good_total +
-                                    '</span></div></div></div></div><div class="egret-flex-item-shelf04" onclick="fnOpenPlayMore(' + ret.data.list[i].id + ',\'' + ret.data.list[i].floor_name + '\',\'' + ret.data.list[i].mid +
-                                    '\')"><img src="../image/KM_list_more.png" alt=""></div></div><div class="hdivider"></div>';
+                                var cover = host + '/' + ret.data.list[i].mid;
+                                if (ret.data.list[i].mid == null) {
+                                    cover = '../image/tingIcon.png'
+                                }
+                                var type = ret.data.fllor_info.content_type;
+                                if (type == 'record') {
+                                    if (ret.data.list[i].nick_name) {
+                                        var nick = '朗诵者:' + ret.data.list[i].nick_name;
+                                    } else {
+                                        nick = '';
+                                    }
+
+                                    html += '<div class="egret-flex-item-zuopin"><div class="egret-flex-items-zuopin" tapmode="fmbtnhover" onclick="fnOpenPlay(' + ret.data.list[i].id + ')"><div class="egret-flex-item-logo"><img src="' +
+                                        cover + '" alt="" class="zuopinImg"></div><div class="egret-flex-item-shelf-zp"><div class="egret-flex-item-shelf-title"><span class="span1 fl"><span>' + ret.data.list[i].title +
+                                        '</span></span></div><div class="egret-flex-item-shelf-author"><span>作者：' +
+                                        author_name +
+                                        '</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>' +
+                                        nick +
+                                        '</span></div><div class="egret-flex-item-shelf-zuopin"><div><img src="../image/KM_play.png" alt=""><span>' + ret.data.list[i].play_total +
+                                        '</span></div><div><img src="../image/KM_zf.png" alt=""><span>' + ret.data.list[i].share_total + '</span></div><div><img src="../image/KM_dz.png" alt=""><span>' + ret.data.list[i].good_total +
+                                        '</span></div></div></div></div><div class="egret-flex-item-shelf04" onclick="fnOpenPlayMore(' + ret.data.list[i].id + ',\'' + ret.data.list[i].floor_name + '\',\'' + ret.data.list[i].mid +
+                                        '\')"><img src="../image/KM_list_more.png" alt=""></div></div><div class="hdivider"></div>';
+                                } else if (type == 'song') {
+                                    html += '<div class="egret-flex-item"><div class="egret-flex-items" tapmode="fmbtnhover" onclick="fnOpenPlay(' + ret.data.list[i].id + ')"><div class="egret-flex-item-logo"><img src="' + cover +
+                                        '" alt="" class=""></div><div class="egret-flex-item-shelf"><div class="egret-flex-item-shelf01"><span class="span1 fl"><span>' + ret.data.list[i].title +
+                                        '</span></span></div><div class="egret-flex-item-shelf02"><span>作者：' +
+                                        author_name +
+                                        '</span></div><div class="egret-flex-item-shelf03"><div><img src="../image/KM_play.png" alt=""><span>' + ret.data.list[i].play_total +
+                                        '</span></div><div><img src="../image/KM_zf.png" alt=""><span>' + ret.data.list[i].share_total + '</span></div><div><img src="../image/KM_dz.png" alt=""><span>' + ret.data.list[i].good_total +
+                                        '</span></div></div></div></div><div class="egret-flex-item-shelf04" onclick="fnOpenPlayMore(' + ret.data.list[i].id + ',\'' + ret.data.list[i].floor_name + '\',\'' + ret.data.list[i].mid +
+                                        '\')"><img src="../image/KM_list_more.png" alt=""></div></div><div class="hdivider"></div>';
+                                }
                             }
                             // $api.html(stylelist, html);
                             $api.append(stylelist, html);
@@ -696,7 +1075,6 @@
             },
             tapClose: true
         }, function(ret) {
-            console.log(JSON.stringify(ret.index));
             if (ret.eventType == 'cancel') {
                 dialogBox.close({
                     dialogName: 'actionMenu'
@@ -758,7 +1136,31 @@
                 dialogBox.close({
                     dialogName: 'actionMenu'
                 });
-                fnOpenPlayShare(ids, textName, mid);
+
+                var qq = api.require('qq');
+                qq.installed(function(ret, err) {
+                    if (ret.status) {
+                      // console.log(1);
+                        // api.alert({ msg: "安装" });
+                    } else {
+                      NoQQ = 'NoQQ';
+                        // api.alert({ msg: "没有安装" });
+                    }
+                });
+                var wx = api.require('wx');
+                wx.isInstalled(function(ret, err) {
+                    if (ret.installed) {
+                        // console.log("当前设备已安装微信客户端");
+                    } else {
+                        NoWeiXin = 'NoWeiXin';
+                    }
+                });
+                setTimeout(function () {
+                　　　　　　// f1的任务代码
+                  fnOpenPlayShare(ids, textName, mid);
+                　　　　}, 100);
+
+
 
                 // alert(3);
             } else {
@@ -838,181 +1240,456 @@
     function fnOpenPlayShare(ids, textName, mid) {
         // console.log(id);
         // console.log(sma);
-        var dialogBox = api.require('dialogBox');
-        dialogBox.actionMenu({
-            rect: {
-                h: 150
-            },
-            texts: {
-                cancel: '取消'
-            },
-            items: [{
-                text: '微信',
-                icon: 'widget://image/weixin.png'
-            }, {
-                text: '朋友圈',
-                icon: 'widget://image/friends.png'
-            }, {
-                text: 'QQ',
-                icon: 'widget://image/qq.png'
+        if (NoQQ && NoWeiXin) {
+          var dialogBox = api.require('dialogBox');
+          dialogBox.actionMenu({
+                  rect: {
+                      h: 150
+                  },
+                  texts: {
+                      cancel: '取消'
+                  },
+                  items: [{
+                      text: QQHWeiXin
+                  }],
+                  styles: {
+                      bg: '#FFF',
+                      column: 1,
+                      itemText: {
+                          color: '#000',
+                          size: 12,
+                          marginT: 8
+                      },
+                      itemIcon: {
+                          size: 30
+                      },
+                      cancel: {
+                          bg: 'fs://icon.png',
+                          color: '#000',
+                          h: 44,
+                          size: 14
+                      }
+                  },
+                  tapClose: true
+              }, function(ret) {
+                  if (ret.eventType == 'cancel') {
+                      dialogBox.close({
+                          dialogName: 'actionMenu'
+                      });
+                  }
+                  if (ret.index == "0") {
 
-            }, {
-                text: 'QQ空间',
-                icon: 'widget://image/QQkongjian.png'
-            }],
-            styles: {
-                bg: '#FFF',
-                column: 4,
-                itemText: {
-                    color: '#000',
-                    size: 12,
-                    marginT: 8
+                      dialogBox.close({
+                          dialogName: 'actionMenu'
+                      });
+                      // alert(1);
+                  }
+
+
+          });
+
+        }else if (NoQQ) {
+          var dialogBox = api.require('dialogBox');
+          dialogBox.actionMenu({
+              rect: {
+                  h: 150
+              },
+              texts: {
+                  cancel: '取消'
+              },
+              items: [{
+                  text: '微信',
+                  icon: 'widget://image/weixin.png'
+              }, {
+                  text: '朋友圈',
+                  icon: 'widget://image/friends.png'
+              }],
+              styles: {
+                  bg: '#FFF',
+                  column: 2,
+                  itemText: {
+                      color: '#000',
+                      size: 12,
+                      marginT: 8
+                  },
+                  itemIcon: {
+                      size: 30
+                  },
+                  cancel: {
+                      bg: 'fs://icon.png',
+                      color: '#000',
+                      h: 44,
+                      size: 14
+                  }
+              },
+              tapClose: true
+          }, function(ret) {
+              if (ret.eventType == 'cancel') {
+                  dialogBox.close({
+                      dialogName: 'actionMenu'
+                  });
+              }
+              if (ret.index == "0") {
+                  var imgaesFx = host + '/' + mid;
+                  // console.log(imgaesFx);
+                  api.download({
+                      url: imgaesFx,
+                      savePath: 'fs://savePath/' + mid,
+                      report: true,
+                      cache: true,
+                      allowResume: true
+                  }, function(ret, err) {
+                      // console.log(JSON.stringify(ret));
+                      if (ret.state == 1) {
+                          //下载成功
+                          var savePath = ret.savePath;
+                          // console.log(savePath);
+                          var songListID = ids;
+                          var title = textName;
+                          shareMp3Single(songListID, title, savePath);
+                          // var savePath = '';
+                          // shareMp3Single(songListID,title,savePath);
+                          // shareMp3Album(name,listening_description,l_id);
+                      } else {
+                          // console.log(JSON.stringify(err));
+                      }
+                  });
+                  dialogBox.close({
+                      dialogName: 'actionMenu'
+                  });
+                  // alert(1);
+              } else if (ret.index == "1") {
+                  var imgaesFx = host + '/' + mid;
+                  // console.log(imgaesFx);
+                  api.download({
+                      url: imgaesFx,
+                      savePath: 'fs://savePath/' + mid,
+                      report: true,
+                      cache: true,
+                      allowResume: true
+                  }, function(ret, err) {
+                      // console.log(JSON.stringify(ret));
+                      if (ret.state == 1) {
+                          //下载成功
+                          var savePath = ret.savePath;
+                          // console.log(savePath);
+                          var songListID = ids;
+                          var title = textName;
+                          initTimelineSingle(songListID, title, savePath);
+                          // var savePath = '';
+                          // shareMp3Single(songListID,title,savePath);
+                          // shareMp3Album(name,listening_description,l_id);
+                      } else {
+                          // console.log(JSON.stringify(err));
+                      }
+                  });
+                  dialogBox.close({
+                      dialogName: 'actionMenu'
+                  });
+                  // alert(3);
+              }
+
+          });
+          }else if (NoWeiXin) {
+            var dialogBox = api.require('dialogBox');
+            dialogBox.actionMenu({
+                rect: {
+                    h: 150
                 },
-                itemIcon: {
-                    size: 30
+                texts: {
+                    cancel: '取消'
                 },
-                cancel: {
-                    bg: 'fs://icon.png',
-                    color: '#000',
-                    h: 44,
-                    size: 14
+                items: [ {
+                    text: 'QQ',
+                    icon: 'widget://image/qq.png'
+
+                }, {
+                    text: 'QQ空间',
+                    icon: 'widget://image/QQkongjian.png'
+                }],
+                styles: {
+                    bg: '#FFF',
+                    column: 2,
+                    itemText: {
+                        color: '#000',
+                        size: 12,
+                        marginT: 8
+                    },
+                    itemIcon: {
+                        size: 30
+                    },
+                    cancel: {
+                        bg: 'fs://icon.png',
+                        color: '#000',
+                        h: 44,
+                        size: 14
+                    }
+                },
+                tapClose: true
+            }, function(ret) {
+                if (ret.eventType == 'cancel') {
+                    dialogBox.close({
+                        dialogName: 'actionMenu'
+                    });
                 }
-            },
-            tapClose: true
-        }, function(ret) {
-            if (ret.eventType == 'cancel') {
-                dialogBox.close({
-                    dialogName: 'actionMenu'
-                });
-            }
-            if (ret.index == "0") {
-                var imgaesFx = host + '/' + mid;
-                // console.log(imgaesFx);
-                api.download({
-                    url: imgaesFx,
-                    savePath: 'fs://savePath/' + mid,
-                    report: true,
-                    cache: true,
-                    allowResume: true
-                }, function(ret, err) {
-                    // console.log(JSON.stringify(ret));
-                    if (ret.state == 1) {
-                        //下载成功
-                        var savePath = ret.savePath;
-                        // console.log(savePath);
-                        var songListID = ids;
-                        var title = textName;
-                        shareMp3Single(songListID, title, savePath);
-                        // var savePath = '';
-                        // shareMp3Single(songListID,title,savePath);
-                        // shareMp3Album(name,listening_description,l_id);
-                    } else {
-                        // console.log(JSON.stringify(err));
-                    }
-                });
-                dialogBox.close({
-                    dialogName: 'actionMenu'
-                });
-                // alert(1);
-            } else if (ret.index == "1") {
-                var imgaesFx = host + '/' + mid;
-                // console.log(imgaesFx);
-                api.download({
-                    url: imgaesFx,
-                    savePath: 'fs://savePath/' + mid,
-                    report: true,
-                    cache: true,
-                    allowResume: true
-                }, function(ret, err) {
-                    // console.log(JSON.stringify(ret));
-                    if (ret.state == 1) {
-                        //下载成功
-                        var savePath = ret.savePath;
-                        // console.log(savePath);
-                        var songListID = ids;
-                        var title = textName;
-                        initTimelineSingle(songListID, title, savePath);
-                        // var savePath = '';
-                        // shareMp3Single(songListID,title,savePath);
-                        // shareMp3Album(name,listening_description,l_id);
-                    } else {
-                        // console.log(JSON.stringify(err));
-                    }
-                });
-                dialogBox.close({
-                    dialogName: 'actionMenu'
-                });
-                // alert(3);
-            } else if (ret.index == "2") {
-                var imgaesFx = host + '/' + mid;
-                // console.log(imgaesFx);
-                api.download({
-                    url: imgaesFx,
-                    savePath: 'fs://savePath/' + mid,
-                    report: true,
-                    cache: true,
-                    allowResume: true
-                }, function(ret, err) {
-                    // console.log(JSON.stringify(ret));
-                    if (ret.state == 1) {
-                        //下载成功
-                        var savePath = ret.savePath;
-                        // console.log(savePath);
-                        var songListID = ids;
-                        var title = textName;
-                        fnQQZoneSingle(songListID, title, savePath);
-                        // var savePath = '';
-                        // shareMp3Single(songListID,title,savePath);
-                        // shareMp3Album(name,listening_description,l_id);
-                    } else {
-                        // console.log(JSON.stringify(err));
-                    }
-                });
-                dialogBox.close({
-                    dialogName: 'actionMenu'
-                });
-                // alert(2);
+                if (ret.index == "0") {
+                    var imgaesFx = host + '/' + mid;
+                    // console.log(imgaesFx);
+                    api.download({
+                        url: imgaesFx,
+                        savePath: 'fs://savePath/' + mid,
+                        report: true,
+                        cache: true,
+                        allowResume: true
+                    }, function(ret, err) {
+                        // console.log(JSON.stringify(ret));
+                        if (ret.state == 1) {
+                            //下载成功
+                            var savePath = ret.savePath;
+                            // console.log(savePath);
+                            var songListID = ids;
+                            var title = textName;
+                            fnQQZoneSingle(songListID, title, savePath);
+                            // var savePath = '';
+                            // shareMp3Single(songListID,title,savePath);
+                            // shareMp3Album(name,listening_description,l_id);
+                        } else {
+                            // console.log(JSON.stringify(err));
+                        }
+                    });
+                    dialogBox.close({
+                        dialogName: 'actionMenu'
+                    });
+                    // alert(2);
 
-            } else if (ret.index == "3") {
-                var imgaesFx = host + '/' + mid;
-                // console.log(imgaesFx);
-                api.download({
-                    url: imgaesFx,
-                    savePath: 'fs://savePath/' + mid,
-                    report: true,
-                    cache: true,
-                    allowResume: true
-                }, function(ret, err) {
-                    // console.log(JSON.stringify(ret));
-                    if (ret.state == 1) {
-                        //下载成功
-                        var savePath = ret.savePath;
-                        // console.log(savePath);
-                        var songListID = ids;
-                        var title = textName;
-                        fnintnQQSingle(songListID, title, savePath);
-                        // var savePath = '';
-                        // shareMp3Single(songListID,title,savePath);
-                        // shareMp3Album(name,listening_description,l_id);
-                    } else {
-                        // console.log(JSON.stringify(err));
-                    }
-                });
-                dialogBox.close({
-                    dialogName: 'actionMenu'
-                });
-                // alert(2);
-            } else {
-                dialogBox.close({
-                    dialogName: 'actionMenu'
-                });
-            }
-            // dialogBox.close({
-            //     dialogName: 'alert'
-            // })
-            // alert(JSON.stringify(ret))
+                } else if (ret.index == "1") {
+                    var imgaesFx = host + '/' + mid;
+                    // console.log(imgaesFx);
+                    api.download({
+                        url: imgaesFx,
+                        savePath: 'fs://savePath/' + mid,
+                        report: true,
+                        cache: true,
+                        allowResume: true
+                    }, function(ret, err) {
+                        // console.log(JSON.stringify(ret));
+                        if (ret.state == 1) {
+                            //下载成功
+                            var savePath = ret.savePath;
+                            // console.log(savePath);
+                            var songListID = ids;
+                            var title = textName;
+                            fnintnQQSingle(songListID, title, savePath);
+                            // var savePath = '';
+                            // shareMp3Single(songListID,title,savePath);
+                            // shareMp3Album(name,listening_description,l_id);
+                        } else {
+                            // console.log(JSON.stringify(err));
+                        }
+                    });
+                    dialogBox.close({
+                        dialogName: 'actionMenu'
+                    });
+                    // alert(2);
+                } else {
+                    dialogBox.close({
+                        dialogName: 'actionMenu'
+                    });
+                }
+                // dialogBox.close({
+                //     dialogName: 'alert'
+                // })
+                // alert(JSON.stringify(ret))
 
-        });
+            });
+        }else {
+          var dialogBox = api.require('dialogBox');
+          dialogBox.actionMenu({
+              rect: {
+                  h: 150
+              },
+              texts: {
+                  cancel: '取消'
+              },
+              items: [{
+                  text: '微信',
+                  icon: 'widget://image/weixin.png'
+              }, {
+                  text: '朋友圈',
+                  icon: 'widget://image/friends.png'
+              }, {
+                  text: 'QQ',
+                  icon: 'widget://image/qq.png'
+
+              }, {
+                  text: 'QQ空间',
+                  icon: 'widget://image/QQkongjian.png'
+              }],
+              styles: {
+                  bg: '#FFF',
+                  column: 4,
+                  itemText: {
+                      color: '#000',
+                      size: 12,
+                      marginT: 8
+                  },
+                  itemIcon: {
+                      size: 30
+                  },
+                  cancel: {
+                      bg: 'fs://icon.png',
+                      color: '#000',
+                      h: 44,
+                      size: 14
+                  }
+              },
+              tapClose: true
+          }, function(ret) {
+              if (ret.eventType == 'cancel') {
+                  dialogBox.close({
+                      dialogName: 'actionMenu'
+                  });
+              }
+              if (ret.index == "0") {
+                  var imgaesFx = host + '/' + mid;
+                  // console.log(imgaesFx);
+                  api.download({
+                      url: imgaesFx,
+                      savePath: 'fs://savePath/' + mid,
+                      report: true,
+                      cache: true,
+                      allowResume: true
+                  }, function(ret, err) {
+                      // console.log(JSON.stringify(ret));
+                      if (ret.state == 1) {
+                          //下载成功
+                          var savePath = ret.savePath;
+                          // console.log(savePath);
+                          var songListID = ids;
+                          var title = textName;
+                          shareMp3Single(songListID, title, savePath);
+                          // var savePath = '';
+                          // shareMp3Single(songListID,title,savePath);
+                          // shareMp3Album(name,listening_description,l_id);
+                      } else {
+                          // console.log(JSON.stringify(err));
+                      }
+                  });
+                  dialogBox.close({
+                      dialogName: 'actionMenu'
+                  });
+                  // alert(1);
+              } else if (ret.index == "1") {
+                  var imgaesFx = host + '/' + mid;
+                  // console.log(imgaesFx);
+                  api.download({
+                      url: imgaesFx,
+                      savePath: 'fs://savePath/' + mid,
+                      report: true,
+                      cache: true,
+                      allowResume: true
+                  }, function(ret, err) {
+                      // console.log(JSON.stringify(ret));
+                      if (ret.state == 1) {
+                          //下载成功
+                          var savePath = ret.savePath;
+                          // console.log(savePath);
+                          var songListID = ids;
+                          var title = textName;
+                          initTimelineSingle(songListID, title, savePath);
+                          // var savePath = '';
+                          // shareMp3Single(songListID,title,savePath);
+                          // shareMp3Album(name,listening_description,l_id);
+                      } else {
+                          // console.log(JSON.stringify(err));
+                      }
+                  });
+                  dialogBox.close({
+                      dialogName: 'actionMenu'
+                  });
+                  // alert(3);
+              } else if (ret.index == "2") {
+                  var imgaesFx = host + '/' + mid;
+                  // console.log(imgaesFx);
+                  api.download({
+                      url: imgaesFx,
+                      savePath: 'fs://savePath/' + mid,
+                      report: true,
+                      cache: true,
+                      allowResume: true
+                  }, function(ret, err) {
+                      // console.log(JSON.stringify(ret));
+                      if (ret.state == 1) {
+                          //下载成功
+                          var savePath = ret.savePath;
+                          // console.log(savePath);
+                          var songListID = ids;
+                          var title = textName;
+                          fnQQZoneSingle(songListID, title, savePath);
+                          // var savePath = '';
+                          // shareMp3Single(songListID,title,savePath);
+                          // shareMp3Album(name,listening_description,l_id);
+                      } else {
+                          // console.log(JSON.stringify(err));
+                      }
+                  });
+                  dialogBox.close({
+                      dialogName: 'actionMenu'
+                  });
+                  // alert(2);
+
+              } else if (ret.index == "3") {
+                  var imgaesFx = host + '/' + mid;
+                  // console.log(imgaesFx);
+                  api.download({
+                      url: imgaesFx,
+                      savePath: 'fs://savePath/' + mid,
+                      report: true,
+                      cache: true,
+                      allowResume: true
+                  }, function(ret, err) {
+                      // console.log(JSON.stringify(ret));
+                      if (ret.state == 1) {
+                          //下载成功
+                          var savePath = ret.savePath;
+                          // console.log(savePath);
+                          var songListID = ids;
+                          var title = textName;
+                          fnintnQQSingle(songListID, title, savePath);
+                          // var savePath = '';
+                          // shareMp3Single(songListID,title,savePath);
+                          // shareMp3Album(name,listening_description,l_id);
+                      } else {
+                          // console.log(JSON.stringify(err));
+                      }
+                  });
+                  dialogBox.close({
+                      dialogName: 'actionMenu'
+                  });
+                  // alert(2);
+              } else {
+                  dialogBox.close({
+                      dialogName: 'actionMenu'
+                  });
+              }
+              // dialogBox.close({
+              //     dialogName: 'alert'
+              // })
+              // alert(JSON.stringify(ret))
+
+          });
+
+        }
+
+
+
+
+
+
+
+
+
+
         // alert(id);
     }
 </script>

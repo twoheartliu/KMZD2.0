@@ -70,6 +70,8 @@
         .fnMaskLayer div p{color: #000;display: block;text-align: left;text-indent: 2rem;text-align: 12px;}
         .fnMaskLayer div .clr{height: 20px;}
         .buttion{color: #000;font-size: 16px;float: right;padding: 4px 10px;}
+        .login_footer .p20px div{width: 33%;color: #89211b;text-align: center;}
+        .youkedengluCss{width: 100%;text-align: center;color: #89211b;}
     </style>
 </head>
 
@@ -79,10 +81,11 @@
             手机号登录
         </div>
         <div class="login_footer">
+            <div class="youkedengluCss" onclick="fnYouKeDengLu();">游客模式 </div>
+            <div class="clr"></div>
             <div class="p20px">
-                <div class="login_qq fl" onclick="fnQQLogin();">QQ登录 ></div>
-                <div class="login_sj fr" onclick="fnWXLogin();">微信登录 ></div>
-                <div class="clr"></div>
+                <div class="fl" onclick="fnQQLogin();" id="fnQQLogin">QQ登录 </div>
+                <div class="fr" onclick="fnWXLogin();" id="fnWXLogin">微信登录 </div>
             </div>
         </div>
     </div>
@@ -101,27 +104,81 @@
     var userInfos = JSON.stringify($api.getStorage("userInfo"));
     var token;
     apiready = function() {
+      token = $api.getStorage('token');
       fnMaskLayer();
       initEventListenner();
-
-      token = $api.getStorage('token');
       // console.log(token);
-      functionName();
-
-
+      // functionName();
+      fnJianCeQQWeixin();
     }
-    function functionName() {
-      if (typeof(token) != "undefined")
-      {
-        setTimeout(function(){
-          api.openWin({
-              name: 'index',
-              url: './index.html',
-              slidBackEnabled:false,
-          });
-        },1000);
-      }
+    function fnJianCeQQWeixin() {
+      var qq = api.require('qq');
+      qq.installed(function(ret, err) {
+          if (ret.status) {
+            // console.log(1);
+              // api.alert({ msg: "安装" });
+          } else {
+            // console.log(2);
+            var fnQQLogin = $api.byId('fnQQLogin');
+            $api.css(fnQQLogin, 'display:none');
+
+              // api.alert({ msg: "没有安装" });
+          }
+      });
+      var wx = api.require('wx');
+      wx.isInstalled(function(ret, err) {
+          if (ret.installed) {
+              // console.log("当前设备已安装微信客户端");
+          } else {
+              var fnWXLogin = $api.byId('fnWXLogin');
+              $api.css(fnWXLogin, 'display:none');
+          }
+      });
     }
+    // function fnDisplayNone() {
+    //   api.ajax({
+    //       url: host + apiUri + '/system/is_show',
+    //       method: 'get',
+    //       dataType: 'json',
+    //       timeout:10,
+    //       headers: {
+    //           "source": api.systemType,
+    //           "version": version,
+    //           "session": token
+    //       },
+    //       data: {
+    //           values: {},
+    //       }
+    //   },function(ret, err){
+    //       if (ret) {
+    //           if (ret.status == 200) {
+    //             if (ret.data == "0") {
+    //               var fnQQLogin = $api.byId('fnQQLogin');
+    //               $api.css(fnQQLogin, 'display:none');
+    //               var fnWXLogin = $api.byId('fnWXLogin');
+    //               $api.css(fnWXLogin, 'display:none');
+    //             }
+    //           } else {
+    //             netMessage(ret);
+    //           }
+    //       } else {
+    //           netWork(err);
+    //       }
+    //   });
+    //
+    // }
+    // function functionName() {
+    //   // if (typeof(token) != "undefined")
+    //   // {
+    //     // setTimeout(function(){
+    //       api.openWin({
+    //           name: 'index',
+    //           url: './index.html',
+    //           slidBackEnabled:false,
+    //       });
+    //   //   },1000);
+    //   // }
+    // }
     // 遮罩层
     function fnMaskLayer() {
       api.addEventListener({
@@ -146,6 +203,7 @@
           name: 'index',
           url: './index.html',
           slidBackEnabled:false,
+          reload: true,
           pageParam: {
               name: 'test'
           }
@@ -176,6 +234,7 @@
         api.openWin({
             name: 'login_user',
             url: 'login_user.html',
+            reload: true,
             pageParam: {
                 name: 'test'
             }
@@ -208,11 +267,9 @@
                           wx.refreshToken({
                               dynamicToken: ret.dynamicToken
                           }, function(ret, err) {
-
                               if (ret.status) {
                                 accessToken = ret.accessToken;
                                 openId = ret.openId;
-
                               } else {
                                 api.toast({              
                                     msg:  err.code,
@@ -263,6 +320,7 @@
                                          name: 'index',
                                          url: 'index.html',
                                          slidBackEnabled:false,
+                                          reload: true,
                                      });
                                   }else{
                                     netMessage(ret);
@@ -363,6 +421,7 @@
                                          name: 'index',
                                          url: 'index.html',
                                          slidBackEnabled:false,
+                                         reload: true,
                                      });
                                   }else{
                                     netMessage(ret);
@@ -416,6 +475,29 @@
     function buttion() {
       var fnMaskLayer = $api.byId('fnMaskLayer');
       $api.css(fnMaskLayer, 'display:none');
+
+    }
+    function fnYouKeDengLu() {
+      api.sendEvent({
+          name: 'loginUser',
+          extra: {
+              loginUser: 'loginUser'
+          }
+      });
+      api.openWin({
+          name: 'index',
+          url: './index.html',
+          slidBackEnabled:false,
+          reload: true,
+          animation: {
+            type:"none",
+            subType:"from_right",
+            duration:300
+          },
+          pageParam: {
+              name: 'test'
+          }
+      });
 
     }
 </script>

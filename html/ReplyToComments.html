@@ -54,17 +54,34 @@
 
     }
     function ReplyToCommentsDiscuss_detail() {
-      api.openWin({
-          name: 'ReplyToCommentsDiscussDetail',
-          url: './ReplyToCommentsDiscuss_detail.html',
-          pageParam: {
-              albumId: albumId,
-              uris: uris,
-              name: name,
-              ok:'ReplyToCommentsDiscuss_detail'
-          },
-          reload : true
-      });
+      var token = $api.getStorage('token');
+      if (token) {
+        api.openWin({
+            name: 'ReplyToCommentsDiscussDetail',
+            url: './ReplyToCommentsDiscuss_detail.html',
+            pageParam: {
+                albumId: albumId,
+                uris: uris,
+                name: name,
+                ok:'ReplyToCommentsDiscuss_detail'
+            },
+            reload : true
+        });
+
+      }else {
+        api.openWin({
+            name: 'token',
+            url: './token.html',
+            slidBackEnabled:false,
+            reload: true,
+            animation: {
+             type:"none",
+             subType:"from_right",
+             duration:300
+           },
+        });
+      }
+
 
     }
 </script>

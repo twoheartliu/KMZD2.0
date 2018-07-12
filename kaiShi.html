@@ -7,11 +7,11 @@
     <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
     <title>孔孟之道</title>
     <style media="screen">
-      /**{padding: 0;margin: 0;}
+      *{padding: 0;margin: 0;}
       body{overflow: hidden;background-size: 100% 100%;background-repeat: no-repeat;}
       #messageFrameDiv{width: 100%;overflow: hidden;position: relative;}
       img{width: 100%;position: relative;z-index: 0;display: }
-      .class3s{width: 40px;height: 20px;border-radius: 10px;background: rgba(0,0,0,0.4);text-align: center;position: absolute;right: 10px;z-index: 1;top:20px;}*/
+      .class3s{width: 40px;height: 20px;border-radius: 10px;background: rgba(0,0,0,0.4);text-align: center;position: absolute;right: 10px;z-index: 1;top:20px;}
     </style>
 </head>
 
@@ -46,7 +46,7 @@
       else if ((document.body) && (document.body.clientHeight))
           winHeight = document.body.clientHeight;
           var  body = $api.byId('body');
-          $api.css(body, 'block;background-image: url(./image/iowa-1080x1920.png);');
+          // $api.css(body, 'block;background-image: url(./image/iowa-1080x1920.png);');
 
 
       var messageFrameDiv = $api.byId('messageFrameDiv');
@@ -77,9 +77,10 @@
       // }
 
       api.openWin({
-          name: 'login',
-          url: './login.html',
+          name: 'index',
+          url: './index.html',
           slidBackEnabled:false,
+          reload: true,
       });
 
     }

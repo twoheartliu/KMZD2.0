@@ -470,15 +470,18 @@
                 lujing = './ListingsList.html';
                 titles = '听单';
 
-                api.openWin({
-                    name: 'OpenList',
-                    url: lujing,
-                    // console.log('lujing');
-                    pageParam: {
-                        floor_name: titles,
-                        albumId: listenName,
-                    }
-                });
+
+                    api.openWin({
+                        name: 'OpenList',
+                        url: lujing,
+                        // console.log('lujing');
+                        pageParam: {
+                            floor_name: titles,
+                            albumId: listenName,
+                        }
+                    });
+
+
                 // alert( JSON.stringify( ret ) );
             } else {
                 alert(JSON.stringify(err));

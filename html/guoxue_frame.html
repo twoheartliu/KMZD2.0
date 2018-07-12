@@ -170,15 +170,15 @@
     var token;
     apiready = function() {
         token = $api.getStorage('token');
-        if (token) {
+        // if (token) {
             fnGetLieBiao();
             fnGetDirectory();
             fnGetView_history();
-        } else {
-          api.closeToWin({
-            name: 'login'
-          });
-        }
+        // } else {
+        //   api.closeToWin({
+        //     name: 'login'
+        //   });
+        // }
 
               api.setCustomRefreshHeaderInfo({
                   bgColor: '#f0f0f0',
@@ -317,13 +317,17 @@
             },
         }, function(ret, err) {
           if(ret){
+            //   console.log(JSON.stringify(ret));
             if (ret.status == 200) {
               // setTimeout(function(){
                   api.refreshHeaderLoadDone()
               // },3000)
                 fnDirectory(ret);
             } else {
+            //   console.log(JSON.stringify(ret));
+            //   console.log(JSON.stringify(err));
                 netMessage(ret);
+
             }
           }else {
             netWork(err);
@@ -371,15 +375,31 @@
     }
 
     function guoxue_frame(id,floor_name) {
-        api.openWin({
-            name: 'single',
-            url: './single.html',
-            pageParam: {
-                albumId: id,
-                floor_name:floor_name,
-                ok:'single'
-            }
-        });
+        var token = $api.getStorage('token');
+        if (token) {
+            api.openWin({
+                name: 'single',
+                url: './single.html',
+                pageParam: {
+                    albumId: id,
+                    floor_name:floor_name,
+                    ok:'single'
+                }
+            });
+        }else {
+          api.openWin({
+              name: 'token',
+              url: './token.html',
+              slidBackEnabled:false,
+              reload: true,
+              animation: {
+               type:"none",
+               subType:"from_right",
+               duration:300
+             },
+          });
+        }
+
 
     }
 </script>

@@ -145,6 +145,18 @@
             }
         });
 
+        api.addEventListener({
+            name: 'feedbackImg'
+        }, function(ret, err){
+            if( ret ){
+                img = ret.value.feedbackImg
+                //  alert( JSON.stringify( ret ) );
+            }else{
+                 alert( JSON.stringify( err ) );
+            }
+        });
+
+
     }
 
     function fnAjaxCreate(type, contact, content) {
@@ -187,6 +199,7 @@
                     'contact': contact,
                     'type': type,
                     'content': content,
+                    'img': img,
                 }
             }
         }, function(ret, err) {

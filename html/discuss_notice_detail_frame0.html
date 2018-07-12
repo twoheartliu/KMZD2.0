@@ -242,6 +242,7 @@
         .nav-txt_name {
             font-size: 12px;
             /*text-indent: 1rem;*/
+            font-weight: 600;
         }
 
         .nav-txt_p {
@@ -368,7 +369,6 @@
                 fnDetails(soundId);
                 ListenToTheListOfComments();
             });
-
         }
         //个人主页
     function fnOpenmyPersonal(id, nickname) {
@@ -399,30 +399,30 @@
             // console.log(JSON.stringify(ret));
             if (ret) {
                 if (ret.status == 200) {
+
                     var stylelist = $api.byId('details');
                     var html = '';
                     var totalCovers = host + '/' + ret.data.cover_mid;
-                    var cover = '../image/my/fnShareImg.jpg'
-                    var newCover = totalCovers ? totalCovers : cover
-                    if (ret.data.author_name) {
-                        html =
-                            '  <div class="nav-left fl"  onclick="fnPlayHTML(' + ret.data.id + ');">' +
-                            '<div class="nav-img"><img src="' + newCover + '" alt=""></div>' +
-                            '<div class="nav-txt">' +
-                            '<p class="nav-txt_name">' + ret.data.title + '</p>' +
-                            '<p class="nav-txt_p">' + ret.data.author_name + '</p> ' +
-                            '</div>' +
-                            '  </div>' +
-                            '<div class="clear"></div>'
+                    var cover = '../image/single.png'
+                    var newCover;
+                    if (totalCovers.slice(-4) == 'null') {
+                        newCover = cover;
                     } else {
-                        html = '  <div class="nav-left fl"  onclick="fnPlayHTML(' + ret.data.id + ');">' +
-                            '<div class="nav-img"><img src="' + newCover + '" alt=""></div>' +
-                            '<div class="nav-txt">' +
-                            '<p class="nav-txt_name">' + ret.data.title + '</p>' +
-                            '</div>' +
-                            '  </div>' +
-                            '<div class="clear"></div>'
+                        newCover = totalCovers;
                     }
+
+                    var reciter = ret.data.reciter ? '朗诵者：' + ret.data.reciter : '';
+                    var author = ret.data.author_name ? '作者：' + ret.data.author_name : '';
+                    // console.log(newCover);
+                    html =
+                        '  <div class="nav-left fl"  onclick="fnPlayHTML(' + ret.data.id + ');">' +
+                        '<div class="nav-img"><img src="' + newCover + '" alt=""></div>' +
+                        '<div class="nav-txt">' +
+                        '<p class="nav-txt_name">' + ret.data.title + '</p>' +
+                        '<p class="nav-txt_p">' + author + '</p> ' + '<p class="nav-txt_p">' + reciter + '</p> '
+                    '</div>' +
+                    '  </div>' +
+                    '<div class="clear"></div>'
 
                     $api.html(stylelist, html);
                 } else {
@@ -560,7 +560,8 @@
     }
 
     function ReplyToCommentsDiscuss_detail() {
-
+      var token = $api.getStorage('token');
+      if (token) {
         api.openWin({
             name: 'ReplyToCommentsDiscussDetailSingle',
             url: './ReplyToCommentsDiscuss_detail_single.html',
@@ -572,6 +573,21 @@
             },
             reload: true
         });
+
+      }else {
+        api.openWin({
+            name: 'token',
+            url: './token.html',
+            slidBackEnabled:false,
+            reload: true,
+            animation: {
+             type:"none",
+             subType:"from_right",
+             duration:300
+           },
+        });
+      }
+
 
     }
 

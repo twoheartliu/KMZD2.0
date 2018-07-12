@@ -488,10 +488,8 @@
                 if (p == 1) {
                     if (ret.data == '') {
                         var footer = $api.byId('footer');
-                        var t =
-                            `
-                        还未上传朗诵作品
-                        `
+                        var t =  '还未上传朗诵作品'
+
                         $api.html(footer, t);
 
                     } else if (ret.data.length < 8) {
@@ -502,10 +500,7 @@
                 } else {
                     if (ret.data == '') {
                         var footer = $api.byId('footer');
-                        var t =
-                            `
-                        没有更多结果了
-                        `
+
                         $api.html(footer, '没有更多结果了');
                         isFirst = false;
                     } else {

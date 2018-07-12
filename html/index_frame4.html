@@ -276,23 +276,23 @@
         color: #fff;
         line-height: 20px;
       }
+      .yincang{display: none !important;}
+      .xianshi{display: block;}
   </style>
 </head>
 
 <body>
     <div class="index_header">
         <div class="index_header_div">
-            <div id="imgs" class="index_header_img" onclick="fnUpimg();">
-                <!-- <img src="../image/KM_tx.png" alt=""> -->
+            <div id="TokenImgs">
+                <div id="imgs" class="index_header_img" onclick="fnUpimg();"></div>
             </div>
-            <div class="wode_bg">
-                <div class="index_header_mvp_p" id="username"></div>
-                <div class="index_header_mvp_p" id='signature'></div>
+
+            <div class="wode_bg" id="TokenImgs">
+                <!-- <div>立即登录</div> -->
+                <div class="index_header_mvp_p" id="username" onclick="fnUpimg();">请登录</div>
+                <div class="index_header_mvp_p" id="signature"></div>
                 <div class="index_header_mvp_span">
-                    <!-- <div class="bar">
-                    <div id="scoreBar">&nbsp;</div>
-                  </div>
-                  <span id="scoreDisplay"></span> -->
                     <div class="processcontainer" id="processcontainer">
                         <div id="processbar"></div>
                         <span id="scoreDisplay1"></span>
@@ -306,15 +306,15 @@
                         <div class="p20px">
                             <div class="index_header_sans border_r" onclick="fnPersonalWin();">
                                 <div>作品</div>
-                                <div><span id="product"></span>个</div>
+                                <div><span id="product">0</span>个</div>
                             </div>
                             <div class="index_header_sans border_r" onclick="fnOpenMyCare();">
                                 <div>关注</div>
-                                <div><span id='care'></span>个</div>
+                                <div><span id='care'>0</span>人</div>
                             </div>
                             <div class="index_header_sans" onclick="fnFans();">
                                 <div>粉丝</div>
-                                <div><span id="fans"></span>个</div>
+                                <div><span id="fans">0</span>人</div>
                             </div>
                         </div>
                     </div>
@@ -328,7 +328,7 @@
         <div class="p20pxs">
             <div class="index_name_li1">
 
-                <div class="index_name_div border_b" onclick="fnUpimg();">
+                <div class="index_name_div border_b" onclick="fnUserImg();">
                     <div class="index_name_div_img fl"><img src="../image/my/KM_grzx.png" alt=""></div>
                     <span class="index_name_div_span fl">个人中心</span>
                     <div class="index_name_div_imgr fr"><img src="../image/my/index_y.png" alt=""></div>
@@ -397,10 +397,12 @@
 <script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript" src="../script/message.js"></script>
 <script type="text/javascript">
-    var token;
+    // var token;
+    var status;
     apiready = function() {
-            token = $api.getStorage('token');
-            if (token) {
+            // token = $api.getStorage('token');
+            // if (token) {
+                fnHtmlDom();
                 api.parseTapmode();
                 fnpersonalInfo();
 
@@ -467,6 +469,7 @@
                     name: 'indexFrame4'
                 }, function(ret, err) {
                     fnpersonalInfo();
+                    fnHtmlDom();
                     fnNum();
                 });
                 api.setCustomRefreshHeaderInfo({
@@ -497,256 +500,378 @@
                 }, function() {
                     //下拉刷新被触发，自动进入加载状态，使用 api.refreshHeaderLoadDone() 手动结束加载中状态
                     //下拉刷新被触发，使用 api.refreshHeaderLoadDone() 结束加载中状态
-
+                    // setTimeout(api.refreshHeaderLoadDone(), 2000)
                     fnpersonalInfo();
+                    fnHtmlDom();
+                    fnTingZhiXiaLaShuaXin();
 
                 });
-            } else {
-                $api.rmStorage('token');
-                api.openWin({
-                    name: 'login',
-                    url: '../login.html',
-                    pageParam: {
-                        ok: 'login'
-                    }
-                });
-            }
+            // } else {
+            //     $api.rmStorage('token');
+            //     api.openWin({
+            //         name: 'login',
+            //         url: '../login.html',
+            //         pageParam: {
+            //             ok: 'login'
+            //         }
+            //     });
+            // }
 
-        }
-        // 切换页面我的页面未读消息数量刷新
-    function fnNum() {
-        api.ajax({
-            url: host + apiUri + '/message/unread_message_nums',
-            method: 'get',
-            dataType: 'json',
-            timeout: 10,
-            headers: {
-                "source": api.systemType,
-                "version": version,
-                "session": token,
-            }
-        }, function(ret, err) {
-            if (ret) {
-                // console.log(JSON.stringify(ret));
-                if (ret.status == 200) {
-                    var message = ret.data.message;
-                    var comment = ret.data.comment;
-                    var notify = ret.data.notify;
-                    var total = message + comment + notify;
-                    // console.log(total);
-                    var numIndex4 = $api.byId('numIndex4');
-                    if (total == 0) {
-                        var htmlnumIndex4 = ''
-                        $api.html(numIndex4, htmlnumIndex4);
-                    } else if (total < 10) {
-                        messages = '<p>'+total+'</p>';
-                        $api.html(numIndex4, messages);
-                    } else {
-                        var htmlnumIndex4 = '<p style="width: 20px;">' + total + '</p>'
-                        $api.html(numIndex4, htmlnumIndex4);
-                    }
-                } else {
-                    netMessage(ret);
-                }
-            } else {
-                netWork(err);
-            }
-        });
-    }
 
-    function fnpersonalInfo() {
-        var uri = '/user';
-        api.ajax({
-            url: host + apiUri + uri,
-            method: 'get',
-            dataType: 'json',
-            timeout: 10,
-            cache: false,
-            headers: {
-                "source": api.systemType,
-                "version": version,
-                "session": token
-            }
-        }, function(ret, err) {
-            if (ret) {
-                if (ret.status == 200) {
-                    api.refreshHeaderLoadDone()
-                        //头像
-                    var title1 = $api.byId("imgs");
-                    var html4 = '';
-                    // console.log(ret.data.photo);
-                    if (ret.data.photo == null) {
-                        html4 = '<img src="../image/KM_tx.png" alt="" />';
-                        $api.html(title1, html4);
-                    } else {
-                        var photo = ret.data.photo.substring(0, 4);
-                        if (photo == 'http') {
-                            // title = ret.data[i].photo;
-                            html4 = '<img src="' + ret.data.photo + '" alt="" />';
-                        }
-                        if (photo != 'http') {
-                            html4 = '<img src="' + updatePhotoUrl + ret.data.photo + '" alt="" />';
-                        }
+            // 退出登录状态显示的内容
+            api.addEventListener({
+                name: 'bFaaaaa'
+            }, function(ret, err){
+                if( ret ){
+                    fnpersonalInfo();
+                    fnHtmlDom();
+                    var processcontainer = document.getElementById('processcontainer');
+                    $api.removeCls(processcontainer, 'xianshi');
+                    $api.addCls(processcontainer, 'yincang');
+                    var processcontainer = document.getElementById('dengJi');
+                    $api.removeCls(dengJi, 'xianshi');
+                    $api.addCls(dengJi, 'yincang');
+                    var signature = document.getElementById('signature');
+                    $api.removeCls(signature, 'xianshi');
+                    $api.addCls(signature, 'yincang');
+                    //  alert( JSON.stringify( ret ) );
+                    status = ret.value.bFaaaaa
+                    // 这段是头像以及昵称
+                    // var TokenImgs = $api.byId('TokenImgs');
+                    // var HtmlTokenImgs = '<div id="imgs" class="index_header_img" onclick="toLogin();"><img src="../image/KM_tx.png" alt="" /></div>'
+                      var TokenImgs = $api.byId('TokenImgs');
+                      var HtmlTokenImgs = '<div id="imgs" class="index_header_img" onclick="fnUpimg();"><img src="../image/KM_tx.png" alt="" /></div>'
+                      $api.html(TokenImgs, HtmlTokenImgs);
+                      var wode_bg = $api.byId('wode_bg');
+                      var qingdenglu = '请登录';
+                      var username = $api.byId('username');
+                      $api.html(username, qingdenglu);
 
-                        $api.html(title1, html4);
-                    }
-                    //用户名
-                    var stylelist = $api.byId('username');
-                    var html = ret.data.nick_name;
-                    $api.html(stylelist, html);
-                    //签名
-                    var stylelist1 = $api.byId('signature');
-                    if (!ret.data.signature) {
-                        var html1 = '您还没有填写签名';
-                        $api.html(stylelist1, html1);
-                    } else {
-                        var html1 = ret.data.signature;
-                        $api.html(stylelist1, html1);
-                    }
+
+                      var htmlToken =
+                      '<div class="index_header_mvp_p" id="signature"></div>'+
+                      '<div class="index_header_mvp_span">'+
+                          '<div class="processcontainer" id="processcontainer">'+
+                              '<div id="processbar"></div>'+
+                              '<span id="scoreDisplay1"></span>'+
+                          '</div>'+
+                          '<span class="dengJi" id="dengJi"></span>'+
+                      '</div>'
+                      $api.html(wode_bg, htmlToken);
+                        // fnHtmlDom();
+                    // 这里是作品、关注、粉丝
                     //作品数
                     var stylelist5 = $api.byId('product');
-                    var html5 = ret.data.record_total;
+                    var html5 = 0;
                     $api.html(stylelist5, html5);
                     //关注数
                     var stylelist6 = $api.byId('care');
-                    var html6 = ret.data.follow_total;
+                    var html6 = 0;
                     $api.html(stylelist6, html6);
                     //粉丝数
                     var stylelist7 = $api.byId('fans');
-                    var html7 = ret.data.fans_total;
+                    var html7 = 0;
                     $api.html(stylelist7, html7);
-                    //等级
-                    var objTmp = ["童生", "秀才", "举人", "进士", "探花", "榜眼", "状元", "国主"];
-                    var level = ret.data.level;
-                    var scores = ret.data.user_exp;
-                    // console.log(scores);
-                    var totalNum = [0, 100, 500, 2000, 5000, 10000, 30000, 100000];
-                    var processbar = document.getElementById("processbar");
-                    var processcontainer = document.getElementById("processcontainer");
-                    var scoreDisplay1 = document.getElementById("scoreDisplay1");
-                    // scoreRake(score);
-                    for (var z in objTmp) {
-                        // console.log(z+": "+objTmp[z]);
-                        if (level == 1) {
-                            var dengJi = $api.byId('dengJi');
-                            var html11 = objTmp[0];
-                            $api.html(dengJi, html11);
-                            var sss = totalNum[1];
-                            var aaa = scores / sss;
-                            var ccc = aaa * 100 + "%";
-                            if (ccc == "100%") {
-                                level = 2;
-                            } else {
-                                processbar.style.width = ccc;
-                                scoreDisplay1.innerHTML = scores + "/" + sss;
-                            }
-                        }
-                        if (level == 2) {
-                            var dengJi = $api.byId('dengJi');
-                            var html11 = objTmp[1];
-                            $api.html(dengJi, html11);
-                            var sss = totalNum[2];
-                            var aaa = scores / sss;
-                            var ccc = aaa * 100 + "%";
-                            if (ccc == "100%") {
-                                level = 2;
-                            } else {
-                                processbar.style.width = ccc;
-                                scoreDisplay1.innerHTML = scores + "/" + sss;
-                            }
-                        }
-                        if (level == 3) {
-                            var dengJi = $api.byId('dengJi');
-                            var html11 = objTmp[2];
-                            $api.html(dengJi, html11);
-                            var sss = totalNum[3];
-                            var aaa = scores / sss;
-                            var ccc = aaa * 100 + "%";
-                            if (ccc == "100%") {
-                                level = 4;
-                            } else {
-                                processbar.style.width = ccc;
-                                scoreDisplay1.innerHTML = scores + "/" + sss;
-                            }
-                        }
-                        if (level == 4) {
-                            var dengJi = $api.byId('dengJi');
-                            var html11 = objTmp[3];
-                            $api.html(dengJi, html11);
-
-                            var sss = totalNum[4];
-                            var aaa = scores / sss;
-                            var ccc = aaa * 100 + "%";
-                            if (ccc == "100%") {
-                                level = 5;
-                            } else {
-                                processbar.style.width = ccc;
-                                scoreDisplay1.innerHTML = scores + "/" + sss;
-                            }
-                        }
-                        if (level == 5) {
-                            var dengJi = $api.byId('dengJi');
-                            var html11 = objTmp[4];
-                            $api.html(dengJi, html11);
-                            var sss = totalNum[5];
-                            var aaa = scores / sss;
-                            var ccc = aaa * 100 + "%";
-                            if (ccc == "100%") {
-                                level = 6;
-                            } else {
-                                processbar.style.width = ccc;
-                                scoreDisplay1.innerHTML = scores + "/" + sss;
-                            }
-                        }
-                        if (level == 6) {
-                            var dengJi = $api.byId('dengJi');
-                            var html11 = objTmp[5];
-                            $api.html(dengJi, html11);
-                            var sss = totalNum[6];
-                            var aaa = scores / sss;
-                            var ccc = aaa * 100 + "%";
-                            if (ccc == "100%") {
-                                level = 7;
-                            } else {
-                                processbar.style.width = ccc;
-                                scoreDisplay1.innerHTML = scores + "/" + sss;
-                            }
-                        }
-                        if (level == 7) {
-                            var dengJi = $api.byId('dengJi');
-                            var html11 = objTmp[6];
-                            $api.html(dengJi, html11);
-                            var sss = totalNum[7];
-                            var aaa = scores / sss;
-                            var ccc = aaa * 100 + "%";
-                            if (ccc == "100%") {
-                                level = 8;
-                            } else {
-                                processbar.style.width = ccc;
-                                scoreDisplay1.innerHTML = scores + "/" + sss;
-                            }
-                        }
-                        if (level == 8) {
-                            var dengJi = $api.byId('dengJi');
-                            var html11 = objTmp[7];
-                            $api.html(dengJi, html11);
-                            var sss = totalNum[7];
-                            var aaa = scores / sss;
-                            var ccc = aaa * 100 + "%";
-                            processbar.style.width = ccc;
-                            scoreDisplay1.innerHTML = scores + "/" + sss;
-                        }
-                    }
-
-                } else {
-                  api.refreshHeaderLoadDone();
-                    netMessage(ret);
+                }else{
+                     alert( JSON.stringify( err ) );
                 }
-            } else {
-              api.refreshHeaderLoadDone();
-                netWork(err);
-            }
-        });
+            });
+
+
+    }
+    function fnTingZhiXiaLaShuaXin() {
+      setTimeout(function(){
+          api.refreshHeaderLoadDone();
+      },2000)
+    }
+      function fnHtmlDom() {
+        var token = $api.getStorage('token');
+        if (token) {
+            var processcontainer = document.getElementById('processcontainer');
+            $api.removeCls(processcontainer, 'yincang');
+            $api.addCls(processcontainer, 'xianshi');
+            var processcontainer = document.getElementById('dengJi');
+            $api.removeCls(dengJi, 'yincang');
+            $api.addCls(dengJi, 'xianshi');
+            var signature = document.getElementById('signature');
+            $api.removeCls(signature, 'yincang');
+            $api.addCls(signature, 'xianshi');
+        }else {
+            // console.log('sss');
+            var processcontainer = document.getElementById('processcontainer');
+            $api.removeCls(processcontainer, 'xianshi');
+            $api.addCls(processcontainer, 'yincang');
+
+            var TokenImgs = $api.byId('TokenImgs');
+            var HtmlTokenImgs = '<div id="imgs" class="index_header_img" onclick="fnUpimg();"><img src="../image/KM_tx.png" alt="" /></div>'
+            $api.html(TokenImgs, HtmlTokenImgs);
+            var wode_bg = $api.byId('wode_bg');
+            var htmlToken = '<div class="index_header_mvp_p" id="username" onclick="fnUpimg();">请登录</div>'+'</div>'
+            $api.html(wode_bg, htmlToken);
+        }
+      }
+
+    //  function toLogin() {
+    //      api.openWin({
+    //          name: 'login',
+    //          url: '../login.html',
+    //            slidBackEnabled:false,
+    //            reload: true,
+    //            animation: {
+    //              type:"none",
+    //              subType:"from_right",
+    //              duration:300
+    //            },
+    //          pageParam: {
+    //              ok: 'login',
+    //          }
+    //      });
+     //
+    //  }
+        // 切换页面我的页面未读消息数量刷新
+    function fnNum() {
+        var token = $api.getStorage('token');
+        if (token) {
+          api.ajax({
+              url: host + apiUri + '/message/unread_message_nums',
+              method: 'get',
+              dataType: 'json',
+              timeout: 10,
+              headers: {
+                  "source": api.systemType,
+                  "version": version,
+                  "session": token,
+              }
+          }, function(ret, err) {
+              if (ret) {
+                  if (ret.status == 200) {
+                      var message = ret.data.message;
+                      var comment = ret.data.comment;
+                      var notify = ret.data.notify;
+                      var total = message + comment + notify;
+                      var numIndex4 = $api.byId('numIndex4');
+                      if (total == 0) {
+                          var htmlnumIndex4 = ''
+                          $api.html(numIndex4, htmlnumIndex4);
+                      } else if (total < 10) {
+                          messages = '<p>'+total+'</p>';
+                          $api.html(numIndex4, messages);
+                      } else {
+                          var htmlnumIndex4 = '<p style="width: 20px;">' + total + '</p>'
+                          $api.html(numIndex4, htmlnumIndex4);
+                      }
+                  } else {
+                      netMessage(ret);
+                  }
+              } else {
+                  netWork(err);
+              }
+          });
+        }
+
+    }
+
+    function fnpersonalInfo() {
+        var token = $api.getStorage('token');
+        if (token) {
+          var uri = '/user';
+          api.ajax({
+              url: host + apiUri + uri,
+              method: 'get',
+              dataType: 'json',
+              timeout: 10,
+              cache: false,
+              headers: {
+                  "source": api.systemType,
+                  "version": version,
+                  "session": token
+              }
+          }, function(ret, err) {
+            // console.log(JSON.stringify(ret));
+              if (ret) {
+                  if (ret.status == 200) {
+                      api.refreshHeaderLoadDone()
+                          //头像
+                      var title1 = $api.byId("imgs");
+                      var html4 = '';
+                      // console.log(ret.data.photo);
+                      if (ret.data.photo == null) {
+                          html4 = '<img src="../image/KM_tx.png" alt="" />';
+                          $api.html(title1, html4);
+                      } else {
+                          var photo = ret.data.photo.substring(0, 4);
+                          if (photo == 'http') {
+                              // title = ret.data[i].photo;
+                              html4 = '<img src="' + ret.data.photo + '" alt="" />';
+                          }
+                          if (photo != 'http') {
+                              html4 = '<img src="' + updatePhotoUrl + ret.data.photo + '" alt="" />';
+                          }
+
+                          $api.html(title1, html4);
+                      }
+                      //用户名
+                      var stylelist = $api.byId('username');
+                      var html = ret.data.nick_name;
+                      $api.html(stylelist, html);
+                      //签名
+                      var stylelist1 = $api.byId('signature');
+                      if (!ret.data.signature) {
+                          var html1 = '您还没有填写签名';
+                          $api.html(stylelist1, html1);
+                      } else {
+                          var html1 = ret.data.signature;
+                          $api.html(stylelist1, html1);
+                      }
+                      //作品数
+                      var stylelist5 = $api.byId('product');
+                      var html5 = ret.data.record_total;
+                      $api.html(stylelist5, html5);
+                      //关注数
+                      var stylelist6 = $api.byId('care');
+                      var html6 = ret.data.follow_total;
+                      $api.html(stylelist6, html6);
+                      //粉丝数
+                      var stylelist7 = $api.byId('fans');
+                      var html7 = ret.data.fans_total;
+                      $api.html(stylelist7, html7);
+                      //等级
+                      var objTmp = ["童生", "秀才", "举人", "进士", "探花", "榜眼", "状元", "国主"];
+                      var level = ret.data.level;
+                      var scores = ret.data.user_exp;
+                      // console.log(scores);
+                      var totalNum = [0, 100, 500, 2000, 5000, 10000, 30000, 100000];
+                      var processbar = document.getElementById("processbar");
+                      console.log(processbar.innerHTML);
+                      var processcontainer = document.getElementById("processcontainer");
+                      var scoreDisplay1 = document.getElementById("scoreDisplay1");
+                      // scoreRake(score);
+                      for (var z in objTmp) {
+                        //   console.log(z+": "+objTmp[z]);
+                          if (level == 1) {
+                              var dengJi = $api.byId('dengJi');
+                              var html11 = objTmp[0];
+                              $api.html(dengJi, html11);
+                              var sss = totalNum[1];
+                              var aaa = scores / sss;
+                              var ccc = aaa * 100 + "%";
+                              if (ccc == "100%") {
+                                  level = 2;
+                              } else {
+                                  processbar.style.width = ccc;
+                                  scoreDisplay1.innerHTML = scores + "/" + sss;
+                              }
+                          }
+                          if (level == 2) {
+                              var dengJi = $api.byId('dengJi');
+                              var html11 = objTmp[1];
+                              $api.html(dengJi, html11);
+                              var sss = totalNum[2];
+                              var aaa = scores / sss;
+                              var ccc = aaa * 100 + "%";
+                              if (ccc == "100%") {
+                                  level = 2;
+                              } else {
+                                  processbar.style.width = ccc;
+                                  scoreDisplay1.innerHTML = scores + "/" + sss;
+                              }
+                          }
+                          if (level == 3) {
+                              var dengJi = $api.byId('dengJi');
+                              var html11 = objTmp[2];
+                              $api.html(dengJi, html11);
+                              var sss = totalNum[3];
+                              var aaa = scores / sss;
+                              var ccc = aaa * 100 + "%";
+                              if (ccc == "100%") {
+                                  level = 4;
+                              } else {
+                                  processbar.style.width = ccc;
+                                  scoreDisplay1.innerHTML = scores + "/" + sss;
+                              }
+                          }
+                          if (level == 4) {
+                              var dengJi = $api.byId('dengJi');
+                              var html11 = objTmp[3];
+                              $api.html(dengJi, html11);
+
+                              var sss = totalNum[4];
+                              var aaa = scores / sss;
+                              var ccc = aaa * 100 + "%";
+                              if (ccc == "100%") {
+                                  level = 5;
+                              } else {
+                                  processbar.style.width = ccc;
+                                  scoreDisplay1.innerHTML = scores + "/" + sss;
+                              }
+                          }
+                          if (level == 5) {
+                              var dengJi = $api.byId('dengJi');
+                              var html11 = objTmp[4];
+                              $api.html(dengJi, html11);
+                              var sss = totalNum[5];
+                              var aaa = scores / sss;
+                              var ccc = aaa * 100 + "%";
+                              if (ccc == "100%") {
+                                  level = 6;
+                              } else {
+                                  processbar.style.width = ccc;
+                                  scoreDisplay1.innerHTML = scores + "/" + sss;
+                              }
+                          }
+                          if (level == 6) {
+                              var dengJi = $api.byId('dengJi');
+                              var html11 = objTmp[5];
+                              $api.html(dengJi, html11);
+                              var sss = totalNum[6];
+                              var aaa = scores / sss;
+                              var ccc = aaa * 100 + "%";
+                              if (ccc == "100%") {
+                                  level = 7;
+                              } else {
+                                  processbar.style.width = ccc;
+                                  scoreDisplay1.innerHTML = scores + "/" + sss;
+                              }
+                          }
+                          if (level == 7) {
+                              var dengJi = $api.byId('dengJi');
+                              var html11 = objTmp[6];
+                              $api.html(dengJi, html11);
+                              var sss = totalNum[7];
+                              var aaa = scores / sss;
+                              var ccc = aaa * 100 + "%";
+                              if (ccc == "100%") {
+                                  level = 8;
+                              } else {
+                                  processbar.style.width = ccc;
+                                  scoreDisplay1.innerHTML = scores + "/" + sss;
+                              }
+                          }
+                          if (level == 8) {
+                              var dengJi = $api.byId('dengJi');
+                              var html11 = objTmp[7];
+                              $api.html(dengJi, html11);
+                              var sss = totalNum[7];
+                              var aaa = scores / sss;
+                              var ccc = aaa * 100 + "%";
+                              processbar.style.width = ccc;
+                              scoreDisplay1.innerHTML = scores + "/" + sss;
+                          }
+                      }
+
+                  } else {
+                    api.refreshHeaderLoadDone();
+
+                      netMessage(ret);
+                  }
+              } else {
+                api.refreshHeaderLoadDone();
+                              // console.log(JSON.stringify(err));
+                  netWork(err);
+              }
+          });
+        }
+
     }
 
     function fnAjaxMy() {
@@ -772,6 +897,7 @@
                 // }
             } else {
                 // alert(1);
+                // console.log(JSON.stringify(err));
                 netWork(err);
             }
 
@@ -782,24 +908,55 @@
 
     // 安全中心
     function fnSecurityCenterWin() {
-        api.openWin({
-            name: 'securitycente',
-            url: './securitycente.html',
-            pageParam: {
-                ok: 'securitycente'
-            }
-        });
+        var token = $api.getStorage('token');
+        if (token) {
+            api.openWin({
+                name: 'securitycente',
+                url: './securitycente.html',
+                pageParam: {
+                    ok: 'securitycente'
+                }
+            });
+        }else {
+            api.openWin({
+                name: 'token',
+                url: './token.html',
+                slidBackEnabled:false,
+                reload: true,
+                animation: {
+                 type:"none",
+                 subType:"from_right",
+                 duration:300
+               },
+            });
+        }
 
     }
 
+// 听单列表
     function fnListeningListWin() {
-        api.openWin({
-            name: 'ListeningList',
-            url: './ListeningList.html',
-            pageParam: {
-                ok: 'ListeningList'
-            }
-        });
+        var token = $api.getStorage('token');
+        if (token) {
+            api.openWin({
+                name: 'ListeningList',
+                url: './ListeningList.html',
+                pageParam: {
+                    ok: 'ListeningList'
+                }
+            });
+        }else {
+            api.openWin({
+                name: 'token',
+                url: './token.html',
+                slidBackEnabled:false,
+                reload: true,
+                animation: {
+                 type:"none",
+                 subType:"from_right",
+                 duration:300
+               },
+            });
+        }
     }
 
     function fnYongHuTouXiang(qqziliao) {
@@ -817,106 +974,262 @@
     //   $api.html(stylelist, html);
     //
     // }
+    // 帮助与反馈
     function fnFeedbackWin() {
         api.openWin({
             name: 'feedback',
             url: './feedback.html',
-            // url: '../res/to_user.html',
             pageParam: {
                 ok: 'feedback'
             }
         });
     }
 
+    function fnUserImg() {
+        var token = $api.getStorage('token');
+        if (token) {
+            api.openWin({
+                name: 'upimg',
+                url: './upimg.html',
+                pageParam: {
+                    ok: 'upimg'
+                }
+            });
+        } else {
+            api.openWin({
+                name: 'token',
+                url: './token.html',
+                slidBackEnabled:false,
+                reload: true,
+                animation: {
+                 type:"none",
+                 subType:"from_right",
+                 duration:300
+               },
+            });
+        }
+
+    }
+
     function fnUpimg() {
-        api.openWin({
-            name: 'upimg',
-            url: './upimg.html',
-            pageParam: {
-                ok: 'upimg'
-            }
-        });
+        var token = $api.getStorage('token');
+        if (token) {
+            api.openWin({
+                name: 'upimg',
+                url: './upimg.html',
+                pageParam: {
+                    ok: 'upimg'
+                }
+            });
+        } else {
+            api.openWin({
+                name: 'login',
+                url: '../login.html',
+                  slidBackEnabled:false,
+                  reload: true,
+                  animation: {
+                    type:"none",
+                    subType:"from_right",
+                    duration:300
+                  },
+                pageParam: {
+                    ok: 'login',
+                }
+            });
+        }
+
     }
     //作品
     function fnPersonalWin() {
-        api.openWin({
-            name: 'personal',
-            url: './personal.html',
-            pageParam: {
-                ok: 'personal'
-            }
-        });
+        var token = $api.getStorage('token');
+        if (token) {
+            api.openWin({
+                name: 'personal',
+                url: './personal.html',
+                pageParam: {
+                    ok: 'personal'
+                }
+            });
+        }else {
+            api.openWin({
+                name: 'token',
+                url: './token.html',
+                slidBackEnabled:false,
+                reload: true,
+                animation: {
+                 type:"none",
+                 subType:"from_right",
+                 duration:300
+               },
+            });
+
+        }
     }
 
     function fnCollectionWin() {
-        api.openWin({
-            name: 'collection',
-            url: './collection.html',
-            pageParam: {
-                ok: 'collection'
-            }
-        });
+        var token = $api.getStorage('token');
+        if (token) {
+            api.openWin({
+                name: 'collection',
+                url: './collection.html',
+                pageParam: {
+                    ok: 'collection'
+                }
+            });
+        }else {
+            api.openWin({
+                name: 'token',
+                url: './token.html',
+                slidBackEnabled:false,
+                reload: true,
+                animation: {
+                 type:"none",
+                 subType:"from_right",
+                 duration:300
+               },
+            });
+
+        }
+
     }
     //打开关注页面
     function fnOpenMyCare() {
-        api.openWin({
-            name: 'myCare',
-            url: './my_care.html',
-            pageParam: {
-                ok: 'my_care'
-            }
-        });
+        var token = $api.getStorage('token');
+        if (token) {
+            api.openWin({
+                name: 'myCare',
+                url: './my_care.html',
+                pageParam: {
+                    ok: 'my_care'
+                }
+            });
+        }else {
+            api.openWin({
+                name: 'token',
+                url: './token.html',
+                slidBackEnabled:false,
+                reload: true,
+                animation: {
+                 type:"none",
+                 subType:"from_right",
+                 duration:300
+               },
+            });
+
+        }
 
     }
     // 粉丝
     function fnFans() {
-        api.openWin({
-            name: 'fans',
-            url: './fans.html',
-            pageParam: {
-                ok: 'fans'
-            }
-        });
+        var token = $api.getStorage('token');
+        if (token) {
+            api.openWin({
+                name: 'fans',
+                url: './fans.html',
+                pageParam: {
+                    ok: 'fans'
+                }
+            });
+        }else {
+            api.openWin({
+                name: 'token',
+                url: './token.html',
+                slidBackEnabled:false,
+                reload: true,
+                animation: {
+                 type:"none",
+                 subType:"from_right",
+                 duration:300
+               },
+            });
+        }
     }
     //打开消息页面
     function openMessage() {
-        api.openWin({
-            name: 'message',
-            url: './message.html',
-            pageParam: {
-                ok: 'message'
-            }
-        });
+        var token = $api.getStorage('token');
+        if (token) {
+            api.openWin({
+                name: 'message',
+                url: './message.html',
+                pageParam: {
+                    ok: 'message'
+                }
+            });
+        }else {
+            api.openWin({
+                name: 'token',
+                url: './token.html',
+                slidBackEnabled:false,
+                reload: true,
+                animation: {
+                 type:"none",
+                 subType:"from_right",
+                 duration:300
+               },
+            });
+        }
     };
 
     function openHistorys() {
-        api.openWin({
-            name: 'historys',
-            url: './historys.html',
-            pageParam: {
-                ok: 'historys'
-            }
-        });
+        var token = $api.getStorage('token');
+        if (token) {
+            api.openWin({
+                name: 'historys',
+                url: './historys.html',
+                pageParam: {
+                    ok: 'historys'
+                }
+            });
+        }else {
+            api.openWin({
+                name: 'token',
+                url: './token.html',
+                slidBackEnabled:false,
+                reload: true,
+                animation: {
+                 type:"none",
+                 subType:"from_right",
+                 duration:300
+               },
+            });
+        }
     }
-
+// 等级说明
     function dialogBox_alert2() {
-        api.openWin({
-            name: 'achievementWin',
-            url: './achievementWin.html',
-            pageParam: {
-                name: 'achievementWin'
-            }
-        });
+            api.openWin({
+                name: 'achievementWin',
+                url: './achievementWin.html',
+                pageParam: {
+                    name: 'achievementWin'
+                }
+            });
+
 
     }
 
     function fnSetWin() {
-        api.openWin({
-            name: 'set',
-            url: '../html/set.html',
-            pageParam: {
-                name: 'set'
-            }
-        });
+        var token = $api.getStorage('token');
+        if (token) {
+            api.openWin({
+                name: 'set',
+                url: '../html/set.html',
+                pageParam: {
+                    name: 'set'
+                }
+            });
+        }else {
+            api.openWin({
+                name: 'token',
+                url: './token.html',
+                slidBackEnabled:false,
+                reload: true,
+                animation: {
+                 type:"none",
+                 subType:"from_right",
+                 duration:300
+               },
+            });
+        }
+
     }
 </script>

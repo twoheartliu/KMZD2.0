@@ -1071,15 +1071,14 @@
                     isFirst = true;
                     path = ret.path;
                     duration = ret.duration;
-                    api.sendEvent({
-                        name: 'judgmentLoding',
-                        extra: {
-                            judgmentLoding: 'judgmentLoding'
-                        }
-                    });
                 }
             });
-
+            api.sendEvent({
+                name: 'judgmentLoding',
+                extra: {
+                    judgmentLodings: 'judgmentLoding'
+                }
+            });
             // 设置屏幕灭屏
             var keepOn = false;
             api.setKeepScreenOn({

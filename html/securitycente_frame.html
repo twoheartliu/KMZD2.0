@@ -127,6 +127,10 @@
             position: relative;
             top: 2px;
         }
+        .mobile_{
+          line-height: 50px;
+          color: #ccc;
+        }
     </style>
 </head>
 
@@ -201,7 +205,7 @@
                 } else if (ret.data.register_way == 'mobile') {
                     html +=
                         '<div class="securitycente_div"><div class="securitycente_Img1 fl"><img src="../image/phoneNumber.png" alt=""></div><div class="securitycente_Name fl"><div class="securitycente_name1">' + ret.data.mobile +
-                        '</div></div></div>'
+                        '</div></div><div class="mobile_ fr" onclick="XiuGaiMiMa()">修改密码</div></div>'
                 }
                 $api.html(changePassword, html);
                 if (ret.data.register_way == 'qq') {
@@ -292,7 +296,16 @@
         }
 
     }
+    function XiuGaiMiMa() {
+      api.openWin({
+          name: 'changePassword',
+          url: './changePassword.html',
+          pageParam: {
+              ok: 'changePassword'
+          }
+      });
 
+    }
     function collectmusicQQ(clicktoolitem) {
         var toolbarlist = document.getElementsByClassName('collectmusicQQ')[0];
         var click = clicktoolitem.getAttribute("data-click");

@@ -1,6 +1,6 @@
 var timeOut = 2000;
-function netMessage(ret){
 
+function netMessage(ret){
   if(ret.status == 10102){
     api.toast({              
         msg:  '曲目评论失败',
@@ -16,13 +16,12 @@ function netMessage(ret){
     });
   }
   if(ret.status == 10201){
-    api.toast({              
-        msg:  '您的账号未登录',
-        duration:  timeOut,
-        location:   'middle'          
-    });
-
-    setTimeout("turn_login()",timeOut);
+    // api.toast({              
+    //     msg:  '您的账号未登录',
+    //     duration:  timeOut,
+    //     location:   'middle'          
+    // });
+    setTimeout("turn_loginaaa()",500);
   }
   if(ret.status == 10202){
     api.toast({              
@@ -507,4 +506,21 @@ $api.rmStorage('token');
   api.closeToWin({
     name: 'login'
   });
+}
+function turn_loginaaa() {
+    api.openWin({
+        name: 'token',
+        url: '../html/token.html',
+        slidBackEnabled:false,
+        animation: {
+          type:"none",
+          subType:"from_right",
+          duration:300
+        },
+        pageParam: {
+            tokenName: 'test'
+        }
+
+    });
+
 }

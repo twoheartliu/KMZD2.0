@@ -297,10 +297,17 @@
                             var login_way_s = ret.data.login_way;
                             $api.setStorage('login_way',login_way_s);
                             $api.byId('password').value = '';
+                            api.sendEvent({
+                                name: 'loginUser',
+                                extra: {
+                                    index0: '0'
+                                }
+                            });
                              api.openWin({
                                  name: 'index',
                                  url: 'index.html',
                                  slidBackEnabled:false,
+                                 reload: true,
                                  pageParam: {
                                      name: 'test'
                                  }
@@ -371,6 +378,9 @@
                   }, function(ret, err) {
                       if (ret.status == 200) {
                         var tokens = ret.data.token;
+
+                        // console.log(11111);
+                        console.log(tokens);
                         $api.setStorage('token',tokens);
                         var user_id_s = ret.data.user_id;
                         $api.setStorage('user_id',user_id_s);
@@ -381,14 +391,22 @@
                         var login_way_s = ret.data.login_way;
                         $api.setStorage('login_way',login_way_s);
                         $api.byId('password').value = '';
-                         api.openWin({
-                             name: 'index',
-                             url: 'index.html',
-                             slidBackEnabled:false,
-                             pageParam: {
-                                 name: 'test'
-                             }
-                         });
+                        api.sendEvent({
+                            name: 'loginUser',
+                            extra: {
+                                index0: '0'
+                            }
+                        });
+                       api.openWin({
+                           name: 'index',
+                           url: 'index.html',
+                           slidBackEnabled:false,
+                           reload: true,
+                           pageParam: {
+                               name: 'test'
+                           }
+                       });
+
                       }else{
                         netMessage(ret);
                       }

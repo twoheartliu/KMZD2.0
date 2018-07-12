@@ -327,6 +327,11 @@ function fnLuYinBaoCun() {
 }
 
  function fnsetInterval() {
+
+
+
+
+   console.log(111);
     var clockId = setTimeout(function() {
         if (path) {
           api.sendEvent({
@@ -342,9 +347,13 @@ function fnLuYinBaoCun() {
               name: 'judgmentLoding'
           }, function(ret, err) {
               if (ret) {
-                 judgmentLoding = ret.value.judgmentLoding
+                  //  console.log(JSON.stringify(ret));
+                 judgmentLoding = ret.value.judgmentLodings;
+                //  console.log(judgmentLoding);
+
               }
           });
+          // console.log(judgmentLoding);
           if (judgmentLoding == 'judgmentLoding') {
             api.sendEvent({
                 name: 'aloudLodings',

@@ -365,84 +365,94 @@
         .botten:last-child {
             border-bottom: none;
         }
-        /*轮播图*/
+        /*轮播图 */
         /*img {*/
-          /*display: block;*/
+        /*display: block;*/
         /*}*/
         /*p {*/
-          /*margin: 0;*/
-          /*padding: 1rem 1rem;*/
-          /*font-size: 1rem;*/
-          /*line-height: 1.4;*/
+        /*margin: 0;*/
+        /*padding: 1rem 1rem;*/
+        /*font-size: 1rem;*/
+        /*line-height: 1.4;*/
         /*}*/
+
         .pagination {
-          width: 100%;
-          left: 0;
-          bottom: 10px;
-          position: absolute;
-          text-align: center;
-          -webkit-transition: 300ms;
-          transition: 300ms;
-          z-index: 10;
-          -webkit-transform: translate3d(0, 0, 0);
-          transform: translate3d(0, 0, 0);
+            width: 100%;
+            left: 0;
+            bottom: 10px;
+            position: absolute;
+            text-align: center;
+            -webkit-transition: 300ms;
+            transition: 300ms;
+            z-index: 10;
+            -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
         }
+
         .pagination span {
-          width: 8px;
-          height: 8px;
-          display: inline-block;
-          border-radius: 100%;
-          background: #fff;
-          opacity: .5;
-          margin: 0 3px;
+            width: 8px;
+            height: 8px;
+            display: inline-block;
+            border-radius: 100%;
+            background: #fff;
+            opacity: .5;
+            margin: 0 3px;
         }
+
         .pagination span.active {
-          opacity: 1;
-          background: #666;
+            opacity: 1;
+            background: #666;
         }
+
         .pic-panel {
-          width: 100%;
-          position: relative;
-          overflow: hidden;
-        }
-        .pic-list {
-          width: 100%;
-          position: relative;
-        }
-        .pic-list li {
-          position: absolute;
-          left: 0;
-          top: 0;
-          width: 100%;
-        }
-        .pic-list .re {
-          position: relative;
-          z-index: 2;
-        }
-        .pic-list li img {
-          width: 100%;
-        }
-        .pic-list li a {
-          -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-        }
-        @media screen and (min-width: 600px) {
-          .pic-box {
+            width: 100%;
             position: relative;
+            overflow: hidden;
+        }
+
+        .pic-list {
+            width: 100%;
+            position: relative;
+        }
+
+        .pic-list li {
+            position: absolute;
+            left: 0;
             top: 0;
-            left: 25%;
-            width: 50%;
-          }
-          .pic-list li:nth-child(2) {
-            left: 100%;
-          }
-          .pic-list li:last-child {
-            left: -100%;
-          }
-          .pic-list li img {
-            padding: 0 0.125rem;
-            -webkit-box-sizing: border-box;
-            box-sizing: border-box;
-          }
+            width: 100%;
+        }
+
+        .pic-list .re {
+            position: relative;
+            z-index: 2;
+        }
+
+        .pic-list li img {
+            width: 100%;
+        }
+
+        .pic-list li a {
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        }
+
+        @media screen and (min-width: 600px) {
+            .pic-box {
+                position: relative;
+                top: 0;
+                left: 25%;
+                width: 50%;
+            }
+            .pic-list li:nth-child(2) {
+                left: 100%;
+            }
+            .pic-list li:last-child {
+                left: -100%;
+            }
+            .pic-list li img {
+                padding: 0 0.125rem;
+                -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+            }
         }
     </style>
 </head>
@@ -456,17 +466,18 @@
             </div>
         </div>
     </div>
-      <div id="picPanel" class="pic-panel">
+    <!-- 轮播图 -->
+    <div id="picPanel" class="pic-panel">
         <div id="picBox" class="pic-box">
-          <ul id="picList" class="pic-list">
-            <!-- <li class="re">
-                      <a href="#">
-                        <img src="img/1.jpg" />
-                      </a>
-                    </li> -->
-          </ul>
+            <ul id="picList" class="pic-list">
+                <!-- <li class="re">
+                					<a href="#">
+                						<img src="img/1.jpg" />
+                					</a>
+                				</li> -->
+            </ul>
         </div>
-      </div>
+    </div>
     <div class="p20px">
         <div id="scriptCategory">
 
@@ -570,15 +581,16 @@
 <script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript" src="../script/message.js"></script>
 <script type="text/javascript">
-    var token;
+    // var token;
+    var imgLot = true;
     //这个是个人主页返回来的id
     var indexframe3My;
     var indexframe3MyFalse;
     apiready = function() {
-        token = $api.getStorage('token');
+        // token = $api.getStorage('token');
         fnBanners();
 
-        if (token) {
+        // if (token) {
             // console.log(token);
             //   fnInitSwiper();
             // fnOpenUserButton();
@@ -586,50 +598,16 @@
             fnRecommendFriends();
             fnreadingAloudRecommended();
             fnCategory();
-            api.setCustomRefreshHeaderInfo({
-                bgColor: '#f0f0f0',
-                image: {
-                    pull: [
-                        'widget://image/Refresh/dropdown_anim_00.png',
-                        'widget://image/Refresh/dropdown_anim_01.png',
-                        'widget://image/Refresh/dropdown_anim_02.png',
-                        'widget://image/Refresh/dropdown_anim_03.png',
-                        'widget://image/Refresh/dropdown_anim_04.png',
-                        'widget://image/Refresh/dropdown_anim_05.png',
-                        'widget://image/Refresh/dropdown_anim_06.png',
-                        'widget://image/Refresh/dropdown_anim_07.png',
-                        'widget://image/Refresh/dropdown_anim_08.png',
-                        'widget://image/Refresh/dropdown_anim_09.png',
-                        'widget://image/Refresh/dropdown_anim_10.png',
-                    ],
-                    load: [
-                        'widget://image/Refresh/dropdown_anim_00.png',
-                        'widget://image/Refresh/dropdown_anim_01.png',
-                        'widget://image/Refresh/dropdown_anim_02.png',
-                        'widget://image/Refresh/dropdown_anim_03.png',
-                        'widget://image/Refresh/dropdown_anim_04.png',
-                        'widget://image/Refresh/dropdown_anim_05.png',
-
-                    ]
-                }
-            }, function() {
-                //下拉刷新被触发，自动进入加载状态，使用 api.refreshHeaderLoadDone() 手动结束加载中状态
-                //下拉刷新被触发，使用 api.refreshHeaderLoadDone() 结束加载中状态
-                // fnBanners();
-                fnRecommendFriends();
-                fnreadingAloudRecommended();
-                fnCategory();
-            });
-        } else {
-            $api.rmStorage('token');
-            api.openWin({
-                name: 'login',
-                url: '../login.html',
-                pageParam: {
-                    ok: 'login'
-                }
-            });
-        }
+        // } else {
+        //     $api.rmStorage('token');
+        //     api.openWin({
+        //         name: 'login',
+        //         url: '../login.html',
+        //         pageParam: {
+        //             ok: 'login'
+        //         }
+        //     });
+        // }
         fnIndexframe3My();
     }
 
@@ -667,6 +645,7 @@
     }
     //  banner 接口
     function fnBanners() {
+        var token = $api.getStorage('token');
         var uri = '/extra/banner';
         // var position = 'index'
         api.ajax({
@@ -686,9 +665,11 @@
 
             }
         }, function(ret, err) {
+          // console.log(JSON.stringify(ret));
             if (ret) {
                 if (ret.status == 200) {
                     var data = ret.data;
+                    // console.log(JSON.stringify(ret));
                     var len = ret.data.length;
                     var banners = '';
                     for (var i = 0; i < len; i++) {
@@ -708,17 +689,21 @@
                         }
                         var stylelist = $api.byId('picList');
                         // <div class="swiper-wrapper"></div>
-                        if (i == 0) {
-                          banners += '<li class="re" onclick="fnOpenBanners(\'' + banner_id + '\',\'' + title + '\',\'' + description + '\',\'' + banner_types + '\',\'' + content + '\')"><img src="' + imgs + '" alt=""></li>'
-                        }else {
+                        if (len == 1) {
+                          imgLot = false;
                           banners += '<li onclick="fnOpenBanners(\'' + banner_id + '\',\'' + title + '\',\'' + description + '\',\'' + banner_types + '\',\'' + content + '\')"><img src="' + imgs + '" alt=""></li>'
+                        }else {
+                          imgLot = true;
                         }
-                        // <div class="swiper-slide" onclick=""><img src="../image/index/KM_swiper1.jpg" alt=""></div>
+                        if (i == 0) {
+                            banners += '<li class="re" onclick="fnOpenBanners(\'' + banner_id + '\',\'' + title + '\',\'' + description + '\',\'' + banner_types + '\',\'' + content + '\')"><img src="' + imgs + '" alt=""></li>'
+                        } else {
+                            banners += '<li onclick="fnOpenBanners(\'' + banner_id + '\',\'' + title + '\',\'' + description + '\',\'' + banner_types + '\',\'' + content + '\')"><img src="' + imgs + '" alt=""></li>'
+                        }                         // <div class="swiper-slide" onclick=""><img src="../image/index/KM_swiper1.jpg" alt=""></div>
                         // \'' + banner_id + '\',\''+ title +'\',\''+ description +'\',\''+ banner_types +'\',\''+ content +'\'
                         // <img src="http://47.100.11.38/kmzd/public/uploads/banner/banner_2.jpg" alt="">
                     }
                     $api.html(stylelist, banners);
-                    // console.log(banners);
 
                     // console.log(banners);
                     // console.log(banner_id);
@@ -729,6 +714,7 @@
                     netMessage(ret);
                 }
             } else {
+              // console.log(JSON.stringify(err));
                 netWork(err);
             }
         });
@@ -772,90 +758,88 @@
 
     }
 
-    // 打开浏览器
-    function openBrowser(s) {
-        api.openApp({
-            androidPkg: 'android.intent.action.VIEW',
-            mimeType: 'text/html',
-            uri: s,
-            iosUrl: s,
-        }, function(ret, err) {
-            if (ret) {
-                // alert(JSON.stringify(ret));
-            } else {
-                // alert(JSON.stringify(err));
-            }
-        });
-
-    }
-
     function fnOpenBanners(banner_id, title, description, banner_types, content) {
         // console.log(banner_id);
         // console.log('banner_id');
         // console.log(banner_types);
         // console.log('banner_types');
-        var lujing;
-        var song_id;
-        var titles;
-        if (!content) {
-            return false;
-        }
-
-        if (banner_types == 1) {
-            lujing = openBrowser(content);
-            // console.log(lujing);
-        }  else if (banner_types == 2) {
-            // 播放器
-            lujing = './playDanQu.html';
-            song_id = content;
-        } else if (banner_types == 3) {
-            // 专辑
-            lujing = './single.html';
-            song_id = content;
-            titles = '专辑';
-        } else if (banner_types == 4) {
-            //听单
-            lujing = './single.html';
-            song_id = content;
-            titles = '听单';
-        } else if (banner_types == 5) {
-            lujing = '../res/to_user.html';
-            frames = content;
-            titles = title;
-        } else if (banner_types == 6) {
-            lujing = content;
-        } else if (banner_types == 7) {
-            lujing = content;
-            // console.log(content);
-
-        } else {
-            return
-        }
-
-        api.openWin({
-            name: 'lujing',
-            url: lujing,
-            // console.log('lujing');
-            pageParam: {
-                title: title,
-                description: description,
-                type: banner_types,
-                content: content,
-                song_id: song_id,
-                albumId: song_id,
-                floor_name: titles,
-                a: song_id,
-                ok:lujing,
-                // bofangmoshi:bofangmoshi,
-                frameUrl: frames,
-                titles: titles,
-                ok: 'index',
+        var token = $api.getStorage('token');
+        if (token) {
+            var lujing;
+            var song_id;
+            var titles;
+            if (!content) {
+                return false;
             }
-        });
+
+            if (banner_types == 1) {
+                lujing = openBrowser(content);
+                // console.log(lujing);
+            }  else if (banner_types == 2) {
+                // 播放器
+                lujing = './playDanQu.html';
+                song_id = content;
+            } else if (banner_types == 3) {
+                // 专辑
+                lujing = './single.html';
+                song_id = content;
+                titles = '专辑';
+            } else if (banner_types == 4) {
+                //听单
+                lujing = './single.html';
+                song_id = content;
+                titles = '听单';
+            } else if (banner_types == 5) {
+                lujing = '../res/to_user.html';
+                frames = content;
+                titles = title;
+            } else if (banner_types == 6) {
+                lujing = content;
+            } else if (banner_types == 7) {
+                lujing = content;
+                // console.log(lujing);
+            } else {
+                return
+            }
+
+            api.openWin({
+                name: 'lujing',
+                url: lujing,
+                // console.log('lujing');
+                pageParam: {
+                    title: title,
+                    description: description,
+                    type: banner_types,
+                    content: content,
+                    song_id: song_id,
+                    albumId: song_id,
+                    floor_name: titles,
+                    a: song_id,
+                    ok:lujing,
+                    // bofangmoshi:bofangmoshi,
+                    frameUrl: frames,
+                    titles: titles,
+                    ok: 'index',
+                }
+            });
+        }else {
+            api.openWin({
+                name: 'token',
+                url: './token.html',
+                slidBackEnabled:false,
+                reload: true,
+                animation: {
+                 type:"none",
+                 subType:"from_right",
+                 duration:300
+               },
+            });
+        }
 
     }
 
     function fnCategory() {
+        var token = $api.getStorage('token');
         var uri = '/script/category';
         api.ajax({
             url: host + apiUri + uri,
@@ -869,13 +853,14 @@
             }
         }, function(ret, err) {
             if (ret) {
+              // console.log(JSON.stringify(ret));
                 if (ret.status == 200) {
-                  api.refreshHeaderLoadDone()
                     fnCategoryAlbum(ret);
                 } else {
                     netMessage(ret);
                 }
             } else {
+              // console.log(JSON.stringify(err));
                 netWork(err);
             }
 
@@ -903,6 +888,7 @@
     }
 
     function fnreadingAloudRecommended() {
+        var token = $api.getStorage('token');
         var uri = '/recitation/script_recommend';
         api.ajax({
             url: host + apiUri + uri,
@@ -917,13 +903,14 @@
         }, function(ret, err) {
             // alert(JSON.stringify(ret));
             if (ret) {
+              // console.log(JSON.stringify(ret));
                 if (ret.status == 200) {
-                  api.refreshHeaderLoadDone()
                     fnRecitationScriptRecommend(ret);
                 } else {
                     netMessage(ret);
                 }
             } else {
+              // console.log(JSON.stringify(err));
                 netWork(err);
             }
 
@@ -942,6 +929,7 @@
     }
     //调国友推荐接口
     function fnRecommendFriends() {
+        var token = $api.getStorage('token');
         var uri = '/recitation/user_recommend';
         api.ajax({
             url: host + apiUri + uri,
@@ -956,8 +944,8 @@
         }, function(ret, err) {
             // alert(JSON.stringify(ret));
             if (ret) {
+              // console.log(JSON.stringify(ret));
                 if (ret.status == 200) {
-                  api.refreshHeaderLoadDone()
                     // console.log(ret.data.length);
                     var data = ret.data;
                     var len = ret.data.length;
@@ -1003,6 +991,7 @@
                     netMessage(ret);
                 }
             } else {
+              // console.log(JSON.stringify(err));
                 netWork(err);
             }
 
@@ -1010,59 +999,119 @@
     }
 
     function fnReadListWin(id, category_name) {
-        api.openWin({
-            name: 'readlist',
-            url: './readlist.html',
-            pageParam: {
-                id: id,
-                category_name: category_name,
-                ok: 'readlist'
-            }
-        });
+        var token = $api.getStorage('token');
+        if (token) {
+            api.openWin({
+                name: 'readlist',
+                url: './readlist.html',
+                pageParam: {
+                    id: id,
+                    category_name: category_name,
+                    ok: 'readlist'
+                }
+            });
+        }else {
+            api.openWin({
+                name: 'token',
+                url: './token.html',
+                slidBackEnabled:false,
+                reload: true,
+                animation: {
+                 type:"none",
+                 subType:"from_right",
+                 duration:300
+               },
+            });
+        }
     }
 
     function fnGouXueJingDIanWin() {
-        api.openWin({
-            name: 'readlist',
-            url: './readlist.html',
-            pageParam: {
-                name: 'guoxuejingdian',
-                ok: 'readlist'
-            }
-        });
+        var token = $api.getStorage('token');
+        if (token) {
+            api.openWin({
+                name: 'readlist',
+                url: './readlist.html',
+                pageParam: {
+                    name: 'guoxuejingdian',
+                    ok: 'readlist'
+                }
+            });
+        }else {
+            api.openWin({
+                name: 'token',
+                url: './token.html',
+                slidBackEnabled:false,
+                reload: true,
+                animation: {
+                 type:"none",
+                 subType:"from_right",
+                 duration:300
+               },
+            });
+        }
     }
 
     function fnInitSwiper() {
       photoSlide({
-        wrap: document.getElementById('picBox'),
-        loop: true,
-        autoPlay: true,
-        autoTime: 4000,
-        pagination: true
+          wrap: document.getElementById('picBox'),
+          loop: true,
+          autoPlay: imgLot,
+          autoTime: 4000,
+          pagination: imgLot
       });
     };
 
     function fnLangduWin(id) {
-        api.openWin({
-            name: 'aloud',
-            url: './aloud.html',
-            pageParam: {
-                InfojubenType: id,
-                ok: 'aloud'
-            }
-        });
+        var token = $api.getStorage('token');
+        if (token) {
+            api.openWin({
+                name: 'aloud',
+                url: './aloud.html',
+                pageParam: {
+                    InfojubenType: id,
+                    ok: 'aloud'
+                }
+            });
+        }else {
+            api.openWin({
+                name: 'token',
+                url: './token.html',
+                slidBackEnabled:false,
+                reload: true,
+                animation: {
+                 type:"none",
+                 subType:"from_right",
+                 duration:300
+               },
+            });
+        }
     }
 
     function fnZyldWin() {
-        api.openWin({
-            name: 'zyldwin',
-            url: './zyldwin.html',
-            allowEdit: true,
-            pageParam: {
-                name: 'test',
-                ok: 'zyldwin'
-            }
-        });
+        var token = $api.getStorage('token');
+        if (token) {
+            api.openWin({
+                name: 'zyldwin',
+                url: './zyldwin.html',
+                allowEdit: true,
+                pageParam: {
+                    name: 'test',
+                    ok: 'zyldwin'
+                }
+            });
+        }else {
+            api.openWin({
+                name: 'token',
+                url: './token.html',
+                slidBackEnabled:false,
+                reload: true,
+                animation: {
+                 type:"none",
+                 subType:"from_right",
+                 duration:300
+               },
+            });
+        }
     }
 
     // function fnInitSwiper1(){
@@ -1089,7 +1138,6 @@
     function fnOpenUserButton(id, nickname) {
         var userFollowType = document.getElementById('user_' + id).value;
         var userButton = document.getElementById('userButton' + id);
-
         if (indexframe3My == id) {
             fnOpenmyPersonal(id, nickname);
         } else {
@@ -1097,44 +1145,63 @@
                 fnOpenmyPersonal(id, nickname);
 
             } else {
-                userFollowType = document.getElementById('user_' + id).value = 0;
-                api.confirm({
-                    title: '关注',
-                    msg: '确定要添加关注吗？',
-                    buttons: ['确定', '取消']
-                }, function(ret, err) {
-                    var index = ret.buttonIndex;
-                    if (index == 1) {
-                        logid = id;
-                        api.ajax({
-                            url: host + apiUri + '/user/follow',
-                            method: 'post',
-                            headers: {
-                                "source": api.systemType,
-                                "version": version,
-                                "session": token
-                            },
-                            data: {
-                                values: {
-                                    "follow_id": id,
+                var token = $api.getStorage('token');
+                if (token) {
+                    userFollowType = document.getElementById('user_' + id).value = 0;
+                    api.confirm({
+                        title: '关注',
+                        msg: '确定要添加关注吗？',
+                        buttons: ['确定', '取消']
+                    }, function(ret, err) {
+                        var index = ret.buttonIndex;
+                        if (index == 1) {
+                            logid = id;
+                            var token = $api.getStorage('token');
+                            api.ajax({
+                                url: host + apiUri + '/user/follow',
+                                method: 'post',
+                                headers: {
+                                    "source": api.systemType,
+                                    "version": version,
+                                    "session": token
+                                },
+                                data: {
+                                    values: {
+                                        "follow_id": id,
+                                    }
+                                },
+                            }, function(ret, err) {
+                              // console.log(JSON.stringify(ret));
+                              // console.log(JSON.stringify(err));
+                                // console.log(JSON.stringify(ret));
+                                if (ret.status == 200) {
+                                    if (userButton.getAttribute("src", 2) == "../image/read/care.png") {
+                                        userButton.src = "../image/read/care1.png";
+                                        var dialogBox = api.require('dialogBox');
+                                        dialogBox.close({
+                                            dialogName: 'alert'
+                                        });
+                                    }
                                 }
-                            },
-                        }, function(ret, err) {
-                            // console.log(JSON.stringify(ret));
-                            if (ret.status == 200) {
-                                if (userButton.getAttribute("src", 2) == "../image/read/care.png") {
-                                    userButton.src = "../image/read/care1.png";
-                                    var dialogBox = api.require('dialogBox');
-                                    dialogBox.close({
-                                        dialogName: 'alert'
-                                    });
-                                }
-                            }
-                        })
-                    } else {
-                        return;
-                    }
-                });
+                            })
+                        } else {
+                            return;
+                        }
+                    });
+                }else {
+                    api.openWin({
+                        name: 'token',
+                        url: './token.html',
+                        slidBackEnabled:false,
+                        reload: true,
+                        animation: {
+                         type:"none",
+                         subType:"from_right",
+                         duration:300
+                       },
+                    });
+                }
+
 
                 // var dialogBox = api.require('dialogBox');
                 // dialogBox.alert({
@@ -1218,26 +1285,45 @@
 
     //个人主页
     function fnOpenmyPersonal(id, nickname) {
-        api.openWin({
-            name: 'myPersonal',
-            url: './my_personal.html',
-            pageParam: {
-                userId: id,
-                nickName: nickname,
-                ok: 'my_personal',
-                WhetherToAdd: '1'
-            },
-        });
+        var token = $api.getStorage('token');
+        if (token) {
+            api.openWin({
+                name: 'myPersonal',
+                url: './my_personal.html',
+                pageParam: {
+                    userId: id,
+                    nickName: nickname,
+                    ok: 'my_personal',
+                    WhetherToAdd: '1'
+                },
+            });
+        }else {
+            api.openWin({
+                name: 'token',
+                url: './token.html',
+                slidBackEnabled:false,
+                reload: true,
+                animation: {
+                 type:"none",
+                 subType:"from_right",
+                 duration:300
+               },
+            });
+        }
+
     };
 
     function OpenSearch() {
-        api.openWin({
-            name: 'langsong_searchs_pre',
-            url: './langsong_searchs_pre.html',
-            pageParam: {
-                name: 'test'
-            }
-        });
+        
+            api.openWin({
+                name: 'langsong_searchs_pre',
+                url: './langsong_searchs_pre.html',
+                pageParam: {
+                    name: 'test'
+                }
+            });
+
+
 
     }
 </script>

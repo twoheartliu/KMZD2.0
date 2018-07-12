@@ -1,4 +1,6 @@
+<!DOCTYPE HTML>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
@@ -41,6 +43,7 @@
             display: flex;
             height: 50px;
         }
+
         header div {
             font-size: 14px;
             color: #fff;
@@ -50,18 +53,21 @@
             -webkit-flex: 1;
             flex: 1;
         }
+
         header i {
             display: block;
             width: 53px;
             height: 49px;
             margin-top: 5px;
         }
+
         header .back {
             background: url(../image/icon_back.png) no-repeat;
             background-size: 40%;
             -webkit-background-size: contain;
             background-size: contain;
         }
+
         header .more {
             background: url() no-repeat;
             -webkit-background-size: contain;
@@ -230,6 +236,7 @@
         /*#panel .play {
             background-image: url(../image/play/ic_play_play.png);
         }
+
         #panel .play.focus {
             background-image: url(../image/play/ic_play_play_s.png);
         }*/
@@ -564,18 +571,13 @@
         #ImgGif .loading span:nth-child(16) {
             -webkit-animation-delay: 4.6s;
         }
-
-        .inner {
-            width: 100%;
-            display: inline;
-            white-space: nowrap;
-            /*规定段落中的文本不进行换行*/
-            overflow-x: scroll;
-            /*水平方向，超出部分添加滚动机制*/
-            float: left;
-            /*一定要设置左侧浮动*/
-            overflow-y: hidden
-        }
+        .inner{ width:100%;
+                display: inline;
+                white-space: nowrap;/*规定段落中的文本不进行换行*/
+                overflow-x:scroll;/*水平方向，超出部分添加滚动机制*/
+                float:left;/*一定要设置左侧浮动*/
+                overflow-y:hidden
+              }
     </style>
 </head>
 
@@ -583,15 +585,16 @@
     <!-- <header class="qx" id="secHeader">
       <i class="back" tapmode onclick="api.closeWin();"></i>
       <div id="title">
+
       </div>
       <i class="more"></i>
   </header> -->
     <header id="secHeader" class="clear">
         <div class="egret-img"><img src="../image/icon_back.png" alt="" onclick="api.closeWin();"></div>
         <div class="egret-txt" id="title">
-            <div class="inner">
-                <p class="txt" id="txt"></p>
-            </div>
+          <div class="inner">
+              <p class="txt" id="txt"></p>
+          </div>
         </div>
         <div class="header_fr" id="headerFr">
             <div onclick="fnOpenPlayShare();">
@@ -710,8 +713,10 @@
     var bofangmoshi;
     var playType;
     var listen_to_ = 1;
+    var NoQQ;
+    var NoWeiXin;
     apiready = function() {
-        albumCover = api.pageParam.albumCover
+        // albumCover = api.pageParam.albumCover
         // console.log(albumCover);
         token = $api.getStorage('token');
         var secHeader = $api.byId('secHeader');
@@ -762,7 +767,9 @@
                     fnDangQianbofangid(ret.value.playing, ret.value.bofang);
                 });
                 var connectionType = api.connectionType;
+
                 if (connectionType == "wifi") {
+
                     if (bofang) {
                         // fnJinRuBofangs();
                         if (dangqianbofangid) {
@@ -909,12 +916,17 @@
                             }
                         });
                     }
+
+
+
                 }
             }
         });
+
         var connectionType = api.connectionType;
         if (connectionType == "none") {
             netWorkNone();
+
         } else {
             fnBookExtraGoodssssss();
             dangqianbofangid = api.pageParam.DangQianbofangid;
@@ -925,8 +937,10 @@
             }, function(ret, err) {
                 fnDangQianbofangid(ret.value.playing, ret.value.bofang);
             });
+
             if (connectionType == "wifi") {
                 if (dangqianbofangid) {
+
                     if (bofang) {
                         fnJinRuBofangs(dangqianbofangid, bofang, playType);
                         soundId = dangqianbofangid;
@@ -940,6 +954,7 @@
                         fnBookExtraGoodssssss(bookId);
                         fnJianTingBookCollection(bookId);
                     }
+
                 } else {
                     bookId = api.pageParam.a;
                     api.addEventListener({
@@ -1008,6 +1023,8 @@
                         bofang = api.pageParam.bofang;
                         playType = api.pageParam.playType;
                         if (dangqianbofangid) {
+
+
                             if (bofang) {
                                 fnJinRuBofangs(dangqianbofangid, bofang, playType);
                                 soundId = dangqianbofangid;
@@ -1071,6 +1088,24 @@
                 });
             }
         }
+        var qq = api.require('qq');
+        qq.installed(function(ret, err) {
+            if (ret.status) {
+              // console.log(1);
+                // api.alert({ msg: "安装" });
+            } else {
+              NoQQ = 'NoQQ';
+                // api.alert({ msg: "没有安装" });
+            }
+        });
+        var wx = api.require('wx');
+        wx.isInstalled(function(ret, err) {
+            if (ret.installed) {
+                // console.log("当前设备已安装微信客户端");
+            } else {
+                NoWeiXin = 'NoWeiXin';
+            }
+        });
     }
 
     function fnFuCeng() {
@@ -1078,7 +1113,11 @@
             name: 'aaaaaaPlay'
         }, function(ret, err) {
             aaaaaa = ret.value.aaaaaa;
-            if (aaaaaa == 2) {} else if (aaaaaa == 1) {}
+            if (aaaaaa == 2) {
+
+            } else if (aaaaaa == 1) {
+
+            }
             return false;
         });
     }
@@ -1124,6 +1163,7 @@
     }
     //监听收藏，评论数；
     function fnJianTingBookCollection(bookId) {
+
         if (bookId != 'undefined') {
             var ImgGif = $api.byId('ImgGif');
             var html = '<div class="loading"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>';
@@ -1142,7 +1182,7 @@
                     if (ret.status == 200) {
                         // console.log(JSON.stringify(ret.data.cover_mid));
                         albumCover = host + '/' + ret.data.cover_mid
-                            // console.log(albumCover);
+                        // console.log(albumCover);
                         var stylelistCollectionHtml = $api.byId('bookExtraCollectionHtml');
                         if (ret.data.is_collection) {
                             bookCollectionHtml = '<img src="../image/KM_play_collect_red.png" alt="" class="collectmusicssss" id="playCollect" onclick="fnOpenPlayCollect(this)" data-click="1"><p>收藏</p>';
@@ -1167,8 +1207,10 @@
                 }
             });
         }
+
     }
     //1233
+
     var bookGoodHtml;
 
     function fnBookExtraGoodssssss(bookIds) {
@@ -1177,6 +1219,7 @@
         } else {
             var bookss = $api.getStorage('bookExtraGood' + bookId);
         }
+
         var bookg = 'inc';
         if (bookss) {
             if (bookss != bookg) {
@@ -1285,6 +1328,7 @@
             });
         }
         if (playlistid) {
+
             if (is_play_all) {
                 api.sendEvent({
                     name: 'netPlayLieIdUrl',
@@ -1303,6 +1347,7 @@
                     }
                 });
             }
+
         }
         fnInitSwiper();
         api.parseTapmode();
@@ -1425,6 +1470,7 @@
         if (dangqianbofangid) {
             dqbfid = dangqianbofangid;
         }
+
     }
 
     function fnAAaa(aa, bofangs, listid, playUrlis, playTypes) {
@@ -1505,13 +1551,15 @@
                         var html0 = str4;
                         $api.html(stylelist, html0);
                     }
+
                 }
                 //赋值标题
                 if (ret.value.titlename) {
-                    var stylelist = $api.byId('txt');
-                    var html2 = ret.value.titlename;
-                    $api.html(stylelist, html2);
-                    fnNamesss(ret.value.titlename);
+
+                  var stylelist = $api.byId('txt');
+                  var html2 = ret.value.titlename;
+                  $api.html(stylelist, html2);
+                  fnNamesss(ret.value.titlename);
                 }
                 if (ret.value.cover_big) {
                     fnCover_big(ret.value.cover_big);
@@ -1561,6 +1609,7 @@
                     playType: playType
                 }
             });
+
         } else {
             player.src = "../image/play/ic_play_play.png";
             var netAudiopausess = 1;
@@ -1587,6 +1636,7 @@
                     playType: playType
                 }
             });
+
         }
     }
     //进度条
@@ -1607,6 +1657,7 @@
                 } else {
                     range.value = ccc;
                     sssss = 100 - range.value;
+
                     // if(ccc > 99){
                     //   range.value = 105;
                     //   sssss = 0;
@@ -1614,9 +1665,11 @@
                     //不渐变
                     range.style.background = 'linear-gradient(to left, #89211b ' + sssss + '%, #f2f2f2 0,#f2f2f2  )';
                 }
+
                 // range.css( 'background', 'linear-gradient(to right, #059CFA, white ' + range.value + '%, white)' );
                 // range.style.background = 'linear-gradient(to left, #89211b ' + sssss + '%, blue ' + range.value + '%,#789  )';
                 fnZongJinDu(lenth);
+
             }
         });
     }
@@ -1658,6 +1711,7 @@
         if (listen_to_ == 1) {
             return false;
         }
+
         listen_to_ = 1;
         var c = 2;
         api.sendEvent({
@@ -1673,6 +1727,7 @@
     //播放
     function fnNetAudiosPlayByID(id) {
         if (id) {
+
             uri = '/sound';
             var ImgGif = $api.byId('ImgGif');
             var html = '<div class="loading"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>';
@@ -1720,6 +1775,7 @@
                     netWork(err);
                 }
             });
+
         } else {
             uri = '/sound';
             var ImgGif = $api.byId('ImgGif');
@@ -1768,8 +1824,10 @@
                     netWork(err);
                 }
             });
+
         }
     }
+
     // 轮播
     function fnInitSwiper() {
         var mySwiper = new Swiper('.swiper-container', {
@@ -1877,6 +1935,10 @@
                 }
             });
         }
+
+
+
+
     }
     // 选择播放器
     function fnOpenChoicePlayer() {
@@ -1890,7 +1952,7 @@
     };
     // 打开评论页面
     function fnOpenPlayDiscuss() {
-        // console.log('sss');
+        // console.log(albumCover);
         var uris = '/sound/comment/';
         api.openWin({
             name: 'discussNoticeDetail0',
@@ -1932,10 +1994,10 @@
                 if (ret) {
                     if (ret.status == 200) {
                         if (ret.data == "inc") {
-                            api.toast({
-                                msg: '收藏成功',
-                                duration: 2000,
-                                location: 'middle'
+                            api.toast({              
+                                msg:   '收藏成功',
+                                duration:  2000,
+                                location:   'middle'          
                             });
                         }
                         api.sendEvent({
@@ -1975,10 +2037,10 @@
                 if (ret) {
                     if (ret.status == 200) {
                         if (ret.data == "dec") {
-                            api.toast({
-                                msg: '已取消收藏',
-                                duration: 2000,
-                                location: 'middle'
+                            api.toast({              
+                                msg:   '已取消收藏',
+                                duration:  2000,
+                                location:   'middle'          
                             });
                         }
                         api.sendEvent({
@@ -2024,10 +2086,10 @@
             }, function(ret, err) {
                 if (ret) {
                     if (ret.status == 200) {
-                        api.toast({
-                            msg: '已点赞',
-                            duration: 2000,
-                            location: 'middle'
+                        api.toast({              
+                            msg:   '已点赞',
+                            duration:  2000,
+                            location:   'middle'          
                         });
                         $api.setStorage('bookExtraGood' + bookId, 'inc');
                     } else {
@@ -2061,10 +2123,10 @@
             }, function(ret, err) {
                 if (ret) {
                     if (ret.status == 200) {
-                        api.toast({
-                            msg: '已取消点赞',
-                            duration: 2000,
-                            location: 'middle'
+                        api.toast({              
+                            msg:   '已取消点赞',
+                            duration:  2000,
+                            location:   'middle'          
                         });
                         $api.setStorage('bookExtraGood' + bookId, 'dec');
                     } else {
@@ -2087,6 +2149,7 @@
             }
         });
     }
+
     //打开播放列表
     function openRadioList() {
         playlistid = api.pageParam.playlistid;
@@ -2135,6 +2198,7 @@
     // 分享
     function fnOpenPlayShare() {
         // console.log(id);
+
         var smas;
         if (cover_big == undefined) {
             cover_big = '/logo_144x144.png'
@@ -2143,179 +2207,455 @@
             // fnOpenPlayShare(id, titleName,sma);
             smas = cover_big
         }
-        // console.log(sma);
-        var dialogBox = api.require('dialogBox');
-        dialogBox.actionMenu({
-            rect: {
-                h: 150
-            },
-            texts: {
-                cancel: '取消'
-            },
-            items: [{
-                text: '微信',
-                icon: 'widget://image/weixin.png'
-            }, {
-                text: '朋友圈',
-                icon: 'widget://image/friends.png'
-            }, {
-                text: 'QQ',
-                icon: 'widget://image/qq.png'
-            }, {
-                text: 'QQ空间',
-                icon: 'widget://image/QQkongjian.png'
-            }],
-            styles: {
-                bg: '#FFF',
-                column: 4,
-                itemText: {
-                    color: '#000',
-                    size: 12,
-                    marginT: 8
+
+        if (NoQQ && NoWeiXin) {
+          var dialogBox = api.require('dialogBox');
+          dialogBox.actionMenu({
+                  rect: {
+                      h: 150
+                  },
+                  texts: {
+                      cancel: '取消'
+                  },
+                  items: [{
+                      text: QQHWeiXin
+                  }],
+                  styles: {
+                      bg: '#FFF',
+                      column: 1,
+                      itemText: {
+                          color: '#000',
+                          size: 12,
+                          marginT: 8
+                      },
+                      itemIcon: {
+                          size: 30
+                      },
+                      cancel: {
+                          bg: 'fs://icon.png',
+                          color: '#000',
+                          h: 44,
+                          size: 14
+                      }
+                  },
+                  tapClose: true
+              }, function(ret) {
+                  if (ret.eventType == 'cancel') {
+                      dialogBox.close({
+                          dialogName: 'actionMenu'
+                      });
+                  }
+                  if (ret.index == "0") {
+
+                      dialogBox.close({
+                          dialogName: 'actionMenu'
+                      });
+                      // alert(1);
+                  }
+
+
+          });
+
+        }else if (NoQQ) {
+          var dialogBox = api.require('dialogBox');
+          dialogBox.actionMenu({
+              rect: {
+                  h: 150
+              },
+              texts: {
+                  cancel: '取消'
+              },
+              items: [{
+                  text: '微信',
+                  icon: 'widget://image/weixin.png'
+              }, {
+                  text: '朋友圈',
+                  icon: 'widget://image/friends.png'
+              }],
+              styles: {
+                  bg: '#FFF',
+                  column: 2,
+                  itemText: {
+                      color: '#000',
+                      size: 12,
+                      marginT: 8
+                  },
+                  itemIcon: {
+                      size: 30
+                  },
+                  cancel: {
+                      bg: 'fs://icon.png',
+                      color: '#000',
+                      h: 44,
+                      size: 14
+                  }
+              },
+              tapClose: true
+          }, function(ret) {
+              if (ret.eventType == 'cancel') {
+                  dialogBox.close({
+                      dialogName: 'actionMenu'
+                  });
+              }
+              if (ret.index == "0") {
+                  var imgaesFx = host + '/' + smas;
+                  // console.log(imgaesFx);
+                  api.download({
+                      url: imgaesFx,
+                      savePath: 'fs://savePath/' + smas,
+                      report: true,
+                      cache: true,
+                      allowResume: true
+                  }, function(ret, err) {
+                      // console.log(JSON.stringify(ret));
+                      if (ret.state == 1) {
+                          //下载成功
+                          var savePath = ret.savePath;
+                          // console.log(savePath);
+                          var songListID = soundId;
+                          var title = namesss;
+                          shareMp3Single(songListID, title, savePath);
+                          // var savePath = '';
+                          // shareMp3Single(songListID,title,savePath);
+                          // shareMp3Album(name,listening_description,l_id);
+                      } else {
+                          // console.log(JSON.stringify(err));
+                      }
+                  });
+                  dialogBox.close({
+                      dialogName: 'actionMenu'
+                  });
+                  // alert(1);
+              } else if (ret.index == "1") {
+                  var imgaesFx = host + '/' + smas;
+                  // console.log(imgaesFx);
+                  api.download({
+                      url: imgaesFx,
+                      savePath: 'fs://savePath/' + smas,
+                      report: true,
+                      cache: true,
+                      allowResume: true
+                  }, function(ret, err) {
+                      // console.log(JSON.stringify(ret));
+                      if (ret.state == 1) {
+                          //下载成功
+                          var savePath = ret.savePath;
+                          // console.log(savePath);
+                          var songListID = soundId;
+                          var title = namesss;
+                          initTimelineSingle(songListID, title, savePath);
+                          // var savePath = '';
+                          // shareMp3Single(songListID,title,savePath);
+                          // shareMp3Album(name,listening_description,l_id);
+                      } else {
+                          // console.log(JSON.stringify(err));
+                      }
+                  });
+                  dialogBox.close({
+                      dialogName: 'actionMenu'
+                  });
+                  // alert(3);
+              }
+              // dialogBox.close({
+              //     dialogName: 'alert'
+              // })
+              // alert(JSON.stringify(ret))
+
+          });
+
+          }else if (NoWeiXin) {
+            var dialogBox = api.require('dialogBox');
+            dialogBox.actionMenu({
+                rect: {
+                    h: 150
                 },
-                itemIcon: {
-                    size: 30
+                texts: {
+                    cancel: '取消'
                 },
-                cancel: {
-                    bg: 'fs://icon.png',
-                    color: '#000',
-                    h: 44,
-                    size: 14
+                items: [{
+                    text: 'QQ',
+                    icon: 'widget://image/qq.png'
+                }, {
+                    text: 'QQ空间',
+                    icon: 'widget://image/QQkongjian.png'
+                }],
+                styles: {
+                    bg: '#FFF',
+                    column: 2,
+                    itemText: {
+                        color: '#000',
+                        size: 12,
+                        marginT: 8
+                    },
+                    itemIcon: {
+                        size: 30
+                    },
+                    cancel: {
+                        bg: 'fs://icon.png',
+                        color: '#000',
+                        h: 44,
+                        size: 14
+                    }
+                },
+                tapClose: true
+            }, function(ret) {
+                if (ret.eventType == 'cancel') {
+                    dialogBox.close({
+                        dialogName: 'actionMenu'
+                    });
                 }
-            },
-            tapClose: true
-        }, function(ret) {
-            if (ret.eventType == 'cancel') {
-                dialogBox.close({
-                    dialogName: 'actionMenu'
-                });
-            }
-            if (ret.index == "0") {
-                var imgaesFx = host + '/' + smas;
-                // console.log(imgaesFx);
-                api.download({
-                    url: imgaesFx,
-                    savePath: 'fs://savePath/' + smas,
-                    report: true,
-                    cache: true,
-                    allowResume: true
-                }, function(ret, err) {
-                    // console.log(JSON.stringify(ret));
-                    if (ret.state == 1) {
-                        //下载成功
-                        var savePath = ret.savePath;
-                        // console.log(savePath);
-                        var songListID = soundId;
-                        var title = namesss;
-                        shareMp3Single(songListID, title, savePath);
-                        // var savePath = '';
-                        // shareMp3Single(songListID,title,savePath);
-                        // shareMp3Album(name,listening_description,l_id);
-                    } else {
-                        // console.log(JSON.stringify(err));
-                    }
-                });
-                dialogBox.close({
-                    dialogName: 'actionMenu'
-                });
-                // alert(1);
-            } else if (ret.index == "1") {
-                var imgaesFx = host + '/' + smas;
-                // console.log(imgaesFx);
-                api.download({
-                    url: imgaesFx,
-                    savePath: 'fs://savePath/' + smas,
-                    report: true,
-                    cache: true,
-                    allowResume: true
-                }, function(ret, err) {
-                    // console.log(JSON.stringify(ret));
-                    if (ret.state == 1) {
-                        //下载成功
-                        var savePath = ret.savePath;
-                        // console.log(savePath);
-                        var songListID = soundId;
-                        var title = namesss;
-                        initTimelineSingle(songListID, title, savePath);
-                        // var savePath = '';
-                        // shareMp3Single(songListID,title,savePath);
-                        // shareMp3Album(name,listening_description,l_id);
-                    } else {
-                        // console.log(JSON.stringify(err));
-                    }
-                });
-                dialogBox.close({
-                    dialogName: 'actionMenu'
-                });
-                // alert(3);
-            } else if (ret.index == "2") {
-                var imgaesFx = host + '/' + smas;
-                // console.log(imgaesFx);
-                api.download({
-                    url: imgaesFx,
-                    savePath: 'fs://savePath/' + smas,
-                    report: true,
-                    cache: true,
-                    allowResume: true
-                }, function(ret, err) {
-                    // console.log(JSON.stringify(ret));
-                    if (ret.state == 1) {
-                        //下载成功
-                        var savePath = ret.savePath;
-                        // console.log(savePath);
-                        var songListID = soundId;
-                        var title = namesss;
-                        fnQQZoneSingle(songListID, title, savePath);
-                        // var savePath = '';
-                        // shareMp3Single(songListID,title,savePath);
-                        // shareMp3Album(name,listening_description,l_id);
-                    } else {
-                        // console.log(JSON.stringify(err));
-                    }
-                });
-                dialogBox.close({
-                    dialogName: 'actionMenu'
-                });
-                // alert(2);
-            } else if (ret.index == "3") {
-                var imgaesFx = host + '/' + smas;
-                // console.log(imgaesFx);
-                api.download({
-                    url: imgaesFx,
-                    savePath: 'fs://savePath/' + smas,
-                    report: true,
-                    cache: true,
-                    allowResume: true
-                }, function(ret, err) {
-                    // console.log(JSON.stringify(ret));
-                    if (ret.state == 1) {
-                        //下载成功
-                        var savePath = ret.savePath;
-                        // console.log(savePath);
-                        var songListID = soundId;
-                        var title = namesss;
-                        fnintnQQSingle(songListID, title, savePath);
-                        // var savePath = '';
-                        // shareMp3Single(songListID,title,savePath);
-                        // shareMp3Album(name,listening_description,l_id);
-                    } else {
-                        // console.log(JSON.stringify(err));
-                    }
-                });
-                dialogBox.close({
-                    dialogName: 'actionMenu'
-                });
-                // alert(2);
-            } else {
-                dialogBox.close({
-                    dialogName: 'actionMenu'
-                });
-            }
-            // dialogBox.close({
-            //     dialogName: 'alert'
-            // })
-            // alert(JSON.stringify(ret))
-        });
+               if (ret.index == "0") {
+                    var imgaesFx = host + '/' + smas;
+                    // console.log(imgaesFx);
+                    api.download({
+                        url: imgaesFx,
+                        savePath: 'fs://savePath/' + smas,
+                        report: true,
+                        cache: true,
+                        allowResume: true
+                    }, function(ret, err) {
+                        // console.log(JSON.stringify(ret));
+                        if (ret.state == 1) {
+                            //下载成功
+                            var savePath = ret.savePath;
+                            // console.log(savePath);
+                            var songListID = soundId;
+                            var title = namesss;
+                            fnQQZoneSingle(songListID, title, savePath);
+                            // var savePath = '';
+                            // shareMp3Single(songListID,title,savePath);
+                            // shareMp3Album(name,listening_description,l_id);
+                        } else {
+                            // console.log(JSON.stringify(err));
+                        }
+                    });
+                    dialogBox.close({
+                        dialogName: 'actionMenu'
+                    });
+                    // alert(2);
+
+                } else if (ret.index == "1") {
+                    var imgaesFx = host + '/' + smas;
+                    // console.log(imgaesFx);
+                    api.download({
+                        url: imgaesFx,
+                        savePath: 'fs://savePath/' + smas,
+                        report: true,
+                        cache: true,
+                        allowResume: true
+                    }, function(ret, err) {
+                        // console.log(JSON.stringify(ret));
+                        if (ret.state == 1) {
+                            //下载成功
+                            var savePath = ret.savePath;
+                            // console.log(savePath);
+                            var songListID = soundId;
+                            var title = namesss;
+
+                            fnintnQQSingle(songListID, title, savePath);
+                            // var savePath = '';
+                            // shareMp3Single(songListID,title,savePath);
+                            // shareMp3Album(name,listening_description,l_id);
+                        } else {
+                            // console.log(JSON.stringify(err));
+                        }
+                    });
+                    dialogBox.close({
+                        dialogName: 'actionMenu'
+                    });
+                    // alert(2);
+                } else {
+                    dialogBox.close({
+                        dialogName: 'actionMenu'
+                    });
+                }
+                // dialogBox.close({
+                //     dialogName: 'alert'
+                // })
+                // alert(JSON.stringify(ret))
+
+            });
+
+        }else {
+          var dialogBox = api.require('dialogBox');
+          dialogBox.actionMenu({
+              rect: {
+                  h: 150
+              },
+              texts: {
+                  cancel: '取消'
+              },
+              items: [{
+                  text: '微信',
+                  icon: 'widget://image/weixin.png'
+              }, {
+                  text: '朋友圈',
+                  icon: 'widget://image/friends.png'
+              }, {
+                  text: 'QQ',
+                  icon: 'widget://image/qq.png'
+              }, {
+                  text: 'QQ空间',
+                  icon: 'widget://image/QQkongjian.png'
+              }],
+              styles: {
+                  bg: '#FFF',
+                  column: 4,
+                  itemText: {
+                      color: '#000',
+                      size: 12,
+                      marginT: 8
+                  },
+                  itemIcon: {
+                      size: 30
+                  },
+                  cancel: {
+                      bg: 'fs://icon.png',
+                      color: '#000',
+                      h: 44,
+                      size: 14
+                  }
+              },
+              tapClose: true
+          }, function(ret) {
+              if (ret.eventType == 'cancel') {
+                  dialogBox.close({
+                      dialogName: 'actionMenu'
+                  });
+              }
+              if (ret.index == "0") {
+                  var imgaesFx = host + '/' + smas;
+                  // console.log(imgaesFx);
+                  api.download({
+                      url: imgaesFx,
+                      savePath: 'fs://savePath/' + smas,
+                      report: true,
+                      cache: true,
+                      allowResume: true
+                  }, function(ret, err) {
+                      // console.log(JSON.stringify(ret));
+                      if (ret.state == 1) {
+                          //下载成功
+                          var savePath = ret.savePath;
+                          // console.log(savePath);
+                          var songListID = soundId;
+                          var title = namesss;
+                          shareMp3Single(songListID, title, savePath);
+                          // var savePath = '';
+                          // shareMp3Single(songListID,title,savePath);
+                          // shareMp3Album(name,listening_description,l_id);
+                      } else {
+                          // console.log(JSON.stringify(err));
+                      }
+                  });
+                  dialogBox.close({
+                      dialogName: 'actionMenu'
+                  });
+                  // alert(1);
+              } else if (ret.index == "1") {
+                  var imgaesFx = host + '/' + smas;
+                  // console.log(imgaesFx);
+                  api.download({
+                      url: imgaesFx,
+                      savePath: 'fs://savePath/' + smas,
+                      report: true,
+                      cache: true,
+                      allowResume: true
+                  }, function(ret, err) {
+                      // console.log(JSON.stringify(ret));
+                      if (ret.state == 1) {
+                          //下载成功
+                          var savePath = ret.savePath;
+                          // console.log(savePath);
+                          var songListID = soundId;
+                          var title = namesss;
+                          initTimelineSingle(songListID, title, savePath);
+                          // var savePath = '';
+                          // shareMp3Single(songListID,title,savePath);
+                          // shareMp3Album(name,listening_description,l_id);
+                      } else {
+                          // console.log(JSON.stringify(err));
+                      }
+                  });
+                  dialogBox.close({
+                      dialogName: 'actionMenu'
+                  });
+                  // alert(3);
+              } else if (ret.index == "2") {
+                  var imgaesFx = host + '/' + smas;
+                  // console.log(imgaesFx);
+                  api.download({
+                      url: imgaesFx,
+                      savePath: 'fs://savePath/' + smas,
+                      report: true,
+                      cache: true,
+                      allowResume: true
+                  }, function(ret, err) {
+                      // console.log(JSON.stringify(ret));
+                      if (ret.state == 1) {
+                          //下载成功
+                          var savePath = ret.savePath;
+                          // console.log(savePath);
+                          var songListID = soundId;
+                          var title = namesss;
+                          fnQQZoneSingle(songListID, title, savePath);
+                          // var savePath = '';
+                          // shareMp3Single(songListID,title,savePath);
+                          // shareMp3Album(name,listening_description,l_id);
+                      } else {
+                          // console.log(JSON.stringify(err));
+                      }
+                  });
+                  dialogBox.close({
+                      dialogName: 'actionMenu'
+                  });
+                  // alert(2);
+
+              } else if (ret.index == "3") {
+                  var imgaesFx = host + '/' + smas;
+                  // console.log(imgaesFx);
+                  api.download({
+                      url: imgaesFx,
+                      savePath: 'fs://savePath/' + smas,
+                      report: true,
+                      cache: true,
+                      allowResume: true
+                  }, function(ret, err) {
+                      // console.log(JSON.stringify(ret));
+                      if (ret.state == 1) {
+                          //下载成功
+                          var savePath = ret.savePath;
+                          // console.log(savePath);
+                          var songListID = soundId;
+                          var title = namesss;
+
+                          fnintnQQSingle(songListID, title, savePath);
+                          // var savePath = '';
+                          // shareMp3Single(songListID,title,savePath);
+                          // shareMp3Album(name,listening_description,l_id);
+                      } else {
+                          // console.log(JSON.stringify(err));
+                      }
+                  });
+                  dialogBox.close({
+                      dialogName: 'actionMenu'
+                  });
+                  // alert(2);
+              } else {
+                  dialogBox.close({
+                      dialogName: 'actionMenu'
+                  });
+              }
+              // dialogBox.close({
+              //     dialogName: 'alert'
+              // })
+              // alert(JSON.stringify(ret))
+
+          });
+
+        }
+        // console.log(sma);
+
         // alert(id);
     }
 </script>
@@ -2326,6 +2666,7 @@
         adjust();
     }
     $('input').RangeSlider({
+
         callback: change
     });
 </script>

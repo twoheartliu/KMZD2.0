@@ -1,5 +1,5 @@
 /*
- * 
+ *
  * photoSlider.v1.21
  * create by Gavin
  * 2015-3-26
@@ -85,7 +85,7 @@ photoSlider.prototype.init = function() {
 	//窗口大小初始化方法
 	var _this=this,resizeTimer = null;
 	window.onresize = function(){
-		if (resizeTimer) clearTimeout(resizeTimer); 
+		if (resizeTimer) clearTimeout(resizeTimer);
 		resizeTimer = setTimeout(function(){
 			_this.resizeInit();
 		},300);

@@ -7,8 +7,13 @@
     <meta name="format-detection" content="telephone=no,email=no,date=no,address=no"><meta name="format-detection" content="telephone=no" />
     <title>孔孟之道--token</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
-    <link rel="stylesheet" type="text/css" href="../css/style.css" />
     <style>
+        body{background-image: url(../image/login/login_bg.png);
+            background-size: 100% 100%;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;}
+        #header{width: 100%;height: 50px;overflow: hidden;}
         .token_img {
             width: 100%;
             margin-top: 150px;
@@ -18,30 +23,66 @@
         .token {
             width: 100%;
             text-align: center;
+            position: relative;
+            bottom: 210px;
         }
+        .tokenHeaderImg{float: left;width: 30px;padding: 10px;}
+        .tokenHeaderImg img{width: 100%;}
+        .div_onclik{width: 100%;height: 650px;}
     </style>
 </head>
 
-<body onclick="fnToken();">
-    <div class="token_img"><img src="../image/token.png" alt=""></div>
-    <div class="token">您还未登录，请点击后登陆</div>
-</body>
+<body class="bg" id="body">
+    <div id="header">
+      <div class="tokenHeaderImg" onclick="fnToken();"><img src="../image/delete.png" alt=""></div>
+    </div>
+    <div class="div_onclik"onclick="fnLogin();">
+      <!-- <div class="token_img" onclick="fnLogin();"><img src="../image/token.png" alt=""></div> -->
 
+    </div>
+    <div class="token" onclick="fnLogin();">您还未登录，请点击后登陆</div>
+</body>
 </html>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
     apiready = function() {
 
-    }
+      var header = $api.byId('header');
+      var headeris = document.querySelector('#header');
+      $api.fixIos7Bar(headeris);
+      $api.fixStatusBar(headeris);
+      $api.fixStatusBar(header);
+      var headerPos = $api.offset(header);
 
+
+      if (window.innerHeight)
+          winHeight = window.innerHeight;
+      else if ((document.body) && (document.body.clientHeight))
+          winHeight = document.body.clientHeight;
+      var messageFrameDiv = $api.byId('body');
+      var winHeightHeader = winHeight;
+      $api.css(messageFrameDiv, 'height:' + winHeightHeader + 'px;');
+    }
     function fnToken() {
-        api.openWin({
-            name: 'login',
-            url: '../login.html',
-            pageParam: {
-                name: 'test'
-            }
-        });
+
+        api.closeWin();
+    }
+    function fnLogin() {
+      api.openWin({
+          name: 'login',
+          url: '../login.html',
+          slidBackEnabled:false,
+          reload: true,
+          animation: {
+            type:"none",
+            subType:"from_right",
+            duration:300
+          },
+          pageParam: {
+              name: 'test'
+          }
+      });
 
     }
+
 </script>
