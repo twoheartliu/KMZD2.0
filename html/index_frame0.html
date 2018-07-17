@@ -1240,7 +1240,6 @@
     // }
     // 打开榜单页面
     function fnBillboard() {
-      var token = $api.getStorage('token');
         api.openWin({
             name: 'billBoard',
             url: './bill_board.html',
@@ -1306,7 +1305,7 @@
                     playType:'playDanQu'
                 }
             });
-          
+
 
         }
     }
@@ -1909,7 +1908,8 @@
     }
     //添加到听单
     function fnOpenAddListening(id) {
-        //   console.log(id);
+      var token = $api.getStorage('token');
+      if (token) {
         api.openWin({
             name: 'addListening',
             url: './add_listening.html',
@@ -1918,6 +1918,21 @@
                 ok:'add_listening'
             }
         });
+      }else {
+          api.openWin({
+              name: 'token',
+              url: './token.html',
+              slidBackEnabled:false,
+              reload: true,
+              animation: {
+               type:"none",
+               subType:"from_right",
+               duration:300
+             },
+          });
+      }
+        //   console.log(id);
+
     }
 </script>
 <!-- <script type="text/javascript">

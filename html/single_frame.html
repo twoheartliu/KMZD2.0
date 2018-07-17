@@ -798,6 +798,8 @@
             } else {
                 albumGoodHtml = '<img src="../image/KM_play_dianzan_red.png" alt="" class="collectmusicFxs" onclick="collectmusicFx(this)" data-click="1">';
             }
+
+
         } else {
             albumGoodHtml = '<img src="../image/KM_ListingsListDzs.png" alt="" class="collectmusicFxs" onclick="collectmusicFx(this)" data-click="0">';
         }
@@ -831,7 +833,6 @@
                         // },3000)
                     fnAlbumAetailsList(ret);
                 } else {
-                  console.log(JSON.stringify(err));
                     netMessage(ret);
                 }
             } else {
@@ -866,7 +867,9 @@
             '</div>  </div><div class="single_time"><div class="single_time_img fl"><img src="../image/KM_sc.png" alt=""></div><div class="single_img_num fl" id="collections">' + data_.data.collection_total +
             '</div><div class="single_time_img fl"><img src="../image/KM_play.png" alt=""></div><div class="single_img_num fl">' + data_.data.play_count +
             '</div><div class="single_time_img fl"><img src="../image/read/aloud_py.png" alt=""></div><div class="single_img_num fl">' + data_.data.total + '</div></div>'
-        fnExtraGoodssssss();
+              fnExtraGoodssssss();
+
+
         fnComment(data_.data.comment_total, data_.data.id, data_.data.title);
         goods = data_.data.good_total;
         var stylelistss = $api.byId('goods');
@@ -1780,6 +1783,8 @@
     }
     //添加到听单
     function fnOpenAddListening(id) {
+      var token = $api.getStorage('token');
+      if (token) {
         api.openWin({
             name: 'addListening',
             url: './add_listening.html',
@@ -1788,10 +1793,26 @@
                 ok: 'add_listening'
             }
         });
+      }else {
+          api.openWin({
+              name: 'token',
+              url: './token.html',
+              slidBackEnabled:false,
+              reload: true,
+              animation: {
+               type:"none",
+               subType:"from_right",
+               duration:300
+             },
+          });
+      }
+
     }
 
 
     function collectmusic(clicktoolitem) {
+      var token = $api.getStorage('token');
+      if (token) {
         var toolbarlist = document.getElementsByClassName('collectmusic')[0];
         var click = clicktoolitem.getAttribute("data-click");
         if (click == 0) {
@@ -1871,9 +1892,26 @@
                 }
             });
         }
+      }else {
+
+          api.openWin({
+              name: 'token',
+              url: './token.html',
+              slidBackEnabled:false,
+              reload: true,
+              animation: {
+               type:"none",
+               subType:"from_right",
+               duration:300
+             },
+          });
+      }
+
     }
 
     function collectmusicFx(clicktoolitem) {
+      var token = $api.getStorage('token');
+      if (token) {
         var toolbarlist = document.getElementsByClassName('collectmusicFxs')[0];
         var click = clicktoolitem.getAttribute("data-click");
         if (click == 0) {
@@ -1963,6 +2001,21 @@
                 }
             });
         }
+      }else {
+
+          api.openWin({
+              name: 'token',
+              url: './token.html',
+              slidBackEnabled:false,
+              reload: true,
+              animation: {
+               type:"none",
+               subType:"from_right",
+               duration:300
+             },
+          });
+      }
+
     }
 
     function fnExtraGood() {

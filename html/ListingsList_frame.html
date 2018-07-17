@@ -964,6 +964,8 @@
     }
     //点赞方法
     function collectmusicFx(clicktoolitem) {
+      var token = $api.getStorage('token');
+      if (token) {
         var toolbarlist = document.getElementsByClassName('collectmusicFxs')[0];
         var click = clicktoolitem.getAttribute("data-click");
         var stylelist = $api.byId('goods');
@@ -1045,6 +1047,20 @@
                 }
             });
         }
+      }else {
+          api.openWin({
+              name: 'token',
+              url: './token.html',
+              slidBackEnabled:false,
+              reload: true,
+              animation: {
+               type:"none",
+               subType:"from_right",
+               duration:300
+             },
+          });
+      }
+
     }
     // 调取用户听单单曲列表
     function songList() {
@@ -1245,6 +1261,9 @@
     }
     // 收藏成功
     function collectmusic(clicktoolitem) {
+
+      var token = $api.getStorage('token');
+      if (token) {
         var toolbarlist = document.getElementsByClassName('collectmusic')[0];
         var click = clicktoolitem.getAttribute("data-click");
         if (click == 0) {
@@ -1314,6 +1333,20 @@
                 }
             });
         }
+      }else {
+          api.openWin({
+              name: 'token',
+              url: './token.html',
+              slidBackEnabled:false,
+              reload: true,
+              animation: {
+               type:"none",
+               subType:"from_right",
+               duration:300
+             },
+          });
+      }
+
     }
     //打开更多
     function fnOpenPlayMore(cover_sma,songListID,title) {
@@ -1610,6 +1643,8 @@
     }
     //添加到听单
     function fnOpenAddListening(songListID) {
+      var token = $api.getStorage('token');
+      if (token) {
         api.openWin({
             name: 'addListening',
             url: './add_listening.html',
@@ -1617,6 +1652,20 @@
                 songListID: songListID
             }
         });
+      }else {
+          api.openWin({
+              name: 'token',
+              url: './token.html',
+              slidBackEnabled:false,
+              reload: true,
+              animation: {
+               type:"none",
+               subType:"from_right",
+               duration:300
+             },
+          });
+      }
+
     }
     //打开评论列表页面
     function openMessage() {

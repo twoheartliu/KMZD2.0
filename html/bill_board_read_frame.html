@@ -981,6 +981,8 @@
     }
     //添加到听单
     function fnOpenAddListening(ids) {
+      var token = $api.getStorage('token');
+      if (token) {
         api.openWin({
             name: 'addListening',
             url: './add_listening.html',
@@ -989,6 +991,20 @@
                 ok: 'bill_board_hot_frame'
             }
         });
+      }else {
+          api.openWin({
+              name: 'token',
+              url: './token.html',
+              slidBackEnabled:false,
+              reload: true,
+              animation: {
+               type:"none",
+               subType:"from_right",
+               duration:300
+             },
+          });
+      }
+
     }
 </script>
 

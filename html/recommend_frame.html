@@ -1177,7 +1177,8 @@
     }
     // 添加听单
     function fnOpenAddListening(ids) {
-        //   console.log(id);
+      var token = $api.getStorage('token');
+      if (token) {
         api.openWin({
             name: 'addListening',
             url: './add_listening.html',
@@ -1186,6 +1187,21 @@
                 ok: 'recommend_frame'
             }
         });
+      }else {
+          api.openWin({
+              name: 'token',
+              url: './token.html',
+              slidBackEnabled:false,
+              reload: true,
+              animation: {
+               type:"none",
+               subType:"from_right",
+               duration:300
+             },
+          });
+      }
+        //   console.log(id);
+
     }
 
 

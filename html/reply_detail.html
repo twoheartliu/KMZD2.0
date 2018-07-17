@@ -247,6 +247,9 @@
         albumId = api.pageParam.albumId;
         uris = api.pageParam.uris;
           var notHeader = $api.byId('notHeader');
+          var headeris = document.querySelector('#notHeader');
+          $api.fixIos7Bar(headeris);
+          $api.fixStatusBar(headeris);
           $api.fixStatusBar(notHeader);
           fnOpenMessageNotDetail();
       }

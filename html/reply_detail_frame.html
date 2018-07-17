@@ -152,18 +152,18 @@ var albumId;
 var uris;
 var token;
 var name;
-    apiready = function() {
-      token = $api.getStorage('token');
-      name = api.pageParam.name;
-      comment_id = api.pageParam.comment_id;
-      albumId = api.pageParam.albumId;
-      if(name){
-        $api.byId('replyValue').placeholder = '回复' + name;
-      }
-      uris = api.pageParam.uris;
-      var mHeader = $api.byId('mesHeader');
-      var headerPos = $api.offset(mHeader);
-      // replySend();
+        apiready = function() {
+          token = $api.getStorage('token');
+          name = api.pageParam.name;
+          comment_id = api.pageParam.comment_id;
+          albumId = api.pageParam.albumId;
+          if(name){
+            $api.byId('replyValue').placeholder = '回复' + name;
+          }
+          uris = api.pageParam.uris;
+          var mHeader = $api.byId('mesHeader');
+          var headerPos = $api.offset(mHeader);
+          // replySend();
         }
         function replySend() {
             var replyValue = $api.byId('replyValue').value;
@@ -194,91 +194,20 @@ var name;
                           }
                       });
                       api.closeWin();
-                        // api.openWin({
-                        //     name: 'discussDetail0',
-                        //     url: './discuss_detail0.html',
-                        //     pageParam: {
-                        //         albumId: albumId
-                        //     },
-                        //     reload: true
-                        // });
-                    }else{
+                    }else if (ret.status == 10801) {
+                       api.toast({              
+                          msg:  '内容必须大于两个字',
+                          duration:  timeOut,
+                          location:   'middle'          
+                      });
+                    }else {
                       netMessage(ret);
                     }
                   }else{
                     netWork(err);
                   }
-
             });
-
-
         }
-        // function fnOpenchatbox(){
-        //   var UIChatBox = api.require('UIChatBox');
-        //   UIChatBox.open({
-        //       autoFocus: false,
-        //       placeholder: '',
-        //       maxRows: 4,
-        //       emotionPath: 'widget://image/message/emotion',
-        //       texts: {
-        //           sendBtn: {
-        //               title: '发送',
-        //           }
-        //       },
-        //       styles: {
-        //           inputBar: {
-        //               borderColor: '#d9d9d9',
-        //               bgColor: '#f2f2f2'
-        //           },
-        //           inputBox: {
-        //               borderColor: '#B3B3B3',
-        //               bgColor: '#FFFFFF'
-        //           },
-        //           emotionBtn: {
-        //               normalImg: 'widget://image/message/chatBox_face1.png'
-        //           },
-        //           extrasBtn: {
-        //               normalImg: 'widget://image/message/chatBox_add1.png'
-        //           },
-        //           recordBtn: {
-        //               normalBg: '#c4c4c4',
-        //               activeBg: '#999999',
-        //               color: '#000',
-        //               size: 14
-        //           },
-        //           indicator: {
-        //               target: 'both',
-        //               color: '#c4c4c4',
-        //               activeColor: '#9e9e9e'
-        //           },
-        //           sendBtn: {
-        //               titleColor: '#fff',
-        //               bg: '#89211b',
-        //               activeBg: '#999999',
-        //               titleSize: 14
-        //           }
-        //       },
-        //       extras: {
-        //           titleSize: 10,
-        //           titleColor: '#a3a3a3',
-        //           btns: [{
-        //               title: '图片',
-        //               normalImg: 'widget://image/message/chatBox_album1.png',
-        //               activeImg: 'widget://image/message/chatBox_album2.png'
-        //           }, {
-        //               title: '拍照',
-        //               normalImg: 'widget://image/message/chatBox_cam1.png',
-        //               activeImg: 'widget://image/message/chatBox_cam2.png'
-        //           }]
-        //       }
-        //   }, function(ret, err) {
-        //       if (ret) {
-        //
-        //       } else {
-        //
-        //       }
-        //   });
-        // }
 </script>
 
 </html>

@@ -314,15 +314,31 @@
     }
 
     function fnOpenmyPersonal(id, nickname) {
-        api.openWin({
-            name: 'myPersonal',
-            url: './my_personal.html',
-            pageParam: {
-                userId: id,
-                nickName: nickname,
-                ok: 'myPersonal1'
-            }
-        });
+       var token = $api.getStorage('token');
+       if (token) {
+         api.openWin({
+             name: 'myPersonal',
+             url: './my_personal.html',
+             pageParam: {
+                 userId: id,
+                 nickName: nickname,
+                 ok: 'myPersonal1'
+             }
+         });
+       }else {
+         api.openWin({
+             name: 'token',
+             url: './token.html',
+             slidBackEnabled:false,
+             reload: true,
+             animation: {
+              type:"none",
+              subType:"from_right",
+              duration:300
+            },
+         });
+       }
+
     }
 </script>
 
