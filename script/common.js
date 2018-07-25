@@ -1,11 +1,13 @@
 // var host = 'http://47.100.11.38';
+// var host = 'http://192.168.0.120'
 var host = 'https://api.kmzhidao.com';
 // 音频路径
 var playHost = 'http://music.kmzhidao.com'
-var version = '2.0';
+var version = '2.0.3';
 var apiUri = '/kmzd/2.0';
 //
 var http = 'http://img.kmzhidao.com/';
+var imgHost = 'http://img.kmzhidao.com/';
 //用户头像
 var updatePhotoUrl = 'http://img.kmzhidao.com/photo/';
 var listeningImg = 'http://img.kmzhidao.com/listening/';

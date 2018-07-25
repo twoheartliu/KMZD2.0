@@ -231,6 +231,8 @@
     }
 
     function fnData() {
+        var model = api.deviceModel;
+        var sVer = api.systemVersion;
         api.ajax({
             url: host + apiUri + '/listening/detail/' + id,
             method: 'get',
@@ -239,7 +241,9 @@
             headers: {
                 "source": api.systemType,
                 "version": version,
-                "session": token
+                "session": token,
+                "mobile-model": model,
+                "os-version": sVer
             }
         }, function(ret, err) {
             if (ret) {
@@ -336,13 +340,17 @@
                         CoverImg.innerHTML = '<img src="' + ret.data + '">';
                         // console.log(ret.data);
                         var token = $api.getStorage('token');
+                        var model = api.deviceModel;
+                        var sVer = api.systemVersion;
                         api.ajax({
                             url: host + apiUri + '/upload/listening_cover',
                             method: 'post',
                             headers: {
                                 "source": api.systemType,
                                 "version": version,
-                                "session": token
+                                "session": token,
+                                "mobile-model": model,
+                                "os-version": sVer
                             },
                             data: {
                                 files: {
@@ -402,6 +410,8 @@
                         CoverImg.innerHTML = '<img src="' + ret.data + '">';
                         // console.log(ret.data);
                         var token = $api.getStorage('token');
+                        var model = api.deviceModel;
+                        var sVer = api.systemVersion;
                         api.ajax({
                             url: host + apiUri + '/upload/listening_cover',
                             method: 'post',
@@ -410,7 +420,9 @@
                             headers: {
                                 "source": api.systemType,
                                 "version": version,
-                                "session": token
+                                "session": token,
+                                "mobile-model": model,
+                                "os-version": sVer
                             },
                             data: {
                                 files: {
@@ -625,6 +637,8 @@
             });
 
             // var token = $api.getStorage('token');
+            var model = api.deviceModel;
+            var sVer = api.systemVersion;
             api.ajax({
                 url: host + apiUri + '/listening/edit',
                 method: 'post',
@@ -633,7 +647,9 @@
                 headers: {
                     "source": api.systemType,
                     "version": version,
-                    "session": token
+                    "session": token,
+                    "mobile-model": model,
+                    "os-version": sVer
                 },
                 data: {
                     values: {

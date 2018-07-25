@@ -141,6 +141,8 @@
     function showAlbum() {
         // console.log('sss');
         var uri = '/script/album?c_id=';
+        var model = api.deviceModel;
+        var sVer = api.systemVersion;
         api.ajax({
             url: host + apiUri + uri + id,
             method: 'get',
@@ -149,7 +151,9 @@
             headers: {
                 "source": api.systemType,
                 "version": version,
-                "session": token
+                "session": token,
+                "mobile-model": model,
+                 "os-version": sVer
             }
         }, function(ret, err) {
             // console.log(JSON.stringify(ret));
@@ -161,7 +165,7 @@
                         var container = $api.byId('typejubenlist')
                         container.insertAdjacentHTML('beforeend', '<div class="zanwushuju_div"><p>暂无数据</p></div>')
                     }
-                    
+
                     for (var i = 0; i < ret.data.length; i++) {
                         var data = ret.data[i]
                         var albumId = data.type_id

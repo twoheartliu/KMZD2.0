@@ -393,6 +393,8 @@
         }
         //调接口
     function fnProductList() {
+        var model = api.deviceModel;
+        var sVer = api.systemVersion;
         api.ajax({
             url: host + apiUri + '/user/records',
             method: 'get',
@@ -400,7 +402,9 @@
             headers: {
                 "source": api.systemType,
                 "version": version,
-                "session": token
+                "session": token,
+                "mobile-model": model,
+                "os-version": sVer
             },
             data: {
                 values: {
@@ -494,6 +498,8 @@
     }
 
     function fnProductLists() {
+        var model = api.deviceModel;
+        var sVer = api.systemVersion;
         api.ajax({
             url: host + apiUri + '/user/records',
             method: 'get',
@@ -501,7 +507,9 @@
             headers: {
                 "source": api.systemType,
                 "version": version,
-                "session": token
+                "session": token,
+                "mobile-model": model,
+                  "os-version": sVer
             },
             data: {
                 values: {
@@ -1163,6 +1171,8 @@
 
     function fnalert(id) {
       // alert("确认删除");
+      var model = api.deviceModel;
+      var sVer = api.systemVersion;
       api.ajax({
           url: host + apiUri + '/user/del_records/' + id,
           method: 'post',
@@ -1170,7 +1180,9 @@
           headers: {
               "source": api.systemType,
               "version": version,
-              "session": token
+              "session": token,
+              "mobile-model": model,
+             "os-version": sVer
           },
           // data: {
           //     values: {

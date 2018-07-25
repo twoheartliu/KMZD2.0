@@ -632,6 +632,8 @@
     function fnNum() {
         var token = $api.getStorage('token');
         if (token) {
+        var model = api.deviceModel;
+        var sVer = api.systemVersion;
           api.ajax({
               url: host + apiUri + '/message/unread_message_nums',
               method: 'get',
@@ -641,6 +643,8 @@
                   "source": api.systemType,
                   "version": version,
                   "session": token,
+                  "mobile-model": model,
+                  "os-version": sVer
               }
           }, function(ret, err) {
               if (ret) {
@@ -675,6 +679,8 @@
         var token = $api.getStorage('token');
         if (token) {
           var uri = '/user';
+          var model = api.deviceModel;
+          var sVer = api.systemVersion;
           api.ajax({
               url: host + apiUri + uri,
               method: 'get',
@@ -684,7 +690,9 @@
               headers: {
                   "source": api.systemType,
                   "version": version,
-                  "session": token
+                  "session": token,
+                  "mobile-model": model,
+                  "os-version": sVer
               }
           }, function(ret, err) {
             // console.log(JSON.stringify(ret));
@@ -876,6 +884,8 @@
 
     function fnAjaxMy() {
         var token = $api.getStorage('token');
+        var model = api.deviceModel;
+        var sVer = api.systemVersion;
         api.ajax({
             url: host + apiUri + '/user/info',
             method: 'get',
@@ -885,7 +895,9 @@
             headers: {
                 "source": api.systemType,
                 "version": version,
-                "session": token
+                "session": token,
+                "mobile-model": model,
+                "os-version": sVer
             }
         }, function(ret, err) {
             if (ret) {

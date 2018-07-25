@@ -272,6 +272,8 @@
     }
     // 下拉刷新
     function fnMessagePrivateFrame() {
+        var model = api.deviceModel;
+      var sVer = api.systemVersion;
       api.ajax({
         url: host + apiUri + '/message/lists',
         method: 'get',
@@ -280,7 +282,9 @@
         headers: {
             "source": api.systemType,
             "version": version,
-            "session": token
+            "session": token,
+            "mobile-model": model,
+            "os-version": sVer
         },
           data: {
               values: {
@@ -427,6 +431,8 @@
     }
     // 上拉加载更多
     function fnMessagePrivateFrames() {
+        var model = api.deviceModel;
+      var sVer = api.systemVersion;
       api.ajax({
         url: host + apiUri + '/message/lists',
         method: 'get',
@@ -435,7 +441,9 @@
         headers: {
             "source": api.systemType,
             "version": version,
-            "session": token
+            "session": token,
+            "mobile-model": model,
+              "os-version": sVer
         },
           data: {
               values: {

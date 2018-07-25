@@ -648,6 +648,8 @@
         var token = $api.getStorage('token');
         var uri = '/extra/banner';
         // var position = 'index'
+        var model = api.deviceModel;
+        var sVer = api.systemVersion;
         api.ajax({
             url: host + apiUri + uri,
             method: 'get',
@@ -657,6 +659,8 @@
                 "source": api.systemType,
                 "version": version,
                 "session": token,
+                "mobile-model": model,
+                "os-version": sVer
             },
             data: {
                 values: {
@@ -683,7 +687,7 @@
                         if (img == null) {
                             imgs = "../image/read/KM_tp.jpg";
                         } else {
-                            var img_header = host + '/kmzd/public/uploads/banner/'
+                            var img_header = imgHost + 'banner/'
                             imgs = img_header + img
                                 //   console.log(imgs)
                         }
@@ -841,6 +845,8 @@
     function fnCategory() {
         var token = $api.getStorage('token');
         var uri = '/script/category';
+        var model = api.deviceModel;
+        var sVer = api.systemVersion;
         api.ajax({
             url: host + apiUri + uri,
             method: 'get',
@@ -849,7 +855,9 @@
             headers: {
                 "source": api.systemType,
                 "version": version,
-                "session": token
+                "session": token,
+                "mobile-model": model,
+                "os-version": sVer
             }
         }, function(ret, err) {
             if (ret) {
@@ -890,6 +898,8 @@
     function fnreadingAloudRecommended() {
         var token = $api.getStorage('token');
         var uri = '/recitation/script_recommend';
+        var model = api.deviceModel;
+        var sVer = api.systemVersion;
         api.ajax({
             url: host + apiUri + uri,
             method: 'get',
@@ -898,7 +908,9 @@
             headers: {
                 "source": api.systemType,
                 "version": version,
-                "session": token
+                "session": token,
+                "mobile-model": model,
+                "os-version": sVer
             }
         }, function(ret, err) {
             // alert(JSON.stringify(ret));
@@ -931,6 +943,8 @@
     function fnRecommendFriends() {
         var token = $api.getStorage('token');
         var uri = '/recitation/user_recommend';
+        var model = api.deviceModel;
+        var sVer = api.systemVersion;
         api.ajax({
             url: host + apiUri + uri,
             method: 'get',
@@ -939,7 +953,9 @@
             headers: {
                 "source": api.systemType,
                 "version": version,
-                "session": token
+                "session": token,
+                "mobile-model": model,
+                "os-version": sVer
             }
         }, function(ret, err) {
             // alert(JSON.stringify(ret));
@@ -1157,13 +1173,17 @@
                         if (index == 1) {
                             logid = id;
                             var token = $api.getStorage('token');
+                            var model = api.deviceModel;
+                            var sVer = api.systemVersion;
                             api.ajax({
                                 url: host + apiUri + '/user/follow',
                                 method: 'post',
                                 headers: {
                                     "source": api.systemType,
                                     "version": version,
-                                    "session": token
+                                    "session": token,
+                                    "mobile-model": model,
+                                    "os-version": sVer
                                 },
                                 data: {
                                     values: {
@@ -1314,7 +1334,7 @@
     };
 
     function OpenSearch() {
-        
+
             api.openWin({
                 name: 'langsong_searchs_pre',
                 url: './langsong_searchs_pre.html',

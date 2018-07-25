@@ -1115,6 +1115,8 @@
       var ImgGif = $api.byId('ImgGif');
       var html = '<div class="loading"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>';
       $api.html(ImgGif, html);
+      var model = api.deviceModel;
+      var sVer = api.systemVersion;
       api.ajax({
           url: host + apiUri + uri + '/' + bookId,
           method: 'get',
@@ -1123,7 +1125,9 @@
           headers: {
               "source": api.systemType,
               "version": version,
-              "session": token
+              "session": token,
+              "mobile-model": model,
+              "os-version": sVer
           }
       }, function(ret, err) {
         if(ret){
@@ -1463,6 +1467,8 @@
           var ImgGif = $api.byId('ImgGif');
           var html = '<div class="loading"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>';
           $api.html(ImgGif, html);
+          var model = api.deviceModel;
+          var sVer = api.systemVersion;
           api.ajax({
               url: host + apiUri + uri + '/' + id,
               method: 'get',
@@ -1471,7 +1477,9 @@
               headers: {
                   "source": api.systemType,
                   "version": version,
-                  "session": token
+                  "session": token,
+                  "mobile-model": model,
+                 "os-version": sVer
               }
           }, function(ret, err) {
             if(ret){
@@ -1503,6 +1511,8 @@
             var ImgGif = $api.byId('ImgGif');
             var html = '<div class="loading"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>';
             $api.html(ImgGif, html);
+            var model = api.deviceModel;
+            var sVer = api.systemVersion;
             api.ajax({
                 url: host + apiUri + uri + '/' + dqbfid,
                 method: 'get',
@@ -1511,7 +1521,9 @@
                 headers: {
                     "source": api.systemType,
                     "version": version,
-                    "session": token
+                    "session": token,
+                    "mobile-model": model,
+                  "os-version": sVer
                 }
             }, function(ret, err) {
               if(ret){
@@ -1689,6 +1701,8 @@
             clicktoolitem.setAttribute("data-click", 1);
             toolbarlist.src = "../image/KM_play_collect_red.png";
             uri = '/extra/collection';
+            var model = api.deviceModel;
+             var sVer = api.systemVersion;
             api.ajax({
                 url: host + apiUri + uri + '/' + bookId,
                 method: 'post',
@@ -1697,7 +1711,9 @@
                 headers: {
                     "source": api.systemType,
                     "version": version,
-                    "session": token
+                    "session": token,
+                    "mobile-model": model,
+                    "os-version": sVer
                 },
                 data:{
                   values:{
@@ -1732,6 +1748,8 @@
             clicktoolitem.setAttribute("data-click", 0);
             toolbarlist.src = "../image/KM_play_collect.png";
             uri = '/extra/collection';
+            var model = api.deviceModel;
+             var sVer = api.systemVersion;
             api.ajax({
                 url: host + apiUri + uri + '/' + bookId,
                 method: 'post',
@@ -1740,7 +1758,9 @@
                 headers: {
                     "source": api.systemType,
                     "version": version,
-                    "session": token
+                    "session": token,
+                    "mobile-model": model,
+                   "os-version": sVer
                 },
                 data:{
                   values:{
@@ -1799,6 +1819,8 @@
           toolbarlist.src = "../image/KM_play_dianzan_red.png";
           uri = '/extra/good';
           var url = host + apiUri + uri + '/' + bookId;
+          var model = api.deviceModel;
+         var sVer = api.systemVersion;
           api.ajax({
               url: host + apiUri + uri + '/' + bookId,
               method: 'post',
@@ -1807,7 +1829,9 @@
               headers: {
                   "source": api.systemType,
                   "version": version,
-                  "session": token
+                  "session": token,
+                  "mobile-model": model,
+                  "os-version": sVer
               },
               data:{
                 values:{
@@ -1836,6 +1860,8 @@
           clicktoolitem.setAttribute("data-click", 0);
           toolbarlist.src = "../image/KM_play_dianzan.png";
           uri = '/extra/good';
+          var model = api.deviceModel;
+          var sVer = api.systemVersion;
           api.ajax({
               url: host + apiUri + uri + '/' + bookId,
               method: 'post',
@@ -1844,7 +1870,9 @@
               headers: {
                   "source": api.systemType,
                   "version": version,
-                  "session": token
+                  "session": token,
+                  "mobile-model": model,
+                  "os-version": sVer
               },
               data:{
                 values:{

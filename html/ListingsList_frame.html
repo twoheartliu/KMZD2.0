@@ -827,13 +827,17 @@
         // 调取用户基本信息
     function ListenToTheDetails() {
         token = $api.getStorage('token');
+        var model = api.deviceModel;
+        var sVer = api.systemVersion;
         api.ajax({
             url: host + apiUri + '/listening/detail/' + ids,
             method: 'get',
             headers: {
                 "source": api.systemType,
                 "version": version,
-                "session": token
+                "session": token,
+                "mobile-model": model,
+                "os-version": sVer
             }
         }, function(ret, err) {
             if (ret) {
@@ -976,6 +980,8 @@
             var ids = api.pageParam.ids;
             uri = '/extra/good';
             var url = host + apiUri + uri + '/' + ids;
+            var model = api.deviceModel;
+            var sVer = api.systemVersion;
             api.ajax({
                 url: host + apiUri + uri + '/' + ids,
                 method: 'post',
@@ -983,7 +989,9 @@
                 headers: {
                     "source": api.systemType,
                     "version": version,
-                    "session": token
+                    "session": token,
+                    "mobile-model": model,
+                    "os-version": sVer
                 },
                 data: {
                     values: {
@@ -1013,6 +1021,8 @@
             toolbarlist.src = "../image/KM_ListingsListDzs.png";
             var ids = api.pageParam.ids;
             uri = '/extra/good';
+            var model = api.deviceModel;
+            var sVer = api.systemVersion;
             api.ajax({
                 url: host + apiUri + uri + '/' + ids,
                 method: 'post',
@@ -1020,7 +1030,9 @@
                 headers: {
                     "source": api.systemType,
                     "version": version,
-                    "session": token
+                    "session": token,
+                    "mobile-model": model,
+                    "os-version": sVer
                 },
                 data: {
                     values: {
@@ -1064,13 +1076,18 @@
     }
     // 调取用户听单单曲列表
     function songList() {
+        var model = api.deviceModel;
+      var sVer = api.systemVersion;
+
         api.ajax({
           url: host + apiUri + '/listening/song_list/' + ids,
           method: 'get',
           headers: {
               "source": api.systemType,
               "version": version,
-              "session": token
+              "session": token,
+              "mobile-model": model,
+      "os-version": sVer
           },
             data: {
                 values: {
@@ -1132,13 +1149,17 @@
 
     // 首页进入的列表接口
     function songListindex() {
+        var model = api.deviceModel;
+     var sVer = api.systemVersion;
         api.ajax({
           url: host + apiUri + '/listening/song_list/' + ids,
           method: 'get',
           headers: {
               "source": api.systemType,
               "version": version,
-              "session": token
+              "session": token,
+              "mobile-model": model,
+      "os-version": sVer
           },
             data: {
                 values: {
@@ -1271,6 +1292,8 @@
             clicktoolitem.setAttribute("data-click", 1);
             toolbarlist.src = "../image/KM_play_collect_red.png";
             uri = '/extra/collection';
+            var model = api.deviceModel;
+      var sVer = api.systemVersion;
             api.ajax({
                 url: host + apiUri + uri + '/' + ids,
                 method: 'post',
@@ -1278,7 +1301,9 @@
                 headers: {
                     "source": api.systemType,
                     "version": version,
-                    "session": token
+                    "session": token,
+                    "mobile-model": model,
+                    "os-version": sVer
                 },
                 data: {
                     values: {
@@ -1305,6 +1330,8 @@
             clicktoolitem.setAttribute("data-click", 0);
             toolbarlist.src = "../image/KM_hxs.png";
             uri = '/extra/collection';
+            var model = api.deviceModel;
+            var sVer = api.systemVersion;
             api.ajax({
                 url: host + apiUri + uri + '/' + ids,
                 method: 'post',
@@ -1312,7 +1339,9 @@
                 headers: {
                     "source": api.systemType,
                     "version": version,
-                    "session": token
+                    "session": token,
+                    "mobile-model": model,
+                  "os-version": sVer
                 },
                 data: {
                     values: {
@@ -1403,6 +1432,8 @@
                   dialogName: 'actionMenu'
               });
                 uri = '/extra/list_collection/';
+                var model = api.deviceModel;
+              var sVer = api.systemVersion;
                 api.ajax({
                     url: host + apiUri + uri + songListID,
                     method: 'post',
@@ -1410,7 +1441,9 @@
                     headers: {
                         "source": api.systemType,
                         "version": version,
-                        "session": token
+                        "session": token,
+                        "mobile-model": model,
+                        "os-version": sVer
                     },
                     data: {
                         values: {
@@ -1534,6 +1567,8 @@
                   dialogName: 'actionMenu'
               });
                 uri = '/extra/list_collection/';
+                var model = api.deviceModel;
+              var sVer = api.systemVersion;
                 api.ajax({
                     url: host + apiUri + uri + songListID,
                     method: 'post',
@@ -1541,7 +1576,9 @@
                     headers: {
                         "source": api.systemType,
                         "version": version,
-                        "session": token
+                        "session": token,
+                        "mobile-model": model,
+                      "os-version": sVer
                     },
                     data: {
                         values: {
@@ -1610,13 +1647,17 @@
           var index = ret.buttonIndex;
           if (index == 1) {
             // console.log(ids);
+            var model = api.deviceModel;
+      var sVer = api.systemVersion;
             api.ajax({
                 url: host + apiUri + '/listening/del_song/' + songListID,
                 method: 'post',
                 headers: {
                     "source": api.systemType,
                     "version": version,
-                    "session": token
+                    "session": token,
+                    "mobile-model": model,
+                  "os-version": sVer
                 },
                 data: {
                     values: {

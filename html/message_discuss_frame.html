@@ -280,6 +280,8 @@
     }
 
     function fnAjaxPinLun() {
+        var model = api.deviceModel;
+        var sVer = api.systemVersion;
         api.ajax({
             url: host + apiUri + '/message/lists',
             method: 'get',
@@ -288,7 +290,9 @@
             headers: {
                 "source": api.systemType,
                 "version": version,
-                "session": token
+                "session": token,
+                "mobile-model": model,
+                "os-version": sVer
             },
             data: {
                 values: {
@@ -408,6 +412,8 @@
     }
 
     function fnAjaxPinLuns() {
+        var model = api.deviceModel;
+        var sVer = api.systemVersion;
         api.ajax({
             url: host + apiUri + '/message/lists',
             method: 'get',
@@ -416,7 +422,9 @@
             headers: {
                 "source": api.systemType,
                 "version": version,
-                "session": token
+                "session": token,
+                "mobile-model": model,
+                "os-version": sVer
             },
             data: {
                 values: {
@@ -643,6 +651,8 @@
     function fnOpenMessageNotAlbum(id) {
         var dataType = './discuss_detail0.html';
         var dataName = 'discussDetail0';
+        var model = api.deviceModel;
+        var sVer = api.systemVersion;
         api.ajax({
             url: host + apiUri + '/album/' + id,
             method: 'get',
@@ -651,7 +661,9 @@
             headers: {
                 "source": api.systemType,
                 "version": version,
-                "session": token
+                "session": token,
+                "mobile-model": model,
+                "os-version": sVer
             },
             data: {
                 values: {
@@ -693,6 +705,8 @@
         var dataType = './discuss_notice_detail0.html';
         var dataName = 'discussNoticeDetail0';
         var uris = '/sound/comment/';
+        var model = api.deviceModel;
+        var sVer = api.systemVersion;
         api.ajax({
             url: host + apiUri + '/sound/' + id,
             method: 'get',
@@ -701,7 +715,9 @@
             headers: {
                 "source": api.systemType,
                 "version": version,
-                "session": token
+                "session": token,
+                "mobile-model": model,
+                "os-version": sVer
             },
             data: {
                 values: {
@@ -742,7 +758,9 @@
     function fnOpenMessageNotListening(id) {
         var dataType = './discuss_detail0.html';
         var dataName = 'discussDetail0';
-        var uris = '/listening/comment/'
+        var uris = '/listening/comment/';
+        var model = api.deviceModel;
+        var sVer = api.systemVersion;
         api.ajax({
             url: host + apiUri + '/listening/detail/' + id,
             method: 'get',
@@ -751,7 +769,9 @@
             headers: {
                 "source": api.systemType,
                 "version": version,
-                "session": token
+                "session": token,
+                "mobile-model": model,
+               "os-version": sVer
             },
         }, function(ret, err) {
             if (ret) {

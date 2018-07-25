@@ -723,6 +723,8 @@
     function fnGengDuo() {
         var id = api.pageParam.id;
         uri = '/index/floor_more/' + id;
+        var model = api.deviceModel;
+        var sVer = api.systemVersion;
         api.ajax({
             url: host + apiUri + uri,
             method: 'get',
@@ -731,7 +733,9 @@
             headers: {
                 "source": api.systemType,
                 "version": version,
-                "session": token
+                "session": token,
+                "mobile-model": model,
+                "os-version": sVer
             },
             data: {
                 values: {
@@ -847,6 +851,8 @@
 
         var id = api.pageParam.id;
         uri = '/index/floor_more/' + id;
+        var model = api.deviceModel;
+        var sVer = api.systemVersion;
         api.ajax({
             url: host + apiUri + uri,
             method: 'get',
@@ -855,7 +861,9 @@
             headers: {
                 "source": api.systemType,
                 "version": version,
-                "session": token
+                "session": token,
+                "mobile-model": model,
+                "os-version": sVer
             },
             data: {
                 values: {
@@ -1087,6 +1095,9 @@
                 $api.html(loadEffect, htmlloadEffect);
 
                 uri = '/extra/list_collection/';
+                var model = api.deviceModel;
+              var sVer = api.systemVersion;
+
                 api.ajax({
                     url: host + apiUri + uri + ids,
                     method: 'post',
@@ -1095,7 +1106,9 @@
                     headers: {
                         "source": api.systemType,
                         "version": version,
-                        "session": token
+                        "session": token,
+                        "mobile-model": model,
+                        "os-version": sVer
                     },
                     data: {
                         values: {

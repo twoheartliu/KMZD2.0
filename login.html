@@ -78,7 +78,7 @@
 <body>
     <div id="footer">
         <div class="login_wx" onclick="fnSjWin();">
-            手机号登录
+            手机号或邮箱登录
         </div>
         <div class="login_footer">
             <div class="youkedengluCss" onclick="fnYouKeDengLu();">游客模式 </div>
@@ -255,7 +255,6 @@
                   wx.getToken({
                       code: ret.code
                   }, function(ret, err) {
-                      // console.log(JSON.stringify(ret));
                       if (ret.status) {
                         // openId 字符串类型；授权用户唯一标识
                         //accessToken 字符串类型；接口调用凭证，传给 getUserInfo 接口 获取用户信息；有效期2小时
@@ -285,6 +284,8 @@
                             openId: openId
                         }, function(ret, err) {
                             if (ret.status) {
+                              var model = api.deviceModel;
+                              var sVer = api.systemVersion;
                               api.ajax({
                                   url: host + apiUri + '/login/wechat',
                                   method: 'post',
@@ -297,11 +298,14 @@
                                       "sex":ret.sex,
                                       "headimgurl":	ret.headimgurl,
                                       "unionid":	ret.unionid,
+
                                     },
                                   },
                                   headers: {
                                     "source":api.systemType,
-                                    "version":version
+                                    "version":version,
+                                    "mobile-model": model,
+                                    "os-version": sVer
                                   },
                               }, function(ret, err) {
                                 if(ret){
@@ -322,10 +326,13 @@
                                          slidBackEnabled:false,
                                           reload: true,
                                      });
+
                                   }else{
+                                    console.log(JSON.stringify(ret));
                                     netMessage(ret);
                                   }
                                 }else{
+                                  console.log(JSON.stringify(err));
                                   netWork(err);
                                 }
                               });
@@ -388,6 +395,8 @@
                               var nickname = ret.info.nickname;
                               var gender = ret.info.gender;
                               var figureurl_qq_2 = ret.info.figureurl_qq_2;
+                              var model = api.deviceModel;
+                              var sVer = api.systemVersion;
                               api.ajax({
                                   url: host + apiUri + '/login/qq',
                                   method: 'post',
@@ -403,7 +412,9 @@
                                   },
                                   headers: {
                                     "source":api.systemType,
-                                    "version":version
+                                    "version":version,
+                                    "mobile-model": model,
+                                    "os-version": sVer
                                   },
                               }, function(ret, err) {
                                   if (ret.status == 200) {

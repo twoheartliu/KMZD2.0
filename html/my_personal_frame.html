@@ -526,13 +526,17 @@
     // 听单相关
     function listenList() {
         userId = api.pageParam.userId;
+        var model = api.deviceModel;
+      var sVer = api.systemVersion;
         api.ajax({
             url: host + apiUri + '/user/personal_page/' + userId,
             method: 'get',
             headers: {
                 "source": api.systemType,
                 "version": version,
-                "session": token
+                "session": token,
+                "mobile-model": model,
+                  "os-version": sVer
             }
         },function(ret, err){
             if (ret.status == 200) {
@@ -629,13 +633,17 @@
       var html = nickName;
       $api.html(username, html);
       //调接口
+      var model = api.deviceModel;
+     var sVer = api.systemVersion;
       api.ajax({
           url: host + apiUri + '/user/personal_page/' + userId,
           method: 'get',
           headers: {
               "source": api.systemType,
               "version": version,
-              "session": token
+              "session": token,
+              "mobile-model": model,
+             "os-version": sVer
           }
       }, function(ret, err) {
           // console.log(JSON.stringify(ret));
@@ -771,13 +779,17 @@
                     }
                 }, function(ret) {
                     if (ret.eventType == 'right') {
+                        var model = api.deviceModel;
+                      var sVer = api.systemVersion;
                         api.ajax({
                             url: host + apiUri + '/user/follow',
                             method: 'post',
                             headers: {
                                 "source": api.systemType,
                                 "version": version,
-                                "session": token
+                                "session": token,
+                                "mobile-model": model,
+                                "os-version": sVer
                             },
                             data: {
                                 values: {
@@ -848,13 +860,17 @@
                     }
                 }, function(ret) {
                     if (ret.eventType == 'right') {
+                        var model = api.deviceModel;
+                      var sVer = api.systemVersion;
                         api.ajax({
                             url: host + apiUri + '/user/follow',
                             method: 'post',
                             headers: {
                                 "source": api.systemType,
                                 "version": version,
-                                "session": token
+                                "session": token,
+                                "mobile-model": model,
+                              "os-version": sVer
                             },
                             data: {
                                 values: {
@@ -960,6 +976,8 @@
                   dialogName: 'actionMenu'
               });
               uri = '/extra/list_collection/';
+              var model = api.deviceModel;
+              var sVer = api.systemVersion;
               api.ajax({
                   url: host + apiUri + uri + id,
                   method: 'post',
@@ -968,7 +986,9 @@
                   headers: {
                       "source": api.systemType,
                       "version": version,
-                      "session": token
+                      "session": token,
+                      "mobile-model": model,
+                      "os-version": sVer
                   },
                   data:{
                     values:{

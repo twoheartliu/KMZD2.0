@@ -689,6 +689,8 @@
     //调接口
     function fnPlayHistory() {
         var uri = '/user/play_history';
+        var model = api.deviceModel;
+        var sVer = api.systemVersion;
         api.ajax({
             url: host + apiUri + uri,
             method: 'get',
@@ -696,7 +698,9 @@
             headers: {
                 "source": api.systemType,
                 "version": version,
-                "session": token
+                "session": token,
+                "mobile-model": model,
+                "os-version": sVer
             }
         }, function(ret, err) {
             // alert(JSON.stringify(ret));
@@ -760,7 +764,8 @@
         }, function(ret, err) {
             var index = ret.buttonIndex;
             if (index == 1) {
-
+              var model = api.deviceModel;
+              var sVer = api.systemVersion;
               api.ajax({
                   url: host + apiUri + "/user/del_history",
                   method: 'post',
@@ -769,6 +774,8 @@
                       "source": api.systemType,
                       "version": version,
                       "session": token,
+                      "mobile-model": model,
+                      "os-version": sVer
                   },
                   data: {
                       values: {
@@ -805,6 +812,8 @@
           var index = ret.buttonIndex;
           if (index == 1) {
             if (alls == true) {
+                var model = api.deviceModel;
+                var sVer = api.systemVersion;
                 api.ajax({
                     url: host + apiUri + "/user/del_history",
                     method: 'post',
@@ -813,6 +822,8 @@
                         "source": api.systemType,
                         "version": version,
                         "session": token,
+                        "mobile-model": model,
+                        "os-version": sVer
                     },
                     data: {
                         values: {
@@ -862,7 +873,8 @@
                         location: 'middle'
                     });
                 } else if (checked_counts == objarray) {
-
+                    var model = api.deviceModel;
+                    var sVer = api.systemVersion;
                     api.ajax({
                         url: host + apiUri + "/user/del_history",
                         method: 'post',
@@ -871,6 +883,8 @@
                             "source": api.systemType,
                             "version": version,
                             "session": token,
+                            "mobile-model": model,
+                            "os-version": sVer
                         },
                         data: {
                             values: {
@@ -897,6 +911,8 @@
                         }
                     });
                 } else {
+                    var model = api.deviceModel;
+                    var sVer = api.systemVersion;
                     api.ajax({
                         url: host + apiUri + "/user/del_history",
                         method: 'post',
@@ -905,6 +921,8 @@
                             "source": api.systemType,
                             "version": version,
                             "session": token,
+                            "mobile-model": model,
+                            "os-version": sVer
                         },
                         data: {
                             values: {

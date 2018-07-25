@@ -796,6 +796,8 @@
         var token = $api.getStorage('token');
         var uri = '/extra/banner';
         // var position = 'index'
+        var model = api.deviceModel;
+        var sVer = api.systemVersion;
         api.ajax({
             url: host + apiUri + uri,
             method: 'get',
@@ -805,6 +807,8 @@
                 "source": api.systemType,
                 "version": version,
                 "session": token,
+                "mobile-model": model,
+                "os-version": sVer
             },
             data: {
                 values: {
@@ -949,6 +953,8 @@
     function fnHomePageLayout() {
       var token = $api.getStorage('token');
         uri = '/index/floor';
+        var model = api.deviceModel;
+        var sVer = api.systemVersion;
         api.ajax({
             url: host + apiUri + uri,
             // url:'https://api.kmzhidao.com/kmzd/2.0/index/floor',
@@ -958,7 +964,9 @@
             headers: {
                 "source": api.systemType,
                 "version": version,
-                "session": token
+                "session": token,
+                "mobile-model": model,
+                "os-version": sVer
             },
         }, function(ret, err) {
             if (ret) {
@@ -1362,6 +1370,8 @@
                 $api.html(loadEffect, htmlloadEffect);
                 var token = $api.getStorage('token');
                 uri = '/extra/list_collection/';
+                var model = api.deviceModel;
+                var sVer = api.systemVersion;
                 api.ajax({
                     url: host + apiUri + uri + id,
                     method: 'post',
@@ -1370,7 +1380,9 @@
                     headers: {
                         "source": api.systemType,
                         "version": version,
-                        "session": token
+                        "session": token,
+                        "mobile-model": model,
+                        "os-version": sVer
                     },
                     data: {
                         values: {

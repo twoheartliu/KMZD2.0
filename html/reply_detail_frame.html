@@ -167,6 +167,8 @@ var name;
         }
         function replySend() {
             var replyValue = $api.byId('replyValue').value;
+            var model = api.deviceModel;
+            var sVer = api.systemVersion;
             api.ajax({
                 url: host + apiUri + uris,
                 method: 'post',
@@ -175,7 +177,9 @@ var name;
                 headers: {
                     "source": api.systemType,
                     "version": version,
-                    "session": token
+                    "session": token,
+                    "mobile-model": model,
+                    "os-version": sVer
                 },
                 data: {
                     values: {

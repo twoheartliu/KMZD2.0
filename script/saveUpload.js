@@ -57,6 +57,8 @@ function fnLuYinBaoCun() {
                               }
                           }
                       }, function(ret, err) {
+                        //   console.log(JSON.stringify(err));
+                        //   console.log(JSON.stringify(ret));
                           if(ret){
                             if (ret.status == 200) {
                                 api.toast({              
@@ -327,11 +329,6 @@ function fnLuYinBaoCun() {
 }
 
  function fnsetInterval() {
-
-
-
-
-   console.log(111);
     var clockId = setTimeout(function() {
         if (path) {
           api.sendEvent({

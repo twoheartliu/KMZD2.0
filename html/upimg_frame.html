@@ -324,6 +324,8 @@
                 //  console.log(html4);
                 $api.html(inputsssss, html4);
                 var uri = '/user/edit';
+                var model = api.deviceModel;
+                var sVer = api.systemVersion;
                 api.ajax({
                     url: host + apiUri + uri,
                     method: 'post',
@@ -333,6 +335,8 @@
                         "source": api.systemType,
                         "version": version,
                         "session": token,
+                        "mobile-model": model,
+                        "os-version": sVer
                     },
                     data: {
                         values: {
@@ -386,6 +390,8 @@
                 //  console.log(babyBirth);
                 $api.html(inputsssss, html4);
                 var uri = '/user/update_baby';
+                var model = api.deviceModel;
+                var sVer = api.systemVersion;
                 api.ajax({
                     url: host + apiUri + uri,
                     method: 'post',
@@ -395,6 +401,8 @@
                         "source": api.systemType,
                         "version": version,
                         "session": token,
+                        "mobile-model": model,
+                        "os-version": sVer
                     },
                     data: {
                         values: {
@@ -425,6 +433,8 @@
 
     function fninfo() {
         var uri = '/user/info';
+        var model = api.deviceModel;
+        var sVer = api.systemVersion;
         api.ajax({
             url: host + apiUri + uri,
             method: 'get',
@@ -434,6 +444,8 @@
                 "source": api.systemType,
                 "version": version,
                 "session": token,
+                "mobile-model": model,
+                "os-version": sVer
             },
         }, function(ret, err) {
             if (ret) {
@@ -557,6 +569,8 @@
               var uri = '/user/del_baby/' + foo;
               // console.log(host + apiUri + uri);
               // console.log(foo);
+              var model = api.deviceModel;
+              var sVer = api.systemVersion;
               api.ajax({
                   url: host + apiUri + uri,
                   method: 'post',
@@ -566,6 +580,8 @@
                       "source": api.systemType,
                       "version": version,
                       "session": token,
+                      "mobile-model": model,
+                      "os-version": sVer
                   },
               }, function(ret, err) {
                   if (ret) {
@@ -695,6 +711,8 @@
                     return;
                 }
                 if (ret.data) {
+                    var model = api.deviceModel;
+                    var sVer = api.systemVersion;
                     api.ajax({
                         url: host + apiUri + '/upload/user_photo',
                         method: 'post',
@@ -703,7 +721,9 @@
                         headers: {
                             "source": api.systemType,
                             "version": version,
-                            "session": token
+                            "session": token,
+                            "mobile-model": model,
+                            "os-version": sVer
                         },
                         data: {
                             files: {
@@ -714,6 +734,8 @@
                         // console.log(JSON.stringify(err));
                         if (ret) {
                             if (ret.status == 200) {
+                                var model = api.deviceModel;
+                                var sVer = api.systemVersion;
                                 api.ajax({
                                     url: host + apiUri + '/user/edit',
                                     method: 'post',
@@ -722,7 +744,9 @@
                                     headers: {
                                         "source": api.systemType,
                                         "version": version,
-                                        "session": token
+                                        "session": token,
+                                        "mobile-model": model,
+                                        "os-version": sVer
                                     },
                                     data: {
                                         values: {
@@ -740,7 +764,8 @@
                                             }
 
                                             // $api.byId('tx').innerHTML = '<img src=" ' + updatePhotoUrl + ret.data. + ' ">';
-
+                                            var model = api.deviceModel;
+                                            var sVer = api.systemVersion;
                                             api.ajax({
                                                 url: host + apiUri + '/user/info',
                                                 method: 'get',
@@ -749,7 +774,9 @@
                                                 headers: {
                                                     "source": api.systemType,
                                                     "version": version,
-                                                    "session": token
+                                                    "session": token,
+                                                    "mobile-model": model,
+                                                    "os-version": sVer
                                                 },
                                             }, function(ret, err) {
                                                 // console.log(JSON.stringify(err));
@@ -820,6 +847,8 @@
             var tx = ret.destPath;
             FNImageClip.close();
             //上传剪辑后的图像到服务器
+            var model = api.deviceModel;
+            var sVer = api.systemVersion;
             api.ajax({
                 url: host + apiUri + '/upload/user_photo',
                 method: 'post',
@@ -828,7 +857,9 @@
                 headers: {
                     "source": api.systemType,
                     "version": version,
-                    "session": token
+                    "session": token,
+                    "mobile-model": model,
+                    "os-version": sVer
                 },
                 data: {
                     files: {
@@ -838,7 +869,8 @@
             }, function(ret, err) {
                 if (ret) {
                     if (ret.status == 200) {
-
+                        var model = api.deviceModel;
+                        var sVer = api.systemVersion;
                         api.ajax({
                             url: host + apiUri + '/user/edit',
                             method: 'post',
@@ -847,7 +879,9 @@
                             headers: {
                                 "source": api.systemType,
                                 "version": version,
-                                "session": token
+                                "session": token,
+                                "mobile-model": model,
+                               "os-version": sVer
                             },
                             data: {
                                 values: {
@@ -864,7 +898,8 @@
                                         $api.addCls(tips, 'hide');
                                     }
                                     // $api.byId('tx').innerHTML = '<img src=" ' + updatePhotoUrl + ret.data. + ' ">';
-
+                                    var model = api.deviceModel;
+                                    var sVer = api.systemVersion;
                                     api.ajax({
                                         url: host + apiUri + '/user/info',
                                         method: 'get',
@@ -873,7 +908,9 @@
                                         headers: {
                                             "source": api.systemType,
                                             "version": version,
-                                            "session": token
+                                            "session": token,
+                                            "mobile-model": model,
+                                            "os-version": sVer
                                         },
                                     }, function(ret, err) {
                                         if (ret) {
@@ -945,6 +982,8 @@
             gender = ret.buttonIndex === 1 ? 1 : 2;
             var index = ret.buttonIndex;
             var uri = '/user/update_baby';
+            var model = api.deviceModel;
+            var sVer = api.systemVersion;
             api.ajax({
                 url: host + apiUri + uri,
                 method: 'post',
@@ -954,6 +993,8 @@
                     "source": api.systemType,
                     "version": version,
                     "session": token,
+                    "mobile-model": model,
+                    "os-version": sVer
                 },
                 data: {
                     values: {
@@ -998,6 +1039,8 @@
             // console.log(gender);
             var index = ret.buttonIndex;
             var uri = '/user/edit';
+            var model = api.deviceModel;
+            var sVer = api.systemVersion;
             api.ajax({
                 url: host + apiUri + uri,
                 method: 'post',
@@ -1007,6 +1050,8 @@
                     "source": api.systemType,
                     "version": version,
                     "session": token,
+                    "mobile-model": model,
+                    "os-version": sVer
                 },
                 data: {
                     values: {
@@ -1133,6 +1178,8 @@
                         }
                     });
                 } else {
+                    var model = api.deviceModel;
+                    var sVer = api.systemVersion;
                     api.ajax({
                         url: host + apiUri + uri,
                         method: 'post',
@@ -1142,6 +1189,8 @@
                             "source": api.systemType,
                             "version": version,
                             "session": token,
+                            "mobile-model": model,
+                            "os-version": sVer
                         },
                         data: {
                             values: {
@@ -1274,6 +1323,8 @@
                         }
                     });
                 } else {
+                    var model = api.deviceModel;
+                   var sVer = api.systemVersion;
                     api.ajax({
                         url: host + apiUri + uri,
                         method: 'post',
@@ -1283,6 +1334,8 @@
                             "source": api.systemType,
                             "version": version,
                             "session": token,
+                            "mobile-model": model,
+                             "os-version": sVer
                         },
                         data: {
                             values: {
@@ -1355,6 +1408,8 @@
     function fnshowTips() {
         var tips = document.querySelector('.tips')
         var uri = '/user/info';
+        var model = api.deviceModel;
+        var sVer = api.systemVersion;
         api.ajax({
             url: host + apiUri + uri,
             method: 'get',
@@ -1364,6 +1419,8 @@
                 "source": api.systemType,
                 "version": version,
                 "session": token,
+                "mobile-model": model,
+                "os-version": sVer
             },
         }, function(ret, err) {
             // console.log(JSON.stringify(ret.data))

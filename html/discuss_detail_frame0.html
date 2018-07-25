@@ -552,6 +552,8 @@
         } else if (uris == '/album/comment/') {
             var uri = '/album/';
         }
+        var model = api.deviceModel;
+        var sVer = api.systemVersion;
         api.ajax({
             url: host + apiUri + uri + albumId,
             method: 'get',
@@ -560,7 +562,9 @@
             headers: {
                 "source": api.systemType,
                 "version": version,
-                "session": token
+                "session": token,
+                "mobile-model": model,
+                "os-version": sVer
             }
         }, function(ret, err) {
 
@@ -624,7 +628,8 @@
     }
 
     function ListenToTheListOfComments() {
-
+        var model = api.deviceModel;
+        var sVer = api.systemVersion;
         api.ajax({
             url: host + apiUri + uris + albumId,
             method: 'get',
@@ -633,7 +638,9 @@
             headers: {
                 "source": api.systemType,
                 "version": version,
-                "session": token
+                "session": token,
+                "mobile-model": model,
+                "os-version": sVer
             },
             data: {
                 values: {
@@ -795,8 +802,10 @@
                 var uri = '/album/';
                 var model = 'album_c';
             }
-                        console.log(model);
+
             uri = '/extra/good';
+            var model = api.deviceModel;
+            var sVer = api.systemVersion;
             api.ajax({
                 url: host + apiUri + uri + '/' + img_id,
                 method: 'post',
@@ -805,7 +814,9 @@
                 headers: {
                     "source": api.systemType,
                     "version": version,
-                    "session": token
+                    "session": token,
+                    "mobile-model": model,
+                    "os-version": sVer
                 },
                 data: {
                     values: {
@@ -844,6 +855,8 @@
                 var model = 'album_c';
             }
             uri = '/extra/good';
+            var model = api.deviceModel;
+            var sVer = api.systemVersion;
             api.ajax({
                 url: host + apiUri + uri + '/' + img_id,
                 method: 'post',
@@ -852,7 +865,9 @@
                 headers: {
                     "source": api.systemType,
                     "version": version,
-                    "session": token
+                    "session": token,
+                    "mobile-model": model,
+                    "os-version": sVer
                 },
                 data: {
                     values: {

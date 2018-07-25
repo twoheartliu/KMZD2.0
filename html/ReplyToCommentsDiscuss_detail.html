@@ -303,6 +303,8 @@ var ok;
                 location: 'middle'
             });
         } else {
+            var model = api.deviceModel;
+            var sVer = api.systemVersion;
             api.ajax({
                 url: host + apiUri + uris,
                 method: 'post',
@@ -311,7 +313,9 @@ var ok;
                 headers: {
                     "source": api.systemType,
                     "version": version,
-                    "session": token
+                    "session": token,
+                    "mobile-model": model,
+                    "os-version": sVer
                 },
                 data: {
                     values: {

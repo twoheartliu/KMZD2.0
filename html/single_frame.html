@@ -810,6 +810,8 @@
     function fnAlbumAetails() {
         albumId = api.pageParam.albumId;
         uri = '/album';
+        var model = api.deviceModel;
+        var sVer = api.systemVersion;
         api.ajax({
             url: host + apiUri + uri + '/' + albumId,
             method: 'get',
@@ -818,7 +820,9 @@
             headers: {
                 "source": api.systemType,
                 "version": version,
-                "session": token
+                "session": token,
+                "mobile-model": model,
+                "os-version": sVer
             }
         }, function(ret, err) {
             if (ret) {
@@ -899,6 +903,8 @@
     function fnAlbumTrack() {
         var albumId = api.pageParam.albumId;
         uri = '/album/song_list';
+        var model = api.deviceModel;
+       var sVer = api.systemVersion;
         api.ajax({
             url: host + apiUri + uri + '/' + albumId,
             method: 'get',
@@ -907,7 +913,9 @@
             headers: {
                 "source": api.systemType,
                 "version": version,
-                "session": token
+                "session": token,
+                "mobile-model": model,
+                "os-version": sVer
             },
             data: {
                 values: {
@@ -1115,6 +1123,8 @@
             }
             if (ret.index == "0") {
                 uri = '/extra/list_collection/';
+                var model = api.deviceModel;
+                var sVer = api.systemVersion;
                 api.ajax({
                     url: host + apiUri + uri + id,
                     method: 'post',
@@ -1123,7 +1133,9 @@
                     headers: {
                         "source": api.systemType,
                         "version": version,
-                        "session": token
+                        "session": token,
+                        "mobile-model": model,
+                        "os-version": sVer
                     },
                     data: {
                         values: {
@@ -1821,6 +1833,8 @@
             toolbarlist.src = "../image/KM_play_collect_red.png";
             var albumId = api.pageParam.albumId;
             uri = '/extra/collection';
+            var model = api.deviceModel;
+            var sVer = api.systemVersion;
             api.ajax({
                 url: host + apiUri + uri + '/' + albumId,
                 method: 'post',
@@ -1829,7 +1843,9 @@
                 headers: {
                     "source": api.systemType,
                     "version": version,
-                    "session": token
+                    "session": token,
+                    "mobile-model": model,
+                    "os-version": sVer
                 },
                 data: {
                     values: {
@@ -1859,6 +1875,8 @@
             toolbarlist.src = "../image/KM_hxs.png";
             var albumId = api.pageParam.albumId;
             uri = '/extra/collection';
+            var model = api.deviceModel;
+            var sVer = api.systemVersion;
             api.ajax({
                 url: host + apiUri + uri + '/' + albumId,
                 method: 'post',
@@ -1867,7 +1885,9 @@
                 headers: {
                     "source": api.systemType,
                     "version": version,
-                    "session": token
+                    "session": token,
+                    "mobile-model": model,
+                    "os-version": sVer
                 },
                 data: {
                     values: {
@@ -1921,6 +1941,8 @@
             var albumId = api.pageParam.albumId;
             uri = '/extra/good';
             var url = host + apiUri + uri + '/' + albumId;
+            var model = api.deviceModel;
+            var sVer = api.systemVersion;
             api.ajax({
                 url: host + apiUri + uri + '/' + albumId,
                 method: 'post',
@@ -1929,7 +1951,9 @@
                 headers: {
                     "source": api.systemType,
                     "version": version,
-                    "session": token
+                    "session": token,
+                    "mobile-model": model,
+                    "os-version": sVer
                 },
                 data: {
                     values: {
@@ -1962,6 +1986,8 @@
             toolbarlist.src = "../image/KM_ListingsListDzs.png";
             var albumId = api.pageParam.albumId;
             uri = '/extra/good';
+            var model = api.deviceModel;
+            var sVer = api.systemVersion;
             api.ajax({
                 url: host + apiUri + uri + '/' + albumId,
                 method: 'post',
@@ -1970,7 +1996,9 @@
                 headers: {
                     "source": api.systemType,
                     "version": version,
-                    "session": token
+                    "session": token,
+                    "mobile-model": model,
+                    "os-version": sVer
                 },
                 data: {
                     values: {

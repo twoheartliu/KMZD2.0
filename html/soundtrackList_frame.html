@@ -80,6 +80,8 @@ var path;
     function fnGetBeiJingYinYuelist(byid) {
 
       uri = '/recitation/bgm';
+      var model = api.deviceModel;
+      var sVer = api.systemVersion;
       api.ajax({
           url: host + apiUri + uri +'?id='+ byid,
           method: 'get',
@@ -88,7 +90,9 @@ var path;
           headers: {
               "source": api.systemType,
               "version": version,
-              "session": token
+              "session": token,
+              "mobile-model": model,
+               "os-version": sVer
           },
   		}, function(ret, err) {
         if(ret){

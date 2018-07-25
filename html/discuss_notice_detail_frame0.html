@@ -385,6 +385,8 @@
 
     function fnDetails(soundId) {
         var uri = '/sound/';
+        var model = api.deviceModel;
+        var sVer = api.systemVersion;
         api.ajax({
             url: host + apiUri + uri + soundId,
             method: 'get',
@@ -393,7 +395,9 @@
             headers: {
                 "source": api.systemType,
                 "version": version,
-                "session": token
+                "session": token,
+                "mobile-model": model,
+                "os-version": sVer
             }
         }, function(ret, err) {
             // console.log(JSON.stringify(ret));
@@ -451,6 +455,8 @@
         soundId = api.pageParam.soundId;
         name = api.pageParam.name;
         uris = api.pageParam.uris;
+        var model = api.deviceModel;
+        var sVer = api.systemVersion;
         api.ajax({
             url: host + apiUri + uris + soundId,
             method: 'get',
@@ -459,7 +465,9 @@
             headers: {
                 "source": api.systemType,
                 "version": version,
-                "session": token
+                "session": token,
+                "mobile-model": model,
+                "os-version": sVer
             }
         }, function(ret, err) {
             if (ret) {
@@ -604,6 +612,8 @@
             toolbarlist.setAttribute("data-click", 1);
             toolbarlist.src = "../image/KM_play_dianzan_red.png";
             uri = '/extra/good';
+            var model = api.deviceModel;
+            var sVer = api.systemVersion;
             api.ajax({
                 url: host + apiUri + uri + '/' + img_id,
                 method: 'post',
@@ -612,7 +622,9 @@
                 headers: {
                     "source": api.systemType,
                     "version": version,
-                    "session": token
+                    "session": token,
+                    "mobile-model": model,
+                    "os-version": sVer
                 },
                 data: {
                     values: {
@@ -645,6 +657,8 @@
             toolbarlist.setAttribute("data-click", 0);
             toolbarlist.src = "../image/KM_ListingsListDzs.png";
             uri = '/extra/good';
+            var model = api.deviceModel;
+            var sVer = api.systemVersion;
             api.ajax({
                 url: host + apiUri + uri + '/' + img_id,
                 method: 'post',
@@ -653,7 +667,9 @@
                 headers: {
                     "source": api.systemType,
                     "version": version,
-                    "session": token
+                    "session": token,
+                    "mobile-model": model,
+                    "os-version": sVer
                 },
                 data: {
                     values: {

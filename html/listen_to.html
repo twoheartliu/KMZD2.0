@@ -886,6 +886,8 @@
       var ImgGif = $api.byId('ImgGif');
       var html = '<div class="loading"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>';
       $api.html(ImgGif, html);
+      var model = api.deviceModel;
+      var sVer = api.systemVersion;
       api.ajax({
           url: host + apiUri + '/sound/' + bookId,
           method: 'get',
@@ -893,7 +895,9 @@
           headers: {
               "source": api.systemType,
               "version": version,
-              "session": token
+              "session": token,
+              "mobile-model": model,
+              "os-version": sVer
           }
       }, function(ret, err) {
         if(ret){
@@ -1227,6 +1231,8 @@
       var click = clicktoolitem.getAttribute("data-click");
       if (click == 0) {
           var uri = '/extra/collection';
+          var model = api.deviceModel;
+          var sVer = api.systemVersion;
           api.ajax({
               url: host + apiUri + uri + '/' + bookId,
               method: 'post',
@@ -1234,7 +1240,9 @@
               headers: {
                   "source": api.systemType,
                   "version": version,
-                  "session": token
+                  "session": token,
+                  "mobile-model": model,
+                  "os-version": sVer
               },
               data:{
                 values:{
@@ -1268,6 +1276,8 @@
           });
       } else {
           var uri = '/extra/collection';
+          var model = api.deviceModel;
+          var sVer = api.systemVersion;
           api.ajax({
               url: host + apiUri + uri + '/' + bookId,
               method: 'post',
@@ -1275,7 +1285,9 @@
               headers: {
                   "source": api.systemType,
                   "version": version,
-                  "session": token
+                  "session": token,
+                  "mobile-model": model,
+                  "os-version": sVer
               },
               data:{
                 values:{
@@ -1448,6 +1460,8 @@
     }
     // 删除
     function fnDelete(){
+      var model = api.deviceModel;
+      var sVer = api.systemVersion;
       api.ajax({
           url: host + apiUri + '/index/unlike/' + soundId,
           method: 'post',
@@ -1455,7 +1469,9 @@
           headers: {
               "source": api.systemType,
               "version": version,
-              "session": token
+              "session": token,
+              "mobile-model": model,
+              "os-version": sVer
           }
       }, function(ret, err) {
           if(ret){

@@ -178,6 +178,8 @@
     }
 
     function fnapiajax() {
+        var model = api.deviceModel;
+      var sVer = api.systemVersion;
         api.ajax({
             url: host + apiUri + '/user/third_info',
             method: 'get',
@@ -186,7 +188,9 @@
             headers: {
                 "source": api.systemType,
                 "version": version,
-                "session": token
+                "session": token,
+                "mobile-model": model,
+                "os-version": sVer
             }
         }, function(ret, err) {
           if(ret){
@@ -326,6 +330,8 @@
                                     var gender = ret.info.gender;
                                     var figureurl_qq_2 = ret.info.figureurl_qq_2;
                                     var token = $api.getStorage('token');
+                                    var model = api.deviceModel;
+                                    var sVer = api.systemVersion;
                                     api.ajax({
                                         url: host + apiUri + '/user/bind_qq',
                                         method: 'post',
@@ -334,7 +340,9 @@
                                         headers: {
                                             "source": api.systemType,
                                             "version": version,
-                                            "session": token
+                                            "session": token,
+                                            "mobile-model": model,
+                                            "os-version": sVer
                                         },
                                         data: {
                                             values: {
@@ -428,6 +436,8 @@
                     var qq = api.require('qq');
                     qq.logout(function(ret, err) {
                         if (ret.status) {
+                            var model = api.deviceModel;
+                            var sVer = api.systemVersion;
                             api.ajax({
                                 url: host + apiUri + '/user/unbind_qq',
                                 method: 'post',
@@ -436,7 +446,9 @@
                                 headers: {
                                     "source": api.systemType,
                                     "version": version,
-                                    "session": token
+                                    "session": token,
+                                    "mobile-model": model,
+                                    "os-version": sVer
                                 }
                             }, function(ret, err) {
                               if(ret){
@@ -503,6 +515,8 @@
                                         var unionid = ret.unionid;
                                         var openidWixin = ret.openid
                                         if (ret.status) {
+                                            var model = api.deviceModel;
+                                            var sVer = api.systemVersion;
                                             api.ajax({
                                                 url: host + apiUri + '/user/bind_wechat',
                                                 method: 'post',
@@ -511,7 +525,9 @@
                                                 headers: {
                                                     "source": api.systemType,
                                                     "version": version,
-                                                    "session": token
+                                                    "session": token,
+                                                    "mobile-model": model,
+                                                    "os-version": sVer
                                                 },
                                                 data: {
                                                     values: {
@@ -627,6 +643,8 @@
                     dialogBox.close({
                         dialogName: 'alert'
                     });
+                    var model = api.deviceModel;
+                    var sVer = api.systemVersion;
                     api.ajax({
                         url: host + apiUri + '/user/unbind_wechat',
                         method: 'post',
@@ -635,7 +653,9 @@
                         headers: {
                             "source": api.systemType,
                             "version": version,
-                            "session": token
+                            "session": token,
+                            "mobile-model": model,
+                            "os-version": sVer
                         }
                     }, function(ret, err) {
                         if(ret){

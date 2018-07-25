@@ -320,6 +320,8 @@
     // });
     // 显示热门搜索
     function ShowHot() {
+        var model = api.deviceModel;
+        var sVer = api.systemVersion;
         api.ajax({
             url: host + apiUri + '/search/hot',
             method: 'get',
@@ -329,6 +331,8 @@
                 "source": api.systemType,
                 "version": version,
                 "session": token,
+                "mobile-model": model,
+                "os-version": sVer
             },
             data: {
                 values: {

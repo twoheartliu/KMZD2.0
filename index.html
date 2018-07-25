@@ -670,6 +670,8 @@ var index0ssss;
       var token = $api.getStorage('token');
       if (token) {
         var  uri = '/user/sign';
+        var model = api.deviceModel;
+        var sVer = api.systemVersion;
           api.ajax({
               url: host + apiUri + uri,
               method: 'post',
@@ -679,6 +681,8 @@ var index0ssss;
                   "source": api.systemType,
                   "version": version,
                   "session": token,
+                  "mobile-model": model,
+                  "os-version": sVer
               },
           }, function(ret, err) {
             // console.log(JSON.stringify(ret));
@@ -714,6 +718,8 @@ var index0ssss;
       var token = $api.getStorage('token');
       if (token) {
         var  uri = '/user';
+        var model = api.deviceModel;
+       var sVer = api.systemVersion;
           api.ajax({
               url: host + apiUri + uri,
               method: 'get',
@@ -723,6 +729,8 @@ var index0ssss;
                   "source": api.systemType,
                   "version": version,
                   "session": token,
+                  "mobile-model": model,
+                  "os-version": sVer
               },
           }, function(ret, err) {
             if(ret){
@@ -816,6 +824,8 @@ var index0ssss;
     function fnNum() {
         var token = $api.getStorage('token');
         if (token) {
+          var model = api.deviceModel;
+          var sVer = api.systemVersion;
           api.ajax({
               url: host + apiUri + '/message/unread_message_nums',
               method: 'get',
@@ -825,6 +835,8 @@ var index0ssss;
                   "source": api.systemType,
                   "version": version,
                   "session": token,
+                  "mobile-model": model,
+                  "os-version": sVer
               }
           },function(ret, err){
               if (ret) {

@@ -314,7 +314,7 @@
     </div>
 
     <div class="textarea">
-        <textarea placeholder="长按粘贴文本" class="replyValue" type="text" id="bar" spellcheck="false" id="commentarea" onKeyDown="LimitTextArea(this)" onKeyUp="LimitTextArea(this)" onkeypress="LimitTextArea(this)" ></textarea>
+        <textarea placeholder="长按粘贴文本" class="replyValue" type="text" spellcheck="false" id="commentarea" onblur="LimitTextArea(this)" ></textarea>
         <div class="Cover" onclick="fnSettings();">
             <div class="Cover_img" id="id-img">+</div>
             <!-- <div class="Cover_img"></div>
@@ -349,7 +349,17 @@
     var token;
     apiready = function() {
         token = $api.getStorage('token');
+        sVer = api.systemVersion;
+        model = api.deviceModel;
         openHelper();
+        api.addEventListener({
+            name: 'feedback_textarea'
+        }, function(ret, err){
+            if( ret ){
+                feedback_textarea();
+                //  alert( JSON.stringify( ret ) );
+            }
+        });
     }
     function openHelper() {
         var tail = '/kmzd/2.0/system/help'
@@ -436,18 +446,25 @@
     }
 
     function LimitTextArea(field){
-          var maxlimit=200;
-          if (field.value.length > maxlimit)
-              field.value = field.value.substring(0, maxlimit);
-                //   console.log(field.value);
-                  api.sendEvent({
-                      name: 'fntext',
-                      extra: {
-                          content: field.value,
-                      }
-                  });
+      var sssaaa = $api.byId('commentarea').value;
+      api.sendEvent({
+          name: 'fntext',
+          extra: {
+              content: sssaaa,
+          }
+      });
+          // var maxlimit=200;
+          // if (field.value.length > maxlimit){
+          //   field.value = field.value.substring(0, maxlimit);
+          //       // console.log(field.value.length);
+          // } else {
+          //   console.log( 200 - field.value.length);
+          //   // feedback_textarea();
+          // }
         }
+        function feedback_textarea() {
 
+        }
     function LimitTell() {
         var tell = $api.byId('id-contact');
         var tells = tell.value;
@@ -489,9 +506,11 @@
                 }, function(ret, err) {
                     if (ret) {
                         // alert(JSON.stringify(ret));
+
                         var uri = '/upload/feedback';
                         var urls = ret.data;
-                        // console.log(urls);
+                        console.log(sVer);
+                        console.log(model);
                         api.ajax({
                             url: host + apiUri + uri,
                             method: 'post',
@@ -501,6 +520,8 @@
                                 "source": api.systemType,
                                 "version": version,
                                 "session": token,
+
+
                             },
                             data: {
                                 files: {

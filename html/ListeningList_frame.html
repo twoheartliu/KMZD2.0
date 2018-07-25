@@ -387,6 +387,8 @@
 
     function ListenLists() {
         var token = $api.getStorage('token');
+        var model = api.deviceModel;
+        var sVer = api.systemVersion;
         api.ajax({
             url: host + apiUri + '/listening',
             method: 'get',
@@ -395,7 +397,9 @@
             headers: {
                 "source": api.systemType,
                 "version": version,
-                "session": token
+                "session": token,
+                "mobile-model": model,
+                "os-version": sVer
             },
             data: {
                 values: {
@@ -474,6 +478,8 @@
     function ListenList() {
 
         var token = $api.getStorage('token');
+        var model = api.deviceModel;
+        var sVer = api.systemVersion;
         api.ajax({
             url: host + apiUri + '/listening',
             method: 'get',
@@ -482,7 +488,9 @@
             headers: {
                 "source": api.systemType,
                 "version": version,
-                "session": token
+                "session": token,
+                "mobile-model": model,
+                "os-version": sVer
             },
             data: {
                 values: {
@@ -575,6 +583,8 @@
 
     function DeleteList(id) {
         var token = $api.getStorage('token');
+        var model = api.deviceModel;
+        var sVer = api.systemVersion;
         api.ajax({
             url: host + apiUri + '/listening/del/' + id,
             method: 'post',
@@ -583,7 +593,9 @@
             headers: {
                 "source": api.systemType,
                 "version": version,
-                "session": token
+                "session": token,
+                "mobile-model": model,
+                "os-version": sVer
             }
         }, function(ret, err) {
             if (ret) {

@@ -213,6 +213,8 @@
     };
     //调接口
     function fnOpenFriend() {
+        var model = api.deviceModel;
+        var sVer = api.systemVersion;
         api.ajax({
             url: host + apiUri + '/index/billboard' + '?type=friend',
             method: 'get',
@@ -221,7 +223,9 @@
             headers: {
                 "source": api.systemType,
                 "version": version,
-                "session": token
+                "session": token,
+                "mobile-model": model,
+                "os-version": sVer
             }
         }, function(ret, err) {
             //   console.log(JSON.stringify(ret));

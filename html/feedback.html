@@ -158,7 +158,7 @@
 
 
     }
-
+    var time = true;
     function fnAjaxCreate(type, contact, content) {
         if (contact) {
             if (!contact.match(/^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/)) {
@@ -181,45 +181,51 @@
         if (type == undefined) {
             type = 1;
         }
-        // console.log(type);
-        // console.log(contact);
-        // console.log(content);
-        api.ajax({
-            url: host + apiUri + '/system/feedback',
-            method: 'post',
-            dataType: 'json',
-            timeout: 10,
-            headers: {
-                "source": api.systemType,
-                "version": version,
-                "session": token,
-            },
-            data: {
-                values: {
-                    'contact': contact,
-                    'type': type,
-                    'content': content,
-                    'img': img,
-                }
-            }
-        }, function(ret, err) {
-            if (ret) {
-                if (ret.status == 200) {
-                    api.toast({
-                        msg: '提交成功',
-                        duration: 2000,
-                        location: 'middle'
-                    });
-                    setTimeout(function() {
-                        api.closeWin();
-                    }, 2000)
-                } else {
-                    netMessage(ret);
-                }
-            } else {
-                netWork(err);
-            }
-        });
+    		var model = api.deviceModel;
+    		var sVer = api.systemVersion;
+        if (time == true) {
+          time = false;
+          api.ajax({
+              url: host + apiUri + '/system/feedback',
+              method: 'post',
+              dataType: 'json',
+              timeout: 10,
+              headers: {
+                  "source": api.systemType,
+                  "version": version,
+                  "session": token,
+                  "mobile-model": model,
+                  "os-version": sVer
+              },
+              data: {
+                  values: {
+                      'contact': contact,
+                      'type': type,
+                      'content': content,
+                      'img': img,
+                  }
+              }
+          }, function(ret, err) {
+              time = true;
+              if (ret) {
+                  if (ret.status == 200) {
+                      api.toast({
+                          msg: '提交成功',
+                          duration: 2000,
+                          location: 'middle'
+                      });
+                      setTimeout(function() {
+                          api.closeWin();
+                      }, 2000)
+                  } else {
+                      netMessage(ret);
+                  }
+              } else {
+                  netWork(err);
+              }
+          });
+        }
+
 
     }
 </script>
