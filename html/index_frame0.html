@@ -550,6 +550,7 @@
 </html>
 <script type="text/javascript">
     var token;
+    var imgLot = true;
     apiready = function() {
         token = $api.getStorage('token');
         fnBanners();
@@ -655,6 +656,12 @@
                         }
                         var stylelist = $api.byId('picList');
                         // <div class="swiper-wrapper"></div>
+                        if (len == 1) {
+                          imgLot = false;
+                          banners += '<li onclick="fnOpenBanners(\'' + banner_id + '\',\'' + title + '\',\'' + description + '\',\'' + banner_types + '\',\'' + content + '\')"><img src="' + imgs + '" alt=""></li>'
+                        }else {
+                          imgLot = true;
+                        }
                         if (i == 0) {
                             banners += '<li class="re" onclick="fnOpenBanners(\'' + banner_id + '\',\'' + title + '\',\'' + description + '\',\'' + banner_types + '\',\'' + content + '\')"><img src="' + imgs + '" alt=""></li>'
                         } else {
@@ -953,9 +960,9 @@
         photoSlide({
             wrap: document.getElementById('picBox'),
             loop: true,
-            autoPlay: true,
+            autoPlay: imgLot,
             autoTime: 4000,
-            pagination: true
+            pagination: imgLot
         });
         // }, false);
         //     var mySwiper = new Swiper('.swiper-container', {
