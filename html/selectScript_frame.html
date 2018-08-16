@@ -240,6 +240,8 @@
 
     function showAlbum() {
         var uri = '/script/' + id;
+        var model = api.deviceModel;
+        var sVer = api.systemVersion;
         api.ajax({
             url: host + apiUri + uri,
             method: 'get',
@@ -248,7 +250,9 @@
             headers: {
                 "source": api.systemType,
                 "version": version,
-                "session": token
+                "session": token,
+                "mobile-model": model,
+                "os-version": sVer
             },
             data: {
                 values: {
@@ -278,7 +282,7 @@
         if (p == 1) {
             if (ret.data == "") {
               var footer = $api.byId('footer');
-              $api.html(footer, '暂无评论');
+              $api.html(footer, '暂无内容');
             }else if (!ret.data == '' && ret.data.length < 8  ) {
               var footer = $api.byId('footer');
               $api.html(footer, '');

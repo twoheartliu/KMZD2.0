@@ -186,7 +186,10 @@ var ok;
           CoverImgs = CoverImg;
         }
         // console.log(CoverImgs);
-        console.log(CoverImgs);
+        // console.log(CoverImgs);
+        var model = api.deviceModel;
+     var sVer = api.systemVersion;
+
         api.ajax({
             url: host + apiUri + '/listening/create',
             method: 'post',
@@ -195,7 +198,9 @@ var ok;
             headers: {
                 "source": api.systemType,
                 "version": version,
-                "session": token
+                "session": token,
+                "mobile-model": model,
+                "os-version": sVer
             },
             data: {
                 values: {

@@ -208,7 +208,8 @@
 //         }
 //     });
 // }
-
+var token;
+token = $api.getStorage('token');
 //播放歌单音频
 function fnBoFangyinpinxinxi() {
   var myAudio = document.getElementById("myAudio");
@@ -280,15 +281,7 @@ function fnBoFangyinpinxinxi() {
                 fnFuZhiAudio(playHost+'/'+ret.data.url);
               }
             }
-            // api.sendEvent({
-            //     name: 'jibenxinxi',
-            //     extra: {
-            //         titlename: titlename,
-            //         desc: desc,
-            //         singerName: singerName,
-            //         author_id: author_id
-            //     }
-            // });
+
             titlename = ret.data.title;
             reciter = ret.data.reciter;
             desc = ret.data.body;
@@ -390,7 +383,6 @@ function netAudioPlay() {
 
     // myAudio.addEventListener('timeupdate', record_starts);
     // myAudio.addEventListener('readyState', record_startSs);
-
     if(myAudio.networkState == 3){
       setTimeout(function(){
         myAudio.pause();
@@ -652,6 +644,16 @@ function addtime() {
           });
         }
 
+          api.sendEvent({
+              name: 'jibenxinxi',
+              extra: {
+                  titlename: titlename,
+                  desc: desc,
+                  singerName: singerName,
+                  author_id: author_id
+              }
+          });
+
     }, 1000);
 }
 
@@ -693,6 +695,7 @@ function fnGeDanxiaYi() {
 function netPlayLieIdUrl(playlistid,playUrli) {
     if(playlistid){
       uri = playUrli;
+          console.log(host + apiUri + uri + playlistid);
         api.ajax({
             url: host + apiUri + uri + playlistid,
             method: 'get',
@@ -708,6 +711,7 @@ function netPlayLieIdUrl(playlistid,playUrli) {
               }
             }
         }, function(ret, err) {
+
          if(ret){
           if (ret.status == 200) {
 

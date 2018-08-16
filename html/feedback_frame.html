@@ -47,18 +47,42 @@
             width: 100%;
         }
 
-        .common_name {
+        .questions_header {
             width: 100%;
-            font-size: 12px;
-            color: #ccc;
+            line-height: 50px;
+            height: 50px;
+            color: black;
+            font-weight: 700;
+            font-size: 20px;
         }
 
-        .common ul li {
+        .feedback {
             width: 100%;
+            line-height: 50px;
+            height: 50px;
+            color: black;
+            font-weight: 700;
+            margin-left: 10px;
+            font-size: 20px;
+        }
+
+        .questions {
+            margin-bottom: 40px;
+        }
+
+        .questions ol li {
+            /*width: 100%;*/
             height: 50px;
             line-height: 50px;
-            font-size: 12px;
+            font-size: 14px;
             color: #000;
+            list-style-type: decimal;
+            margin-left: 20px;
+            /*border-bottom: 1px solid #eee;*/
+        }
+
+        ol li:last-child {
+            /*border: none;*/
         }
 
         .Cover {
@@ -80,6 +104,20 @@
         }
 
         .Cover_img img {
+            width: 100%;
+        }
+
+        .new_img {
+            width: 80px;
+            height: 80px;
+            line-height: 80px;
+            float: left;
+            text-align: center;
+            font-size: 30px;
+            color: #ccc;
+        }
+
+        .new_img img {
             width: 100%;
         }
 
@@ -150,6 +188,7 @@
             padding-left: 10px;
             background: #fff;
             border-bottom: 1px solid #efefef;
+            /*font-size: 14px;*/
         }
 
         .textarea {
@@ -250,16 +289,20 @@
         }
 
         .corner {
-            position: relative;
-            top: -10px;
+            /*position: relative;
+            top: -10px;*/
             color: red;
         }
+
     </style>
 </head>
 
 <body>
+    <div class="header">
+        <p class="feedback">建议反馈</p>
+    </div>
     <div class="description">
-        选择反馈类型<span class="corner">*</span>
+        <span class="corner">*</span>选择反馈类型
     </div>
     <div class="Single row">
         <div class="col"><input class="hy-radio" type="radio" name="radio" value="1" checked='checked' onclick="getValue(this.value)" />产品建议</div>
@@ -267,11 +310,11 @@
         <div class="col"><input class="hy-radio" type="radio" name="radio" value="3" onclick="getValue(this.value)" />缺少内容</div>
     </div>
     <div class="description">
-        描述<span class="corner">*</span>
+        <span class="corner">*</span>描述
     </div>
 
     <div class="textarea">
-        <textarea placeholder="长按粘贴文本" class="replyValue" type="text" id="bar" spellcheck="false" id="commentarea" onKeyDown="LimitTextArea(this)" onKeyUp="LimitTextArea(this)" onkeypress="LimitTextArea(this)" ></textarea>
+        <textarea placeholder="长按粘贴文本" class="replyValue" type="text" spellcheck="false" id="commentarea" onblur="LimitTextArea(this)" ></textarea>
         <div class="Cover" onclick="fnSettings();">
             <div class="Cover_img" id="id-img">+</div>
             <!-- <div class="Cover_img"></div>
@@ -282,30 +325,86 @@
     </div>
     <div class="textarea_input">
         <input type="text" placeholder="填写您的手机号"  id="id-contact" onblur="LimitTell()"></div>
-    <!-- <div class="clr opinion " onclick="opinion() "><div class="fl opinion_name ">意见反馈</div><div class="fr opinion_img "><img src="../image/my/index_bzyfk.png " alt=" "></div></div> -->
-    <!-- <div class="clr "></div> -->
-    <!-- <div class="common ">
-        <div class="common_name ">常见问题</div>
-        <ul>
-            <li onclick="common(); ">1我是问题一</li>
-            <li onclick="common(); ">2我是问题二</li>
-            <li onclick="common(); ">3我是问题三</li>
-            <li onclick="common(); ">4我是问题四</li>
-            <li onclick="common(); ">5我是问题五</li>
-        </ul>
-    </div> -->
+    <div class="clr "></div>
+    <div class="questions">
+        <div class="questions_header">常见问题</div>
+        <ol class="question-list">
+            <!-- <li onclick="openQuestion(id);">如何修改我的听单封面和简介？</li> -->
+            <!-- <li onclick="openQuestion(index);">如何评论和点赞？</li>
+            <li onclick="openQuestion(index);">如何选择朗诵剧本？</li>
+            <li onclick="openQuestion(index);">如何自由朗读？</li>
+            <li onclick="openQuestion(index);">如何选择背景音乐？</li>
+            <li onclick="openQuestion(index);">如何上传草稿箱的作品到云端？</li>
+            <li onclick="openQuestion(index);">如何删除已上传的资源？</li>
+            <li onclick="openQuestion(index);">如何连接国学机？</li> -->
+        </ol>
+    </div>
 </body>
 
 </html>
 <script type="text/javascript " src="../script/api.js "></script>
 <script type="text/javascript " src="../script/common.js "></script>
-<script type="text/javascript " src="../script/swiper.min.js "></script>
 <script type="text/javascript" src="../script/message.js"></script>
 <script type="text/javascript ">
     var token;
     apiready = function() {
         token = $api.getStorage('token');
-        // fnfeedback()
+        sVer = api.systemVersion;
+        model = api.deviceModel;
+        openHelper();
+        api.addEventListener({
+            name: 'feedback_textarea'
+        }, function(ret, err){
+            if( ret ){
+                feedback_textarea();
+                //  alert( JSON.stringify( ret ) );
+            }
+        });
+    }
+    function openHelper() {
+        var tail = '/kmzd/2.0/system/help'
+        api.ajax({
+            url: host + tail,
+            method: 'get',
+            dataType: 'json',
+            timeout: 10,
+            headers: {
+                "source": api.systemType,
+                "version": version,
+                "session": token
+            },
+        },function(ret, err){
+            if (ret) {
+                // console.log( JSON.stringify( ret ) );
+                var data = ret.data;
+                var list = document.querySelector('.question-list');
+                for (var i = 0; i < data.length; i++) {
+                    var d = data[i];
+                    var id = d.help_id;
+                    var answer = d.help_answer;
+                    var question = d.help_question
+
+                    var cell = '<li onclick="openQuestion('+id+');">'+question+'</li>';
+                    list.insertAdjacentHTML('beforeend', cell)
+                }
+            } else {
+                // alert( JSON.stringify( err ) );
+            }
+        });
+
+    }
+
+    function openQuestion(num) {
+        var url = 'http://m.kmzhidao.com/frame/help/\#' + num
+        // console.log(url);
+        api.openWin({
+            name: 'helper',
+            url: './helper.html',
+            pageParam: {
+                index: url,
+            }
+        });
+
     }
 
     function getValue(value) {
@@ -347,18 +446,25 @@
     }
 
     function LimitTextArea(field){
-          var maxlimit=200;
-          if (field.value.length > maxlimit)
-              field.value = field.value.substring(0, maxlimit);
-                //   console.log(field.value);
-                  api.sendEvent({
-                      name: 'fntext',
-                      extra: {
-                          content: field.value,
-                      }
-                  });
+      var sssaaa = $api.byId('commentarea').value;
+      api.sendEvent({
+          name: 'fntext',
+          extra: {
+              content: sssaaa,
+          }
+      });
+          // var maxlimit=200;
+          // if (field.value.length > maxlimit){
+          //   field.value = field.value.substring(0, maxlimit);
+          //       // console.log(field.value.length);
+          // } else {
+          //   console.log( 200 - field.value.length);
+          //   // feedback_textarea();
+          // }
         }
+        function feedback_textarea() {
 
+        }
     function LimitTell() {
         var tell = $api.byId('id-contact');
         var tells = tell.value;
@@ -371,16 +477,7 @@
 
 
     }
-    function common() {
-        api.openWin({
-            name: 'common',
-            url: './common.html',
-            pageParam: {
-                ok: 'common'
-            }
-        });
 
-    }
 
     function CoverDivInput() {
         var CoverDivInput = document.getElementById('CoverDivInput');
@@ -403,17 +500,17 @@
                     encodingType: 'jpg',
                     mediaValue: 'pic',
                     destinationType: 'url',
-                    allowEdit: true,
-                    quality: 50,
-                    targetWidth: 100,
-                    targetHeight: 100,
+                    allowEdit: false,
+                    quality: 100,
                     saveToPhotoAlbum: false
                 }, function(ret, err) {
                     if (ret) {
                         // alert(JSON.stringify(ret));
+
                         var uri = '/upload/feedback';
                         var urls = ret.data;
-                        // console.log(urls);
+                        console.log(sVer);
+                        console.log(model);
                         api.ajax({
                             url: host + apiUri + uri,
                             method: 'post',
@@ -423,6 +520,8 @@
                                 "source": api.systemType,
                                 "version": version,
                                 "session": token,
+
+
                             },
                             data: {
                                 files: {
@@ -437,13 +536,21 @@
                                     var imgs = ret.data;
                                     var header = 'http://47.100.11.38/kmzd/public/uploads/feedback/'
                                     var img = $api.byId('id-img');
-                                    html = '<img src="'+ header + imgs +'" alt="" />'
+                                    html = '<img src="'+ header + imgs +'" alt="" class="new_img" />'
                                     $api.html(img, html);
                                     api.toast({
                                         msg: '上传成功',
                                         duration: 2000,
                                         location: 'middle'
                                     });
+
+                                    api.sendEvent({
+                                        name: 'feedbackImg',
+                                        extra: {
+                                            feedbackImg: imgs,
+                                        }
+                                    });
+
                                 }else{
                                   netMessage(ret);
                                 }

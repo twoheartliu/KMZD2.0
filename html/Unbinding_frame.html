@@ -114,6 +114,8 @@
     }
 
     function fnVerification() {
+        var model = api.deviceModel;
+      var sVer = api.systemVersion;
         api.ajax({
             url: host + apiUri + '/sms/get_code',
             method: 'get',
@@ -122,7 +124,9 @@
             headers: {
                 "source": api.systemType,
                 "version": version,
-                "session": token
+                "session": token,
+                "mobile-model": model,
+                "os-version": sVer
             },
             data: {
                 values: {
@@ -187,6 +191,8 @@
               location: 'middle'
           });
         }else {
+          var model = api.deviceModel;
+          var sVer = api.systemVersion;
           api.ajax({
               url: host + apiUri + '/user/unbind_mobile',
               method: 'post',
@@ -195,7 +201,9 @@
               headers: {
                   "source": api.systemType,
                   "version": version,
-                  "session": token
+                  "session": token,
+                  "mobile-model": model,
+                  "os-version": sVer
               },
               data: {
                   values: {

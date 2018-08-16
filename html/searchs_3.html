@@ -364,6 +364,8 @@
             i = keys;
         }
         if (isFirst) {
+            var model = api.deviceModel;
+            var sVer = api.systemVersion;
             api.ajax({
                 url: host + apiUri + '/search/',
                 method: 'get',
@@ -373,6 +375,8 @@
                     "source": api.systemType,
                     "version": version,
                     "session": token,
+                    "mobile-model": model,
+                    "os-version": sVer
                 },
                 data: {
                     values: {
@@ -445,15 +449,18 @@
         song_id = id;
         titles = '专辑';
 
-        api.openWin({
-            name: 'OpenList',
-            url: lujing,
-            // console.log('lujing');
-            pageParam: {
-                floor_name: titles,
-                albumId: song_id,
-            }
-        });
+
+            api.openWin({
+                name: 'OpenList',
+                url: lujing,
+                // console.log('lujing');
+                pageParam: {
+                    floor_name: titles,
+                    albumId: song_id,
+                }
+            });
+
+
     }
     // var token;
     // var keyword;

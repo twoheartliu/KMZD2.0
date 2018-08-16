@@ -97,6 +97,8 @@
   function fnGetSixin() {
     // console.log(token);
     // console.log(userId);
+        var model = api.deviceModel;
+         var sVer = api.systemVersion;
         api.ajax({
           url:  host + apiUri +'/message/detail',
           method: 'get',
@@ -105,7 +107,9 @@
           headers: {
               "source": api.systemType,
               "version": version,
-              "session": token
+              "session": token,
+              "mobile-model": model,
+              "os-version": sVer
           },
             data: {
                 values: {
@@ -308,6 +312,8 @@
         if (ret) {
             // alert(JSON.stringify(ret));
             var msg = ret.msg;
+            var model = api.deviceModel;
+            var sVer = api.systemVersion;
             if (ret.msg) {
               api.ajax({
                   url:  host + apiUri +'/message/send',
@@ -317,7 +323,9 @@
                   headers: {
                       "source": api.systemType,
                       "version": version,
-                      "session": token
+                      "session": token,
+                      "mobile-model": model,
+                      "os-version": sVer
                   },
                   data: {
                       values: {

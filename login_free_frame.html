@@ -256,6 +256,8 @@ var wait = 60;
           }else{
             captcha = $api.byId('verificationCode').value;
             if(captcha == getCode){
+              var model = api.deviceModel;
+               var sVer = api.systemVersion;
               api.ajax({
                   url: host + apiUri + '/register/phone',
                   method: 'post',
@@ -270,7 +272,9 @@ var wait = 60;
                   },
                   headers: {
                     "source":api.systemType,
-                    "version":version
+                    "version":version,
+                    "mobile-model": model,
+                    "os-version": sVer
                   },
               }, function(ret, err) {
                 if(ret){
@@ -363,6 +367,8 @@ var wait = 60;
     }
     //判断是否注册；
     function fnExists(phone){
+      var model = api.deviceModel;
+      var sVer = api.systemVersion;
       api.ajax({
           url: host + apiUri + '/register/is_phone_exist?mobile=' + phone,
           method: 'get',
@@ -370,7 +376,9 @@ var wait = 60;
           timeout:10,
           headers: {
             "source":api.systemType,
-            "version":version
+            "version":version,
+            "mobile-model": model,
+            "os-version": sVer
           },
       }, function(ret, err) {
         if(ret){
@@ -395,6 +403,8 @@ var wait = 60;
     var password;
     //获取验证码；
     function fnGetSmsVerificationCode(phone){
+        var model = api.deviceModel;
+        var sVer = api.systemVersion;
         api.ajax({
             url: host + apiUri + '/sms/get_code',
             method: 'get',
@@ -402,7 +412,9 @@ var wait = 60;
             timeout:10,
             headers: {
               "source":api.systemType,
-              "version":version
+              "version":version,
+              "mobile-model": model,
+              "os-version": sVer
             },
             data :{
               values:{

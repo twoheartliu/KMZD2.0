@@ -392,17 +392,24 @@
  var token; var a; var playUrli; var playgedan; var play; var timer2; var timer1; var historyUrlArray; var y; var rets; var shunxuplays; var danquplays; var suijiplays; var bofangmoshiid; var playTime; var a; var bofang; var playlistid; var dataArray
 = new Array(); var caogaoId; var caogaoTitle; var caogaoName; var caogaoBody; var author_id; var DangQianbofangid; var titlename; var desc; var singerName; var reciter; var comment_total; var is_collection; var caogaoAuthor_id; var bookId; var danQu;
 var minuteFollow; var cover_big;var footerIP; var playType;
+var index0ssss;
     apiready = function() {
       // $api.clearStorage();
-            token = $api.getStorage('token');
+
             var user_id = $api.getStorage('user_id');
             var nick_name = $api.getStorage('nick_name');
             var photo = $api.getStorage('photo');
             var login_way = $api.getStorage('login_way');
-            console.log(token);
             // api.removePrefs({
             //     key: 'cgxlist'
             // });
+            api.addEventListener({
+                name: 'loginUser'
+            }, function(ret, err) {
+              randomSwitchBtn();
+            });
+
+
             var secHeader = $api.byId('secHeader');
             $api.fixStatusBar(secHeader);
             var headeris = document.querySelector('#secHeader');
@@ -424,10 +431,8 @@ var minuteFollow; var cover_big;var footerIP; var playType;
             initEventListennerBoFangCaoGaoXiangMoshi();
             initEventListennerBofangCaoGaoXiang();
             fnJianTing();
-            //
             adjust();
             funIniGroup();
-
             // var dqian = $api.getStorage('qiandaoshu');
             // if(dqian){
             //   var stylelist = $api.byId('lianxuqiandao');
@@ -458,6 +463,7 @@ var minuteFollow; var cover_big;var footerIP; var playType;
             });
 
         }
+
         // 底部导航播放按钮；
     function fnOpenCenterFrame() {
         if (a) {
@@ -498,32 +504,96 @@ var minuteFollow; var cover_big;var footerIP; var playType;
     }
     //打开消息页面
     function openMessage() {
-        api.openWin({
-            name: 'message',
-            url: './html/message.html',
-        });
+        var token = $api.getStorage('token');
+        if (token) {
+            api.openWin({
+                name: 'message',
+                url: './html/message.html',
+            });
+        }else {
+            api.openWin({
+                name: 'token',
+                url: './html/token.html',
+                slidBackEnabled:false,
+                reload: true,
+                animation: {
+                 type:"none",
+                 subType:"from_right",
+                 duration:300
+               },
+            });
+        }
+
     };
     // 打开历史页面
     function openHistorys() {
-        api.openWin({
-            name: 'historys',
-            url: './html/historys.html',
-        });
+        var token = $api.getStorage('token');
+        if (token) {
+            api.openWin({
+                name: 'historys',
+                url: './html/historys.html',
+            });
+        }else {
+            api.openWin({
+                name: 'token',
+                url: './html/token.html',
+                slidBackEnabled:false,
+                reload: true,
+                animation: {
+                 type:"none",
+                 subType:"from_right",
+                 duration:300
+               },
+            });
+        }
+
     }
     // 打开朗诵页面
     function fnReadWin() {
-        api.openWin({
-            name: 'read',
-            url: './html/read.html',
-        });
+        var token = $api.getStorage('token');
+        if (token) {
+            api.openWin({
+                name: 'read',
+                url: './html/read.html',
+            });
+        }else {
+            api.openWin({
+                name: 'token',
+                url: './html/token.html',
+                slidBackEnabled:false,
+                reload: true,
+                animation: {
+                 type:"none",
+                 subType:"from_right",
+                 duration:300
+               },
+            });
+        }
+
     }
 
     // 熏听页面
     function fnListenWin() {
-        api.openWin({
-            name: 'listen',
-            url: './html/listen.html',
-        });
+        var token = $api.getStorage('token');
+        if (token) {
+            api.openWin({
+                name: 'listen',
+                url: './html/listen.html',
+            });
+        }else {
+            api.openWin({
+                name: 'token',
+                url: './html/token.html',
+                slidBackEnabled:false,
+                reload: true,
+                animation: {
+                 type:"none",
+                 subType:"from_right",
+                 duration:300
+               },
+            });
+        }
+
     }
     // 底部导航
     function funIniGroup() {
@@ -531,18 +601,20 @@ var minuteFollow; var cover_big;var footerIP; var playType;
         var eHeaderLis = $api.domAll('header li'),
             frames = [];
         for (var i = 0, len = eHeaderLis.length; i < len; i++) {
-            frames.push({
-                name: 'indexFrame' + i,
-                url: './html/index_frame' + i + '.html',
-                bgColor: 'rgba(0,0,0,.2)',
-                pageParam: {
-                    name: 'test',
-                    qqziliao: qqziliao
-                },
-                bounces: false,
-                historyGestureEnabled:false,
-            })
-        }
+              frames.push({
+                  name: 'indexFrame' + i,
+                  url: './html/index_frame' + i + '.html',
+                  bgColor: 'rgba(0,0,0,.2)',
+                  pageParam: {
+                      name: 'test',
+                      qqziliao: qqziliao
+                  },
+                  bounces: false,
+                  historyGestureEnabled:false,
+              })
+            }
+
+
 
         api.openFrameGroup({
             name: 'group',
@@ -577,6 +649,7 @@ var minuteFollow; var cover_big;var footerIP; var playType;
                   }
               });
             }
+
             if (tag == eFootLis[i]) {
                 index = i;
             } else {
@@ -594,62 +667,88 @@ var minuteFollow; var cover_big;var footerIP; var playType;
 
     //签到
     function fnDenglu() {
-      var  uri = '/user/sign';
-        api.ajax({
-            url: host + apiUri + uri,
-            method: 'post',
-            dataType: 'json',
-            timeout:10,
-            headers: {
-                "source": api.systemType,
-                "version": version,
-                "session": token,
-            },
-        }, function(ret, err) {
-          if(ret){
-            if (ret.status == 200) {
-                api.toast({
-                    msg: '签到成功,已连续签到'+ ret.data.sign_count +' 天',
-                    duration: 2000,
-                    location: 'middle'
-                });
-                var stylelist = $api.byId('lianxuqiandao');
-                var html ='已连续签到 '+ ret.data.sign_count +' 天';
-                $api.html(stylelist, html);
-            } else {
-                netMessage(ret);
-            }
-          }else{
-            netWork(err);
+      var token = $api.getStorage('token');
+      if (token) {
+        var  uri = '/user/sign';
+        var model = api.deviceModel;
+        var sVer = api.systemVersion;
+          api.ajax({
+              url: host + apiUri + uri,
+              method: 'post',
+              dataType: 'json',
+              timeout:10,
+              headers: {
+                  "source": api.systemType,
+                  "version": version,
+                  "session": token,
+                  "mobile-model": model,
+                  "os-version": sVer
+              },
+          }, function(ret, err) {
+            // console.log(JSON.stringify(ret));
+            if(ret){
+              if (ret.status == 200) {
+                  api.toast({
+                      msg: '签到成功,已连续签到'+ ret.data.sign_count +' 天',
+                      duration: 2000,
+                      location: 'middle'
+                  });
+                  var stylelist = $api.byId('lianxuqiandao');
+                  var html ='已连续签到 '+ ret.data.sign_count +' 天';
+                  $api.html(stylelist, html);
+              } else {
+                  netMessage(ret);
+              }
+            }else{
+              // console.log(JSON.stringify(err));
+              netWork(err);
 
-            }
+              }
+          });
+      }else {
+        api.toast({
+            msg: '签到需要登陆之后才能使用',
+            duration: 2500,
+            location: 'middle'
         });
+      }
+
     }
     function fuLianXuQianDao(){
-      var  uri = '/user';
-        api.ajax({
-            url: host + apiUri + uri,
-            method: 'get',
-            dataType: 'json',
-            timeout:10,
-            headers: {
-                "source": api.systemType,
-                "version": version,
-                "session": token,
-            },
-        }, function(ret, err) {
-          if(ret){
-            if (ret.status == 200) {
-                var stylelist = $api.byId('lianxuqiandao');
-                var html ='已连续签到 '+ ret.data.sign_count +' 天';
-                $api.html(stylelist, html);
-            } else {
-                netMessage(ret);
+      var token = $api.getStorage('token');
+      if (token) {
+        var  uri = '/user';
+        var model = api.deviceModel;
+       var sVer = api.systemVersion;
+          api.ajax({
+              url: host + apiUri + uri,
+              method: 'get',
+              dataType: 'json',
+              timeout:10,
+              headers: {
+                  "source": api.systemType,
+                  "version": version,
+                  "session": token,
+                  "mobile-model": model,
+                  "os-version": sVer
+              },
+          }, function(ret, err) {
+            if(ret){
+              // console.log(JSON.stringify(ret));
+              if (ret.status == 200) {
+                  var stylelist = $api.byId('lianxuqiandao');
+                  var html ='已连续签到 '+ ret.data.sign_count +' 天';
+                  $api.html(stylelist, html);
+              } else {
+                  netMessage(ret);
+              }
+            }else{
+              // console.log(JSON.stringify(err));
+              netWork(err);
             }
-          }else{
-            netWork(err);
-          }
-        });
+          });
+      }
+
     }
 
     // 初始化事件监听
@@ -723,43 +822,51 @@ var minuteFollow; var cover_big;var footerIP; var playType;
     }
     // 未读消息数
     function fnNum() {
-      api.ajax({
-          url: host + apiUri + '/message/unread_message_nums',
-          method: 'get',
-          dataType: 'json',
-          timeout:10,
-          headers: {
-              "source": api.systemType,
-              "version": version,
-              "session": token,
-          }
-      },function(ret, err){
-          if (ret) {
-              // console.log(JSON.stringify(ret));
-              if (ret.status = 200) {
-                var message = ret.data.message;
-                var comment = ret.data.comment;
-                var notify = ret.data.notify;
-                var total = message + comment + notify;
-                // console.log(total);
-                var num = $api.byId('num');
-                if (total == 0) {
-                  var htmlnum = ''
-                  $api.html(num, htmlnum);
-                }else {
-                  var htmlnum = '<p>'+total+'</p>'
-                  $api.html(num, htmlnum);
-                }
-
-
-
-              }else {
-                netMessage(ret);
+        var token = $api.getStorage('token');
+        if (token) {
+          var model = api.deviceModel;
+          var sVer = api.systemVersion;
+          api.ajax({
+              url: host + apiUri + '/message/unread_message_nums',
+              method: 'get',
+              dataType: 'json',
+              timeout:10,
+              headers: {
+                  "source": api.systemType,
+                  "version": version,
+                  "session": token,
+                  "mobile-model": model,
+                  "os-version": sVer
               }
-          } else {
-            netWork(err);
-          }
-      });
+          },function(ret, err){
+              if (ret) {
+                  // console.log(JSON.stringify(ret));
+                  if (ret.status = 200) {
+                    var message = ret.data.message;
+                    var comment = ret.data.comment;
+                    var notify = ret.data.notify;
+                    var total = message + comment + notify;
+                    var num = $api.byId('num');
+                    if (total == 'NaN') {
+                      var htmlnum = ''
+                      $api.html(num, htmlnum);
+                    } else if (total == 0) {
+                      var htmlnum = ''
+                      $api.html(num, htmlnum);
+                    }else if (!total == 'NaN') {
+                      var htmlnum = '<p>'+total+'</p>'
+                      $api.html(num, htmlnum);
+                    }
+                  }else {
+                    netMessage(ret);
+                  }
+              } else {
+                // console.log(JSON.stringify(err));
+                netWork(err);
+              }
+          });
+        }
+
 
     }
 </script>

@@ -303,6 +303,8 @@ var ok;
     }
     function fnGetBeiJingYinYueTypelist() {
       uri = '/user/drafts';
+      var model = api.deviceModel;
+      var sVer = api.systemVersion;
       api.ajax({
           url: host + apiUri + uri,
           method: 'get',
@@ -311,7 +313,9 @@ var ok;
           headers: {
               "source": api.systemType,
               "version": version,
-              "session": token
+              "session": token,
+              "mobile-model": model,
+              "os-version": sVer
           },
       }, function(ret, err) {
           if(ret){
@@ -436,6 +440,8 @@ var ok;
                 });
             } else if (index == 0) {
               uri = '/user/drafts';
+              var model = api.deviceModel;
+              var sVer = api.systemVersion;
               api.ajax({
                   url: host + apiUri + uri,
                   method: 'get',
@@ -443,7 +449,9 @@ var ok;
                   headers: {
                       "source": api.systemType,
                       "version": version,
-                      "session": token
+                      "session": token,
+                      "mobile-model": model,
+                      "os-version": sVer
                   },
               }, function(ret, err) {
                   if(ret){
@@ -455,6 +463,8 @@ var ok;
                         }
                       }
                         var uri = '/user/records';
+                        var model = api.deviceModel;
+                        var sVer = api.systemVersion;
                         api.ajax({
                             url: host + apiUri + uri,
                             method: 'post',
@@ -463,7 +473,9 @@ var ok;
                             headers: {
                                 "source": api.systemType,
                                 "version": version,
-                                "session": token
+                                "session": token,
+                                "mobile-model": model,
+                                "os-version": sVer
                             },
                             data: {
                                 values: {
@@ -509,13 +521,15 @@ var ok;
                   dialogName: 'actionMenu'
               });
               api.confirm({
-                  title: '删除',
-                  msg: '确定要删除吗',
+                  title: '退出登录',
+                  msg: '确定要退出吗',
                   buttons: ['确定', '取消']
               }, function(ret, err) {
                   var index = ret.buttonIndex;
                   if (index == 1) {
                     uri = '/user/del_drafts';
+                    var model = api.deviceModel;
+                    var sVer = api.systemVersion;
                     api.ajax({
                         url: host + apiUri + uri,
                         method: 'post',
@@ -524,7 +538,9 @@ var ok;
                         headers: {
                             "source": api.systemType,
                             "version": version,
-                            "session": token
+                            "session": token,
+                            "mobile-model": model,
+                            "os-version": sVer
                         },
                         data:{
                           values:{

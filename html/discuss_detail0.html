@@ -216,9 +216,7 @@
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
     function goback() {
-        api.closeWin({
-            name: 'discussDetail0'
-        });
+        api.closeWin({});
     }
     var albumId;
     var uris;
@@ -234,17 +232,17 @@
         name = api.pageParam.name;
         uris = api.pageParam.uris;
         ok = api.pageParam.ok;
-        // listeningCover = api.pageParam.listeningCover;
+        listeningCover = api.pageParam.listeningCover;
         var listening = api.pageParam.listeningCover;
         var album = api.pageParam.albumCover;
         // console.log(album);
         // console.log(listening);
-        // if (!listening) {
-        //     listeningCover = listening
-        // }
-        // if (!album) {
-        //     listeningCover = album
-        // }
+        if (!listening) {
+            listeningCover = listening
+        }
+        if (!album) {
+            listeningCover = album
+        }
         Covers = listening ? listening : album;
         // console.log(Covers);
         var oks = 'ok'+ok;

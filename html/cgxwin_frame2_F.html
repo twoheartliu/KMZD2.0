@@ -411,6 +411,8 @@ var jubenid;
                                 if (ret.status) {
                                     // alert('已上传');
                                     uri = '/upload/user_records';
+                                    var model = api.deviceModel;
+                                    var sVer = api.systemVersion;
                                     api.ajax({
                                         url: host + apiUri + uri,
                                         method: 'post',
@@ -419,7 +421,9 @@ var jubenid;
                                         headers: {
                                             "source": api.systemType,
                                             "version": version,
-                                            "session": token
+                                            "session": token,
+                                            "mobile-model": model,
+                                            "os-version": sVer
                                         },
                                         data: {
                                             files: {
@@ -432,6 +436,8 @@ var jubenid;
                                             var aaaa = historyUrlArray[s*5-4];
                                             var aaaa = aaaa.substring(12);
                                             uri = '/user/records';
+                                            var model = api.deviceModel;
+                                            var sVer = api.systemVersion;
                                             api.ajax({
                                                 url: host + apiUri + uri,
                                                 method: 'post',
@@ -439,7 +445,9 @@ var jubenid;
                                                 headers: {
                                                     "source": api.systemType,
                                                     "version": version,
-                                                    "session": token
+                                                    "session": token,
+                                                    "mobile-model": model,
+                                                    "os-version": sVer
                                                 },
                                                 data: {
                                                     values: {

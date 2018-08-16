@@ -209,74 +209,83 @@
 
     function fnOpenPlay(playType) {
         if (playType == 'undefined') {
-          api.openWin({
-              name: 'listenTo',
-              url: './listen_to.html',
-              pageParam: {
-                  ok: 'listen_to',
-                  playType: 'listen_to'
-              }
-          });
+            var token = $api.getStorage('token');
+                api.openWin({
+                    name: 'listenTo',
+                    url: './listen_to.html',
+                    pageParam: {
+                        ok: 'listen_to',
+                        playType: 'listen_to'
+                    }
+                });
 
         } else {
           if (bofang == 2) {
               if (Dqbofangid == a) {
-                  api.openWin({
-                      name: playType,
-                      url: './' + playType + '.html',
-                      pageParam: {
-                          bofang: bofang,
-                          playid: playlistid,
-                          a: a,
-                          DangQianbofangid: Dqbofangid,
-                          ok: playType,
-                          bofangmoshi: bofangmoshi,
-                          playType: playType
-                      }
-                  });
+                  var token = $api.getStorage('token');
+                      api.openWin({
+                          name: playType,
+                          url: './' + playType + '.html',
+                          pageParam: {
+                              bofang: bofang,
+                              playid: playlistid,
+                              a: a,
+                              DangQianbofangid: Dqbofangid,
+                              ok: playType,
+                              bofangmoshi: bofangmoshi,
+                              playType: playType
+                          }
+                      });
+
               } else {
-                  api.openWin({
-                      name: playType,
-                      url: './' + playType + '.html',
-                      pageParam: {
-                          bofang: bofang,
-                          a: a,
-                          playid: playlistid,
-                          ok: playType,
-                          bofangmoshi: bofangmoshi,
-                          playType: playType
-                      }
-                  });
+                  var token = $api.getStorage('token');
+                      api.openWin({
+                          name: playType,
+                          url: './' + playType + '.html',
+                          pageParam: {
+                              bofang: bofang,
+                              a: a,
+                              playid: playlistid,
+                              ok: playType,
+                              bofangmoshi: bofangmoshi,
+                              playType: playType
+                          }
+                      });
+
               }
 
           } else if (bofang == 3) {
               if (Dqbofangid == a) {
-                  api.openWin({
-                      name: playType,
-                      url: './' + playType + '.html',
-                      pageParam: {
-                          bofang: bofang,
-                          playid: playlistid,
-                          a: a,
-                          DangQianbofangid: Dqbofangid,
-                          ok: playType,
-                          bofangmoshi: bofangmoshi,
-                          playType: playType
-                      }
-                  });
+                  var token = $api.getStorage('token');
+                      api.openWin({
+                          name: playType,
+                          url: './' + playType + '.html',
+                          pageParam: {
+                              bofang: bofang,
+                              playid: playlistid,
+                              a: a,
+                              DangQianbofangid: Dqbofangid,
+                              ok: playType,
+                              bofangmoshi: bofangmoshi,
+                              playType: playType
+                          }
+                      });
+
               } else {
-                  api.openWin({
-                      name: playType,
-                      url: './' + playType + '.html',
-                      pageParam: {
-                          bofang: bofang,
-                          a: a,
-                          playid: playlistid,
-                          ok: playType,
-                          bofangmoshi: bofangmoshi,
-                          playType: playType
-                      }
-                  });
+                  var token = $api.getStorage('token');
+                      api.openWin({
+                          name: playType,
+                          url: './' + playType + '.html',
+                          pageParam: {
+                              bofang: bofang,
+                              a: a,
+                              playid: playlistid,
+                              ok: playType,
+                              bofangmoshi: bofangmoshi,
+                              playType: playType
+                          }
+                      });
+
               }
           }
 

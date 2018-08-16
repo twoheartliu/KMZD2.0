@@ -324,6 +324,8 @@
                 //  console.log(html4);
                 $api.html(inputsssss, html4);
                 var uri = '/user/edit';
+                var model = api.deviceModel;
+                var sVer = api.systemVersion;
                 api.ajax({
                     url: host + apiUri + uri,
                     method: 'post',
@@ -333,6 +335,8 @@
                         "source": api.systemType,
                         "version": version,
                         "session": token,
+                        "mobile-model": model,
+                        "os-version": sVer
                     },
                     data: {
                         values: {
@@ -386,6 +390,8 @@
                 //  console.log(babyBirth);
                 $api.html(inputsssss, html4);
                 var uri = '/user/update_baby';
+                var model = api.deviceModel;
+                var sVer = api.systemVersion;
                 api.ajax({
                     url: host + apiUri + uri,
                     method: 'post',
@@ -395,6 +401,8 @@
                         "source": api.systemType,
                         "version": version,
                         "session": token,
+                        "mobile-model": model,
+                        "os-version": sVer
                     },
                     data: {
                         values: {
@@ -425,6 +433,8 @@
 
     function fninfo() {
         var uri = '/user/info';
+        var model = api.deviceModel;
+        var sVer = api.systemVersion;
         api.ajax({
             url: host + apiUri + uri,
             method: 'get',
@@ -434,6 +444,8 @@
                 "source": api.systemType,
                 "version": version,
                 "session": token,
+                "mobile-model": model,
+                "os-version": sVer
             },
         }, function(ret, err) {
             if (ret) {
@@ -557,6 +569,8 @@
               var uri = '/user/del_baby/' + foo;
               // console.log(host + apiUri + uri);
               // console.log(foo);
+              var model = api.deviceModel;
+              var sVer = api.systemVersion;
               api.ajax({
                   url: host + apiUri + uri,
                   method: 'post',
@@ -566,6 +580,8 @@
                       "source": api.systemType,
                       "version": version,
                       "session": token,
+                      "mobile-model": model,
+                      "os-version": sVer
                   },
               }, function(ret, err) {
                   if (ret) {
@@ -695,6 +711,8 @@
                     return;
                 }
                 if (ret.data) {
+                    var model = api.deviceModel;
+                    var sVer = api.systemVersion;
                     api.ajax({
                         url: host + apiUri + '/upload/user_photo',
                         method: 'post',
@@ -703,7 +721,9 @@
                         headers: {
                             "source": api.systemType,
                             "version": version,
-                            "session": token
+                            "session": token,
+                            "mobile-model": model,
+                            "os-version": sVer
                         },
                         data: {
                             files: {
@@ -711,8 +731,11 @@
                             }
                         }
                     }, function(ret, err) {
+                        // console.log(JSON.stringify(err));
                         if (ret) {
                             if (ret.status == 200) {
+                                var model = api.deviceModel;
+                                var sVer = api.systemVersion;
                                 api.ajax({
                                     url: host + apiUri + '/user/edit',
                                     method: 'post',
@@ -721,7 +744,9 @@
                                     headers: {
                                         "source": api.systemType,
                                         "version": version,
-                                        "session": token
+                                        "session": token,
+                                        "mobile-model": model,
+                                        "os-version": sVer
                                     },
                                     data: {
                                         values: {
@@ -739,7 +764,8 @@
                                             }
 
                                             // $api.byId('tx').innerHTML = '<img src=" ' + updatePhotoUrl + ret.data. + ' ">';
-
+                                            var model = api.deviceModel;
+                                            var sVer = api.systemVersion;
                                             api.ajax({
                                                 url: host + apiUri + '/user/info',
                                                 method: 'get',
@@ -748,9 +774,12 @@
                                                 headers: {
                                                     "source": api.systemType,
                                                     "version": version,
-                                                    "session": token
+                                                    "session": token,
+                                                    "mobile-model": model,
+                                                    "os-version": sVer
                                                 },
                                             }, function(ret, err) {
+                                                // console.log(JSON.stringify(err));
                                                 if (ret) {
                                                     if (ret.status == 200) {
                                                         // $api.byId('tx').innerHTML = '<img src=" ' + updatePhotoUrl + ret.data.photo + ' ">';
@@ -772,6 +801,7 @@
                                                         netMessage(ret);
                                                     }
                                                 } else {
+
                                                     netWork(err);
                                                 }
                                             });
@@ -817,6 +847,8 @@
             var tx = ret.destPath;
             FNImageClip.close();
             //上传剪辑后的图像到服务器
+            var model = api.deviceModel;
+            var sVer = api.systemVersion;
             api.ajax({
                 url: host + apiUri + '/upload/user_photo',
                 method: 'post',
@@ -825,7 +857,9 @@
                 headers: {
                     "source": api.systemType,
                     "version": version,
-                    "session": token
+                    "session": token,
+                    "mobile-model": model,
+                    "os-version": sVer
                 },
                 data: {
                     files: {
@@ -835,7 +869,8 @@
             }, function(ret, err) {
                 if (ret) {
                     if (ret.status == 200) {
-
+                        var model = api.deviceModel;
+                        var sVer = api.systemVersion;
                         api.ajax({
                             url: host + apiUri + '/user/edit',
                             method: 'post',
@@ -844,7 +879,9 @@
                             headers: {
                                 "source": api.systemType,
                                 "version": version,
-                                "session": token
+                                "session": token,
+                                "mobile-model": model,
+                               "os-version": sVer
                             },
                             data: {
                                 values: {
@@ -861,7 +898,8 @@
                                         $api.addCls(tips, 'hide');
                                     }
                                     // $api.byId('tx').innerHTML = '<img src=" ' + updatePhotoUrl + ret.data. + ' ">';
-
+                                    var model = api.deviceModel;
+                                    var sVer = api.systemVersion;
                                     api.ajax({
                                         url: host + apiUri + '/user/info',
                                         method: 'get',
@@ -870,7 +908,9 @@
                                         headers: {
                                             "source": api.systemType,
                                             "version": version,
-                                            "session": token
+                                            "session": token,
+                                            "mobile-model": model,
+                                            "os-version": sVer
                                         },
                                     }, function(ret, err) {
                                         if (ret) {
@@ -942,6 +982,8 @@
             gender = ret.buttonIndex === 1 ? 1 : 2;
             var index = ret.buttonIndex;
             var uri = '/user/update_baby';
+            var model = api.deviceModel;
+            var sVer = api.systemVersion;
             api.ajax({
                 url: host + apiUri + uri,
                 method: 'post',
@@ -951,6 +993,8 @@
                     "source": api.systemType,
                     "version": version,
                     "session": token,
+                    "mobile-model": model,
+                    "os-version": sVer
                 },
                 data: {
                     values: {
@@ -995,6 +1039,8 @@
             // console.log(gender);
             var index = ret.buttonIndex;
             var uri = '/user/edit';
+            var model = api.deviceModel;
+            var sVer = api.systemVersion;
             api.ajax({
                 url: host + apiUri + uri,
                 method: 'post',
@@ -1004,6 +1050,8 @@
                     "source": api.systemType,
                     "version": version,
                     "session": token,
+                    "mobile-model": model,
+                    "os-version": sVer
                 },
                 data: {
                     values: {
@@ -1118,48 +1166,65 @@
             } else if (ret.eventType == 'right') {
                 var uri = '/user/edit';
                 var text = ret.text;
-                api.ajax({
-                    url: host + apiUri + uri,
-                    method: 'post',
-                    dataType: 'json',
-                    timeout: 10,
-                    headers: {
-                        "source": api.systemType,
-                        "version": version,
-                        "session": token,
-                    },
-                    data: {
-                        values: {
-                            "name": 'nick_name',
-                            "value": text,
+                if (text.length >= 16) {
+                    api.alert({
+                        title: '昵称过长',
+                        msg: '请输入少于16个汉字或字符',
+                    }, function(ret, err){
+                        if( ret ){
+                             return
+                        }else{
+                            //  alert( JSON.stringify( err ) );
                         }
-                    }
-                }, function(ret, err) {
-                    if (ret) {
-                        if (ret.status == 200) {
-                            if (ret.data == 'info_complete') {
-                                var tips = $api.byId('tips');
-                                $api.addCls(tips, 'hide');
+                    });
+                } else {
+                    var model = api.deviceModel;
+                    var sVer = api.systemVersion;
+                    api.ajax({
+                        url: host + apiUri + uri,
+                        method: 'post',
+                        dataType: 'json',
+                        timeout: 10,
+                        headers: {
+                            "source": api.systemType,
+                            "version": version,
+                            "session": token,
+                            "mobile-model": model,
+                            "os-version": sVer
+                        },
+                        data: {
+                            values: {
+                                "name": 'nick_name',
+                                "value": text,
                             }
-
-                            var nick_name_s = text;
-                            $api.setStorage('nick_name', nick_name_s);
-                            fninfo();
-                            api.sendEvent({
-                                name: 'netNickName',
-                                extra: {
-                                    nickName: text
-                                }
-                            });
-                        } else {
-                            netMessage(ret);
                         }
-                    } else {
-                        netWork(err);
-                    }
+                    }, function(ret, err) {
+                        if (ret) {
+                            if (ret.status == 200) {
+                                if (ret.data == 'info_complete') {
+                                    var tips = $api.byId('tips');
+                                    $api.addCls(tips, 'hide');
+                                }
 
+                                var nick_name_s = text;
+                                $api.setStorage('nick_name', nick_name_s);
+                                fninfo();
+                                api.sendEvent({
+                                    name: 'netNickName',
+                                    extra: {
+                                        nickName: text
+                                    }
+                                });
+                            } else {
+                                netMessage(ret);
+                            }
+                        } else {
+                            netWork(err);
+                        }
 
-                });
+                    });
+                }
+
                 var dialogBox = api.require('dialogBox');
                 dialogBox.close({
                     dialogName: 'input'
@@ -1246,49 +1311,66 @@
             } else if (ret.eventType == 'right') {
                 var uri = '/user/edit';
                 var text = ret.text;
-                api.ajax({
-                    url: host + apiUri + uri,
-                    method: 'post',
-                    dataType: 'json',
-                    timeout: 10,
-                    headers: {
-                        "source": api.systemType,
-                        "version": version,
-                        "session": token,
-                    },
-                    data: {
-                        values: {
-                            "name": 'signature',
-                            "value": text,
+                if (text.length >= 30) {
+                    api.alert({
+                        title: '签名过长',
+                        msg: '请输入少于30个汉字或字符',
+                    }, function(ret, err){
+                        if( ret ){
+                             return
+                        }else{
+                            //  alert( JSON.stringify( err ) );
                         }
-                    }
-                }, function(ret, err) {
-
-                    if (ret) {
-                        if (ret.status == 200) {
-                            // console.log(JSON.stringify(ret.data));
-                            if (ret.data == 'info_complete') {
-                                var tips = $api.byId('tips');
-                                $api.addCls(tips, 'hide');
-
+                    });
+                } else {
+                    var model = api.deviceModel;
+                   var sVer = api.systemVersion;
+                    api.ajax({
+                        url: host + apiUri + uri,
+                        method: 'post',
+                        dataType: 'json',
+                        timeout: 10,
+                        headers: {
+                            "source": api.systemType,
+                            "version": version,
+                            "session": token,
+                            "mobile-model": model,
+                             "os-version": sVer
+                        },
+                        data: {
+                            values: {
+                                "name": 'signature',
+                                "value": text,
                             }
-
-                            fninfo();
-                            api.sendEvent({
-                                name: 'netsignature',
-                                extra: {
-                                    netsignature: text
-                                }
-                            });
-                        } else {
-                            netMessage(ret);
                         }
-                    } else {
-                        netWork(err);
-                    }
+                    }, function(ret, err) {
 
+                        if (ret) {
+                            if (ret.status == 200) {
+                                // console.log(JSON.stringify(ret.data));
+                                if (ret.data == 'info_complete') {
+                                    var tips = $api.byId('tips');
+                                    $api.addCls(tips, 'hide');
 
-                });
+                                }
+
+                                fninfo();
+                                api.sendEvent({
+                                    name: 'netsignature',
+                                    extra: {
+                                        netsignature: text
+                                    }
+                                });
+                            } else {
+                                netMessage(ret);
+                            }
+                        } else {
+                            netWork(err);
+                        }
+
+                    });
+                }
+
                 var dialogBox = api.require('dialogBox');
                 dialogBox.close({
                     dialogName: 'input'
@@ -1326,6 +1408,8 @@
     function fnshowTips() {
         var tips = document.querySelector('.tips')
         var uri = '/user/info';
+        var model = api.deviceModel;
+        var sVer = api.systemVersion;
         api.ajax({
             url: host + apiUri + uri,
             method: 'get',
@@ -1335,6 +1419,8 @@
                 "source": api.systemType,
                 "version": version,
                 "session": token,
+                "mobile-model": model,
+                "os-version": sVer
             },
         }, function(ret, err) {
             // console.log(JSON.stringify(ret.data))

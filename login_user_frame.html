@@ -269,6 +269,8 @@
                 }else{
                   if(phone){
                     if(password){
+                      var model = api.deviceModel;
+                      var sVer = api.systemVersion;
                       api.ajax({
                           url: host + apiUri + '/login/phone',
                           method: 'post',
@@ -282,7 +284,9 @@
                           },
                           headers: {
                             "source":api.systemType,
-                            "version":version
+                            "version":version,
+                            "mobile-model": model,
+                            "os-version": sVer
                           },
                       }, function(ret, err) {
                           if (ret.status == 200) {
@@ -297,10 +301,17 @@
                             var login_way_s = ret.data.login_way;
                             $api.setStorage('login_way',login_way_s);
                             $api.byId('password').value = '';
+                            api.sendEvent({
+                                name: 'loginUser',
+                                extra: {
+                                    index0: '0'
+                                }
+                            });
                              api.openWin({
                                  name: 'index',
                                  url: 'index.html',
                                  slidBackEnabled:false,
+                                 reload: true,
                                  pageParam: {
                                      name: 'test'
                                  }
@@ -353,6 +364,8 @@
             }else{
               if(phone){
                 if(password){
+                  var model = api.deviceModel;
+                  var sVer = api.systemVersion;
                   api.ajax({
                       url: host + apiUri + '/login/phone',
                       method: 'post',
@@ -361,12 +374,14 @@
                       data: {
                         values:{
                           "mobile":	phone,
-                          "password":	password
+                          "password":	password,
                         },
                       },
                       headers: {
                         "source":api.systemType,
-                        "version":version
+                        "version":version,
+                        "mobile-model": model,
+                        "os-version": sVer
                       },
                   }, function(ret, err) {
                       if (ret.status == 200) {
@@ -381,14 +396,22 @@
                         var login_way_s = ret.data.login_way;
                         $api.setStorage('login_way',login_way_s);
                         $api.byId('password').value = '';
-                         api.openWin({
-                             name: 'index',
-                             url: 'index.html',
-                             slidBackEnabled:false,
-                             pageParam: {
-                                 name: 'test'
-                             }
-                         });
+                        api.sendEvent({
+                            name: 'loginUser',
+                            extra: {
+                                index0: '0'
+                            }
+                        });
+                       api.openWin({
+                           name: 'index',
+                           url: 'index.html',
+                           slidBackEnabled:false,
+                           reload: true,
+                           pageParam: {
+                               name: 'test'
+                           }
+                       });
+
                       }else{
                         netMessage(ret);
                       }

@@ -160,6 +160,8 @@ var mobile
           return;
       } else {
           mobile = $api.byId('phone').value;
+          var model = api.deviceModel;
+          var sVer = api.systemVersion;
           api.ajax({
               url: host + apiUri + '/register/is_phone_exist',
               method: 'get',
@@ -168,7 +170,9 @@ var mobile
               headers: {
                   "source": api.systemType,
                   "version": version,
-                  "session": token
+                  "session": token,
+                  "mobile-model": model,
+                  "os-version": sVer
               },
               data: {
                   values: {
@@ -198,6 +202,8 @@ var mobile
       }
     }
     function fnajaxPost() {
+        var model = api.deviceModel;
+        var sVer = api.systemVersion;
         api.ajax({
             url: host + apiUri + '/sms/get_code',
             method: 'get',
@@ -206,7 +212,9 @@ var mobile
             headers: {
                 "source": api.systemType,
                 "version": version,
-                "session": token
+                "session": token,
+                "mobile-model": model,
+                "os-version": sVer
             },
             data: {
                 values: {
@@ -254,6 +262,8 @@ var mobile
            });
         }else {
             // console.log(mobile);
+            var model = api.deviceModel;
+            var sVer = api.systemVersion;
             api.ajax({
               url: host + apiUri + '/user/bind_mobile',
               method: 'post',
@@ -262,7 +272,9 @@ var mobile
               headers: {
                   "source": api.systemType,
                   "version": version,
-                  "session": token
+                  "session": token,
+                  "mobile-model": model,
+                  "os-version": sVer
               },
                 data: {
                     values: {

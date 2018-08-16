@@ -157,13 +157,24 @@
     apiready = function() {}
 
     function fnAiVoiceWin() {
-        api.openWin({
-            name: 'aiVoice',
-            url: './ai_voice.html',
-            pageParam: {
-                ok: 'ai_voice'
+        // api.openWin({
+        //     name: 'aiVoice',
+        //     url: './ai_voice.html',
+        //     pageParam: {
+        //         ok: 'ai_voice'
+        //     }
+        // });
+        api.alert({
+            title: '',
+            msg: '暂时没有可支持的国学机',
+        }, function(ret, err){
+            if( ret ){
+                //  alert( JSON.stringify( ret ) );
+            }else{
+            //  alert( JSON.stringify( err ) );
             }
         });
+
 
     }
 
@@ -192,6 +203,22 @@
                 api.closeToWin({
                   name: 'login'
                 });
+                // api.openWin({
+                //     name: 'index',
+                //     url: '../index.html',
+                //     slidBackEnabled:false,
+                //     reload: true,
+                //     animation: {
+                //       type:"none",
+                //       subType:"from_right",
+                //       duration:300
+                //     },
+                //     pageParam: {
+                //         name: 'test'
+                //     }
+                // });
+
+
             } else {
               return;
             }

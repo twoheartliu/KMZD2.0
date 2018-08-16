@@ -111,19 +111,9 @@
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript">
-var token;
+// var token;
     apiready = function() {
-      token = $api.getStorage('token');
-      if(!token){
-        $api.rmStorage('token');
-        api.openWin({
-            name: 'login',
-            url: '../login.html',
-            pageParam: {
-                name: 'test'
-            }
-        });
-      }
+      // token = $api.getStorage('token');
 
     }
     function fnMachineWin() {
@@ -185,24 +175,5 @@ var token;
       });
 
     }
-    // function dialogBox_mogu() {
-    //   api.openWin({
-    //       name: 'dialogBox_mogu',
-    //       url: './dialogBox_mogu.html',
-    //       pageParam: {
-    //           name: 'test'
-    //       }
-    //   });
-    //
-    // }
-    // function dialogBox_squn() {
-    //   api.openWin({
-    //       name: 'dialogBox_squn',
-    //       url: 'https://www.myfans.cc/c/8uzed18dec#/home',
-    //       pageParam: {
-    //           name: 'test'
-    //       }
-    //   });
-    //
-    // }
+  
 </script>

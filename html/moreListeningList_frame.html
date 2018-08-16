@@ -312,13 +312,17 @@
 
     function ListenList() {
         var userIds = api.pageParam.userId;
+        var model = api.deviceModel;
+        var sVer = api.systemVersion;
         api.ajax({
             url: host + apiUri + '/listening',
             method: 'get',
             headers: {
                 "source": api.systemType,
                 "version": version,
-                "session": token
+                "session": token,
+                "mobile-model": model,
+                "os-version": sVer
             },
             data: {
                 values: {
@@ -374,13 +378,17 @@
 
     function ListenLists() {
         var userIds = api.pageParam.userId;
+        var model = api.deviceModel;
+      var sVer = api.systemVersion;
         api.ajax({
             url: host + apiUri + '/listening',
             method: 'get',
             headers: {
                 "source": api.systemType,
                 "version": version,
-                "session": token
+                "session": token,
+                "mobile-model": model,
+                "os-version": sVer
             },
             data: {
                 values: {

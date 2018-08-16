@@ -176,6 +176,8 @@
         playlistid = api.pageParam.playlistid;
         playUrli = api.pageParam.playUrli;
         if(playUrli == '/album/song_list/'){
+            var model = api.deviceModel;
+         var sVer = api.systemVersion;
           api.ajax({
             url: host + apiUri + playUrli + playlistid,
             method: 'get',
@@ -184,7 +186,9 @@
             headers: {
                 "source": api.systemType,
                 "version": version,
-                "session": token
+                "session": token,
+                "mobile-model": model,
+                "os-version": sVer
             },
             data:{
               values:{
@@ -205,6 +209,8 @@
             }
           });
         }else if (playUrli == '/listening/song_list/') {
+            var model = api.deviceModel;
+          var sVer = api.systemVersion;
           api.ajax({
             url: host + apiUri + playUrli + playlistid,
             method: 'get',
@@ -213,7 +219,9 @@
             headers: {
                 "source": api.systemType,
                 "version": version,
-                "session": token
+                "session": token,
+                "mobile-model": model,
+                "os-version": sVer
             },
             data:{
               values:{
@@ -234,6 +242,8 @@
             }
           });
         }else if (playUrli == 'user/records') {
+            var model = api.deviceModel;
+          var sVer = api.systemVersion;
           api.ajax({
             url: host + apiUri + playUrli,
             method: 'get',
@@ -242,7 +252,9 @@
             headers: {
                 "source": api.systemType,
                 "version": version,
-                "session": token
+                "session": token,
+                "mobile-model": model,
+                "os-version": sVer
             }
           }, function(ret, err) {
             if(ret){
@@ -309,6 +321,8 @@
       playUrli = api.pageParam.playUrli;
       if(playUrli == '/album/song_list/'){
         playlistid = api.pageParam.playlistid;
+        var model = api.deviceModel;
+        var sVer = api.systemVersion;
         api.ajax({
           url: host + apiUri + '/album/' + playlistid,
           method: 'get',
@@ -317,7 +331,9 @@
           headers: {
               "source": api.systemType,
               "version": version,
-              "session": token
+              "session": token,
+              "mobile-model": model,
+              "os-version": sVer
           }
         }, function(ret, err) {
           if(ret){
@@ -335,6 +351,8 @@
         });
       }else if(playUrli == '/listening/song_list/'){
         playlistid = api.pageParam.playlistid;
+        var model = api.deviceModel;
+        var sVer = api.systemVersion;
         api.ajax({
           url: host + apiUri + '/listening/detail/' + playlistid,
           method: 'get',
@@ -343,7 +361,9 @@
           headers: {
               "source": api.systemType,
               "version": version,
-              "session": token
+              "session": token,
+              "mobile-model": model,
+              "os-version": sVer
           }
         }, function(ret, err) {
           if(ret){

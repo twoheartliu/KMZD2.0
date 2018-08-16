@@ -170,15 +170,15 @@
     var token;
     apiready = function() {
         token = $api.getStorage('token');
-        if (token) {
+        // if (token) {
             fnGetLieBiao();
             fnGetDirectory();
             fnGetView_history();
-        } else {
-          api.closeToWin({
-            name: 'login'
-          });
-        }
+        // } else {
+        //   api.closeToWin({
+        //     name: 'login'
+        //   });
+        // }
 
               api.setCustomRefreshHeaderInfo({
                   bgColor: '#f0f0f0',
@@ -215,6 +215,8 @@
     }
     //获取最近浏览
     function fnGetView_history(){
+      var model = api.deviceModel;
+      var sVer = api.systemVersion;
       api.ajax({
           url: host + apiUri + '/user/view_history',
           method: 'get',
@@ -223,7 +225,9 @@
           headers: {
               "source": api.systemType,
               "version": version,
-              "session": token
+              "session": token,
+              "mobile-model": model,
+              "os-version": sVer
           },
       }, function(ret, err) {
         if(ret){
@@ -251,6 +255,8 @@
     }
     //获取推荐目录
     function fnGetLieBiao() {
+        var model = api.deviceModel;
+      var sVer = api.systemVersion;
         api.ajax({
             url: host + apiUri + '/category/hot',
             method: 'get',
@@ -259,7 +265,9 @@
             headers: {
                 "source": api.systemType,
                 "version": version,
-                "session": token
+                "session": token,
+                "mobile-model": model,
+                "os-version": sVer
             },
         }, function(ret, err) {
           if(ret){
@@ -305,6 +313,8 @@
     }
     //获取目录
     function fnGetDirectory() {
+      var model = api.deviceModel;
+      var sVer = api.systemVersion;
         api.ajax({
             url: host + apiUri + '/category',
             method: 'get',
@@ -313,17 +323,23 @@
             headers: {
                 "source": api.systemType,
                 "version": version,
-                "session": token
+                "session": token,
+                "mobile-model": model,
+                "os-version": sVer
             },
         }, function(ret, err) {
           if(ret){
+            //   console.log(JSON.stringify(ret));
             if (ret.status == 200) {
               // setTimeout(function(){
                   api.refreshHeaderLoadDone()
               // },3000)
                 fnDirectory(ret);
             } else {
+            //   console.log(JSON.stringify(ret));
+            //   console.log(JSON.stringify(err));
                 netMessage(ret);
+
             }
           }else {
             netWork(err);
@@ -371,15 +387,31 @@
     }
 
     function guoxue_frame(id,floor_name) {
-        api.openWin({
-            name: 'single',
-            url: './single.html',
-            pageParam: {
-                albumId: id,
-                floor_name:floor_name,
-                ok:'single'
-            }
-        });
+        var token = $api.getStorage('token');
+        if (token) {
+            api.openWin({
+                name: 'single',
+                url: './single.html',
+                pageParam: {
+                    albumId: id,
+                    floor_name:floor_name,
+                    ok:'single'
+                }
+            });
+        }else {
+          api.openWin({
+              name: 'token',
+              url: './token.html',
+              slidBackEnabled:false,
+              reload: true,
+              animation: {
+               type:"none",
+               subType:"from_right",
+               duration:300
+             },
+          });
+        }
+
 
     }
 </script>

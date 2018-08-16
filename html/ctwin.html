@@ -645,6 +645,8 @@
           return false;
         }else{
           uri = '/upload/user_records';
+          var model = api.deviceModel;
+          var sVer = api.systemVersion;
           api.ajax({
               url: host + apiUri + uri,
               method: 'post',
@@ -653,7 +655,9 @@
               headers: {
                   "source": api.systemType,
                   "version": version,
-                  "session": token
+                  "session": token,
+                  "mobile-model": model,
+                  "os-version": sVer
               },
               data: {
                   files: {

@@ -57,6 +57,8 @@ function fnLuYinBaoCun() {
                               }
                           }
                       }, function(ret, err) {
+                        //   console.log(JSON.stringify(err));
+                        //   console.log(JSON.stringify(ret));
                           if(ret){
                             if (ret.status == 200) {
                                 api.toast({              
@@ -342,9 +344,13 @@ function fnLuYinBaoCun() {
               name: 'judgmentLoding'
           }, function(ret, err) {
               if (ret) {
-                 judgmentLoding = ret.value.judgmentLoding
+                  //  console.log(JSON.stringify(ret));
+                 judgmentLoding = ret.value.judgmentLodings;
+                //  console.log(judgmentLoding);
+
               }
           });
+          // console.log(judgmentLoding);
           if (judgmentLoding == 'judgmentLoding') {
             api.sendEvent({
                 name: 'aloudLodings',

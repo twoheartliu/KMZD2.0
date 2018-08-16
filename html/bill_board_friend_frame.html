@@ -213,6 +213,8 @@
     };
     //调接口
     function fnOpenFriend() {
+        var model = api.deviceModel;
+        var sVer = api.systemVersion;
         api.ajax({
             url: host + apiUri + '/index/billboard' + '?type=friend',
             method: 'get',
@@ -221,7 +223,9 @@
             headers: {
                 "source": api.systemType,
                 "version": version,
-                "session": token
+                "session": token,
+                "mobile-model": model,
+                "os-version": sVer
             }
         }, function(ret, err) {
             //   console.log(JSON.stringify(ret));
@@ -314,15 +318,31 @@
     }
 
     function fnOpenmyPersonal(id, nickname) {
-        api.openWin({
-            name: 'myPersonal',
-            url: './my_personal.html',
-            pageParam: {
-                userId: id,
-                nickName: nickname,
-                ok: 'myPersonal1'
-            }
-        });
+       var token = $api.getStorage('token');
+       if (token) {
+         api.openWin({
+             name: 'myPersonal',
+             url: './my_personal.html',
+             pageParam: {
+                 userId: id,
+                 nickName: nickname,
+                 ok: 'myPersonal1'
+             }
+         });
+       }else {
+         api.openWin({
+             name: 'token',
+             url: './token.html',
+             slidBackEnabled:false,
+             reload: true,
+             animation: {
+              type:"none",
+              subType:"from_right",
+              duration:300
+            },
+         });
+       }
+
     }
 </script>
 

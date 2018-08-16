@@ -368,6 +368,8 @@
             i = keys;
         }
         if (isFirst) {
+            var model = api.deviceModel;
+            var sVer = api.systemVersion;
             api.ajax({
                 url: host + apiUri + '/search/',
                 method: 'get',
@@ -377,6 +379,8 @@
                     "source": api.systemType,
                     "version": version,
                     "session": token,
+                    "mobile-model": model,
+                    "os-version": sVer
                 },
                 data: {
                     values: {
@@ -455,13 +459,17 @@
 
     // 打开专辑列表
     function fnOpenList(id) {
+        var model = api.deviceModel;
+        var sVer = api.systemVersion;
         api.ajax({
             url: host + apiUri + '/listening/detail/' + id,
             method: 'get',
             headers: {
                 "source": api.systemType,
                 "version": version,
-                "session": token
+                "session": token,
+                "mobile-model": model,
+                "os-version": sVer
             },
         }, function(ret, err) {
             if (ret) {
@@ -470,15 +478,18 @@
                 lujing = './ListingsList.html';
                 titles = '听单';
 
-                api.openWin({
-                    name: 'OpenList',
-                    url: lujing,
-                    // console.log('lujing');
-                    pageParam: {
-                        floor_name: titles,
-                        albumId: listenName,
-                    }
-                });
+
+                    api.openWin({
+                        name: 'OpenList',
+                        url: lujing,
+                        // console.log('lujing');
+                        pageParam: {
+                            floor_name: titles,
+                            albumId: listenName,
+                        }
+                    });
+
+
                 // alert( JSON.stringify( ret ) );
             } else {
                 alert(JSON.stringify(err));

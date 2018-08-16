@@ -276,6 +276,8 @@
     }
 
     function fnAddTrackToList() {
+    var model = api.deviceModel;
+    var sVer = api.systemVersion;
       api.ajax({
           url: host + apiUri +'/listening',
           method: 'get',
@@ -284,7 +286,9 @@
           headers: {
                 "source": api.systemType,
                 "version": version,
-                "session": token
+                "session": token,
+                "mobile-model": model,
+                "os-version": sVer
             },
             data: {
                 values: {
@@ -330,7 +334,8 @@
 
     }
     function AddTrack(track) {
-
+        var model = api.deviceModel;
+        var sVer = api.systemVersion;
         api.ajax({
             url: host + apiUri + '/listening/song',
             method: 'post',
@@ -339,7 +344,9 @@
             headers: {
                   "source": api.systemType,
                   "version": version,
-                  "session": token
+                  "session": token,
+                  "mobile-model": model,
+                  "os-version": sVer
               },
             data: {
               values : {

@@ -1,17 +1,22 @@
 // var host = 'http://47.100.11.38';
+// var host = 'http://192.168.0.120'
 var host = 'https://api.kmzhidao.com';
-var playHost = 'http://47.100.11.38'
-var version = '2.0';
+// 音频路径
+var playHost = 'http://music.kmzhidao.com'
+var version = '2.0.3';
 var apiUri = '/kmzd/2.0';
 //
-var http = 'http://47.100.11.38/kmzd/public/uploads/';
+var http = 'http://img.kmzhidao.com/';
+var imgHost = 'http://img.kmzhidao.com/';
 //用户头像
-var updatePhotoUrl = 'http://47.100.11.38/kmzd/public/uploads/photo/';
-var listeningImg = 'http://47.100.11.38/kmzd/public/uploads/listening/';
+var updatePhotoUrl = 'http://img.kmzhidao.com/photo/';
+var listeningImg = 'http://img.kmzhidao.com/listening/';
 // 用户作品
-var userRecord = 'http://47.100.11.38/kmzd/public/uploads/records/';
+var userRecord = 'http://music.kmzhidao.com/records/';
 //banner;
-var uploadsBanner = 'http://47.100.11.38/kmzd/public/uploads/banner/';
+var uploadsBanner = 'http://img.kmzhidao.com/banner/';
+
+var QQHWeiXin = '您只有安装QQ或微信才能使用此功能';
 // 手机型号
 // var deviceModel = api.deviceModel;
 // console.log(deviceModel);
@@ -27,8 +32,6 @@ var uploadsBanner = 'http://47.100.11.38/kmzd/public/uploads/banner/';
 //用户头像
 //    var photo = $api.getStorage('photo');
 //
-
-
 
 // if(token){
 //   tokens = token;
