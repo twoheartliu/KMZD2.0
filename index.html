@@ -395,7 +395,18 @@ var minuteFollow; var cover_big;var footerIP; var playType;
 var index0ssss;
     apiready = function() {
       // $api.clearStorage();
+            var sVer = api.systemVersion;
+            var sType = api.systemType;
+            // 设置安卓低版本版本友好提示
+              // $api.rmStorage('Detection')
+            if (sType == 'android') {
+                var sVers = '6.0.0';
+                versionfunegt(sVer,sVers)
 
+                // if (sVer >= 6.0) {
+                //   alert(1111);
+                // }
+            }
             var user_id = $api.getStorage('user_id');
             var nick_name = $api.getStorage('nick_name');
             var photo = $api.getStorage('photo');
@@ -463,7 +474,44 @@ var index0ssss;
             });
 
         }
+        var versionfunegt = function (ver1,ver2) {
+          var Detection = $api.getStorage('Detection');
+          if (!Detection) {
+            setTimeout(function () {
+              var version1pre = parseFloat(ver1);
+              var version2pre = parseFloat(ver2);
+              var version1next =  ver1.replace(version1pre + ".","");
+              var version2next =  ver2.replace(version2pre + ".","");
+              if(version1pre > version2pre){
+                  return true;
+              }else if(version1pre < version2pre){
+                api.confirm({
+                    title: '手机当前版本过低！',
+                    msg: '可能会出现兼容性问题',
+                    buttons: ['跳过', '以后不再提醒']
+                }, function(ret, err) {
+                  if( ret ){
+                    var kets =  JSON.stringify(ret.buttonIndex)
+                    if (kets == 2) {
+                      var Detection = 2;
+                      $api.setStorage('Detection',Detection);
+                    }
+                  }
+                })
 
+                  return false;
+              }else{
+                  if(version1next >= version2next){
+                      return true;
+                  }else{
+                      return false;
+                  }
+              }
+            }, 1000);
+          }
+
+
+        }
         // 底部导航播放按钮；
     function fnOpenCenterFrame() {
         if (a) {

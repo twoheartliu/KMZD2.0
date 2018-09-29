@@ -707,15 +707,10 @@
 
 </html>
 <script type="text/javascript">
-<<<<<<< HEAD
-    var token;
-    var imgLot = true;
-=======
     // var token;
     var imgLot = true;
     var NoQQ;
     var NoWeiXin;
->>>>>>> 5ac31c55c91ceaf4d46313d17885448ed23fa952
     apiready = function() {
             // token = $api.getStorage('token');
             fnBanners();
@@ -822,42 +817,6 @@
 
             }
         }, function(ret, err) {
-<<<<<<< HEAD
-            if (ret) {
-                if (ret.status == 200) {
-                    var data = ret.data;
-                    var len = ret.data.length;
-                    var banners = '';
-                    for (var i = 0; i < len; i++) {
-                        var banner_id = ret.data[i].banner_id;
-                        var title = ret.data[i].title;
-                        var img = ret.data[i].img;
-                        var description = ret.data[i].description;
-                        var banner_types = ret.data[i].type;
-                        var content = ret.data[i].content;
-                        // swiper-wrapper
-                        if (img == null) {
-                            imgs = "../image/index/KM_swiper1.jpg";
-                        } else {
-                            imgs = uploadsBanner + img
-                        }
-                        var stylelist = $api.byId('picList');
-                        // <div class="swiper-wrapper"></div>
-                        if (len == 1) {
-                          imgLot = false;
-                          banners += '<li onclick="fnOpenBanners(\'' + banner_id + '\',\'' + title + '\',\'' + description + '\',\'' + banner_types + '\',\'' + content + '\')"><img src="' + imgs + '" alt=""></li>'
-                        }else {
-                          imgLot = true;
-                        }
-                        if (i == 0) {
-                            banners += '<li class="re" onclick="fnOpenBanners(\'' + banner_id + '\',\'' + title + '\',\'' + description + '\',\'' + banner_types + '\',\'' + content + '\')"><img src="' + imgs + '" alt=""></li>'
-                        } else {
-                            banners += '<li onclick="fnOpenBanners(\'' + banner_id + '\',\'' + title + '\',\'' + description + '\',\'' + banner_types + '\',\'' + content + '\')"><img src="' + imgs + '" alt=""></li>'
-                        }
-                        // <div class="swiper-slide" onclick=""><img src="../image/index/KM_swiper1.jpg" alt=""></div>
-                        // \'' + banner_id + '\',\''+ title +'\',\''+ description +'\',\''+ banner_types +'\',\''+ content +'\'
-                        // <img src="http://47.100.11.38/kmzd/public/uploads/banner/banner_2.jpg" alt="">
-=======
           if(ret){
             if (ret.status == 200) {
                 var data = ret.data;
@@ -876,7 +835,6 @@
                     } else {
                         imgs = uploadsBanner + img
                             //   console.log(imgs)
->>>>>>> 5ac31c55c91ceaf4d46313d17885448ed23fa952
                     }
                     var stylelist = $api.byId('picList');
                     // <div class="swiper-wrapper"></div>
@@ -1207,21 +1165,6 @@
     }
 
     function fnInitSwiper() {
-<<<<<<< HEAD
-        // document.addEventListener('DOMContentLoaded',function(){
-        photoSlide({
-            wrap: document.getElementById('picBox'),
-            loop: true,
-            autoPlay: imgLot,
-            autoTime: 4000,
-            pagination: imgLot
-        });
-        // }, false);
-        //     var mySwiper = new Swiper('.swiper-container', {
-        //         autoplay: true, //可选选项，自动滑动
-        //         loop: true
-        //     });
-=======
       photoSlide({
           wrap: document.getElementById('picBox'),
           loop: true,
@@ -1229,7 +1172,6 @@
           autoTime: 4000,
           pagination: imgLot
       });
->>>>>>> 5ac31c55c91ceaf4d46313d17885448ed23fa952
     };
     // function fnInitSwiper() {
     //     var mySwiper = new Swiper('.swiper-container', {
@@ -1377,7 +1319,7 @@
     }
     //打开更多页面
     function fnOpenPlayMore(id,sma,titleName) {
-      // console.log(sma);
+      console.log(sma);
         var dialogBox = api.require('dialogBox');
         dialogBox.actionMenu({
             rect: {
@@ -1454,7 +1396,7 @@
                     $api.html(loadEffect, htmlloadEffect);
                     // ~~~~~~~~~~~~~~
                     if (ret) {
-// console.log(JSON.stringify(ret));
+                        // console.log(JSON.stringify(ret));
                         if (ret.status == 200) {
                             api.toast({              
                                 msg:   '收藏成功',
@@ -1498,6 +1440,7 @@
               var wx = api.require('wx');
               wx.isInstalled(function(ret, err) {
                   if (ret.installed) {
+                      // console.log(ret.installed);
                       // console.log("当前设备已安装微信客户端");
                   } else {
                       NoWeiXin = 'NoWeiXin';
@@ -1510,10 +1453,6 @@
 
 
                 // alert(3);
-            } else {
-                dialogBox.close({
-                    dialogName: 'actionMenu'
-                });
             }
             // dialogBox.close({
             //     dialogName: 'alert'
@@ -1525,15 +1464,15 @@
     //打开分享
     function fnOpenPlayShare(id,sma,titleName) {
       var smas;
+      if (sma === 'null' || sma === 'undefined' || sma === '') {
+        // console.log(11);
+        smas = 'logo_144x144.png';
+        // var variable2 = variable1;
 
-      if (sma == undefined ) {
-        smas = '/logo_144x144.png'
-        // fnOpenPlayShare(id, titleName,sma);
       }else {
-        // fnOpenPlayShare(id, titleName,sma);
         smas = sma
-      }
 
+      }
       if (NoQQ && NoWeiXin) {
         var dialogBox = api.require('dialogBox');
         dialogBox.actionMenu({
@@ -1626,7 +1565,7 @@
               }
               if (ret.index == "0") {
                 var imgaesFx = host +'/'+ smas;
-                // console.log(imgaesFx);
+                console.log(imgaesFx);
                 api.download({
                     url: imgaesFx,
                     savePath: 'fs://savePath/'+ smas,
@@ -1687,7 +1626,7 @@
                   // alert(id);
 
         }else if (NoWeiXin) {
-        var dialogBox = api.require('dialogBox');
+          var dialogBox = api.require('dialogBox');
           dialogBox.actionMenu({
               rect: {
                   h: 150
@@ -1797,6 +1736,7 @@
 
 
       }else {
+
         var dialogBox = api.require('dialogBox');
           dialogBox.actionMenu({
               rect: {
@@ -1846,6 +1786,7 @@
               }
               if (ret.index == "0") {
                 var imgaesFx = host +'/'+ smas;
+                console.log(imgaesFx);
                 // console.log(imgaesFx);
                 api.download({
                     url: imgaesFx,
@@ -1854,7 +1795,9 @@
                     cache: true,
                     allowResume: true
                 }, function(ret, err) {
+                  console.log(JSON.stringify(ret));
                     if (ret.state == 1) {
+                      // alert(11);
                         //下载成功
                         var savePath = ret.savePath;
                         // console.log(savePath);
@@ -1865,6 +1808,7 @@
                         // shareMp3Single(songListID,title,savePath);
                         // shareMp3Album(name,listening_description,l_id);
                     } else {
+
                       // console.log(JSON.stringify(err));
                     }
                   });

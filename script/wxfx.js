@@ -30,11 +30,16 @@ function shareMp3Single(songListID,title,savePath) {
                 // host + 'logo_144x144.png'
               }else {
 
-                  savePaths =   savePath
+                  savePaths =  savePath
               }
               var listening_description;
 
               listening_description = listening_description ? listening_description : '习孔孟之道，做有德之人。';
+              // console.log(songListID);
+              // console.log(title);
+              // console.log(savePaths);
+              // console.log(listening_description);
+              // console.log(Single+songListID);
               wx.shareWebpage({
                   apiKey: '',
                   scene: 'session',
@@ -43,13 +48,7 @@ function shareMp3Single(songListID,title,savePath) {
                   thumb: savePaths,
                   contentUrl: Single+songListID
               }, function(ret, err) {
-                  if (ret.status) {
-                    // var fs = api.require('fs');
-                    // console.log('fs:' + savePath);
-                    // fs.remove({
-                    //     path: 'fs:' + savePath
-                    // }, function(ret, err) {
-                    //     if (ret.status) {
+                  if (ret) {
                           api.ajax({
                             url: host + apiUri + '/extra/share',
                             method: 'post',
@@ -69,7 +68,6 @@ function shareMp3Single(songListID,title,savePath) {
                               }
                           },function(ret, err){
                               if (ret) {
-
                                 api.addEventListener({
                                     name:'resume'
                                 }, function(ret, err){
@@ -83,18 +81,6 @@ function shareMp3Single(songListID,title,savePath) {
 
                               }
                           });
-                        // } else {
-                          // console.log(JSON.stringify(ret));
-                          // console.log(JSON.stringify(err));
-                          // api.toast({
-                          //     msg: '分享失败',
-                          //     duration: 2000,
-                          //     location: 'middle'
-                          // });
-                        // }
-                    //  console.log(JSON.stringify(ret));
-                    //   console.log(JSON.stringify(err));
-                    // });
                   } else {
                     api.toast({
                         msg: '分享失败',
@@ -204,7 +190,8 @@ function initTimelineSingle(songListID,title,savePath) {
         thumb: savePaths,
         contentUrl: Single+songListID
     }, function(ret, err) {
-        if (ret.status) {
+        if (ret) {
+
           api.ajax({
             url: host + apiUri + '/extra/share',
             method: 'post',
@@ -227,13 +214,13 @@ function initTimelineSingle(songListID,title,savePath) {
                 api.addEventListener({
                     name:'resume'
                 }, function(ret, err){
+
                   api.toast({
                       msg: '分享成功',
                       duration: 2000,
                       location: 'middle'
                   });
                 });
-                  // console.log( JSON.stringify( ret ) );
               } else {
                 api.toast({
                     msg: '失败',
@@ -242,20 +229,6 @@ function initTimelineSingle(songListID,title,savePath) {
                 });
               }
           });
-          // var fs = api.require('fs');
-          // fs.remove({
-          //     path: 'fs:' + savePath
-          // }, function(ret, err) {
-          //     if (ret.status) {
-          //       api.toast({
-          //           msg: '分享成功',
-          //           duration: 2000,
-          //           location: 'middle'
-          //       });
-          //     } else {
-          //
-          //     }
-          // });
         } else {
             api.toast({
                 msg: '分享失败',
@@ -356,7 +329,7 @@ function shareMp3Listening(name,listening_description,l_id,savePath) {
         thumb: savePath,
         contentUrl: Album + l_id
     }, function(ret, err) {
-        if (ret.status) {
+        if (ret) {
           api.ajax({
             url: host + apiUri + '/extra/share',
             method: 'post',
@@ -501,7 +474,7 @@ function initTimelineListening(name,listening_description,l_id,savePath) {
             thumb:  savePath,
             contentUrl: Album + l_id
         }, function(ret, err) {
-            if (ret.status) {
+            if (ret) {
               api.ajax({
                 url: host + apiUri + '/extra/share',
                 method: 'post',
@@ -650,7 +623,7 @@ function shareMp3Album(name,listening_description,l_id,savePath) {
         thumb: savePath,
         contentUrl: Listening + l_id
     }, function(ret, err) {
-        if (ret.status) {
+        if (ret) {
           api.ajax({
             url: host + apiUri + '/extra/share',
             method: 'post',
@@ -669,6 +642,7 @@ function shareMp3Album(name,listening_description,l_id,savePath) {
                   }
               }
           },function(ret, err){
+              console.log(JSON.stringify(ret));
               if (ret) {
                 api.addEventListener({
                     name:'resume'
@@ -792,7 +766,7 @@ function initTimelineAlbum(name,listening_description,l_id,savePath) {
                 thumb: savePath,
                 contentUrl: Listening + l_id
             }, function(ret, err) {
-                if (ret.status) {
+                if (ret) {
                   api.ajax({
                     url: host + apiUri + '/extra/share',
                     method: 'post',
@@ -834,7 +808,7 @@ function initTimelineAlbum(name,listening_description,l_id,savePath) {
                   fs.rmdir({
                       path: savePath
                   }, function(ret, err) {
-                      if (ret.status) {
+                      if (ret) {
                         api.toast({
                             msg: '分享成功',
                             duration: 2000,

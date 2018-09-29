@@ -105,11 +105,30 @@
     var token;
     apiready = function() {
       token = $api.getStorage('token');
-      fnMaskLayer();
-      initEventListenner();
       // console.log(token);
-      // functionName();
-      fnJianCeQQWeixin();
+      openindex();
+
+    }
+    function openindex() {
+      if (!token) {
+
+        fnMaskLayer();
+        initEventListenner();
+        // console.log(token);
+        // functionName();
+        fnJianCeQQWeixin();
+      }else {
+        setTimeout(function () {
+          api.openWin({
+              name: 'index',
+              url: './index.html',
+              pageParam: {
+                  name: 'test'
+              }
+          });
+        }, 500);
+
+      }
     }
     function fnJianCeQQWeixin() {
       var qq = api.require('qq');
@@ -328,11 +347,9 @@
                                      });
 
                                   }else{
-                                    console.log(JSON.stringify(ret));
                                     netMessage(ret);
                                   }
                                 }else{
-                                  console.log(JSON.stringify(err));
                                   netWork(err);
                                 }
                               });

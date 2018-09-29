@@ -286,7 +286,7 @@ function fnBoFangyinpinxinxi() {
             reciter = ret.data.reciter;
             desc = ret.data.body;
             singerName = ret.data.author_name;
-            cover_big = ret.data.cover_big;
+            cover_big = ret.data.cover_mid;
             api.sendEvent({
                 name: 'jibenxinxi',
                 extra: {

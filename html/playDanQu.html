@@ -560,8 +560,7 @@
   </header> -->
     <header id="secHeader" class="clear">
         <div class="egret-img"><img src="../image/icon_back.png" alt="" onclick="api.closeWin();"></div>
-        <div class="egret-txt" id="title">
-        </div>
+        <div class="egret-txt" id="title"></div>
         <div class="header_fr" onclick="fnOpenPlayShare(); ">
             <img src="../image/KM__play_share.png" alt="">
         </div>
@@ -2302,7 +2301,8 @@
             }
             if (ret.index == "0") {
               var imgaesFx = host +'/'+ smas;
-              // console.log(imgaesFx);
+
+              console.log(imgaesFx);
               api.download({
                   url: imgaesFx,
                   savePath: 'fs://savePath/'+ smas,

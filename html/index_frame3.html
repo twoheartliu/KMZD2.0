@@ -586,7 +586,6 @@
     //这个是个人主页返回来的id
     var indexframe3My;
     var indexframe3MyFalse;
-    var imgLot = true;
     apiready = function() {
         // token = $api.getStorage('token');
         fnBanners();
@@ -696,16 +695,6 @@
                         // <div class="swiper-wrapper"></div>
                         if (len == 1) {
                           imgLot = false;
-<<<<<<< HEAD
-                          banners += '<li onclick="fnOpenBanners(\'' + banner_id + '\',\'' + title + '\',\'' + description + '\',\'' + banner_types + '\',\'' + content + '\')"><img src="' + imgs + '" alt=""></li>'
-                        }else {
-                          imgLot = true;
-                        }
-                        if (i == 0) {
-                          banners += '<li class="re" onclick="fnOpenBanners(\'' + banner_id + '\',\'' + title + '\',\'' + description + '\',\'' + banner_types + '\',\'' + content + '\')"><img src="' + imgs + '" alt=""></li>'
-                        }else {
-=======
->>>>>>> 5ac31c55c91ceaf4d46313d17885448ed23fa952
                           banners += '<li onclick="fnOpenBanners(\'' + banner_id + '\',\'' + title + '\',\'' + description + '\',\'' + banner_types + '\',\'' + content + '\')"><img src="' + imgs + '" alt=""></li>'
                         }else {
                           imgLot = true;
@@ -1080,19 +1069,11 @@
 
     function fnInitSwiper() {
       photoSlide({
-<<<<<<< HEAD
-        wrap: document.getElementById('picBox'),
-        loop: true,
-        autoPlay: imgLot,
-        autoTime: 4000,
-        pagination: imgLot
-=======
           wrap: document.getElementById('picBox'),
           loop: true,
           autoPlay: imgLot,
           autoTime: 4000,
           pagination: imgLot
->>>>>>> 5ac31c55c91ceaf4d46313d17885448ed23fa952
       });
     };
 
